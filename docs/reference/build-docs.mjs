@@ -5,7 +5,7 @@
 //   node docs/reference/build-docs.mjs [--out <file>]
 //
 // Almost nothing here is written by hand. The backend and the database models
-// come from angular/api-spec.json, which the API generates from its own route
+// come from frontend/api-spec.json, which the API generates from its own route
 // table, response shapes and migrations — so this documentation cannot drift
 // from the code the way a hand-kept document does. The frontend side is read
 // from the Angular sources: the page tree from the folder layout, and the
@@ -22,7 +22,7 @@ import { fileURLToPath } from 'node:url';
 // does not exist.
 const local = (rel) => fileURLToPath(new URL(rel, import.meta.url));
 const ROOT = local('../../');
-const spec = JSON.parse(readFileSync(join(ROOT, 'angular/api-spec.json'), 'utf8'));
+const spec = JSON.parse(readFileSync(join(ROOT, 'frontend/api-spec.json'), 'utf8'));
 
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -102,7 +102,7 @@ const tableByName = new Map(tables.map((t) => [t.table, t]));
 // Every API-service method, mapped to the endpoint it calls. Parsed from the
 // generated services: each method carries a `\`METHOD /path\`` doc comment right
 // above its name.
-const serviceDir = join(ROOT, 'angular/src/app/api/services');
+const serviceDir = join(ROOT, 'frontend/src/app/api/services');
 const methodToEndpoint = new Map(); // methodName -> {method, path, service}
 for (const file of readdirSync(serviceDir).filter((f) => f.endsWith('.service.ts'))) {
   const src = readFileSync(join(serviceDir, file), 'utf8');
@@ -124,12 +124,12 @@ if (!KNOWN_METHODS.length) {
   // An empty alternation matches every call in every file, which would report
   // nothing at all rather than fail - so a client that has not been generated
   // is said out loud instead.
-  console.error('no API-service methods found under angular/src/app/api/services - run `npm run api` in angular/ first');
+  console.error('no API-service methods found under frontend/src/app/api/services - run `npm run api` in frontend/ first');
   process.exit(1);
 }
 const methodCallRe = new RegExp('[.\\s](' + KNOWN_METHODS.join('|') + ')\\s*\\(', 'g');
 
-const SITES = join(ROOT, 'angular/src/app/sites');
+const SITES = join(ROOT, 'frontend/src/app/sites');
 const sourceCache = new Map();
 const sourceOf = (full) => {
   if (!sourceCache.has(full)) sourceCache.set(full, readFileSync(full, 'utf8'));
@@ -187,7 +187,7 @@ const callsIn = (full, mentioned) => {
 // under the same name as an API method is not a call on anything, and is left
 // out - the admin users page has its own changePassword(), and used to be
 // listed as calling the self-service password endpoint because of it.
-const SHARED = join(ROOT, 'angular/src/app/shared');
+const SHARED = join(ROOT, 'frontend/src/app/shared');
 const sharedServiceCalls = (full) => {
   const src = sourceOf(full);
   const calls = new Map(); // endpoint key -> shared service file
@@ -264,7 +264,7 @@ function pagesUnder(baseRel, site) {
   return pages;
 }
 
-const fePages = [...pagesUnder('angular/src/app/sites/main/features', 'Main'), ...pagesUnder('angular/src/app/sites/admin', 'Admin')];
+const fePages = [...pagesUnder('frontend/src/app/sites/main/features', 'Main'), ...pagesUnder('frontend/src/app/sites/admin', 'Admin')];
 
 // Group pages by Site -> Section.
 const feTree = new Map(); // site -> Map(section -> pages[])
@@ -462,7 +462,7 @@ ${css}</style>
   </section>
 
   <footer class="foot">
-    Generated ${esc(stamp)} from <code>angular/api-spec.json</code> and the Angular sources by <code>docs/reference/build-docs.mjs</code>.
+    Generated ${esc(stamp)} from <code>frontend/api-spec.json</code> and the Angular sources by <code>docs/reference/build-docs.mjs</code>.
     Backend and database are exact; the frontend map is read heuristically from which API-service methods each page calls, so a
     page reaching the API an unusual way may under-report. Regenerate after <code>php generate-api-spec.php &amp;&amp; node generate-api.mjs</code>.
   </footer>

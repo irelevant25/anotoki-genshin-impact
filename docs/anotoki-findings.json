@@ -3,6 +3,7 @@
   "repository": "https://github.com/irelevant25/anotoki-genshin-impact",
   "analyzed_commit": "17a0c5472",
   "analysis_date": "2026-09-23",
+  "paths_note": "Paths and line numbers are as of analyzed_commit. Since 2026-09-28 php/ is backend/ and angular/ is frontend/.",
   "legend": {
     "priority": {
       "P0": "Do now. User-visible breakage, silent data loss, or a security control that fails with low preconditions. Small, low-risk fixes.",
@@ -550,7 +551,7 @@
       "locations": [
         "angular/generate-api.mjs:278, 398 (`localeCompare` with no locale)",
         "angular/generate-api.mjs:290, 301, 443, 454, 468 (writes CRLF explicitly)",
-        "php/generate-api-spec.php (route `file` stored as an absolute path, e.g. 'F:\\Repositories\\...')",
+        "php/generate-api-spec.php (route `file` stored as the checkout's absolute path rather than a repo-relative one)",
         ".gitattributes (absent from the repository)"
       ],
       "what": "Output depends on the OS locale, the OS line endings and the checkout path.",

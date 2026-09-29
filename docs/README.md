@@ -7,7 +7,7 @@ code so it does not drift.
 | Folder | What it holds | Regenerate |
 | --- | --- | --- |
 | [`reference/`](reference/) | How the app fits together — frontend pages, backend endpoints, and database tables, cross-linked. | `node docs/reference/build-docs.mjs` |
-| [`performance/`](performance/) | Every GET endpoint timed, newest report comparing itself to the one before. | `node docs/performance/bench-endpoints.mjs <email> <pass>` then `node docs/performance/build-report.mjs` |
+| [`performance/`](performance/) | Every GET endpoint timed, newest report comparing itself to the one before. | `node docs/performance/bench-endpoints.mjs <personal-token>` then `node docs/performance/build-report.mjs` |
 | [`security/`](security/) | A security review — Semgrep, Psalm and a manual read — with each finding's severity, cause and fix. | `node docs/security/build-report.mjs` (after re-running the tools) |
 
 Each folder has its own README with the details. The pattern is the same

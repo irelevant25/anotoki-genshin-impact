@@ -35,23 +35,32 @@ subscribed, an `effect`/`computed` that misses a dependency.
 - Mass assignment: writes go through `DbModel` whitelisting, not raw `$body`.
 - Uploads: extension/type validated server-side against an allowlist, not from
   the client filename.
-- Secrets: no Postgres password or JWT secret in responses, logs, or committed
-  files; `config/*.local.php` holds real per-deployment values and is never
-  shipped or committed (`database.local.php` is tracked only with dev values).
+- Sign-in is the anotoki IAM's: a token is only ever trusted after
+  `iamBearerClaims()` (`api/site_user.php` + the vendored `api/anotoki_iam.php`)
+  has verified it; no endpoint takes a password or issues a token of its own; the
+  role comes from the verified token, never from the request.
+- Secrets: no Postgres password, site secret or access token in responses, logs,
+  or committed files; `backend/config/*.local.php` holds every per-installation value,
+  is written by `setup.php`, and is never shipped or committed. Flag a new
+  environment value given a committed default, a fallback to a template, or an
+  environment variable instead of a `.local.php` file (see `config/local.php`),
+  and any absolute path from somebody's machine in a file git would publish.
 - No new secret reaching the client; no reflected user input into HTML.
 - Deployment boundary: a runtime feature must not depend on a shell
   (`proc_open`/`exec`) or an external binary — production is FTP-only. A new
   runtime `require` must resolve from what `build-dist.php` ships. Anything that
   can build/wipe a database (the installer, the migration-apply endpoint) stays
-  gated — the token/lock in `setup.php`, ADMIN + `requireAuth()` on apply.
+  gated — in `setup.php` the nonce everywhere plus, off this computer, the token
+  and the lock; ADMIN + `requireAuth()` on apply.
 
-**The code-generation boundary.** Flag any hand-edit under `angular/src/app/api/`
+**The code-generation boundary.** Flag any hand-edit under `frontend/src/app/api/`
 — it is generated and will be overwritten; the change belongs on the backend + a
-regenerate, or in `angular/api-config.mjs`. Flag a backend route/shape change
+regenerate, or in `frontend/api-config.mjs`. Flag a backend route/shape change
 that has not been followed by a client regenerate.
 
 **Conventions** (from CLAUDE.md):
-- Frontend: signals not zone.js; `@if`/`@for`; generated services over raw
+- Frontend: a component is three files (`.ts`, `.html`, `.scss`) - no inline
+  `template:`/`styles:`; signals not zone.js; `@if`/`@for`; generated services over raw
   `HttpClient`; local-lib bases and components reused; both themes handled;
   copy through the `translate` pipe; dates through `AppDatePipe`.
 - Backend: endpoint files registered in `index.php`; `responds()` present;

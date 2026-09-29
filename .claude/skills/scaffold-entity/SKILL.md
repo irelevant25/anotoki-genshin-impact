@@ -13,7 +13,8 @@ description: >
 This is a checklist, not a script — each step is real work in the house style.
 Read `CLAUDE.md` first. Before starting, decide two things:
 
-- **Which database?** `genshin_impact` (game content) or `users` (accounts etc.).
+- **Which database?** `genshin_impact` (game content) or `users` (translations,
+  settings, page switches, this site's record of each person).
   Most new resources are content.
 - **Shape?** A **plain entity** (one table, flat CRUD — like `artifacts`), a
   **parent-with-children** resource (a header row plus related rows edited
@@ -29,13 +30,13 @@ Pick the closest existing resource and use it as the exemplar throughout —
 
 ## 1. Migration (→ db-migration skill)
 
-Create `php/migrations/<db>/NNN_<name>.sql` for the table(s), in the house style
+Create `backend/migrations/<db>/NNN_<name>.sql` for the table(s), in the house style
 (soft delete, stamps, partial unique indexes, asset columns as FKs into `files`).
 Apply with `php migration.php`. Full detail is in the **db-migration** skill.
 
 ## 2. Backend model
 
-`php/api/routes/<db>/models/<name>.php`: a `class X extends DbModel` whose
+`backend/api/routes/<db>/models/<name>.php`: a `class X extends DbModel` whose
 constructor parameters are the table's editable columns. Override `jsonFields()`
 if any column holds JSON. Copy `models/artifact.php` and adjust. The constructor
 param list IS the mass-assignment whitelist — only columns listed here can be
@@ -45,12 +46,12 @@ written from a request body.
 
 If the endpoint returns exactly the table, skip this — `responds('<table>',
 list: ...)` introspects the shape from the migrations. Add a `ResponseShape`
-subclass in `php/api/routes/<db>/responses/` only for a custom answer (a page
+subclass in `backend/api/routes/<db>/responses/` only for a custom answer (a page
 wrapper, a join, computed fields). Follow `responses/content.php`.
 
 ## 4. Backend endpoints
 
-`php/api/routes/<db>/endpoints/<name>.php` with GET list, GET single, POST, PUT,
+`backend/api/routes/<db>/endpoints/<name>.php` with GET list, GET single, POST, PUT,
 DELETE. Copy the exemplar and keep the conventions (see the **backend-engineer**
 agent for the rules): `DbQuery` for reads, `DbQuery::insert/update` with
 `X::fromBody`/`partialToDbArray` for writes, `resolveAssetBody` if it has asset
@@ -63,28 +64,29 @@ For a **parent-with-children** resource, use `registerFullResource()` instead of
 hand-writing the routes (copy `endpoints/artifacts_full.php`), and declare its
 shape metadata in `fullResourceShapes()`.
 
-Then register the file with a `require_once` in `php/api/index.php`, in the
+Then register the file with a `require_once` in `backend/api/index.php`, in the
 matching section. If the entity has asset columns, add them to
-`php/api/asset_columns.php`, and give the admin an upload target for each in
-`_uploadTargets()` (`php/api/asset_naming.php`: folder and file naming).
+`backend/api/asset_columns.php`, and give the admin an upload target for each in
+`_uploadTargets()` (`backend/api/asset_naming.php`: folder and file naming).
 
 ## 5. Regenerate the client (→ sync-api-client skill)
 
-`cd angular && npm run api`. Add any `QUERIES`/`NAMES`/`RESPONSES` overrides in
-`angular/api-config.mjs` and re-run `npm run api:client` if a method name/type
+`cd frontend && npm run api`. Add any `QUERIES`/`NAMES`/`RESPONSES` overrides in
+`frontend/api-config.mjs` and re-run `npm run api:client` if a method name/type
 is off. Full detail in the **sync-api-client** skill. Confirm the new
 `X…ApiService` methods and DTO types exist and `npx tsc --noEmit` passes.
 
 ## 6. Admin UI
 
-**Lookup table** (name + a few columns): add an entry to
-`angular/src/app/sites/admin/pages/pages.ts` and let the shared `lookup-table`
-component render it — no bespoke components. Wire its route/nav if the config
-does not already.
+**Lookup table** (name + a few columns): add an entry to `LOOKUP_PAGES` in
+`frontend/src/app/sites/admin/pages/pages.ts`, route it with `lookupRoute('path')`
+in `admin.routes.ts`, and let the shared `lookup-table` component render it — no
+bespoke components. Add the nav entry.
 
 **Full CRUD entity**: create
-`sites/admin/<name>/<name>-list/<name>-list.component.ts` (+ html/scss) and
-`<name>-form/<name>-form.component.ts`, copying the `artifacts` pair. Then:
+`sites/admin/<name>/<name>-list/<name>-list.component.ts` (+ `.html`, `.scss` -
+every component is three files) and `<name>-form/<name>-form.component.ts` (+ its
+`.html` and `.scss`), copying the `artifacts` pair. Then:
 - register the routes in `sites/admin/admin.routes.ts`,
 - add a nav entry in `sites/admin/app.component.ts` (right section, correct
   role/`readOnly` flag).
@@ -105,10 +107,11 @@ main routing.
 - Frontend: `npx tsc --noEmit`, then a dev-mode build for templates; open the
   admin page and exercise create/edit/delete against the running API; check both
   themes.
-- The writes need an ADMIN/EDITOR sign-in you do not have: never create an
-  account or reset a password to get one. Exercise the public routes yourself,
-  and hand the signed-in checks to the maintainer (or use a login they give for
-  this task, through the environment only). Stop the servers.
+- The writes need an IAM token with the `genshin` ADMIN or EDITOR role, which
+  you do not have: never create an IAM account or reset a password to get one.
+  Exercise the public routes yourself, and hand the signed-in checks to the
+  maintainer (or use a personal token they give for this task, through the
+  environment only). Stop the servers.
 
 ## 9. Stage
 

@@ -1,0 +1,56 @@
+@if (allowed()) {
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <app-theme-toggle></app-theme-toggle>
+                <a routerLink="." class="sidebar-logo">
+                    <span>Genshin Admin</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a routerLink="dashboard" routerLinkActive="active" class="nav-item nav-dashboard">
+                    <i class="icon icon-gauge"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                @for (group of navGroups(); track group.label) {
+                    <div class="nav-group">
+                        <div class="nav-group-label">{{ group.label }}</div>
+                        @for (item of group.items; track item.label) {
+                            @if (item.href) {
+                                <!-- Somewhere else entirely, so a new tab, and a mark
+                                     saying so before it is clicked. -->
+                                <a [href]="item.href" target="_blank" rel="noopener" class="nav-item">
+                                    @if (item.icon) {
+                                        <i [class]="item.icon"></i>
+                                    }
+                                    <span>{{ item.label }}</span>
+                                    <i class="icon icon-link nav-external" aria-hidden="true"></i>
+                                </a>
+                            } @else {
+                                <a [routerLink]="item.path" routerLinkActive="active" class="nav-item" [class.read-only]="item.readOnly">
+                                    @if (item.icon) {
+                                        <i [class]="item.icon"></i>
+                                    }
+                                    <span>{{ item.label }}</span>
+                                    @if (item.readOnly) {
+                                        <span class="badge-readonly">R</span>
+                                    }
+                                </a>
+                            }
+                        }
+                    </div>
+                }
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+} @else {
+    <app-admin-no-access></app-admin-no-access>
+}
+
+<app-notification></app-notification>

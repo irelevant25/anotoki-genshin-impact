@@ -11,14 +11,16 @@ measurements — open it in a browser, it needs nothing running.
 ## Making a new one
 
 ```
-php -S localhost:8000 router.php          # from php/, if it is not already up
-node docs/performance/bench-endpoints.mjs <email> <password>
+php -S localhost:8000 router.php          # from backend/, if it is not already up
+node docs/performance/bench-endpoints.mjs <personal-token>
 node docs/performance/build-report.mjs
 ```
 
-Sign in as an account that can read the admin endpoints — roughly a third of the
-API is behind a role, and those routes are reported as 401s otherwise. The
-session it opens is signed out again when the run ends.
+The personal token is made on the anotoki IAM's account page (Tokens for
+scripts, application genshin) by an account that can read the admin endpoints —
+roughly a third of the API is behind a role, and those routes are reported as
+401s otherwise. The bench exchanges it at the IAM for access tokens as it goes,
+so the IAM must be reachable (in development: its servers on 4300 and 8100).
 
 Path arguments are filled from the collection a route belongs to, and the few
 routes that answer 404 until they are told what to look at (`/api/files`,
@@ -60,6 +62,24 @@ same machine. The absolute values do not travel: production has different
 hardware, a different PHP setup, and a network in between. What travels is the
 shape — what dominates, what is an outlier, and which direction things moved
 between two runs measured the same way.
+
+The development server runs PHP without OPcache, so every request compiles the
+API's files before it does anything. On the workstation the runs so far come
+from, that is about 40 ms of the floor: the same copy answered `/api/elements`
+in about 25 ms with OPcache on and 68 ms without. The floor therefore grows with
+the amount of code as well as with what a request does. The 53 → 69 ms between
+the 2026-09-05 and 2026-09-29 runs is mostly that (the IAM sign-in code and the
+config modules arrived in between); verifying the IAM's bearer token itself
+costs 0.5–3 ms. Production runs with OPcache and does not pay it.
+
+So compare only runs made the same way. Every run so far used XAMPP's PHP 8.2
+without OPcache (`php -S localhost:8000 router.php` with that `php.exe`), on a
+machine with nothing else busy. Test suites running at the same time add a few
+per cent to everything.
+
+The account behind the personal token matters for the routes that read one
+person's data. The 2026-09-29 run used a test account with no quiz data, so the
+two per-person quiz routes answer 404 there; they are not broken.
 
 ## Files
 

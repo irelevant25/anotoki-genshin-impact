@@ -20,10 +20,15 @@ signing key was the committed fallback), two medium (an upload endpoint that
 trusted the client's file extension, and missing security headers), and a
 handful of low/informational items. Eight areas were attacked on paper and held.
 
-**All seven findings have since been fixed** — the report shows each with what
-it was and what was done. `findings.json` carries a `status` and `resolution`
-per finding, and the generator renders a resolved finding muted, with its
-original detail kept as the record.
+All seven were fixed. The revisit of 2026-09-19 added six more (SEC-08 to
+SEC-13), three of them since fixed. The revisit of 2026-09-29 followed the move of
+signing in to the anotoki IAM - the registration, code and password findings are
+resolved by that code having left this site, for an IAM that carries the fixes
+under test - and the rework that made every per-installation value required
+config written by `setup.php`; the installer's protections are listed with the
+areas that held. `findings.json` carries a `status` and `resolution` per finding,
+and the generator renders a resolved finding muted, with its original detail kept
+as the record.
 
 Report file names carry the date and the minute they were generated
 (`security-report-YYYY-MM-DD-HH-MM.html`), so re-running after another round of
@@ -49,8 +54,11 @@ The tools install through PHP's and Python's own package managers, as suggested:
 python -m pip install semgrep
 
 # Psalm - installed on demand and removed afterwards; it is not kept in
-# composer.json, because vendor/ is committed and shipped
-cd php && composer require --dev vimeo/psalm:^5.26
+# composer.json, because vendor/ is committed and shipped. Either require it in
+# backend/ and `composer remove --dev vimeo/psalm` after, or - leaving the
+# committed vendor/ alone entirely - install it into a scratch composer project
+# and run that copy's vendor/bin/psalm from backend/ with -c psalm.xml.
+cd backend && composer require --dev vimeo/psalm:^5.26
 ```
 
 Then, from the repository root:
@@ -59,19 +67,19 @@ Then, from the repository root:
 # Backend — pattern + security rules
 semgrep scan --config=p/php --config=p/security-audit --config=p/secrets \
   --config=p/owasp-top-ten --json --quiet --metrics=off \
-  --exclude=vendor --exclude=node_modules php/ > docs/security/tools/semgrep-php.json
+  --exclude=vendor --exclude=node_modules backend/ > docs/security/tools/semgrep-php.json
 
 # Frontend
 semgrep scan --config=p/javascript --config=p/typescript --config=p/security-audit \
   --config=p/owasp-top-ten --json --quiet --metrics=off \
-  --exclude=node_modules --exclude=src/app/api angular/src > docs/security/tools/semgrep-fe.json
+  --exclude=node_modules --exclude=src/app/api frontend/src > docs/security/tools/semgrep-fe.json
 
-# Psalm taint analysis (config in php/psalm.xml)
-cd php && php vendor/bin/psalm --taint-analysis \
+# Psalm taint analysis (config in backend/psalm.xml)
+cd backend && php vendor/bin/psalm --taint-analysis \
   --report=../docs/security/tools/psalm-taint.json --no-cache
 
 # Dependency advisories
-cd php && composer audit --format=json > ../docs/security/tools/composer-audit.json
+cd backend && composer audit --format=json > ../docs/security/tools/composer-audit.json
 ```
 
 Psalm runs in `--taint-analysis` mode deliberately: `psalm.xml` sits at

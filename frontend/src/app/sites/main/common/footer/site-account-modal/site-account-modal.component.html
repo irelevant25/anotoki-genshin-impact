@@ -1,0 +1,166 @@
+<app-modal [title]="'account.title' | translate" (closeModal)="closeModal()">
+    <div modal-body>
+        @if (user(); as user) {
+            <div class="identity">
+                <div class="identity-mark" aria-hidden="true">
+                    <span class="icon icon-user icon-size-6"></span>
+                </div>
+                <div class="identity-names">
+                    <span class="fw-700 fs-16">{{ user.username }}</span>
+                    <span class="text-muted small">{{ roleKey() | translate }}</span>
+                </div>
+            </div>
+
+            <div class="facts">
+                <!-- Not every token carries an address - it takes the email
+                     scope - so the row is left out rather than drawn empty. -->
+                @if (user.email) {
+                    <div class="fact">
+                        <span class="icon icon-mail icon-size-4" aria-hidden="true"></span>
+                        <span class="text-muted small fact-label">{{ 'account.email' | translate }}</span>
+                        <span class="fw-500 fs-14 fact-value">{{ user.email }}</span>
+                    </div>
+                }
+
+                <div class="fact">
+                    <span class="icon icon-shield icon-size-4" aria-hidden="true"></span>
+                    <span class="text-muted small fact-label">{{ 'account.role' | translate }}</span>
+                    <span class="fw-500 fs-14 fact-value">{{ roleKey() | translate }}</span>
+                </div>
+
+                <!-- When they first arrived on this site, which is this site's
+                     own record of them rather than the age of the account. -->
+                @if (user.created_at) {
+                    <div class="fact">
+                        <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
+                        <span class="text-muted small fact-label">{{ 'account.memberSince' | translate }}</span>
+                        <span class="fw-500 fs-14 fact-value">{{ user.created_at | appDate }}</span>
+                    </div>
+                }
+            </div>
+
+            <!-- The account itself lives at the IAM, shared by every anotoki
+                 site: password, two-factor, Google and where it is signed in
+                 are all changed there. A link rather than a button, because it
+                 is a place to go - and a new tab, so this page stays. -->
+            @if (security.accountUrl(); as accountUrl) {
+                <a class="manage" [href]="accountUrl" target="_blank" rel="noopener">
+                    <span class="icon icon-key icon-size-4" aria-hidden="true"></span>
+                    <span class="manage-body">
+                        <span class="fw-500 fs-14">{{ 'account.manage' | translate }}</span>
+                        <span class="text-muted small">{{ 'account.manageNote' | translate }}</span>
+                    </span>
+                    <span class="icon icon-link icon-size-4 manage-out" aria-hidden="true"></span>
+                </a>
+            }
+        } @else {
+            <p class="signed-out-note">{{ 'account.signedOutNote' | translate }}</p>
+            @if (signInOffered()) {
+                <p class="signed-out-note">{{ 'account.iamLead' | translate }}</p>
+            }
+        }
+
+        <div class="theme-row">
+            <span class="icon icon-gear icon-size-4" aria-hidden="true"></span>
+            <span class="text-muted small theme-row-label">{{ 'account.appearance' | translate }}</span>
+            <div class="theme-choices">
+                @for (option of themeOptions; track option.value) {
+                    <app-button
+                        [text]="option.label | translate"
+                        [variant]="theme.currentTheme() === option.value ? 'primary' : 'secondary'"
+                        [outline]="theme.currentTheme() !== option.value"
+                        size="very-small"
+                        (buttonClick)="setTheme(option.value)"
+                    ></app-button>
+                }
+            </div>
+        </div>
+
+        <!-- Signed in, because there is somewhere to keep the answer. Signed
+             out the device's own settings are used and there is nothing to
+             choose - see DateFormatService. -->
+        @if (user()) {
+            <div class="theme-row">
+                <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.dateFormat' | translate }}</span>
+                <div class="theme-choices">
+                    @for (option of dateOptions; track option.value) {
+                        <app-button
+                            [text]="formats.example(option.value)"
+                            [variant]="formats.dateChoice() === option.value ? 'primary' : 'secondary'"
+                            [outline]="formats.dateChoice() !== option.value"
+                            size="very-small"
+                            [tooltipText]="option.label | translate"
+                            (buttonClick)="setDateFormat(option.value)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+
+            <div class="theme-row">
+                <span class="icon icon-clock icon-size-4" aria-hidden="true"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.timeFormat' | translate }}</span>
+                <div class="theme-choices">
+                    @for (option of timeOptions; track option.value) {
+                        <app-button
+                            [text]="formats.exampleTime(option.value)"
+                            [variant]="formats.timeChoice() === option.value ? 'primary' : 'secondary'"
+                            [outline]="formats.timeChoice() !== option.value"
+                            size="very-small"
+                            [tooltipText]="option.label | translate"
+                            (buttonClick)="setTimeFormat(option.value)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Languages come from the database, so this list grows without a deploy. -->
+        @if (i18n.languages().length > 1) {
+            <div class="theme-row">
+                <span class="icon icon-globe icon-size-4" aria-hidden="true"></span>
+                <span class="text-muted small theme-row-label">{{ 'account.language' | translate }}</span>
+                <div class="theme-choices">
+                    @for (language of i18n.languages(); track language.code) {
+                        <app-button
+                            [text]="language.native_name"
+                            [variant]="i18n.language() === language.code ? 'primary' : 'secondary'"
+                            [outline]="i18n.language() !== language.code"
+                            size="very-small"
+                            (buttonClick)="setLanguage(language.code)"
+                        ></app-button>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Signing out is the IAM's too, and it is everywhere at once. Said
+             before the button is pressed rather than discovered on the next
+             site. -->
+        @if (user()) {
+            <p class="sign-out-note">{{ 'account.signOutNote' | translate }}</p>
+        }
+    </div>
+    <div modal-footer class="account-actions">
+        @if (user()) {
+            <!-- For the people the admin panel is for, and nobody else: a
+                 player would only be turned away at the door. -->
+            @if (security.isStaff()) {
+                <app-button [text]="'account.adminPanel' | translate" variant="primary" (buttonClick)="toAdmin()"></app-button>
+            }
+            <app-button [text]="'account.signOut' | translate" variant="danger" (buttonClick)="logout()"></app-button>
+        } @else {
+            <app-button [text]="'common.close' | translate" variant="secondary" [outline]="true" (buttonClick)="closeModal()"></app-button>
+            <!-- Both go while the site is closed. A button that opens onto a
+                 sign-in the API will then refuse is worse than no button: it
+                 makes the site look broken rather than closed. An admin still
+                 has /staff, which is what that path is for. -->
+            @if (signInOffered()) {
+                <app-button [text]="'account.createAccount' | translate" variant="secondary" (buttonClick)="register()"></app-button>
+                <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="login()"></app-button>
+            }
+        }
+    </div>
+</app-modal>
+
+<app-loader [loading]="loading()" [text]="'account.loggingOut' | translate"></app-loader>

@@ -10,9 +10,9 @@ description: >
 
 # Sync the API client with the backend
 
-The Angular client under `angular/src/app/api/` is **generated from the backend**,
+The Angular client under `frontend/src/app/api/` is **generated from the backend**,
 never hand-written. The backend's route table, `responds()` shapes and migrations
-are read into `angular/api-spec.json`; the typed services, models and types are
+are read into `frontend/api-spec.json`; the typed services, models and types are
 generated from that spec. Editing `src/app/api/**` by hand is wrong — it is
 overwritten on the next run.
 
@@ -28,18 +28,20 @@ overwritten on the next run.
 
 ## Do it
 
-From `angular/`:
+From `frontend/`:
 
 ```
 npm run api
 ```
 
 That runs three steps in order:
-1. `npm run api:spec` → `php ../php/generate-api-spec.php`, rewriting
-   `angular/api-spec.json` from the live route table.
+1. `npm run api:spec` → `php ../backend/generate-api-spec.php`, rewriting
+   `frontend/api-spec.json` from the live route table (no database or config
+   needed; source paths in it are repo-relative).
 2. `npm run api:client` → `node generate-api.mjs`, rewriting `src/app/api/`
    (services, models, types) from the spec.
-3. `npm run api:docs` → `node generate-openapi.mjs`.
+3. `npm run api:docs` → `node generate-openapi.mjs`, rewriting
+   `backend/api/openapi.json`.
 
 Run the steps individually with `npm run api:spec`, `npm run api:client`,
 `npm run api:docs` when you only need one (e.g. re-running `api:client` after an
@@ -48,7 +50,7 @@ Run the steps individually with `npm run api:spec`, `npm run api:client`,
 ## When the generator gets a name or type wrong
 
 Do not fix it in the generated file. The mechanical rules live in
-`angular/api-config.mjs`; correct it there and re-run `npm run api:client`:
+`frontend/api-config.mjs`; correct it there and re-run `npm run api:client`:
 
 - **`NAMES`** — override a generated method name (collisions, or a name the
   mechanical rule gets wrong). Keyed by `"METHOD /path"`.
@@ -63,20 +65,20 @@ Do not fix it in the generated file. The mechanical rules live in
 
 If a response shape is genuinely new (a page wrapper, a join, a computed answer),
 the right fix is usually a new `ResponseShape` on the **backend** in
-`php/api/routes/*/responses/`, then re-run the full `npm run api`.
+`backend/api/routes/*/responses/`, then re-run the full `npm run api`.
 
 ## Verify
 
-- The change you expected is in `angular/src/app/api/` — the new/renamed method
+- The change you expected is in `frontend/src/app/api/` — the new/renamed method
   in the right `*.service.ts`, the type in `models/` or `types/`.
 - `npx tsc --noEmit -p tsconfig.json` passes (a wrong type surfaces here).
-- Check `git diff --stat angular/src/app/api angular/api-spec.json` — the
+- Check `git diff --stat frontend/src/app/api frontend/api-spec.json` — the
   changes should be additive/expected, not a surprise churn. `api-spec.json`
   changing is normal; a giant unrelated diff means something else moved.
 
 ## Stage
 
 Stage the regenerated files together with the backend change that caused them:
-`angular/api-spec.json`, the touched files under `angular/src/app/api/`, and
-`angular/api-config.mjs` if you edited it. Never `git add -A`. Do not commit
+`frontend/api-spec.json`, the touched files under `frontend/src/app/api/`, and
+`frontend/api-config.mjs` if you edited it. Never `git add -A`. Do not commit
 unless asked.

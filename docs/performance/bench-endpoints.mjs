@@ -1,19 +1,24 @@
 // Times every GET endpoint the API exposes, several times each, and writes the
 // numbers out as JSON for build-report.mjs to turn into a page.
 //
-//   node docs/performance/bench-endpoints.mjs <email> <password> [apiUrl]
+//   node docs/performance/bench-endpoints.mjs <personal-token> [apiUrl]
 //
-// Sign in as an account that can read the admin endpoints; roughly a third of
-// the API is behind a role. Reads only - timing writes would mean creating and
+// Signing in is the anotoki IAM's, so the bench does not take a password: it
+// takes a personal token (IAM account page -> Tokens for scripts, application
+// genshin) of an account that can read the admin endpoints - roughly a third of
+// the API is behind a role - and exchanges it at the IAM's token endpoint for
+// access tokens, again whenever one runs out. The IAM's address and this site's
+// client id come from the site's own /api/settings/public, so the IAM must be
+// reachable from here. Reads only - timing writes would mean creating and
 // destroying an entity per sample, which measures the fixture rather than the
 // endpoint.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const [email, password, apiArg] = process.argv.slice(2);
-if (!email || !password) {
-  console.error('usage: node docs/performance/bench-endpoints.mjs <email> <password> [apiUrl]');
+const [personalToken, apiArg] = process.argv.slice(2);
+if (!personalToken || !personalToken.startsWith('iam_pat_')) {
+  console.error('usage: node docs/performance/bench-endpoints.mjs <personal-token: iam_pat_...> [apiUrl]');
   process.exit(1);
 }
 
@@ -22,7 +27,7 @@ const API = (apiArg ?? 'http://localhost:8000').replace(/\/+$/, '');
 // checkout under a folder with a space in its name resolved to a path that
 // does not exist.
 const local = (relative) => fileURLToPath(new URL(relative, import.meta.url));
-const SPEC = local('../../angular/api-spec.json');
+const SPEC = local('../../frontend/api-spec.json');
 
 // Every run is kept, named by when it happened. A report is only worth reading
 // next to the one before it, and that needs the one before it to still be there
@@ -44,32 +49,54 @@ const fail = (message) => {
   process.exit(1);
 };
 
-// A server that is not up and a password that is wrong are the two ways this
+// A server that is not up and a token that is wrong are the two ways this
 // usually goes, and neither deserves a stack trace.
-let login;
+let signIn;
 try {
-  const response = await fetch(API + '/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  });
-  login = await response.json().catch(() => ({}));
-  if (!response.ok || !login.token) {
-    fail(`could not sign in (${response.status}): ${JSON.stringify(login).slice(0, 200)}`);
+  const response = await fetch(API + '/api/settings/public');
+  signIn = (await response.json().catch(() => ({}))).auth;
+  if (!response.ok || !signIn?.issuer) {
+    fail(`the API did not say where it signs in (${response.status}) - is its migration 040 applied?`);
   }
 } catch (error) {
   fail(
-    `could not reach the API at ${API} - start it from php/ with: php -S localhost:8000 router.php\n  (${error.cause?.code ?? error.message})`
+    `could not reach the API at ${API} - start it from backend/ with: php -S localhost:8000 router.php\n  (${error.cause?.code ?? error.message})`
   );
 }
 
-const auth = { Authorization: `Bearer ${login.token}` };
+// An access token lives ten minutes and a full run can take longer, so it is
+// exchanged again a little before it would run out.
+let access = { token: null, until: 0 };
+
+const accessToken = async () => {
+  if (access.token && access.until > Date.now() + 30_000) {
+    return access.token;
+  }
+  let response;
+  try {
+    response = await fetch(signIn.issuer + '/api/oidc/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: personalToken, client_id: signIn.client_id }),
+    });
+  } catch (error) {
+    fail(`could not reach the IAM at ${signIn.issuer} (${error.cause?.code ?? error.message})`);
+  }
+  const answer = await response.json().catch(() => ({}));
+  if (!response.ok || !answer.access_token) {
+    fail(`the IAM refused the personal token (${response.status}): ${answer.error_description ?? answer.error ?? ''}`);
+  }
+  access = { token: answer.access_token, until: Date.now() + answer.expires_in * 1000 };
+  return access.token;
+};
+
+await accessToken();
 const spec = JSON.parse(readFileSync(SPEC, 'utf8'));
 const gets = spec.routes.filter((r) => r.method === 'GET');
 
 const getJson = async (path) => {
   try {
-    const response = await fetch(API + path, { headers: auth });
+    const response = await fetch(API + path, { headers: { Authorization: `Bearer ${await accessToken()}` } });
     return response.ok ? await response.json().catch(() => null) : null;
   } catch {
     return null;
@@ -101,7 +128,9 @@ const firstOf = async (collection, key) => {
   return null;
 };
 
-const fixed = { code: 'en', alias: 'genshin_impact', user_id: login.user?.id ?? 1 };
+// Routes keyed by a user id are timed as the person the token belongs to.
+const me = await getJson('/api/me');
+const fixed = { code: 'en', alias: 'genshin_impact', user_id: me?.id ?? 1 };
 const elsewhere = { character_id: '/api/characters', quiz_id: '/api/quizzes' };
 
 const resolve = async (route, arg) => {
@@ -153,8 +182,11 @@ const fill = async (route) => {
 };
 
 const time = async (path) => {
+  // The token is fetched before the clock starts: an exchange at the IAM is not
+  // part of what the endpoint costs.
+  const headers = { Authorization: `Bearer ${await accessToken()}` };
   const started = performance.now();
-  const response = await fetch(API + path, { headers: auth });
+  const response = await fetch(API + path, { headers });
   const body = await response.arrayBuffer();
   return { ms: performance.now() - started, status: response.status, bytes: body.byteLength };
 };
@@ -222,8 +254,8 @@ for (const route of gets) {
   if (done % 25 === 0) console.log(`  timed ${done}...`);
 }
 
-// The session this opened is an admin's, and nothing else would ever close it.
-await fetch(API + '/api/auth/logout', { method: 'POST', headers: auth }).catch(() => {});
+// Nothing to sign out of: a personal token opens no session, and its access
+// tokens simply run out.
 
 const measured = results.filter((r) => !r.skipped);
 mkdirSync(RUNS, { recursive: true });

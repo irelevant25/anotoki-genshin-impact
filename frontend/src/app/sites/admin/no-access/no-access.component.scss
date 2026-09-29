@@ -1,0 +1,52 @@
+// A page of its own - drawn instead of the admin panel, sidebar and all, so
+// nothing behind it suggests there is more to see.
+.no-access {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.no-access-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 480px;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-card);
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    font-size: var(--font-size-xl);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .link:focus-visible {
+    outline: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 0 2px var(--focus-ring);
+  }
+}
+
+.no-access-mark {
+  color: var(--text-muted);
+}
+
+.no-access-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}

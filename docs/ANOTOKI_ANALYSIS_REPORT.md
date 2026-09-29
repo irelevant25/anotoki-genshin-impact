@@ -17,7 +17,7 @@ This report is written for Claude Code agents (and the owner) to decide what to 
 Rules for agents:
 
 1. **IDs are stable.** Findings are `ANL-01` to `ANL-40`, decisions `D1` to `D10`. Numbers do not imply priority: the index in §5.1 is in priority order. Refer to them in branch names, commit messages and PR descriptions. The same data is in `anotoki-findings.json`.
-2. **Line numbers refer to commit `17a0c5472`.** Re-locate the code before editing; the repo may have moved on.
+2. **Line numbers refer to commit `17a0c5472`.** Re-locate the code before editing; the repo may have moved on. Paths do too: since 2026-09-28 `php/` is `backend/` and `angular/` is `frontend/`.
 3. **Do not act on a finding that names a decision (`D#`) until the owner has answered it.** Everything else is safe to pick up in priority order.
 4. **Trust code over comments.** This codebase explains itself at length, and most comments are accurate, but §5 (`ANL-32`) lists ones that are now wrong. When a comment and the code disagree, verify at runtime.
 5. **Every fix ships with a check.** Each finding has a *Verify* line. Turn it into a test where the toolchain allows (see `ANL-15`, Appendix C).
@@ -57,7 +57,7 @@ Rules for agents:
 | Production | `https://anotoki.eu` SPA behind Cloudflare (DNS), `config.json` = `{"url":"","configuration":"prod"}`, API same-origin at `/api/*`; analytics `umami.anotoki.eu`; Apache + PHP `mail()` on Websupport (per code comments) |
 | History | 260 commits on main (2025-02-22 to 2026-09-05) + 165 reachable only via tags 0.1-0.8; one author under three identities; Claude co-authored: Opus 5 x76, Fable 5 x17; 1 PR (#1, 2025-04-18), 0 issues; branch `dev` fully merged and stale since 2025-11-20 |
 | Repo weight | `.git` 8.7 GB on disk for a 47 MB checkout; 9.27 GB packed blobs (see `ANL-10`) |
-| Dev environment | The owner works on Windows (paths like `F:\Repositories\...` in generated files); production is Linux, so case-sensitivity bugs are a recurring class (see `php/assets.php` header) |
+| Dev environment | The owner works on Windows (Windows-style absolute paths showed up in generated files); production is Linux, so case-sensitivity bugs are a recurring class (see `php/assets.php` header) |
 
 ## 3. Architecture
 
@@ -517,7 +517,7 @@ Priorities: **P0** do now, **P1** next, **P2** planned, **P3** backlog. Confiden
 - **Where**
   - `angular/generate-api.mjs:278, 398` (`localeCompare` with no locale)
   - `angular/generate-api.mjs:290, 301, 443, 454, 468` (writes CRLF explicitly)
-  - `php/generate-api-spec.php` (route `file` stored as an absolute path, e.g. 'F:\Repositories\...')
+  - `php/generate-api-spec.php` (route `file` stored as the checkout's absolute path rather than a repo-relative one)
   - `.gitattributes` (absent from the repository)
 - **What**: Output depends on the OS locale, the OS line endings and the checkout path.
 - **Evidence**: Regenerated on Linux: the spec content was identical apart from 399 absolute paths; the client was identical apart from CRLF and method order in 3 services (auth, banner, lookup). Slovak collation sorts 'ch' after 'h', so createBannerCharacter and createBannerFull swap.

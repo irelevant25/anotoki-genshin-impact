@@ -1,12 +1,15 @@
 /local
 /assets/**
 
-# Uploaded media is served from disk, never committed.
-php/public/uploads/
-php/storage/
+# Uploaded media is served from disk, never committed - all but the store's own
+# hardening, which build-dist.php ships (the folder's contents are ignored rather
+# than the folder, or git could not bring that one file back in).
+backend/public/uploads/*
+!backend/public/uploads/.htaccess
+backend/storage/
 
 # Assembled for upload by `php build-dist.php` - the runtime-only backend slice.
-php/dist/
+backend/dist/
 
 # The converter scripts declare ffmpeg-static and sharp, so installing them
 # unpacks an ffmpeg binary into the repository. The API looks for it there,
@@ -20,28 +23,21 @@ formats-converters/*.exe
 # Written by generate-openapi.mjs while it asks the compiler about the API
 # types, and removed again on the way out. Ignored so a crashed run cannot
 # leave it behind in a commit.
-angular/.openapi-probe.ts
+frontend/.openapi-probe.ts
 
-# Per-machine config: credentials, paths, which site this deployment is.
-# database.local.php was committed before this rule and stays tracked on
-# purpose - it holds local development values only, and production is
-# configured separately.
-php/config/google.php
-php/config/google.local.php
-php/config/database.local.php
+# Per-deployment config: every value that differs between one installation and
+# the next - the database connection, the site secret, which IAM signs people in
+# and this site's client id there, this site's address and the origins allowed
+# to call the API. setup.php writes all of them, on a developer's machine as on
+# the hosting; nothing committed stands in for them. See config/local.php.
+# The same folder holds the first-run installer's token (setup.local.php) and the
+# optional pg_dump paths for the Backups page (backup.local.php).
+backend/config/*.local.php
 
-# The JWT signing key. There is no committed fallback any more - the API
-# refuses to start without one - so this file must exist per deployment and
-# must never be committed.
-php/config/jwt.local.php
+# Google sign-in's client id, from before the IAM. Nothing reads it any more
+# (signing in is the IAM's), but a copy on a developer's machine may still hold
+# a real client id, so it stays out of commits.
+backend/config/google.php
 
-# The first-run installer's token (setup.php). Uploaded by hand for the one-time
-# install, then deleted along with setup.php - never committed.
-php/config/setup.local.php
-
-# Mail sender/driver config, per deployment (written by setup.php). The
-# committed config/mail.php holds the file-driver dev defaults.
-php/config/mail.local.php
-
-# Per-machine PostgreSQL client tool paths for the Backups page.
-php/config/backup.local.php
+# Claude Code's personal settings (the rest of .claude/ is shared).
+.claude/settings.local.json

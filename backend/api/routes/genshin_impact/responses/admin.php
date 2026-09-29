@@ -1,0 +1,381 @@
+<?php
+
+/**
+ * What the audit log, the migration list and the dashboard answer with.
+ *
+ * Each is assembled by its endpoint rather than read from a table: the log
+ * joins usernames in and decodes its JSON, the migration list is the filesystem
+ * checked against the table, and the dashboard is a dozen counts in one reply.
+ */
+
+// ── Audit log ─────────────────────────────────────────────────────────────────
+
+/**
+ * One logged change.
+ *
+ * Two things differ from the `audit_logs` row: the username is joined in, and
+ * `changes` is decoded - the column stores it as JSON text.
+ */
+class AuditLogEntry extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $table_name,
+        public readonly string $record_id,
+        /**
+         * What the changed row belongs to, which is the row itself unless it is
+         * a child - a talent's cost says `characters` and the character's id, so
+         * one filter gives the whole history of one thing. Null on entries
+         * written before the columns existed whose row has since been replaced.
+         */
+        public readonly ?string $entity_table,
+        public readonly ?string $entity_id,
+        /** INSERT | UPDATE | DELETE */
+        public readonly string $action,
+        public readonly ?int $changed_by,
+        public readonly ?string $changed_by_username,
+        /**
+         * The sign-in it was made from, which is what knows the address and the
+         * browser and can be revoked: the IAM's session id (`sid`) - or, for
+         * entries from before the move to the IAM, the old numeric one, which
+         * the IAM kept. Null for anything with no session behind it - a
+         * migration, a sweep, a file found on disk.
+         */
+        public readonly ?string $session_id,
+        public readonly string $changed_at,
+        /**
+         * Column to { old, new }. Absent on an insert, which logs the whole row.
+         *
+         * @var array<string, mixed>
+         */
+        public readonly ?array $changes,
+    ) {
+    }
+}
+
+class AuditLogPage extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total,
+        public readonly int $page,
+        public readonly int $pageSize,
+        /** @var AuditLogEntry[] */
+        public readonly array $items,
+    ) {
+    }
+}
+
+/** An account, reduced to what the audit filter needs to name it. */
+class AuditLogUser extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $username,
+    ) {
+    }
+}
+
+class AuditLogFilters extends ResponseShape
+{
+    public function __construct(
+        /** @var string[] */
+        public readonly array $tables,
+        /** @var string[] */
+        public readonly array $actions,
+        /** @var AuditLogUser[] */
+        public readonly array $users,
+    ) {
+    }
+}
+
+// ── Migrations ────────────────────────────────────────────────────────────────
+
+class MigrationEntry extends ResponseShape
+{
+    public function __construct(
+        /** `{database}:{filename}` - unique only within its database. */
+        public readonly string $id,
+        public readonly string $database,
+        public readonly string $filename,
+        public readonly ?string $applied_at,
+        /** applied | pending | applied (file missing) */
+        public readonly string $status,
+        public readonly ?int $size,
+    ) {
+    }
+}
+
+class MigrationFile extends ResponseShape
+{
+    public function __construct(
+        public readonly string $database,
+        public readonly string $filename,
+        public readonly int $size,
+        public readonly string $content,
+    ) {
+    }
+}
+
+/** One database's share of an apply run. */
+class MigrationApplied extends ResponseShape
+{
+    public function __construct(
+        public readonly string $database,
+        /** @var string[] The files applied just now, in the order they ran. */
+        public readonly array $applied,
+        /** The file that failed, if one did - everything after it was left. */
+        public readonly ?string $failed,
+        public readonly ?string $error,
+    ) {
+    }
+}
+
+/** What `POST /api/migrations/apply` did across every database. */
+class MigrationApplyResult extends ResponseShape
+{
+    public function __construct(
+        public readonly int $applied,
+        /** False if any database hit a failure or could not be reached. */
+        public readonly bool $ok,
+        /** @var MigrationApplied[] */
+        public readonly array $databases,
+    ) {
+    }
+}
+
+// ── Dashboard ─────────────────────────────────────────────────────────────────
+
+/** One row of the content counts, and where to go to edit it. */
+class DashboardContent extends ResponseShape
+{
+    public function __construct(
+        public readonly string $label,
+        public readonly string $table,
+        public readonly string $route,
+        public readonly string $icon,
+        public readonly int $total,
+    ) {
+    }
+}
+
+/** Records missing something they ought to have. */
+class DashboardGap extends ResponseShape
+{
+    public function __construct(
+        public readonly string $label,
+        public readonly string $route,
+        public readonly int $missing,
+        public readonly int $total,
+    ) {
+    }
+}
+
+class DashboardFeedbackType extends ResponseShape
+{
+    public function __construct(
+        public readonly string $type,
+        public readonly int $total,
+    ) {
+    }
+}
+
+class DashboardFeedback extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total,
+        public readonly int $new,
+        public readonly int $last7,
+        public readonly int $last30,
+        /** @var DashboardFeedbackType[] */
+        public readonly array $byType,
+    ) {
+    }
+}
+
+class DashboardChange extends ResponseShape
+{
+    public function __construct(
+        public readonly int $id,
+        public readonly string $table_name,
+        public readonly string $record_id,
+        public readonly string $action,
+        public readonly string $changed_at,
+        public readonly ?string $changed_by_username,
+    ) {
+    }
+}
+
+class DashboardActivity extends ResponseShape
+{
+    public function __construct(
+        public readonly int $today,
+        public readonly int $last7,
+        public readonly int $last30,
+        /** @var DashboardChange[] */
+        public readonly array $recent,
+    ) {
+    }
+}
+
+class DashboardLanguage extends ResponseShape
+{
+    public function __construct(
+        public readonly string $code,
+        public readonly string $name,
+        public readonly string $native_name,
+        public readonly bool $enabled,
+        public readonly int $translated,
+    ) {
+    }
+}
+
+class DashboardTranslations extends ResponseShape
+{
+    public function __construct(
+        public readonly int $keys,
+        /** @var DashboardLanguage[] */
+        public readonly array $languages,
+    ) {
+    }
+}
+
+class DashboardStats extends ResponseShape
+{
+    public function __construct(
+        /** @var DashboardContent[] */
+        public readonly array $content,
+        /** @var DashboardGap[] Biggest job first. */
+        public readonly array $gaps,
+        /** @var DashboardFeedback */
+        public readonly object $feedback,
+        /** @var DashboardActivity */
+        public readonly object $activity,
+        /** @var DashboardTranslations */
+        public readonly object $translations,
+        /** @var DashboardAssets */
+        public readonly object $assets,
+    ) {
+    }
+}
+
+/**
+ * The asset tree in three numbers and a short list.
+ *
+ * The same survey the Files page draws in full, cut down to what a card holds:
+ * how much there is, and how much of it has no converted twin. Cached for a
+ * day, so `age` is how old the answer is rather than how long it took.
+ */
+class DashboardAssets extends ResponseShape
+{
+    public function __construct(
+        public readonly int $total_files,
+        public readonly int $total_bytes,
+        /** @var AssetFormatCount[] Every extension in the tree, biggest first. */
+        public readonly array $formats,
+        /** @var AssetConversionCount */
+        public readonly object $images,
+        /** @var AssetConversionCount */
+        public readonly object $audio,
+        /** @var AssetCatalogueCounts Files on disk the database has never heard of. */
+        public readonly object $catalogue,
+        public readonly string $generated_at,
+        public readonly int $age,
+    ) {
+    }
+}
+
+/**
+ * One thing that went wrong.
+ *
+ * Read back from the JSON lines under backend/storage/logs rather than a table, so
+ * that an outage of the database is a thing this can report rather than a thing
+ * that stops it reporting.
+ */
+class ErrorLogEntry extends ResponseShape
+{
+    public function __construct(
+        public readonly string $at,
+        /** error | warning */
+        public readonly string $level,
+        public readonly int $status,
+        /** The exception class, or `Response` when a handler answered 5xx without throwing. */
+        public readonly string $type,
+        public readonly string $message,
+        public readonly string $file,
+        public readonly int $line,
+        public readonly string $method,
+        public readonly string $path,
+        public readonly ?int $user_id,
+        /** The IAM session id the request was made under. */
+        public readonly ?string $session_id,
+        public readonly ?string $ip,
+        /** Identity of the failure, shared by every repeat of it. */
+        public readonly string $fingerprint,
+        public readonly ?string $trace,
+    ) {
+    }
+}
+
+/** Every occurrence of one failure, collapsed into a row with a count beside it. */
+class ErrorLogGroup extends ResponseShape
+{
+    public function __construct(
+        public readonly string $fingerprint,
+        public readonly string $level,
+        public readonly int $status,
+        public readonly string $type,
+        public readonly string $message,
+        public readonly string $file,
+        public readonly int $line,
+        public readonly int $count,
+        public readonly string $first_at,
+        public readonly string $last_at,
+        /** The paths this failure was reached through, most-hit first. */
+        public readonly array $paths,
+        /** The most recent occurrence, in full. */
+        public readonly ErrorLogEntry $latest,
+    ) {
+    }
+}
+
+/** How many of something. Used for the counts by status and by day. */
+class ErrorLogTally extends ResponseShape
+{
+    public function __construct(
+        public readonly string $key,
+        public readonly int $errors,
+        public readonly int $warnings,
+    ) {
+    }
+}
+
+/** What the error log has to say, ready to draw. */
+class ErrorLogReport extends ResponseShape
+{
+    public function __construct(
+        /** Matching the filter, before the limit. */
+        public readonly int $total,
+        public readonly int $errors,
+        public readonly int $warnings,
+        /** Distinct failures, which is usually far fewer than `total`. */
+        public readonly int $distinct,
+        /** Every day a log file exists for, newest first. */
+        public readonly array $days,
+        /** @var ErrorLogTally[] one per day in range, oldest first, for the chart */
+        public readonly array $daily,
+        /** @var ErrorLogTally[] one per status code seen */
+        public readonly array $statuses,
+        /** @var ErrorLogGroup[] */
+        public readonly array $groups,
+    ) {
+    }
+}
+
+/** How many log files were removed. */
+class ErrorLogCleared extends ResponseShape
+{
+    public function __construct(
+        public readonly int $deleted,
+    ) {
+    }
+}

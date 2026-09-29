@@ -265,7 +265,7 @@ ${comparison}
     <h2>How this was measured</h2>
     <div class="panel">
       <p style="margin: 0 0 12px">
-        Every GET route in <code>angular/api-spec.json</code>, called against a development server on this workstation
+        Every GET route in <code>frontend/api-spec.json</code>, called against a development server on this workstation
         with a database on the same machine. Two warm-up requests, then ${data.samples} timed ones; the number quoted is
         the median. Path arguments are filled from the collection the route belongs to, so an id used in a request is an
         id that exists — otherwise half the sample would be a 404 being timed.

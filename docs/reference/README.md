@@ -27,7 +27,7 @@ tab.
 Almost none of it is written by hand, which is the point — a hand-kept document
 drifts from the code; this cannot.
 
-- **Backend and Database** come from `angular/api-spec.json`, which the API
+- **Backend and Database** come from `frontend/api-spec.json`, which the API
   generates from its own route table, response shapes and migrations. Exact.
 - **Frontend** is read from the Angular sources: the page tree from the folder
   layout under `sites/main/features` and `sites/admin`, and the endpoints each
@@ -45,8 +45,8 @@ drifts from the code; this cannot.
 The spec must be current first, then build the page:
 
 ```
-php php/generate-api-spec.php     # refresh angular/api-spec.json from the API
-node angular/generate-api.mjs     # (only needed if the client is stale)
+php backend/generate-api-spec.php  # refresh frontend/api-spec.json from the API
+node frontend/generate-api.mjs     # (only needed if the client is stale)
 node docs/reference/build-docs.mjs
 ```
 

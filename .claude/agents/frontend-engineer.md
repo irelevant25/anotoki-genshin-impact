@@ -1,7 +1,7 @@
 ---
 name: frontend-engineer
 description: >
-  Implements and changes the Angular frontend under angular/ — components, pages,
+  Implements and changes the Angular frontend under frontend/ — components, pages,
   the local-lib UI kit, admin CRUD pages and public database pages. Use for "add
   a page", "build the admin screen for X", "fix the frontend", "wire this up to
   the API", "new component". Knows the zoneless/signals conventions, the local-lib
@@ -16,24 +16,30 @@ first. This file adds frontend-specific detail.
 
 ## Where things live
 
-- Public site: `angular/src/app/sites/main/` — features under `features/`
+- Public site: `frontend/src/app/sites/main/` — features under `features/`
   (database, quizzes, games, daily, profile, account), shared chrome under
   `common/` (footer, announcement).
-- Admin: `angular/src/app/sites/admin/` — one folder per entity with
+- Admin: `frontend/src/app/sites/admin/` — one folder per entity with
   `<entity>-list/` and `<entity>-form/`; routes in `admin.routes.ts`; nav in
   `app.component.ts`; simple lookup tables via the shared `lookup-table`
-  component configured in `pages/pages.ts`.
-- Shared UI kit and abstract bases: `angular/src/app/shared/local-lib/`.
-- **Generated** API client: `angular/src/app/api/` (`services/`, `models/`,
+  component, one line each in `LOOKUP_PAGES` (`pages/pages.ts`) and a
+  `lookupRoute(...)` in `admin.routes.ts`.
+- Shared UI kit and abstract bases: `frontend/src/app/shared/local-lib/`.
+- **Generated** API client: `frontend/src/app/api/` (`services/`, `models/`,
   `types/`). Do not hand-edit — it is regenerated from the backend.
 
 Read a close exemplar before writing and match its structure. Good ones:
 `sites/admin/artifacts/artifacts-list/…` and `artifact-form/…` (admin CRUD with
 tabs), `sites/main/features/database/characters/…` (public DB page + detail),
-`sites/admin/lookup-table/…` with `pages/pages.ts` (simple table).
+`sites/admin/lookup-table/…` with `pages/pages.ts` and `pages/lookup-page.component.*`
+(simple table).
 
 ## Conventions
 
+- **A component is three files**: `.ts`, `.html`, `.scss` side by side - never an
+  inline `template:` or `styles:` (ESLint refuses them). Nothing to draw still
+  means a commented `.html` and `.scss`; an abstract base without a template is a
+  `@Directive()`; shared styles are a partial pulled in with `@use`.
 - **Signals, not zone.js.** State is `signal()` / `computed()` / `model()`;
   effects with `effect()`. No `zone.js`, no `NgZone`, no `setTimeout`-driven
   change detection. `@if` / `@for` / `@switch` control flow, not `*ngIf`/`*ngFor`.
@@ -66,20 +72,23 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 3. Register the route in `admin.routes.ts` and add a nav entry in
    `app.component.ts` (with the right `readOnly`/role flag).
 4. A simple lookup table (name + a few columns) does not need bespoke components
-   — add it to `pages/pages.ts` and let the shared `lookup-table` render it.
+   — add it to `LOOKUP_PAGES` in `pages/pages.ts` and route it with
+   `lookupRoute('its-path')`; the shared `lookup-table` renders it.
 
 ## Verifying
 
 - `npx tsc --noEmit -p tsconfig.json` and, for template changes,
   `npx ng build --configuration development --output-path <a scratch folder>`
   (templates are only fully checked by a build). Without `--output-path` it
-  writes into `angular/dist/`, over the production build `build:deploy` leaves
+  writes into `frontend/dist/`, over the production build `build:deploy` leaves
   there for upload - rebuild that before an upload if you clobber it.
-- Run it: `npm start` (from `angular/`, serves on :4200) with the PHP server up
-  on :8000, and check the actual screen — both themes where it matters. If a
+- Run it: `npm start` (from `frontend/`, serves on :4200) with the PHP server up
+  on :8000 (set up by `backend/setup.php` - without its config the site draws its
+  "not set up yet" page), and check the actual screen — both themes where it matters. If a
   browser-automation harness is available use it; otherwise describe what you
   verified.
-- Stop `ng serve` when done.
+- Stop `ng serve` when done, and check port 4200 is free: on Windows the `npx`
+  child can outlive its parent.
 - Production build is `npm run build:deploy` (output `dist/angular/browser/`); the
   **deploy** skill covers shipping. Note that the production config drops the
   `assets/` copy, so a feature relying on a *new* static path under `assets/`

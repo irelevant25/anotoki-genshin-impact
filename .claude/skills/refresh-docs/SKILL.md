@@ -17,11 +17,11 @@ than overwriting the record. Pick the one you need.
 ## Reference — how the app fits together
 
 Frontend pages, backend endpoints and database tables, cross-linked. Backend and
-DB come from `angular/api-spec.json`; the frontend map is read from the Angular
-sources.
+DB come from `frontend/api-spec.json`; the frontend map is read from the Angular
+sources in `frontend/src/`.
 
 ```
-cd angular && npm run api:spec      # only if the backend changed since last spec
+cd frontend && npm run api:spec     # only if the backend changed since last spec
 node docs/reference/build-docs.mjs  # from repo root; writes docs/reference/reference-<date>-<time>.html
 ```
 
@@ -31,16 +31,27 @@ Two steps: measure, then render. The report compares the newest run against the
 one before it, so keep the run archive (`docs/performance/runs/`) intact.
 
 ```
-# from php/, if the dev server is not already up:
+# from backend/, if the dev server is not already up (it needs its config -
+# backend/config/*.local.php from setup.php - or it answers not_set_up):
 php -S localhost:8000 router.php
 
-# from repo root — sign in as an account that can read admin endpoints:
-node docs/performance/bench-endpoints.mjs <email> <password>
+# from repo root — with a personal token (IAM account page → Tokens for scripts,
+# application genshin) of an account that can read admin endpoints. The IAM
+# must be reachable to exchange it; the script learns its address from the
+# site's own /api/settings/public (dev: http://localhost:4300):
+node docs/performance/bench-endpoints.mjs <personal-token> [apiUrl]
 node docs/performance/build-report.mjs        # writes docs/performance/api-latency-<date>-<time>.html
 ```
 
 The bench writes a timestamped run into `docs/performance/runs/`; the builder
 turns the two newest runs into the report, with the comparison built in.
+
+Serve the API with the same PHP the runs before used - so far XAMPP's PHP 8.2
+without OPcache - on a machine with nothing else busy. Without OPcache about
+40 ms of every request is PHP compiling its files, so a different PHP or cache
+setting moves every number and the comparison then measures the setup, not the
+code (`docs/performance/README.md`, *Reading the numbers*). A run made the wrong
+way goes out of `runs/` before the builder is run, or it becomes the baseline.
 
 ## Security — Semgrep + Psalm + composer audit + manual findings
 
@@ -52,15 +63,17 @@ fresh read turn up, then rebuild.
 ```
 # tools (install if missing):
 python -m pip install semgrep
-cd php && composer require --dev vimeo/psalm:^5.26
+cd backend && composer require --dev vimeo/psalm:^5.26
 
 # re-run the scans (from repo root) into docs/security/tools/:
 semgrep scan --config=p/php --config=p/security-audit --config=p/secrets \
   --config=p/owasp-top-ten --json --quiet --metrics=off \
-  --exclude=vendor --exclude=node_modules php/ > docs/security/tools/semgrep-php.json
-cd php && php vendor/bin/psalm --taint-analysis \
+  --exclude=vendor --exclude=node_modules backend/ > docs/security/tools/semgrep-php.json
+cd backend && php vendor/bin/psalm --taint-analysis \
   --report=../docs/security/tools/psalm-taint.json --no-cache
-cd php && composer audit --format=json > ../docs/security/tools/composer-audit.json
+cd backend && composer audit --format=json > ../docs/security/tools/composer-audit.json
+# then take Psalm out again - vendor/ is committed and shipped:
+cd backend && composer remove --dev vimeo/psalm
 
 # then edit docs/security/findings.json, and render:
 node docs/security/build-report.mjs           # writes docs/security/security-report-<date>-<time>.html
