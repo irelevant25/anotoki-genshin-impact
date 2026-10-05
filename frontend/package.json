@@ -14,7 +14,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "node start.js && ng serve",
+    "start": "bun ci && ng serve --port 4200 --proxy-config proxy.conf.json",
     "build": "ng build",
     "build:deploy": "ng build --configuration production && node scripts/prepare-deploy.mjs",
     "watch": "ng build --watch --configuration development",
