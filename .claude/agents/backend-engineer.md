@@ -78,11 +78,45 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   metadata via `fullResourceShapes()`.
 - Register the new endpoint file with a `require_once` in `backend/api/index.php`,
   in the matching section.
+- Three global gates run before any route (`api/index.php`): maintenance (503),
+  sign-in required (401, `api/meddleware/sign_in.php` - the IAM's switch, read by
+  `signInRequired()` through the vendored SDK) and the page locks (423). A new
+  public route needs nothing from them: while the IAM requires sign-in it is
+  closed to anybody signed out like every other. Add a path to
+  `SIGN_IN_OPEN_PREFIXES` only if the sign-in card itself needs it, or a browser
+  loads it without a token (`/api/files/raw`, an `<img>`'s). A gate (or anything
+  that lets a path past by its spelling) reads `gatePath($request)` - the path
+  decoded as the router decodes it - never the raw `getUri()->getPath()`, or
+  `/%61pi/...` walks past it to the `/api/...` route. Never edit
+  `api/anotoki_iam.php` (the IAM's SDK, copied byte for byte) or write a fetch of
+  the IAM beside it. A token's `MEMBER` role is an ordinary reader (`USER`);
+  nothing asks for it.
 
 ## Migrations
 
 - Migrations **are** the schema. Add `backend/migrations/<db>/NNN_name.sql` with the
   next number; never edit an applied one.
+- A `users/` migration never names a `genshin_impact/` table (a fresh install runs
+  every `users/` file first, before the content and quiz tables exist): a change
+  to both halves is one file per folder (`users/045` + `genshin_impact/027`).
+- Visitors (playing without signing in) are `api/visitors.php`'s alone: a write
+  for a visitor happens inside a transaction that took `visitorLock()` first, a
+  visitor is made only by `visitorMake()` inside the save's own transaction, a
+  table keyed by the user id goes into `VISITOR_PERSON_TABLES`, and an answer
+  decided deep inside is an `ApiRefusal`. Their limits are `config/visitors.php`'s
+  (`visitorSettings()`, every value checked) - never read `visitors.local.php`
+  yourself.
+- A player's own data (a route keyed by who is asking) takes `requireOwner('empty'`
+  / `'make'` / `'refuse')` - never `requireAuth()` alone, never `X-Visitor-Key` read
+  anywhere else (but `requireVisitorKey()`, the move at sign-in, beside a token) -
+  and writes only inside `ownerWrite()`, answering a new visitor's
+  key with `withVisitorMade()`. Only a save that holds a play may make a visitor
+  (`quizStateHasPlay()`). A new table keyed by the user id goes into
+  `VISITOR_PERSON_TABLES` (the sweep and the move share it) AND gets its rule in
+  `visitorMove()` - what the person keeps where both have the same thing, what
+  moves (the move refuses to run until the two lists agree). After such a route,
+  `npm run api`: its method gains `context?: HttpContext` (the sync-api-client
+  skill).
 - Follow the house style in existing migrations: soft delete (`deleted BOOLEAN`),
   stamps (`created_by/at`, `updated_by/at`), partial unique indexes
   (`... WHERE deleted = FALSE`), asset columns as FKs into `files`
@@ -129,16 +163,20 @@ single endpoint, but keep it in mind:
 ## Configuration
 
 Every value that differs per installation - the database, the site secret, the
-IAM issuer and client id, this site's address and CORS origins - comes from
+IAM issuer and client id - comes from
 `backend/config/*.local.php`, which `setup.php` writes (in development too) and
 which are gitignored and never shipped. There is no committed default, no
 environment variable and no fallback to a template: `config/local.php` loads them
 (`localConfig()`), `localConfigProblems()` says what is missing, and until nothing
 is the API answers every request `503 not_set_up` (the gate at the top of
-`api/index.php`). A new per-installation value goes in one of those files, gets a
-field in `setup.php` (with the development value as its default), and a check in
+`api/index.php`). The setup page asks for the database and the IAM (and on a host
+the setup token) and nothing else, like every anotoki setup page - this site's
+address is read from the request (`setupSiteAddress()`), pg_dump on a host is found
+under `~/pgclient` (`setupBackupHome()`). So a new per-installation value is the
+owner's call first; if it comes, it goes in one of those files, with a check in
 `localConfigProblems()` if the API cannot run without it - never a literal in the
-code. Never print a `.local.php` file's contents.
+code. The API sends no CORS headers: the pages and the API are one origin, in
+development through `ng serve`'s proxy. Never print a `.local.php` file's contents.
 
 ## Verifying
 

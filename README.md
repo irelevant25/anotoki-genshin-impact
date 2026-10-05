@@ -17,15 +17,19 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
 - **What's new**: the version at the bottom of the site opens the changelog
   (`frontend/public/changelog.json`).
 
-Everything on the public site is open without an account. Signing in keeps quiz
-progress and statistics with your anotoki account instead of in the browser, and
-opens the admin panel to the people who hold a role here.
+Everything on the public site is open without an account - unless the IAM's
+"Sign-in required" switch is on for this site (it is off by default); then the site
+sends you to sign in before it shows anything. Playing without signing in, your
+games and statistics are kept on the server for your browser, for 30 days after
+your last visit (the Profile, the quizzes and the Daily page say so); signing in
+brings them into your anotoki account, where they stay. Signing in also opens
+the admin panel to the people who hold a role here.
 
 | Part | Folder | Stack |
 | --- | --- | --- |
 | Backend | [`backend/`](backend/) | PHP 8.2+, Slim 4, PostgreSQL - a JSON API under `/api` |
 | Frontend | [`frontend/`](frontend/) | Angular 21, standalone + zoneless, signals - the site and the admin panel |
-| Docs | [`docs/`](docs/) | Generated HTML reports: a reference of the whole app, API performance, a security review |
+| Docs | [`docs/`](docs/) | Generated HTML reports (a reference of the whole app, API performance, a security review), the pg_dump guide for the hosting, the logos |
 
 On a development machine the site runs at `http://localhost:4200`, its API at
 `:8000`, and sign-in goes through the IAM at `http://localhost:4300`. In
@@ -34,8 +38,9 @@ hosting; the frontend calls its own `/api`.
 
 ## Running it on your computer
 
-You need **PHP 8.2 or newer** with `pdo_pgsql`, **PostgreSQL**, **Node.js
-22.15.0**, and the **anotoki IAM** (`../anotoki-iam`), which holds the accounts.
+You need **PHP 8.2 or newer** with `pdo_pgsql`, **PostgreSQL**, **Node.js 22**
+and **Bun** (the frontend installs its packages with `bun ci`), and the **anotoki
+IAM** (`../anotoki-iam`), which holds the accounts.
 `backend/vendor/` is committed, so Composer is only needed to change PHP
 dependencies.
 
@@ -46,7 +51,8 @@ dependencies.
    cd backend
    composer start                   # php -S localhost:8000 router.php
    ```
-   Open `http://localhost:8000/setup.php`, fill in the database password, press
+   Open `http://localhost:8000/setup.php` (it starts from PostgreSQL on port 5432
+   and the database `anotoki_genshin`), fill in the database password, press
    **Test connection** under the database and under the IAM, then **Save**. It
    creates the database, applies every migration, and writes the settings to
    `backend/config/*.local.php`. Until then the API answers `503 not_set_up` and
@@ -54,11 +60,11 @@ dependencies.
 3. Start the frontend in a second terminal:
    ```bash
    cd frontend
-   npm install
-   npm start
+   npm start                        # bun ci, then ng serve on :4200 with the proxy
    ```
-   Open `http://localhost:4200`, and the admin panel at `/admin`. **Sign in**
-   goes to the IAM and comes back signed in.
+   Open `http://localhost:4200`, and the admin panel at `/admin`. `ng serve`'s
+   proxy hands `/api` to the backend, so the site calls its own origin, as in
+   production. **Sign in** goes to the IAM and comes back signed in.
 
 On your own computer the setup page stays in place: open it again whenever a
 setting changes. The pictures and sounds (`assets/`, about 2.5 GB) are not in
@@ -129,9 +135,11 @@ frontend/
   src/app/shared/       local-lib (the UI kit, abstract bases, the IAM's browser SDK), the not-set-up page
   src/app/api/          the API client, generated from the backend (npm run api)
   public/               config.json (where the API is), changelog.json
-docs/                   generated reports: reference/, performance/, security/
-old/                    the Vue codebase from before the rewrite, kept for reference
+docs/                   generated reports: reference/, performance/, security/; PG-DUMP-INSTALL.md (pg_dump
+                        on the hosting, for backups); images/ (the anotoki logos)
 .claude/                project skills and agents for AI-assisted work
+.gitignore, CLAUDE.md, README.md, DEV.md - and nothing else committed at the root
+                        (in development the untracked assets/ tree sits there too)
 ```
 
 ## Docs
@@ -164,6 +172,34 @@ not drift; [docs/README.md](docs/README.md) lists them.
 - Since 2026-09-27 signing in is the anotoki IAM's; since 2026-09-29 the code is
   `backend/` + `frontend/`, every installation is configured by `setup.php`, and
   the site keeps one database where it used to keep two.
+- Since 2026-10-01 setup.php asks only for the database and the IAM (and on a
+  host the setup token), like every anotoki setup page: this site's address is
+  read from the request and `pg_dump` is found on the hosting by itself. It starts
+  from the database `anotoki_genshin` on port 5432, and its **Test connection**
+  answers in the words every anotoki setup page uses. The root is clean like the
+  other anotoki projects': the Vue codebase is gone (git keeps it), the logos and
+  the pg_dump guide live in `docs/`.
+- Since 2026-10-02 the API has no CORS: in development `npm start` (`bun ci`, then
+  `ng serve` with `proxy.conf.json`) puts the pages and the API on one origin, as
+  production does. Audio is converted with the `ffmpeg` on PATH.
+- Since 2026-10-05 whether the site requires signing in is the IAM's switch, per
+  site (off here). The API reads it from the IAM - kept a minute, and "required"
+  whenever the IAM cannot say - tells the pages in `/api/settings/public`, and
+  while it is on answers 401 to everybody signed out but for what the sign-in
+  card and the asset previews need. Every account holds the role MEMBER here, an ordinary reader. The
+  pages send everybody signed out to the IAM before the first page, and draw a
+  "Sign in to continue" card instead of the site where that cannot happen by
+  itself (its words arrive with migration `users/044`). Visitor accounts are
+  built (migrations `users/045`, `users/046` and `genshin_impact/027`): a
+  signed-out player's first played question makes their visitor - the API
+  keeps its games and statistics behind a key it makes, for 30 days after the
+  last visit, and never lets it near anybody else's data or the admin panel;
+  the browser's own saved games are carried in once; signing in moves the
+  visitor's games and statistics into the account. A notice on the Profile,
+  the quizzes and the Daily page says how long they are kept, a message after
+  a sign-in says what came along, and the admin dashboard counts the visitors.
+  With 045 pending the pages keep a signed-out player's games in the browser
+  as before. The final review of this work is still to come.
 
 ## More
 

@@ -28,5 +28,6 @@ export * from './setting.service';
 export * from './stat.service';
 export * from './talentSet.service';
 export * from './translation.service';
+export * from './visitor.service';
 export * from './voiceOverSet.service';
 export * from './weapon.service';

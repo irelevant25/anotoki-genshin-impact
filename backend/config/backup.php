@@ -18,8 +18,8 @@
 // Recognised keys: pg_dump, pg_restore, directory, ld_library_path.
 //
 // ld_library_path is for shared hosting where the client tools were unpacked
-// into a home directory rather than installed system-wide (see PG-DUMP-INSTALL.md
-// at the repo root). Such a pg_dump needs its own libraries on LD_LIBRARY_PATH,
+// into a home directory rather than installed system-wide (see
+// docs/PG-DUMP-INSTALL.md). Such a pg_dump needs its own libraries on LD_LIBRARY_PATH,
 // and PHP does not read the shell profile that would set it - so it is handed to
 // every pg_dump / pg_restore call explicitly. Example for that setup:
 //
@@ -54,7 +54,7 @@ function backupConfig(): array
  * On shared hosting the client tools are often unpacked into a home directory
  * whose libraries are not on the system loader path, and PHP does not read the
  * shell profile that would add them - so the path is handed over directly rather
- * than relied on from the ambient environment. See PG-DUMP-INSTALL.md. On a
+ * than relied on from the ambient environment. See docs/PG-DUMP-INSTALL.md. On a
  * normal install no key is set and this is just getenv().
  */
 function backupProcessEnv(): array

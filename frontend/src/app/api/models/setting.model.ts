@@ -60,6 +60,22 @@ export interface PublicSiteSettings {
   announcement: SiteAnnouncement | null;
   /** Which pages exist, and who they are drawn for. */
   routes: PublicSiteRoute[];
+  /** Playing without signing in: whether it can, and for how long a browser's games are kept. */
+  visitors: PublicVisitorSettings;
+}
+
+/**
+ * Playing without signing in (api/visitors.php), as the page needs to know it.
+ *
+ * Whether it is welcome at all is `auth.login_required` - the IAM's switch;
+ * this says only whether the server can keep a visitor's games yet, and for
+ * how long, so the notice on the page never disagrees with the sweep.
+ */
+export interface PublicVisitorSettings {
+  /** Whether the server keeps a visitor's games and statistics: false until the database update that makes visitors (users/045) is applied - the browser keeps them then, as it always did. */
+  available: boolean;
+  /** Days a visitor's games are kept after their last visit (config/visitors.php's keep_days). */
+  keep_days: number;
 }
 
 /**
@@ -88,6 +104,8 @@ export interface SiteAuthConfig {
   account_url: string;
   /** The IAM's admin console - accounts, roles, sessions. */
   admin_url: string;
+  /** Whether the IAM requires everybody to sign in before using this site. Read from the IAM by the server, fresh within a minute; while it is true the API answers 401 sign_in_required to anybody not signed in. */
+  login_required: boolean;
 }
 
 /**

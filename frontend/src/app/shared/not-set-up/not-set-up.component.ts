@@ -39,9 +39,9 @@ export class NotSetUpComponent {
   readonly setup = computed(() => this._text('site.notSetUp.setup', 'Open the setup page'));
 
   /**
-   * The installer, on the API's origin: the PHP server on :8000 while
-   * developing, the site's own address in production (the API URL is empty
-   * there, so this is just /setup.php).
+   * The installer, on the site's own origin (the API URL is empty, so this is
+   * just /setup.php) - in development ng serve's proxy hands it to the PHP
+   * server on :8000.
    */
   readonly setupUrl = computed(() => `${this._config.backendUrl ?? ''}${this._settings.setupPath()}`);
 

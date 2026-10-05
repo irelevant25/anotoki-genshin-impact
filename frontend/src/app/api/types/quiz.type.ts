@@ -12,6 +12,16 @@ export interface QuizProgressRequest<TState = unknown> {
 }
 
 /**
+ * The games this browser kept for itself, carried into whoever the request is
+ * (`POST /api/quiz/progress/carry`) - at most twelve: six quizzes, each a free
+ * game and a daily one. Per game the account's own stays where it has one; a
+ * daily of another day never moves; a game nobody has played yet is skipped.
+ */
+export interface QuizCarryRequest<TState = unknown> {
+  games: { quiz: string; is_daily: boolean; state: TState }[];
+}
+
+/**
  * One finished question.
  *
  * Two tables are written and they have to agree: the log of what happened and

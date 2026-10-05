@@ -3,58 +3,22 @@
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- * The origins allowed to call this API from a browser.
- *
- * The one source of truth for CORS — the middleware in index.php reads it, and
- * a request's Origin is echoed back only if it is on this list, so the allow
- * header is never a blanket "*" and never a reflected stranger. The list is
- * this deployment's own, from config/app.local.php: the site's address - the
- * dev server on :4200 while developing, where the pages and the API are two
- * origins - and whatever other origins it names. There is no built-in list;
- * the one there used to be named a production domain in every checkout.
- */
-function corsAllowedOrigins(): array
-{
-    static $origins = null;
-    if ($origins !== null) {
-        return $origins;
-    }
-
-    $app = appConfig();
-
-    return $origins = array_values(array_unique([$app['url'], ...$app['cors_origins']]));
-}
-
-/**
  * The whole API's answer while the site is not set up: 503, and where to go.
  *
  * Written straight out rather than through Slim, because nothing behind it
  * could run - there is no database to reach and no IAM to check a token
  * against - and none of it is worth the chance of trying. See config/local.php
- * for what "set up" means.
- *
- * Any origin may read it. The CORS allowlist is one of the things setup.php has
- * not written yet, so there is no list to consult, and the development frontend
- * on another port has to be able to read this answer to say "not set up" rather
- * than "cannot reach the API". It carries that sentence and nothing else, and
- * no request gets any further.
+ * for what "set up" means. It carries that sentence and nothing else, and no
+ * request gets any further.
  */
 function answerNotSetUp(): never
 {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Http-Method-Override');
-    header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'");
     // Or the answer outlives the setup: a browser or a proxy holding on to it
     // would go on showing "not set up" to a site that is.
     header('Cache-Control: no-store');
-
-    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
-        http_response_code(204);
-        exit;
-    }
 
     http_response_code(503);
     header('Content-Type: application/json');
@@ -64,6 +28,63 @@ function answerNotSetUp(): never
         'setup' => SETUP_PATH,
     ], JSON_UNESCAPED_SLASHES);
     exit;
+}
+
+/**
+ * An answer decided deep inside the work of a request - a limit reached
+ * inside a transaction, a visitor's row gone while a save waited for it -
+ * thrown to where the answer is written: the default error handler in
+ * api/index.php answers it as it is, `{"error": "...", "code": "..."}` (with
+ * `params` when it has them) under its status and headers. Whoever began a
+ * transaction rolls it back on the way out, as for any exception.
+ *
+ * Not a failure of the API: the handler writes no PHP log line and no trace
+ * for it, and the response logger records it like any other 4xx or 503 a
+ * route returns.
+ */
+final class ApiRefusal extends RuntimeException
+{
+    /**
+     * @param array<string, string> $headers  e.g. ['Retry-After' => '60']
+     * @param ?array<string, mixed> $params    what the frontend words the answer from
+     */
+    public function __construct(
+        public readonly int $status,
+        public readonly string $refusal,
+        string $message,
+        public readonly array $headers = [],
+        public readonly ?array $params = null,
+    ) {
+        parent::__construct($message);
+    }
+
+    /** The body: genshin's `{"error", "code"}`, and `params` when there are any. */
+    public function body(): array
+    {
+        $body = ['error' => $this->getMessage(), 'code' => $this->refusal];
+        if ($this->params !== null) {
+            $body['params'] = $this->params;
+        }
+
+        return $body;
+    }
+}
+
+/**
+ * The answer an ApiRefusal stands for: its status, its headers and body().
+ * The default error handler (api/index.php) writes it this way, and so does
+ * requireOwner(), which adds the headers every answer about somebody's own
+ * data carries (ownerPrivate()).
+ */
+function apiRefusalResponse(ApiRefusal $refusal): Response
+{
+    $response = new \Slim\Psr7\Response($refusal->status);
+    $response->getBody()->write(json_encode($refusal->body(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+    foreach ($refusal->headers as $name => $value) {
+        $response = $response->withHeader($name, $value);
+    }
+
+    return $response->withHeader('Content-Type', 'application/json');
 }
 
 /**
@@ -102,12 +123,6 @@ function requestUserAgent(\Psr\Http\Message\ServerRequestInterface $request): ?s
     $agent = trim($request->getHeaderLine('User-Agent'));
 
     return $agent === '' ? null : substr($agent, 0, 255);
-}
-
-/** The Origin to echo back, or null when the caller's is not allowed. */
-function corsAllowOrigin(?string $origin): ?string
-{
-    return $origin !== null && in_array($origin, corsAllowedOrigins(), true) ? $origin : null;
 }
 
 /**

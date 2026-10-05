@@ -10,8 +10,8 @@
  * and answered with 404 if there is none, without the API ever being reached.
  *
  * Almost every path is fine. Translation keys are not - they are all dots, so
- * `PUT /api/translation-keys/guide.banners.content` never arrived, and neither
- * did its CORS preflight, which is what the browser reported instead. Apache
+ * `PUT /api/translation-keys/guide.banners.content` never arrived: the built-in
+ * server answered 404 for a file it did not have. Apache
  * has no such rule: api/.htaccess sends everything under /api to index.php,
  * which is what this does.
  *

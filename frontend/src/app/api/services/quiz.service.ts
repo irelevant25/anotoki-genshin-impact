@@ -3,11 +3,12 @@
 // Regenerate: php ../backend/generate-api-spec.php && node generate-api.mjs
 
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   Quiz,
   QuizActivityDay,
+  QuizCarryResult,
   QuizDifficultyRow,
   QuizHistory,
   QuizPayload,
@@ -24,7 +25,7 @@ import {
   QuizVoiceOverRound,
   UserQuizHistoryPayload,
 } from '../models';
-import { QuizProgressRequest, QuizResultRequest } from '../types';
+import { QuizCarryRequest, QuizProgressRequest, QuizResultRequest } from '../types';
 
 /**
  * The quizzes, a player's progress through them, and the history behind the stats.
@@ -32,6 +33,15 @@ import { QuizProgressRequest, QuizResultRequest } from '../types';
 @Injectable({ providedIn: 'root' })
 export class QuizApiService {
   private readonly _http = inject(HttpClient);
+
+  /**
+   * `POST /api/quiz/progress/carry`
+   *
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
+   */
+  carryQuizProgress(body: QuizCarryRequest, context?: HttpContext): Observable<QuizCarryResult> {
+    return this._http.post<QuizCarryResult>('/api/quiz/progress/carry', body, { context });
+  }
 
   /**
    * `POST /api/quizzes`
@@ -90,10 +100,10 @@ export class QuizApiService {
   /**
    * `DELETE /api/quiz/progress/{quiz}`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  deleteQuizProgress(quiz: string): Observable<QuizProgressDeleted> {
-    return this._http.delete<QuizProgressDeleted>(`/api/quiz/progress/${encodeURIComponent(quiz)}`);
+  deleteQuizProgress(quiz: string, context?: HttpContext): Observable<QuizProgressDeleted> {
+    return this._http.delete<QuizProgressDeleted>(`/api/quiz/progress/${encodeURIComponent(quiz)}`, { context });
   }
 
   /**
@@ -124,10 +134,10 @@ export class QuizApiService {
   /**
    * `GET /api/quiz/activity`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  getQuizActivity(): Observable<QuizActivityDay[]> {
-    return this._http.get<QuizActivityDay[]>('/api/quiz/activity');
+  getQuizActivity(context?: HttpContext): Observable<QuizActivityDay[]> {
+    return this._http.get<QuizActivityDay[]>('/api/quiz/activity', { context });
   }
 
   /**
@@ -151,10 +161,10 @@ export class QuizApiService {
   /**
    * `GET /api/quiz/progress`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  getQuizProgress(): Observable<QuizProgress[]> {
-    return this._http.get<QuizProgress[]>('/api/quiz/progress');
+  getQuizProgress(context?: HttpContext): Observable<QuizProgress[]> {
+    return this._http.get<QuizProgress[]>('/api/quiz/progress', { context });
   }
 
   /**
@@ -178,19 +188,19 @@ export class QuizApiService {
   /**
    * `GET /api/quiz/stats`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  getQuizStats(): Observable<QuizStatsRow[]> {
-    return this._http.get<QuizStatsRow[]>('/api/quiz/stats');
+  getQuizStats(context?: HttpContext): Observable<QuizStatsRow[]> {
+    return this._http.get<QuizStatsRow[]>('/api/quiz/stats', { context });
   }
 
   /**
    * `GET /api/quiz/stats/difficulty`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  getQuizStatsByDifficulty(): Observable<QuizDifficultyRow[]> {
-    return this._http.get<QuizDifficultyRow[]>('/api/quiz/stats/difficulty');
+  getQuizStatsByDifficulty(context?: HttpContext): Observable<QuizDifficultyRow[]> {
+    return this._http.get<QuizDifficultyRow[]>('/api/quiz/stats/difficulty', { context });
   }
 
   /**
@@ -228,19 +238,19 @@ export class QuizApiService {
   /**
    * `GET /api/quiz/results`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  getRecentQuizResults(): Observable<QuizRecentResult[]> {
-    return this._http.get<QuizRecentResult[]>('/api/quiz/results');
+  getRecentQuizResults(context?: HttpContext): Observable<QuizRecentResult[]> {
+    return this._http.get<QuizRecentResult[]>('/api/quiz/results', { context });
   }
 
   /**
    * `POST /api/quiz/result`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  submitQuizResult(body: QuizResultRequest): Observable<QuizResultAck> {
-    return this._http.post<QuizResultAck>('/api/quiz/result', body);
+  submitQuizResult(body: QuizResultRequest, context?: HttpContext): Observable<QuizResultAck> {
+    return this._http.post<QuizResultAck>('/api/quiz/result', body, { context });
   }
 
   /**
@@ -255,10 +265,10 @@ export class QuizApiService {
   /**
    * `PUT /api/quiz/progress/{quiz}`
    *
-   * Requires a signed-in user.
+   * A signed-in user, or this browser's visitor (`X-Visitor-Key`): whose own data it is.
    */
-  updateQuizProgress(quiz: string, body: QuizProgressRequest): Observable<QuizProgressSaved> {
-    return this._http.put<QuizProgressSaved>(`/api/quiz/progress/${encodeURIComponent(quiz)}`, body);
+  updateQuizProgress(quiz: string, body: QuizProgressRequest, context?: HttpContext): Observable<QuizProgressSaved> {
+    return this._http.put<QuizProgressSaved>(`/api/quiz/progress/${encodeURIComponent(quiz)}`, body, { context });
   }
 
   /**

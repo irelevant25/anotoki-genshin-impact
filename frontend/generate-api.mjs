@@ -346,6 +346,9 @@ for (const [group, groupRoutes] of serviceFiles) {
 
 const collisions = [...usedNames].filter(([, paths]) => paths.length > 1);
 
+/** Whether a method takes a trailing `context?: HttpContext` (the spec's `owner` / `visitor_key`). */
+const takesContext = (route) => Boolean(route.owner || route.visitor_key);
+
 function emitMethod(route) {
   const key = `${route.method} ${route.path}`;
   const name = operationName(route);
@@ -362,6 +365,12 @@ function emitMethod(route) {
   else if (route.method === 'GET' && !route.args.length && !RESPONSES[key]) {
     // nothing: a plain collection read
   }
+  // Somebody's own data (requireOwner()) and the move at sign-in
+  // (requireVisitorKey()): the caller says whom the request is issued as - a
+  // signed-in person or this browser's visitor - in an HttpContext the
+  // interceptor reads, never from whether a token happens to be there.
+  const contextual = takesContext(route);
+  if (contextual) params.push('context?: HttpContext');
 
   const lines = [];
   lines.push('  /**');
@@ -369,6 +378,12 @@ function emitMethod(route) {
   if (route.roles.length) {
     lines.push(`   *`);
     lines.push(`   * Requires the ${route.roles.map((role) => `\`${role}\``).join(' or ')} role.`);
+  } else if (route.visitor_key) {
+    lines.push(`   *`);
+    lines.push(`   * Requires a signed-in user and this browser's visitor key (\`X-Visitor-Key\`).`);
+  } else if (route.owner) {
+    lines.push(`   *`);
+    lines.push(`   * A signed-in user, or this browser's visitor (\`X-Visitor-Key\`): whose own data it is.`);
   } else if (route.auth) {
     lines.push(`   *`);
     lines.push(`   * Requires a signed-in user.`);
@@ -378,6 +393,7 @@ function emitMethod(route) {
   const options = [];
   if (query) options.push('params: toHttpParams(params)');
   if (BLOBS.has(key)) options.push("responseType: 'blob' as 'json'");
+  if (contextual) options.push('context');
   const optionsArg = options.length ? `, { ${options.join(', ')} }` : '';
 
   const url = urlLiteral(route);
@@ -414,7 +430,9 @@ for (const [group, groupRoutes] of serviceFiles) {
 
   const imports = [
     "import { Injectable, inject } from '@angular/core';",
-    "import { HttpClient } from '@angular/common/http';",
+    sorted.some(takesContext)
+      ? "import { HttpClient, HttpContext } from '@angular/common/http';"
+      : "import { HttpClient } from '@angular/common/http';",
     "import { Observable } from 'rxjs';",
   ];
   if (fromModels.length) imports.push(importLine(fromModels, '../models'));

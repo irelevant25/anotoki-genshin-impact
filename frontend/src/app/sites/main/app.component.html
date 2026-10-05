@@ -3,6 +3,10 @@
      anyway. -->
 @if (closed()) {
     <app-maintenance></app-maintenance>
+} @else if (signInFirst()) {
+    <!-- For the same reason: while the IAM requires sign-in here, every link
+         would answer 401 to somebody signed out. -->
+    <app-sign-in-required></app-sign-in-required>
 } @else {
     <app-announcement></app-announcement>
 

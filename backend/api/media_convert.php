@@ -3,9 +3,8 @@
 /**
  * Re-encoding for uploads: raster images to AVIF, audio to Opus.
  *
- * Both follow the one-off scripts in /formats-converters, which were written
- * against the hosting this site runs on: Imagick where it exists and GD where
- * it does not, and ffmpeg through exec() for audio.
+ * Written against the hosting this site runs on: Imagick where it exists and
+ * GD where it does not, and the ffmpeg on PATH for audio.
  *
  * Every entry point degrades quietly. If nothing on the box can encode the
  * target format the upload is still kept in the format it arrived in, and the
@@ -17,38 +16,6 @@ const MEDIA_AVIF_QUALITY = 60;
 
 /** Speech at 48k is transparent enough and a fraction of the original size. */
 const MEDIA_OPUS_BITRATE = '48k';
-
-/** Where ffmpeg tends to live when it is not on PATH. */
-const MEDIA_FFMPEG_CANDIDATES = [
-    'ffmpeg',
-    '/usr/bin/ffmpeg',
-    '/usr/local/bin/ffmpeg',
-    '/opt/homebrew/bin/ffmpeg',
-    'C:\\ffmpeg\\bin\\ffmpeg.exe',
-];
-
-/**
- * Copies of ffmpeg that live inside the repository rather than on the system.
- *
- * /formats-converters is where an ffmpeg ends up either way: dropped in by hand
- * beside the scripts that need it, or unpacked into node_modules by the
- * ffmpeg-static dependency those scripts already declare. Both are looked for,
- * because otherwise the answer to "why is audio not converting" is to install
- * ffmpeg again, globally, next to the copy already sitting on disk.
- *
- * A function rather than a const because a const expression cannot call
- * dirname(), and these are relative to wherever the repository is.
- */
-function mediaRepoFfmpegCandidates(): array
-{
-    $converters = dirname(__DIR__, 2) . '/formats-converters';
-    $suffix = DIRECTORY_SEPARATOR === '\\' ? '.exe' : '';
-
-    return [
-        $converters . '/ffmpeg' . $suffix,
-        $converters . '/node_modules/ffmpeg-static/ffmpeg' . $suffix,
-    ];
-}
 
 /**
  * Logs a message once per process. Conversion is unavailable for the whole life
@@ -211,21 +178,14 @@ function mediaFfmpegBinary(): ?string
         return null;
     }
 
-    // The repository's own copies first: a checkout that carries one is saying
-    // which ffmpeg it means, and that should beat whatever the system happens
-    // to have on PATH.
-    foreach ([...mediaRepoFfmpegCandidates(), ...MEDIA_FFMPEG_CANDIDATES] as $candidate) {
-        if (_mediaRun([$candidate, '-version'])['code'] === 0) {
-            $binary = $candidate;
-            return $binary;
-        }
+    // The one on PATH, and nowhere else: the hosting's own, or the one a
+    // developer installed.
+    if (_mediaRun(['ffmpeg', '-version'])['code'] === 0) {
+        $binary = 'ffmpeg';
+        return $binary;
     }
 
-    _mediaLogOnce(
-        'ffmpeg',
-        'ffmpeg not found on PATH, in the usual places, or in /formats-converters - audio uploads keep '
-        . 'their original format. Put an ffmpeg binary in /formats-converters, or run `npm i` there.'
-    );
+    _mediaLogOnce('ffmpeg', 'ffmpeg is not on PATH - audio uploads keep their original format. Install ffmpeg to convert them to Opus.');
     return null;
 }
 

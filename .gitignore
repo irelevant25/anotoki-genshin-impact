@@ -1,5 +1,9 @@
-/local
+# The asset tree (2.7 GB, served from disk, never committed), and work folders
+# that some checkouts keep beside it.
 /assets/**
+/local
+formats-converters/node_modules/
+formats-converters/*.exe
 
 # Uploaded media is served from disk, never committed - all but the store's own
 # hardening, which build-dist.php ships (the folder's contents are ignored rather
@@ -11,15 +15,6 @@ backend/storage/
 # Assembled for upload by `php build-dist.php` - the runtime-only backend slice.
 backend/dist/
 
-# The converter scripts declare ffmpeg-static and sharp, so installing them
-# unpacks an ffmpeg binary into the repository. The API looks for it there,
-# which is why the folder exists at all - but none of it belongs in a commit.
-formats-converters/node_modules/
-
-# An ffmpeg build dropped in by hand, which is the other way to switch audio
-# conversion on. Six hundred megabytes of it: found at runtime, never committed.
-formats-converters/*.exe
-
 # Written by generate-openapi.mjs while it asks the compiler about the API
 # types, and removed again on the way out. Ignored so a crashed run cannot
 # leave it behind in a commit.
@@ -27,9 +22,9 @@ frontend/.openapi-probe.ts
 
 # Per-deployment config: every value that differs between one installation and
 # the next - the database connection, the site secret, which IAM signs people in
-# and this site's client id there, this site's address and the origins allowed
-# to call the API. setup.php writes all of them, on a developer's machine as on
-# the hosting; nothing committed stands in for them. See config/local.php.
+# and this site's client id there. setup.php writes all of them, on a developer's
+# machine as on the hosting; nothing committed stands in for them. See
+# config/local.php.
 # The same folder holds the first-run installer's token (setup.local.php) and the
 # optional pg_dump paths for the Backups page (backup.local.php).
 backend/config/*.local.php

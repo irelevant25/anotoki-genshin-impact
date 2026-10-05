@@ -23,6 +23,12 @@ Both folders build the one database (`users/` first) and share its namespace: a
 new table, index, sequence or function must not take a name the other folder
 uses - check both. (History: `users/` once had an account table called `roles`,
 which 040 dropped; `genshin_impact/` has its own `roles`.)
+A `users/` migration never names a `genshin_impact/` table - not even in an
+index or a gate: on a fresh install every `users/` file runs before
+`genshin_impact/001` makes the content and quiz tables, so it would fail there.
+A change that touches both halves is two files, one per folder (the visitors:
+`users/045_visitors.sql` adds the people's side, `genshin_impact/027` the quiz
+history's index).
 Use the next free number (zero-padded, matching the existing width) and a short
 snake_case name. Read the two or three most recent migrations in that folder
 first and match their structure exactly.

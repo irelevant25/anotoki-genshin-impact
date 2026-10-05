@@ -7,6 +7,8 @@ import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
 import { DailyProgressService } from '../quizzes/shared/daily-progress.service';
 import { QuizCard, quizCard } from '../quizzes/shared/quiz-catalog';
 import { GuideIconComponent } from '../../common/guide/guide-icon.component';
+import { VisitorNoticeComponent } from '../../common/visitor-notice/visitor-notice.component';
+import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
 
 interface DailyEntry {
   card: QuizCard;
@@ -24,13 +26,16 @@ interface DailyEntry {
   selector: 'app-daily',
   templateUrl: './daily.component.html',
   styleUrls: ['./daily.component.scss'],
-  imports: [RouterModule, TranslatePipe, LoaderComponent, GuideIconComponent],
+  imports: [RouterModule, TranslatePipe, LoaderComponent, GuideIconComponent, VisitorNoticeComponent],
 })
 export class DailyComponent {
   private readonly _progress = inject(QuizProgressService);
   private readonly _daily = inject(DailyProgressService);
 
   readonly loading = signal(true);
+
+  /** A visitor whose games the server keeps: the notice says for how long. */
+  readonly visitorActive = inject(VisitorKey).active;
   readonly today = todayString();
 
   readonly entries = computed<DailyEntry[]>(() => {

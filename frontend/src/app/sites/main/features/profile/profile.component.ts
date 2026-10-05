@@ -1,7 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Observable, catchError, forkJoin, of } from 'rxjs';
+import { Observable, catchError, forkJoin, from, of, switchMap } from 'rxjs';
 import { QuizActivityDay, QuizApiService, QuizDifficultyRow, QuizRecentResult, QuizStatsRow } from '../../../../api';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
@@ -9,10 +9,14 @@ import { NotificationService } from '../../../../shared/local-lib/components/not
 import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
+import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
+import { issuedAs } from '../../../../shared/local-lib/services/issued-as';
+import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
 import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
 import { MaterialIconDirective } from '../../../admin/shared/material-icon.directive';
 import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';
+import { VisitorNoticeComponent } from '../../common/visitor-notice/visitor-notice.component';
 import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
 import {
@@ -47,9 +51,11 @@ const ACTIVITY_WEEKS = 52;
 /**
  * What a player has to show for the quizzes they have played.
  *
- * Four reads, all of them the player's own and all taken from the bearer token,
- * so there is no id to pass and nothing here that could ask about somebody
- * else. They are fetched together: the page is one screen and drawing it in
+ * Four reads, all of them the player's own - a signed-in person's, or this
+ * browser's visitor's (somebody playing without signing in, whose statistics
+ * the server keeps under the visitor key) - and all taken from the token or
+ * the key, so there is no id to pass and nothing here that could ask about
+ * somebody else. They are fetched together: the page is one screen and drawing it in
  * four instalments would only make it jump.
  *
  * The arithmetic lives in profile-stats.ts. This holds the signals, the sort
@@ -71,6 +77,7 @@ const ACTIVITY_WEEKS = 52;
     ActivityGridComponent,
     TabsComponent,
     TabComponent,
+    VisitorNoticeComponent,
   ],
 })
 export class ProfileComponent {
@@ -78,12 +85,24 @@ export class ProfileComponent {
   private readonly _security = inject(SecurityService);
   private readonly _notifications = inject(NotificationService);
   private readonly _i18n = inject(TranslationService);
+  private readonly _progress = inject(QuizProgressService);
+  private readonly _visitorKey = inject(VisitorKey);
 
   readonly loading = signal(true);
   readonly user = this._security.currentUser;
 
-  /** Who the figures on screen belong to, by id - see the constructor. */
-  private readonly _account = computed(() => this.user()?.id ?? null);
+  /**
+   * Whether the reader plays as a visitor here (nobody signed in, sign-in not
+   * required, the server keeps visitors): the page is theirs too, under a
+   * heading of its own - empty until their first played question.
+   */
+  readonly visiting = this._visitorKey.visiting;
+
+  /** Whose figures are on screen - see the constructor. */
+  private readonly _owner = this._progress.owner;
+
+  /** Bumped per load, so an answer for somebody who is no longer reading is dropped. */
+  private _loads = 0;
 
   /** True once a read has failed, so the page can say so rather than show a gap. */
   readonly failed = signal(false);
@@ -147,19 +166,23 @@ export class ProfileComponent {
   });
 
   constructor() {
-    // Keyed on who it is rather than on the whole record, which is replaced
-    // for more than a change of account - a date format saved, a role changed
-    // at the IAM - and refetching four reads for that would be work for nothing.
+    // Keyed on whose figures they are rather than on the whole record, which
+    // is replaced for more than a change of account - a date format saved, a
+    // role changed at the IAM - and refetching four reads for that would be
+    // work for nothing. Again after a move brought a visitor's statistics in.
     effect(() => {
-      const account = this._account();
+      const owner = this._owner();
+      this._visitorKey.moves();
 
       untracked(() => {
-        if (account !== null) {
-          this._load();
+        this._loads++;
+        if (owner !== 'browser') {
+          this._load(owner === 'visitor' ? 'visitor' : 'person');
           return;
         }
         // Signing out has to clear what is on screen: none of it belongs to
-        // whoever is looking now.
+        // whoever is looking now. Nor does anybody's, before a visitor's
+        // first played question - there is nothing on the server to read.
         this._stats.set([]);
         this._difficulty.set([]);
         this._activity.set([]);
@@ -200,22 +223,40 @@ export class ProfileComponent {
     return difficulty === null ? 'profile.difficulty.unknown' : `quiz.difficulty.${difficultyName(difficulty)}`;
   }
 
-  private _load(): void {
+  /**
+   * The four reads, issued as the owner the page is for. A person's wait for
+   * the move of this browser's visitor first, so what was played before the
+   * sign-in is counted in.
+   */
+  private _load(caller: 'person' | 'visitor'): void {
+    const run = this._loads;
     this.loading.set(true);
     this.failed.set(false);
 
-    forkJoin({
-      stats: this._orNothing(this._quizApi.getQuizStats()),
-      difficulty: this._orNothing(this._quizApi.getQuizStatsByDifficulty()),
-      activity: this._orNothing(this._quizApi.getQuizActivity()),
-      recent: this._orNothing(this._quizApi.getRecentQuizResults()),
-    }).subscribe((answers) => {
-      this._stats.set(answers.stats);
-      this._difficulty.set(answers.difficulty);
-      this._activity.set(answers.activity);
-      this.recent.set(answers.recent);
-      this.loading.set(false);
-    });
+    const context = issuedAs(caller);
+    const moved = caller === 'person' ? from(this._visitorKey.settledMove()) : of(undefined);
+
+    moved
+      .pipe(
+        switchMap(() =>
+          forkJoin({
+            stats: this._orNothing(this._quizApi.getQuizStats(context)),
+            difficulty: this._orNothing(this._quizApi.getQuizStatsByDifficulty(context)),
+            activity: this._orNothing(this._quizApi.getQuizActivity(context)),
+            recent: this._orNothing(this._quizApi.getRecentQuizResults(context)),
+          }),
+        ),
+      )
+      .subscribe((answers) => {
+        if (run !== this._loads) {
+          return;
+        }
+        this._stats.set(answers.stats);
+        this._difficulty.set(answers.difficulty);
+        this._activity.set(answers.activity);
+        this.recent.set(answers.recent);
+        this.loading.set(false);
+      });
   }
 
   /**

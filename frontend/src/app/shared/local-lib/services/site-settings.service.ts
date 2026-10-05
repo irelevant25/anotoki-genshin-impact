@@ -38,7 +38,7 @@ export type RouteNotice = { kind: 'blocked' } | { kind: 'restricted'; visibility
  * where the IAM is arrives in the same answer - see `auth`.)
  *
  * None of this is a security boundary. The API enforces the same switches for
- * itself - see meddleware/maintenance.php and meddleware/route_gate.php -
+ * itself - see meddleware/maintenance.php, sign_in.php and route_gate.php -
  * because a closed sign drawn in a browser stops the people who were going to
  * read the page and nobody else.
  */
@@ -87,6 +87,34 @@ export class SiteSettingsService {
    */
   readonly auth = computed(() => this._settings()?.auth ?? null);
 
+  /**
+   * Whether the IAM wants everybody signed in before they use this site - its
+   * switch, per site, which the API reads and relays here so the page never
+   * asks the IAM itself.
+   *
+   * False when the settings could not be read, like every getter here: with no
+   * settings there is no IAM to send anybody to either, and the API refuses
+   * whoever it has to by itself (meddleware/sign_in.php) - this only spares
+   * the reader a site full of pages that would all answer 401.
+   */
+  readonly loginRequired = computed(() => this._settings()?.auth?.login_required ?? false);
+
+  /**
+   * Whether the server keeps a visitor's games - somebody playing without
+   * signing in - under a visitor of its own (api/visitors.php): false until
+   * the database update that makes visitors (users/045) is applied, and when
+   * the settings could not be read. The browser then keeps their games, as it
+   * always did. Whether visitors are welcome at all is `loginRequired`.
+   */
+  readonly visitorsAvailable = computed(() => this._settings()?.visitors?.available ?? false);
+
+  /** Days the server keeps a visitor's games after their last visit - its number, so the notice never disagrees with the sweep. */
+  readonly visitorKeepDays = computed(() => this._settings()?.visitors?.keep_days ?? 30);
+
+  /** The settings read `noteSignInRequired()` started, while it is on its way. */
+  private _noting: Promise<void> | null = null;
+  private _notedAt = 0;
+
   /** The bar across the top of the page, or null when there is nothing to say. */
   readonly announcement = computed(() => this._settings()?.announcement ?? null);
 
@@ -118,6 +146,25 @@ export class SiteSettingsService {
         this._setupPath.set(setupPathFrom(error.error?.setup));
       }
     }
+  }
+
+  /**
+   * The API answered 401 `sign_in_required` to a request that went without a
+   * token: the IAM's switch was turned on since these settings were read. Read
+   * them again, so `loginRequired` flips and the shell draws the sign-in card
+   * (and a visitor's key stops being sent - it is kept, not forgotten).
+   *
+   * Once at a time and at most once every ten seconds: every page's requests
+   * can meet the same answer at once.
+   */
+  noteSignInRequired(): void {
+    if (this._noting || Date.now() - this._notedAt < 10_000) {
+      return;
+    }
+    this._notedAt = Date.now();
+    this._noting = this.refresh().finally(() => {
+      this._noting = null;
+    });
   }
 
   /**

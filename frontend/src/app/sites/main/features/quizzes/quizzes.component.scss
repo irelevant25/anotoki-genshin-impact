@@ -1,1 +1,8 @@
 @use "../../common/site-card" as *;
+
+// The visitor notice takes a whole row of the wrapping cards, and the row's
+// gap does the spacing its own bottom margin would.
+.quizzes-notice {
+  flex-basis: 100%;
+  margin-bottom: calc(-1 * var(--spacing-lg));
+}

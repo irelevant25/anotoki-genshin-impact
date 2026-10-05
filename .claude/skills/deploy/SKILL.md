@@ -57,12 +57,31 @@ on the server**. The host is Linux and case-sensitive: `Albedo.opus` and
 `ALBEDO.opus` are two files there, where Windows saw one. Upload new files before
 applying the migration that points the catalogue at them.
 
+## The IAM first
+
+The API asks the IAM whether this site requires signing in
+(`GET https://iam.anotoki.eu/api/public/applications/genshin`, kept a minute in
+`storage/cache/`), and reads a 404 - an IAM that does not serve that address
+yet, or does not know `genshin` - as **required**: everybody signed out is then
+turned away. So when the IAM gains something this site reads, the IAM ships
+first. Before uploading, check that address answers 200 with
+`"login_required": false` (the switch is the IAM admin's, Applications →
+genshin → Settings).
+
 ## Configuration
 
 Every per-installation value is in `config/*.local.php` - `database`, `secret`,
-`iam`, `app` - written by `setup.php`, left out of the builds, never committed.
+`iam` - written by `setup.php`, left out of the builds, never committed.
 There are no defaults: without them the API answers every request
 `503 not_set_up` and the site shows "not set up yet". A deploy never touches them.
+
+One optional file is put on the host by hand, never by setup.php:
+`config/visitors.local.php`, the limits on playing without signing in. Behind
+Cloudflare's proxy it is needed: list Cloudflare's ranges
+(https://www.cloudflare.com/ips/) as `['client_address' => ['trusted_proxies'
+=> [...]]]`, or every visitor counts as one address and the per-address limit
+turns new ones away. Every value is checked; a bad one keeps its default and is
+logged once.
 
 ## First install (empty database)
 
@@ -86,12 +105,15 @@ for the client `genshin` in the IAM (migration 002 there registers
    connection** buttons both need it.
 4. Replace the development values the form starts from: the DB host / port /
    username / password / the database name; the IAM address
-   (`https://iam.anotoki.eu`) and client id (`genshin`); this site's address
-   (`https://genshin.anotoki.eu`, no other origins). Off localhost, addresses must
-   be https and never localhost. Test the database and the IAM (the IAM test also
-   says whether the IAM accepts `<site>/auth/callback` for `genshin`), then run the
-   install: every migration, then `config/database.local.php`,
-   `secret.local.php`, `iam.local.php` and `app.local.php`. No admin is created:
+   (`https://iam.anotoki.eu`) and client id (`genshin`). That is all it asks.
+   Off localhost, the IAM's address must be https and never localhost. This
+   site's address is the one the page was opened at (https, also behind the
+   host's proxy). Test the database and the IAM (the IAM test also says whether
+   the IAM accepts `<site>/auth/callback` for `genshin`), then run the install:
+   every migration, then `config/database.local.php`, `secret.local.php` and
+   `iam.local.php` - plus `backup.local.php` when the PostgreSQL client tools are
+   under `~/pgclient` in the hosting account's home (found by itself; the closing
+   page says when they are not). No admin is created:
    sign in through the IAM with an account holding the `genshin` ADMIN role.
 5. It writes `storage/installed.lock` (the durable "don't run twice" guard), then
    deletes `config/setup.local.php` and itself. If the host blocks the
@@ -113,6 +135,12 @@ FTP the new `migrations/{folder}/*.sql` up, then in the admin **Migrations** pag
 press **Apply pending** (`POST /api/migrations/apply`, ADMIN). It runs every
 pending file in order, `users/` then `genshin_impact/`, stopping at the first failure. The engine
 (`backend/api/migration_runner.php`) is the same one the CLI and `setup.php` use.
+
+Visitor accounts (`users/045`, `046`, `genshin_impact/027`, after `044`): safe
+before or after the upload. Once applied, answer one quiz question in a private
+window - the dashboard's *visitors* card should then say 1, which proves the
+hosting hands the `X-Visitor-Key` header to PHP. DEV.md, *Later schema changes*,
+has the whole list.
 
 ## Copying local data up to production
 

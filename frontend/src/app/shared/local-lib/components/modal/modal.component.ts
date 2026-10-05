@@ -19,9 +19,9 @@ export class ModalComponent {
   /**
    * Whether the corner cross is drawn.
    *
-   * False for the handful of modals that are a gate rather than a window - the
-   * forced password change, where there is nothing behind this to go back to
-   * and offering a way out would only be offering a broken page. Set it
+   * False for a modal that is a gate rather than a window, where there is
+   * nothing behind it to go back to and offering a way out would only be
+   * offering a broken page. Set it
    * alongside `backdrop: 'static'` and `keyboard: false` on the open() call,
    * or the cross is gone while Escape still works.
    */

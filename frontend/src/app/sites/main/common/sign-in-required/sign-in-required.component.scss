@@ -1,0 +1,38 @@
+// The whole page, near enough, like the closed sign it stands beside: centred
+// in the viewport, because there is nothing above or below it to sit between.
+.sign-in-required {
+  max-width: 560px;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  text-align: center;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.sign-in-required-mark {
+  font-size: 48px;
+  color: var(--text-muted);
+}
+
+.sign-in-required-text {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+// Side by side where they fit, one above the other on a narrow phone.
+.sign-in-required-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}

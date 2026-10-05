@@ -39,7 +39,7 @@ function _assetsRoot(): string
 function _assetPathSegment(string $segment): ?string
 {
     // `:` is written as " - " on disk, matching how the voice over files are
-    // named, so an uploaded clip lands where the importer looks for it.
+    // named, so an uploaded clip lands beside the ones already there.
     // "Chat: Hobbies" has to come out as "Chat - Hobbies", not "Chat -  Hobbies".
     $segment = str_replace(':', ' - ', $segment);
     $segment = preg_replace('#[\\\\/*?"<>|\x00-\x1F]#', '', $segment);

@@ -105,12 +105,44 @@ function siteSettingArray(string $name): array
 //
 // Whether anybody may sign in, and whether Google is offered, used to be
 // switches here too. Signing in is the IAM's now, and so are those switches -
-// they are in its admin console, for every site at once.
+// they are in its admin console, for every site at once. So is the one below
+// that is not in this table: whether this site may be used without signing in.
 
 /** Whether the site is closed to everybody but its admins. */
 function maintenanceModeOn(): bool
 {
     return siteSettingBool('maintenance_mode', false);
+}
+
+/**
+ * Whether the IAM says everybody must sign in before using this site.
+ *
+ * The IAM's switch, on this site's page in its admin console ("Sign-in
+ * required"): read by the vendored SDK from the IAM's public answer about the
+ * application, kept for a minute in the cache folder (config/iam.php's
+ * cache_dir, beside the key set - a folder only this site writes, since the
+ * kept answer is what opens the site to people who have not signed in), and
+ * true whenever nothing better is known: an IAM that does not know `genshin`
+ * or has switched it off answers 404, which means required; an IAM out of
+ * reach leaves the last answer standing, or required when there never was
+ * one. Remembered for the rest of the request, so the gate and the public
+ * settings agree.
+ *
+ * Off is what this site has always been - a reference work anyone can read -
+ * and the IAM's default for it. Only somebody who has not signed in is ever
+ * affected, so signInGate() asks only for them.
+ */
+function signInRequired(): bool
+{
+    $required = anotoki_iam_login_required(iamClientConfig(), $reason);
+
+    // An answer from the IAM, or the last one kept, is routine; these are not -
+    // an IAM that does not know this site, or one that could not be asked.
+    if (in_array($reason, ['unknown_application', 'stale', 'never_read', 'not_configured'], true)) {
+        error_log('[iam] sign-in required: ' . ($required ? 'yes' : 'no') . ' (' . $reason . ')');
+    }
+
+    return $required;
 }
 
 /**
@@ -137,6 +169,9 @@ function publicSiteSettings(): array
             'client_id' => $iam['client_id'],
             'account_url' => $iam['issuer'] . '/account',
             'admin_url' => $iam['issuer'] . '/admin',
+            // The IAM's switch, relayed: the page learns it here, from its
+            // own server, and never asks the IAM itself.
+            'login_required' => signInRequired(),
         ],
         // Null rather than a disabled announcement: the banner either has
         // something to say or is not there, and the front end should not have
@@ -150,5 +185,14 @@ function publicSiteSettings(): array
         // everything else above, and two requests to draw one page is one
         // request too many. See site_routes.php.
         'routes' => publicSiteRoutes(),
+        // Playing without signing in (api/visitors.php): whether the server
+        // can keep a visitor's games yet - not until users/045 is applied, so
+        // an upload before "Apply pending" behaves as before - and for how
+        // long, the server's own number, so the page's notice and the sweep
+        // agree. Whether visitors are welcome at all is auth.login_required.
+        'visitors' => [
+            'available' => visitorsReady(),
+            'keep_days' => visitorSetting('keep_days'),
+        ],
     ];
 }

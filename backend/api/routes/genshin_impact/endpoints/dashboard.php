@@ -229,6 +229,22 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         error_log('[dashboard] asset stats unavailable: ' . $e->getMessage());
     }
 
+    // ── Visitors ─────────────────────────────────────────────────────────────
+    // People playing without signing in (api/visitors.php), against the
+    // ceiling that turns new ones away - so a site filling up is seen here
+    // before anybody is refused. Nothing to count while users/045 waits.
+    $visitors = [
+        'available' => visitorsReady(),
+        'count'     => 0,
+        'results'   => 0,
+        'max'       => visitorSetting('max_visitors'),
+        'keep_days' => visitorSetting('keep_days'),
+    ];
+    if ($visitors['available']) {
+        $visitors['count'] = (int) usersDb()->query('SELECT count(*) FROM users WHERE id < 0')->fetchColumn();
+        $visitors['results'] = (int) $pdo->query('SELECT count(*) FROM user_quiz_history WHERE user_id < 0')->fetchColumn();
+    }
+
     return respondJson($response, [
         'content'      => $content,
         'gaps'         => $gaps,
@@ -236,5 +252,6 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
         'activity'     => $activity,
         'translations' => $translations,
         'assets'       => $assets,
+        'visitors'     => $visitors,
     ]);
 })->add(responds(DashboardStats::class))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());

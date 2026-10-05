@@ -34,6 +34,10 @@ const KEY_NAMESPACES = [
     'common', 'nav', 'footer', 'account', 'theme',
     'login', 'feedback', 'backgrounds', 'changelog', 'whatsNew', 'notFound', 'quiz', 'database',
     'daily', 'game', 'profile', 'guide',
+    // Playing without signing in. (Not 'site', for the family shell's
+    // site.* keys: the admin's templates bind "site.code", which would read
+    // as a key nobody wrote - those keys are listed as unused instead.)
+    'visitor',
 ];
 
 // ─── Key discovery ────────────────────────────────────────────────────────────

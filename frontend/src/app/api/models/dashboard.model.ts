@@ -137,6 +137,7 @@ export interface DashboardStats {
   activity: DashboardActivity;
   translations: DashboardTranslations;
   assets: DashboardAssets;
+  visitors: DashboardVisitors;
 }
 
 /**
@@ -145,4 +146,22 @@ export interface DashboardStats {
 export interface DashboardTranslations {
   keys: number;
   languages: DashboardLanguage[];
+}
+
+/**
+ * People playing without signing in (api/visitors.php): how many the server
+ * keeps now, against the ceiling past which it turns new ones away - the
+ * figure to watch, since nothing else on the site shows it.
+ */
+export interface DashboardVisitors {
+  /** False while migration users/045 waits: nobody is kept as a visitor yet, and the counts are 0. */
+  available: boolean;
+  /** Visitors the server keeps now. */
+  count: number;
+  /** Questions they answered, in the quiz history. */
+  results: number;
+  /** The ceiling (`max_visitors`): past it, new visitors are refused - those already there keep playing. */
+  max: number;
+  /** Days a visitor is kept after their last visit (`keep_days`). */
+  keep_days: number;
 }

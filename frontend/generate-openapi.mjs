@@ -337,6 +337,13 @@ function describe(route) {
   const lines = [];
   if (route.roles.length) {
     lines.push(`Requires the ${route.roles.map((role) => `\`${role}\``).join(' or ')} role.`);
+  } else if (route.visitor_key) {
+    lines.push("Requires a signed-in user and this browser's visitor key (`X-Visitor-Key`).");
+  } else if (route.owner) {
+    lines.push(
+      "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): " +
+        'whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.'
+    );
   } else if (route.auth) {
     lines.push('Requires a signed-in user.');
   } else {
@@ -467,6 +474,17 @@ function responsesFor(route, id) {
   );
 }
 
+/**
+ * Who may call a route. Somebody's own data (`owner`) is the signed-in person, this browser's
+ * visitor, or nobody (who gets nothing back, and whose first save with a play makes a visitor);
+ * the move at sign-in (`visitor_key`) wants the token and the key together.
+ */
+function securityOf(route) {
+  if (route.visitor_key) return [{ bearerAuth: [], visitorKey: [] }];
+  if (route.owner) return [{ bearerAuth: [] }, { visitorKey: [] }, {}];
+  return route.auth ? [{ bearerAuth: [] }] : [];
+}
+
 const paths = {};
 for (const route of routes) {
   const id = operationName(route);
@@ -480,7 +498,7 @@ for (const route of routes) {
     ...(parametersFor(route, id).length ? { parameters: parametersFor(route, id) } : {}),
     ...(requestBodyFor(route, id) ? { requestBody: requestBodyFor(route, id) } : {}),
     responses: responsesFor(route, id),
-    ...(route.auth ? { security: [{ bearerAuth: [] }] } : { security: [] }),
+    security: securityOf(route),
   };
 }
 
@@ -517,6 +535,14 @@ const document = {
         description:
           "An access token the anotoki IAM (OpenID Connect) issued for this site's client, as `Authorization: Bearer <token>`. " +
           'Scripts exchange a personal access token for one at the IAM token endpoint.',
+      },
+      visitorKey: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'X-Visitor-Key',
+        description:
+          "This browser's visitor - somebody playing without signing in, while the site does not require it. " +
+          'The server makes the key and hands it back once, in the X-Visitor-Key header of the answer to the save that made the visitor.',
       },
     },
     responses: {

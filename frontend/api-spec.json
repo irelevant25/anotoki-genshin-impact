@@ -32,7 +32,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -64,7 +66,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -90,7 +94,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -119,7 +125,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -150,7 +158,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -179,7 +189,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -210,7 +222,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -245,7 +259,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -280,7 +296,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -318,7 +336,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -345,7 +365,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -373,7 +395,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -408,7 +432,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -443,7 +469,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -481,7 +509,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -514,7 +544,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -547,7 +579,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -577,7 +611,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -612,7 +648,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -642,7 +680,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -672,7 +712,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -698,7 +740,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -727,7 +771,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -762,7 +808,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -792,7 +840,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -827,7 +877,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -854,7 +906,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -882,7 +936,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -909,7 +965,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -941,7 +999,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -974,7 +1034,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1007,7 +1069,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1046,7 +1110,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1085,7 +1151,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1114,7 +1182,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1145,7 +1215,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1174,7 +1246,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1205,7 +1279,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -1240,7 +1316,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1275,7 +1353,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -1313,7 +1393,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1342,7 +1424,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1373,7 +1457,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -1408,7 +1494,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1443,7 +1531,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -1481,7 +1571,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1508,7 +1600,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1536,7 +1630,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -1571,7 +1667,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1606,7 +1704,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -1644,7 +1744,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1677,7 +1779,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -1710,7 +1814,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1736,7 +1842,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1762,7 +1870,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1789,7 +1899,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1818,7 +1930,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1849,7 +1963,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1878,7 +1994,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1909,7 +2027,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -1938,7 +2058,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -1969,7 +2091,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2004,7 +2128,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2039,7 +2165,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2077,7 +2205,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2112,7 +2242,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2147,7 +2279,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2185,7 +2319,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2214,7 +2350,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2245,7 +2383,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2274,7 +2414,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2305,7 +2447,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2340,7 +2484,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2375,7 +2521,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2413,7 +2561,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2442,7 +2592,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2473,7 +2625,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2508,7 +2662,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2543,7 +2699,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2581,7 +2739,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2610,7 +2770,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2641,7 +2803,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2676,7 +2840,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2711,7 +2877,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2749,7 +2917,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2778,7 +2948,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2809,7 +2981,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -2844,7 +3018,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2879,7 +3055,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -2917,7 +3095,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -2946,7 +3126,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -2977,7 +3159,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3012,7 +3196,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3047,7 +3233,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3085,7 +3273,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3114,7 +3304,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -3145,7 +3337,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3174,7 +3368,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -3205,7 +3401,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3240,7 +3438,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3275,7 +3475,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3313,7 +3515,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3348,7 +3552,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3383,7 +3589,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3421,7 +3629,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3450,7 +3660,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -3481,7 +3693,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3516,7 +3730,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3551,7 +3767,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3589,7 +3807,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3624,7 +3844,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3659,7 +3881,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3697,7 +3921,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3726,7 +3952,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -3757,7 +3985,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3792,7 +4022,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3827,7 +4059,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -3865,7 +4099,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3894,7 +4130,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -3925,7 +4163,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -3960,7 +4200,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -3995,7 +4237,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4033,7 +4277,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4062,7 +4308,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -4093,7 +4341,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -4128,7 +4378,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4163,7 +4415,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4192,7 +4446,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -4223,7 +4479,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4252,7 +4510,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -4283,7 +4543,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -4318,7 +4580,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4353,7 +4617,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4391,7 +4657,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -4426,7 +4694,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4461,7 +4731,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4499,7 +4771,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4528,7 +4802,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -4559,7 +4835,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -4594,7 +4872,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4629,7 +4909,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4667,7 +4949,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -4706,7 +4990,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4732,7 +5018,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -4767,7 +5055,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4802,7 +5092,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4840,7 +5132,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4875,7 +5169,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -4919,7 +5215,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4949,7 +5247,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4983,7 +5283,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -4995,7 +5297,8 @@
                 "audit_logs",
                 "users",
                 "translation_keys",
-                "languages"
+                "languages",
+                "user_quiz_history"
             ],
             "success": 200,
             "statuses": [
@@ -5007,7 +5310,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/dashboard.php",
-                "line": 240
+                "line": 257
             },
             "expanded": [],
             "payload": null,
@@ -5016,7 +5319,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5042,7 +5347,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5071,7 +5378,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -5106,7 +5415,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5138,7 +5449,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5164,7 +5477,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5193,7 +5508,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5224,7 +5541,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5253,7 +5572,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5284,7 +5605,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -5319,7 +5642,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5354,7 +5679,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -5392,7 +5719,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5421,7 +5750,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5452,7 +5783,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -5487,7 +5820,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5522,7 +5857,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -5560,7 +5897,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5589,7 +5928,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5620,7 +5961,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -5655,7 +5998,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5690,7 +6035,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -5728,7 +6075,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5755,7 +6104,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -5783,7 +6134,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -5818,7 +6171,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5853,7 +6208,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -5891,7 +6248,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5924,7 +6283,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -5957,7 +6318,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -5983,7 +6346,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6012,7 +6377,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6047,7 +6414,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6079,7 +6448,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6105,7 +6476,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6134,7 +6507,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6169,7 +6544,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6201,7 +6578,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6227,7 +6606,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6256,7 +6637,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6291,7 +6674,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6323,7 +6708,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6349,7 +6736,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6376,7 +6765,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6409,7 +6800,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6436,7 +6829,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6463,7 +6858,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6490,7 +6887,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6517,7 +6916,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6546,7 +6947,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6574,7 +6977,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6603,7 +7008,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6637,7 +7044,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6672,7 +7081,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -6705,7 +7116,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6732,7 +7145,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6764,7 +7179,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6801,7 +7218,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -6838,7 +7257,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -6867,7 +7288,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6898,7 +7321,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6928,7 +7353,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -6956,7 +7383,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -6985,7 +7414,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7013,7 +7444,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7041,7 +7474,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7069,7 +7504,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7098,7 +7535,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -7128,7 +7567,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7157,7 +7598,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7182,7 +7625,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7210,7 +7655,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7240,7 +7687,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7267,7 +7716,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -7294,7 +7745,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7321,7 +7774,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -7359,7 +7814,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -7397,7 +7854,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7423,7 +7882,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7452,7 +7913,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -7487,7 +7950,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7519,7 +7984,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7548,7 +8015,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7579,7 +8048,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7608,7 +8079,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7639,7 +8112,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -7674,7 +8149,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7709,7 +8186,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -7747,7 +8226,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7774,7 +8255,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -7802,7 +8285,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -7837,7 +8322,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7872,7 +8359,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -7910,7 +8399,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -7943,7 +8434,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -7976,7 +8469,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8002,7 +8497,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8033,7 +8530,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -8069,7 +8568,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8105,7 +8606,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8131,7 +8634,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8160,7 +8665,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -8195,7 +8702,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8227,7 +8736,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8253,7 +8764,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8282,7 +8795,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -8317,7 +8832,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8349,7 +8866,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8378,7 +8897,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8409,7 +8930,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8438,7 +8961,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8469,7 +8994,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -8504,7 +9031,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8539,7 +9068,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8577,7 +9108,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8609,7 +9142,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8636,7 +9171,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -8664,7 +9201,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -8699,7 +9238,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8734,7 +9275,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8772,7 +9315,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8805,7 +9350,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8838,7 +9385,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8870,7 +9419,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8894,7 +9445,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8919,7 +9472,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8946,7 +9501,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -8971,7 +9528,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -8998,7 +9557,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9024,7 +9585,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9052,7 +9615,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9081,7 +9646,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9109,7 +9676,9 @@
             "payload": "QuizState",
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -9145,7 +9714,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9181,7 +9752,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -9217,7 +9790,9 @@
             "payload": "QuizState",
             "partial": true,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9246,7 +9821,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9274,7 +9851,9 @@
             "payload": "QuizStatsHistory",
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -9314,7 +9893,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9354,7 +9935,9 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -9394,7 +9977,9 @@
             "payload": "QuizStatsHistory",
             "partial": true,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9414,22 +9999,22 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 247
+                "line": 402
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "GET",
             "path": "/api/quiz/progress",
             "args": [],
             "file": "quiz_progress.php",
-            "tables": [
-                "quizzes_states"
-            ],
+            "tables": [],
             "success": 200,
             "statuses": [
                 200
@@ -9440,13 +10025,41 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 59
+                "line": 110
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/quiz/progress/carry",
+            "args": [],
+            "file": "quiz_progress.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "QuizCarryResult",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
+                "line": 245
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -9472,13 +10085,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 110
+                "line": 176
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -9503,13 +10118,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 93
+                "line": 153
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9517,7 +10134,8 @@
             "args": [],
             "file": "quiz_progress.php",
             "tables": [
-                "characters"
+                "characters",
+                "user_quiz_history"
             ],
             "success": 201,
             "statuses": [
@@ -9531,13 +10149,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 169
+                "line": 314
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9557,13 +10177,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 272
+                "line": 430
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9583,13 +10205,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 190
+                "line": 338
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9609,13 +10233,15 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 224
+                "line": 376
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": true,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9642,7 +10268,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9668,7 +10296,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9697,7 +10327,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -9732,7 +10364,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9764,7 +10398,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -9799,7 +10435,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9825,7 +10463,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9851,7 +10491,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -9880,7 +10522,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -9915,7 +10559,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9947,7 +10593,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -9973,7 +10621,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10002,7 +10652,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10037,7 +10689,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10069,7 +10723,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10095,7 +10751,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10124,7 +10782,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10159,7 +10819,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10191,7 +10853,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10217,7 +10881,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -10244,7 +10910,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10268,7 +10936,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10294,7 +10964,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10324,7 +10996,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -10353,7 +11027,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10387,7 +11063,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10413,7 +11091,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10443,7 +11123,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10478,7 +11160,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10510,7 +11194,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10540,7 +11226,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10575,7 +11263,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10601,7 +11291,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10630,7 +11322,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10665,7 +11359,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10697,7 +11393,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10729,7 +11427,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -10764,7 +11464,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -10801,7 +11503,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10830,7 +11534,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -10862,7 +11568,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -10898,7 +11606,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10927,7 +11637,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -10966,7 +11678,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11012,7 +11726,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11041,7 +11757,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11068,7 +11786,9 @@
             "payload": "UserQuizHistory",
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -11102,7 +11822,9 @@
             "auth": true,
             "roles": [
                 "ADMIN"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11135,7 +11857,35 @@
             "payload": null,
             "partial": false,
             "auth": true,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/visitor/move",
+            "args": [],
+            "file": "visitor.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "VisitorMoveResult",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/visitor.php",
+                "line": 42
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [],
+            "owner": false,
+            "visitor_key": true
         },
         {
             "method": "GET",
@@ -11164,7 +11914,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11198,7 +11950,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11224,7 +11978,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11253,7 +12009,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11284,7 +12042,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11313,7 +12073,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11344,7 +12106,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11373,7 +12137,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11404,7 +12170,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -11439,7 +12207,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11474,7 +12244,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -11512,7 +12284,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -11547,7 +12321,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11582,7 +12358,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -11620,7 +12398,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11649,7 +12429,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11680,7 +12462,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -11715,7 +12499,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11750,7 +12536,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -11788,7 +12576,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11815,7 +12605,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "POST",
@@ -11843,7 +12635,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "DELETE",
@@ -11878,7 +12672,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11913,7 +12709,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -11951,7 +12749,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "GET",
@@ -11984,7 +12784,9 @@
             "payload": null,
             "partial": false,
             "auth": false,
-            "roles": []
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         },
         {
             "method": "PUT",
@@ -12017,7 +12819,9 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ]
+            ],
+            "owner": false,
+            "visitor_key": false
         }
     ],
     "models": [
@@ -18072,6 +18876,16 @@
                     "optional": false,
                     "of": "DashboardAssets",
                     "description": null
+                },
+                {
+                    "name": "visitors",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "DashboardVisitors",
+                    "description": null
                 }
             ]
         },
@@ -18100,6 +18914,64 @@
                     "optional": false,
                     "of": "DashboardLanguage[]",
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "DashboardVisitors",
+            "file": "admin.php",
+            "merges": null,
+            "description": "People playing without signing in (api/visitors.php): how many the server\nkeeps now, against the ceiling past which it turns new ones away - the\nfigure to watch, since nothing else on the site shows it.",
+            "fields": [
+                {
+                    "name": "available",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "False while migration users/045 waits: nobody is kept as a visitor yet, and the counts are 0."
+                },
+                {
+                    "name": "count",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Visitors the server keeps now."
+                },
+                {
+                    "name": "results",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Questions they answered, in the quiz history."
+                },
+                {
+                    "name": "max",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The ceiling (`max_visitors`): past it, new visitors are refused - those already there keep playing."
+                },
+                {
+                    "name": "keep_days",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Days a visitor is kept after their last visit (`keep_days`)."
                 }
             ]
         },
@@ -20036,6 +20908,44 @@
                     "optional": false,
                     "of": "PublicSiteRoute[]",
                     "description": "Which pages exist, and who they are drawn for."
+                },
+                {
+                    "name": "visitors",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "PublicVisitorSettings",
+                    "description": "Playing without signing in: whether it can, and for how long a browser's games are kept."
+                }
+            ]
+        },
+        {
+            "name": "PublicVisitorSettings",
+            "file": "setting.php",
+            "merges": null,
+            "description": "Playing without signing in (api/visitors.php), as the page needs to know it.\n\nWhether it is welcome at all is `auth.login_required` - the IAM's switch;\nthis says only whether the server can keep a visitor's games yet, and for\nhow long, so the notice on the page never disagrees with the sweep.",
+            "fields": [
+                {
+                    "name": "available",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the server keeps a visitor's games and statistics: false\nuntil the database update that makes visitors (users/045) is\napplied - the browser keeps them then, as it always did."
+                },
+                {
+                    "name": "keep_days",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Days a visitor's games are kept after their last visit (config/visitors.php's keep_days)."
                 }
             ]
         },
@@ -20074,6 +20984,74 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "QuizCarryResult",
+            "file": "quiz.php",
+            "merges": null,
+            "description": "What a carry of the browser's games did (POST /api/quiz/progress/carry), and\nthe player's saved games after it - so the page needs no second read.",
+            "fields": [
+                {
+                    "name": "carried",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Games written: the player had none for that quiz, or only a daily of another day."
+                },
+                {
+                    "name": "kept",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Games left out because the player already has their own for that quiz - theirs stays."
+                },
+                {
+                    "name": "stale",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Dailies of another day than today (UTC), which never move."
+                },
+                {
+                    "name": "unknown",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Quizzes this site does not know (any more)."
+                },
+                {
+                    "name": "unplayed",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Games nobody has played yet - a fresh draw - which are not worth keeping."
+                },
+                {
+                    "name": "games",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "QuizProgress[]",
+                    "description": "Every saved game of the player, after the carry."
                 }
             ]
         },
@@ -20846,6 +21824,16 @@
                     "optional": false,
                     "of": null,
                     "description": "The IAM's admin console - accounts, roles, sessions."
+                },
+                {
+                    "name": "login_required",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the IAM requires everybody to sign in before using this site.\nRead from the IAM by the server, fresh within a minute; while it is\ntrue the API answers 401 sign_in_required to anybody not signed in."
                 }
             ]
         },
@@ -21592,6 +22580,82 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "VisitorMoveGames",
+            "file": "visitor.php",
+            "merges": null,
+            "description": "The visitor's saved games, one per quiz and kind (free / daily), and where each went.",
+            "fields": [
+                {
+                    "name": "moved",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Games now the person's: they had none for that quiz, or only a daily of another day."
+                },
+                {
+                    "name": "kept",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Games left behind because the person has their own for that quiz - theirs stays."
+                },
+                {
+                    "name": "stale",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "The visitor's dailies of another day than today (UTC), which never move."
+                }
+            ]
+        },
+        {
+            "name": "VisitorMoveResult",
+            "file": "visitor.php",
+            "merges": null,
+            "description": null,
+            "fields": [
+                {
+                    "name": "found",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether the key was a visitor's. False when nobody has it (any\nmore) - moved already by another tab, deleted after keep_days\nunseen - which is no error: everything else is then 0."
+                },
+                {
+                    "name": "games",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "VisitorMoveGames",
+                    "description": "The visitor's saved games."
+                },
+                {
+                    "name": "results",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Finished questions moved into the person's statistics, every one (their totals added to the person's)."
                 }
             ]
         },
@@ -26079,6 +27143,43 @@
                         "24",
                         "12"
                     ]
+                },
+                {
+                    "name": "visitor_key_hash",
+                    "sqlType": "CHAR(64)",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "last_seen_at",
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "visitor_starts",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "BIGSERIAL",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "address",
+                    "sqlType": "TEXT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "started_at",
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": false,
+                    "enum": null
                 }
             ]
         },

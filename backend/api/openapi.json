@@ -121,6 +121,10 @@
       "description": "The counts on the admin landing page."
     },
     {
+      "name": "visitor",
+      "description": "This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in."
+    },
+    {
       "name": "lookup",
       "description": "The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown."
     }
@@ -17209,7 +17213,7 @@
         ],
         "operationId": "getQuizActivity",
         "summary": "Get quiz activity",
-        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `user_quiz_history`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -17234,7 +17238,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17245,7 +17253,7 @@
         ],
         "operationId": "getQuizProgress",
         "summary": "Get quiz progress",
-        "description": "Requires a signed-in user. Reads `quizzes_states`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -17270,7 +17278,85 @@
         "security": [
           {
             "bearerAuth": []
+          },
+          {
+            "visitorKey": []
+          },
+          {}
+        ]
+      }
+    },
+    "/api/quiz/progress/carry": {
+      "post": {
+        "tags": [
+          "quiz"
+        ],
+        "operationId": "carryQuizProgress",
+        "summary": "Carry quiz progress",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "games": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "quiz": {
+                          "type": "string"
+                        },
+                        "is_daily": {
+                          "type": "boolean"
+                        },
+                        "state": {}
+                      },
+                      "required": [
+                        "quiz",
+                        "is_daily",
+                        "state"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "games"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizCarryResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17281,7 +17367,7 @@
         ],
         "operationId": "deleteQuizProgress",
         "summary": "Delete quiz progress",
-        "description": "Requires a signed-in user. Reads `quizzes_states`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `quizzes_states`.",
         "parameters": [
           {
             "name": "quiz",
@@ -17323,7 +17409,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       },
       "put": {
@@ -17332,7 +17422,7 @@
         ],
         "operationId": "updateQuizProgress",
         "summary": "Update quiz progress",
-        "description": "Requires a signed-in user.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.",
         "parameters": [
           {
             "name": "quiz",
@@ -17413,7 +17503,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17424,7 +17518,7 @@
         ],
         "operationId": "submitQuizResult",
         "summary": "Submit quiz result",
-        "description": "Requires a signed-in user. Reads `characters`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `characters`.",
         "requestBody": {
           "required": true,
           "content": {
@@ -17476,7 +17570,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17487,7 +17585,7 @@
         ],
         "operationId": "getRecentQuizResults",
         "summary": "Get recent quiz results",
-        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `user_quiz_history`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -17512,7 +17610,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17523,7 +17625,7 @@
         ],
         "operationId": "getQuizStats",
         "summary": "Get quiz stats",
-        "description": "Requires a signed-in user. Reads `quiz_stats_history`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `quiz_stats_history`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -17548,7 +17650,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -17559,7 +17665,7 @@
         ],
         "operationId": "getQuizStatsByDifficulty",
         "summary": "Get quiz stats by difficulty",
-        "description": "Requires a signed-in user. Reads `user_quiz_history`.",
+        "description": "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`. Reads `user_quiz_history`.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
@@ -17584,7 +17690,11 @@
         "security": [
           {
             "bearerAuth": []
-          }
+          },
+          {
+            "visitorKey": []
+          },
+          {}
         ]
       }
     },
@@ -20092,6 +20202,51 @@
         ]
       }
     },
+    "/api/visitor/move": {
+      "post": {
+        "tags": [
+          "visitor"
+        ],
+        "operationId": "moveVisitor",
+        "summary": "Move visitor",
+        "description": "Requires a signed-in user and this browser's visitor key (`X-Visitor-Key`).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VisitorMoveResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "visitorKey": []
+          }
+        ]
+      }
+    },
     "/api/voice-over-sets": {
       "get": {
         "tags": [
@@ -21654,6 +21809,12 @@
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "description": "An access token the anotoki IAM (OpenID Connect) issued for this site's client, as `Authorization: Bearer <token>`. Scripts exchange a personal access token for one at the IAM token endpoint."
+      },
+      "visitorKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Visitor-Key",
+        "description": "This browser's visitor - somebody playing without signing in, while the site does not require it. The server makes the key and hands it back once, in the X-Visitor-Key header of the answer to the save that made the visitor."
       }
     },
     "responses": {
@@ -26679,6 +26840,9 @@
           },
           "assets": {
             "$ref": "#/components/schemas/DashboardAssets"
+          },
+          "visitors": {
+            "$ref": "#/components/schemas/DashboardVisitors"
           }
         },
         "required": [
@@ -26687,7 +26851,8 @@
           "feedback",
           "activity",
           "translations",
-          "assets"
+          "assets",
+          "visitors"
         ],
         "additionalProperties": false
       },
@@ -26709,6 +26874,41 @@
         "required": [
           "keys",
           "languages"
+        ],
+        "additionalProperties": false
+      },
+      "DashboardVisitors": {
+        "title": "DashboardVisitors",
+        "description": "People playing without signing in (api/visitors.php): how many the server keeps now, against the ceiling past which it turns new ones away - the figure to watch, since nothing else on the site shows it.",
+        "type": "object",
+        "properties": {
+          "available": {
+            "description": "False while migration users/045 waits: nobody is kept as a visitor yet, and the counts are 0.",
+            "type": "boolean"
+          },
+          "count": {
+            "description": "Visitors the server keeps now.",
+            "type": "number"
+          },
+          "results": {
+            "description": "Questions they answered, in the quiz history.",
+            "type": "number"
+          },
+          "max": {
+            "description": "The ceiling (`max_visitors`): past it, new visitors are refused - those already there keep playing.",
+            "type": "number"
+          },
+          "keep_days": {
+            "description": "Days a visitor is kept after their last visit (`keep_days`).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "available",
+          "count",
+          "results",
+          "max",
+          "keep_days"
         ],
         "additionalProperties": false
       },
@@ -44211,6 +44411,10 @@
             "items": {
               "$ref": "#/components/schemas/PublicSiteRoute"
             }
+          },
+          "visitors": {
+            "description": "Playing without signing in: whether it can, and for how long a browser's games are kept.",
+            "$ref": "#/components/schemas/PublicVisitorSettings"
           }
         },
         "required": [
@@ -44218,7 +44422,28 @@
           "maintenance_message",
           "auth",
           "announcement",
-          "routes"
+          "routes",
+          "visitors"
+        ],
+        "additionalProperties": false
+      },
+      "PublicVisitorSettings": {
+        "title": "PublicVisitorSettings",
+        "description": "Playing without signing in (api/visitors.php), as the page needs to know it. Whether it is welcome at all is `auth.login_required` - the IAM's switch; this says only whether the server can keep a visitor's games yet, and for how long, so the notice on the page never disagrees with the sweep.",
+        "type": "object",
+        "properties": {
+          "available": {
+            "description": "Whether the server keeps a visitor's games and statistics: false until the database update that makes visitors (users/045) is applied - the browser keeps them then, as it always did.",
+            "type": "boolean"
+          },
+          "keep_days": {
+            "description": "Days a visitor's games are kept after their last visit (config/visitors.php's keep_days).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "available",
+          "keep_days"
         ],
         "additionalProperties": false
       },
@@ -44275,6 +44500,49 @@
           "day",
           "played",
           "wins"
+        ],
+        "additionalProperties": false
+      },
+      "QuizCarryResult": {
+        "title": "QuizCarryResult",
+        "description": "What a carry of the browser's games did (POST /api/quiz/progress/carry), and the player's saved games after it - so the page needs no second read.",
+        "type": "object",
+        "properties": {
+          "carried": {
+            "description": "Games written: the player had none for that quiz, or only a daily of another day.",
+            "type": "number"
+          },
+          "kept": {
+            "description": "Games left out because the player already has their own for that quiz - theirs stays.",
+            "type": "number"
+          },
+          "stale": {
+            "description": "Dailies of another day than today (UTC), which never move.",
+            "type": "number"
+          },
+          "unknown": {
+            "description": "Quizzes this site does not know (any more).",
+            "type": "number"
+          },
+          "unplayed": {
+            "description": "Games nobody has played yet - a fresh draw - which are not worth keeping.",
+            "type": "number"
+          },
+          "games": {
+            "description": "Every saved game of the player, after the carry.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizProgress"
+            }
+          }
+        },
+        "required": [
+          "carried",
+          "kept",
+          "stale",
+          "unknown",
+          "unplayed",
+          "games"
         ],
         "additionalProperties": false
       },
@@ -45220,13 +45488,18 @@
           "admin_url": {
             "description": "The IAM's admin console - accounts, roles, sessions.",
             "type": "string"
+          },
+          "login_required": {
+            "description": "Whether the IAM requires everybody to sign in before using this site. Read from the IAM by the server, fresh within a minute; while it is true the API answers 401 sign_in_required to anybody not signed in.",
+            "type": "boolean"
           }
         },
         "required": [
           "issuer",
           "client_id",
           "account_url",
-          "admin_url"
+          "admin_url",
+          "login_required"
         ],
         "additionalProperties": false
       },
@@ -46519,6 +46792,56 @@
         "required": [
           "id",
           "username"
+        ],
+        "additionalProperties": false
+      },
+      "VisitorMoveGames": {
+        "title": "VisitorMoveGames",
+        "description": "The visitor's saved games, one per quiz and kind (free / daily), and where each went.",
+        "type": "object",
+        "properties": {
+          "moved": {
+            "description": "Games now the person's: they had none for that quiz, or only a daily of another day.",
+            "type": "number"
+          },
+          "kept": {
+            "description": "Games left behind because the person has their own for that quiz - theirs stays.",
+            "type": "number"
+          },
+          "stale": {
+            "description": "The visitor's dailies of another day than today (UTC), which never move.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "moved",
+          "kept",
+          "stale"
+        ],
+        "additionalProperties": false
+      },
+      "VisitorMoveResult": {
+        "title": "VisitorMoveResult",
+        "description": "The shape of a `VisitorMoveResult` response.",
+        "type": "object",
+        "properties": {
+          "found": {
+            "description": "Whether the key was a visitor's. False when nobody has it (any more) - moved already by another tab, deleted after keep_days unseen - which is no error: everything else is then 0.",
+            "type": "boolean"
+          },
+          "games": {
+            "description": "The visitor's saved games.",
+            "$ref": "#/components/schemas/VisitorMoveGames"
+          },
+          "results": {
+            "description": "Finished questions moved into the person's statistics, every one (their totals added to the person's).",
+            "type": "number"
+          }
+        },
+        "required": [
+          "found",
+          "games",
+          "results"
         ],
         "additionalProperties": false
       },

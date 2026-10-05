@@ -19,6 +19,24 @@
             <span class="attention-meta">{{ data.activity.today }} today · {{ data.activity.last30 }} in 30 days</span>
         </div>
 
+        <!-- People playing without signing in, against the ceiling that turns
+             new ones away: quiet until it comes near. -->
+        <div
+            class="attention-card"
+            [class.is-quiet]="!visitorsNearCeiling()"
+            title="People playing without signing in. Each is deleted {{ data.visitors.keep_days }} days after their last visit, or moved into an account when they sign in."
+        >
+            @if (data.visitors.available) {
+                <span class="attention-value">{{ data.visitors.count }}</span>
+                <span class="attention-label">visitors</span>
+                <span class="attention-meta">{{ data.visitors.results }} answers · at most {{ data.visitors.max }} · kept {{ data.visitors.keep_days }} days</span>
+            } @else {
+                <span class="attention-value">–</span>
+                <span class="attention-label">visitors</span>
+                <span class="attention-meta">once migration users/045 is applied</span>
+            }
+        </div>
+
         @for (language of translationCoverage(); track language.code) {
             <a class="attention-card is-quiet" routerLink="/admin/translations">
                 <span class="attention-value">{{ language.percent }}%</span>

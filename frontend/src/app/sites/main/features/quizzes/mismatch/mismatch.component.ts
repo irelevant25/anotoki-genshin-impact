@@ -1,5 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { HELPER } from '../../../../../shared/helper';
 import { StateService } from '../../../../../shared/state-manager.service';
@@ -60,17 +60,49 @@ export class QuizzesMismatchComponent {
   readonly choicesAmount = computed(() => this._stateService.getQuizLevel(this._quizId, this.difficulty()).choicesAmount ?? 4);
   readonly isSuccess = computed(() => !!this.picked() && this.picked()?.name === this.quizSet()?.answer?.name);
 
+  /**
+   * Whose game this page is playing - QuizProgressService's ticket, handed
+   * back with every save and result; see CharacterQuizComponent.
+   */
+  private _ticket = 0;
+  private _loads = 0;
+
   constructor() {
     this._activatedRoute.data.subscribe((data) => this.isDaily.set(!!data['daily']));
     this.difficulty.set(this._stateService.getDifficulty());
+    this._fetchAndRestore();
 
-    forkJoin({ characters: this._characterApi.getCharactersMinimal(), progress: this._progress.ready() }).subscribe({
+    // The owner changed under the page (a session that ended, a sign-in or a
+    // visitor made in another tab): load again for the new one.
+    let seen: number | null = null;
+    effect(() => {
+      const restarts = this._progress.restarts();
+      untracked(() => {
+        const first = seen === null;
+        seen = restarts;
+        if (!first) {
+          this._fetchAndRestore();
+        }
+      });
+    });
+  }
+
+  private _fetchAndRestore(): void {
+    const run = ++this._loads;
+    const known = this.characters();
+    this.loading.set(true);
+
+    forkJoin({ characters: known.length ? of(known) : this._characterApi.getCharactersMinimal(), progress: this._progress.ready() }).subscribe({
       next: ({ characters }) => {
+        if (run !== this._loads) {
+          return;
+        }
         // Travellers are excluded here for the same reason as in the search
         // box: twelve rows carrying two names, and one of them is Anemo, Geo,
         // Electro, Dendro, Hydro and Pyro at once, which makes "the odd one
         // out" meaningless.
         this.characters.set(characters.filter((character) => !character.is_traveler));
+        this._ticket = this._progress.ticket();
         this._restoreOrStart();
         this.loading.set(false);
       },
@@ -86,7 +118,7 @@ export class QuizzesMismatchComponent {
     this.isQuestionComplete.set(true);
     // One click is the whole question here, so the result is settled the moment
     // it lands. Mismatch has no tries, so a single attempt is recorded.
-    this._progress.recordResult(this._quizId, this.quizSet()?.answer?.id, this.isSuccess(), 1, this.difficulty());
+    this._progress.recordResult(this._quizId, this.quizSet()?.answer?.id, this.isSuccess(), 1, this.difficulty(), this._ticket);
     this._saveState();
   }
 
@@ -204,6 +236,6 @@ export class QuizzesMismatchComponent {
       quizProperty: set?.property,
       commonValue: set?.commonValue,
     };
-    this._progress.save(this._quizId, state, this.isDaily());
+    this._progress.save(this._quizId, state, this.isDaily(), this._ticket);
   }
 }

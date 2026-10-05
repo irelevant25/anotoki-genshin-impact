@@ -34,11 +34,9 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 function routeGate(): callable
 {
     return function (Request $request, RequestHandler $handler): Response {
-        if ($request->getMethod() === 'OPTIONS') {
-            return $handler->handle($request);
-        }
-
-        $path = $request->getUri()->getPath();
+        // Decoded, as the router reads it: the page table's endpoints are plain
+        // text, and `/api/%63haracters` is the same route as `/api/characters`.
+        $path = gatePath($request);
 
         // Nothing outside the API is served through this middleware stack, but
         // the check is cheap and it keeps the gate honest about its own scope.

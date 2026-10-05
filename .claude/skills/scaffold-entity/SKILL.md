@@ -117,6 +117,6 @@ main routing.
 
 Stage every file you touched, by path — migration, model, endpoint, `index.php`,
 `asset_columns.php`, `api-spec.json`, the regenerated `src/app/api/**`,
-`api-config.mjs`, and the Angular pages. Never `git add -A`; leave
-`formats-converters/`, `local/`, `old/` and the maintainer's own edits alone.
+`api-config.mjs`, and the Angular pages. Never `git add -A`; leave the
+maintainer's own edits alone.
 Commit only when asked.

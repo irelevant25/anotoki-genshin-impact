@@ -16,10 +16,13 @@ declare(strict_types=1);
  *                              (a jwt.local.php from before the IAM is carried
  *                              over instead, so the hashes made with it stay valid)
  *   config/iam.local.php       the IAM's address and this site's client id there
- *   config/app.local.php       this site's own address, and any other origin
- *                              allowed to call the API from a browser
  *   config/backup.local.php    pg_dump paths - on hosting only, when the client
- *                              tools are unpacked under ~/pgclient
+ *                              tools are unpacked under ~/pgclient (the hosting
+ *                              account's home, found by itself)
+ *
+ * It asks for the database, the IAM and - on a host - the setup token, and
+ * nothing else. This site's address, which the IAM test checks the callback
+ * of, is read from the request this page was opened with.
  *
  * It builds the database first - creates it where the database user may, then
  * applies every pending migration of both folders (migrations/users/, the
@@ -87,13 +90,13 @@ const SETUP_DEFAULTS = [
     'db_host' => '127.0.0.1',
     'db_port' => '5432',
     'db_user' => 'postgres',
-    'db_name' => 'genshin_impact',
+    'db_name' => 'anotoki_genshin',
     'iam_issuer' => 'http://localhost:4300',
     'iam_client_id' => 'genshin',
-    'site_url' => 'http://localhost:4200',
-    'cors_origins' => '',
-    'backup_home' => '',
 ];
+
+/** Where the pages are on this computer: ng serve's port (DEV.md's port table). */
+const SETUP_DEV_SITE = 'http://localhost:4200';
 
 // ── Where this is running ─────────────────────────────────────────────────────
 
@@ -112,6 +115,41 @@ function setupOnThisComputer(): bool
     $host = preg_replace('/:\d+$/', '', strtolower((string) ($_SERVER['HTTP_HOST'] ?? '')));
 
     return PHP_SAPI === 'cli-server' && setupIsLoopbackHost($remote) && setupIsLoopbackHost((string) $host);
+}
+
+/**
+ * This site's address - read from the request, not asked for. The IAM test
+ * checks its /auth/callback, and the closing notes name it.
+ *
+ * On this computer the pages are ng serve's, whichever port this page was
+ * opened on (the backend's 8000, or 4200 through its proxy). On a host the web
+ * root that serves this page serves the pages too, so it is this request's
+ * own address. The host's proxy usually ends TLS before PHP, which then sees
+ * plain http: X-Forwarded-Proto and its relatives say what the browser used.
+ * They are only believed for this - a test and a sentence, behind the setup
+ * token - never for anything written. Null when the Host header is not a host.
+ */
+function setupSiteAddress(bool $onThisComputer): ?string
+{
+    if ($onThisComputer) {
+        return SETUP_DEV_SITE;
+    }
+
+    $host = strtolower(trim((string) ($_SERVER['HTTP_HOST'] ?? '')));
+    if (!preg_match('/^[a-z0-9.\-]+(:\d{1,5})?$/', $host)) {
+        return null;
+    }
+
+    $forwarded = strtolower(trim(explode(',', (string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''))[0]));
+    $https = (($_SERVER['HTTPS'] ?? '') !== '' && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+        || $forwarded === 'https'
+        || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '')) === 'on'
+        || strtolower((string) ($_SERVER['REQUEST_SCHEME'] ?? '')) === 'https'
+        || (string) ($_SERVER['SERVER_PORT'] ?? '') === '443';
+
+    return $https
+        ? localConfigOrigin('https://' . preg_replace('/:443$/', '', $host))
+        : localConfigOrigin('http://' . preg_replace('/:80$/', '', $host));
 }
 
 $onThisComputer = setupOnThisComputer();
@@ -164,9 +202,8 @@ function render(string $heading, string $bodyHtml, string $tone = 'plain'): neve
         . 'h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:26px 0 2px}'
         . 'p{margin:.5rem 0;color:var(--muted)}label{display:block;margin:12px 0 5px;font-weight:600;font-size:.9rem}'
         . '.row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1 1 200px;min-width:0}'
-        . 'input,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--ink);font:inherit}'
-        . 'textarea{min-height:64px;resize:vertical}'
-        . 'input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}'
+        . 'input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--ink);font:inherit}'
+        . 'input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}'
         . 'button{margin-top:22px;width:100%;padding:11px;border:0;border-radius:9px;background:var(--accent);color:#fff;font:600 1rem system-ui;cursor:pointer}'
         . 'button:hover{filter:brightness(1.06)}button:disabled{opacity:.6;cursor:progress}'
         . 'button.test{width:auto;margin-top:12px;padding:7px 14px;font-size:.9rem;background:transparent;color:var(--ink);border:1px solid var(--line)}'
@@ -267,16 +304,44 @@ function setupToken(): ?string
 }
 
 /**
+ * The hosting account's home - the one holding pgclient/, where
+ * docs/PG-DUMP-INSTALL.md unpacks the PostgreSQL client tools - or null when
+ * none does. Found rather than asked for: HOME when PHP has it, the account's
+ * own entry, and every folder above this one (the web root is somewhere under
+ * the home). A folder open_basedir keeps PHP out of is simply not it.
+ */
+function setupBackupHome(): ?string
+{
+    $candidates = [(string) (getenv('HOME') ?: ''), (string) ($_SERVER['HOME'] ?? '')];
+    if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
+        $account = @posix_getpwuid(posix_geteuid());
+        $candidates[] = is_array($account) ? (string) ($account['dir'] ?? '') : '';
+    }
+    for ($dir = __DIR__; dirname($dir) !== $dir; $dir = dirname($dir)) {
+        $candidates[] = $dir;
+    }
+
+    foreach ($candidates as $home) {
+        $home = rtrim(str_replace('\\', '/', trim($home)), '/');
+        if ($home !== '' && @is_dir($home . '/pgclient')) {
+            return $home;
+        }
+    }
+
+    return null;
+}
+
+/**
  * The pg_dump / pg_restore / library paths for a home-directory install of the
- * PostgreSQL client tools (see PG-DUMP-INSTALL.md), or null if pg_dump is not
+ * PostgreSQL client tools (see docs/PG-DUMP-INSTALL.md), or null if pg_dump is not
  * there. On shared hosting they are unpacked under ~/pgclient rather than
  * installed system-wide.
  *
  * The major version and the CPU-architecture folder names vary by host, so they
- * are discovered from what is actually on disk rather than assumed - the operator
- * only has to give the home directory (`echo $HOME` over SSH). backup.local.php
- * also needs ld_library_path so the binary can find its own bundled libraries,
- * which is the whole reason this cannot be left to PATH detection.
+ * are discovered from what is actually on disk rather than assumed.
+ * backup.local.php also needs ld_library_path so the binary can find its own
+ * bundled libraries, which is the whole reason this cannot be left to PATH
+ * detection.
  */
 function setupBackupPaths(string $home): ?array
 {
@@ -332,98 +397,71 @@ function setupPdoMessage(\Throwable $e): string
 }
 
 /**
- * How far a reachable database is, for the test button - reading only, so the
- * test changes nothing (recordedMigrations() understands the table from before
- * the two folders shared it, too). Not ok when saving would be refused: the
- * content half of a site that still has two databases.
+ * How far a database that answers is, in the family's words (every anotoki
+ * setup page says these the same way) - reading only, so the test changes
+ * nothing (recordedMigrations() understands the table from before the two
+ * folders shared it, too). Not ok when saving would be refused: the content
+ * half of a site that still has two databases.
  *
  * @return array{0: bool, 1: string}
  */
-function setupMigrationState(PDO $pdo): array
+function setupMigrationState(PDO $pdo, string $name): array
 {
     $recorded = recordedMigrations($pdo);
     $refusal = migrationsOrderRefusal($recorded);
     if ($refusal !== null) {
-        return [false, $refusal];
+        return [false, "Connected to the database \"{$name}\", but Save would refuse it: {$refusal}"];
     }
 
-    $total = 0;
+    $tables = (int) $pdo->query(
+        "SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_type = 'BASE TABLE'"
+    )->fetchColumn();
     $pending = 0;
     foreach (MIGRATION_FOLDERS as $folder) {
-        $files = migrationFiles($folder);
-        $total += count($files);
-        $pending += count(array_diff($files, $recorded[$folder]));
+        $pending += count(array_diff(migrationFiles($folder), $recorded[$folder]));
     }
 
-    if ($pending === $total) {
-        return [true, 'there, and empty - saving applies all ' . $total . ' migrations.'];
-    }
-
-    return [true, $pending === 0
-        ? 'there and up to date (' . $total . ' migrations).'
-        : "there - saving applies the {$pending} migration" . ($pending === 1 ? '' : 's') . ' not run yet.'];
+    return [true, "Connected to the database \"{$name}\": " . ($tables === 0
+        ? 'it is empty - Save makes the tables.'
+        : ($pending > 0 ? "{$pending} update(s) to apply - Save applies them." : 'it is up to date.'))];
 }
 
 /**
- * The connection, and how far the database is - the first line is the verdict
- * the page colours.
+ * The database first; when it will not open, the server's maintenance
+ * database says whether it is missing, and whether this user may make it. One
+ * line, the verdict the page colours.
  *
  * @return array{ok: bool, lines: string[]}
  */
 function setupTestDatabase(array $db): array
 {
-    $where = "{$db['host']}:{$db['port']} as {$db['username']}";
     $name = $db['database'];
-    $server = null;
-    $serverError = '';
-    $mayCreate = false;
-
-    // The server first, through its maintenance database: it is what says
-    // whether the database exists and whether this user may make it. Shared
-    // hosting often refuses it; the database itself is then the test.
-    try {
-        $server = setupConnect($db, 'postgres');
-        $version = (string) $server->query('SHOW server_version')->fetchColumn();
-        $mayCreate = (int) $server->query(
-            'SELECT CASE WHEN rolcreatedb OR rolsuper THEN 1 ELSE 0 END FROM pg_roles WHERE rolname = current_user'
-        )->fetchColumn() === 1;
-    } catch (\Throwable $e) {
-        $serverError = setupPdoMessage($e);
-    }
 
     try {
-        [$ready, $state] = setupMigrationState(setupConnect($db, $name));
+        [$ok, $line] = setupMigrationState(setupConnect($db, $name), $name);
 
-        return ['ok' => $ready, 'lines' => [
-            isset($version) ? "Connected to PostgreSQL {$version} at {$where}." : "Connected to {$where}.",
-            "{$name}: {$state}",
-        ]];
+        return ['ok' => $ok, 'lines' => [$line]];
     } catch (\Throwable $e) {
         $reason = setupPdoMessage($e);
     }
 
-    if ($server === null) {
-        // Nothing answered at all: one reason, not the same one twice.
-        return ['ok' => false, 'lines' => ["Could not reach PostgreSQL at {$where}: {$serverError}"]];
+    try {
+        $server = setupConnect($db, 'postgres');
+        $query = $server->prepare('SELECT 1 FROM pg_catalog.pg_database WHERE datname = ?');
+        $query->execute([$name]);
+        if ($query->fetchColumn()) {
+            return ['ok' => false, 'lines' => ["The server is there, but \"{$db['username']}\" cannot open the database \"{$name}\": {$reason}"]];
+        }
+        $mayCreate = (bool) $server->query('SELECT rolcreatedb OR rolsuper FROM pg_roles WHERE rolname = current_user')->fetchColumn();
+    } catch (\Throwable $e) {
+        // Nothing answered at all, or the host refuses the maintenance
+        // database: the first reason is the one worth reading.
+        return ['ok' => false, 'lines' => ["Cannot connect: {$reason}"]];
     }
 
-    $query = $server->prepare('SELECT 1 FROM pg_catalog.pg_database WHERE datname = ?');
-    $query->execute([$name]);
-    $exists = (bool) $query->fetchColumn();
-
-    if (!$exists && $mayCreate) {
-        return ['ok' => true, 'lines' => [
-            isset($version) ? "Connected to PostgreSQL {$version} at {$where}." : "Connected to {$where}.",
-            "{$name}: not there yet - saving creates it and applies every migration.",
-        ]];
-    }
-
-    return ['ok' => false, 'lines' => [
-        "Connected to {$where}, but the database is not ready yet:",
-        $exists
-            ? "{$name}: could not connect - {$reason}"
-            : "{$name}: not there, and {$db['username']} may not create databases - create it in the hosting panel first.",
-    ]];
+    return $mayCreate
+        ? ['ok' => true, 'lines' => ["Connected to the server. The database \"{$name}\" does not exist yet - Save creates it."]]
+        : ['ok' => false, 'lines' => ["Connected to the server, but there is no database \"{$name}\" and this user may not create one. Make it in the hosting panel first."]];
 }
 
 /**
@@ -555,43 +593,34 @@ function setupTestIam(string $issuer, string $clientId, string $siteUrl): array
     $discoveryUrl = $issuer . '/.well-known/openid-configuration';
     $discovery = setupHttpGet($discoveryUrl);
 
+    // The first three answers, and the keys', are the family's words: every
+    // anotoki setup page tests its IAM the same way.
     if ($discovery['status'] === 0) {
-        return ['ok' => false, 'lines' => [
-            "Could not reach the IAM at {$issuer}: " . ($discovery['error'] ?: 'no answer'),
-            'In development its servers have to be running - the API on 8100 and its pages on 4300, which serve the issuer\'s addresses.',
-        ]];
+        return ['ok' => false, 'lines' => ["No answer from {$discoveryUrl}. Is the IAM running, and is the address right?"]];
     }
 
     $document = json_decode($discovery['body'], true);
-    if ($discovery['status'] !== 200 || !is_array($document)) {
-        return ['ok' => false, 'lines' => [
-            "{$discoveryUrl} answered {$discovery['status']}" . (is_array($document) ? '' : ', and not with JSON') . ' - is this the IAM\'s address?',
-        ]];
+    if ($discovery['status'] !== 200 || !is_array($document) || !isset($document['issuer'])) {
+        return ['ok' => false, 'lines' => ['That address answers, but not like an IAM (no OpenID Connect discovery document).']];
     }
 
-    $said = (string) ($document['issuer'] ?? '');
+    $said = (string) $document['issuer'];
     if ($said !== $issuer) {
-        return ['ok' => false, 'lines' => [
-            "The IAM calls itself {$said}, not {$issuer}. Use its own spelling: every token is checked against it character for character.",
-        ]];
+        // Every token is checked against it character for character.
+        return ['ok' => false, 'lines' => ["The IAM there calls itself {$said} - use exactly that address."]];
     }
 
-    $lines = ["The IAM answered at {$issuer}."];
+    $lines = [];
     $ok = true;
 
     $jwksUri = $document['jwks_uri'] ?? null;
-    if (!setupSameOrigin($jwksUri, $issuer)) {
-        $ok = false;
-        $lines[] = 'Its discovery document names no key set on its own address, so no token could be checked.';
+    $keys = setupSameOrigin($jwksUri, $issuer) ? json_decode(setupHttpGet((string) $jwksUri)['body'], true) : null;
+    $usable = array_filter((array) ($keys['keys'] ?? []), fn($key) => is_array($key) && ($key['kty'] ?? '') === 'RSA');
+    if ($usable) {
+        $lines[] = "Found the IAM at {$issuer} with " . count($usable) . ' signing key' . (count($usable) === 1 ? '' : 's') . '.';
     } else {
-        $keys = json_decode(setupHttpGet((string) $jwksUri)['body'], true);
-        $usable = array_filter((array) ($keys['keys'] ?? []), fn($key) => is_array($key) && ($key['kty'] ?? '') === 'RSA');
-        if ($usable) {
-            $lines[] = 'Its key set has ' . count($usable) . ' signing key' . (count($usable) === 1 ? '' : 's') . ' - the ones this API checks tokens with.';
-        } else {
-            $ok = false;
-            $lines[] = "Its key set at {$jwksUri} could not be read, so no token could be checked.";
-        }
+        $ok = false;
+        $lines[] = 'The IAM answers, but its signing keys (' . (is_string($jwksUri) ? $jwksUri : 'none named') . ') do not.';
     }
 
     $authorize = $document['authorization_endpoint'] ?? null;
@@ -714,11 +743,10 @@ if ($posted) {
 // Current values are shown on this computer only. On the hosting the page is
 // public until it deletes itself, and a database host and user are nobody
 // else's business.
-$saved = ['database' => null, 'iam' => null, 'app' => null];
+$saved = ['database' => null, 'iam' => null];
 if ($onThisComputer) {
     $saved['database'] = is_array(localConfig('database')) ? localConfig('database') : null;
     $saved['iam'] = is_array(localConfig('iam')) ? localConfig('iam') : null;
-    $saved['app'] = is_array(localConfig('app')) ? localConfig('app') : null;
 }
 $savedPassword = isset($saved['database']['password']) ? (string) $saved['database']['password'] : null;
 
@@ -746,10 +774,6 @@ if ($saved['iam'] !== null) {
     $old['iam_issuer'] = (string) ($saved['iam']['issuer'] ?? $old['iam_issuer']);
     $old['iam_client_id'] = (string) ($saved['iam']['client_id'] ?? $old['iam_client_id']);
 }
-if ($saved['app'] !== null) {
-    $old['site_url'] = (string) ($saved['app']['url'] ?? $old['site_url']);
-    $old['cors_origins'] = implode("\n", array_map('strval', (array) ($saved['app']['cors_origins'] ?? [])));
-}
 
 // ── Reading the form ──────────────────────────────────────────────────────────
 
@@ -769,7 +793,7 @@ function setupAddress(string $value, bool $onThisComputer): ?string
     if (str_starts_with($origin, 'http://') && !setupIsLoopbackHost($host)) {
         // The keys every token is checked against are fetched from the IAM;
         // over plain http anybody on the way could hand this site keys of
-        // their own. The same holds for an origin trusted with CORS.
+        // their own.
         return null;
     }
 
@@ -780,7 +804,7 @@ function setupAddress(string $value, bool $onThisComputer): ?string
  * The form as settings, and what is wrong with it - by section, so each test
  * button can answer for its own part without the rest being filled in right.
  *
- * @return array{0: array, 1: array{database: string[], iam: string[], site: string[]}}
+ * @return array{0: array, 1: array{database: string[], iam: string[]}}
  */
 function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword): array
 {
@@ -788,7 +812,7 @@ function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword
         $old[$key] = trim((string) ($_POST[$key] ?? $old[$key]));
     }
 
-    $errors = ['database' => [], 'iam' => [], 'site' => []];
+    $errors = ['database' => [], 'iam' => []];
 
     // Nothing that could end one DSN parameter and start another: no ; or =.
     if (!preg_match('~^[A-Za-z0-9._\-:/\[\]]+$~', $old['db_host'])) {
@@ -814,23 +838,6 @@ function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword
         $errors['iam'][] = 'The client id is the name this site is registered under in the IAM, like genshin.';
     }
 
-    $siteUrl = setupAddress($old['site_url'], $onThisComputer);
-    if ($siteUrl === null) {
-        $errors['site'][] = $onThisComputer
-            ? 'This site\'s address is a scheme and a host only, like http://localhost:4200.'
-            : 'This site\'s address is https and a host only, like https://genshin.anotoki.eu.';
-    }
-
-    $origins = [];
-    foreach (preg_split('/[\s,]+/', $old['cors_origins'], -1, PREG_SPLIT_NO_EMPTY) ?: [] as $line) {
-        $origin = setupAddress($line, $onThisComputer);
-        if ($origin === null) {
-            $errors['site'][] = 'Each other origin is a scheme and a host, like https://example.com - ' . $line . ' is not one.';
-        } elseif ($origin !== $siteUrl) {
-            $origins[] = $origin;
-        }
-    }
-
     $password = (string) ($_POST['db_pass'] ?? '');
     if ($password === '' && $savedPassword !== null) {
         $password = $savedPassword;
@@ -847,10 +854,10 @@ function setupReadForm(array &$old, bool $onThisComputer, ?string $savedPassword
         ],
         'issuer' => (string) $issuer,
         'client_id' => $old['iam_client_id'],
-        'site_url' => (string) $siteUrl,
-        'cors_origins' => array_values(array_unique($origins)),
     ], $errors];
 }
+
+$siteUrl = setupSiteAddress($onThisComputer);
 
 // ── Test buttons ──────────────────────────────────────────────────────────────
 
@@ -861,9 +868,12 @@ if ($testing) {
         setupJson($errors['database'] ? ['ok' => false, 'lines' => $errors['database']] : setupTestDatabase($settings['db']));
     }
 
-    // The IAM is checked against this site's callback too, so both parts count.
-    $iamErrors = [...$errors['iam'], ...$errors['site']];
-    setupJson($iamErrors ? ['ok' => false, 'lines' => $iamErrors] : setupTestIam($settings['issuer'], $settings['client_id'], $settings['site_url']));
+    // The IAM is checked against this site's callback too, so that has to be known.
+    $iamErrors = $errors['iam'];
+    if ($siteUrl === null) {
+        $iamErrors[] = 'This page\'s address does not say where the site is: open it at the site\'s own address.';
+    }
+    setupJson($iamErrors ? ['ok' => false, 'lines' => $iamErrors] : setupTestIam($settings['issuer'], $settings['client_id'], $siteUrl));
 }
 
 // ── Saving ────────────────────────────────────────────────────────────────────
@@ -879,7 +889,7 @@ if ($posted && $action === 'install') {
     }
 
     [$settings, $formErrors] = setupReadForm($old, $onThisComputer, $savedPassword);
-    $errors = [...$errors, ...$formErrors['database'], ...$formErrors['iam'], ...$formErrors['site']];
+    $errors = [...$errors, ...$formErrors['database'], ...$formErrors['iam']];
 
     if (!$errors) {
         // A file that is already there keeps any key the form does not manage:
@@ -912,38 +922,37 @@ if ($posted && $action === 'install') {
                 $written[] = 'config/iam.local.php';
             }
 
-            $app = array_replace($saved['app'] ?? [], ['url' => $settings['site_url'], 'cors_origins' => $settings['cors_origins']]);
-            if (writeSecretFile(localConfigPath('app'), setupPhpFile($app))) {
-                $written[] = 'config/app.local.php';
-            }
-
-            // Backups are optional, and a hosting matter: written when a home
-            // directory was given and the client tools really are under ~/pgclient.
+            // Backups are a hosting matter: written when the client tools are
+            // under ~/pgclient in the hosting account's home, which is found
+            // rather than asked for. Without them the Backups page still uses
+            // a pg_dump on the server's PATH, if it has one.
             $backupNote = '';
-            if (!$onThisComputer && $old['backup_home'] !== '') {
-                $backupPaths = setupBackupPaths($old['backup_home']);
+            if (!$onThisComputer) {
+                $backupHome = setupBackupHome();
+                $backupPaths = $backupHome !== null ? setupBackupPaths($backupHome) : null;
                 if ($backupPaths) {
                     if (writeSecretFile(localConfigPath('backup'), setupPhpFile($backupPaths))) {
                         $written[] = 'config/backup.local.php';
                     }
                 } else {
-                    $backupNote = '<div class="note">No <code>pg_dump</code> was found under <code>'
-                        . h(rtrim(str_replace('\\', '/', $old['backup_home']), '/')) . '/pgclient</code>,'
-                        . ' so <code>config/backup.local.php</code> was not written. Install the PostgreSQL'
-                        . ' client tools there (see <code>PG-DUMP-INSTALL.md</code>) and create that file to enable backups.</div>';
+                    $backupNote = '<div class="note">No <code>pg_dump</code> was found under <code>~/pgclient</code> in'
+                        . ' this hosting account\'s home, so <code>config/backup.local.php</code> was not written: backups'
+                        . ' use a <code>pg_dump</code> on the server\'s PATH if there is one. To back up from the site, unpack the'
+                        . ' PostgreSQL client tools there (see <code>docs/PG-DUMP-INSTALL.md</code> in the repository) and'
+                        . ' create that file, as the comment in <code>config/backup.php</code> shows.</div>';
                 }
             }
 
             $steps = '<ul>' . implode('', array_map(fn($l) => '<li>' . h($l) . '</li>', $log)) . '</ul>';
             $wrote = $written ? '<p>Wrote ' . implode(', ', array_map(fn($f) => '<code>' . h($f) . '</code>', $written)) . '.</p>' : '';
             $signIn = '<p>Signing in happens at the IAM, <code>' . h($settings['issuer']) . '</code>, which needs <code>'
-                . h($settings['site_url']) . '/auth/callback</code> registered for the client <code>' . h($settings['client_id'])
+                . h($siteUrl ?? 'https://<this site>') . '/auth/callback</code> registered for the client <code>' . h($settings['client_id'])
                 . '</code> - the form\'s IAM test says whether it is. Admin pages want an account holding this site\'s ADMIN or EDITOR role there.</p>';
 
             if ($onThisComputer) {
                 render('Saved', $steps . $wrote . $signIn
                     . '<p>The API on this server answers normally now. Start the pages with <code>npm start</code> in'
-                    . ' <code>frontend/</code> and open <a href="' . h($settings['site_url']) . '">' . h($settings['site_url']) . '</a>.</p>'
+                    . ' <code>frontend/</code> and open <a href="' . h(SETUP_DEV_SITE) . '">' . h(SETUP_DEV_SITE) . '</a>.</p>'
                     . '<p class="muted">This page stays here: open <a href="setup.php">setup.php</a> again to change any of it.</p>', 'good');
             }
 
@@ -1024,20 +1033,9 @@ render(
     . '<div class="row"><div>' . $field('iam_issuer', 'IAM address', 'text', 'required')
     . '</div><div>' . $field('iam_client_id', 'Client id', 'text', 'required') . '</div></div>'
     . '<p class="muted">Where people sign in - the anotoki IAM - and the name this site is registered under there.'
-    . ' The IAM\'s admin console lists both under Applications.</p>'
+    . ' The IAM\'s admin console lists both under Applications. The test also checks that the IAM sends people back to'
+    . ' <code>' . h($siteUrl ?? 'this site') . '/auth/callback</code>.</p>'
     . $testButton('test_iam')
-    . '<h2>This site</h2>'
-    . $field('site_url', 'Address', 'text', 'required')
-    . '<p class="muted">Where the pages are served from - the API answers browsers calling from it, and the IAM'
-    . ' sends people back to its <code>/auth/callback</code>.</p>'
-    . '<label for="cors_origins">Other origins allowed to call the API (optional)</label>'
-    . '<textarea id="cors_origins" name="cors_origins" placeholder="one per line - usually none">' . h($old['cors_origins']) . '</textarea>'
-    . ($onThisComputer ? '' : '<h2>Backups (optional)</h2>'
-        . $field('backup_home', 'Server home directory', 'text', 'placeholder="/home/you"')
-        . '<p class="muted">For on-server database backups. Run <code>echo $HOME</code> over SSH/console and paste it'
-        . ' here, after unpacking the PostgreSQL client tools under <code>~/pgclient</code> (see'
-        . ' <code>PG-DUMP-INSTALL.md</code>). The installer finds <code>pg_dump</code>, its version and its library'
-        . ' folder there and writes <code>config/backup.local.php</code>. Leave blank to skip - you can add that file later.</p>')
     . '<button type="submit">' . ($onThisComputer ? 'Save' : 'Run install') . '</button>'
     . '</form>'
 );

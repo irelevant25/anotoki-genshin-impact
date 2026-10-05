@@ -1,0 +1,12 @@
+<aside class="visitor-notice">
+    <span class="visitor-notice-mark icon icon-info" aria-hidden="true"></span>
+    <p class="visitor-notice-text">{{ 'visitor.notice' | translate: { days: keepDays() } }}</p>
+    <app-button
+        class="visitor-notice-action"
+        [text]="'common.signIn' | translate"
+        variant="primary"
+        size="small"
+        [disabled]="!available()"
+        (buttonClick)="signIn()"
+    ></app-button>
+</aside>

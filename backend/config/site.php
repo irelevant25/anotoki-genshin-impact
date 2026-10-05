@@ -15,8 +15,7 @@
 //
 // To override per deployment, create config/site.local.php returning the code:
 //   <?php return 'star_rail';
-// site.local.php is gitignored, like the other .local.php files. Where the site
-// is - its address - is config/app.php's.
+// site.local.php is gitignored, like the other .local.php files.
 // ---------------------------------------------------------------------------
 
 function currentSite(): string

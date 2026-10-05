@@ -13,21 +13,24 @@
 //                        already made with it)
 //   iam.local.php        where people sign in - the IAM's address - and this
 //                        site's client id there
-//   app.local.php        this site's own address, and any other origin allowed
-//                        to call the API from a browser
 //
-// Optional: backup.local.php (the pg_dump paths for the Backups page), and
-// site.local.php (which site of the family this is, when not genshin_impact).
+// Optional: backup.local.php (the pg_dump paths for the Backups page),
+// site.local.php (which site of the family this is, when not genshin_impact),
+// and visitors.local.php (the limits on playing without signing in, and the
+// proxies trusted to name a visitor's address - config/visitors.php; setup.php
+// never writes it, and its defaults hold without it).
+// An app.local.php from before (this site's address, which the API once
+// answered cross-origin calls from) is no longer read.
 //
 // Nothing committed stands in for any of them. A default is how a development
-// value ends up serving production - the CORS allowlist used to name a domain
-// nobody had set - so a checkout without these files is not running on
+// value ends up serving production - an allowlist of origins once named a
+// domain nobody had set - so a checkout without these files is not running on
 // defaults: it is not set up, and says so. Every API request is answered 503
 // {"code": "not_set_up"}, pointing at /setup.php, until they are all there.
 // ---------------------------------------------------------------------------
 
 /** The files the API cannot run without, by their name before `.local.php`. */
-const LOCAL_CONFIG_REQUIRED = ['database', 'secret', 'iam', 'app'];
+const LOCAL_CONFIG_REQUIRED = ['database', 'secret', 'iam'];
 
 /** Where setup.php is, from the API's own origin. */
 const SETUP_PATH = '/setup.php';
@@ -112,8 +115,8 @@ function localSecret(): ?string
  * `scheme://host[:port]` of an address, lower-cased, or null when it is not an
  * http(s) address with nothing after the host.
  *
- * This is the one spelling of an address the rest compares with: an origin is
- * exactly this, and the IAM's issuer is compared character for character.
+ * This is the one spelling of an address the rest compares with: the IAM's
+ * issuer is compared character for character.
  */
 function localConfigOrigin(mixed $address): ?string
 {
@@ -172,13 +175,6 @@ function localConfigProblems(): array
         $problems[] = 'config/iam.local.php is missing: where people sign in.';
     } elseif (localConfigOrigin($iam['issuer'] ?? null) === null || trim((string) ($iam['client_id'] ?? '')) === '') {
         $problems[] = 'config/iam.local.php does not give the IAM\'s address and this site\'s client id there.';
-    }
-
-    $app = localConfig('app');
-    if (!is_array($app)) {
-        $problems[] = 'config/app.local.php is missing: this site\'s own address.';
-    } elseif (localConfigOrigin($app['url'] ?? null) === null) {
-        $problems[] = 'config/app.local.php does not give this site\'s address, like http://localhost:4200.';
     }
 
     return $problems;

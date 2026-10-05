@@ -254,6 +254,30 @@ class DashboardStats extends ResponseShape
         public readonly object $translations,
         /** @var DashboardAssets */
         public readonly object $assets,
+        /** @var DashboardVisitors */
+        public readonly object $visitors,
+    ) {
+    }
+}
+
+/**
+ * People playing without signing in (api/visitors.php): how many the server
+ * keeps now, against the ceiling past which it turns new ones away - the
+ * figure to watch, since nothing else on the site shows it.
+ */
+class DashboardVisitors extends ResponseShape
+{
+    public function __construct(
+        /** False while migration users/045 waits: nobody is kept as a visitor yet, and the counts are 0. */
+        public readonly bool $available,
+        /** Visitors the server keeps now. */
+        public readonly int $count,
+        /** Questions they answered, in the quiz history. */
+        public readonly int $results,
+        /** The ceiling (`max_visitors`): past it, new visitors are refused - those already there keep playing. */
+        public readonly int $max,
+        /** Days a visitor is kept after their last visit (`keep_days`). */
+        public readonly int $keep_days,
     ) {
     }
 }

@@ -14,8 +14,8 @@ require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/iam.php';
 require_once __DIR__ . '/../config/secret.php';
 require_once __DIR__ . '/../config/site.php';
-require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../config/backup.php';
+require_once __DIR__ . '/../config/visitors.php';
 require_once __DIR__ . '/helpers.php';
 
 // Before anything else runs: without its config/*.local.php files this
@@ -42,6 +42,12 @@ require_once __DIR__ . '/asset_cleanup.php';
 require_once __DIR__ . '/full_resource.php';
 require_once __DIR__ . '/anotoki_iam.php';
 require_once __DIR__ . '/site_user.php';
+// Visitors - playing without signing in, while the IAM does not require it:
+// the address the limits count, the work done after the answer (the sweep),
+// and the one file that makes, finds, locks and sweeps a visitor.
+require_once __DIR__ . '/client_address.php';
+require_once __DIR__ . '/after_response.php';
+require_once __DIR__ . '/visitors.php';
 require_once __DIR__ . '/site_settings.php';
 require_once __DIR__ . '/site_routes.php';
 require_once __DIR__ . '/migration_runner.php';
@@ -55,6 +61,7 @@ $app->addBodyParsingMiddleware();
 require_once __DIR__ . '/meddleware/validation.php';
 require_once __DIR__ . '/meddleware/auth.php';
 require_once __DIR__ . '/meddleware/maintenance.php';
+require_once __DIR__ . '/meddleware/sign_in.php';
 require_once __DIR__ . '/meddleware/route_gate.php';
 
 ///////////////////
@@ -70,6 +77,7 @@ require_once __DIR__ . '/routes/users/responses/me.php';
 require_once __DIR__ . '/routes/users/responses/backup.php';
 require_once __DIR__ . '/routes/users/responses/translation.php';
 require_once __DIR__ . '/routes/users/responses/setting.php';
+require_once __DIR__ . '/routes/users/responses/visitor.php';
 
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/me.php';
@@ -78,6 +86,7 @@ require_once __DIR__ . '/routes/users/endpoints/routes.php';
 require_once __DIR__ . '/routes/users/endpoints/languages.php';
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';
+require_once __DIR__ . '/routes/users/endpoints/visitor.php';
 
 ///////////////////
 // GENSHIN IMPACT
@@ -223,10 +232,13 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams_characters.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php';
 
-// Added before the error and CORS middleware, which means it runs inside both:
-// a 503 from here is still a CORS-headed JSON response, and anything it throws
-// is still handled. See meddleware/maintenance.php for what stays open.
+// Added before the error and header middleware, which means they run inside
+// both: a 503 or 401 from here still carries the security headers, and
+// anything they throw is still handled. The last added runs first: the closed
+// sign (maintenance.php), then sign-in required (sign_in.php), then the
+// per-page locks (route_gate.php) - each file says what it leaves open.
 $app->add(routeGate());
+$app->add(signInGate());
 $app->add(maintenanceGate());
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
@@ -251,6 +263,12 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
         $response = $app->getResponseFactory()->createResponse(503);
         $response->getBody()->write(json_encode(['error' => 'This site is not set up yet.', 'code' => 'not_set_up', 'setup' => SETUP_PATH]));
         return $response->withHeader('Content-Type', 'application/json');
+    } elseif ($exception instanceof ApiRefusal) {
+        // An answer the work decided on (helpers.php), not a failure: no PHP
+        // log line, no trace in the error log - the response logger below
+        // records it like any 4xx or 503 a route returns. (The owner routes
+        // answer their own, in requireOwner(), with ownerPrivate()'s headers.)
+        return apiRefusalResponse($exception);
     } elseif ($exception instanceof \PDOException) {
         $sqlState = $exception->getCode();
         // Data errors (22xxx) → 400 Bad Request
@@ -345,31 +363,10 @@ $app->add(function ($request, $handler) {
     return $response;
 });
 
-// CORS, from one allowlist (see corsAllowedOrigins() in helpers.php). The
-// caller's Origin is echoed back only when it is on the list, so the allow
-// header is never a blanket "*" and never a reflected stranger; a caller not on
-// the list simply gets no CORS header and the browser blocks it. Production is
-// same-origin and needs none of this; the development frontend on :4200 does.
-$app->add(function ($request, $handler) {
-    $allowOrigin = corsAllowOrigin($request->getHeaderLine('Origin') ?: null);
-
-    $withCors = function ($response) use ($allowOrigin) {
-        if ($allowOrigin !== null) {
-            $response = $response
-                ->withHeader('Access-Control-Allow-Origin', $allowOrigin)
-                ->withHeader('Vary', 'Origin')
-                ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Http-Method-Override')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        }
-        return $response;
-    };
-
-    if ($request->getMethod() === 'OPTIONS') {
-        return $withCors((new \Slim\Psr7\Response())->withStatus(204));
-    }
-
-    return $withCors($handler->handle($request));
-});
+// No CORS: the pages and the API are one origin everywhere - the web root in
+// production, ng serve's proxy (frontend/proxy.conf.json) in development - and
+// no other site calls this API from a browser. A cross-origin caller gets no
+// CORS header, and its browser keeps the answer from it.
 
 // Baseline security headers on every response. None of these is load-bearing on
 // its own; together they are the cheap layer that turns a small mistake into a
@@ -410,7 +407,9 @@ $app->add(function ($request, $handler) {
 $app->add(new \Slim\Middleware\MethodOverrideMiddleware());
 
 // The API-client generator loads this file purely to read the route table, and
-// must not serve a request while doing it.
+// must not serve a request while doing it. What a request queued for after its
+// answer (the visitors' sweep, after_response.php) runs once the answer is out.
 if (!defined('ANOTOKI_ROUTES_ONLY')) {
     $app->run();
+    afterResponseRun();
 }

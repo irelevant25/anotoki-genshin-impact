@@ -3,22 +3,34 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <div class="profile">
-            @if (user(); as user) {
-                <!-- No role badge. This page is about how somebody plays,
-                     and whether they can also edit the database is not part of
-                     that - it belongs where it means something, which is the
-                     account panel. -->
-                <header class="profile-header">
-                    <h1>{{ user.username }}</h1>
-                    <p class="profile-meta">
-                        @if (user.created_at) {
-                            <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | appDate }}</span>
-                        }
-                        @if (lastPlayed(); as when) {
-                            <span>{{ 'profile.lastPlayed' | translate }} {{ when | appDate: 'datetime' }}</span>
-                        }
-                    </p>
-                </header>
+            @if (user() || visiting()) {
+                @if (user(); as user) {
+                    <!-- No role badge. This page is about how somebody plays,
+                         and whether they can also edit the database is not part of
+                         that - it belongs where it means something, which is the
+                         account panel. -->
+                    <header class="profile-header">
+                        <h1>{{ user.username }}</h1>
+                        <p class="profile-meta">
+                            @if (user.created_at) {
+                                <span>{{ 'profile.memberSince' | translate }} {{ user.created_at | appDate }}</span>
+                            }
+                            @if (lastPlayed(); as when) {
+                                <span>{{ 'profile.lastPlayed' | translate }} {{ when | appDate: 'datetime' }}</span>
+                            }
+                        </p>
+                    </header>
+                } @else {
+                    <!-- A visitor: playing without signing in. Their figures are
+                         kept by the server for this browser; the notice says for
+                         how long, and that signing in keeps them. Always here,
+                         even before the first played question: this is the page
+                         somebody opens to see what is kept of them. -->
+                    <header class="profile-header">
+                        <h1>{{ 'profile.title' | translate }}</h1>
+                    </header>
+                    <app-visitor-notice></app-visitor-notice>
+                }
 
                 <!-- A read that failed is said out loud: the rest of the page is
                      real, and a quietly missing section reads as a zero. -->
@@ -290,7 +302,8 @@
                     </section>
                 }
             } @else {
-                <!-- Signed out. The statistics are a property of an account -
+                <!-- Signed out while nobody plays as a visitor here (the site
+                     requires a sign-in, or the server keeps no visitors yet):
                      there is nothing to show and nothing to fetch. -->
                 <div class="profile-gate">
                     <h1>{{ 'profile.title' | translate }}</h1>

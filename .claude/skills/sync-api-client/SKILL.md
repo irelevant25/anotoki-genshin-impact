@@ -61,7 +61,21 @@ Do not fix it in the generated file. The mechanical rules live in
   by `"METHOD /path"`.
 - **`RESPONSES`** — override the response type where the spec cannot express it.
 - **`BLOBS`** — endpoints that return a file rather than JSON.
-- **`GROUP_DOCS`** — the doc comment for a service group.
+- **`GROUPS`** / **`GROUP_DOCS`** — which service a route belongs to (first prefix that matches;
+  anything unmatched lands in the `lookup` service), and the doc comment for each group. A
+  new area of routes (e.g. `/api/visitor`) gets its own line above `lookup`.
+
+## Owner routes take a context
+
+A route behind `requireOwner(...)` (a player's own games and statistics: the signed-in
+person, or this browser's visitor) or `requireVisitorKey()` (the move at sign-in) is marked
+`owner` / `visitor_key` in the spec (`readHandler()` in `backend/generate-api-spec.php`), and
+`auth` stays true for it (a 401 is possible). Its generated method gains a trailing
+`context?: HttpContext`, passed as `{ context }`: the caller says whom the request is issued
+as, and the interceptor reads that - never whether a token happens to be there. The OpenAPI
+document gives such a route `bearerAuth` or `visitorKey` (or nothing: nobody reads nothing),
+and the reference docs label it "a signed-in user or this browser's visitor"
+(`docs/reference/build-docs.mjs`).
 
 If a response shape is genuinely new (a page wrapper, a join, a computed answer),
 the right fix is usually a new `ResponseShape` on the **backend** in

@@ -1,6 +1,5 @@
 import { Injectable, computed, effect, inject, untracked } from '@angular/core';
 import { QuizProgressService } from './quiz-progress.service';
-import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { dailyQuizzes, dailyStatus, todayString } from './daily';
 
 /**
@@ -39,13 +38,11 @@ export class DailyProgressService {
 
   constructor() {
     // The count is shown on every page, so it cannot wait for the Daily page
-    // to ask for the saved games. Signing in re-asks, because the games that
-    // matter are then the account's rather than this browser's.
-    const security = inject(SecurityService);
-    const account = computed(() => security.currentUser()?.id ?? null);
-
+    // to ask for the saved games. A new owner re-asks - signing in, a visitor
+    // made in another tab, a session that ended - because the games that
+    // matter are then somebody else's.
     effect(() => {
-      account();
+      this._progress.owner();
       untracked(() => this._progress.ready().subscribe());
     });
   }

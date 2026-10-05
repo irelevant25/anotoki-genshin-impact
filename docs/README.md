@@ -10,7 +10,13 @@ code so it does not drift.
 | [`performance/`](performance/) | Every GET endpoint timed, newest report comparing itself to the one before. | `node docs/performance/bench-endpoints.mjs <personal-token>` then `node docs/performance/build-report.mjs` |
 | [`security/`](security/) | A security review — Semgrep, Psalm and a manual read — with each finding's severity, cause and fix. | `node docs/security/build-report.mjs` (after re-running the tools) |
 
-Each folder has its own README with the details. The pattern is the same
+Besides the reports, two things that are not generated:
+[`PG-DUMP-INSTALL.md`](PG-DUMP-INSTALL.md) - the PostgreSQL client tools unpacked
+into a home directory on the hosting, for the admin panel's Backups - and
+[`images/`](images/), the anotoki logos (genshin, Honkai: Star Rail, the family
+mark; with and without a background), which nothing in the site loads.
+
+Each report folder has its own README with the details. The pattern is the same
 throughout: the data is the source of truth, a small generator renders it, and
 the output file name carries the date (and, for the reports, the minute) so a
 new run sits beside the old rather than overwriting the record.

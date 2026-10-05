@@ -41,6 +41,29 @@ class QuizProgressDeleted extends ResponseShape
     }
 }
 
+/**
+ * What a carry of the browser's games did (POST /api/quiz/progress/carry), and
+ * the player's saved games after it - so the page needs no second read.
+ */
+class QuizCarryResult extends ResponseShape
+{
+    public function __construct(
+        /** Games written: the player had none for that quiz, or only a daily of another day. */
+        public readonly int $carried,
+        /** Games left out because the player already has their own for that quiz - theirs stays. */
+        public readonly int $kept,
+        /** Dailies of another day than today (UTC), which never move. */
+        public readonly int $stale,
+        /** Quizzes this site does not know (any more). */
+        public readonly int $unknown,
+        /** Games nobody has played yet - a fresh draw - which are not worth keeping. */
+        public readonly int $unplayed,
+        /** @var QuizProgress[] Every saved game of the player, after the carry. */
+        public readonly array $games,
+    ) {
+    }
+}
+
 class QuizResultAck extends ResponseShape
 {
     public function __construct(public readonly bool $recorded)

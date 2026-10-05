@@ -95,6 +95,6 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
 
   protected override saveState(): void {
     // Everything the others write, plus the line that was drawn.
-    this.progress.save(this.quizId, { ...this.buildState(), voiceOverId: this.voiceOver()?.id }, this.isDaily());
+    this.progress.save(this.quizId, { ...this.buildState(), voiceOverId: this.voiceOver()?.id }, this.isDaily(), this.ticket);
   }
 }

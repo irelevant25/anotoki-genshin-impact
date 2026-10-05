@@ -5,7 +5,8 @@
 // The site keeps everything in one PostgreSQL database: the game content, and
 // what used to be a second database of its own - the translations, languages,
 // site settings, page switches and the small record of each person who signs
-// in. The two halves still have their own migration folders
+// in (and of each visitor who plays without signing in, api/visitors.php). The
+// two halves still have their own migration folders
 // (migrations/genshin_impact/ and migrations/users/) and their own route
 // folders, and usersDb() and genshinDb() still say which half a query is
 // about, but both hand back the same connection.
@@ -18,7 +19,7 @@
 //       'driver'     => 'pgsql',           // the migrations are PostgreSQL's
 //       'host'       => '127.0.0.1',
 //       'port'       => '5432',
-//       'database'   => 'genshin_impact',
+//       'database'   => 'anotoki_genshin', // setup.php's default
 //       'username'   => '...',
 //       'password'   => '...',
 //       'persistent' => true,              // see getDb()

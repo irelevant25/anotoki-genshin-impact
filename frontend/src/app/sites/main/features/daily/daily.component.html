@@ -13,6 +13,12 @@
             </p>
         </div>
 
+        <!-- Once the server keeps something of theirs: how long, and that
+             signing in keeps it. -->
+        @if (visitorActive()) {
+            <app-visitor-notice></app-visitor-notice>
+        }
+
         <div class="daily-cards">
             @for (entry of entries(); track entry.card.id) {
                 <!-- Same card as on the Quizzes page, under /daily so the quiz

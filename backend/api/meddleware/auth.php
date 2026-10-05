@@ -43,8 +43,147 @@ function requireAuth(): callable
 }
 
 /**
+ * Middleware: whose own games and statistics a request reads and writes - the
+ * only code that reads a visitor's key (X-Visitor-Key, api/visitors.php) to
+ * find who a request is, and so the only way a visitor reaches anything (the
+ * move at sign-in, requireVisitorKey(), reads it only beside a person's
+ * token). Who the request is, in this
+ * order (the family's design, 4.2):
+ *
+ *   1. `Authorization: Bearer ...` (with or without a token after it): that
+ *      person, or 401 invalid_token as requireAuth() answers - a bad or
+ *      expired token never falls back to the key, which is not even read.
+ *      Only the Bearer scheme claims anybody: `Basic ...` (a host behind a
+ *      password file sends it with everything) is as if nothing was sent.
+ *   2. Else, while the IAM requires sign-in here (signInRequired()): 401
+ *      sign_in_required. The key is never looked up, counted or swept early,
+ *      and nobody is made. (signInGate() has answered this already; asking
+ *      again costs nothing - the answer is kept for the request.)
+ *   3. Else an X-Visitor-Key: that visitor (visitorFind()) - a key that is
+ *      malformed or nobody's is 401 visitor_unknown, and while users/045
+ *      waits every visitor path is 503 visitors_unavailable.
+ *   4. Else nobody, as $nobody says:
+ *        'refuse'  401 sign_in_required
+ *        'empty'   the route goes on with no `user`, and answers what nobody
+ *                  has - nothing - without a query
+ *        'make'    the route goes on with `visitor_to_make`: a save that
+ *                  holds a play makes a visitor inside its own transaction
+ *                  (ownerWrite()) and hands its key back in X-Visitor-Key
+ *
+ * Every answer of such a route - its own, a refusal, the one that makes a
+ * visitor - goes out through ownerPrivate(): `Cache-Control: private,
+ * no-store` and `Vary: Authorization, X-Visitor-Key`. A visitor's request
+ * carries no Authorization and its URL is every visitor's, so nothing between
+ * here and the browser may keep one answer for the next caller.
+ *
+ * A person's or a visitor's request also leaves the sweep of long-unseen
+ * visitors for after its answer (at most once an hour across the site).
+ */
+function requireOwner(string $nobody = 'refuse'): callable
+{
+    if (!in_array($nobody, ['refuse', 'empty', 'make'], true)) {
+        throw new LogicException("requireOwner('$nobody'): nobody is 'refuse', 'empty' or 'make'.");
+    }
+
+    return function (Request $request, RequestHandler $handler) use ($nobody): Response {
+        try {
+            $response = $handler->handle(ownerRequest($request, $nobody));
+        } catch (ApiRefusal $refusal) {
+            // Answered here rather than by the default error handler, so a
+            // refusal carries the same headers as everything else about
+            // somebody's own data. Whoever began a transaction has rolled it
+            // back on the way out (ownerWrite()).
+            $response = apiRefusalResponse($refusal);
+        }
+
+        return ownerPrivate($response);
+    };
+}
+
+/** The request with its owner on it (requireOwner()'s four kinds), or an ApiRefusal. */
+function ownerRequest(Request $request, string $nobody): Request
+{
+    if (anotoki_iam_sent_bearer($request->getHeaderLine('Authorization'))) {
+        $claims = iamBearerClaims($request);
+        if ($claims === null) {
+            throw new ApiRefusal(401, 'invalid_token', 'Sign in to do this', ['WWW-Authenticate' => 'Bearer error="invalid_token"']);
+        }
+        $user = siteUserFromClaims($claims);
+        $sessionId = isset($claims['sid']) ? (string) $claims['sid'] : null;
+        auditSession($sessionId);
+        visitorSweepAfterAnswer();
+
+        return $request->withAttribute('user', $user)->withAttribute('session', ['id' => $sessionId]);
+    }
+
+    if (signInRequired()) {
+        throw ownerSignInRequired();
+    }
+
+    $key = visitorKeyOf($request);
+    if ($key !== null) {
+        $visitor = visitorFind($key);
+        visitorSweepAfterAnswer();
+
+        return $request->withAttribute('user', $visitor);
+    }
+
+    return match ($nobody) {
+        'empty' => $request,
+        'make' => $request->withAttribute('visitor_to_make', true),
+        default => throw ownerSignInRequired(),
+    };
+}
+
+/** 401 sign_in_required, in the words and with the header signInGate() answers it. */
+function ownerSignInRequired(): ApiRefusal
+{
+    return new ApiRefusal(401, 'sign_in_required', 'Sign in to continue', ['WWW-Authenticate' => 'Bearer']);
+}
+
+/**
+ * Middleware: this browser's visitor key beside the person's token - for the
+ * one route that takes both, the move at sign-in (POST /api/visitor/move).
+ * Added before requireAuth() in the chain, so it runs after it: the person
+ * is known first, and a request without a token never gets this far (401).
+ *
+ * No X-Visitor-Key, or one that cannot be a key: 422 invalid (field
+ * visitor_key). Else the key goes on the request as `visitor_key`, not looked
+ * up - whose it is, if anybody's, is the move's own business (visitorMove()),
+ * and so is what the IAM's switch says: requiring sign-in stops a key from
+ * being somebody (requireOwner()), not from being handed in with a token.
+ *
+ * Every answer past it - its own refusals, the route's, an ApiRefusal from
+ * inside the move - goes out through ownerPrivate(), as an owner route's do.
+ * Besides requireOwner(), the only code that reads the key.
+ */
+function requireVisitorKey(): callable
+{
+    return function (Request $request, RequestHandler $handler): Response {
+        try {
+            $key = visitorKeyOf($request);
+            if ($key === null) {
+                throw new ApiRefusal(422, 'invalid', 'The X-Visitor-Key header is required.', [], ['field' => 'visitor_key']);
+            }
+            if (!visitorKeyWellFormed($key)) {
+                throw new ApiRefusal(422, 'invalid', 'The X-Visitor-Key header is not a visitor key.', [], ['field' => 'visitor_key']);
+            }
+            $response = $handler->handle($request->withAttribute('visitor_key', $key));
+        } catch (ApiRefusal $refusal) {
+            $response = apiRefusalResponse($refusal);
+        }
+
+        return ownerPrivate($response);
+    };
+}
+
+/**
  * Middleware: ensures the already-authenticated user has one of the given roles.
  * Must be used after requireAuth().
+ *
+ * A visitor is refused by name, whatever its array says: requireAuth() never
+ * puts one on a request, so meeting one here means a route was wired wrong,
+ * and a role check is no place to find out what a visitor's `role` holds.
  */
 function requireRole(string ...$roles): callable
 {
@@ -56,7 +195,7 @@ function requireRole(string ...$roles): callable
         $userRole = strtoupper((string) ($user['role'] ?? ''));
         $allowed = array_map('strtoupper', $roles);
 
-        if (!$user || !in_array($userRole, $allowed, true)) {
+        if (!$user || isVisitor($user) || !in_array($userRole, $allowed, true)) {
             return respondJson(new \Slim\Psr7\Response(), ['error' => 'Forbidden: insufficient permissions'], 403);
         }
 
@@ -113,18 +252,26 @@ function recentSignInRefusal(array $user, int $withinSeconds = 600): ?array
 //
 //   Game content    reading is public, writing is ADMIN or EDITOR. The site is
 //                   a reference work - the whole point is that anyone can read
-//                   it without an account.
+//                   it without an account. (Unless the IAM's "Sign-in
+//                   required" is on for it: then signInGate() turns away
+//                   everybody not signed in, before any route is reached.)
 //
 //   System          the admin site's own machinery: audit logs, migrations,
 //                   backups, feedback. ADMIN does everything, EDITOR can look
 //                   but not touch, nobody else sees it. (Accounts used to be
 //                   here too; they are the IAM's now.)
 //
-//   Somebody's own  quiz progress and history. Yours, or an admin's to see.
-//   data
+//   Somebody's own  quiz progress and history. Yours, or an admin's to see
+//   data            (the admin routes on those tables). A player's own
+//                   routes (/api/quiz/progress, /result, /stats, ...) take
+//                   requireOwner() below: the signed-in person, or this
+//                   browser's visitor while the site does not require
+//                   sign-in - and nothing else ever reads a visitor's key
+//                   but requireVisitorKey(), the move at sign-in.
 //
 // The roles themselves are granted in the IAM's admin console, per site: a
-// token for this site lists this site's roles and nothing else.
+// token for this site lists this site's roles and nothing else - MEMBER for
+// everybody (an ordinary reader, USER here), ADMIN or EDITOR beside it.
 //
 // The constants below name those groups so an endpoint says which one it is
 // rather than repeating a role list that drifts out of step file by file.
@@ -138,9 +285,10 @@ const ROLES_SYSTEM_READ = ['ADMIN', 'EDITOR'];
 /** Changing anything in the System area. */
 const ROLES_SYSTEM_WRITE = ['ADMIN'];
 
+/** An admin: a person whose token grants ADMIN here - never a visitor, whatever its array says. */
 function isAdminUser(?array $user): bool
 {
-    return strtoupper((string) ($user['role'] ?? '')) === 'ADMIN';
+    return !isVisitor($user) && strtoupper((string) ($user['role'] ?? '')) === 'ADMIN';
 }
 
 /**

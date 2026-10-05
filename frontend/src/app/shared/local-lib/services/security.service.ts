@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, firstValueFrom, tap } from 'rxjs';
 import { RoleService } from './role.service';
+import { SavesInFlight } from './saves-in-flight.service';
 import { Roles } from './options-helper.service';
 import { DateFormatsRequest, MeApiService, SiteAuthConfig, SiteUser } from '../../../api';
 import { AUTH_CALLBACK_PATH } from '../../routing-definition';
@@ -63,6 +64,12 @@ export interface SignInOptions {
    * as restoring a database.
    */
   prompt?: 'login';
+  /**
+   * The language to ask the IAM for its pages in, when the page cannot say yet:
+   * a sign-in started before anything is drawn, while the document still has
+   * index.html's `lang`. Otherwise the language the page is in.
+   */
+  language?: string;
 }
 
 /** The roles the admin panel is for. */
@@ -146,6 +153,7 @@ function uiLocale(): string | undefined {
 export class SecurityService {
   private readonly _meApi = inject(MeApiService);
   private readonly _roleService = inject(RoleService);
+  private readonly _saves = inject(SavesInFlight);
 
   private _auth: AnotokiAuth | null = null;
   private readonly _config = signal<SiteAuthConfig | null>(null);
@@ -257,27 +265,34 @@ export class SecurityService {
    *
    * The page is left, so this never really finishes. The IAM's pages are shown
    * in the language the site is being read in, where it has them.
+   *
+   * It leaves only once the saves still on their way have their answers
+   * (SavesInFlight, 30 seconds at most): a visitor's first played save brings
+   * the new visitor key in its answer, and a page left before it arrives
+   * never keeps the key - the move after the sign-in would find nothing.
    */
   async login(options: SignInOptions | string = {}): Promise<void> {
-    const { returnTo, prompt } = typeof options === 'string' ? { returnTo: options, prompt: undefined } : options;
+    const { returnTo, prompt, language } = typeof options === 'string' ? { returnTo: options, prompt: undefined, language: undefined } : options;
 
     if (!this._auth) {
       throw new Error('Signing in is not available: the site does not know where its IAM is');
     }
 
+    await this._saves.settled();
     await this._auth.login({
       returnTo: returnTo ?? currentPath(),
       prompt,
-      uiLocales: uiLocale(),
+      uiLocales: language || uiLocale(),
     });
   }
 
-  /** The same, opening on the IAM's registration form. */
+  /** The same, opening on the IAM's registration form - after the saves on their way, too. */
   async register(returnTo?: string): Promise<void> {
     if (!this._auth) {
       throw new Error('Signing in is not available: the site does not know where its IAM is');
     }
 
+    await this._saves.settled();
     await this._auth.register({ returnTo: returnTo ?? currentPath(), uiLocales: uiLocale() });
   }
 

@@ -17,10 +17,18 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * to, and the reader's preferences here - theme, language, date format. It is
  * filled in from the token as people arrive and kept in step when the IAM says
  * their name or address changed. It holds no password and decides nothing.
+ * Visitors - people playing without signing in - have rows there too, with
+ * negative ids (users/045): api/visitors.php makes them, never this file, and
+ * an IAM id is always 1 or more.
  *
  * The role is the token's too: `roles` lists this site's roles for the person
- * - ADMIN, EDITOR, or neither - and is read fresh from the IAM at every token,
- * so a role taken away there stops working here within one token lifetime.
+ * - MEMBER, which every account holds, plus ADMIN or EDITOR for the staff - and
+ * is read fresh from the IAM at every token, so a role taken away there stops
+ * working here within one token lifetime. MEMBER is the ordinary reader (USER
+ * below): nothing here asks for it. Taking it away is how the IAM blocks a
+ * person from this site - it refuses their next sign-in and refresh, while the
+ * token they hold verifies until it expires; and while the site does not
+ * require sign-in they can still read it as anybody can.
  */
 
 /** The claims of the request's bearer token, verified - or null. Checked once per token per request. */
@@ -50,7 +58,8 @@ function iamBearerClaims(Request $request): ?array
 /**
  * The one role the rest of the API compares: the highest this site's roles
  * grant. The endpoints were written against a single role per account, and
- * ADMIN has always implied everything EDITOR may do.
+ * ADMIN has always implied everything EDITOR may do. MEMBER, and anything else
+ * the IAM may list, is USER: an ordinary signed-in reader.
  */
 function siteRoleFromClaims(array $claims): string
 {
@@ -71,6 +80,11 @@ function siteUserFromClaims(array $claims): array
 {
     $pdo = usersDb();
     $id = (int) anotoki_iam_user_id($claims);
+    // An IAM id is always 1 or more; 0 and below are visitors' (users/045).
+    // A token naming one is not a person this file may make or update a row for.
+    if ($id < 1) {
+        throw new LogicException('An IAM user id is 1 or more; this token names ' . $id . '.');
+    }
     // A token without the profile scope carries no name: the stored one stays
     // then, rather than everybody becoming "user{id}" on such a request.
     $claimedName = trim((string) ($claims['preferred_username'] ?? ''));

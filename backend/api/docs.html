@@ -4,7 +4,7 @@
 
   Both are in the API's own document root, so this page and the endpoints it
   describes are the same origin - which is what makes "Try it out" work without
-  going anywhere near the CORS allowlist. Tokens come from the anotoki IAM: a
+  needing CORS at all. Tokens come from the anotoki IAM: a
   personal token from its account page ("Tokens for scripts"), exchanged at its
   token endpoint, gives an access token to put into Authorize - and the rest of
   the API is reachable from here.
@@ -18,7 +18,6 @@
     <meta name="robots" content="noindex" />
     <title>API reference</title>
 
-    <link rel="icon" href="../../favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14/swagger-ui.css"

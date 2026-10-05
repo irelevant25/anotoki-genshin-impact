@@ -65,6 +65,24 @@ function gateCaller(Request $request): ?array
     return ['id' => anotoki_iam_user_id($claims), 'role' => siteRoleFromClaims($claims)];
 }
 
+/**
+ * The path a gate judges: the one the router will route on, never the one the
+ * request arrived with.
+ *
+ * The request keeps its path percent-encoded, as the browser sent it; Slim's
+ * router decodes it once (rawurldecode) and puts a slash in front when there
+ * is none, and only then picks the route (RouteResolver::computeRoutingResults).
+ * A gate that read the raw path would let `/%61pi/characters` past every
+ * `/api/` check and still be routed to `/api/characters` - so every gate asks
+ * this, which does exactly what the router does.
+ */
+function gatePath(Request $request): string
+{
+    $path = rawurldecode($request->getUri()->getPath());
+
+    return ($path === '' || $path[0] !== '/') ? '/' . $path : $path;
+}
+
 function maintenanceGate(): callable
 {
     return function (Request $request, RequestHandler $handler): Response {
@@ -72,14 +90,7 @@ function maintenanceGate(): callable
             return $handler->handle($request);
         }
 
-        // Preflight is answered by the CORS middleware outside this one; a 503
-        // here would show up in the browser as a CORS failure rather than as a
-        // site that is closed.
-        if ($request->getMethod() === 'OPTIONS') {
-            return $handler->handle($request);
-        }
-
-        $path = $request->getUri()->getPath();
+        $path = gatePath($request);
 
         foreach (MAINTENANCE_OPEN_PREFIXES as $open) {
             if ($path === $open || str_starts_with($path, rtrim($open, '/') . '/')) {

@@ -55,6 +55,16 @@ export class DashboardComponent implements OnInit {
   });
 
   /**
+   * Whether the visitors kept come near the ceiling that turns new ones away
+   * (`max_visitors`): the one time the card asks to be looked at. Raising it
+   * is a line in `visitors.local.php`; nobody already playing is affected.
+   */
+  readonly visitorsNearCeiling = computed(() => {
+    const visitors = this.stats()?.visitors;
+    return !!visitors?.available && visitors.count >= visitors.max * 0.9;
+  });
+
+  /**
    * Files with no converted copy, of either kind, in one number.
    *
    * The two media are separate jobs on the Files page, where you can do

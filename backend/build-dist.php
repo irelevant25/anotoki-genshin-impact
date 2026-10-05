@@ -23,7 +23,6 @@
  *   config/database.local.php   production database credentials
  *   config/secret.local.php     the site secret
  *   config/iam.local.php        the IAM address and this site's client id
- *   config/app.local.php        the site's own address (and any extra CORS origin)
  *   assets/                     the image tree, uploaded separately to /assets
  *
  * Without the config files the API answers every request 503 not_set_up; see

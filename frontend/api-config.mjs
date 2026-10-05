@@ -62,6 +62,7 @@ export const GROUPS = [
     ["setting", ["/api/settings"]],
     ["route", ["/api/site-routes"]],
     ["dashboard", ["/api/dashboard"]],
+    ["visitor", ["/api/visitor"]],
     ["lookup", ["/api/"]],
 ];
 
@@ -94,6 +95,7 @@ export const GROUP_DOCS = {
     setting: "The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in.",
     route: "Which pages of the site exist, who they are drawn for, and which API paths go dark with them.",
     dashboard: "The counts on the admin landing page.",
+    visitor: "This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in.",
     lookup: "The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.",
 };
 
@@ -129,6 +131,7 @@ export const BODIES = {
     "POST /api/backups/{id}/restore/{alias}": "RestoreRequest",
     "PUT /api/quiz/progress/{quiz}": "QuizProgressRequest",
     "POST /api/quiz/result": "QuizResultRequest",
+    "POST /api/quiz/progress/carry": "QuizCarryRequest",
     "POST /api/files": "FormData",
     "POST /api/files/convert": "AssetConvertRequest",
     "POST /api/files/cleanup": "AssetCleanupRequest",
@@ -236,11 +239,14 @@ export const NAMES = {
     "GET /api/quiz/progress": "getQuizProgress",
     "PUT /api/quiz/progress/{quiz}": "updateQuizProgress",
     "DELETE /api/quiz/progress/{quiz}": "deleteQuizProgress",
+    "POST /api/quiz/progress/carry": "carryQuizProgress",
     "POST /api/quiz/result": "submitQuizResult",
     "GET /api/quiz/stats": "getQuizStats",
     "GET /api/quiz/stats/difficulty": "getQuizStatsByDifficulty",
     "GET /api/quiz/activity": "getQuizActivity",
     "GET /api/quiz/results": "getRecentQuizResults",
+
+    "POST /api/visitor/move": "moveVisitor",
 
     "GET /api/translations/{code}": "getTranslations",
     "GET /api/translations/{code}/export": "exportTranslations",

@@ -325,12 +325,23 @@ export class StateService {
    * of them keep the same shape, and there is nothing for six copies to differ
    * about.
    */
+  //
+  // The saved games are read back from localStorage before every read and
+  // write of one. Every tab of the site shares that storage but holds its own
+  // copy in memory, and saveData() writes the whole copy: a tab that wrote
+  // from what it read at its start would put back the games another tab has
+  // since carried into an account and cleared (QuizProgressService), to be
+  // carried again.
+  //
+
   getQuizState(quizId: QuizId, daily: boolean = false): QuizState | undefined {
+    this.loadData();
     const entry = this.data.topMenu[quizId];
     return daily ? entry?.dailyState : entry?.state;
   }
 
   saveQuizState(quizId: QuizId, state: QuizState, daily: boolean = false): boolean {
+    this.loadData();
     const entry = this.data.topMenu[quizId];
     if (daily) entry.dailyState = { ...state };
     else entry.state = { ...state };
@@ -338,9 +349,24 @@ export class StateService {
   }
 
   clearQuizState(quizId: QuizId, daily: boolean = false): boolean {
-    const entry = this.data.topMenu[quizId];
-    if (daily) entry.dailyState = undefined;
-    else entry.state = undefined;
+    return this.clearQuizStates([quizId], daily ? [true] : [false]);
+  }
+
+  /** Clears the saved games of these quizzes, of the given kinds (free, daily), in one write. */
+  clearQuizStates(quizIds: QuizId[], kinds: boolean[] = [false, true]): boolean {
+    this.loadData();
+    for (const quizId of quizIds) {
+      const entry = this.data.topMenu[quizId];
+      if (!entry) {
+        continue;
+      }
+      if (kinds.includes(true)) {
+        entry.dailyState = undefined;
+      }
+      if (kinds.includes(false)) {
+        entry.state = undefined;
+      }
+    }
     return this.saveData(this.data);
   }
 

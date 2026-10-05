@@ -1,10 +1,11 @@
 // Turns a production `ng build` into something ready to upload, by writing the
 // two things the build cannot know on its own:
 //
-//   config.json   the site talks to its own origin in production, so the API
-//                 base URL is empty and `/api/...` stays relative. The copy in
-//                 public/ holds the dev value (http://localhost:8000); this
-//                 overwrites it in the build output only.
+//   config.json   the site talks to its own origin, so the API base URL is
+//                 empty and `/api/...` stays relative - in development too,
+//                 where ng serve's proxy (proxy.conf.json) hands it to the PHP
+//                 server. The copy in public/ says "dev"; this writes "prod"
+//                 into the build output only.
 //
 //   .htaccess     the app is one page with client-side routes, so every path
 //                 that is not a real file has to fall back to index.html or a

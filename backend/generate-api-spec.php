@@ -141,13 +141,21 @@ function splitPattern(string $pattern): array
  * What a handler says about itself, read out of its own source.
  *
  * A closure knows the lines it occupies, so the handler body and the `->add()`
- * chain that follows it can both be read back. Three things are worth having:
+ * chain that follows it can both be read back. What is worth having:
  *
  *   table    - `DbQuery::from($pdo, 'characters')` names the table the route
  *              answers from, and the schema turns a table into a row type.
  *   payload  - `->add(validateRequest(Character::class))` names the model an
  *              incoming body is checked against, which is the body's type.
- *   auth     - `->add(requireAuth())`, `->add(requireRole(...))`.
+ *   auth     - `->add(requireAuth())`, `->add(requireRole(...))`, and
+ *              `->add(requireOwner(...))` - a 401 is possible on all of them.
+ *   owner    - `->add(requireOwner(...))`: the signed-in person, or this
+ *              browser's visitor (X-Visitor-Key) - somebody's own data. The
+ *              client gives these a `context` parameter, so the caller says
+ *              whom a request is issued as (frontend/generate-api.mjs).
+ *   visitor_key - `->add(requireVisitorKey())`: a route that needs the
+ *              visitor's key beside the token (the move at sign-in); a
+ *              `context` parameter too.
  */
 function readHandler(callable|string $callable): array
 {
@@ -162,6 +170,8 @@ function readHandler(callable|string $callable): array
         'partial' => false,
         'auth' => false,
         'roles' => [],
+        'owner' => false,
+        'visitor_key' => false,
     ];
 
     if (!($callable instanceof Closure)) {
@@ -259,8 +269,10 @@ function readHandler(callable|string $callable): array
         'expanded' => $expanded,
         'payload' => $payload,
         'partial' => $partial,
-        'auth' => str_contains($chain, 'requireAuth()') || $roles !== [],
+        'auth' => str_contains($chain, 'requireAuth()') || $roles !== [] || str_contains($chain, 'requireOwner('),
         'roles' => $roles,
+        'owner' => str_contains($chain, 'requireOwner('),
+        'visitor_key' => str_contains($chain, 'requireVisitorKey('),
     ];
 }
 

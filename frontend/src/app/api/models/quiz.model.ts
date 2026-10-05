@@ -122,6 +122,25 @@ export interface QuizActivityDay {
 }
 
 /**
+ * What a carry of the browser's games did (POST /api/quiz/progress/carry), and
+ * the player's saved games after it - so the page needs no second read.
+ */
+export interface QuizCarryResult {
+  /** Games written: the player had none for that quiz, or only a daily of another day. */
+  carried: number;
+  /** Games left out because the player already has their own for that quiz - theirs stays. */
+  kept: number;
+  /** Dailies of another day than today (UTC), which never move. */
+  stale: number;
+  /** Quizzes this site does not know (any more). */
+  unknown: number;
+  /** Games nobody has played yet - a fresh draw - which are not worth keeping. */
+  unplayed: number;
+  /** Every saved game of the player, after the carry. */
+  games: QuizProgress[];
+}
+
+/**
  * A player's totals for one quiz at one difficulty.
  *
  * quiz_stats_history cannot answer this: it is keyed on the user, the character

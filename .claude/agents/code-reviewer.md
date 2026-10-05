@@ -28,7 +28,8 @@ subscribed, an `effect`/`computed` that misses a dependency.
 **Security** (this project has a completed security review — hold new code to it):
 - SQL: values only ever reach `?` placeholders; table/column identifiers are
   literals or whitelisted `DbModel` fields, never request input.
-- Authorization: mutating and per-user endpoints carry `requireAuth()` plus the
+- Authorization: mutating and per-user endpoints carry `requireAuth()` (a
+  player's own games and statistics: `requireOwner()`, below) plus the
   right role (`ROLES_CONTENT` / `ROLES_SYSTEM_*`) or ownership check
   (`requireSelfOrAdmin` / `refuseForeignUserId`). A new route without a
   middleware chain is a red flag.
@@ -38,7 +39,48 @@ subscribed, an `effect`/`computed` that misses a dependency.
 - Sign-in is the anotoki IAM's: a token is only ever trusted after
   `iamBearerClaims()` (`api/site_user.php` + the vendored `api/anotoki_iam.php`)
   has verified it; no endpoint takes a password or issues a token of its own; the
-  role comes from the verified token, never from the request.
+  role comes from the verified token, never from the request. The vendored SDK is
+  the IAM's file byte for byte (never edited, no fetch of the site's own beside
+  it). While the IAM requires sign-in, `signInGate()` (`api/meddleware/sign_in.php`)
+  is what keeps the public routes from anybody signed out: a path added to
+  `SIGN_IN_OPEN_PREFIXES` that neither the sign-in card nor a token-less `<img>`
+  needs is a hole, and so is a gate that matches a path by its spelling on the raw
+  `getUri()->getPath()` instead of `gatePath()` (the router decodes:
+  `/%61pi/characters` is `/api/characters`); the
+  switch reads fail closed (a 404 or an IAM never reached = required). In the
+  frontend, whatever starts a sign-in by itself (the app initializer's
+  `mustSignInFirst()`, `admin-access.guard.ts`) must keep the no-loop rule:
+  never on the callback, after a failed sign-in, or while the SDK holds a
+  session the API refuses (`holdsSession()`).
+- Visitors (playing without signing in): `X-Visitor-Key` is read by
+  `requireOwner()` (`api/meddleware/auth.php`) and, beside a verified token, by
+  `requireVisitorKey()` for the move at sign-in (`visitorMove()`: the visitor's
+  row then the person's `FOR UPDATE` under a lock timeout, the person's game kept
+  where both have one, every log row moved, totals added, 503
+  `visitor_move_retry` on a lock timeout or deadlock) - and nothing else: a key read
+  anywhere else, a key looked at when a `Bearer` header was sent (a bad token
+  must answer 401, never fall back to the key) or while sign-in is required, is
+  a finding. So is a write of a player's own data that does not go through
+  `ownerWrite()` (one transaction; the visitor made inside it, or its row locked
+  first - the quiz tables have no foreign key to `users`), a visitor made outside
+  the save's transaction or by a save with no play (a fresh draw is saved on
+  every page view), a table keyed by the user id missing from
+  `VISITOR_PERSON_TABLES` or from `visitorMove()`'s rules, a role check that
+  could pass a visitor array, and an owner answer (or the move's) without
+  `Cache-Control: private, no-store` and `Vary: Authorization, X-Visitor-Key`
+  (`ownerPrivate()`). A visitor's key appears
+  nowhere but in the header of the answer that made it: never in a body, a URL,
+  a column or a log. In the frontend: a request to a player's own routes not
+  issued with `issuedAs()` (or decided from the token's presence), a person's
+  request sent without a token (it must fail in the browser), the key sent or
+  remembered on a person's request or while sign-in is required, the key
+  forgotten on anything but `visitor_unknown` or the move, a visitor made by a
+  save with no play or by a result on its own, a person's games loaded before
+  the move (`settledMove()`), a save without the page's ticket, and a sign-in
+  started without waiting for `SavesInFlight` are findings. So are a visitor
+  notice promising a number of days that is not the server's
+  (`visitors.keep_days`, relayed), a toast that can repeat for one event, and
+  the "moved into your account" words shown for a carry into a visitor.
 - Secrets: no Postgres password, site secret or access token in responses, logs,
   or committed files; `backend/config/*.local.php` holds every per-installation value,
   is written by `setup.php`, and is never shipped or committed. Flag a new

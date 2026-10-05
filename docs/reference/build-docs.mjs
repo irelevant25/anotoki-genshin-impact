@@ -36,8 +36,18 @@ const titleCase = (s) =>
 const beAnchor = (method, path) => 'be-' + slug(method + '-' + path);
 const dbAnchor = (table) => 'db-' + slug(table);
 
+// Somebody's own data (requireOwner(): `owner` in the spec) is a signed-in user's or this browser's
+// visitor's; the move at sign-in (requireVisitorKey(): `visitor_key`) wants both together.
 const roleLabel = (route) =>
-  route.roles?.length ? route.roles.join(' / ') : route.auth ? 'any signed-in user' : 'public';
+  route.roles?.length
+    ? route.roles.join(' / ')
+    : route.visitor_key
+      ? "a signed-in user with this browser's visitor key"
+      : route.owner
+        ? "a signed-in user or this browser's visitor"
+        : route.auth
+          ? 'any signed-in user'
+          : 'public';
 
 // One endpoint, enriched with the anchors it links to.
 const endpoints = spec.routes

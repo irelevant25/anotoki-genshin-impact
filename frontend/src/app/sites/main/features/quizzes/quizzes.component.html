@@ -1,4 +1,11 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
+    <!-- Once the server keeps something of a visitor's: how long, and that
+         signing in keeps it. A row of its own above the cards, inside their
+         panel rather than in one of its own. -->
+    @if (visitorActive()) {
+        <app-visitor-notice class="quizzes-notice"></app-visitor-notice>
+    }
+
     @for (item of QUIZZES; track item.path) {
         <a class="card px-5 pb-5" [routerLink]="item.path">
             <!-- The old markup pointed a Bootstrap data-bs-target at a modal

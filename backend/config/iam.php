@@ -16,8 +16,10 @@
 //   client_id   this site's name there - `genshin`; a Star Rail deployment of
 //               the same code would be registered and named separately
 //
-// Optional there: cache_dir (where the IAM's key set is cached between
-// requests, storage/cache by default) and the SDK's own keys - see
+// Optional there: cache_dir (where the IAM's key set and its answer to "is
+// sign-in required here?" are kept between requests, storage/cache by default
+// - a folder only this site writes, never a shared temp directory) and the
+// SDK's own keys, application_ttl / application_timeout among them - see
 // api/anotoki_iam.php. There is no committed default for either value: a site
 // that silently signed people in at somebody's localhost would be worse than
 // one that says it is not set up.

@@ -18,7 +18,14 @@ first. This file adds frontend-specific detail.
 
 - Public site: `frontend/src/app/sites/main/` — features under `features/`
   (database, quizzes, games, daily, profile, account), shared chrome under
-  `common/` (footer, announcement).
+  `common/` (footer, announcement). The shell (`sites/main/app.component.*`)
+  draws one of three things: the closed sign (`maintenance/`, maintenance mode,
+  admins exempt), the sign-in card (`sign-in-required/`, while the IAM requires
+  sign-in and nobody is signed in - `SiteSettingsService.loginRequired`), or the
+  site. The app initializer (`app.config.ts`, `mustSignInFirst()`) starts the
+  sign-in before the first page under that switch; anything that starts a
+  sign-in by itself keeps its no-loop rule (not on the callback, not after a
+  failed sign-in, not while `holdsSession()` - see `admin-access.guard.ts`).
 - Admin: `frontend/src/app/sites/admin/` — one folder per entity with
   `<entity>-list/` and `<entity>-form/`; routes in `admin.routes.ts`; nav in
   `app.component.ts`; simple lookup tables via the shared `lookup-table`
@@ -43,6 +50,21 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - **Signals, not zone.js.** State is `signal()` / `computed()` / `model()`;
   effects with `effect()`. No `zone.js`, no `NgZone`, no `setTimeout`-driven
   change detection. `@if` / `@for` / `@switch` control flow, not `*ngIf`/`*ngFor`.
+- **A player's own data** (`/api/quiz/progress`, `/result`, `/results`,
+  `/stats`, `/activity`): only through `QuizProgressService` (or the Profile),
+  each request issued with `issuedAs('person' | 'visitor')` from
+  `QuizProgressService.owner()` - never decided from whether
+  `getAccessToken()` returned something, never `X-Visitor-Key` set by hand. A
+  quiz page passes `progress.ticket()` with every save and result and loads
+  again on `progress.restarts()`; anything new that starts a sign-in goes
+  through `SecurityService.login()` / `register()`, which wait for the saves on
+  their way (`SavesInFlight`). What a visitor is told is worded in two places
+  only: `common/visitor-notice/` (its days are the server's
+  `visitorKeepDays()`, never a number of its own) and the public shell's
+  toasts (`sites/main/app.component.ts`, from `VisitorKey` /
+  `QuizProgressService` signals, each said once); a service keeps the fact,
+  never a sentence. A new visitor word is a `visitor.*` key in a `users`
+  migration, English and informal Slovak.
 - **Use the generated services**, e.g. `inject(CharacterApiService)` and call its
   typed methods, rather than raw `HttpClient`. The method names and DTO types
   come from the backend; if one is missing or wrong, the fix is on the backend +
@@ -82,7 +104,9 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   (templates are only fully checked by a build). Without `--output-path` it
   writes into `frontend/dist/`, over the production build `build:deploy` leaves
   there for upload - rebuild that before an upload if you clobber it.
-- Run it: `npm start` (from `frontend/`, serves on :4200) with the PHP server up
+- Run it: `npm start` (from `frontend/`: `bun ci`, then `ng serve` on :4200 with
+  `proxy.conf.json`, which hands `/api` to the PHP server - one origin, no CORS;
+  it does not regenerate the API client, `npm run api` does) with the PHP server up
   on :8000 (set up by `backend/setup.php` - without its config the site draws its
   "not set up yet" page), and check the actual screen — both themes where it matters. If a
   browser-automation harness is available use it; otherwise describe what you

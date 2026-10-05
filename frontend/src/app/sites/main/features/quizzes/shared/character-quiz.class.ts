@@ -1,5 +1,5 @@
-import { computed, inject, signal } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { computed, effect, EffectRef, inject, signal, untracked } from '@angular/core';
+import { forkJoin, Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { StateService } from '../../../../../shared/state-manager.service';
@@ -115,16 +115,54 @@ export abstract class CharacterQuizComponent {
     return this.characterApi.getCharactersMinimal();
   }
 
+  /**
+   * Whose game this page is playing: QuizProgressService's ticket, taken as
+   * it restored or started, and handed back with every save and result. When
+   * the owner changes under the page - a session that ended, a sign-in or a
+   * visitor made in another tab - the saves under the old ticket are dropped,
+   * and the page loads again for the new owner (`restarts`).
+   */
+  protected ticket = 0;
+  private _loads = 0;
+
+  private readonly _restartOnNewOwner = ((): EffectRef => {
+    let seen: number | null = null;
+    return effect(() => {
+      const restarts = this.progress.restarts();
+      untracked(() => {
+        const first = seen === null;
+        seen = restarts;
+        if (!first) {
+          this.fetchAndRestore();
+        }
+      });
+    });
+  })();
+
   protected load(): void {
     this._activatedRoute.data.subscribe((data) => this.isDaily.set(!!data['daily']));
     this.difficulty.set(this.stateService.getDifficulty());
+    this.fetchAndRestore();
+  }
 
-    // The saved game is fetched alongside the characters rather than after
-    // them: neither needs the other, and a quiz cannot decide whether it is
-    // resuming until both have arrived.
-    forkJoin({ characters: this.fetchCharacters(), progress: this.progress.ready() }).subscribe({
+  /**
+   * The saved game is fetched alongside the characters rather than after
+   * them: neither needs the other, and a quiz cannot decide whether it is
+   * resuming until both have arrived. Again after a change of owner, with the
+   * characters already in hand; only the latest of these draws.
+   */
+  protected fetchAndRestore(): void {
+    const run = ++this._loads;
+    const characters = this.characters();
+    this.loading.set(true);
+
+    forkJoin({ characters: characters.length ? of(characters) : this.fetchCharacters(), progress: this.progress.ready() }).subscribe({
       next: ({ characters }) => {
+        if (run !== this._loads) {
+          return;
+        }
         this.characters.set(characters);
+        this.ticket = this.progress.ticket();
         this.restoreOrStart();
         this.loading.set(false);
       },
@@ -184,7 +222,7 @@ export abstract class CharacterQuizComponent {
       // the one place a question actually finishes. Restoring a finished game
       // sets the same flag, and counting that as a second result would inflate
       // a player's history every time they reopened the page.
-      this.progress.recordResult(this.quizId, this.questionEntity()?.id, this.isSuccess(), this.tries().length, this.difficulty());
+      this.progress.recordResult(this.quizId, this.questionEntity()?.id, this.isSuccess(), this.tries().length, this.difficulty(), this.ticket);
     }
 
     this.onQuestionChanged();
@@ -221,6 +259,6 @@ export abstract class CharacterQuizComponent {
   }
 
   protected saveState(): void {
-    this.progress.save(this.quizId, this.buildState(), this.isDaily());
+    this.progress.save(this.quizId, this.buildState(), this.isDaily(), this.ticket);
   }
 }

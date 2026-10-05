@@ -5,8 +5,8 @@
  *
  * The site serves AVIF and Opus. Everything uploaded through the API is
  * re-encoded on the way in, but the tree also holds tens of thousands of files
- * that arrived before that was true, or were dropped in by the one-off scripts
- * in /formats-converters. This is the survey that says which of them still have
+ * that arrived before that was true, or were dropped into the tree by hand.
+ * This is the survey that says which of them still have
  * no converted twin, and the queue that works through them.
  *
  * Two things are counted and they are not the same job:

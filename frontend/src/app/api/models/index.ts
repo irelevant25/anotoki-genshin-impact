@@ -28,5 +28,6 @@ export * from './setting.model';
 export * from './stat.model';
 export * from './talentSet.model';
 export * from './translation.model';
+export * from './visitor.model';
 export * from './voiceOverSet.model';
 export * from './weapon.model';
