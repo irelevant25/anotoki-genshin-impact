@@ -1,10 +1,7 @@
 import { Injectable, signal, computed, effect, PLATFORM_ID, inject, untracked } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { LocalStorageService } from '../services/local-storage.service';
-import { SecurityService } from '../services/security.service';
-import { MeApiService } from '../../../api';
+import { AccountPreferences, PreferenceSave } from '../services/account-preferences.service';
 
 /** `auto` follows the operating system; the other two override it. */
 export type Theme = 'light' | 'dark' | 'auto';
@@ -12,67 +9,48 @@ export type Theme = 'light' | 'dark' | 'auto';
 /** What actually gets put on the document. */
 export type ResolvedTheme = 'light' | 'dark';
 
-/** The site and the admin panel are remembered separately. */
-export type ThemeArea = 'main' | 'admin';
-
 const THEMES: Theme[] = ['light', 'dark', 'auto'];
 
-/**
- * What each area looks like before anyone chooses. The site reads better light
- * and the admin panel is worked in for hours, so it starts dark.
- */
-const DEFAULT_THEME: Record<ThemeArea, Theme> = {
-  main: 'light',
-  admin: 'dark',
-};
-const STORAGE_KEY: Record<ThemeArea, string> = {
-  main: 'theme-main',
-  admin: 'theme-admin',
-};
+/** What a device that has never chosen shows: the site reads better light (users/003). */
+const DEFAULT_THEME: Theme = 'light';
+
+/** This device's theme: the last one shown, the account's or a visitor's own. */
+const STORAGE_KEY = 'theme';
 
 /**
- * Owns the light/dark choice for both sites.
+ * Where the theme was kept while the site and the admin panel had one each.
+ * The site's is carried over once, as the device's one theme; the admin
+ * panel's goes - the one theme is now the admin panel's too.
+ */
+const OLD_STORAGE_KEYS = { main: 'theme-main', admin: 'theme-admin' };
+
+/**
+ * Light, dark, or whatever the operating system says - one theme for the
+ * whole site, the admin panel included.
  *
- * The two areas look nothing alike, so they keep separate preferences: reading
- * the site in light while working in a dark admin is a reasonable thing to
- * want. Which one is in force follows the URL, so navigating into `/admin`
- * switches the theme with it.
+ * Signed in, it is the anotoki account's (AccountPreferences): one choice
+ * every anotoki site follows, shown the moment it is known - at sign-in, and
+ * whenever it changes, on another site or in another tab - and saved to the
+ * account from the toggles here. Signed out, or from an IAM that keeps no
+ * preferences, it is this device's, as it always was.
  *
- * A choice is always written to local storage, so it survives a reload whether
- * or not anyone is signed in. When someone *is* signed in it also goes to
- * their account, so it follows them to another browser; signing in adopts what
- * the account already holds.
- *
- * Until a choice is made the answer is `auto`, which is whatever the operating
- * system asks for.
+ * A choice is shown at once, and saved after: one save at a time, the latest
+ * choice last (AccountPreferences). A refused save puts the account's theme
+ * back on the screen; the caller says why, in its own words. The theme shown
+ * is always written to local storage, so the next load starts in it before
+ * the account has been read.
  */
 @Injectable({ providedIn: 'root' })
 export class ThemeToggleService {
-  private readonly _platformId = inject(PLATFORM_ID);
-  private readonly _browser = isPlatformBrowser(this._platformId);
+  private readonly _browser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly _storage = inject(LocalStorageService);
-  private readonly _meApi = inject(MeApiService);
-  private readonly _router = inject(Router);
-  private readonly _security = inject(SecurityService);
+  private readonly _account = inject(AccountPreferences);
 
-  /** Which area the current URL belongs to. */
-  readonly area = signal<ThemeArea>('main');
-
-  private readonly _preferences = signal<Record<ThemeArea, Theme>>({ ...DEFAULT_THEME });
   /** Tracks the OS setting so `auto` can follow it while the page is open. */
   private readonly _systemPrefersDark = signal(false);
 
-  /**
-   * Who is signed in, by id - the thing whose change means "adopt the
-   * account's choice". Not the whole record: that is replaced whenever it is
-   * reloaded (a date format saved, a role changed at the IAM), and adopting
-   * again then could undo a choice made on this device a moment before its
-   * save had landed.
-   */
-  private readonly _accountId = computed(() => this._security.currentUser()?.id ?? null);
-
-  /** What the user picked for the area they are in. */
-  readonly currentTheme = computed<Theme>(() => this._preferences()[this.area()]);
+  /** What is chosen - the account's, or this device's - including `auto`. */
+  readonly currentTheme = signal<Theme>(DEFAULT_THEME);
 
   /** What is actually showing. */
   readonly effectiveTheme = computed<ResolvedTheme>(() => {
@@ -88,10 +66,20 @@ export class ThemeToggleService {
 
   constructor() {
     if (this._browser) {
-      this._restore();
-      this._watchSystem();
-      this._watchRoute();
-      this._watchAccount();
+      this._systemPrefersDark.set(this._query()?.matches ?? false);
+      this._query()?.addEventListener('change', (event) => this._systemPrefersDark.set(event.matches));
+      this.currentTheme.set(this._restore());
+
+      // The account's theme, the moment it is known and whenever it changes.
+      // Not while a choice made here is on its way: an answer to an earlier
+      // save, or a token refreshed meanwhile, still says the theme the
+      // account held before it, and the page would flick back.
+      effect(() => {
+        const theme = this._account.theme();
+        if (theme && !this._account.saving('theme')) {
+          untracked(() => this._show(theme));
+        }
+      });
     }
 
     effect(() => {
@@ -102,118 +90,77 @@ export class ThemeToggleService {
     });
   }
 
-  /** Sets the theme for the area currently in view. */
-  setTheme(theme: Theme): void {
-    this.setThemeFor(this.area(), theme);
-  }
-
-  setThemeFor(area: ThemeArea, theme: Theme): void {
-    this._preferences.update((current) => ({ ...current, [area]: theme }));
-    if (!this._browser) {
-      return;
-    }
-    this._storage.write(STORAGE_KEY[area], theme);
-    this._save(area, theme);
+  /**
+   * The reader's choice: shown at once, and saved to their anotoki account
+   * while they are signed in - every anotoki site follows it then. Resolves
+   * with what became of the save; on a refusal the account's theme is back on
+   * the screen, and the caller tells the reader.
+   */
+  setTheme(theme: Theme): Promise<PreferenceSave> {
+    this._show(theme);
+    return this._account.save('theme', theme).then((result) => {
+      const kept = this._account.theme();
+      if (result.outcome === 'refused' && kept) {
+        this._show(kept);
+      }
+      return result;
+    });
   }
 
   /** Flips to the opposite of what is on screen, which also leaves `auto`. */
-  toggleTheme(): void {
-    this.setTheme(this.isDarkMode() ? 'light' : 'dark');
+  toggleTheme(): Promise<PreferenceSave> {
+    return this.setTheme(this.isDarkMode() ? 'light' : 'dark');
   }
 
   // ── Wiring ──────────────────────────────────────────────────────────────────
 
-  private _restore(): void {
-    this._systemPrefersDark.set(this._query()?.matches ?? false);
-    // The router has not navigated yet at startup, so read the address bar -
-    // otherwise /admin would flash the site's theme before correcting itself.
-    this.area.set(this._areaFor(typeof location !== 'undefined' ? location.pathname : this._router.url));
-
-    const stored: Record<ThemeArea, Theme> = { ...DEFAULT_THEME };
-    for (const area of ['main', 'admin'] as ThemeArea[]) {
-      const saved = this._read(STORAGE_KEY[area]);
-      if (saved) {
-        stored[area] = saved;
-      }
+  private _show(theme: Theme): void {
+    this.currentTheme.set(theme);
+    if (this._browser) {
+      this._write(STORAGE_KEY, theme);
     }
-    this._preferences.set(stored);
   }
 
-  private _watchRoute(): void {
-    this._router.events.pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd)).subscribe((event) => {
-      this.area.set(this._areaFor(event.urlAfterRedirects));
-    });
-  }
-
-  /** Signing in adopts the account's choice; signing out falls back to storage. */
-  private _watchAccount(): void {
-    effect(() => {
-      // Only who it is is tracked; the record is read as it stands right now.
-      this._accountId();
-      const user = untracked(() => this._security.currentUser());
-
-      untracked(() => {
-        if (!user) {
-          this._restorePreferencesFromStorage();
-          return;
-        }
-        const fromAccount: Partial<Record<ThemeArea, Theme>> = {};
-        if (this._valid(user.theme_main)) {
-          fromAccount.main = user.theme_main as Theme;
-        }
-        if (this._valid(user.theme_admin)) {
-          fromAccount.admin = user.theme_admin as Theme;
-        }
-        if (Object.keys(fromAccount).length) {
-          this._preferences.update((current) => ({ ...current, ...fromAccount }));
-          // Mirror it locally so the next load is right before /me answers.
-          for (const [area, theme] of Object.entries(fromAccount) as [ThemeArea, Theme][]) {
-            this._storage.write(STORAGE_KEY[area], theme);
-          }
-        }
-      });
-    });
-  }
-
-  private _restorePreferencesFromStorage(): void {
-    this._preferences.set({
-      main: this._read(STORAGE_KEY.main) ?? DEFAULT_THEME.main,
-      admin: this._read(STORAGE_KEY.admin) ?? DEFAULT_THEME.admin,
-    });
-  }
-
-  /** Persists to the account, when there is one. Local storage already has it. */
-  private _save(area: ThemeArea, theme: Theme): void {
-    if (!this._security.isLoggedIn()) {
-      return;
+  /**
+   * This device's theme. The first load after the site and the admin panel
+   * stopped keeping one each carries the site's over, and forgets both.
+   */
+  private _restore(): Theme {
+    const stored = this._read(STORAGE_KEY);
+    if (stored) {
+      return stored;
     }
-    this._meApi.setTheme({ area, theme }).subscribe({
-      // A failed save is not worth interrupting anyone: the choice still
-      // applies here and is remembered locally.
-      error: () => undefined,
-    });
-  }
 
-  private _areaFor(url: string): ThemeArea {
-    return url.startsWith('/admin') ? 'admin' : 'main';
-  }
-
-  private _valid(value: string | undefined | null): boolean {
-    return !!value && (THEMES as string[]).includes(value);
+    const carried = this._read(OLD_STORAGE_KEYS.main);
+    try {
+      this._storage.remove(OLD_STORAGE_KEYS.main);
+      this._storage.remove(OLD_STORAGE_KEYS.admin);
+    } catch {
+      // Blocked storage: nothing was there to forget.
+    }
+    if (carried) {
+      this._write(STORAGE_KEY, carried);
+      return carried;
+    }
+    return DEFAULT_THEME;
   }
 
   private _read(key: string): Theme | null {
     try {
       const value = this._storage.read(key);
-      return this._valid(value) ? (value as Theme) : null;
+      return value && (THEMES as string[]).includes(value) ? (value as Theme) : null;
     } catch {
       // Private browsing and blocked storage.
       return null;
     }
   }
 
-  private _watchSystem(): void {
-    this._query()?.addEventListener('change', (event) => this._systemPrefersDark.set(event.matches));
+  private _write(key: string, theme: Theme): void {
+    try {
+      this._storage.write(key, theme);
+    } catch {
+      // Blocked storage: the theme still shows, it just will not survive a reload.
+    }
   }
 
   private _query(): MediaQueryList | null {

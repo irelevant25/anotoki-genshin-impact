@@ -19,7 +19,7 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  *
  *   /api/settings/public   is how anything learns the site is closed at all -
  *                          and where to sign in, since that is the IAM's
- *   /api/me                is who the signed-in reader is and what they prefer
+ *   /api/me                is who the signed-in reader is
  *   /api/languages         is which languages the sign can be read in
  *   /api/translations/     is the words on it
  *
@@ -34,7 +34,8 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 /**
  * The paths that answer normally while the site is closed: each one itself and
  * everything under it - not every path that merely begins with the same
- * letters, so /api/me keeps /api/me/theme open but not a future /api/media.
+ * letters, so /api/languages keeps /api/languages/sk open, and /api/me does
+ * not open a future /api/media.
  */
 const MAINTENANCE_OPEN_PREFIXES = [
     '/api/settings/public',

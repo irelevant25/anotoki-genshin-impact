@@ -1,24 +1,24 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, firstValueFrom, tap } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { RoleService } from './role.service';
 import { SavesInFlight } from './saves-in-flight.service';
 import { Roles } from './options-helper.service';
-import { DateFormatsRequest, MeApiService, SiteAuthConfig, SiteUser } from '../../../api';
+import { MeApiService, SiteAuthConfig, SiteUser } from '../../../api';
 import { AUTH_CALLBACK_PATH } from '../../routing-definition';
 // No extension on purpose. TypeScript reads the types of a `.mjs` specifier only
 // from a `.d.mts`; written like this it finds the SDK's own `.d.ts`, and the
 // bundler, which tries `.mjs` after `.ts`, finds the code.
-import { type AnotokiAuth, type AnotokiUser, createAuth } from '../iam/anotoki-auth';
+import { type AnotokiAuth, type AnotokiPreferenceChanges, type AnotokiSavedPreferences, type AnotokiUser, createAuth } from '../iam/anotoki-auth';
 
 /**
  * The signed-in reader, as the rest of the site reads them.
  *
- * This site's own record of them, from /api/me. The preferences are optional
- * for the one case where they are not known: /api/me could not be reached and
- * the reader is drawn from what the IAM's ID token says instead - see
- * `_fromIdToken()`. Absent then means "keep what this device has", which is
- * the right answer for a theme or a language nobody actually read.
+ * This site's own record of them, from /api/me - or, when /api/me could not
+ * be reached, what the IAM's ID token says (`_fromIdToken()`), which is why
+ * everything past the roles is optional. How they like every anotoki site to
+ * look - the theme, the dates, the clock, the language - is not here: it is
+ * the IAM account's, read from `claims` (see AccountPreferences).
  */
 export interface UserInfo {
   /** The IAM user id, which this site keys everything of theirs on. */
@@ -30,14 +30,6 @@ export interface UserInfo {
   /** Every role the token grants here. */
   roles: string[];
   background?: string;
-  /** Light/dark choice, kept per area - see ThemeToggleService. */
-  theme_main?: string;
-  theme_admin?: string;
-  /** Language code the site is read in - see TranslationService. */
-  language?: string;
-  /** How dates and times are written, or absent for "as this device does" - see DateFormatService. */
-  date_format?: string;
-  time_format?: string;
   version?: string;
   /** When they first arrived on this site - which is not when their account was made. */
   created_at?: string;
@@ -91,11 +83,6 @@ function fromSiteUser(me: SiteUser): UserInfo {
     // The API says null where this shape says absent; both mean the same thing
     // here, and the rest of the site reads these as optional.
     background: me.background ?? undefined,
-    theme_main: me.theme_main,
-    theme_admin: me.theme_admin,
-    language: me.language,
-    date_format: me.date_format ?? undefined,
-    time_format: me.time_format ?? undefined,
     version: me.version ?? undefined,
     created_at: me.created_at ?? undefined,
   };
@@ -140,7 +127,9 @@ function uiLocale(): string | undefined {
  * sessions - those live on the IAM's account page. This service is the thin
  * layer between the IAM's browser SDK (vendored in ../iam) and the rest of the
  * site: it starts the SDK, turns what it holds into signals, and loads this
- * site's own record of the reader from /api/me.
+ * site's own record of the reader from /api/me. The account's theme, dates,
+ * clock and language come with the SDK's claims, and are saved back through
+ * it (AccountPreferences).
  *
  * The tokens are the SDK's to keep. It stores them in localStorage under its
  * own key, refreshes them before they run out (serialised across tabs), and
@@ -158,6 +147,8 @@ export class SecurityService {
   private _auth: AnotokiAuth | null = null;
   private readonly _config = signal<SiteAuthConfig | null>(null);
   private readonly _user = signal<UserInfo | null>(null);
+  /** What the SDK holds about who is signed in - read again on every change it reports. */
+  private readonly _sdkUser = signal<AnotokiUser | null>(null);
   private readonly _sessionHeld = signal(false);
   private readonly _signInFailure = signal<SignInFailure | null>(null);
 
@@ -175,6 +166,18 @@ export class SecurityService {
   readonly currentUser = this._user.asReadonly();
 
   readonly isLoggedIn = computed(() => this._user() !== null);
+
+  /**
+   * What the IAM says about the signed-in reader - the ID token's claims, as
+   * the SDK keeps them: their language (`locale`) and how they like every
+   * anotoki site to look (`preferences`) among them. Null whenever nobody is
+   * signed in here, so a session the API refuses decides nothing on the page.
+   *
+   * Read again on every change the SDK reports, which `currentUser` is not: a
+   * token refresh, or a preference saved here or in another tab, changes the
+   * claims without changing who is reading.
+   */
+  readonly claims = computed(() => (this._user() ? this._sdkUser() : null));
 
   /**
    * Whether the SDK holds a session - which is not the same as `isLoggedIn`.
@@ -332,19 +335,23 @@ export class SecurityService {
   forgetSession(): void {
     this._loadedFor = null;
     this._sessionHeld.set(false);
+    this._sdkUser.set(null);
     this._set(null);
     void this._auth?.logout({ local: true });
   }
 
   /**
-   * How dates and times are written for this reader.
-   *
-   * A field left out is left alone; a field sent as null is cleared back to
-   * whatever the device says. The answer is the reader's record as it now
-   * stands, which replaces the one held here - see DateFormatService.
+   * Saves the reader's choice of theme, date order, clock or language to their
+   * anotoki account - for every anotoki site, not only this one. The SDK puts
+   * the answer into `claims` at once, in every tab. Rejects with the IAM's
+   * error code on `code` ('invalid_request', 'network', ...); AccountPreferences
+   * is the one caller, and it decides when there is an account to save to.
    */
-  setDateFormats(formats: DateFormatsRequest): Observable<SiteUser> {
-    return this._meApi.setDateFormats(formats).pipe(tap((me) => this._set(fromSiteUser(me))));
+  savePreferences(changes: AnotokiPreferenceChanges): Promise<AnotokiSavedPreferences> {
+    if (!this._auth) {
+      return Promise.reject(Object.assign(new Error('Nobody is signed in'), { code: 'login_required' }));
+    }
+    return this._auth.savePreferences(changes);
   }
 
   /**
@@ -353,9 +360,13 @@ export class SecurityService {
    */
   private async _followSdk(): Promise<void> {
     const auth = this._auth;
-    this._sessionHeld.set(!!auth && auth.isAuthenticated());
+    const signedIn = !!auth && auth.isAuthenticated();
+    this._sessionHeld.set(signedIn);
+    // Before anything is awaited, so a preference the SDK has just written is
+    // on the page by the time the save that wrote it settles.
+    this._sdkUser.set(signedIn ? auth.user() : null);
 
-    if (!auth || !auth.isAuthenticated()) {
+    if (!auth || !signedIn) {
       this._loadedFor = null;
       this._set(null);
       return;

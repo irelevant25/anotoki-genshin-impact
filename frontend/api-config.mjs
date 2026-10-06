@@ -68,7 +68,7 @@ export const GROUPS = [
 
 /** One line under each service class, saying what it covers. */
 export const GROUP_DOCS = {
-    me: "The signed-in reader as this site knows them, and their preferences for reading it. Signing in is the anotoki IAM's.",
+    me: "The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language.",
     language: "Which languages the site offers, and which of them is the fallback.",
     translation: "Translation keys and their strings, per language.",
     backup: "Database dumps: listing them, making them, and restoring one.",
@@ -117,9 +117,6 @@ export const RESPONSES = {
  * that does. A `FormData` entry means the endpoint takes multipart, not JSON.
  */
 export const BODIES = {
-    "PUT /api/me/theme": "ThemeRequest",
-    "PUT /api/me/language": "LanguageRequest",
-    "PUT /api/me/formats": "DateFormatsRequest",
     "PUT /api/settings": "SiteSettingsSaveRequest",
     "PUT /api/site-routes": "SiteRoutesSaveRequest",
     "POST /api/site-routes": "SiteRouteCreateRequest",
@@ -222,9 +219,6 @@ export const NAMES = {
     "PUT /api/admin/translations": "saveAdminTranslations",
     // The mechanical rule reads `/api/me` as a collection of "mes".
     "GET /api/me": "getMe",
-    "PUT /api/me/theme": "setTheme",
-    "PUT /api/me/language": "setLanguage",
-    "PUT /api/me/formats": "setDateFormats",
     "GET /api/settings/public": "getPublicSettings",
     "GET /api/settings": "getSettings",
     "PUT /api/settings": "saveSettings",

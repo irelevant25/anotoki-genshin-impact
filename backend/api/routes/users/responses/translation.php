@@ -105,15 +105,14 @@ class TranslationImportResult extends ResponseShape
 }
 
 /**
- * Deleting a language: the translations that went with it, and the accounts
- * that were reading in it and have been moved to the fallback.
+ * Deleting a language: the translations that went with it. (A reader's
+ * language is their anotoki account's, so there is nobody here to move.)
  */
 class LanguageDeleted extends ResponseShape
 {
     public function __construct(
         public readonly string $message,
         public readonly int $translations_deleted,
-        public readonly int $users_moved,
     ) {
     }
 }

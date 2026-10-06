@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import { DateFormatService, formatTime, formatWith } from '../i18n/date-format.service';
+import { DateFormatService, formatWith } from '../i18n/date-format.service';
 
 /** What is wanted, rather than how to write it - the how belongs to the reader. */
 export type AppDateFormat = 'date' | 'datetime' | 'datetimeWithSeconds' | 'time';
@@ -13,9 +13,10 @@ export type AppDateFormat = 'date' | 'datetime' | 'datetimeWithSeconds' | 'time'
  * is a different day to anyone who reads it wrong.
  *
  * So the order and the clock come from DateFormatService: the device's own
- * settings by default, overridden by the account's if it has an opinion.
- * Callers still say what they want - a date, a date and a time - and never how
- * it should look.
+ * settings by default, overridden by the reader's anotoki account - which
+ * every anotoki site follows - when they are signed in and it has an opinion.
+ * Callers still say what they want - a date, a date and a time - and never
+ * how it should look.
  *
  * Impure, for the same reason the translate pipe is: the argument is a
  * constant, so a pure pipe would cache the first answer and keep handing it
@@ -38,18 +39,17 @@ export class AppDatePipe implements PipeTransform {
       return String(value);
     }
 
-    const { date: pattern, hour12 } = this._formats.pattern();
-
     if (format === 'time') {
-      return formatTime(date, hour12, false);
+      return this._formats.time(date);
     }
+
+    const day = formatWith(date, this._formats.pattern().date);
 
     if (format === 'date') {
-      return formatWith(date, pattern, hour12);
+      return day;
     }
 
-    const withSeconds = format === 'datetimeWithSeconds';
-    return `${formatWith(date, pattern, hour12)} ${formatTime(date, hour12, withSeconds)}`;
+    return `${day} ${this._formats.time(date, format === 'datetimeWithSeconds')}`;
   }
 }
 
@@ -66,3 +66,6 @@ export class AppDatePipe implements PipeTransform {
 
 // The same three, for a reader on a machine set to US English:
 // 3/1/2026 · 3/1/2026 8:15 AM · 3/1/2026 8:15:30 AM
+
+// And for a signed-in reader whose anotoki account says ymd_dash and 12 hours:
+// 2026-03-01 · 2026-03-01 8:15 AM · 2026-03-01 8:15:30 AM

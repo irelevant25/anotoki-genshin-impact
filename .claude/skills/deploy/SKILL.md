@@ -142,6 +142,14 @@ window - the dashboard's *visitors* card should then say 1, which proves the
 hosting hands the `X-Visitor-Key` header to PHP. DEV.md, *Later schema changes*,
 has the whole list.
 
+The account's preferences (2026-10-06; `users/047`, strings only, and `users/048`,
+which drops the site's old copy of them - Apply both after the upload, never
+before: an older build reads those columns): the IAM's build with `POST /api/oidc/preferences` and its
+migration 015 go first - against an IAM without them the site keeps a signed-in
+reader's theme and language on their device and saves nothing. Then, signed in,
+the admin panel's theme button sends one `POST` to the IAM, and the IAM's
+account page shows the same theme.
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against

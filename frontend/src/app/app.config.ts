@@ -70,12 +70,13 @@ export const appConfig: ApplicationConfig = {
         // Before the router's first navigation: a sign-in coming back from the
         // IAM is finished here, and the address it started from put back.
         await securityService.init(siteSettings.auth());
-        // Built only now, because both read the address bar once to tell the
-        // site from the admin panel, and a sign-in that has just come back has
-        // only now put the real address there. Nothing else asks for the theme
-        // until a page happens to need it, and a root service is only built
-        // when something injects it - so ask here, or the document loads with
-        // no theme at all and falls back to the system.
+        // Built only now, after the session: the theme is the signed-in
+        // account's, which is known from here on, and the strings read the
+        // address bar once to tell the site from the admin panel, which a
+        // sign-in that has just come back has only now put right. Nothing else
+        // asks for the theme until a page happens to need it, and a root
+        // service is only built when something injects it - so ask here, or
+        // the document loads with no theme at all and falls back to the system.
         injector.get(ThemeToggleService);
         // Last, because it needs to know where the API is and who is signed
         // in. It never rejects, so a language server that is down delays the

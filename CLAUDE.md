@@ -112,18 +112,44 @@ one identity provider, the **anotoki IAM** at iam.anotoki.eu (repository
 Registration, passwords, emailed codes, Google, two-factor, sessions, the account
 page and the admin pages for accounts all live there.
 
-- **Frontend**: the vendored browser SDK (`anotoki-auth.mjs` in local-lib) does
-  the OpenID Connect code flow with PKCE - "Sign in" goes to the IAM and comes
-  back to `/auth/callback` - and the interceptor sends the access token as
-  `Authorization: Bearer`. The issuer and client id come from
+- **Frontend**: the vendored browser SDK (`anotoki-auth.mjs` and its `.d.ts` in
+  local-lib's `iam/`, the IAM's `sdk/js/` v1.2.0, copied byte for byte - never
+  edited here) does the OpenID Connect code flow with PKCE - "Sign in" goes to
+  the IAM and comes back to `/auth/callback` - and the interceptor sends the
+  access token as `Authorization: Bearer`. The issuer and client id come from
   `GET /api/settings/public` (`auth`).
 - **Backend**: `api/site_user.php` verifies the token with the vendored
   `api/anotoki_iam.php` (RS256 against the IAM's published keys, issuer,
   audience `genshin`, `typ at+jwt`, expiry) and keeps the `users` row - id =
-  the IAM user id, name, address, this site's preferences - in step with it.
+  the IAM user id, name, address - in step with it.
   Config: `config/iam.local.php` (dev: issuer `http://localhost:4300`). The SDK
   is the IAM's `sdk/php/anotoki_iam.php` (v1.1.0), copied byte for byte - never
   edited here, never a fetch of our own beside it.
+- **The theme, the dates, the clock and the language are the account's** (the
+  IAM's migration 015, the owner's decision of 2026-10-06; its
+  `docs/integrating-an-app.md`, "The account's preferences"): one choice every
+  anotoki site follows - this one's admin panel included, which has no theme of
+  its own any more. The SDK's `user().preferences` and `locale` carry them
+  (`SecurityService.claims`), and `AccountPreferences`
+  (`shared/local-lib/services/account-preferences.service.ts`) is the one place
+  that says when they apply and that saves to them (`savePreferences()`): one
+  save at a time, the latest choice of each last, one preference a request. They
+  apply only while somebody is signed in here and `preferences` is not null - a
+  visitor, or an IAM before 015, keeps the device's: the theme and the language
+  in localStorage (`theme` - the old `theme-main` carried over once - and
+  `language`), the dates the device's way (`auto`). The language follows that
+  rule too, though the IAM always had it: following it while a choice made here
+  could not be saved back would undo the choice at the next load. The choosers
+  (the account panel, the admin panel's theme button) show a choice at once and
+  save it after; a refusal puts the account's theme or format back and says so,
+  a language the IAM does not offer (`invalid_request`) stays this site's for
+  the visit, silently. `ThemeToggleService`, `DateFormatService` and
+  `TranslationService` follow the account's values whenever they change (another
+  site, another tab), but not while a choice of the same one is on its way. The
+  API keeps no copy: `/api/me` answers no preference, the `PUT /api/me/theme`,
+  `/language` and `/formats` routes are gone, and `users.theme_main`,
+  `theme_admin`, `language`, `date_format` and `time_format` (with the
+  `themes` lookup) went with `users/048`, at the owner's word.
 - **Sign-in required** is the IAM's switch, per site (its admin console:
   Applications → genshin → Settings), off for this site by default - a
   reference work anyone can read. The backend reads it with the SDK's
@@ -273,8 +299,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   every anotoki project. Its two halves were separate databases once and keep
   their own folders: `genshin_impact` (the game content) and `users`
   (translations, languages, site settings and page switches, and this site's
-  small record of each person - name, address, preferences; the accounts
-  themselves are the IAM's). Routes live in `backend/api/routes/genshin_impact/`
+  small record of each person - name, address; the accounts themselves, and how
+  each person likes the sites to look, are the IAM's). Routes live in `backend/api/routes/genshin_impact/`
   and `backend/api/routes/users/`, each with `endpoints/`, `models/`,
   `responses/`; `genshinDb()` and `usersDb()` say which half a query is about and
   hand back the same connection. A checkout still configured with two databases
@@ -424,11 +450,16 @@ node docs/security/build-report.mjs                            # after re-runnin
   shared `file-preview` modal.
 - **i18n**: user copy goes through the `translate` pipe with a key; proper
   nouns (character names, usernames, version numbers) are shown as they are, not
-  through the pipe. Dates go through `AppDatePipe`. New keys arrive in a `users`
+  through the pipe. Dates go through `AppDatePipe`: the signed-in account's date
+  order and clock (a chosen clock in the page language's words for am and pm),
+  else the device's. The reading language is the signed-in account's when this
+  site has it, else this device's (see *Signing in*, the account's
+  preferences). New keys arrive in a `users`
   migration with English and Slovak strings (`php translations.php --status`
   checks the code against the database).
-- **Theming**: the site has light/dark; never hard-code a colour that only works
-  in one theme.
+- **Theming**: the site has light/dark - one theme for the whole site, the admin
+  panel included, the signed-in account's or this device's (`ThemeToggleService`);
+  never hard-code a colour that only works in one theme.
 
 ## Deployment
 

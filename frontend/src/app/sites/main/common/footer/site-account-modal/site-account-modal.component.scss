@@ -88,7 +88,9 @@
   color: var(--text-secondary);
 }
 
-.sign-out-note {
+// The lines under the choices: that they are the anotoki account's, and that
+// signing out is everywhere at once.
+.account-note {
   margin: var(--spacing-md) 0 0;
   font-size: var(--font-size-sm);
   color: var(--text-muted);

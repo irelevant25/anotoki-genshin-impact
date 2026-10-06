@@ -14,7 +14,7 @@
   "tags": [
     {
       "name": "me",
-      "description": "The signed-in reader as this site knows them, and their preferences for reading it. Signing in is the anotoki IAM's."
+      "description": "The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language."
     },
     {
       "name": "language",
@@ -16241,165 +16241,6 @@
         ]
       }
     },
-    "/api/me/formats": {
-      "put": {
-        "tags": [
-          "me"
-        ],
-        "operationId": "setDateFormats",
-        "summary": "Set date formats",
-        "description": "Requires a signed-in user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DateFormatsRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteUser"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/me/language": {
-      "put": {
-        "tags": [
-          "me"
-        ],
-        "operationId": "setLanguage",
-        "summary": "Set language",
-        "description": "Requires a signed-in user. Reads `languages`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LanguageRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LanguageChanged"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/me/theme": {
-      "put": {
-        "tags": [
-          "me"
-        ],
-        "operationId": "setTheme",
-        "summary": "Set theme",
-        "description": "Requires a signed-in user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ThemeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThemeChanged"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
     "/api/migrations": {
       "get": {
         "tags": [
@@ -26910,34 +26751,6 @@
           "max",
           "keep_days"
         ],
-        "additionalProperties": false
-      },
-      "DateFormatsRequest": {
-        "title": "DateFormatsRequest",
-        "description": "How this reader wants dates and times written. Either field absent leaves that setting alone; null clears it back to whatever the device says, which is what a reader starts with.",
-        "type": "object",
-        "properties": {
-          "date_format": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "time_format": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
         "additionalProperties": false
       },
       "DomainLevel": {
@@ -42597,7 +42410,7 @@
       },
       "LanguageDeleted": {
         "title": "LanguageDeleted",
-        "description": "Deleting a language: the translations that went with it, and the accounts that were reading in it and have been moved to the fallback.",
+        "description": "Deleting a language: the translations that went with it. (A reader's language is their anotoki account's, so there is nobody here to move.)",
         "type": "object",
         "properties": {
           "message": {
@@ -42605,29 +42418,11 @@
           },
           "translations_deleted": {
             "type": "number"
-          },
-          "users_moved": {
-            "type": "number"
           }
         },
         "required": [
           "message",
-          "translations_deleted",
-          "users_moved"
-        ],
-        "additionalProperties": false
-      },
-      "LanguageChanged": {
-        "title": "LanguageChanged",
-        "description": "The shape of a `LanguageChanged` response.",
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "language"
+          "translations_deleted"
         ],
         "additionalProperties": false
       },
@@ -42675,19 +42470,6 @@
           "code",
           "name",
           "native_name"
-        ],
-        "additionalProperties": false
-      },
-      "LanguageRequest": {
-        "title": "LanguageRequest",
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "language"
         ],
         "additionalProperties": false
       },
@@ -45655,7 +45437,7 @@
       },
       "SiteUser": {
         "title": "SiteUser",
-        "description": "What /api/me answers with: the signed-in reader as this site knows them. Their account - password, two-factor, Google, sessions - is the IAM's and is managed on the IAM's own account page. What is here is this site's: the name to show, the role the token grants here, and the preferences for reading this site.",
+        "description": "What /api/me answers with: the signed-in reader as this site knows them. Their account - password, two-factor, Google, sessions - is the IAM's and is managed on the IAM's own account page, and so are the theme, the dates, the clock and the language they read every anotoki site in (the IAM's tokens carry them to the pages). What is here is this site's: the name to show and the role the token grants here.",
         "type": "object",
         "properties": {
           "id": {
@@ -45696,39 +45478,6 @@
               }
             ]
           },
-          "theme_main": {
-            "description": "The site's own light/dark choice.",
-            "type": "string"
-          },
-          "theme_admin": {
-            "description": "The admin panel's, remembered separately.",
-            "type": "string"
-          },
-          "language": {
-            "type": "string"
-          },
-          "date_format": {
-            "description": "How this reader wants dates written, or null for \"as this device does\". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "time_format": {
-            "description": "'24', '12', or null for whatever the device says.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
           "version": {
             "anyOf": [
               {
@@ -45758,11 +45507,6 @@
           "role",
           "roles",
           "background",
-          "theme_main",
-          "theme_admin",
-          "language",
-          "date_format",
-          "time_format",
           "version",
           "created_at"
         ],
@@ -45889,357 +45633,6 @@
         },
         "required": [
           "name"
-        ],
-        "additionalProperties": false
-      },
-      "ThemeArea": {
-        "title": "ThemeArea",
-        "description": "Which area's theme is being set: the site, or the admin panel.",
-        "type": "object",
-        "properties": {
-          "toString": {
-            "description": "Returns a string representation of a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "charAt": {
-            "description": "Returns the character at the specified index.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "charCodeAt": {
-            "description": "Returns the Unicode value of the character at the specified location.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "concat": {
-            "description": "Returns a string that contains the concatenation of two or more strings.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "indexOf": {
-            "description": "Returns the position of the first occurrence of a substring.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "lastIndexOf": {
-            "description": "Returns the last occurrence of a substring in the string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "localeCompare": {
-            "description": "Determines whether two strings are equivalent in the current locale. Determines whether two strings are equivalent in the current or specified locale.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "match": {
-            "description": "Matches a string with a regular expression, and returns an array containing the results of that search. Matches a string or an object that supports being matched against, and returns an array containing the results of that search, or null if no matches are found.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "replace": {
-            "description": "Replaces text in a string, using a regular expression or search string. Passes a string and {@linkcode replaceValue} to the `[Symbol.replace]` method on {@linkcode searchValue}. This method is expected to implement its own replacement algorithm. Replaces text in a string, using an object that supports replacement within a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "search": {
-            "description": "Finds the first substring match in a regular expression search.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "slice": {
-            "description": "Returns a section of a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "split": {
-            "description": "Split a string into substrings using the specified separator and return them as an array.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "substring": {
-            "description": "Returns the substring at the specified location within a String object.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "toLowerCase": {
-            "description": "Converts all the alphabetic characters in a string to lowercase.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "toLocaleLowerCase": {
-            "description": "Converts all alphabetic characters to lowercase, taking into account the host environment's current locale.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "toUpperCase": {
-            "description": "Converts all the alphabetic characters in a string to uppercase.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "toLocaleUpperCase": {
-            "description": "Returns a string where all alphabetic characters have been converted to uppercase, taking into account the host environment's current locale.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "trim": {
-            "description": "Removes the leading and trailing white space and line terminator characters from a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "length": {
-            "description": "Returns the length of a String object.",
-            "type": "number"
-          },
-          "substr": {
-            "description": "Gets a substring beginning at the specified location and having the specified length.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "valueOf": {
-            "description": "Returns the primitive value of the specified object.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "codePointAt": {
-            "description": "Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point value of the UTF-16 encoded code point starting at the string element at position pos in the String resulting from converting this object to a String. If there is no element at that position, the result is undefined. If a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "includes": {
-            "description": "Returns true if searchString appears as a substring of the result of converting this object to a String, at one or more positions that are greater than or equal to position; otherwise, returns false.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "endsWith": {
-            "description": "Returns true if the sequence of elements of searchString converted to a String is the same as the corresponding elements of this object (converted to a String) starting at endPosition – length(this). Otherwise returns false.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "normalize": {
-            "description": "Returns the String value result of normalizing the string into the normalization form named by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "repeat": {
-            "description": "Returns a String value that is made from count copies appended together. If count is 0, the empty string is returned.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "startsWith": {
-            "description": "Returns true if the sequence of elements of searchString converted to a String is the same as the corresponding elements of this object (converted to a String) starting at position. Otherwise returns false.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "anchor": {
-            "description": "Returns an `<a>` HTML anchor element and sets the name attribute to the text value",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "big": {
-            "description": "Returns a `<big>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "blink": {
-            "description": "Returns a `<blink>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "bold": {
-            "description": "Returns a `<b>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "fixed": {
-            "description": "Returns a `<tt>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "fontcolor": {
-            "description": "Returns a `<font>` HTML element and sets the color attribute value",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "fontsize": {
-            "description": "Returns a `<font>` HTML element and sets the size attribute value",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "italics": {
-            "description": "Returns an `<i>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "link": {
-            "description": "Returns an `<a>` HTML element and sets the href attribute value",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "small": {
-            "description": "Returns a `<small>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "strike": {
-            "description": "Returns a `<strike>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "sub": {
-            "description": "Returns a `<sub>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "sup": {
-            "description": "Returns a `<sup>` HTML element",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "padStart": {
-            "description": "Pads the current string with a given string (possibly repeated) so that the resulting string reaches a given length. The padding is applied from the start (left) of the current string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "padEnd": {
-            "description": "Pads the current string with a given string (possibly repeated) so that the resulting string reaches a given length. The padding is applied from the end (right) of the current string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "trimEnd": {
-            "description": "Removes the trailing white space and line terminator characters from a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "trimStart": {
-            "description": "Removes the leading white space and line terminator characters from a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "trimLeft": {
-            "description": "Removes the leading white space and line terminator characters from a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "trimRight": {
-            "description": "Removes the trailing white space and line terminator characters from a string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "matchAll": {
-            "description": "Matches a string with a regular expression, and returns an iterable of matches containing the results of that search.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "replaceAll": {
-            "description": "Replace all instances of a substring in a string, using a regular expression or search string.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "at": {
-            "description": "Returns a new String consisting of the single UTF-16 code unit located at the specified index.",
-            "type": "object",
-            "additionalProperties": false
-          },
-          "__@iterator@31": {
-            "description": "Iterator",
-            "type": "object",
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "toString",
-          "charAt",
-          "charCodeAt",
-          "concat",
-          "indexOf",
-          "lastIndexOf",
-          "localeCompare",
-          "match",
-          "replace",
-          "search",
-          "slice",
-          "split",
-          "substring",
-          "toLowerCase",
-          "toLocaleLowerCase",
-          "toUpperCase",
-          "toLocaleUpperCase",
-          "trim",
-          "length",
-          "substr",
-          "valueOf",
-          "codePointAt",
-          "includes",
-          "endsWith",
-          "normalize",
-          "repeat",
-          "startsWith",
-          "anchor",
-          "big",
-          "blink",
-          "bold",
-          "fixed",
-          "fontcolor",
-          "fontsize",
-          "italics",
-          "link",
-          "small",
-          "strike",
-          "sub",
-          "sup",
-          "padStart",
-          "padEnd",
-          "trimEnd",
-          "trimStart",
-          "trimLeft",
-          "trimRight",
-          "matchAll",
-          "replaceAll",
-          "at",
-          "__@iterator@31"
-        ],
-        "additionalProperties": false
-      },
-      "ThemeChanged": {
-        "title": "ThemeChanged",
-        "description": "The shape of a `ThemeChanged` response.",
-        "type": "object",
-        "properties": {
-          "area": {
-            "description": "'main' or 'admin'.",
-            "type": "string"
-          },
-          "theme": {
-            "description": "'light', 'dark' or 'auto'.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "area",
-          "theme"
-        ],
-        "additionalProperties": false
-      },
-      "ThemeRequest": {
-        "title": "ThemeRequest",
-        "type": "object",
-        "properties": {
-          "area": {
-            "$ref": "#/components/schemas/ThemeArea"
-          },
-          "theme": {
-            "type": "string",
-            "enum": [
-              "light",
-              "dark",
-              "auto"
-            ]
-          }
-        },
-        "required": [
-          "area",
-          "theme"
         ],
         "additionalProperties": false
       },

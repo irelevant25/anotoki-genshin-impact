@@ -252,6 +252,20 @@ use it (see *Checking your work*). 046 is what a visitor is told (the keys
 `visitor.*`, English and informal Slovak, never over a string reworded in the
 admin panel): until it runs, the notice and the messages show their keys.
 
+**And (written 2026-10-06)** `users/047_account_preferences_strings.sql`: the
+account panel's line under its choosers saying they are the anotoki account's
+(`account.preferencesNote`), and a truer description for
+`account.formats.failed`, which the panel now also shows when a theme or a
+language could not be saved. It changes no schema and no other string; until it
+runs, a signed-in reader sees the line's key.
+
+**And (written 2026-10-06)** `users/048_drop_own_preferences.sql`, at the
+owner's word: the columns the site kept its own copy of the preferences in
+(`users.theme_main`, `theme_admin`, `language`, `date_format`, `time_format`)
+and the `themes` lookup go. **Not a way back**: a build from before 047 reads
+those columns, so upload the new build first, then Apply - and once 048 has
+run, an older build never goes on the host again.
+
 ---
 
 ## Checking your work
@@ -369,6 +383,21 @@ three questions), the site full of visitors (`max_visitors => 0`: the game stays
 With the switch on and a key held, the sign-in card adds that the games come
 along. The admin dashboard's *visitors* card counts them against
 `max_visitors`, and asks to be looked at near the ceiling.
+
+**The account's preferences** (the local IAM with its migration 015). Signed
+in, the account panel's choosers - appearance, dates, clock, language - and the
+admin panel's theme button each show the choice at once and send one
+`POST {issuer}/api/oidc/preferences` (the Network tab; never a request to this
+site's API), one at a time when clicked quickly; the IAM's account page shows
+the same choice, and a choice made there reaches this site with its next token
+refresh (or at once in a tab of this site that saved it). The theme is the same
+in `/admin` as on the site. With the IAM stopped, a theme, date order or clock
+goes back to the account's and the panel says it could not be saved; a language
+stays on the page for the visit, with the same words - and without a word when
+the IAM simply does not offer it. Signed out, the
+appearance and the language are kept in this browser's localStorage (`theme`,
+`language`, prefixed `anotoki-genshin-impact-`) and the date and clock
+choosers are not shown.
 
 The generated reports under `docs/` - reference, performance, security - are
 rebuilt by their own scripts; `docs/README.md` has the commands.
@@ -645,6 +674,19 @@ the visitor's own address is then read from `CF-Connecting-IP`. setup.php never
 writes that file, and build-dist leaves every `*.local.php` behind, so it
 survives uploads. To stop visitors at once, switch **Sign-in required** on in
 the IAM.
+
+**The account's preferences on the host** (2026-10-06): the IAM first - its
+build with `POST /api/oidc/preferences` and its migration 015 applied - then
+upload both builds here and Apply pending (`users/047` and `048` - after the
+upload, never before: 048 drops the columns an older build reads). A site built before
+this one keeps its own copy as it did; this one, against an IAM without 015,
+keeps every signed-in reader's theme and language on their device, hides the
+date and clock choosers, and saves nothing to the account - nothing breaks,
+but nobody's choices travel until 015 is there. A session signed in before the
+upload brings the account's choices with its next token refresh (ten minutes
+at most). The first load after the upload carries a visitor's site theme
+(`theme-main` in localStorage) over as the one theme; an admin panel theme kept
+apart on a device is forgotten.
 
 ### Copying local data up to production
 

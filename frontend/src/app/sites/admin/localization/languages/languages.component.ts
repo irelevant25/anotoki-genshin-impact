@@ -148,8 +148,7 @@ export class LanguagesComponent implements OnInit {
       next: (result) => {
         this.deleteConfirm.set(null);
         this.load();
-        const moved = result?.users_moved ? `, ${result.users_moved} reader(s) moved to English` : '';
-        this._notify.showSuccess(`Deleted with ${result?.translations_deleted ?? 0} translation(s)${moved}`);
+        this._notify.showSuccess(`Deleted with ${result?.translations_deleted ?? 0} translation(s)`);
       },
       error: (e) => {
         this.deleteConfirm.set(null);

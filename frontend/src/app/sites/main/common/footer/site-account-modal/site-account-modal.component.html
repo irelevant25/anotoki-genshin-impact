@@ -76,10 +76,11 @@
             </div>
         </div>
 
-        <!-- Signed in, because there is somewhere to keep the answer. Signed
-             out the device's own settings are used and there is nothing to
-             choose - see DateFormatService. -->
-        @if (user()) {
+        <!-- While the anotoki account keeps them, because that is where the
+             answer goes. Signed out - or with an IAM that keeps no
+             preferences - the device's own settings are used and there is
+             nothing to choose: see DateFormatService. -->
+        @if (account.kept()) {
             <div class="theme-row">
                 <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
                 <span class="text-muted small theme-row-label">{{ 'account.dateFormat' | translate }}</span>
@@ -134,11 +135,18 @@
             </div>
         }
 
+        <!-- The choices above are the anotoki account's: changing one here
+             changes it on every anotoki site. Said before it surprises
+             anybody on the next one. -->
+        @if (account.kept()) {
+            <p class="account-note">{{ 'account.preferencesNote' | translate }}</p>
+        }
+
         <!-- Signing out is the IAM's too, and it is everywhere at once. Said
              before the button is pressed rather than discovered on the next
              site. -->
         @if (user()) {
-            <p class="sign-out-note">{{ 'account.signOutNote' | translate }}</p>
+            <p class="account-note">{{ 'account.signOutNote' | translate }}</p>
         }
     </div>
     <div modal-footer class="account-actions">

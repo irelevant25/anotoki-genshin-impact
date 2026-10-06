@@ -9,8 +9,11 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
 - **Quizzes**: a daily run and six quizzes - banners, dishes, the odd one out,
   music, pixelated art, voice lines - with progress and statistics per person.
 - **Games**: an elemental minesweeper and a tournament.
-- **Profile**: quiz history and statistics, and the reader's own preferences
-  (theme, language, date formats). English and Slovak throughout.
+- **Profile**: quiz history and statistics. English and Slovak throughout.
+- **Appearance, dates, clock and language** are the reader's anotoki account's:
+  chosen in the account panel (or the admin panel's theme button), they apply on
+  every anotoki site. Without signing in, the theme and the language are this
+  device's and dates are written the device's way.
 - **Admin panel**: every piece of game content and its media, translations and
   languages, site switches (maintenance, announcements, which pages are open to
   whom), migrations, backups, the audit log, errors and feedback.
@@ -86,7 +89,8 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
 - **Signing in** happens at the anotoki IAM (OpenID Connect); this site is its
   client `genshin`. The backend checks every access token itself - the IAM's
   signature, issuer, audience and expiry - and keeps a small record of each
-  person: name, address and this site's preferences. Roles are granted in the
+  person: name and address. How they like the sites to look is their anotoki
+  account's, which the pages read and save through the IAM. Roles are granted in the
   IAM's admin console: **EDITOR** changes game content, **ADMIN** also the site's
   settings, migrations and backups. A role taken away stops working here within
   ten minutes.
@@ -200,6 +204,14 @@ not drift; [docs/README.md](docs/README.md) lists them.
   a sign-in says what came along, and the admin dashboard counts the visitors.
   With 045 pending the pages keep a signed-out player's games in the browser
   as before. The final review of this work is still to come.
+- Since 2026-10-06 the theme, the date order, the clock and the language are the
+  anotoki account's (the IAM's migration 015), one choice for every anotoki
+  site: the account panel's choosers and the admin panel's theme button save to
+  the account through the IAM's browser SDK 1.2.0, and the site follows the
+  account's choices - one theme for the whole site, the admin panel's own
+  theme gone. Signed out, the device's. The API keeps no copy any more:
+  migration `users/048` drops the old columns, and `users/047` brings the
+  account panel's line saying so.
 
 ## More
 

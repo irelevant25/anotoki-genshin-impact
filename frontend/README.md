@@ -15,11 +15,13 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         (app.component) says once what happened to a visitor's games, in toasts
 src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, translations, settings,
                         migrations, backups, the audit log
-src/app/shared/         local-lib (the UI kit, abstract bases, the IAM's browser SDK, i18n;
+src/app/shared/         local-lib (the UI kit, abstract bases, the IAM's browser SDK in iam/ -
+                        1.2.0, copied from the IAM byte for byte - i18n, theme-toggle/;
                         services/: who a request is - issued-as.ts, visitor-key.service.ts (this
                         browser's visitor key and the move at sign-in), saves-in-flight.service.ts,
-                        http.interceptor.ts), not-set-up/ (drawn instead of either site while the
-                        API says not_set_up)
+                        http.interceptor.ts; account-preferences.service.ts - the anotoki account's
+                        theme, dates, clock and language, and saving to them), not-set-up/ (drawn
+                        instead of either site while the API says not_set_up)
 src/app/api/            the generated API client - services, models, types (a player's own
                         routes take a trailing `context?: HttpContext`: whom it is issued as)
 public/                 config.json (where the API is: empty - its own origin, here as in

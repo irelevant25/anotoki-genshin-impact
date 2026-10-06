@@ -4,8 +4,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
-import { SecurityService } from '../services/security.service';
-import { Language, LanguageApiService, MeApiService, TranslationApiService } from '../../../api';
+import { AccountPreferences, PreferenceSave } from '../services/account-preferences.service';
+import { Language, LanguageApiService, TranslationApiService } from '../../../api';
 
 /**
  * A language the site can be read in.
@@ -37,11 +37,14 @@ interface CachedBundle {
  * The site only. The admin panel is English, so nothing there asks for a
  * translation and no preference is kept for it.
  *
- * The choice is written to local storage so it survives a reload whether or
- * not anyone is signed in, and to the account when there is one, so it follows
- * the reader to another browser. With no choice on record the browser's own
- * preference decides, which is the closest thing to a right answer for someone
- * arriving for the first time.
+ * Signed in, the language is the anotoki account's - the IAM's `locale`, one
+ * language every anotoki site follows - whenever this site has it; and the
+ * chooser saves the reader's choice to the account (AccountPreferences). A
+ * language the IAM does not offer stays this site's own choice, for the
+ * visit. Signed out, or from an IAM that keeps no preferences, the choice is
+ * this device's. Either way it is written to local storage, and with no choice
+ * on record the browser's own preference decides, which is the closest thing
+ * to a right answer for someone arriving for the first time.
  *
  * Strings are cached from the last visit and painted immediately, then
  * refreshed behind the page. Only a genuine first visit waits on the network,
@@ -54,9 +57,8 @@ export class TranslationService {
   private readonly _storage = inject(LocalStorageService);
   private readonly _languageApi = inject(LanguageApiService);
   private readonly _translationApi = inject(TranslationApiService);
-  private readonly _meApi = inject(MeApiService);
   private readonly _router = inject(Router);
-  private readonly _security = inject(SecurityService);
+  private readonly _account = inject(AccountPreferences);
 
   /** The language in force. */
   readonly language = signal<string>(FALLBACK_LANGUAGE);
@@ -71,16 +73,20 @@ export class TranslationService {
   /** True once there are strings to show, from the cache or from the server. */
   readonly ready = computed(() => Object.keys(this._values()).length > 0);
 
-  /** What the signed-in account holds, if anyone is signed in. */
-  private readonly _accountLanguage = computed(() => this._security.currentUser()?.language ?? null);
-
-  /** Who is signed in, by id - see _watchAccount(). */
-  private readonly _accountId = computed(() => this._security.currentUser()?.id ?? null);
+  /** The account's language, while the account's choices apply - see AccountPreferences. */
+  private readonly _accountLanguage = this._account.language;
 
   /** Keys already complained about, so one missing string is not a torrent. */
   private readonly _warned = new Set<string>();
 
   private readonly _area = signal<'main' | 'admin'>('main');
+
+  /**
+   * The language the page in view is written in: the site's, but English in
+   * the admin panel whatever the site is set to. What a clock's "am" and "pm"
+   * are written in (DateFormatService).
+   */
+  readonly pageLanguage = computed(() => (this._area() === 'admin' ? FALLBACK_LANGUAGE : this.language()));
 
   constructor() {
     if (this._browser) {
@@ -89,9 +95,8 @@ export class TranslationService {
     }
 
     effect(() => {
-      // The admin panel is English whatever the site is set to, and saying
-      // otherwise would mislead a screen reader.
-      const code = this._area() === 'admin' ? FALLBACK_LANGUAGE : this.language();
+      // Saying otherwise than the page does would mislead a screen reader.
+      const code = this.pageLanguage();
       if (this._browser) {
         document.documentElement.lang = code;
       }
@@ -132,9 +137,17 @@ export class TranslationService {
 
   // ── Choosing ───────────────────────────────────────────────────────────────
 
-  async setLanguage(code: string): Promise<void> {
+  /**
+   * The reader's choice: in force once its strings are here, then saved to
+   * their anotoki account while they are signed in (AccountPreferences) - or
+   * this device's alone. Resolves with what became of the save, null when
+   * nothing switched. A refusal leaves the page in the chosen language for
+   * the visit; `invalid_request` means the IAM does not offer it, and then it
+   * simply stays this site's own choice.
+   */
+  async setLanguage(code: string): Promise<PreferenceSave | null> {
     if (code === this.language() && this.ready()) {
-      return;
+      return null;
     }
 
     // Only remember a switch that actually happened. If the strings could not
@@ -142,11 +155,11 @@ export class TranslationService {
     // one would mean reopening into a language nothing is written in.
     const switched = await this._loadBundle(code);
     if (!switched || !this._browser) {
-      return;
+      return null;
     }
 
     this._storage.write(LANGUAGE_KEY, code);
-    this._save(code);
+    return this._account.save('language', code);
   }
 
   // ── Startup ────────────────────────────────────────────────────────────────
@@ -265,51 +278,38 @@ export class TranslationService {
   }
 
   /**
-   * Signing in adopts the account's language; signing out leaves it as it is.
+   * The account's language, whenever it changes while the page is open: a
+   * sign-in, here or in another tab, or a language chosen on another anotoki
+   * site or in another tab. Signing out leaves the language as it is.
    *
-   * At start-up _resolve() has already read the account's language; this is
-   * for somebody arriving while the page is open - a sign-in in another tab.
-   * Keyed on who it is rather than on the record, which is replaced whenever
-   * it is reloaded and could otherwise undo a switch made here a moment ago.
+   * At start-up _resolve() has already read the account's language, so the
+   * first run only notes it. Only the account's language is followed - never
+   * re-read because something else moved - so a language the IAM refused
+   * stays the page's for the visit. And not while a choice made here is on its
+   * way: an answer to an earlier save still names the language before it.
    */
   private _watchAccount(): void {
-    // Undefined until the first run, which is start-up and _resolve()'s business.
-    let seen: number | null | undefined;
+    let started = false;
 
     effect(() => {
-      const id = this._accountId();
-      const first = seen === undefined;
-      seen = id;
+      const code = this._accountLanguage();
 
-      if (first) {
+      if (!started) {
+        started = true;
         return;
       }
 
-      const code = untracked(this._accountLanguage);
-
       untracked(() => {
-        if (!code || code === this.language()) {
+        if (!code || code === this.language() || this._account.saving('language')) {
           return;
         }
         // Only once the language list has arrived, or there is no way to tell
-        // whether the account is asking for something that still exists.
+        // whether the account is asking for something this site has.
         if (this._languages().some((language) => language.code === code && language.enabled)) {
           this._storage.write(LANGUAGE_KEY, code);
           void this._loadBundle(code);
         }
       });
-    });
-  }
-
-  /** Persists to the account, when there is one. Local storage already has it. */
-  private _save(code: string): void {
-    if (!this._security.isLoggedIn()) {
-      return;
-    }
-    this._meApi.setLanguage({ language: code }).subscribe({
-      // A failed save is not worth interrupting anyone over: the choice still
-      // applies here and is remembered on this device.
-      error: () => undefined,
     });
   }
 

@@ -9439,90 +9439,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 53
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/me/formats",
-            "args": [],
-            "file": "me.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                400
-            ],
-            "responds": {
-                "shape": "SiteUser",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 123
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/me/language",
-            "args": [],
-            "file": "me.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                400
-            ],
-            "responds": {
-                "shape": "LanguageChanged",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 91
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/me/theme",
-            "args": [],
-            "file": "me.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                400
-            ],
-            "responds": {
-                "shape": "ThemeChanged",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 73
+                "line": 37
             },
             "expanded": [],
             "payload": null,
@@ -20212,28 +20129,10 @@
             ]
         },
         {
-            "name": "LanguageChanged",
-            "file": "me.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "language",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "LanguageDeleted",
             "file": "translation.php",
             "merges": null,
-            "description": "Deleting a language: the translations that went with it, and the accounts\nthat were reading in it and have been moved to the fallback.",
+            "description": "Deleting a language: the translations that went with it. (A reader's\nlanguage is their anotoki account's, so there is nobody here to move.)",
             "fields": [
                 {
                     "name": "message",
@@ -20247,16 +20146,6 @@
                 },
                 {
                     "name": "translations_deleted",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "users_moved",
                     "types": [
                         "int"
                     ],
@@ -21887,7 +21776,7 @@
             "name": "SiteUser",
             "file": "me.php",
             "merges": null,
-            "description": "What /api/me answers with: the signed-in reader as this site knows them.\n\nTheir account - password, two-factor, Google, sessions - is the IAM's and\nis managed on the IAM's own account page. What is here is this site's: the\nname to show, the role the token grants here, and the preferences for\nreading this site.",
+            "description": "What /api/me answers with: the signed-in reader as this site knows them.\n\nTheir account - password, two-factor, Google, sessions - is the IAM's and\nis managed on the IAM's own account page, and so are the theme, the dates,\nthe clock and the language they read every anotoki site in (the IAM's\ntokens carry them to the pages). What is here is this site's: the name to\nshow and the role the token grants here.",
             "fields": [
                 {
                     "name": "id",
@@ -21948,56 +21837,6 @@
                     "optional": false,
                     "of": null,
                     "description": null
-                },
-                {
-                    "name": "theme_main",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The site's own light/dark choice."
-                },
-                {
-                    "name": "theme_admin",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The admin panel's, remembered separately."
-                },
-                {
-                    "name": "language",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "date_format",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "How this reader wants dates written, or null for \"as this device\ndoes\". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash."
-                },
-                {
-                    "name": "time_format",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "'24', '12', or null for whatever the device says."
                 },
                 {
                     "name": "version",
@@ -22112,34 +21951,6 @@
                     "optional": false,
                     "of": null,
                     "description": null
-                }
-            ]
-        },
-        {
-            "name": "ThemeChanged",
-            "file": "me.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "area",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "'main' or 'admin'."
-                },
-                {
-                    "name": "theme",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "'light', 'dark' or 'auto'."
                 }
             ]
         },

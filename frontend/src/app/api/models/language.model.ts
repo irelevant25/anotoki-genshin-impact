@@ -20,11 +20,10 @@ export interface LanguagePayload {
 }
 
 /**
- * Deleting a language: the translations that went with it, and the accounts
- * that were reading in it and have been moved to the fallback.
+ * Deleting a language: the translations that went with it. (A reader's
+ * language is their anotoki account's, so there is nobody here to move.)
  */
 export interface LanguageDeleted {
   message: string;
   translations_deleted: number;
-  users_moved: number;
 }

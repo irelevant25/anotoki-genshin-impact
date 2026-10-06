@@ -3,19 +3,13 @@
 // Regenerate: php ../backend/generate-api-spec.php && node generate-api.mjs
 
 /**
- * The shape of a `LanguageChanged` response.
- */
-export interface LanguageChanged {
-  language: string;
-}
-
-/**
  * What /api/me answers with: the signed-in reader as this site knows them.
  *
  * Their account - password, two-factor, Google, sessions - is the IAM's and
- * is managed on the IAM's own account page. What is here is this site's: the
- * name to show, the role the token grants here, and the preferences for
- * reading this site.
+ * is managed on the IAM's own account page, and so are the theme, the dates,
+ * the clock and the language they read every anotoki site in (the IAM's
+ * tokens carry them to the pages). What is here is this site's: the name to
+ * show and the role the token grants here.
  */
 export interface SiteUser {
   /** The IAM user id, which this site keys everything of theirs on. */
@@ -27,26 +21,7 @@ export interface SiteUser {
   /** Every role the token grants here. */
   roles: string[];
   background: string | null;
-  /** The site's own light/dark choice. */
-  theme_main: string;
-  /** The admin panel's, remembered separately. */
-  theme_admin: string;
-  language: string;
-  /** How this reader wants dates written, or null for "as this device does". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash. */
-  date_format: string | null;
-  /** '24', '12', or null for whatever the device says. */
-  time_format: string | null;
   version: string | null;
   /** When they first arrived on this site. */
   created_at: string | null;
-}
-
-/**
- * The shape of a `ThemeChanged` response.
- */
-export interface ThemeChanged {
-  /** 'main' or 'admin'. */
-  area: string;
-  /** 'light', 'dark' or 'auto'. */
-  theme: string;
 }

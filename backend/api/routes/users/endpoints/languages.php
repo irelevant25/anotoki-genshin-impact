@@ -119,9 +119,9 @@ $app->put('/api/languages/{code}', function (Request $request, Response $respons
 // ---------------------------------------------------------------------------
 // DELETE /api/languages/{code}
 //
-// This takes the language's translations with it, so anyone still reading in
-// it is moved to the fallback first rather than being left pointing at a row
-// that no longer exists.
+// This takes the language's translations with it. Nobody's row names a
+// language any more: a reader's language is their anotoki account's, kept by
+// the IAM, and users/048 dropped the column this site kept a copy in.
 // ---------------------------------------------------------------------------
 $app->delete('/api/languages/{code}', function (Request $request, Response $response, array $args) {
     $pdo  = usersDb();
@@ -136,20 +136,10 @@ $app->delete('/api/languages/{code}', function (Request $request, Response $resp
 
     $translations = (int) $pdo->query('SELECT count(*) FROM translations WHERE language_code = ' . $pdo->quote($code))->fetchColumn();
 
-    $pdo->beginTransaction();
-    try {
-        $moved = $pdo->prepare('UPDATE users SET language = ? WHERE language = ?');
-        $moved->execute([FALLBACK_LANGUAGE, $code]);
-        $pdo->prepare('DELETE FROM languages WHERE code = ?')->execute([$code]);
-        $pdo->commit();
-    } catch (\Throwable $e) {
-        $pdo->rollBack();
-        throw $e;
-    }
+    $pdo->prepare('DELETE FROM languages WHERE code = ?')->execute([$code]);
 
     return respondJson($response, [
         'message'              => 'Deleted successfully',
         'translations_deleted' => $translations,
-        'users_moved'          => $moved->rowCount(),
     ]);
 })->add(responds(LanguageDeleted::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

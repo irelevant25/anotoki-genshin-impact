@@ -4,9 +4,10 @@
  * What /api/me answers with: the signed-in reader as this site knows them.
  *
  * Their account - password, two-factor, Google, sessions - is the IAM's and
- * is managed on the IAM's own account page. What is here is this site's: the
- * name to show, the role the token grants here, and the preferences for
- * reading this site.
+ * is managed on the IAM's own account page, and so are the theme, the dates,
+ * the clock and the language they read every anotoki site in (the IAM's
+ * tokens carry them to the pages). What is here is this site's: the name to
+ * show and the role the token grants here.
  */
 
 class SiteUser extends ResponseShape
@@ -21,40 +22,9 @@ class SiteUser extends ResponseShape
         /** @var string[] Every role the token grants here. */
         public readonly array $roles,
         public readonly ?string $background,
-        /** The site's own light/dark choice. */
-        public readonly string $theme_main,
-        /** The admin panel's, remembered separately. */
-        public readonly string $theme_admin,
-        public readonly string $language,
-        /**
-         * How this reader wants dates written, or null for "as this device
-         * does". One of dmy_dot, dmy_slash, mdy_slash, ymd_dash.
-         */
-        public readonly ?string $date_format,
-        /** '24', '12', or null for whatever the device says. */
-        public readonly ?string $time_format,
         public readonly ?string $version,
         /** When they first arrived on this site. */
         public readonly ?string $created_at,
-    ) {
-    }
-}
-
-class ThemeChanged extends ResponseShape
-{
-    public function __construct(
-        /** 'main' or 'admin'. */
-        public readonly string $area,
-        /** 'light', 'dark' or 'auto'. */
-        public readonly string $theme,
-    ) {
-    }
-}
-
-class LanguageChanged extends ResponseShape
-{
-    public function __construct(
-        public readonly string $language,
     ) {
     }
 }

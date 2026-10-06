@@ -30,7 +30,7 @@ const ROUTE_VISIBILITY = ['PUBLIC', 'USER', 'EDITOR', 'ADMIN'];
  * (Signing in is the IAM's and out of this table's reach altogether.)
  *
  * Checked in both directions: '/api/' is refused because it covers /api/me,
- * and '/api/me/theme' is refused because it is covered by it.
+ * and '/api/settings/public' is refused because it is covered by /api/settings.
  */
 const ROUTE_ENDPOINT_RESERVED = ['/api/me', '/api/settings', '/api/site-routes', '/api/languages', '/api/translations'];
 
@@ -259,8 +259,8 @@ function routeEndpointRefusalToSave(string $prefix): ?string
 
     // A route's prefix covers whatever begins with it, letter by letter (that
     // is how the gate matches), so '/api/m' would cover /api/me. The other way
-    // round only a path inside a reserved one is refused: '/api/me/theme', but
-    // not '/api/media', which has nothing to do with /api/me.
+    // round only a path inside a reserved one is refused: '/api/settings/public',
+    // but not '/api/media', which has nothing to do with /api/me.
     foreach (ROUTE_ENDPOINT_RESERVED as $reserved) {
         if (str_starts_with($reserved, $prefix) || $prefix === $reserved || str_starts_with($prefix, $reserved . '/')) {
             return "'$prefix' covers $reserved, which has to keep answering - it is who the reader is, "

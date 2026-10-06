@@ -5,11 +5,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LanguageChanged, SiteUser, ThemeChanged } from '../models';
-import { DateFormatsRequest, LanguageRequest, ThemeRequest } from '../types';
+import { SiteUser } from '../models';
 
 /**
- * The signed-in reader as this site knows them, and their preferences for reading it. Signing in is the anotoki IAM's.
+ * The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language.
  */
 @Injectable({ providedIn: 'root' })
 export class MeApiService {
@@ -22,32 +21,5 @@ export class MeApiService {
    */
   getMe(): Observable<SiteUser> {
     return this._http.get<SiteUser>('/api/me');
-  }
-
-  /**
-   * `PUT /api/me/formats`
-   *
-   * Requires a signed-in user.
-   */
-  setDateFormats(body: DateFormatsRequest): Observable<SiteUser> {
-    return this._http.put<SiteUser>('/api/me/formats', body);
-  }
-
-  /**
-   * `PUT /api/me/language`
-   *
-   * Requires a signed-in user.
-   */
-  setLanguage(body: LanguageRequest): Observable<LanguageChanged> {
-    return this._http.put<LanguageChanged>('/api/me/language', body);
-  }
-
-  /**
-   * `PUT /api/me/theme`
-   *
-   * Requires a signed-in user.
-   */
-  setTheme(body: ThemeRequest): Observable<ThemeChanged> {
-    return this._http.put<ThemeChanged>('/api/me/theme', body);
   }
 }

@@ -13,10 +13,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * created_by on - the accounts moved to the IAM with their ids.
  *
  * The `users` table stays, slimmed to what is this site's own: the name to
- * show beside an audit entry or a translation, the email a feedback reply goes
- * to, and the reader's preferences here - theme, language, date format. It is
- * filled in from the token as people arrive and kept in step when the IAM says
- * their name or address changed. It holds no password and decides nothing.
+ * show beside an audit entry or a translation, and the email a feedback reply
+ * goes to. It is filled in from the token as people arrive and kept in step
+ * when the IAM says their name or address changed. It holds no password and
+ * decides nothing. The theme, the dates, the clock and the language are the
+ * IAM account's (its migration 015): the pages read them from the IAM's tokens
+ * and save them to it themselves. The columns that kept this site's own copy -
+ * theme_main, theme_admin, language, date_format, time_format - went with
+ * users/048.
  * Visitors - people playing without signing in - have rows there too, with
  * negative ids (users/045): api/visitors.php makes them, never this file, and
  * an IAM id is always 1 or more.
@@ -95,8 +99,8 @@ function siteUserFromClaims(array $claims): array
     $row = $statement->fetch();
 
     if ($row === false) {
-        $pdo->prepare('INSERT INTO users (id, username, email, language) VALUES (?, ?, ?, ?) ON CONFLICT (id) DO NOTHING')
-            ->execute([$id, $claimedName !== '' ? $claimedName : 'user' . $id, $email, siteLanguageFor($pdo, $claims['locale'] ?? null)]);
+        $pdo->prepare('INSERT INTO users (id, username, email) VALUES (?, ?, ?) ON CONFLICT (id) DO NOTHING')
+            ->execute([$id, $claimedName !== '' ? $claimedName : 'user' . $id, $email]);
         $statement->execute([$id]);
         $row = $statement->fetch();
     } elseif (($claimedName !== '' && $row['username'] !== $claimedName) || ($email !== null && $row['email'] !== $email)) {
@@ -115,20 +119,4 @@ function siteUserFromClaims(array $claims): array
         'roles' => anotoki_iam_roles($claims),
         'auth_time' => isset($claims['auth_time']) ? (int) $claims['auth_time'] : null,
     ]);
-}
-
-/**
- * The language a newcomer starts in: the IAM's `locale` when this site has
- * that language (users.language refers to the languages table), else English.
- */
-function siteLanguageFor(PDO $pdo, mixed $locale): string
-{
-    if (!is_string($locale) || $locale === '') {
-        return 'en';
-    }
-
-    $known = $pdo->prepare('SELECT 1 FROM languages WHERE code = ?');
-    $known->execute([$locale]);
-
-    return $known->fetchColumn() ? $locale : 'en';
 }

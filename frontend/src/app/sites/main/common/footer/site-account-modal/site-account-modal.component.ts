@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
 import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
+import { AccountPreferences, PreferenceSave } from '../../../../../shared/local-lib/services/account-preferences.service';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
@@ -16,8 +17,11 @@ import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../
  *
  * The account itself - password, two-factor, Google, sessions - is the anotoki
  * IAM's, shared by every anotoki site, and this panel only links to the IAM's
- * page for it. What is here is this site's own: the name and role it knows the
- * reader by, and the appearance, date format and language they read it in.
+ * page for it. The appearance, the dates, the clock and the language are the
+ * account's too (AccountPreferences): chosen here, they are saved to it, and
+ * every anotoki site follows them. Signed out, the appearance and the language
+ * are this device's. What is this site's own is the name and role it knows the
+ * reader by.
  */
 @Component({
   selector: 'app-site-account-modal',
@@ -29,7 +33,7 @@ import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../
 export class SiteAccountModalComponent extends AbstractModalComponent {
   readonly security = inject(SecurityService);
 
-  /** The site's own appearance; the admin panel keeps a separate one. */
+  /** One theme for the whole site, the admin panel included. */
   readonly theme = inject(ThemeToggleService);
 
   /** The language the site is read in; the admin panel stays English. */
@@ -37,6 +41,9 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
 
   /** How dates and times are written for this reader. */
   readonly formats = inject(DateFormatService);
+
+  /** Whether the choices here are the anotoki account's - see the template. */
+  readonly account = inject(AccountPreferences);
 
   private readonly _settings = inject(SiteSettingsService);
 
@@ -108,44 +115,54 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
     this.security.logout().catch(() => this.loading.set(false));
   }
 
+  /**
+   * Shown once its strings are here; saved to the account after. A language
+   * the IAM does not offer (`invalid_request`) stays this site's own for the
+   * visit without a word - nothing went wrong, the IAM just does not have it.
+   */
   setLanguage(code: string): void {
-    void this.i18n.setLanguage(code);
+    void this.i18n.setLanguage(code).then((result) => {
+      if (result?.outcome === 'refused' && result.code !== 'invalid_request') {
+        this._notSaved();
+      }
+    });
   }
 
+  /**
+   * Each is shown at once - a chooser that lags a round trip behind feels
+   * broken - and saved to the account after. A refusal puts the account's
+   * value back, and says so.
+   */
   setDateFormat(choice: DateFormatChoice): void {
-    // Shown before the server answers. The setting is a preference, not a
-    // fact about the account, and a chooser that lags a round trip behind
-    // feels broken - the answer puts it right if the save fails.
-    this.formats.dateChoice.set(choice);
-    this._saveFormats({ date_format: choice === 'auto' ? null : choice });
+    void this.formats.chooseDateFormat(choice).then((result) => this._saidFormats(result));
   }
 
   setTimeFormat(choice: TimeFormatChoice): void {
-    this.formats.timeChoice.set(choice);
-    this._saveFormats({ time_format: choice === 'auto' ? null : choice });
+    void this.formats.chooseTimeFormat(choice).then((result) => this._saidFormats(result));
   }
 
   setTheme(theme: Theme): void {
-    // Always the site's own setting, even though this modal can be opened from
-    // a page the admin panel shares.
-    this.theme.setThemeFor('main', theme);
+    void this.theme.setTheme(theme).then((result) => {
+      if (result.outcome === 'refused') {
+        this._notSaved();
+      }
+    });
   }
 
   toAdmin(): void {
     window.open('/admin', '_blank');
   }
 
-  private _saveFormats(formats: { date_format?: string | null; time_format?: string | null }): void {
-    this.security.setDateFormats(formats).subscribe({
-      next: () => this.notificationService.showSuccess(this.i18n.t('account.formats.saved')),
-      error: () => {
-        // Back to what is stored, rather than a chooser claiming a choice
-        // that did not stick.
-        this.formats.dateChoice.set((this.user()?.date_format as DateFormatChoice) || 'auto');
-        this.formats.timeChoice.set((this.user()?.time_format as TimeFormatChoice) || 'auto');
-        this.notificationService.showError(this.i18n.t('account.formats.failed'));
-      },
-    });
+  private _saidFormats(result: PreferenceSave): void {
+    if (result.outcome === 'saved') {
+      this.notificationService.showSuccess(this.i18n.t('account.formats.saved'));
+    } else if (result.outcome === 'refused') {
+      this._notSaved();
+    }
+  }
+
+  private _notSaved(): void {
+    this.notificationService.showError(this.i18n.t('account.formats.failed'));
   }
 
   private _cannotStart(): void {
