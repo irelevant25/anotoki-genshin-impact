@@ -204,6 +204,38 @@ function requireRole(string ...$roles): callable
 }
 
 /**
+ * Middleware: this site's ADMIN, judged by the access token alone - for the
+ * admin Migrations page's routes (/api/admin/migrations), which have to work
+ * while a database update waits. requireAuth() keeps the person's row in the
+ * users table in step, and a waiting migration may be the very one that
+ * changes that table; this asks no table anything, so nothing the update has
+ * yet to make stands between an administrator and Apply.
+ *
+ * The same answers as requireAuth() and requireRole(): 401 invalid_token
+ * without a token that verifies, 403 for anybody whose token does not grant
+ * ADMIN here.
+ */
+function requireAdminToken(): callable
+{
+    return function (Request $request, RequestHandler $handler): Response {
+        $caller = gateCaller($request);
+
+        if ($caller === null) {
+            return respondJson(new \Slim\Psr7\Response(), [
+                'error' => 'Sign in to do this',
+                'code' => 'invalid_token',
+            ], 401)->withHeader('WWW-Authenticate', 'Bearer error="invalid_token"');
+        }
+
+        if (!isAdminUser($caller)) {
+            return respondJson(new \Slim\Psr7\Response(), ['error' => 'Forbidden: insufficient permissions'], 403);
+        }
+
+        return $handler->handle($request);
+    };
+}
+
+/**
  * The signed-in user, or null - without refusing the request either way.
  *
  * For endpoints that are open to everyone but behave differently when they

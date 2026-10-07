@@ -1,18 +1,31 @@
 <?php
 
 /**
- * The migration engine, with no opinion on who is driving.
+ * This site's migrations, on the anotoki sites' shared engine.
  *
- * These functions read the files under backend/migrations/{folder}/, apply the
- * ones the database has not seen, and record each in its `migrations` table -
- * by folder and file name, because both folders start at 001_initial_schema.sql.
- * They print nothing and read no request - so the CLI (migration.php), the admin
- * apply endpoint, and the first-run installer all build the database the same
- * way, which is the whole point of there being one description of the schema.
+ * The engine itself - reading the files under backend/migrations/{folder}/,
+ * running each one whole or not at all together with its record, stopping at
+ * the first that fails, one apply at a time under an advisory lock - is
+ * anotoki/lib's Migrator (vendor/anotoki/lib), the same on every anotoki site.
+ * What is this site's is here: its two folders and their order, its lock, and
+ * the two things only this site needs - adopting the bookkeeping table from
+ * when each folder had a database of its own (ensureMigrationsTable(), the
+ * Migrator's `prepare`), and refusing to build the folders out of order
+ * (migrationsOrderRefusal(), its `beforeApply`).
+ *
+ * Whatever applies migrations goes through siteMigrator() - the command line
+ * (migration.php), the admin panel's Migrations page (/api/admin/migrations,
+ * api/index.php), the installer (setup.php) and merge-databases.php - so a
+ * database built any of those ways is the same database, which is the whole
+ * point of there being one description of the schema. Nothing here prints
+ * anything or reads a request.
  *
  * See migration.php's header for why the migrations *are* the schema, and why
- * nothing here un-applies anything.
+ * nothing un-applies anything.
  */
+
+use Anotoki\Lib\Migrations\MigrationSet;
+use Anotoki\Lib\Migrations\Migrator;
 
 /**
  * The migration folders, in the order they are applied. Both build the one
@@ -26,20 +39,20 @@
  * over a database that already holds the content, users/001 would put those
  * rows among the character roles and 040 would then fail on the content's
  * references to that table - which is what migrationsOrderRefusal() stops.
+ *
+ * Each folder is one of the engine's sets, under its own name: that name is
+ * what the bookkeeping table's `folder` column holds.
  */
 const MIGRATION_FOLDERS = ['users', 'genshin_impact'];
 
 /**
- * Key of the advisory lock applying migrations holds, so two appliers (the
- * admin button pressed twice, setup.php beside the CLI) never run one file
- * twice.
+ * Key of the advisory lock every apply takes, so two appliers (the admin
+ * button pressed twice, setup.php beside the CLI) never run one file twice:
+ * the second is told the first is busy, and does nothing. This site's own key
+ * rather than the engine's default, so a build from before the shared engine
+ * and this one still keep out of each other's way.
  */
 const MIGRATION_LOCK = 4260917001;
-
-/** Applying migrations here would build them in the wrong order; see migrationsOrderRefusal(). */
-final class MigrationOrderException extends RuntimeException
-{
-}
 
 /** backend/migrations, whichever context loaded this (api/ is one level down). */
 function migrationsRoot(): string
@@ -47,119 +60,90 @@ function migrationsRoot(): string
     return dirname(__DIR__) . '/migrations';
 }
 
-// ─── Reading SQL ─────────────────────────────────────────────────────────────
-
 /**
- * Splits a SQL file into statements.
+ * The folders as the engine's sets, in the order they run - or the one folder
+ * named.
  *
- * A semicolon only ends a statement outside everything that can contain one:
- * a quoted string, a dollar-quoted block - which is how every trigger function
- * in the initial schema is written - and a comment. Getting any of those wrong
- * means half a function body arriving as a statement of its own.
+ * @return list<MigrationSet>
  */
-function splitSqlStatements(string $sql): array
+function migrationSets(?string $only = null): array
 {
-    $statements = [];
-    $current = '';
-    $length = strlen($sql);
-    $i = 0;
-
-    while ($i < $length) {
-        $character = $sql[$i];
-
-        // Block comment.
-        if ($character === '/' && ($sql[$i + 1] ?? '') === '*') {
-            $end = strpos($sql, '*/', $i + 2);
-            $i = $end === false ? $length : $end + 2;
-            continue;
+    $sets = [];
+    foreach (MIGRATION_FOLDERS as $folder) {
+        if ($only === null || $only === $folder) {
+            $sets[] = new MigrationSet($folder, migrationsRoot() . '/' . $folder);
         }
-
-        // Line comment.
-        if ($character === '-' && ($sql[$i + 1] ?? '') === '-') {
-            $end = strpos($sql, "\n", $i + 2);
-            $i = $end === false ? $length : $end + 1;
-            continue;
-        }
-
-        // Dollar-quoted block: $$ ... $$, or $tag$ ... $tag$.
-        if ($character === '$') {
-            $j = $i + 1;
-            while ($j < $length && $sql[$j] !== '$' && (ctype_alnum($sql[$j]) || $sql[$j] === '_')) {
-                $j++;
-            }
-
-            if (($sql[$j] ?? '') === '$') {
-                $tag = substr($sql, $i, $j - $i + 1);
-                $end = strpos($sql, $tag, $j + 1);
-
-                if ($end !== false) {
-                    $current .= substr($sql, $i, $end - $i + strlen($tag));
-                    $i = $end + strlen($tag);
-                    continue;
-                }
-            }
-        }
-
-        // Single-quoted string, in which '' is an escaped quote.
-        if ($character === "'") {
-            $current .= $character;
-            $i++;
-
-            while ($i < $length) {
-                $current .= $sql[$i];
-
-                if ($sql[$i] === "'") {
-                    if (($sql[$i + 1] ?? '') === "'") {
-                        $current .= $sql[++$i];
-                    } else {
-                        $i++;
-                        break;
-                    }
-                }
-
-                $i++;
-            }
-
-            continue;
-        }
-
-        if ($character === ';') {
-            if (trim($current) !== '') {
-                $statements[] = trim($current);
-            }
-            $current = '';
-            $i++;
-            continue;
-        }
-
-        $current .= $character;
-        $i++;
     }
 
-    if (trim($current) !== '') {
-        $statements[] = trim($current);
+    if ($sets === []) {
+        throw new InvalidArgumentException("No migrations folder '{$only}'. There are: " . implode(', ', MIGRATION_FOLDERS));
     }
 
-    return $statements;
+    return $sets;
 }
 
-/** The migration files of one folder, in the order they must be applied. */
-function migrationFiles(string $folder): array
+/**
+ * The engine, for one database: both folders in order, or only $only - the
+ * command line's --folder, and merge-databases.php, which brings each half of
+ * a two-database installation up to date on its own.
+ *
+ * The order guard is for a database holding both folders; merge-databases.php
+ * turns it off ($orderGuard false), because each of the two databases it
+ * merges holds one folder only - that is what it is there to mend.
+ * $beforeFile(pdo, set, name) is told each file as it starts, inside the
+ * file's transaction - the command line's progress.
+ *
+ * The connection is used as it is given, and needs PDO::ERRMODE_EXCEPTION:
+ * getDb(), setup.php and the scripts all set it.
+ */
+function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?Closure $beforeFile = null): Migrator
 {
-    $directory = migrationsRoot() . '/' . $folder;
+    $options = [
+        'lock' => MIGRATION_LOCK,
+        // Before the table is read for an apply: made in this site's shape
+        // when it is missing, brought to it from a folder's own database.
+        'prepare' => ensureMigrationsTable(...),
+    ];
 
-    if (!is_dir($directory)) {
-        return [];
+    if ($beforeFile !== null) {
+        $options['beforeFile'] = $beforeFile;
     }
 
-    $files = array_map('basename', glob($directory . '/*.sql') ?: []);
+    if ($orderGuard) {
+        // Once, before anything runs. The engine ends the apply with this
+        // message as its error, nothing applied. (It runs after `prepare`, so
+        // a refused database has had its record labelled by folder - which
+        // any later run would do the same way, and which is right whatever
+        // happens next.)
+        $options['beforeApply'] = function (PDO $pdo, array $files) use ($only): ?string {
+            $refusal = migrationsOrderRefusal(recordedMigrations($pdo), $only);
+            if ($refusal !== null) {
+                throw new RuntimeException($refusal);
+            }
 
-    // By name, which is why they are numbered. Natural order rather than plain
-    // string order, so a hundredth migration does not sort between the ninth
-    // and the tenth.
-    natsort($files);
+            return null;
+        };
+    }
 
-    return array_values($files);
+    return new Migrator($pdo, migrationSets($only), $options);
+}
+
+/**
+ * The files on disk, folder by folder, as the engine lists them: by name, in
+ * natural order, so a hundredth migration does not sort between the ninth and
+ * the tenth.
+ *
+ * @return array<string, list<string>> folder => file names
+ */
+function migrationFilesByFolder(PDO $pdo): array
+{
+    $migrator = siteMigrator($pdo);
+    $files = [];
+    foreach (migrationSets() as $set) {
+        $files[$set->name] = $migrator->files($set);
+    }
+
+    return $files;
 }
 
 // ─── Creating the database ───────────────────────────────────────────────────
@@ -208,13 +192,17 @@ function ensureDatabase(array $config, string $name): bool
     );
 }
 
+// ─── The record of what has run ──────────────────────────────────────────────
+
 /**
- * The table that records what has run, one row per folder and file.
+ * The table that records what has run, one row per folder and file - the
+ * engine's `prepare`, so it runs before an apply reads the table.
  *
- * Created here as well as by each folder's 001, because it is read before the
- * first migration is applied - on a database where nothing exists yet,
- * including this. The 001s create it only if it is missing, so this shape is
- * the one that stands.
+ * Created here, in this site's shape, when it is missing: the engine would
+ * make the same table for two sets, but not for one (merge-databases.php
+ * applies one folder at a time), and the shape is this site's, whichever way
+ * the database is built. Each folder's 001 creates it only if it is missing
+ * too, so this shape is the one that stands.
  */
 function ensureMigrationsTable(PDO $pdo): void
 {
@@ -282,18 +270,18 @@ function migrationsTableAddFolder(PDO $pdo): void
 /**
  * The folder a list of recorded file names came from: the one holding most of
  * them. A tie - nothing recorded but 001_initial_schema.sql, which both folders
- * have - is settled by the tables the database holds, when it is given.
+ * have - is settled by the tables the database holds.
  */
-function migrationsFolderOf(array $recorded, ?PDO $pdo = null): string
+function migrationsFolderOf(array $recorded, PDO $pdo): string
 {
     $counts = [];
-    foreach (MIGRATION_FOLDERS as $candidate) {
-        $counts[$candidate] = count(array_intersect($recorded, migrationFiles($candidate)));
+    foreach (migrationFilesByFolder($pdo) as $candidate => $files) {
+        $counts[$candidate] = count(array_intersect($recorded, $files));
     }
     arsort($counts);
     [$first, $second] = array_values($counts) + [0, 0];
 
-    if ($first === $second && $pdo !== null) {
+    if ($first === $second) {
         if ($pdo->query("SELECT to_regclass('characters') IS NOT NULL")->fetchColumn()) {
             return 'genshin_impact';
         }
@@ -307,9 +295,10 @@ function migrationsFolderOf(array $recorded, ?PDO $pdo = null): string
 
 /**
  * What the database has recorded, by folder - reading only, whichever shape
- * the table has (see migrationsTableAddFolder()) and none at all. For the
- * callers that must not write: `migration.php --status`, the installer's test
- * button.
+ * the table has (see migrationsTableAddFolder()) and none at all. For what
+ * must understand a table the engine's `prepare` has not adopted yet: the
+ * order guard, `migration.php --status`, the installer's test button and
+ * merge-databases.php.
  *
  * @return array<string, string[]> folder => file names
  */
@@ -326,8 +315,8 @@ function recordedMigrations(PDO $pdo): array
 
 /**
  * Every row of the record, oldest first, each with its folder - reading only,
- * whichever shape the table has; none when there is no table. For the admin
- * page, which shows when each ran.
+ * whichever shape the table has; none when there is no table. For
+ * merge-databases.php, which carries each row over with the time it ran.
  *
  * @return list<array{id: int, folder: string, filename: string, applied_at: ?string}>
  */
@@ -391,130 +380,4 @@ function migrationsOrderRefusal(array $recorded, ?string $only = null): ?string
     }
 
     return null;
-}
-
-/** Runs $work holding the migrations lock (MIGRATION_LOCK), and lets it go again whatever happens. */
-function withMigrationLock(PDO $pdo, callable $work): mixed
-{
-    $pdo->query('SELECT pg_advisory_lock(' . MIGRATION_LOCK . ')');
-
-    try {
-        return $work();
-    } finally {
-        $pdo->query('SELECT pg_advisory_unlock(' . MIGRATION_LOCK . ')');
-    }
-}
-
-/** The files of one folder the database has recorded as applied. */
-function appliedMigrations(PDO $pdo, string $folder): array
-{
-    $query = $pdo->prepare('SELECT filename FROM migrations WHERE folder = ?');
-    $query->execute([$folder]);
-
-    return $query->fetchAll(PDO::FETCH_COLUMN);
-}
-
-/** The files of one folder on disk the database has not recorded yet, in apply order. */
-function pendingMigrations(PDO $pdo, string $folder): array
-{
-    ensureMigrationsTable($pdo);
-    return array_values(array_diff(migrationFiles($folder), appliedMigrations($pdo, $folder)));
-}
-
-/**
- * Applies one file, all of it or none of it.
- *
- * PostgreSQL takes DDL inside a transaction, so a migration that fails halfway
- * leaves nothing behind - and the row saying it ran is written inside the same
- * transaction, so there is no window where the change happened and the record
- * of it did not.
- */
-function applyMigration(PDO $pdo, string $folder, string $filename): void
-{
-    $path = migrationsRoot() . '/' . $folder . '/' . $filename;
-    $statements = splitSqlStatements((string) file_get_contents($path));
-
-    $pdo->beginTransaction();
-
-    try {
-        foreach ($statements as $index => $statement) {
-            try {
-                $pdo->exec($statement);
-            } catch (PDOException $e) {
-                throw new RuntimeException(
-                    "statement " . ($index + 1) . " of " . count($statements) . ": " . $e->getMessage()
-                    . "\n\n  " . implode("\n  ", array_slice(explode("\n", $statement), 0, 6))
-                );
-            }
-        }
-
-        $pdo->prepare('INSERT INTO migrations (folder, filename) VALUES (?, ?) ON CONFLICT (folder, filename) DO NOTHING')->execute([$folder, $filename]);
-        $pdo->commit();
-    } catch (\Throwable $e) {
-        $pdo->rollBack();
-        throw $e;
-    }
-}
-
-/**
- * Applies every pending file of one folder, stopping at the first failure.
- *
- * Stopping is deliberate: each migration is written expecting the ones before
- * it to have run, so carrying on past a failure would apply changes against a
- * shape they were never meant for. Returns what ran, and what did not and why.
- *
- * @return array{applied: string[], failed: ?string, error: ?string}
- */
-function applyPendingMigrations(PDO $pdo, string $folder): array
-{
-    $applied = [];
-
-    foreach (pendingMigrations($pdo, $folder) as $filename) {
-        try {
-            applyMigration($pdo, $folder, $filename);
-            $applied[] = $filename;
-        } catch (\Throwable $e) {
-            return ['applied' => $applied, 'failed' => $filename, 'error' => $e->getMessage()];
-        }
-    }
-
-    return ['applied' => $applied, 'failed' => null, 'error' => null];
-}
-
-/**
- * Every folder in turn, stopping at the first failure in any of them, under
- * the migrations lock. The folders share one namespace, and the order they run
- * in is part of what makes the database right (see MIGRATION_FOLDERS), so a
- * later folder does not go on over an earlier one that stopped halfway: it is
- * reported as not run. A database whose record says the order was already
- * broken is refused before anything runs.
- *
- * @return array<string, array{applied: string[], failed: ?string, error: ?string}> by folder
- * @throws MigrationOrderException
- */
-function applyAllPendingMigrations(PDO $pdo): array
-{
-    return withMigrationLock($pdo, function () use ($pdo): array {
-        $refusal = migrationsOrderRefusal(recordedMigrations($pdo));
-        if ($refusal !== null) {
-            throw new MigrationOrderException($refusal);
-        }
-
-        $results = [];
-        $stoppedAt = null;
-
-        foreach (MIGRATION_FOLDERS as $folder) {
-            if ($stoppedAt !== null) {
-                $results[$folder] = ['applied' => [], 'failed' => null, 'error' => "not run: migrations/{$stoppedAt}/ stopped at a failure first"];
-                continue;
-            }
-
-            $results[$folder] = applyPendingMigrations($pdo, $folder);
-            if ($results[$folder]['failed'] !== null) {
-                $stoppedAt = $folder;
-            }
-        }
-
-        return $results;
-    });
 }

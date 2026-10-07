@@ -3,6 +3,7 @@ import { provideRouter } from "@angular/router";
 import { registerLocaleData } from "@angular/common";
 import localeEn from "@angular/common/locales/en";
 import localeSk from "@angular/common/locales/sk";
+import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
 
 import { routes } from "./app.routes";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
@@ -12,6 +13,7 @@ import { SiteSettingsService } from "./shared/local-lib/services/site-settings.s
 import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
 import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
 import { TranslationService } from "./shared/local-lib/i18n/translation.service";
+import { siteStatusConfig } from "./shared/site-status";
 
 // export const appConfig: ApplicationConfig = {
 // providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
@@ -37,13 +39,17 @@ export const BASE_PATH = new InjectionToken<string>('basePath');
  * sign-in that has just come back without working (it is to be explained, not
  * repeated), not on the callback's own address, and not while maintenance mode
  * has the site closed (the closed sign says so; an admin signs in at /staff).
- * Without an IAM to go to there is nothing to start. Whatever is not started
- * here meets the sign-in card in the site's shell, with the button on it.
+ * Nor while the site is not ready - a database update waiting, not set up, or
+ * not answering: the page that says so is all there is to see, and it has its
+ * own Sign in for an administrator. Without an IAM to go to there is nothing to
+ * start. Whatever is not started here meets the sign-in card in the site's
+ * shell, with the button on it.
  */
-function mustSignInFirst(siteSettings: SiteSettingsService, security: SecurityService): boolean {
+function mustSignInFirst(siteSettings: SiteSettingsService, security: SecurityService, siteStatus: SiteStatus): boolean {
   return (
     siteSettings.loginRequired() &&
     !siteSettings.maintenance() &&
+    !siteStatus.blocked() &&
     !security.isLoggedIn() &&
     security.available() &&
     !security.holdsSession() &&
@@ -59,14 +65,24 @@ export const appConfig: ApplicationConfig = {
       const configService = inject(ConfigService);
       const siteSettings = inject(SiteSettingsService);
       const securityService = inject(SecurityService);
+      const siteStatus = inject(SiteStatus);
 
       return (async (): Promise<void> => {
         await configService.init();
+        // Where the site stands - ready, or not set up, or a database update
+        // waiting (@anotoki/lib/migrations) - asked beside the settings, so the
+        // first page drawn is the right one: the gate in the root component
+        // draws "The site is being updated" instead of the site, and an ADMIN
+        // the way to the Migrations page. It never stops the boot: while an
+        // update waits the API keeps the settings, the session and the strings
+        // open, so everything below still runs and a sign-in still works.
+        const status = siteStatus.check();
         // Before the session and before the strings: whether the site is open
         // at all is the first thing anything needs to know, and it is the one
         // answer that decides whether the rest is worth having. It is also
         // where the IAM's address comes from.
         await siteSettings.init();
+        await status;
         // Before the router's first navigation: a sign-in coming back from the
         // IAM is finished here, and the address it started from put back.
         await securityService.init(siteSettings.auth());
@@ -87,7 +103,7 @@ export const appConfig: ApplicationConfig = {
         // language this reader would have read the site in: when the IAM wants
         // everybody signed in here, somebody who is not goes there before
         // anything is drawn, and comes back to the address they opened.
-        if (mustSignInFirst(siteSettings, securityService)) {
+        if (mustSignInFirst(siteSettings, securityService, siteStatus)) {
           await securityService
             .login({ returnTo: location.pathname + location.search + location.hash, language: i18n.language() })
             // The browser would not start it. The site's sign-in card is
@@ -98,7 +114,11 @@ export const appConfig: ApplicationConfig = {
     }),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([httpInterceptor])),
+    // The site's status first: it hears an API answer saying the site is not
+    // ready (503 update_pending or not_set_up) after the site's own handling of
+    // the request - its token, its one retry - is done.
+    provideHttpClient(withInterceptors([siteStatusInterceptor, httpInterceptor])),
+    provideAnotokiMigrations(siteStatusConfig),
     {
       provide: BASE_PATH,
       useFactory: () => inject(ConfigService).backendUrl,

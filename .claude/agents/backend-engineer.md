@@ -29,7 +29,9 @@ to backend work.
   `assetBaseName()`), `backend/api/media_convert.php` (uploads re-encoded to AVIF /
   Opus), `backend/api/asset_stats.php` (Files-page figures, DB-backed),
   `backend/api/explorer.php` (the disk-snapshot the Files Explorer and drift figures
-  share), `backend/api/migration_runner.php` (the migration engine),
+  share), `backend/api/migration_runner.php` (the migrations, on anotoki/lib's
+  shared engine) and `site_state.php` (where the site stands - the shared
+  library's gate in front of every route),
   `backend/api/meddleware/auth.php` and `validation.php` (the folder is spelled
   that way), `backend/config/*.php` (read through `config/local.php` - see
   *Configuration* below).
@@ -78,9 +80,11 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   metadata via `fullResourceShapes()`.
 - Register the new endpoint file with a `require_once` in `backend/api/index.php`,
   in the matching section.
-- Three global gates run before any route (`api/index.php`): maintenance (503),
-  sign-in required (401, `api/meddleware/sign_in.php` - the IAM's switch, read by
-  `signInRequired()` through the vendored SDK) and the page locks (423). A new
+- Four global gates run before any route (`api/index.php`): the shared library's
+  SiteGate (503 `not_set_up` / `update_pending`, `api/site_state.php`), maintenance
+  (503), sign-in required (401, `api/meddleware/sign_in.php` - the IAM's switch, read by
+  `signInRequired()` through the vendored SDK) and the page locks (423);
+  `/api/site-status` passes all four. A new
   public route needs nothing from them: while the IAM requires sign-in it is
   closed to anybody signed out like every other. Add a path to
   `SIGN_IN_OPEN_PREFIXES` only if the sign-in card itself needs it, or a browser
@@ -131,10 +135,16 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
 - Apply with `php migration.php` (from `backend/`); check with `--status` /
   `--dry-run` first. Use `--folder=users` to scope to one folder. Back up first
   (`php db-dump.php`) when it rewrites or deletes rows.
-- The engine is `backend/api/migration_runner.php`, shared by the CLI, the
-  installer `backend/setup.php`, and the admin apply endpoint
-  (`POST /api/migrations/apply`, ADMIN — how a shell-less production server runs a
-  new migration). Change the engine there, not in one caller.
+- The engine is anotoki/lib's `Migrator` (`backend/vendor/anotoki/lib`, the
+  anotoki sites' shared library - never edited here), set up for this site in
+  `backend/api/migration_runner.php` (`siteMigrator()`) and shared by the CLI, the
+  installer `backend/setup.php`, `merge-databases.php` and the admin apply
+  endpoint (`POST /api/admin/migrations/apply`, ADMIN — how a shell-less
+  production server runs a new migration). What this site needs of it goes in
+  there (its options and hooks), not in one caller. While a file waits, the
+  SiteGate answers `503 update_pending` to all but `SITE_OPEN_WHILE_UPDATING`
+  (`site_state.php`) - a route goes in that list only if nobody could get to
+  Apply without it.
 
 ## After you change the API
 
@@ -168,8 +178,8 @@ IAM issuer and client id - comes from
 which are gitignored and never shipped. There is no committed default, no
 environment variable and no fallback to a template: `config/local.php` loads them
 (`localConfig()`), `localConfigProblems()` says what is missing, and until nothing
-is the API answers every request `503 not_set_up` (the gate at the top of
-`api/index.php`). The setup page asks for the database and the IAM (and on a host
+is the API answers every request `503 not_set_up` (the shared library's SiteGate,
+`api/site_state.php`; the setup page only while never installed). The setup page asks for the database and the IAM (and on a host
 the setup token) and nothing else, like every anotoki setup page - this site's
 address is read from the request (`setupSiteAddress()`), pg_dump on a host is found
 under `~/pgclient` (`setupBackupHome()`). So a new per-installation value is the

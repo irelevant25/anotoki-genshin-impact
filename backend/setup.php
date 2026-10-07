@@ -7,9 +7,9 @@ declare(strict_types=1);
  *
  * Everything that differs between one installation and the next is read from
  * config/*.local.php (see config/local.php), and this page writes all of it.
- * Until those files exist the API answers every request 503 not_set_up and
- * points here, so this is the first thing to open on a fresh checkout as much
- * as on a fresh hosting account:
+ * Until those files exist the API answers every request 503 not_set_up and,
+ * until this has finished on a host, points here - so this is the first thing
+ * to open on a fresh checkout as much as on a fresh hosting account:
  *
  *   config/database.local.php  the PostgreSQL connection and the database's name
  *   config/secret.local.php    a random site secret, made once and never replaced
@@ -42,8 +42,9 @@ declare(strict_types=1);
  * first proves you own the server: on first view it writes a random token into
  * config/setup.local.php, and only somebody with FTP/SFTP access can read it
  * back. When the install is done it writes storage/installed.lock - which makes
- * it refuse to run again even if the rest fails - then deletes the token file
- * and itself. Delete setup.php by hand if the host would not let it.
+ * it refuse to run again even if the rest fails, and from which the site never
+ * offers this page to anybody again (api/site_state.php) - then deletes the
+ * token file and itself. Delete setup.php by hand if the host would not let it.
  *
  * "This computer" takes three things at once. A loopback address alone is what
  * every request looks like on a host that runs a proxy in front of PHP; the
@@ -74,6 +75,7 @@ if (PHP_SAPI !== 'cli-server') {
     ini_set('display_errors', '0');
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/local.php';
 require_once __DIR__ . '/api/migration_runner.php';
 
@@ -417,8 +419,8 @@ function setupMigrationState(PDO $pdo, string $name): array
         "SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_type = 'BASE TABLE'"
     )->fetchColumn();
     $pending = 0;
-    foreach (MIGRATION_FOLDERS as $folder) {
-        $pending += count(array_diff(migrationFiles($folder), $recorded[$folder]));
+    foreach (migrationFilesByFolder($pdo) as $folder => $files) {
+        $pending += count(array_diff($files, $recorded[$folder]));
     }
 
     return [true, "Connected to the database \"{$name}\": " . ($tables === 0
@@ -466,8 +468,9 @@ function setupTestDatabase(array $db): array
 
 /**
  * The migrations of both folders, against a connection made from the entered
- * details. Throws with a plain message on the first failure, having written no
- * config file yet.
+ * details, through the engine every way of building the database uses
+ * (siteMigrator(), api/migration_runner.php). Throws with a plain message on
+ * the first failure, having written no config file yet.
  *
  * @return string[] one human line per step
  */
@@ -492,12 +495,25 @@ function runInstall(array $config): array
         );
     }
 
+    $result = siteMigrator($pdo)->apply();
+
+    if ($result['busy']) {
+        throw new RuntimeException(
+            'Another database update is running on this database (the admin panel\'s Migrations page, or `php migration.php`).'
+            . ' Nothing was applied: save again once it has finished.'
+        );
+    }
+    if ($result['failed'] !== null) {
+        throw new RuntimeException("Migration {$result['failed']['set']}/{$result['failed']['name']} failed: {$result['error']}");
+    }
+    if ($result['error'] !== null) {
+        // Refused before anything ran: the folders would have run out of order.
+        throw new RuntimeException($result['error']);
+    }
+
     $log = [];
-    foreach (applyAllPendingMigrations($pdo) as $folder => $result) {
-        if ($result['failed'] !== null) {
-            throw new RuntimeException("Migration {$folder}/{$result['failed']} failed: {$result['error']}");
-        }
-        $count = count($result['applied']);
+    foreach (MIGRATION_FOLDERS as $folder) {
+        $count = count(array_filter($result['applied'], fn (array $file): bool => $file['set'] === $folder));
         $log[] = "{$name}, migrations/{$folder}/: " . ($count === 0 ? 'up to date, nothing to apply.' : "applied {$count} migration" . ($count === 1 ? '' : 's') . '.');
     }
 

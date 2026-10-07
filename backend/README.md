@@ -18,7 +18,12 @@ api/            index.php - the Slim app, every request to /api lands here
                 visitor.php), the global gates - maintenance,
                 sign-in required (the IAM's switch, sign_in.php), page locks - validation
                 db_query.php (the query builder), model.php, full_resource.php (shared
-                CRUD), migration_runner.php (the one migration engine), asset_*.php and
+                CRUD), migration_runner.php (the migrations on the anotoki sites' shared
+                engine, anotoki/lib's Migrator: the two folders, the lock, the order
+                guard), site_state.php (where the site stands - not set up, an update
+                waiting, ready - and the shared library's gate in front of every route,
+                with GET /api/site-status and the admin Migrations page's /api/admin/
+                migrations), asset_*.php and
                 media_convert.php (the asset tree), anotoki_iam.php (the IAM's token
                 verifier and sign-in switch reader, the SDK v1.1.0 vendored byte for byte),
                 site_user.php, site_settings.php; visitors.php (playing without signing
@@ -31,7 +36,8 @@ config/         one module per concern (db, secret, iam, site, backup, visitors)
 migrations/     users/ then genshin_impact/ - the one database's schema, SQL applied in order
 public/uploads/ uploaded media (only its .htaccess is committed)
 storage/        logs, backups, caches, the visitors' sweep marker (gitignored)
-vendor/         committed: the hosting has no Composer
+vendor/         committed: the hosting has no Composer - anotoki/lib, the anotoki sites'
+                shared library, among it (updating it: ../DEV.md, The shared library)
 ```
 
 ## Entry points

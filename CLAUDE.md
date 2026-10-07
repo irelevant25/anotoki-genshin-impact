@@ -84,9 +84,10 @@ production, and in development `ng serve`'s proxy (`frontend/proxy.conf.json`:
 API URL empty as in production. The API sends no `Access-Control-*` header and
 answers no preflight; no other site calls it from a browser.
 
-Without them the API answers every request `503 {"code": "not_set_up"}`, pointing
-at `/setup.php` (the gate at the top of `api/index.php`), and the frontend draws a
-"not set up yet" page (`shared/not-set-up/`) instead of either site.
+Without them the API answers every request `503 {"code": "not_set_up"}` - with
+`"setup": "/setup.php"` only while the site was never installed - and the pages
+draw "This site is not set up yet" instead of either site; see *Where the site
+stands* below.
 
 **`backend/setup.php` writes all of them — in development too.** Run the backend
 (`composer start` in `backend/`) and open
@@ -102,6 +103,58 @@ shows what is saved (never a secret; a blank password keeps it), applies pending
 migrations, and can be run again whenever a setting changes. On a real host it is
 the one-time installer: token file, lock, self-delete. Do not hand-edit the
 `.local.php` files when setup.php can write them, and never print their contents.
+
+## Where the site stands — the shared library (anotoki-lib)
+
+What the site does while it is not set up, or while its database waits for an
+update, is the same on every anotoki site, from one library (the owner's request
+of 2026-10-07 - README.md, *Current state*): `anotoki-lib`
+(github.com/irelevant25/anotoki-lib, a clone at `../anotoki-lib`), the Composer
+package `anotoki/lib` (`backend/vendor/anotoki/lib`, committed with the rest of
+`vendor/`) and the npm package `@anotoki/lib` (the release tarball named in
+`frontend/package.json`). Never edited here; its README says what each part does.
+
+- **The states**, decided on the server for every request (`api/site_state.php`:
+  the library's `SiteState` from `localConfigProblems()`, `storage/installed.lock`
+  and the migrations): `not_set_up` (a `config/*.local.php` missing or unusable),
+  `update_pending` (a migration file the database has not run), `unavailable`
+  (the database out of reach), `ready`. `GET /api/site-status` says which, to
+  anybody, and passes every gate: it is in the maintenance and sign-in gates' open
+  lists, the route gate never judges it, and no page can claim it.
+- **The SiteGate** runs first of the global gates (`api/index.php`). `not_set_up`:
+  every path 503 `{code: "not_set_up", installed, message}`, with `setup:
+  "/setup.php"` only while never installed. `update_pending`: every path 503
+  `{code: "update_pending", message}` with `Retry-After: 60` but
+  `SITE_OPEN_WHILE_UPDATING` - `/api/settings/public`, `/api/me`,
+  `/api/languages`, `/api/translations/{code}` and `/api/admin/migrations/**` - so
+  a sign-in still works, the pages have their words and an ADMIN reaches Apply.
+  `unavailable` and `ready` pass. A path goes in that list only when nobody could
+  get to Apply without it.
+- **The Migrations page's API** is the library's `MigrationsRoutes`: `GET
+  /api/admin/migrations`, `GET /api/admin/migrations/file?set=&name=`, `POST
+  /api/admin/migrations/apply` (409 `busy` while another apply runs). ADMIN only,
+  judged by the token alone (`requireAdminToken()`, `meddleware/auth.php`): nothing
+  a waiting migration has yet to make may stand between an ADMIN and Apply. Both
+  prefixes are in api-config.mjs's `SKIP_PREFIXES` - the library's Angular half
+  is their client.
+- **The pages** (`@anotoki/lib/migrations`, configured in
+  `frontend/src/app/shared/site-status.ts`): the boot asks the status
+  beside the public settings and never stops on an update; `siteStatusInterceptor`
+  hears a 503 `update_pending` or `not_set_up`; the root component's
+  `<anotoki-site-gate>` around the router outlet draws, instead of either site,
+  "The site is being updated" (English or Slovak, with a quiet Sign in while nobody
+  is signed in) for everybody but this site's ADMIN, who reads "A database update
+  is waiting" and "Open Migrations"; `/admin/migrations` is
+  `<anotoki-migrations-page>` inside the admin layout, the one page that works
+  while an update waits. Never installed: "This site is not set up yet" and the
+  setup page; installed once: "not available right now", never the setup page. Its
+  colours are the site's (`--anotoki-*`, `design-tokens.scss`).
+- **Updating the library**: both halves together, to one version - the constraint
+  in `backend/composer.json` (`"anotoki/lib": "^0.1"`, from the GitHub VCS
+  repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
+  release's tarball URL in `frontend/package.json`, then `bun install` and `npm
+  install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
+  version may break.
 
 ## Signing in — the anotoki IAM
 
@@ -340,15 +393,20 @@ node docs/security/build-report.mjs                            # after re-runnin
   `genshin_impact/027` the quiz history's index). (The order matters for
   history: `users/001` made an account table called `roles`, which `users/040`
   dropped before `genshin_impact/` makes its own; running `users/` over a database
-  that already holds the content is refused - `migrationsOrderRefusal()` in the
-  engine.) Migrations that change data
+  that already holds the content is refused - `migrationsOrderRefusal()`, the
+  engine's `beforeApply`.) Migrations that change data
   carry a `DO $$ … $$` verification gate that fails loudly if the result is
   wrong. Never edit an applied migration — add a new one (old ones still say
-  `php/` and `angular/` in their comments; leave them). The engine
-  (`backend/api/migration_runner.php`) is shared: the CLI, the admin **Migrations**
-  page's *Apply pending* button (`POST /api/migrations/apply`, ADMIN — for hosts
-  with no shell), and the installer `backend/setup.php` all build the database the
-  same way. A closed set of values is a `CHECK (col IN (...))` on the column —
+  `php/` and `angular/` in their comments; leave them). The engine is the anotoki
+  sites' shared one, anotoki/lib's `Migrator` (*Where the site stands*), set up
+  for this site in `backend/api/migration_runner.php` (`siteMigrator()`: the two
+  folders in order, the lock `MIGRATION_LOCK`, `prepare` adopting the record
+  table from when each folder had a database of its own, `beforeApply` the order
+  guard): the CLI, the admin **Migrations** page's *Apply pending* (`POST
+  /api/admin/migrations/apply`, ADMIN — for hosts with no shell), the installer
+  `backend/setup.php` and `merge-databases.php` all build the database the same
+  way, one apply at a time (another one meanwhile is told it is busy). Until a
+  file is applied, the site is closed to everybody but its ADMIN. A closed set of values is a `CHECK (col IN (...))` on the column —
   `characters.arkhe` (022), `characters_voice_overs.type` (025) — not a lookup
   table or a Postgres ENUM: the spec generator reads the CHECK into a TypeScript
   union. Its replay understands CREATE TABLE, ALTER TABLE (add, drop, rename or
@@ -391,10 +449,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   `requireSelfOrAdmin` / `refuseForeignUserId`. `optionalAuthUser()` for open
   endpoints that behave differently when signed in; `recentSignInRefusal()` for
   the few actions that want a sign-in from the last ten minutes (restoring a
-  backup). Three global gates run before any route, in this order
-  (`api/index.php`; each says what it leaves open): `maintenanceGate()` (503
-  while the site is closed), `signInGate()` (401 while the IAM requires
-  sign-in) and `routeGate()` (423 for a page's locked API paths). Only a path
+  backup). Four global gates run before any route, in this order
+  (`api/index.php`; each says what it leaves open): the shared library's
+  `SiteGate` (503 while the site is not set up or an update waits -
+  `api/site_state.php`), `maintenanceGate()` (503 while the site is closed),
+  `signInGate()` (401 while the IAM requires sign-in) and `routeGate()` (423 for
+  a page's locked API paths). `/api/site-status` passes all four. Only a path
   the sign-in card needs, or one a browser loads without a token (an `<img>`'s),
   goes in `SIGN_IN_OPEN_PREFIXES`. A gate judges the path the router routes on,
   `gatePath()` (`meddleware/maintenance.php`: decoded once, as Slim decodes it) -
@@ -414,8 +474,11 @@ node docs/security/build-report.mjs                            # after re-runnin
 ## Frontend layout & conventions
 
 - **Two sites**: `frontend/src/app/sites/main/` (public) and `sites/admin/`. The
-  root component draws `shared/not-set-up/` instead of either while the API says
-  `not_set_up`.
+  root component wraps both in the shared library's `<anotoki-site-gate>`
+  (`shared/site-status.ts`), which draws its own page instead of either
+  while the site is not set up, not answering, or waiting for a database update
+  (for its ADMIN, the way to `/admin/migrations`, the library's Migrations page) -
+  see *Where the site stands*.
 - **A component is always three files**: `name.component.ts`, `.html` and
   `.scss`, side by side. No inline `template:` or `styles:` — ESLint refuses them
   (`@angular-eslint/component-max-inline-declarations` at zero), and the
@@ -485,7 +548,9 @@ site's address comes from the request, pg_dump from `~/pgclient` if it is there;
 writes every `*.local.php`, then locks and deletes itself - there
 is no admin to create here, the IAM holds the accounts and must be installed
 first); and **later schema changes** go through the admin Migrations page, since
-`php migration.php` cannot run there.
+`php migration.php` cannot run there. From the moment a new migration file is on
+the host until it is applied, the site tells everybody but its ADMIN that it is
+being updated - so upload, sign in as ADMIN, Apply, in one go.
 
 Full steps — the upload map, the installer, a checkout that still has two databases, the
 constraints — are in `DEV.md` (*Deploying to the hosting*). The **deploy**

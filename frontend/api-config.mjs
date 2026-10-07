@@ -58,7 +58,6 @@ export const GROUPS = [
     ["explorer", ["/api/explorer"]],
     ["file", ["/api/files", "/api/upload"]],
     ["audit-log", ["/api/audit-logs"]],
-    ["migration", ["/api/migrations"]],
     ["setting", ["/api/settings"]],
     ["route", ["/api/site-routes"]],
     ["dashboard", ["/api/dashboard"]],
@@ -91,7 +90,6 @@ export const GROUP_DOCS = {
     explorer: "The real files on disk, browsed like a file manager off a cached snapshot.",
     fileCategory: "The kinds of asset there are, and which folder each kind lives in.",
     "audit-log": "Who changed which row, and to what.",
-    migration: "Which migrations have run against which database.",
     setting: "The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in.",
     route: "Which pages of the site exist, who they are drawn for, and which API paths go dark with them.",
     dashboard: "The counts on the admin landing page.",
@@ -162,7 +160,6 @@ export const QUERIES = {
     "GET /api/files": "AssetFileQuery",
     "GET /api/files/stats": "AssetStatsQuery?",
     "GET /api/files/cleanup": "AssetCleanupQuery",
-    "GET /api/migrations/file": "MigrationFileQuery",
     "GET /api/errors": "ErrorLogQuery?",
     "GET /api/errors/{fingerprint}": "ErrorLogQuery?",
     "DELETE /api/files": "AssetFileRef",
@@ -212,8 +209,6 @@ export const NAMES = {
     "POST /api/upload": "uploadFile",
     "POST /api/uploads/{entity}/{field}": "uploadEntityFile",
     "POST /api/uploads/{entity}/{id}/{field}": "uploadRecordFile",
-    "GET /api/migrations/file": "getMigrationFile",
-    "POST /api/migrations/apply": "applyMigrations",
     "GET /api/dashboard/stats": "getDashboardStats",
     "GET /api/admin/translations": "getAdminTranslations",
     "PUT /api/admin/translations": "saveAdminTranslations",
@@ -260,8 +255,13 @@ export const NAMES = {
  * neither `Affiliation` nor `CharacterAffiliation` is a declared class, so
  * validateRequest() raises a ReflectionException and every one of the nine
  * routes answers 500. Generating a client for them would only spread the fault.
+ *
+ * `site-status` and `admin/migrations` are the shared library's routes
+ * (anotoki/lib's MigrationsRoutes, put up in api/index.php), and its Angular
+ * half, @anotoki/lib/migrations, is already their client: the site's status
+ * and the admin Migrations page. Its README says what they answer.
  */
-export const SKIP_PREFIXES = ["/api/affiliations", "/api/characters-affiliations"];
+export const SKIP_PREFIXES = ["/api/affiliations", "/api/characters-affiliations", "/api/site-status", "/api/admin/migrations"];
 
 /**
  * Endpoints that answer with a file rather than JSON.

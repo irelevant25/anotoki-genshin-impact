@@ -14,7 +14,7 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * is drawn by the front end and enforced here, and the second one is the one
  * that decides.
  *
- * Four things stay open regardless, because without them the closed sign
+ * Five things stay open regardless, because without them the closed sign
  * cannot be drawn or got past:
  *
  *   /api/settings/public   is how anything learns the site is closed at all -
@@ -22,6 +22,14 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  *   /api/me                is who the signed-in reader is
  *   /api/languages         is which languages the sign can be read in
  *   /api/translations/     is the words on it
+ *   /api/site-status       is whether the site is there at all - set up, and
+ *                          not waiting for a database update (site_state.php);
+ *                          shut, the pages would read it as a site that is
+ *                          down and draw that instead of the closed sign
+ *
+ * They are judged before the switch is read, so they answer even while
+ * nothing can be read - the status above all, which has to say "not set up"
+ * when there are no settings to ask.
  *
  * Signing in itself happens at the IAM, which this switch does not reach: an
  * admin signs in there as usual and is let through here by their role.
@@ -42,6 +50,7 @@ const MAINTENANCE_OPEN_PREFIXES = [
     '/api/me',
     '/api/languages',
     '/api/translations/',
+    '/api/site-status',
 ];
 
 /**
@@ -87,16 +96,16 @@ function gatePath(Request $request): string
 function maintenanceGate(): callable
 {
     return function (Request $request, RequestHandler $handler): Response {
-        if (!maintenanceModeOn()) {
-            return $handler->handle($request);
-        }
-
         $path = gatePath($request);
 
         foreach (MAINTENANCE_OPEN_PREFIXES as $open) {
             if ($path === $open || str_starts_with($path, rtrim($open, '/') . '/')) {
                 return $handler->handle($request);
             }
+        }
+
+        if (!maintenanceModeOn()) {
+            return $handler->handle($request);
         }
 
         if (isAdminUser(gateCaller($request))) {

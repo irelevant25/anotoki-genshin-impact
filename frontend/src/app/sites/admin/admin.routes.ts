@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { MigrationsPageComponent } from '@anotoki/lib/migrations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -15,7 +16,6 @@ import { WeaponsListComponent } from './weapons/weapons-list/weapons-list.compon
 import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component';
 import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
-import { MigrationsListComponent } from './migrations/migrations-list/migrations-list.component';
 import { FilesManagerComponent } from './files/files-manager/files-manager.component';
 import { FilesExplorerComponent } from './files-explorer/files-explorer.component';
 import { BannersListComponent } from './banners/banners-list/banners-list.component';
@@ -91,7 +91,10 @@ export const routes: Routes = [
       { path: 'files', component: FilesManagerComponent },
       { path: 'files-explorer', component: FilesExplorerComponent },
       { path: 'file-categories', component: FileCategoriesComponent },
-      { path: 'migrations', component: MigrationsListComponent },
+      // The anotoki sites' one Migrations page (@anotoki/lib/migrations), for this
+      // site's ADMIN: what has run, what waits, and Apply. While an update waits it
+      // is the one page of the site that still opens - for an ADMIN.
+      { path: 'migrations', component: MigrationsPageComponent },
       { path: 'backups', component: BackupsComponent },
       { path: 'settings', component: SettingsComponent },
 

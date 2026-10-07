@@ -21,6 +21,33 @@
 ////
 
 // ─────────────────────────────────────────────────────────────────────────────
+// The shared library's names
+//
+// @anotoki/lib (the page saying the site is being updated or not set up, and
+// the admin Migrations page) colours itself through --anotoki-* properties.
+// Both palettes include this, so they follow whichever is in force.
+//
+// Its primary is words as well as buttons - a quiet "Sign in" link, focus
+// rings - so it is the links' colour, which reads on a card in both themes
+// (the dark --color-primary does not, as small text), with the inverse text
+// on it where it is a button.
+// ─────────────────────────────────────────────────────────────────────────────
+@mixin anotoki-lib {
+  --anotoki-bg: var(--bg-page);
+  --anotoki-surface: var(--bg-card);
+  --anotoki-text: var(--text-primary);
+  --anotoki-muted: var(--text-secondary);
+  --anotoki-border: var(--border-color);
+  --anotoki-primary: var(--color-link);
+  --anotoki-primary-contrast: var(--text-inverse);
+  --anotoki-danger: var(--color-danger);
+  --anotoki-danger-contrast: var(--color-danger-text);
+  --anotoki-success: var(--color-success);
+  --anotoki-warning: var(--color-warning);
+  --anotoki-radius: var(--border-radius-large);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Light palette
 //
 // Cool neutral: white cards on a faintly grey page. Text stops short of pure
@@ -201,6 +228,8 @@
   --hydro-text: #1f7ca3;
   --pyro-text: #a83a22;
   --cryo-text: #4f8996;
+
+  @include anotoki-lib;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -362,6 +391,8 @@
   --hydro-text: #4cc2f1;
   --pyro-text: #ef674a;
   --cryo-text: #9fd6e3;
+
+  @include anotoki-lib;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

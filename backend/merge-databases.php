@@ -45,9 +45,12 @@ if (PHP_SAPI !== 'cli') {
     exit("merge-databases.php is a command-line tool.\n");
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/local.php';
 require_once __DIR__ . '/config/backup.php';
 require_once __DIR__ . '/api/migration_runner.php';
+
+use Anotoki\Lib\Migrations\Splitter;
 
 $checkOnly = in_array('--check', $argv, true);
 
@@ -288,8 +291,9 @@ try {
 
 $sourceRecorded = recordedMigrations($source)['users'];
 $targetRecorded = recordedMigrations($target);
-$sourcePending = array_values(array_diff(migrationFiles('users'), $sourceRecorded));
-$targetPending = array_values(array_diff(migrationFiles('genshin_impact'), $targetRecorded['genshin_impact']));
+$files = migrationFilesByFolder($target);
+$sourcePending = array_values(array_diff($files['users'], $sourceRecorded));
+$targetPending = array_values(array_diff($files['genshin_impact'], $targetRecorded['genshin_impact']));
 
 if ($targetRecorded['users'] !== []) {
     stop("{$targetName} already records migrations of the site's half - it looks merged already, or half-merged."
@@ -309,7 +313,10 @@ if ($checkOnly) {
 }
 
 // ── 1. Both up to date ────────────────────────────────────────────────────────
-// Only where one is behind: applying also brings that database's record of
+// Only where one is behind, each with its own folder only - through the engine
+// every way of building the database uses (api/migration_runner.php), under its
+// lock, but without the order guard: a database holding one folder is what
+// this is here to mend. Applying also brings that database's record of
 // migrations up to the shape with a folder per row.
 
 $applied = [];
@@ -317,14 +324,19 @@ foreach ([[$source, 'users', $sourceName, $sourcePending], [$target, 'genshin_im
     if (!$pending) {
         continue;
     }
-    $result = applyPendingMigrations($pdo, $folder);
-    if ($result['applied']) {
-        $applied[$name] = $result['applied'];
-        line("  {$name}: applied " . implode(', ', $result['applied']));
+    $result = siteMigrator($pdo, $folder, orderGuard: false)->apply();
+    if ($result['busy']) {
+        stop("{$name}: another apply is running on it (`php migration.php`, or a site still pointed at it). Nothing was merged"
+            . ($applied ? '; the migrations listed above stay applied.' : '.'));
     }
-    if ($result['failed'] !== null) {
-        stop("{$name}: migration {$folder}/{$result['failed']} failed - {$result['error']}\nNothing was merged"
-            . ($result['applied'] ? '; the migrations listed above stay applied.' : '.'));
+    $names = array_map(fn (array $file): string => $file['name'], $result['applied']);
+    if ($names) {
+        $applied[$name] = $names;
+        line("  {$name}: applied " . implode(', ', $names));
+    }
+    if ($result['error'] !== null) {
+        stop("{$name}: migration {$folder}/" . ($result['failed']['name'] ?? '') . " failed - {$result['error']}\nNothing was merged"
+            . ($applied ? '; the migrations listed above stay applied.' : '.'));
     }
 }
 
@@ -354,7 +366,7 @@ $target->beginTransaction();
 try {
     ensureMigrationsTable($target);
 
-    foreach (splitSqlStatements($schema) as $statement) {
+    foreach (Splitter::split($schema) as $statement) {
         $target->exec($statement);
     }
     // pg_dump's script empties search_path so every name it uses is qualified;

@@ -40,7 +40,9 @@ function routeGate(): callable
 
         // Nothing outside the API is served through this middleware stack, but
         // the check is cheap and it keeps the gate honest about its own scope.
-        if (!str_starts_with($path, '/api/')) {
+        // Nor is the site's status a page's to lock (site_state.php): it
+        // answers in every state, set up or not - before anything here is read.
+        if (!str_starts_with($path, '/api/') || $path === '/api/site-status') {
             return $handler->handle($request);
         }
 

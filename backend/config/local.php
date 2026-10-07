@@ -26,7 +26,9 @@
 // value ends up serving production - an allowlist of origins once named a
 // domain nobody had set - so a checkout without these files is not running on
 // defaults: it is not set up, and says so. Every API request is answered 503
-// {"code": "not_set_up"}, pointing at /setup.php, until they are all there.
+// {"code": "not_set_up"} until they are all there - pointing at /setup.php
+// while the site was never installed, and never once its installer has
+// finished on a host (api/site_state.php).
 // ---------------------------------------------------------------------------
 
 /** The files the API cannot run without, by their name before `.local.php`. */
@@ -38,9 +40,10 @@ const SETUP_PATH = '/setup.php';
 /**
  * Something needed a value only setup.php can provide.
  *
- * The API never gets this far without its files - index.php turns every
- * request away first - so this is what a command-line script, or a file
- * deleted in the middle of a request, runs into.
+ * The API never gets this far without its files - the SiteGate in front of
+ * every route turns every request away first (api/site_state.php) - so this
+ * is what a command-line script, or a file deleted in the middle of a
+ * request, runs into.
  */
 final class NotSetUpException extends RuntimeException
 {

@@ -1,20 +1,21 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SiteSettingsService } from './shared/local-lib/services/site-settings.service';
-import { NotSetUpComponent } from './shared/not-set-up/not-set-up.component';
+import { SiteGateComponent } from '@anotoki/lib/migrations';
 
+/**
+ * Both sites - the public one and the admin panel - behind the one gate every
+ * anotoki site has (@anotoki/lib/migrations, configured in
+ * shared/site-status.ts): while the site is ready, they show; while a
+ * database update waits, everybody reads that the site is being updated and
+ * this site's ADMIN is shown the way to the Migrations page, which still
+ * works; while it is not set up or not answering, a page says so. Above both
+ * sites rather than in either: neither can work while the API is not ready.
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, NotSetUpComponent],
+  imports: [RouterOutlet, SiteGateComponent],
   providers: [],
 })
-export class AppComponent {
-  /**
-   * Whether the API said this installation has no config yet. Above both
-   * sites rather than in either: the admin panel cannot work without it any
-   * more than the public site can.
-   */
-  readonly notSetUp = inject(SiteSettingsService).notSetUp;
-}
+export class AppComponent {}

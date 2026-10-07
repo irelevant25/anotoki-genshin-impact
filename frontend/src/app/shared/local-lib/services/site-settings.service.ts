@@ -1,20 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { PublicSiteRoute, PublicSiteSettings, SettingApiService } from '../../../api';
 import { SecurityService } from './security.service';
-
-/** Where the installer is when the API does not say: its own origin's /setup.php. */
-const DEFAULT_SETUP_PATH = '/setup.php';
-
-/**
- * The installer's path as the API gave it, when it is one: a path on the API's
- * own origin. Anything else - another host, `//somewhere`, a script URL - is
- * not what this answer is for, and the link is not drawn from it.
- */
-function setupPathFrom(value: unknown): string {
-  return typeof value === 'string' && /^\/(?!\/)[\w./-]*$/.test(value) ? value : DEFAULT_SETUP_PATH;
-}
 
 /** Visibility levels, most open first. Mirrors ROUTE_VISIBILITY in the API. */
 export type RouteVisibility = 'PUBLIC' | 'USER' | 'EDITOR' | 'ADMIN';
@@ -35,7 +22,11 @@ export type RouteNotice = { kind: 'blocked' } | { kind: 'restricted'; visibility
  * alternative is a site that closes itself because it could not ask whether it
  * was open, which is the worse failure of the two: the switches exist to be
  * thrown deliberately. (It also leaves the site without a sign-in button, since
- * where the IAM is arrives in the same answer - see `auth`.)
+ * where the IAM is arrives in the same answer - see `auth`.) A site that is not
+ * set up, or not answering, is not this service's to tell: the API says so to
+ * every request, and the root component's gate draws the page saying it
+ * (@anotoki/lib/migrations). While a database update waits these settings are
+ * still read - the API keeps them open, so a sign-in can still start.
  *
  * None of this is a security boundary. The API enforces the same switches for
  * itself - see meddleware/maintenance.php, sign_in.php and route_gate.php -
@@ -48,23 +39,6 @@ export class SiteSettingsService {
   private readonly _security = inject(SecurityService);
 
   private readonly _settings = signal<PublicSiteSettings | null>(null);
-
-  private readonly _notSetUp = signal(false);
-
-  private readonly _setupPath = signal(DEFAULT_SETUP_PATH);
-
-  /**
-   * Whether the API answered that this installation has no config yet - 503
-   * `not_set_up`, which it says to every request until setup.php has written
-   * config/*.local.php. Nothing else can work then, so the site draws a page
-   * saying so instead of itself. Unlike every other failure here it is a
-   * definite answer rather than a read that did not happen, which is why this
-   * one is not "carry on".
-   */
-  readonly notSetUp = this._notSetUp.asReadonly();
-
-  /** The installer's path on the API's origin - /setup.php. */
-  readonly setupPath = this._setupPath.asReadonly();
 
   /**
    * The role of whoever is reading, or '' for nobody.
@@ -137,14 +111,9 @@ export class SiteSettingsService {
   async refresh(): Promise<void> {
     try {
       this._settings.set(await firstValueFrom(this._api.getPublicSettings()));
-      this._notSetUp.set(false);
-    } catch (error: unknown) {
+    } catch {
       // Left as it was - null on the first read, which every getter above
-      // reads as "nothing is switched off" - unless the API said why.
-      if (error instanceof HttpErrorResponse && error.status === 503 && error.error?.code === 'not_set_up') {
-        this._notSetUp.set(true);
-        this._setupPath.set(setupPathFrom(error.error?.setup));
-      }
+      // reads as "nothing is switched off".
     }
   }
 

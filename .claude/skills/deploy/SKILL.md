@@ -73,7 +73,9 @@ genshin → Settings).
 Every per-installation value is in `config/*.local.php` - `database`, `secret`,
 `iam` - written by `setup.php`, left out of the builds, never committed.
 There are no defaults: without them the API answers every request
-`503 not_set_up` and the site shows "not set up yet". A deploy never touches them.
+`503 not_set_up` and the site shows "This site is not set up yet" (with the setup
+page only until `storage/installed.lock` is there - after the first install,
+"not available right now"). A deploy never touches them, nor the lock.
 
 One optional file is put on the host by hand, never by setup.php:
 `config/visitors.local.php`, the limits on playing without signing in. Behind
@@ -132,9 +134,13 @@ database `setup.php` asks for. A checkout still configured with two
 ## Later schema changes (no shell)
 
 FTP the new `migrations/{folder}/*.sql` up, then in the admin **Migrations** page
-press **Apply pending** (`POST /api/migrations/apply`, ADMIN). It runs every
-pending file in order, `users/` then `genshin_impact/`, stopping at the first failure. The engine
-(`backend/api/migration_runner.php`) is the same one the CLI and `setup.php` use.
+(`/admin/migrations`) press **Apply pending** (`POST /api/admin/migrations/apply`,
+ADMIN). It runs every pending file in order, `users/` then `genshin_impact/`,
+stopping at the first failure; a second apply meanwhile is told it is busy. The
+engine (anotoki/lib's `Migrator`, set up in `backend/api/migration_runner.php`) is
+the same one the CLI and `setup.php` use. From the upload until the Apply the site
+shows everybody but its ADMIN "The site is being updated" - so do it in one go:
+upload, open the site, Sign in on that page as an ADMIN, Open Migrations, Apply.
 
 Visitor accounts (`users/045`, `046`, `genshin_impact/027`, after `044`): safe
 before or after the upload. Once applied, answer one quiz question in a private

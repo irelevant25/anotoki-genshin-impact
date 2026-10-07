@@ -107,8 +107,10 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - Run it: `npm start` (from `frontend/`: `bun ci`, then `ng serve` on :4200 with
   `proxy.conf.json`, which hands `/api` to the PHP server - one origin, no CORS;
   it does not regenerate the API client, `npm run api` does) with the PHP server up
-  on :8000 (set up by `backend/setup.php` - without its config the site draws its
-  "not set up yet" page), and check the actual screen — both themes where it matters. If a
+  on :8000 (set up by `backend/setup.php` - without its config the site draws the
+  shared library's "This site is not set up yet", and with a migration waiting
+  "The site is being updated" - `shared/site-status.ts`), and check the
+  actual screen — both themes where it matters. If a
   browser-automation harness is available use it; otherwise describe what you
   verified.
 - Stop `ng serve` when done, and check port 4200 is free: on Windows the `npx`

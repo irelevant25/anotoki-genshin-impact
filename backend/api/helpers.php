@@ -3,34 +3,6 @@
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- * The whole API's answer while the site is not set up: 503, and where to go.
- *
- * Written straight out rather than through Slim, because nothing behind it
- * could run - there is no database to reach and no IAM to check a token
- * against - and none of it is worth the chance of trying. See config/local.php
- * for what "set up" means. It carries that sentence and nothing else, and no
- * request gets any further.
- */
-function answerNotSetUp(): never
-{
-    header('X-Content-Type-Options: nosniff');
-    header('X-Frame-Options: DENY');
-    header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'");
-    // Or the answer outlives the setup: a browser or a proxy holding on to it
-    // would go on showing "not set up" to a site that is.
-    header('Cache-Control: no-store');
-
-    http_response_code(503);
-    header('Content-Type: application/json');
-    echo json_encode([
-        'error' => 'This site is not set up yet. Open ' . SETUP_PATH . ' to set it up.',
-        'code' => 'not_set_up',
-        'setup' => SETUP_PATH,
-    ], JSON_UNESCAPED_SLASHES);
-    exit;
-}
-
-/**
  * An answer decided deep inside the work of a request - a limit reached
  * inside a transaction, a visitor's row gone while a save waited for it -
  * thrown to where the answer is written: the default error handler in

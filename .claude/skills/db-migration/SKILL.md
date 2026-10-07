@@ -74,11 +74,16 @@ php migration.php               # create missing + apply pending (both folders)
 php migration.php --folder=users  # scope to one folder
 ```
 
-The engine lives in `backend/api/migration_runner.php` and is shared: the same code
-backs the installer `backend/setup.php` and the admin **Migrations** page's
-*Apply pending* button (`POST /api/migrations/apply`, ADMIN). That button is how
-a migration reaches **production**, which is FTP-only with no shell — FTP the new
-`.sql` up, then apply it from the admin panel. The **deploy** skill has the flow.
+The engine is the anotoki sites' shared one - anotoki/lib's `Migrator`
+(`backend/vendor/anotoki/lib`, never edited here) - set up for this site in
+`backend/api/migration_runner.php` (`siteMigrator()`); the same code backs the
+installer `backend/setup.php`, `merge-databases.php` and the admin **Migrations**
+page's *Apply pending* (`POST /api/admin/migrations/apply`, ADMIN). That button is
+how a migration reaches **production**, which is FTP-only with no shell — FTP the
+new `.sql` up, then apply it from the admin panel. The **deploy** skill has the
+flow. Mind that a file on disk the database has not run closes the site to
+everybody but its ADMIN until it is applied (`503 update_pending`; DEV.md, *While
+an update waits*) - on your own checkout too, until `php migration.php` runs.
 
 ## Before touching data, back it up
 

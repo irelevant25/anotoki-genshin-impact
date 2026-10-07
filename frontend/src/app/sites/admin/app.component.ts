@@ -47,6 +47,8 @@ export class AppComponent {
     // Left out if the site could not learn where that is.
     const adminUrl = this._security.adminUrl();
     const accounts: NavItem[] = adminUrl ? [{ label: 'Accounts & access', href: adminUrl, icon: 'icon icon-user-group' }] : [];
+    // The Migrations page and its API are the ADMIN's alone (@anotoki/lib/migrations).
+    const migrations: NavItem[] = this._security.role() === 'ADMIN' ? [{ label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true }] : [];
 
     return [
       {
@@ -102,7 +104,7 @@ export class AppComponent {
           { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
           { label: 'Error Log', path: 'errors', icon: 'icon icon-triangle-alert', readOnly: true },
           { label: 'Files Explorer', path: 'files-explorer', icon: 'icon icon-computer', readOnly: true },
-          { label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true },
+          ...migrations,
           { label: 'Backups', path: 'backups', icon: 'icon icon-download' },
         ],
       },

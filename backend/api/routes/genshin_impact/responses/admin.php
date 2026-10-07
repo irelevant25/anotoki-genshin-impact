@@ -1,11 +1,11 @@
 <?php
 
 /**
- * What the audit log, the migration list and the dashboard answer with.
+ * What the audit log and the dashboard answer with.
  *
  * Each is assembled by its endpoint rather than read from a table: the log
- * joins usernames in and decodes its JSON, the migration list is the filesystem
- * checked against the table, and the dashboard is a dozen counts in one reply.
+ * joins usernames in and decodes its JSON, and the dashboard is a dozen counts
+ * in one reply. (The Migrations page's answers are anotoki/lib's own.)
  */
 
 // ── Audit log ─────────────────────────────────────────────────────────────────
@@ -84,61 +84,6 @@ class AuditLogFilters extends ResponseShape
         public readonly array $actions,
         /** @var AuditLogUser[] */
         public readonly array $users,
-    ) {
-    }
-}
-
-// ── Migrations ────────────────────────────────────────────────────────────────
-
-class MigrationEntry extends ResponseShape
-{
-    public function __construct(
-        /** `{database}:{filename}` - unique only within its database. */
-        public readonly string $id,
-        public readonly string $database,
-        public readonly string $filename,
-        public readonly ?string $applied_at,
-        /** applied | pending | applied (file missing) */
-        public readonly string $status,
-        public readonly ?int $size,
-    ) {
-    }
-}
-
-class MigrationFile extends ResponseShape
-{
-    public function __construct(
-        public readonly string $database,
-        public readonly string $filename,
-        public readonly int $size,
-        public readonly string $content,
-    ) {
-    }
-}
-
-/** One database's share of an apply run. */
-class MigrationApplied extends ResponseShape
-{
-    public function __construct(
-        public readonly string $database,
-        /** @var string[] The files applied just now, in the order they ran. */
-        public readonly array $applied,
-        /** The file that failed, if one did - everything after it was left. */
-        public readonly ?string $failed,
-        public readonly ?string $error,
-    ) {
-    }
-}
-
-/** What `POST /api/migrations/apply` did across every database. */
-class MigrationApplyResult extends ResponseShape
-{
-    public function __construct(
-        public readonly int $applied,
-        /** False if any database hit a failure or could not be reached. */
-        public readonly bool $ok,
-        /** @var MigrationApplied[] */
-        public readonly array $databases,
     ) {
     }
 }

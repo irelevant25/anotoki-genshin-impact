@@ -18,13 +18,10 @@ require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/../config/visitors.php';
 require_once __DIR__ . '/helpers.php';
 
-// Before anything else runs: without its config/*.local.php files this
-// installation is not set up, and every request - whatever it asked for - gets
-// the one answer that says so and points at setup.php. The spec generator loads
-// this file only to read the route table, and needs no config to do it.
-if (!defined('ANOTOKI_ROUTES_ONLY') && localConfigProblems() !== []) {
-    answerNotSetUp();
-}
+// Nothing here needs the config/*.local.php files to load: without them the
+// site is not set up, and the SiteGate below answers every request so
+// (site_state.php) - the spec generator, which loads this file only to read
+// the route table, needs none either.
 
 require_once __DIR__ . '/error_log.php';
 require_once __DIR__ . '/audit_scope.php';
@@ -50,8 +47,14 @@ require_once __DIR__ . '/after_response.php';
 require_once __DIR__ . '/visitors.php';
 require_once __DIR__ . '/site_settings.php';
 require_once __DIR__ . '/site_routes.php';
+// The migrations (on anotoki/lib's engine), and where the site stands: not set
+// up, a database update waiting, or ready.
 require_once __DIR__ . '/migration_runner.php';
+require_once __DIR__ . '/site_state.php';
 
+use Anotoki\Lib\Migrations\Http\MigrationsRoutes;
+use Anotoki\Lib\Migrations\Http\SiteGate;
+use Anotoki\Lib\Migrations\Migrator;
 use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
@@ -166,7 +169,6 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/domain_levels.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_families.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/migrations.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/audit_logs.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/errors.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/feedback.php';
@@ -232,14 +234,30 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams_characters.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php';
 
+///////////////////
+// THE SITE'S STATE AND ITS MIGRATIONS (anotoki/lib)
+///////////////////
+
+// GET /api/site-status, for anybody: where the site stands - what the pages ask
+// as they start. And the admin Migrations page's API: what has run and what
+// waits (GET), a file's SQL (GET /file?set=&name=) and Apply (POST /apply) -
+// for this site's ADMIN, judged by the token alone, so nothing a waiting
+// migration has yet to make stands between an administrator and Apply.
+MigrationsRoutes::status($app, siteState());
+MigrationsRoutes::admin($app, '/api/admin/migrations', fn (): Migrator => siteMigrator(getDb()))
+    ->add(requireAdminToken());
+
 // Added before the error and header middleware, which means they run inside
 // both: a 503 or 401 from here still carries the security headers, and
-// anything they throw is still handled. The last added runs first: the closed
-// sign (maintenance.php), then sign-in required (sign_in.php), then the
-// per-page locks (route_gate.php) - each file says what it leaves open.
+// anything they throw is still handled. The last added runs first: where the
+// site stands (site_state.php - not set up, or a database update waiting),
+// then the closed sign (maintenance.php), then sign-in required (sign_in.php),
+// then the per-page locks (route_gate.php) - each file says what it leaves
+// open.
 $app->add(routeGate());
 $app->add(signInGate());
 $app->add(maintenanceGate());
+$app->add(new SiteGate(siteState(), $app->getResponseFactory(), SITE_OPEN_WHILE_UPDATING, setupPath: SETUP_PATH));
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
 $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {
@@ -258,11 +276,9 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
         $statusCode = 401;
         $message = 'Unauthorized';
     } elseif ($exception instanceof NotSetUpException) {
-        // A config file that went missing after the gate at the top let the
-        // request in. The same answer as the gate's, rather than a bare 500.
-        $response = $app->getResponseFactory()->createResponse(503);
-        $response->getBody()->write(json_encode(['error' => 'This site is not set up yet.', 'code' => 'not_set_up', 'setup' => SETUP_PATH]));
-        return $response->withHeader('Content-Type', 'application/json');
+        // A config file that went missing after the SiteGate let the request
+        // in. The same answer as the gate's, rather than a bare 500.
+        return siteNotSetUpResponse($request, $app->getResponseFactory());
     } elseif ($exception instanceof ApiRefusal) {
         // An answer the work decided on (helpers.php), not a failure: no PHP
         // log line, no trace in the error log - the response logger below

@@ -45,7 +45,8 @@ You need **PHP 8.2 or newer** with `pdo_pgsql`, **PostgreSQL**, **Node.js 22**
 and **Bun** (the frontend installs its packages with `bun ci`), and the **anotoki
 IAM** (`../anotoki-iam`), which holds the accounts.
 `backend/vendor/` is committed, so Composer is only needed to change PHP
-dependencies.
+dependencies - among them `anotoki/lib`, the library every anotoki site shares
+(*How it works*, below).
 
 1. Set up and start the IAM by its own DEV.md: its pages on `:4300`, its
    API on `:8100`.
@@ -59,7 +60,7 @@ dependencies.
    **Test connection** under the database and under the IAM, then **Save**. It
    creates the database, applies every migration, and writes the settings to
    `backend/config/*.local.php`. Until then the API answers `503 not_set_up` and
-   the site shows a "not set up yet" page.
+   the site shows "This site is not set up yet", with a link to this page.
 3. Start the frontend in a second terminal:
    ```bash
    cd frontend
@@ -105,6 +106,15 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
 - **Migrations are the schema**: SQL files in `backend/migrations/`, applied in
   order - by `php migration.php` here, and from the admin panel's Migrations page
   on the hosting.
+- **While the site is not ready** it behaves as every anotoki site does, through
+  the library they share, `anotoki-lib` (`anotoki/lib` in `backend/vendor/`,
+  `@anotoki/lib` in the frontend): while a database update waits, visitors and
+  signed-in readers see "The site is being updated" - in their language, no error,
+  only a quiet Sign in - and the API answers them `503 update_pending`; the
+  site's ADMIN reads "A database update is waiting" and reaches the Migrations
+  page, which still works. Never set up: "This site is not set up yet", with the
+  setup page; set up once and not answering: "not available right now", never
+  the setup page. The engine that applies the migrations is the library's too.
 - **The API client is generated**: the frontend's typed client under
   `frontend/src/app/api/` is written by `npm run api` from the backend's own
   routes, response shapes and migrations, never by hand.
@@ -116,7 +126,8 @@ upload: `npm run build:deploy` in `frontend/` and `php build-dist.php` in
 `backend/`, neither carrying any configuration or secret; `assets/` is uploaded
 on its own. The first install runs through `setup.php` in the browser, proved by
 a token only FTP can read; it writes the settings, then locks and deletes
-itself. Later schema changes are applied from the admin panel's Migrations page.
+itself. Later schema changes are applied from the admin panel's Migrations page -
+until they are, the site tells everybody but its ADMIN that it is being updated.
 The IAM has to be installed first. The upload map and every step:
 [DEV.md](DEV.md) ("Deploying to the hosting").
 
@@ -127,16 +138,18 @@ backend/
   api/                  index.php (the Slim app); routes/genshin_impact/ and routes/users/, each with
                         endpoints/, models/ and responses/; meddleware/ (sign-in and roles, maintenance,
                         page gates, validation); the query builder, the asset code, the IAM's token
-                        verifier (vendored)
+                        verifier (vendored); migration_runner.php and site_state.php (the migrations and
+                        where the site stands, on the shared library)
   config/               one module per concern; *.local.php per installation (written by setup.php)
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
-  vendor/               committed: the hosting has no Composer
+  vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
   setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile
   src/app/sites/admin/  the admin panel
-  src/app/shared/       local-lib (the UI kit, abstract bases, the IAM's browser SDK), the not-set-up page
+  src/app/shared/       local-lib (the UI kit, abstract bases, the IAM's browser SDK), site-status.ts
+                        (the shared library's gate and Migrations page, set up for this site)
   src/app/api/          the API client, generated from the backend (npm run api)
   public/               config.json (where the API is), changelog.json
 docs/                   generated reports: reference/, performance/, security/; PG-DUMP-INSTALL.md (pg_dump
@@ -212,6 +225,26 @@ not drift; [docs/README.md](docs/README.md) lists them.
   theme gone. Signed out, the device's. The API keeps no copy any more:
   migration `users/048` drops the old columns, and `users/047` brings the
   account panel's line saying so.
+- Since 2026-10-07 the migrations, and what the site does while it is not ready,
+  are the anotoki sites' shared library's - `anotoki-lib` 0.1.0 (the Composer
+  package `anotoki/lib`, the npm package `@anotoki/lib`) - at the owner's
+  request: *"When there is a new migration, some sites behave differently than
+  others. Japanese won't let me go to the admin or anywhere if I am not logged
+  in, but I cannot log in because a migration is waiting. Genshin gives me no
+  warning. Piano and survey show me a setup error with buttons to the setup page
+  or the migrations page. This needs to be consistent. I do not want logged-in
+  users or visitors to see the error about what is going on. The admin should
+  see it. If the setup was already done it should never offer that button again,
+  especially as setup.php is no longer there."* So, as on every anotoki site:
+  while a database update waits, the API answers `503 update_pending` to
+  everything but signing in, the pages' words and the admin Migrations page, and
+  the pages show visitors and signed-in readers "The site is being updated" and
+  the ADMIN the way to the Migrations page (`/admin/migrations`, the library's;
+  its API is `/api/admin/migrations`, for ADMIN only - editors no longer see the
+  list); the setup page is offered only until the site was installed. The
+  engine is the library's `Migrator`, which builds exactly the database the old
+  one did (both folders, the same record table, the same order guard); the site's
+  own not-set-up page and Migrations pages are gone.
 
 ## More
 

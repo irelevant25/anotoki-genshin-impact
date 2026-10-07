@@ -21,7 +21,6 @@ export * from './language.model';
 export * from './lookup.model';
 export * from './material.model';
 export * from './me.model';
-export * from './migration.model';
 export * from './quiz.model';
 export * from './route.model';
 export * from './setting.model';

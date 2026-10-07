@@ -189,6 +189,17 @@ export class TranslationService {
     }
   }
 
+  /**
+   * The languages and the strings again, from the server - once a database
+   * update has brought new ones (the admin Migrations page's Apply). The page
+   * keeps showing what it has meanwhile; it never rejects.
+   */
+  async reload(): Promise<void> {
+    if (this._browser) {
+      await this._loadFromServer();
+    }
+  }
+
   private async _loadFromServer(): Promise<void> {
     try {
       const languages = await firstValueFrom(this._languageApi.getLanguages());

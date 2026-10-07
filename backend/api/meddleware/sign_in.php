@@ -27,6 +27,9 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  *                          (and where the IAM is, and whether the site is closed)
  *   /api/languages         is which languages the card can be read in
  *   /api/translations/     is the words on it
+ *   /api/site-status       is whether the site is there at all (site_state.php):
+ *                          the pages ask it before anything else, and a 401
+ *                          would read as a site that is down
  *
  * and one more, because a browser cannot send it a token:
  *
@@ -62,6 +65,7 @@ const SIGN_IN_OPEN_PREFIXES = [
     '/api/settings/public',
     '/api/languages',
     '/api/translations/',
+    '/api/site-status',
     '/api/files/raw',
 ];
 

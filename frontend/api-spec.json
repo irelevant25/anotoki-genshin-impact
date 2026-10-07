@@ -4,6 +4,69 @@
     "routes": [
         {
             "method": "GET",
+            "path": "/api/admin/migrations",
+            "args": [],
+            "file": "MigrationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
+                "line": 54
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/migrations/apply",
+            "args": [],
+            "file": "MigrationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
+                "line": 89
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/migrations/file",
+            "args": [],
+            "file": "MigrationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
+                "line": 67
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
             "path": "/api/admin/translations",
             "args": [],
             "file": "translations.php",
@@ -8559,7 +8622,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/languages.php",
-                "line": 155
+                "line": 145
             },
             "expanded": [],
             "payload": null,
@@ -9446,93 +9509,6 @@
             "partial": false,
             "auth": true,
             "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/migrations",
-            "args": [],
-            "file": "migrations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "MigrationEntry",
-                "list": true
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/migrations.php",
-                "line": 81
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/migrations/apply",
-            "args": [],
-            "file": "migrations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "MigrationApplyResult",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/migrations.php",
-                "line": 158
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/migrations/file",
-            "args": [],
-            "file": "migrations.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "MigrationFile",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/migrations.php",
-                "line": 113
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
             "owner": false,
             "visitor_key": false
         },
@@ -10981,6 +10957,27 @@
             "roles": [
                 "ADMIN"
             ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/site-status",
+            "args": [],
+            "file": "MigrationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
+                "line": 33
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
             "owner": false,
             "visitor_key": false
         },
@@ -20387,208 +20384,6 @@
             ]
         },
         {
-            "name": "MigrationApplied",
-            "file": "admin.php",
-            "merges": null,
-            "description": "One database's share of an apply run.",
-            "fields": [
-                {
-                    "name": "database",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "applied",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": "The files applied just now, in the order they ran."
-                },
-                {
-                    "name": "failed",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The file that failed, if one did - everything after it was left."
-                },
-                {
-                    "name": "error",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "MigrationApplyResult",
-            "file": "admin.php",
-            "merges": null,
-            "description": "What `POST /api/migrations/apply` did across every database.",
-            "fields": [
-                {
-                    "name": "applied",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "ok",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "False if any database hit a failure or could not be reached."
-                },
-                {
-                    "name": "databases",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "MigrationApplied[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "MigrationEntry",
-            "file": "admin.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "`{database}:{filename}` - unique only within its database."
-                },
-                {
-                    "name": "database",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "filename",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "applied_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "applied | pending | applied (file missing)"
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "MigrationFile",
-            "file": "admin.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "database",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "filename",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "content",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "MissingFile",
             "file": "file.php",
             "merges": null,
@@ -26699,19 +26494,6 @@
             ]
         },
         {
-            "table": "themes",
-            "database": "users",
-            "interface": "Theme",
-            "columns": [
-                {
-                    "name": "name",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
             "table": "translation_keys",
             "database": "users",
             "interface": "TranslationKey",
@@ -26900,12 +26682,6 @@
                     "enum": null
                 },
                 {
-                    "name": "language",
-                    "sqlType": "VARCHAR(10)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
                     "name": "version",
                     "sqlType": "VARCHAR(10)",
                     "nullable": true,
@@ -26922,38 +26698,6 @@
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
                     "enum": null
-                },
-                {
-                    "name": "theme_main",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "theme_admin",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "date_format",
-                    "sqlType": "VARCHAR(16)",
-                    "nullable": true,
-                    "enum": [
-                        "dmy_dot",
-                        "dmy_slash",
-                        "mdy_slash",
-                        "ymd_dash"
-                    ]
-                },
-                {
-                    "name": "time_format",
-                    "sqlType": "VARCHAR(8)",
-                    "nullable": true,
-                    "enum": [
-                        "24",
-                        "12"
-                    ]
                 },
                 {
                     "name": "visitor_key_hash",

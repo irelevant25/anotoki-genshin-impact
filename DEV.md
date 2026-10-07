@@ -45,7 +45,7 @@ endpoint.
 | PostgreSQL   | 14+          | one database, `anotoki_genshin` (the installer creates it) |
 | Node.js      | 22           | for `ng` and the scripts (`engines` in `package.json` names 22.15.0; nothing checks it) |
 | Bun          | any recent   | `npm start` installs the frontend's packages with `bun ci`, from `bun.lock` |
-| Composer     | any recent   | `backend/vendor/` is committed, so only needed to change PHP dependencies |
+| Composer     | any recent   | `backend/vendor/` is committed, so only needed to change PHP dependencies - `anotoki/lib` among them ([The shared library](#the-shared-library-anotoki-lib)) |
 | The anotoki IAM | -         | `../anotoki-iam`, set up by its own DEV.md |
 
 Optional, for specific admin features:
@@ -78,8 +78,11 @@ composer start          # php -S localhost:8000 router.php
 ```
 
 then open **<http://localhost:8000/setup.php>**. Until it has run, the API
-answers every request `503 {"code": "not_set_up"}` and the site shows a "not set
-up yet" page pointing here - nothing committed stands in for the configuration.
+answers every request `503 {"code": "not_set_up"}` and the site shows "This site
+is not set up yet" with a link here - nothing committed stands in for the
+configuration. (Only until the site has been installed on a host: from then on
+it never offers the setup page again, and says "not available right now"
+instead.)
 
 The installer starts from the development values - PostgreSQL on
 `127.0.0.1:5432` as `postgres`, the database `anotoki_genshin`, the
@@ -202,6 +205,47 @@ own games and statistics) comes out with a trailing `context?: HttpContext`
 parameter: the page says whom the request is issued as - the signed-in person
 or this browser's visitor.
 
+Two prefixes are left out of the client on purpose (`SKIP_PREFIXES` in
+`api-config.mjs`): `/api/site-status` and `/api/admin/migrations` are the shared
+library's routes, and its Angular half is already their client.
+
+---
+
+## The shared library (anotoki-lib)
+
+The migrations engine, and what the site does while it is not set up or waits
+for a database update, are the same on every anotoki site: one library,
+`anotoki-lib` (`https://github.com/irelevant25/anotoki-lib`; a clone sits at
+`../anotoki-lib`), never edited here. Two halves, one version:
+
+| Half | Here | Installed from |
+| --- | --- | --- |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.1"`) |
+| `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
+
+Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
+for the two folders), `backend/api/site_state.php` (the site's state and the
+gate in front of every route), `backend/api/index.php` (the status and admin
+migrations routes), `frontend/src/app/shared/site-status.ts` (the pages'
+gate, the "being updated" page and the Migrations page, set up for this site),
+`frontend/src/app/app.config.ts` and `app.component.html`, the admin route
+`/admin/migrations`, and the `--anotoki-*` colours in `design-tokens.scss`.
+
+**Updating it** - both halves together, to the same version; read the
+library's `CHANGELOG.md` first (while it is 0.x a minor version may break):
+
+```bash
+cd backend
+composer update anotoki/lib --prefer-dist      # a new constraint in composer.json first, when the version needs one
+cd ../frontend
+# the new release's tarball URL in package.json, then:
+bun install
+npm install                                    # package-lock.json too, so both lock files agree
+```
+
+Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
+(build-dist.php copies `vendor/` whole).
+
 ---
 
 ## Database & migrations
@@ -215,11 +259,19 @@ again, so never edit an applied migration: write the next one.
 
 - Locally: `php migration.php` (or `setup.php`) applies everything pending.
 - On the hosting, with no shell: FTP the new `.sql` up, then the admin
-  **Migrations** page → **Apply pending** (`POST /api/migrations/apply`).
+  **Migrations** page → **Apply pending** (`POST /api/admin/migrations/apply`,
+  ADMIN only).
 
-The engine behind the CLI, that button, and `setup.php` is one file,
-`backend/api/migration_runner.php`, so a database built any of the three ways is
-the same database. `generate-api-spec.php` replays the same folder to work out
+The engine behind the CLI, that button, `setup.php` and `merge-databases.php` is
+the shared library's `Migrator`, set up for this site in one file,
+`backend/api/migration_runner.php` (`siteMigrator()`: `users/` then
+`genshin_impact/`, the record by folder and file, this site's advisory lock, the
+adoption of a record table from when each folder had a database of its own, and
+the refusal to run the folders out of order) - so a database built any of those
+ways is the same database. Each file runs whole or not at all with its record,
+the run stops at the first that fails, and one apply runs at a time: a second -
+the button pressed twice, the CLI beside it - is told it is busy and does
+nothing. `generate-api-spec.php` replays the same folder to work out
 what each table looks like, so a new column reaches the generated client without
 being written down anywhere else. Migrations that change data end with a
 `DO $$ … $$` gate that fails loudly when the result is wrong; back up first
@@ -228,6 +280,30 @@ being written down anywhere else. Migrations that change data end with a
 A `users/` migration never names a `genshin_impact/` table: on a fresh install
 every `users/` file runs before `genshin_impact/001` makes the content and quiz
 tables. A change to both halves is one file in each folder.
+
+### While an update waits
+
+From the moment a migration file is on disk that the database has not run until
+it is applied, the site is closed - the same way on every anotoki site (the
+shared library; `backend/api/site_state.php`):
+
+- the API answers `503 {"code": "update_pending"}` with `Retry-After: 60` to
+  everything but what a sign-in and the Migrations page need:
+  `/api/settings/public`, `/api/me`, `/api/languages`,
+  `/api/translations/{code}` and `/api/admin/migrations/...`;
+  `GET /api/site-status` says `{"state": "update_pending", ...}`;
+- visitors and signed-in readers see "The site is being updated" in their
+  language - no error, nothing but a quiet **Sign in** while nobody is signed
+  in - and the page reloads by itself once the site is back;
+- the site's ADMIN, signed in, reads "A database update is waiting" and **Open
+  Migrations**: `/admin/migrations` works, nothing else does. Apply there, and the
+  site is open again.
+
+Signing in keeps working the whole time, so an ADMIN gets in from that page's
+Sign in. A file that fails does not change this: the site stays closed until
+every file is applied (a failed one is rolled back whole and stays pending -
+upload it mended and Apply again). Locally the same happens when you pull a
+migration and have not run `php migration.php` yet.
 
 **Waiting to be applied (written 2026-10-05)** - in this order, after the IAM's
 migration 010 and its public answer about this site (`GET
@@ -399,6 +475,24 @@ appearance and the language are kept in this browser's localStorage (`theme`,
 `language`, prefixed `anotoki-genshin-impact-`) and the date and clock
 choosers are not shown.
 
+**While an update waits** (*Database & migrations*). A database one migration
+behind is enough: leave the newest file unapplied on a scratch copy (never your
+own database - the IAM's advice above holds here too: a scratch copy of
+`backend/` with its own `config/*.local.php` and a throwaway database). Then
+`curl -si http://localhost:8000/api/site-status` says `update_pending`,
+`/api/characters` answers 503 `update_pending` with `Retry-After: 60`, and
+`/api/settings/public`, `/api/languages` and `/api/translations/en` still answer.
+In a private window every page shows "The site is being updated" (in Slovak too,
+with the language chosen) and nothing else, Sign in included; signed in as an
+ADMIN the same page says "A database update is waiting", **Open Migrations**
+reaches `/admin/migrations`, and **Apply pending** opens the site again. With
+another apply running (`php migration.php` beside the button) the page says the
+update is busy and applies nothing. Without the `config/*.local.php` files the
+pages say "This site is not set up yet" with the setup page; with
+`storage/installed.lock` there as well, "not available right now" and never the
+setup page. `/api/site-status` answers in every state - maintenance mode and
+the IAM's sign-in switch included.
+
 The generated reports under `docs/` - reference, performance, security - are
 rebuilt by their own scripts; `docs/README.md` has the commands.
 
@@ -412,15 +506,15 @@ Admin panel → System → Site Settings. A card per group; each opens a modal.
 
 | Switch | What it does |
 | --- | --- |
-| Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but who is signed in (`/api/me`), the public settings, the languages and the strings on the sign. Admins are exempt. |
+| Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but who is signed in (`/api/me`), the public settings, the languages, the strings on the sign and the site's status (`/api/site-status`). Admins are exempt. |
 | Announcement | A dismissable bar above the header, one message per language, at one of three levels. |
 
 Whether anybody may sign in at all, and whether Google is offered, are the IAM's
 switches - in its admin console, for every site at once. So is **Sign-in
 required** for this site (Applications → genshin → Settings; off by default):
 while it is on, the API answers 401 `sign_in_required` to everybody not signed
-in, but for the public settings, the languages, the strings and the asset
-previews (`/api/files/raw`, which an `<img>` loads without a token;
+in, but for the public settings, the languages, the strings, the site's status
+and the asset previews (`/api/files/raw`, which an `<img>` loads without a token;
 `api/meddleware/sign_in.php`), and the pages send everybody signed out to the
 IAM first, or draw "Sign in to continue" instead of the site. Maintenance still
 comes first: a closed site answers 503, and shows its closed sign, before anybody
@@ -472,7 +566,8 @@ leaves its data being served - right for "that page is not finished", wrong for
 for. Paths are matched from the start, so `/api/quiz` covers `/api/quizzes` and
 `/api/quiz/stats` alike. Where two pages claim the same path the more open one
 wins, and a path covering `/api/me`, `/api/settings`, `/api/site-routes`,
-`/api/languages` or `/api/translations` is refused on save.
+`/api/site-status`, `/api/languages` or `/api/translations` is refused on save
+(the site's status is never locked whatever a row says).
 
 **Add a page** takes a path the migration did not seed. The **×** on a row stops
 governing that page rather than removing it from the site. `/auth/callback` and
@@ -613,8 +708,11 @@ accounts), and grant yourself this site's ADMIN role there.
    [`docs/PG-DUMP-INSTALL.md`](docs/PG-DUMP-INSTALL.md)) - nothing to type; the
    closing page says so when there are none.
 5. It writes `storage/installed.lock` - which makes it refuse to run again even if
-   the next part fails - then deletes `config/setup.local.php` and itself. If the
-   host would not let it self-delete, remove `setup.php` by hand.
+   the next part fails, and from which the site never offers the setup page to
+   anybody again - then deletes `config/setup.local.php` and itself. If the
+   host would not let it self-delete, remove `setup.php` by hand. Keep the lock:
+   without it a site that loses a config file would point visitors at a setup
+   page that is no longer there.
 
 This site's address must be registered for the client `genshin` in the IAM's admin
 console (Applications); the IAM test says whether it is.
@@ -656,8 +754,22 @@ refused, since `users/` would run over the content's tables.
 ### Later schema changes
 
 FTP the new `migrations/{folder}/*.sql` files up, then open the admin **Migrations**
-page and press **Apply pending** - `POST /api/migrations/apply` runs them in order
-(ADMIN only), `users/` then `genshin_impact/`, stopping at the first failure.
+page and press **Apply pending** - `POST /api/admin/migrations/apply` runs them in
+order (ADMIN only), `users/` then `genshin_impact/`, stopping at the first failure.
+From the moment the files are up until they are applied the site is closed to
+everybody but its ADMIN (*While an update waits*), so do it in one go: upload,
+open the site, **Sign in** on the "being updated" page as an ADMIN, **Open
+Migrations**, **Apply pending**.
+
+**The shared library on the host** (2026-10-07, `anotoki-lib` 0.1.0): nothing to
+apply - upload both builds in the same go (`vendor/anotoki/lib` goes up with
+`backend/dist/`; the new pages ask `/api/site-status`, which an older API
+answers 404 - read as "not available right now" until the API is there too)
+and the site works as before, but for what it does while not ready. Check that
+`storage/installed.lock` is on the host (the installer wrote it there): it is
+what keeps a site that loses a config file from pointing visitors at a setup
+page that no longer exists. The Migrations page is now `/admin/migrations` for
+the ADMIN only; editors no longer see it.
 
 **Visitor accounts on the host** (2026-10-05): after the IAM check above, upload
 both builds, then Apply pending (`users/044`, `045`, `046`, `genshin_impact/027`
@@ -713,8 +825,11 @@ the PostgreSQL client tools locally.
 
 | Symptom | Likely cause |
 | --- | --- |
-| The site shows "Not set up yet", or the API answers `503 not_set_up` | `backend/config/*.local.php` are missing or incomplete. Open `http://localhost:8000/setup.php` - it lists what is missing. |
+| The site shows "This site is not set up yet", or the API answers `503 not_set_up` | `backend/config/*.local.php` are missing or incomplete. Open `http://localhost:8000/setup.php` - it lists what is missing. |
+| The site shows "The site is being updated" (the API answers `503 update_pending`) | A migration file is there that the database has not run - `php migration.php --status` says which. Run `php migration.php`, or as the site's ADMIN sign in on that page, **Open Migrations** and **Apply pending**. |
+| The site shows "The site is not available right now" | The database does not answer (Postgres stopped, or the connection is wrong), or - on an installed site - a `config/*.local.php` went missing. `/api/site-status` says which (`unavailable`, `not_set_up`). |
 | API cannot connect to the database | Postgres is not running, or the connection in `setup.php` is wrong - its **Test connection** says which. |
+| Apply says another database update is running | Another apply holds the migrations lock - the button in another tab, `php migration.php`, `setup.php`. Wait for it, then look again. |
 | A new/changed endpoint isn't callable from the frontend | The client is stale - run `npm run api`. |
 | Translation-key routes 404 in dev | The PHP server was started without `router.php`. Start it with `composer start` in `backend/`, which runs `php -S localhost:8000 router.php`. |
 | Every API call fails in dev (502 or 504 from `ng serve`) | The API is not running on `:8000`, which `proxy.conf.json` hands `/api` to - start it with `composer start` in `backend/`. |

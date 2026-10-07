@@ -52,15 +52,22 @@
  * that has been applied changes nothing on a database that has it and
  * everything on a database that has not. Write another file instead.
  *
- * The engine itself - reading, splitting, and applying the SQL - lives in
- * api/migration_runner.php, so the admin apply endpoint and the installer build
- * a database exactly the way this does. This file is that engine with a command
- * line and some colour around it.
+ * Nor will it wait for another apply: one runs at a time, whoever started it
+ * (the admin panel's Migrations page, setup.php, another migration.php), and
+ * this one says so and stops.
+ *
+ * The engine - reading, splitting and applying the SQL, the record of what ran,
+ * the lock - is the anotoki sites' shared one (anotoki/lib's Migrator), set up
+ * for this site's two folders in api/migration_runner.php, so the admin panel
+ * and the installer build a database exactly the way this does. This file is
+ * that engine with a command line and some colour around it.
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/api/migration_runner.php';
+
+use Anotoki\Lib\Migrations\MigrationSet;
 
 // ─── Output ──────────────────────────────────────────────────────────────────
 
@@ -74,6 +81,18 @@ function colour(string $colour, string $text): string
 function say(string $colour, string $text): void
 {
     echo colour($colour, $text) . "\n";
+}
+
+/**
+ * Files recorded as applied that are no longer on disk. Worth saying: it means
+ * somebody deleted or renamed a migration, and this database and a fresh one
+ * are no longer the same database.
+ */
+function sayMissing(string $folder, array $missing): void
+{
+    foreach ($missing as $file) {
+        say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
+    }
 }
 
 
@@ -98,6 +117,8 @@ if ($only !== null && !in_array($only, MIGRATION_FOLDERS, true)) {
     exit(1);
 }
 
+$folders = $only === null ? MIGRATION_FOLDERS : [$only];
+
 // Written by setup.php, which is also what builds the database the first time -
 // this is for everything after that.
 try {
@@ -117,112 +138,152 @@ try {
 
     $pdo = getDb();
 
-    // Read as the table is: looking changes nothing, and neither does a run
-    // that is refused below. Only applying brings the table up to the shape
-    // with a folder per row.
+    // Read as the table is - the one from before the two folders shared it
+    // too: looking changes nothing, and neither does a run that is refused
+    // below. Only applying brings the table up to the shape with a folder per
+    // row (ensureMigrationsTable(), the engine's `prepare`).
     $recorded = recordedMigrations($pdo);
+    $files = [];
+    $engine = siteMigrator($pdo, $only);
+    foreach (migrationSets($only) as $set) {
+        $files[$set->name] = $engine->files($set);
+    }
 } catch (\Throwable $e) {
     say('red', '  Cannot reach it: ' . $e->getMessage());
     exit(1);
 }
 
-// A database whose record says the folders would run out of order - the
-// content half of a site not yet merged, or genshin_impact/ asked for before
-// users/ has run - is refused; looking only warns.
-$refusal = migrationsOrderRefusal($recorded, $only);
-if ($refusal !== null) {
-    say($statusOnly || $dryRun ? 'yellow' : 'red', "\n  " . $refusal);
-    if (!$statusOnly && !$dryRun) {
-        exit(1);
-    }
+$missing = [];
+$pending = [];
+foreach ($folders as $folder) {
+    $missing[$folder] = array_values(array_diff($recorded[$folder], $files[$folder]));
+    $pending[$folder] = array_values(array_diff($files[$folder], $recorded[$folder]));
 }
 
-// Applying holds the migrations lock, so the admin button or setup.php cannot
-// run the same file at the same moment. It goes with the connection at exit.
-if (!$statusOnly && !$dryRun) {
-    $pdo->query('SELECT pg_advisory_lock(' . MIGRATION_LOCK . ')');
-    ensureMigrationsTable($pdo);
-    $recorded = recordedMigrations($pdo);
-}
+// ─── Looking ─────────────────────────────────────────────────────────────────
 
-$exitCode = 0;
-$appliedAnything = false;
-
-foreach (MIGRATION_FOLDERS as $folder) {
-    if ($only !== null && $folder !== $only) {
-        continue;
+if ($statusOnly || $dryRun) {
+    // A database whose record says the folders would run out of order - the
+    // content half of a site not yet merged, or genshin_impact/ asked for
+    // before users/ has run - is refused when applying (the engine's
+    // beforeApply, api/migration_runner.php); looking only warns.
+    $refusal = migrationsOrderRefusal($recorded, $only);
+    if ($refusal !== null) {
+        say('yellow', "\n  " . $refusal);
     }
 
-    say('cyan', "\n  ── migrations/{$folder}/");
+    foreach ($folders as $folder) {
+        say('cyan', "\n  ── migrations/{$folder}/");
 
-    $files = migrationFiles($folder);
-    $applied = $recorded[$folder];
-    $pending = array_values(array_diff($files, $applied));
-
-    // A file recorded as applied that is no longer on disk. Worth saying: it
-    // means somebody deleted or renamed a migration, and this database and a
-    // fresh one are no longer the same database.
-    $missing = array_values(array_diff($applied, $files));
-
-    if ($statusOnly) {
-        foreach ($files as $file) {
-            $done = in_array($file, $applied, true);
-            echo '  ' . ($done ? colour('green', '✔') : colour('yellow', '·')) . ' ' . $file
-                . ($done ? '' : colour('yellow', '   pending')) . "\n";
-        }
-        printf("  %d applied, %d pending\n", count($files) - count($pending), count($pending));
-
-        foreach ($missing as $file) {
-            say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
-        }
-
-        continue;
-    }
-
-    foreach ($missing as $file) {
-        say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
-    }
-
-    if (!$pending) {
-        say('green', '  Up to date - ' . count($files) . ' migrations.');
-    }
-
-    foreach ($pending as $file) {
-        if ($dryRun) {
-            say('yellow', '  would apply ' . $file);
+        if ($statusOnly) {
+            foreach ($files[$folder] as $file) {
+                $done = !in_array($file, $pending[$folder], true);
+                echo '  ' . ($done ? colour('green', '✔') : colour('yellow', '·')) . ' ' . $file
+                    . ($done ? '' : colour('yellow', '   pending')) . "\n";
+            }
+            printf("  %d applied, %d pending\n", count($files[$folder]) - count($pending[$folder]), count($pending[$folder]));
+            sayMissing($folder, $missing[$folder]);
             continue;
         }
 
-        echo '  ' . $file . ' ... ';
-
-        try {
-            applyMigration($pdo, $folder, $file);
-            say('green', 'done');
-            $appliedAnything = true;
-        } catch (\Throwable $e) {
-            say('red', 'FAILED');
-            say('red', '    ' . $e->getMessage());
-            say('yellow', '    Nothing from this file was applied. The migrations before it stand.');
-            $exitCode = 1;
-            $stoppedAt = $folder;
-            // Stop here, the other folder included: everything after this file
-            // is written expecting it to have run, and the two folders share
-            // one namespace in an order that matters (api/migration_runner.php,
-            // MIGRATION_FOLDERS).
-            break 2;
+        sayMissing($folder, $missing[$folder]);
+        if (!$pending[$folder]) {
+            say('green', '  Up to date - ' . count($files[$folder]) . ' migrations.');
+        }
+        foreach ($pending[$folder] as $file) {
+            say('yellow', '  would apply ' . $file);
         }
     }
+
+    if ($dryRun) {
+        say('grey', "\n--dry-run: nothing was written.");
+    }
+    exit(0);
 }
 
-if ($dryRun) {
-    say('grey', "\n--dry-run: nothing was written.");
-} elseif (isset($stoppedAt)) {
+// ─── Applying ────────────────────────────────────────────────────────────────
+
+// The engine tells each file as it starts it (beforeFile, inside the file's
+// transaction); its line is finished when the next one starts, or when the
+// run is over. A folder with nothing to run is said to be up to date as the
+// run passes it.
+$announced = [];
+$open = false;
+
+$announce = function (string $folder) use (&$announced, $missing): void {
+    if (!isset($announced[$folder])) {
+        $announced[$folder] = true;
+        say('cyan', "\n  ── migrations/{$folder}/");
+        sayMissing($folder, $missing[$folder]);
+    }
+};
+
+// Every folder before $folder (or every one, for null) not announced yet had nothing to run.
+$upToDateBefore = function (?string $folder) use (&$announced, $folders, $files, $announce): void {
+    foreach ($folders as $earlier) {
+        if ($earlier === $folder) {
+            return;
+        }
+        if (!isset($announced[$earlier])) {
+            $announce($earlier);
+            say('green', '  Up to date - ' . count($files[$earlier]) . ' migrations.');
+        }
+    }
+};
+
+$engine = siteMigrator($pdo, $only, beforeFile: function (PDO $pdo, MigrationSet $set, string $file) use (&$open, $announce, $upToDateBefore): void {
+    if ($open) {
+        say('green', 'done');
+    }
+    $upToDateBefore($set->name);
+    $announce($set->name);
+    echo '  ' . $file . ' ... ';
+    $open = true;
+});
+
+try {
+    $result = $engine->apply();
+} catch (\Throwable $e) {
+    // The connection itself, or the record that could not be brought to its shape.
+    say('red', ($open ? "FAILED\n" : "\n") . '  ' . $e->getMessage());
+    exit(1);
+}
+
+if ($result['busy']) {
+    say('red', "\n  Another apply is running - the admin panel's Migrations page, setup.php or another migration.php."
+        . ' Nothing was applied: run this again once it has finished.');
+    exit(1);
+}
+
+if ($result['failed'] !== null) {
+    say('red', 'FAILED');
+    say('red', '    ' . $result['error']);
+    say('yellow', '    Nothing from this file was applied. The migrations before it stand.');
+    // Stopped here, the other folder included: everything after this file is
+    // written expecting it to have run, and the two folders share one
+    // namespace in an order that matters (api/migration_runner.php,
+    // MIGRATION_FOLDERS).
+    $stoppedAt = $result['failed']['set'];
     $notRun = array_slice(MIGRATION_FOLDERS, array_search($stoppedAt, MIGRATION_FOLDERS, true) + 1);
     say('red', "\nStopped at migrations/{$stoppedAt}/." . ($notRun && $only === null
-        ? ' Not run: ' . implode(', ', array_map(fn($f) => "migrations/{$f}/", $notRun)) . '.'
+        ? ' Not run: ' . implode(', ', array_map(fn ($f) => "migrations/{$f}/", $notRun)) . '.'
         : ''));
-} elseif ($appliedAnything) {
+    exit(1);
+}
+
+if ($result['error'] !== null) {
+    // Refused before anything ran: the folders would have run out of order.
+    say('red', "\n  " . $result['error']);
+    exit(1);
+}
+
+if ($open) {
+    say('green', 'done');
+}
+$upToDateBefore(null);
+
+if ($result['applied']) {
     say('cyan', "\nDone.");
 }
 
-exit($exitCode);
+exit(0);

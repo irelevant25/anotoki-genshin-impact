@@ -21,7 +21,6 @@ export * from './language.service';
 export * from './lookup.service';
 export * from './material.service';
 export * from './me.service';
-export * from './migration.service';
 export * from './quiz.service';
 export * from './route.service';
 export * from './setting.service';
