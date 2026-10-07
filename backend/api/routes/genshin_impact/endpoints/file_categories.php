@@ -344,15 +344,20 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
     }
 
     // A voice over's name carries the folders it sits in below its category, so
-    // the separators stay and only the last part is being renamed.
+    // the separators stay and only the last part is being renamed. A new name
+    // follows the uploads' rule: the extension stays the only one, so a dot in
+    // what was typed becomes "-" (_assetUploadStem()) - `x.php` cannot turn a
+    // picture into `x.php.avif`.
     $within = strpos($file['name'], '/') === false ? '' : substr($file['name'], 0, strrpos($file['name'], '/') + 1);
-    $leaf = _assetPathSegment($wanted);
+    $leaf = _assetUploadStem($wanted);
     if ($leaf === null) {
         return respondJson($response, ['error' => "'$wanted' cannot be a file name"], 422);
     }
 
+    // Its own name typed back - "1.0 - Ballad" for the file already called that -
+    // is no rename, not an order to dash it.
     $name = $within . $leaf;
-    if ($name === $file['name']) {
+    if ($name === $file['name'] || $within . _assetPathSegment($wanted) === $file['name']) {
         return respondJson($response, ['error' => 'It is already called that'], 409);
     }
 

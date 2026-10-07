@@ -169,6 +169,7 @@ php migration.php              # apply what is pending (setup.php does this too)
 php migration.php --folder=users  # one migrations folder only
 php db-dump.php                # back the database up before risky data work
 php assets.php --status        # the asset tree against the catalogue and the rows naming it
+php tests/run.php              # the backend's tests (the upload rules) - no database, no server
 
 # Frontend (frontend/)
 npm run api                    # regenerate the API client (see below)
@@ -352,8 +353,10 @@ changes no schema and no other string, and is safe before or after the upload
 
 ## Checking your work
 
-There is no automated test suite in this repository (the IAM, where the sign-in
-logic lives, has one). What there is:
+The automated tests are few (the IAM, where the sign-in logic lives, has the
+suite): `backend/tests/`, code that decides on its own, run without a database
+or a server - so far the upload rules (what an upload may be called, where it
+may be written, the folders' `.htaccess` guard). What there is:
 
 ```bash
 # Frontend (frontend/)
@@ -363,6 +366,7 @@ npx ng build --configuration development --output-path <a scratch folder>   # te
 
 # Backend (backend/)
 php -l <file>                                  # every PHP file you touched
+php tests/run.php                              # the backend's tests (tests/*.test.php)
 php migration.php --dry-run                    # a new migration is picked up
 
 # The generated client is in step with the backend
@@ -603,6 +607,16 @@ AVIF needs the `imagick` or `gd` extension. Opus needs `ffmpeg` on `PATH` - it i
 looked for there and nowhere else. What cannot be encoded is counted and said so
 on the page.
 
+**Names.** An upload keeps one extension, its own: any other dot in the name it
+is given becomes `-`, so a new banner "5.0 - Epitome Invocation" is stored as
+`5-0 - Epitome Invocation.avif` (the pages read a file's name from the
+catalogue, so it shows all the same). Replacing a file - the Files page's
+Replace, a voice line uploaded again - keeps the name it had, `1.0 - ...`
+included. A rename follows the same rule. The reason is the host's Apache,
+which runs `shell.php.png` as PHP where PHP is mapped by AddHandler; the
+tree's `.htaccess` guard is the second line (`api/upload_guard.php`, and
+[Looking for files that could run](#the-upload-map)).
+
 ### Backups
 
 The **Backups** page shells out to `pg_dump` and `pg_restore`, found on `PATH` or
@@ -650,8 +664,9 @@ cd frontend && npm run build:deploy
 # Backend   ->  backend/dist/
 cd ../backend && php build-dist.php
 #   The runtime-only slice: api/ (minus the generators and the API reference),
-#   config/ (minus every *.local.php), vendor/, migrations/, and hardened
-#   public/uploads/ + storage/. Dev tooling, secrets and composer.* stay behind.
+#   config/ (minus every *.local.php), vendor/, migrations/, hardened
+#   public/uploads/ + storage/, and the asset tree's guard, assets/.htaccess.
+#   Dev tooling, tests, secrets and composer.* stay behind.
 ```
 
 ---
@@ -675,10 +690,42 @@ All into `public_html/`:
 
 ```
 frontend/dist/angular/browser/*   →  public_html/              index.html, JS/CSS, config.json, .htaccess
-backend/dist/*                    →  public_html/              api/, config/, vendor/, migrations/, public/, storage/
+backend/dist/*                    →  public_html/              api/, config/, vendor/, migrations/, public/, storage/, assets/.htaccess
 assets/*                          →  public_html/assets/       separately - it is large and changes rarely
 backend/setup.php                 →  public_html/setup.php     the first install only, by hand
 ```
+
+`backend/dist/assets/` holds one file, the asset tree's `.htaccess`: it keeps
+anything in the tree from running as a script (`api/upload_guard.php`). Let
+it go up with the rest of `backend/dist/` - it merges into the tree already
+there - and keep it there: the API writes it back before an upload when it is
+missing, but a tree with none waits for that upload.
+
+**Looking for files that could run.** Until 2026-10-07 an upload kept every
+dot in its name, so an editor could store `shell.php.png` (or `.avif`, or
+`shell.php.mp3`), which an Apache mapping PHP by AddHandler runs as PHP. Uploads
+can no longer be named so, but look once for anything left from before, and
+whenever files have gone up by FTP: a name with `.php`, `.phtml`, `.phar`,
+`.pht`, `.php3`-`.php8`, `.phps`, `.cgi`, `.pl`, `.py`, `.sh`, `.asp`, `.aspx`,
+`.jsp`, `.shtml`, `.htaccess`, `.htpasswd` or `.ini` anywhere after its first
+dot, in `assets/` or `public/uploads/` - the guard files themselves apart. With
+no shell on the host, list the tree over FTP and filter the names, e.g. with
+lftp:
+
+```bash
+lftp -u <ftp-user> <ftp-host> -e 'find public_html/assets public_html/public/uploads; bye' \
+  | grep -iE '\.(php[3-8s]?|phtml|phar|pht|cgi|pl|py|sh|aspx?|jsp|shtml|htaccess|htpasswd|ini)(\.|$)'
+```
+
+(FileZilla's Server → Search remote files with a regular expression does the
+same.) The catalogue can be asked too, from your machine as for
+[Copying local data up](#copying-local-data-up-to-production) -
+`SELECT c.path, f.name, f.extension FROM files f JOIN file_categories c ON
+c.id = f.category_id WHERE f.name || '.' || f.extension ~* '\.(php[3-8s]?|phtml|phar|pht|cgi|pl|py|sh|aspx?|jsp|shtml|htaccess|htpasswd|ini)(\.|$)'` -
+but it knows only what was catalogued, and the FTP listing is the whole tree.
+Delete what turns up - on the Files page (it moves to the trash, which is not
+served, and the trash will not put such a name back) or over FTP - and never
+open one in a browser.
 
 The real config lives in `config/*.local.php`, which the build leaves out on
 purpose and a deploy never touches; `setup.php` writes it on the server. Never
@@ -855,4 +902,5 @@ the PostgreSQL client tools locally.
 - `php db-push.php` - copy local data up to another server in one command. ⚠ erases the target (confirmed by typing the host); for seeding a fresh production server.
 - `php assets.php --status` - the asset tree against the `files` catalogue and the rows that name it.
 - `php translations.php --status` - the translation keys the frontend asks for against the ones the database has (`--add-missing`, `--export`, `--import`).
+- `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`, the upload rules); no database, no server.
 - `php build-dist.php` - the production backend slice (see above).

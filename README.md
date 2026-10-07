@@ -143,6 +143,7 @@ backend/
   config/               one module per concern; *.local.php per installation (written by setup.php)
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
+  tests/                php tests/run.php - the tests that need no database or server (the upload rules)
   setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/

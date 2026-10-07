@@ -190,7 +190,9 @@ development through `ng serve`'s proxy. Never print a `.local.php` file's conten
 
 ## Verifying
 
-- `php -l <file>` after every edit.
+- `php -l <file>` after every edit, and `php tests/run.php` (no database, no
+  server) - with a test of the attack it stops for any change to the upload
+  rules (`api/upload_guard.php`, `api/asset_naming.php`).
 - Run the dev server (`composer start` from `backend/`) and hit
   the route with `curl` for the real status, headers and body. A checkout without
   its config answers `not_set_up` to everything: `http://localhost:8000/setup.php`

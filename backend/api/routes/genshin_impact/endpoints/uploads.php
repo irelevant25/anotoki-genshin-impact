@@ -15,6 +15,12 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  *
  * Raster uploads are converted to AVIF (see full_resource.php); the original is
  * kept beside it.
+ *
+ * The tree is served by the host's Apache, so nothing may land in it that the
+ * server could run: a new file keeps one extension, its own - any other dot in
+ * its name becomes "-", and a file being replaced keeps its name only if that
+ * name could not run (_assetUploadStem()) - and the tree's .htaccess guard is in
+ * place before the first byte is written (upload_guard.php).
  */
 
 require_once __DIR__ . '/../../../asset_naming.php';
@@ -96,7 +102,9 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         'entity' => $entity,
         'id' => $id,
         'field' => $field,
-        'name' => $baseName,
+        // What it is stored as, which is not always what was asked for: a dot
+        // in the name became "-" (_assetUploadStem()).
+        'name' => _assetStoredStem($path),
         'nameColumn' => $nameColumn,
         'path' => $path,
         'fileId' => $fileId,
@@ -156,7 +164,7 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
     return respondJson($response, [
         'entity' => $entity,
         'field' => $field,
-        'name' => $baseName,
+        'name' => _assetStoredStem($path),
         'path' => $path,
         'fileId' => $toResolve["{$field}_file_id"] ?? null,
     ]);
@@ -204,30 +212,33 @@ function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio 
         $stream->rewind();
     }
 
-    // The name comes from the database, but keep it filesystem-safe regardless.
-    // Only the characters Windows forbids are stripped - voice over titles are
-    // Japanese, Chinese and Korean, and must survive intact.
-    $safeName = _assetPathSegment($baseName);
+    // A name that cannot be one is refused before any folder is made for it.
     $safeFolder = _assetFolder($folder);
-    if ($safeName === null || $safeFolder === null) {
+    if ($safeFolder === null || _assetPathSegment($baseName) === null) {
+        return null;
+    }
+    $dir = _assetUploadDir($safeFolder);
+    if ($dir === null) {
         return null;
     }
 
-    $dir = _assetsRoot() . '/' . $safeFolder;
-    if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
-    }
-
-    // Segments are already free of separators and traversal, so this can only
-    // fail if something upstream changes - refuse rather than write blind.
-    $root = realpath(_assetsRoot());
-    $resolved = realpath($dir);
-    if ($root === false || $resolved === false || !str_starts_with($resolved, $root)) {
-        error_log('[upload] refusing to write outside the assets root: ' . $dir);
+    // Only the characters Windows forbids are stripped - voice over titles are
+    // Japanese, Chinese and Korean, and must survive intact - and the dots: the
+    // file keeps one extension, the one checked above (_assetUploadStem()).
+    $safeName = _assetUploadStem($baseName, $dir);
+    if ($safeName === null) {
         return null;
     }
 
+    // Never written through a link: one left in the tree would put the bytes
+    // wherever it points. Nothing here makes one; refuse rather than follow.
     $stored = $dir . '/' . $safeName . '.' . $ext;
+    $twin = $dir . '/' . $safeName . '.' . ($isAudio ? 'opus' : 'avif');
+    if (is_link($stored) || is_link($twin)) {
+        error_log('[upload] refusing to write through a link: ' . $safeFolder . '/' . $safeName);
+        return null;
+    }
+
     $file->moveTo($stored);
     // The Files page counts what is on disk, so its cache is now out of date.
     _assetFolderCacheClear();
@@ -240,7 +251,7 @@ function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio 
     // when nothing here can encode, the original is what is stored instead.
     $converted = _convertAssetUpload($stored, $dir . '/' . $safeName, $ext, $isAudio);
 
-    return $prefix . $folder . '/' . $safeName . '.' . ($converted ?? $ext);
+    return $prefix . $safeFolder . '/' . $safeName . '.' . ($converted ?? $ext);
 }
 
 /**

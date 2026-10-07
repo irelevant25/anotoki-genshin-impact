@@ -61,6 +61,9 @@ $app->post('/api/upload', function (Request $request, Response $response) {
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
+    // The store's .htaccess before the file, as every upload path does
+    // (upload_guard.php): the deploy ships one, and a store without it gets one.
+    _fullHardenUploadDir(__DIR__ . '/../../../../public/uploads');
 
     $file->moveTo($uploadDir . $filename);
 

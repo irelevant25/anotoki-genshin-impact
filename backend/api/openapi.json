@@ -13171,6 +13171,16 @@
               }
             }
           },
+          "422": {
+            "description": "The body was understood but will not do.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Something went wrong on the server.",
             "content": {

@@ -36,20 +36,27 @@ cd frontend && npm run build:deploy
 cd ../backend && php build-dist.php
 #   Runtime-only allowlist: api/ (minus openapi.json, docs.html, the dev vhost),
 #   config/ (minus every *.local.php and the unused google.php), vendor/,
-#   migrations/, public/uploads/.htaccess, and an empty storage/ - not composer.*,
+#   migrations/, public/uploads/.htaccess, an empty storage/, and the asset
+#   tree's guard assets/.htaccess (api/upload_guard.php) - not composer.*,
 #   which would publish every dependency's version from the web root.
 #   Deny-.htaccess guards go on config/, migrations/, storage/, vendor/. Dev
-#   tooling and secrets are left out.
+#   tooling, tests and secrets are left out.
 ```
 
 ## Upload map (all into `public_html/`)
 
 ```
 frontend/dist/angular/browser/*   →  public_html/          index.html, JS/CSS, config.json, .htaccess
-backend/dist/*                    →  public_html/          api/, config/, vendor/, migrations/, public/, storage/, composer.*
+backend/dist/*                    →  public_html/          api/, config/, vendor/, migrations/, public/, storage/, assets/.htaccess
 assets/*                          →  public_html/assets/   uploaded separately — large, changes rarely
 backend/setup.php                 →  public_html/setup.php first install only, by hand (not in the dist)
 ```
+
+`backend/dist/assets/.htaccess` is the asset tree's guard: nothing in the tree
+may run as a script (the host's Apache would run `x.php.png` as PHP where PHP is
+mapped by AddHandler). It merges into the tree on the host; never leave it out.
+Once, and after any upload of files by FTP, look for names that could run -
+DEV.md, *Looking for files that could run*.
 
 When a migration renames files in the tree - `024` renamed the demo music to
 `HU_TAO.opus`-style names - upload the renamed files **and delete the old names
@@ -199,7 +206,10 @@ the remote database, or the host's own DB export.
 ## Verify before handing it over
 
 - `backend/dist/` has no `*.local.php`, no `openapi.json`/`docs.html`, and has the
-  deny `.htaccess` in config/, migrations/, storage/, vendor/.
+  deny `.htaccess` in config/, migrations/, storage/, vendor/, and the upload
+  guards `public/uploads/.htaccess` and `assets/.htaccess` (`php tests/run.php`
+  checks that neither uses `php_flag`, `Options` or `Require` - each can answer
+  500 for the folder on a host whose AllowOverride does not allow it).
 - `frontend/dist/angular/browser/config.json` is `{ "url": "", ... "prod" }` and a
   `.htaccess` sits beside `index.html`.
 - These are build outputs (gitignored) — do not commit `backend/dist/` or

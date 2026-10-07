@@ -265,7 +265,9 @@ function upsertCatalogueFile(PDO $pdo, string $categoryCode, string $name, strin
     $suffix = $extension === '' ? '' : '.' . $extension;
     $absolute = catalogueRoot() . '/' . $categoryRow['path'] . '/' . $name . $suffix;
     $real = realpath($absolute);
-    if ($real === false || !is_file($real)) {
+    // Inside the tree, too: the name can come from a path in a save body, and
+    // `character/icon/../../../config/x.php` is a real file - just not an asset.
+    if (!_assetPathInside($real, realpath(catalogueRoot())) || !is_file($real)) {
         return null;
     }
 

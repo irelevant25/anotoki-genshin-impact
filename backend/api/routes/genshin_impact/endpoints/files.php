@@ -34,10 +34,8 @@ function _resolveAssetDir(string $folder): ?string
     if ($safe === null) {
         return null;
     }
-    $dir = _assetsRoot() . '/' . $safe;
-    $root = realpath(_assetsRoot());
-    $real = realpath($dir);
-    if ($root === false || $real === false || !str_starts_with($real, $root) || !is_dir($real)) {
+    $real = realpath(_assetsRoot() . '/' . $safe);
+    if (!_assetPathInside($real, realpath(_assetsRoot())) || !is_dir($real)) {
         return null;
     }
     return $real;
@@ -280,9 +278,10 @@ $app->post('/api/files', function (Request $request, Response $response) {
 
     // Without this the file is on disk and nowhere else, so the listing shows
     // it as uncatalogued and offers no category to move it to - which is what
-    // uploading or replacing anything through this page used to do.
+    // uploading or replacing anything through this page used to do. Under the
+    // name it was stored as, which a dot in the one asked for changes.
     $user = $request->getAttribute('user');
-    catalogueUploadedStem(genshinDb(), $folder, $stem, isset($user['id']) ? (int) $user['id'] : null);
+    catalogueUploadedStem(genshinDb(), (string) _assetFolder($folder), _assetStoredStem($path), isset($user['id']) ? (int) $user['id'] : null);
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'path' => $path, 'url' => ltrim(str_replace('../', '', $path), '/')]);
@@ -369,13 +368,21 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    $dir = _assetsRoot() . '/' . $safeFolder;
-    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+    [, $name] = array_pad(explode('__', $trashed, 2), 2, null);
+    $name = $name ?? $trashed;
+    // Restoring writes into the served tree as surely as an upload does, so the
+    // same rule: whatever brought a name the server could run into the trash
+    // (FTP, an upload from before the rule), it does not go back.
+    if (uploadNameRunsOnServer($name)) {
+        return respondJson($response, ['error' => "'$name' could run as a script on the web server, so it stays in the trash"], 422);
+    }
+
+    // Made again if it went, inside the tree, with the tree's guard in place.
+    $dir = _assetUploadDir($safeFolder);
+    if ($dir === null) {
         return respondJson($response, ['error' => 'Could not recreate the folder'], 500);
     }
 
-    [, $name] = array_pad(explode('__', $trashed, 2), 2, null);
-    $name = $name ?? $trashed;
     if (is_file($dir . '/' . $name)) {
         return respondJson($response, ['error' => 'A file with that name already exists'], 409);
     }
@@ -482,7 +489,7 @@ $app->get('/api/files/raw', function (Request $request, Response $response) {
     // Resolved rather than joined: the name is already sanitised, and this is
     // the check that it still lands inside the folder it claims to.
     $path = realpath($dir . '/' . $name);
-    if ($path === false || !is_file($path) || !str_starts_with($path, $dir)) {
+    if (!_assetPathInside($path, $dir) || !is_file($path)) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 

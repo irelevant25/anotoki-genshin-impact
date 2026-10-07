@@ -270,7 +270,7 @@ function cleanupStep(PDO $pdo, int $limit, ?int $by): ?array
         $source = $root . '/' . $entry['path'];
         $real = realpath($source);
 
-        if ($real === false || !str_starts_with($real, $root) || !is_file($real)) {
+        if (!_assetPathInside($real, $root) || !is_file($real)) {
             // Already gone. Forget the row too, or the catalogue keeps naming it.
             $removedIds[] = (int) $entry['id'];
             continue;

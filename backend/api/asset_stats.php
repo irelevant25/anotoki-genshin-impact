@@ -501,7 +501,13 @@ function _assetConvertOne(array &$queue, string $root, string $relative): void
 
     // The list is our own, built by our own walk, so this cannot normally fail
     // - which is exactly why it is worth refusing rather than writing blind.
-    if ($real === false || !str_starts_with($real, $root) || !is_file($real)) {
+    if (!_assetPathInside($real, $root) || !is_file($real)) {
+        $queue['skipped']++;
+        return;
+    }
+    // A name the server could run (`shell.php.png`, put there by FTP or by an
+    // upload from before the naming rule) is not copied into a second one.
+    if (uploadNameRunsOnServer(substr(strrchr('/' . $relative, '/'), 1))) {
         $queue['skipped']++;
         return;
     }
@@ -515,8 +521,9 @@ function _assetConvertOne(array &$queue, string $root, string $relative): void
 
     $written = substr($real, 0, -strlen($extension)) . $target;
 
-    // Somebody may have converted it since the survey, here or by hand.
-    if (is_file($written)) {
+    // Somebody may have converted it since the survey, here or by hand. And a
+    // link there is never written through.
+    if (is_file($written) || is_link($written)) {
         $queue['skipped']++;
         return;
     }

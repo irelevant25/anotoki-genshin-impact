@@ -17,6 +17,9 @@
  *   vendor/         the composer dependencies (FTP hosts cannot run composer)
  *   migrations/     the schema, so the Migrations page can read it
  *   public/uploads/.htaccess, and empty storage/ - both hardened, both writable
+ *   assets/.htaccess  the asset tree's guard (api/upload_guard.php): the tree
+ *                   itself goes up separately, but this one file comes with
+ *                   every deploy, so nothing uploaded into it can ever run
  *
  * What is NOT shipped, and must already exist on the server - setup.php writes
  * the config files there on the first install, and a deploy never touches them:
@@ -160,6 +163,14 @@ copyTree($root . '/migrations', $dist . '/migrations');
 copyFileCounted($root . '/public/uploads/.htaccess', $dist . '/public/uploads/.htaccess');
 ensureDir($dist . '/storage/cache');
 
+// The asset tree's guard, from the code that also puts it back before an
+// upload. Upload it with the rest: the host has had none, and until it is
+// there, an Apache mapping PHP by AddHandler would run `x.php.png` from the tree.
+require_once $root . '/api/upload_guard.php';
+ensureDir($dist . '/assets');
+file_put_contents($dist . '/assets/.htaccess', uploadGuardHtaccess());
+$stats['files']++;
+
 // Defence in depth: keep the disk off the web even where PHP would run it.
 foreach (['config', 'migrations', 'storage', 'vendor'] as $guard) {
     writeDenyHtaccess($dist . '/' . $guard);
@@ -183,6 +194,7 @@ if ($skippedSecrets) {
 
 echo "\nNot part of any build - upload separately, once, when it changes:\n";
 echo "  assets/  ->  public_html/assets/   (the image tree the public site loads)\n";
+echo "  (dist/ holds only its guard, assets/.htaccess - it goes up with the rest.)\n";
 
 echo "\nNote: this host is FTP-only, so `php migration.php` cannot run on the server.\n";
 echo "New migrations go through the admin Migrations page - see DEV.md, \"Deploying to the hosting\".\n";

@@ -31,18 +31,15 @@ const UPLOAD_CONVERT_TO_OPUS = ['mp3', 'ogg', 'wav', 'm4a'];
 
 /**
  * Belt and braces: even with an extension allowlist, keep the web server from
- * ever executing anything under the uploads tree.
+ * ever executing anything under the uploads tree. The deploy ships
+ * public/uploads/.htaccess; this only writes the guard where it is missing,
+ * and refuses the upload when it cannot (upload_guard.php). It used to write a
+ * bare `php_flag engine off`, which is a 500 for the whole folder wherever PHP
+ * is not mod_php - and needs AllowOverride Options where it is: never php_flag.
  */
 function _fullHardenUploadDir(string $dir): void
 {
-    $htaccess = $dir . '/.htaccess';
-    if (!file_exists($htaccess)) {
-        file_put_contents($htaccess, implode("\n", [
-            'php_flag engine off',
-            'RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phps',
-            'RemoveType .php .phtml .php3 .php4 .php5 .php7 .phps',
-        ]) . "\n");
-    }
+    requireUploadGuard($dir);
 }
 
 /**

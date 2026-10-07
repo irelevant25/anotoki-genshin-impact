@@ -88,6 +88,17 @@ subscribed, an `effect`/`computed` that misses a dependency.
   environment variable instead of a `.local.php` file (see `config/local.php`),
   and any absolute path from somebody's machine in a file git would publish.
 - No new secret reaching the client; no reflected user input into HTML.
+- Uploads (`api/upload_guard.php`): a file written into `assets/` or
+  `public/uploads/` keeps one extension from the allowlist - a new name through
+  `_assetUploadStem()` (every other dot `-`), nothing whose name
+  `uploadNameRunsOnServer()` flags written back (restore, conversion) - and
+  every write into the tree goes through `_assetUploadDir()` (containment by
+  `_assetPathInside()`, realpath and the separator; the guard first). Flag a
+  write that skips them, a bare `str_starts_with($real, $root)` containment
+  test, and in an upload folder's `.htaccess` any `php_flag`, `Options` or
+  `Require`, inside `<IfModule>` or not - each can answer 500 for the folder
+  on a host whose AllowOverride does not allow it (only RemoveHandler and
+  RemoveType, which need FileInfo).
 - Deployment boundary: a runtime feature must not depend on a shell
   (`proc_open`/`exec`) or an external binary — production is FTP-only. A new
   runtime `require` must resolve from what `build-dist.php` ships. Anything that

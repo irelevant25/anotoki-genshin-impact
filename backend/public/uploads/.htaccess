@@ -1,10 +1,15 @@
 # Uploads are data, never code. Two independent guards, because the store holds
 # whatever an editor sends and the type check on the way in is not the last word.
 
-# 1. Never execute anything here as a script, whatever its extension.
-php_flag engine off
-RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phps
-RemoveType .php .phtml .php3 .php4 .php5 .php7 .phps
+# 1. Never execute anything here as a script, whatever its extension - with the
+#    rules every upload folder has (backend/api/upload_guard.php,
+#    uploadGuardRules(), word for word): mod_mime's Remove*, which need only
+#    AllowOverride FileInfo, and the web root's rewrite rules need that
+#    already. Never php_flag, Options or Require: each can answer 500 for every
+#    file here on a host whose AllowOverride does not allow it - the bare
+#    `php_flag engine off` this file had did, wherever PHP is not mod_php.
+RemoveHandler .php .phtml .phar .pht .php3 .php4 .php5 .php6 .php7 .php8 .phps .cgi .pl .py .sh .asp .aspx .jsp .shtml
+RemoveType .php .phtml .phar .pht .php3 .php4 .php5 .php6 .php7 .php8 .phps .cgi .pl .py .sh .asp .aspx .jsp .shtml
 
 # 2. Never let the browser sniff a stored file into markup, and hand anything
 #    that is not an image over as a download rather than rendering it on this

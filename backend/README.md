@@ -24,7 +24,8 @@ api/            index.php - the Slim app, every request to /api lands here
                 waiting, ready - and the shared library's gate in front of every route,
                 with GET /api/site-status and the admin Migrations page's /api/admin/
                 migrations), asset_*.php and
-                media_convert.php (the asset tree), anotoki_iam.php (the IAM's token
+                media_convert.php (the asset tree), upload_guard.php (nothing uploaded
+                may run: the names, the folders' .htaccess), anotoki_iam.php (the IAM's token
                 verifier and sign-in switch reader, the SDK v1.1.0 vendored byte for byte),
                 site_user.php, site_settings.php; visitors.php (playing without signing
                 in: make, find, lock, sweep, move into an account at sign-in; ownerWrite(),
@@ -36,6 +37,8 @@ config/         one module per concern (db, secret, iam, site, backup, visitors)
 migrations/     users/ then genshin_impact/ - the one database's schema, SQL applied in order
 public/uploads/ uploaded media (only its .htaccess is committed)
 storage/        logs, backups, caches, the visitors' sweep marker (gitignored)
+tests/          php tests/run.php - the tests that need no database or server (the
+                upload rules so far); never shipped
 vendor/         committed: the hosting has no Composer - anotoki/lib, the anotoki sites'
                 shared library, among it (updating it: ../DEV.md, The shared library)
 ```
@@ -48,7 +51,8 @@ vendor/         committed: the hosting has no Composer - anotoki/lib, the anotok
 | `setup.php` | the settings page on this computer, the one-time installer on the hosting: the database (`anotoki_genshin` on port 5432 to start from), the IAM and - on a host - the setup token, nothing else (this site's address comes from the request, pg_dump from `~/pgclient`); builds the database and writes `config/*.local.php` |
 | `migration.php` | applies pending migrations (`--status`, `--dry-run`, `--folder=users`) |
 | `translations.php` | the translation keys the frontend asks for against the database's strings (`--status`) |
-| `build-dist.php` | the runtime-only slice for the upload, into `dist/` |
+| `build-dist.php` | the runtime-only slice for the upload, into `dist/` (with the asset tree's guard, `assets/.htaccess`) |
+| `tests/run.php` | the backend's tests, `tests/*.test.php`: no database, no server |
 | `generate-api-spec.php` | writes `../frontend/api-spec.json` for the generated client (`npm run api` in `frontend/` calls it) |
 | `assets.php` | the asset tree against the catalogue and the rows naming it (`--status`, ...) |
 | `db-dump.php`, `db-push.php` | back the database up with pg_dump; copy it to another server |
@@ -64,13 +68,17 @@ php migration.php --status   # what has run and what is pending
 php migration.php            # apply what is pending (setup.php does this too)
 php translations.php --status
 php db-dump.php              # before risky data work
+php tests/run.php            # the tests: the upload rules, no database, no server
 php build-dist.php           # the upload -> dist/
 ```
 
 ## Checking it
 
-There is no automated test suite here (the sign-in logic lives in the IAM, which
-has one). `php -l` every file you touched, `php migration.php --dry-run` for a new
+The automated tests are few (the sign-in logic lives in the IAM, which has the
+suite): `php tests/run.php` runs `tests/*.test.php`, each in a PHP process of its
+own, with no database, server or config - so far the upload rules (names,
+containment, the `.htaccess` guards). Beyond them, `php -l` every file you
+touched, `php migration.php --dry-run` for a new
 migration, `npm run api` in `frontend/` for a changed route, then use the API -
 the happy path and its 401/403/404/409/422 answers. The IAM's "Sign-in required"
 switch, and visitors (a played save by nobody, the key in `X-Visitor-Key`, the

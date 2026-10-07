@@ -10,9 +10,13 @@
  * entity ought to be pointing at, and so does anything run from the command
  * line, so it lives on its own now.
  *
- * Nothing here writes: it decides names and folders. Putting a file where these
- * say is still uploads.php's job.
+ * It decides names and folders, and writes nothing but the folder a file goes
+ * into (_assetUploadDir(): inside the tree, behind its guard). Putting a file
+ * where these say is still uploads.php's job.
  */
+
+// The extensions a server would run, which no name an upload is given may carry.
+require_once __DIR__ . '/upload_guard.php';
 
 /**
  * The asset tree, which sits beside the site's pages. In a checkout that is
@@ -26,6 +30,26 @@ function _assetsRoot(): string
     $backend = dirname(__DIR__);
 
     return (is_file($backend . '/build-dist.php') ? dirname($backend) : $backend) . '/assets';
+}
+
+/**
+ * Whether a resolved path lies inside a resolved folder - below it, never the
+ * folder itself unless $orRoot says so.
+ *
+ * Both sides come from realpath(), which has already followed every link, so a
+ * link inside the tree that points out of it lands outside and is refused. The
+ * separator is part of the comparison: a bare prefix test lets a sibling
+ * through, `assets-old/` starting with `assets` as far as the string goes.
+ */
+function _assetPathInside(string|false $path, string|false $root, bool $orRoot = false): bool
+{
+    if ($path === false || $root === false || $root === '') {
+        return false;
+    }
+    $path = str_replace('\\', '/', $path);
+    $root = rtrim(str_replace('\\', '/', $root), '/');
+
+    return ($orRoot && $path === $root) || str_starts_with($path, $root . '/');
 }
 
 /**
@@ -48,6 +72,110 @@ function _assetPathSegment(string $segment): ?string
         return null;
     }
     return $segment;
+}
+
+/**
+ * The name an uploaded or renamed file is stored under, without its extension.
+ *
+ * An upload keeps one extension: its own, from the allowlist, which the caller
+ * puts on after this. Every dot in the stem becomes "-", because Apache's
+ * mod_mime reads each part of a name after the first dot as an extension, not
+ * only the last - on a host that maps PHP with AddHandler, `shell.php.png` runs
+ * as a script (upload_guard.php). "5.0 - Epitome Invocation" is stored as
+ * "5-0 - Epitome Invocation"; the site reads a file's name from the catalogue,
+ * so a picture shows under whatever name it was given.
+ *
+ * One exception, so that replacing a file keeps working: a stem that a file in
+ * $dir already has is kept as it is. Banner art has always been "1.0 - ...", and
+ * the Files page's Replace and a voice over's re-upload are meant to write over
+ * the file they name, not to leave it behind beside a renamed copy. Never a
+ * stem a server would run, though: that one is dashed like any other, so no
+ * upload or rename can put such a name into the tree.
+ */
+function _assetUploadStem(string $stem, ?string $dir = null): ?string
+{
+    $stem = _assetPathSegment($stem);
+    if ($stem === null) {
+        return null;
+    }
+
+    if ($dir !== null && str_contains($stem, '.') && !uploadNameRunsOnServer($stem) && _assetStemTaken($dir, $stem)) {
+        return $stem;
+    }
+
+    return str_replace('.', '-', $stem);
+}
+
+/** Whether $dir holds a file called exactly $stem plus one extension. */
+function _assetStemTaken(string $dir, string $stem): bool
+{
+    $prefix = rtrim($dir, '/\\') . '/';
+    foreach (glob($prefix . _globEscape($stem) . '.*') ?: [] as $found) {
+        // `*` would match "stem.more.avif" too; only one extension may follow.
+        if (!str_contains(substr($found, strlen($prefix) + strlen($stem) + 1), '.')) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/** The base name a stored path ends in: no folder, no extension. */
+function _assetStoredStem(string $path): string
+{
+    $file = substr($path, strrpos($path, '/') + 1);
+    $dot = strrpos($file, '.');
+
+    return $dot === false ? $file : substr($file, 0, $dot);
+}
+
+/**
+ * The folder under assets/ a file is put into, made if it is not there yet -
+ * or null when it would not be inside the tree. The one thing in this file
+ * that writes: an upload, or a file restored from the trash, goes nowhere else.
+ *
+ * The tree's guard comes first (upload_guard.php): nothing is written into a
+ * tree that cannot be kept from running it. Then every part of the way that is
+ * already there has to resolve inside the tree before anything is made below
+ * it, so a folder that is a link out of the tree never gets new folders made
+ * wherever it points; and the folder itself is checked again once it exists.
+ * Segments are already free of separators and traversal, so the checks can
+ * only fail if something upstream changes - refuse rather than write blind.
+ * $base is the tree, _assetsRoot() but for the tests.
+ */
+function _assetUploadDir(string $safeFolder, ?string $base = null): ?string
+{
+    // A checkout without the tree (it is not in git) gets one.
+    $base ??= _assetsRoot();
+    if (!is_dir($base) && !@mkdir($base, 0755, true)) {
+        return null;
+    }
+    $root = realpath($base);
+    if ($root === false) {
+        return null;
+    }
+    requireUploadGuard($root);
+
+    $dir = $root . '/' . $safeFolder;
+    $existing = $dir;
+    while (!file_exists($existing) && dirname($existing) !== $existing) {
+        $existing = dirname($existing);
+    }
+    if (!_assetPathInside(realpath($existing), $root, orRoot: true)) {
+        error_log('[upload] refusing to write outside the assets root: ' . $safeFolder);
+        return null;
+    }
+
+    if (!is_dir($dir) && !@mkdir($dir, 0755, true)) {
+        return null;
+    }
+    $resolved = realpath($dir);
+    if (!_assetPathInside($resolved, $root) || !is_dir($resolved)) {
+        error_log('[upload] refusing to write outside the assets root: ' . $safeFolder);
+        return null;
+    }
+
+    return $resolved;
 }
 
 /** Sanitises every segment of a relative folder path. */
@@ -238,7 +366,10 @@ function _resolveVoiceOverTarget(PDO $pdo, array $row, string $field): ?array
         return ['folder' => $folder, 'base' => pathinfo($current, PATHINFO_FILENAME), 'audio' => true];
     }
 
-    return ['folder' => $folder, 'base' => _freeVoiceOverName($folder, $title), 'audio' => true];
+    // A free name among the names as they will be stored: "Hello." is written
+    // as "Hello-", so asking whether "Hello." is free would let a second line
+    // of that title write over the first.
+    return ['folder' => $folder, 'base' => _freeVoiceOverName($folder, _assetUploadStem($title) ?? $title), 'audio' => true];
 }
 
 /**
@@ -277,10 +408,14 @@ function _freeVoiceOverName(string $folder, string $title): string
     return $title . ' ' . substr(bin2hex(random_bytes(3)), 0, 6);
 }
 
-/** glob() treats these as patterns, and voice over titles contain all of them. */
+/**
+ * glob() treats these as patterns, and voice over titles contain all of them.
+ * One pass (strtr): str_replace() worked through the list in turn and escaped
+ * the `]` of its own `[[]`, so a name with a bracket in it was never found.
+ */
 function _globEscape(string $value): string
 {
-    return str_replace(['[', ']', '*', '?'], ['[[]', '[]]', '[*]', '[?]'], $value);
+    return strtr($value, ['[' => '[[]', ']' => '[]]', '*' => '[*]', '?' => '[?]']);
 }
 
 /**

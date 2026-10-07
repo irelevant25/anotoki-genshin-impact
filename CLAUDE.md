@@ -328,6 +328,7 @@ php migration.php --folder=users     # one migrations folder only
 php db-dump.php                      # back the database up (pg_dump) before risky data work
 php merge-databases.php              # once, on a checkout still configured with two databases
 php assets.php --status              # the asset tree against the catalogue and the rows naming it
+php tests/run.php                    # the backend's tests (the upload rules); no database, no server
 
 # Frontend (from frontend/)
 npm start                            # bun ci, then ng serve on :4200 through proxy.conf.json (/api etc. to :8000)
@@ -470,6 +471,23 @@ node docs/security/build-report.mjs                            # after re-runnin
   "Hu Tao" → `HU_TAO`). A column's `{field}_name` is the file's name only where
   `assetColumnMap()` says so — `constellation_name` and `demo_music_name` are
   columns of their own.
+- **Nothing uploaded may run** (`api/upload_guard.php`). The tree and
+  `public/uploads/` are served by the host's Apache, whose mod_mime reads
+  every dot-separated part of a name as an extension: `shell.php.png` runs as
+  PHP where PHP is mapped by AddHandler. So a file keeps one extension, its own
+  from the allowlist - every other dot in a new name, uploaded or renamed,
+  becomes `-` (`_assetUploadStem()`: "5.0 - X" is stored as "5-0 - X"; a file
+  being replaced keeps its name unless a part of it could run) - and nothing
+  named like a script goes back in (`uploadNameRunsOnServer()`: the restore,
+  the conversion). Every write into the tree goes through `_assetUploadDir()`
+  (inside the tree by `_assetPathInside()` - realpath, with the separator - and
+  behind the guard), and each upload folder has an `.htaccess` guard
+  (`uploadGuardRules()`: mod_mime's RemoveHandler/RemoveType only, which need
+  just AllowOverride FileInfo, as the rewrite rules do; never `php_flag`,
+  `Options` or `Require` - each can answer 500 for the folder on a host whose
+  AllowOverride does not allow it, and in `assets/` that is every picture),
+  shipped by `build-dist.php` and written by the API before an upload where it
+  is missing. `php tests/run.php` checks all of it.
 
 ## Frontend layout & conventions
 
@@ -536,8 +554,9 @@ would not have:
   bundled.
 - `cd backend && php build-dist.php` → `backend/dist/` — the runtime-only slice:
   `api/` (minus generators/openapi/docs), `config/` (minus every `*.local.php`),
-  `vendor/`, `migrations/`, and hardened `public/uploads/` + `storage/`. Dev
-  tooling and secrets are left out.
+  `vendor/`, `migrations/`, hardened `public/uploads/` + `storage/`, and the
+  asset tree's guard `assets/.htaccess` (the tree itself goes up separately).
+  Dev tooling, tests and secrets are left out.
 
 Upload both into the web root, plus `assets/` separately. Production is
 **FTP-only, no shell**, which shapes everything: `vendor/` ships in the dist (no
