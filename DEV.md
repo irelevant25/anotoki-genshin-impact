@@ -342,6 +342,12 @@ and the `themes` lookup go. **Not a way back**: a build from before 047 reads
 those columns, so upload the new build first, then Apply - and once 048 has
 run, an older build never goes on the host again.
 
+**And (written 2026-10-07)** `users/049_drop_not_set_up_strings.sql`: the four
+`site.notSetUp.*` strings of the site's own "not set up" page, which went when
+the shared library's page took its place - nothing reads them any more. It
+changes no schema and no other string, and is safe before or after the upload
+(the page of a build from before the library falls back to its own English).
+
 ---
 
 ## Checking your work

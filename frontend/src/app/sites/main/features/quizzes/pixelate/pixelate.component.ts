@@ -1,6 +1,6 @@
 import { Component, effect, ElementRef, viewChild } from '@angular/core';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { materialIconCandidates } from '../../../../admin/shared/material-icon.directive';
+import { materialIconCandidates, MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
 import { QuizId } from '../shared/quiz.types';
@@ -8,14 +8,13 @@ import { QuizId } from '../shared/quiz.types';
 /** Side of the square the portrait is drawn into. The old site used 175 too. */
 const CANVAS_SIZE = 175;
 
-/** How coarse the grid is once the answer is out - fine enough to read clearly. */
-const SOLVED_GRID = CANVAS_SIZE;
-
 /**
  * Guess the character from a pixelated portrait.
  *
  * Each wrong guess buys a finer grid: on easy the portrait starts as 7x7 blocks
- * and works up to 27x27, which is about where a silhouette becomes a face.
+ * and works up to 27x27, which is about where a silhouette becomes a face. Once
+ * the question is over the template shows the portrait itself in the canvas's
+ * place - the original, not a fine grid of it scaled up.
  *
  * The difficulty config's number is the grid, not a block size, which is why
  * this does not go through HELPER.ImageEffects().effectPixelate - that takes the
@@ -25,7 +24,7 @@ const SOLVED_GRID = CANVAS_SIZE;
   selector: 'app-quizzes-pixelate',
   templateUrl: './pixelate.component.html',
   styleUrls: ['./pixelate.component.scss'],
-  imports: [LoaderComponent, QuizFrameComponent],
+  imports: [LoaderComponent, MaterialIconDirective, QuizFrameComponent],
 })
 export class QuizzesPixelateComponent extends CharacterQuizComponent {
   protected readonly quizId: QuizId = 'pixelate';
@@ -39,24 +38,27 @@ export class QuizzesPixelateComponent extends CharacterQuizComponent {
     // settled while the loader is still up, so the canvas is not in the DOM yet
     // and drawing then would draw nowhere. Reading the view query here means
     // this runs again the moment the canvas appears, and on every later change
-    // to the question or the number of tries.
-    effect(() => this._draw(this._canvas()?.nativeElement, this.questionEntity(), this.currentEffect()?.data, this.isQuestionComplete()));
+    // to the question or the number of tries. Nothing is drawn once the
+    // question is over: the canvas is on its way out for the portrait.
+    effect(() => {
+      if (!this.isQuestionComplete()) {
+        this._draw(this._canvas()?.nativeElement, this.questionEntity(), this.currentEffect()?.data);
+      }
+    });
 
     this.load();
   }
 
-  private _draw(canvas: HTMLCanvasElement | undefined, character: any, grid: number | undefined, solved: boolean): void {
+  private _draw(canvas: HTMLCanvasElement | undefined, character: any, grid: number | undefined): void {
     if (!canvas || !character) {
       return;
     }
-
-    const size = solved ? SOLVED_GRID : (grid ?? 10);
 
     // The portrait is a .png under an upper-cased name, but the directive's
     // candidate list is the one place that knows the naming conventions, so the
     // same list is walked here rather than guessing at a single path.
     const candidates = materialIconCandidates(character.icon_name ?? character.name, 'character.icon');
-    this._drawPixelated(canvas, candidates, size);
+    this._drawPixelated(canvas, candidates, grid ?? 10);
   }
 
   /**

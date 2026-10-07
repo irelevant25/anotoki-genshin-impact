@@ -14,9 +14,22 @@
             (guess)="guess($event)"
             (next)="next()"
         >
-            <!-- A canvas rather than an image with a filter: CSS has no way to
-                 draw hard-edged blocks, and blurring is a different puzzle. -->
-            <canvas #canvas class="quiz-question-canvas"></canvas>
+            <!-- Once it is over, the portrait itself, in the same box: there is
+                 nothing left to hide, and a canvas, however fine its grid, is a
+                 copy scaled up. While it is open, a canvas rather than an image
+                 with a filter: CSS has no way to draw hard-edged blocks, and
+                 blurring is a different puzzle. -->
+            @if (isQuestionComplete() && questionEntity(); as character) {
+                <img
+                    class="quiz-question-portrait"
+                    [appMaterialIcon]="character.icon_name ?? character.name"
+                    [appAssetFolder]="'character.icon'"
+                    alt=""
+                    loading="eager"
+                />
+            } @else {
+                <canvas #canvas class="quiz-question-canvas"></canvas>
+            }
         </app-quiz-frame>
     }
 </div>

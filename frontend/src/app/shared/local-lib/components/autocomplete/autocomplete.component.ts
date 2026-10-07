@@ -53,6 +53,14 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
   displayValue = signal<string | undefined>(undefined);
   selectedOption = model<DropdownOption | undefined>(undefined);
 
+  /**
+   * How tall the list may grow, in pixels, before it scrolls - when the
+   * popup's own 200px is not right, as for options with pictures. An input
+   * rather than a style, because the list is drawn at the end of <body>, out
+   * of reach of the page's own stylesheet.
+   */
+  popupMaxHeight = input<number | undefined>(undefined);
+
   loading: boolean = false;
   isPopupOpen: boolean = false;
   currentOptions: DropdownOption[] = [];
@@ -281,6 +289,7 @@ export class AutocompleteComponent extends AbstractInputComponent<Type> implemen
       this.popupRef.instance.loading = this.loading;
       this.popupRef.instance.resetHighlight();
       this.popupRef.instance.optionTemplate = this.optionTemplate;
+      this.popupRef.instance.maxHeight = this.popupMaxHeight();
       // Reached from the search subscription and the debounce timer, neither of
       // which schedules a render on its own.
       this.popupRef.instance.cd.detectChanges();

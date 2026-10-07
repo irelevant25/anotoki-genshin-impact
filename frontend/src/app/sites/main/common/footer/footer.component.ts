@@ -15,6 +15,7 @@ import { NotificationService } from '../../../../shared/local-lib/components/not
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
 import { SiteWhatsNewModalComponent } from './site-whats-new-modal/site-whats-new-modal.component';
 import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
+import { sameVersion } from './versions';
 
 export interface ButtomMenuItem {
   id: string;
@@ -143,11 +144,13 @@ export class FooterComponent extends AbstractModalComponent {
    * button does. Kept per browser rather than per account on purpose: a
    * signed-in visitor on a second device is signed out there with an empty
    * localStorage, so an account could not tell us they had already seen it —
-   * the browser is the thing that actually knows.
+   * the browser is the thing that actually knows. The version kept may be an
+   * old name of a changelog entry ("1.0" for "1.0.0"), so they are compared
+   * as versions (sameVersion), never as text.
    */
   private noticeNewVersion(current: string): void {
     const lastSeen = this._storageService.read(StorageKeys.VERSION);
-    if (lastSeen === current) {
+    if (sameVersion(lastSeen, current)) {
       return;
     }
 
@@ -155,7 +158,7 @@ export class FooterComponent extends AbstractModalComponent {
     // is unseen, and more than one of those means earlier releases were missed
     // too. A first visit — nothing stored, so not found — has nothing earlier
     // to catch up on: a newcomer is shown what is new, not the history.
-    const seenIndex = this.changelog.findIndex((entry) => entry.version === lastSeen);
+    const seenIndex = this.changelog.findIndex((entry) => sameVersion(entry.version, lastSeen));
 
     this._whatsNew.set({ latest: this.changelog[0], hasEarlier: seenIndex > 1 });
   }
@@ -183,7 +186,7 @@ export class FooterComponent extends AbstractModalComponent {
       }
       untracked(() => this._whatsNew.set(null));
       queueMicrotask(() => {
-        if (this._storageService.read(StorageKeys.VERSION) === note.latest.version) {
+        if (sameVersion(this._storageService.read(StorageKeys.VERSION), note.latest.version)) {
           return;
         }
         const modal = this.openModal<SiteWhatsNewModalComponent>(SiteWhatsNewModalComponent, { size: '3' });

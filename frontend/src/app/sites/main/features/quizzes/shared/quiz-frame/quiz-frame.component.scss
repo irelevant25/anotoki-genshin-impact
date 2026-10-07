@@ -1,1 +1,28 @@
 @use "../quiz-frame" as *;
+
+// ── Suggestions ─────────────────────────────────────────────────────────────
+//
+// One suggestion in the search box's list: the character's picture, 100px
+// wide, and the name beside it. The list and its rows are the autocomplete's
+// (their padding, the line between them, the highlighted row's colours); what
+// is drawn inside a row comes from the frame's own template, so these rules
+// reach it wherever the list is drawn - in all five quizzes alike, and nowhere
+// else on the page.
+.quiz-option {
+  display: flex;
+  align-items: center;
+  // With the row's own padding (8px above and below) and its line, a 100px
+  // row - three to the list's 300px. The picture is a little taller than this
+  // and spills into the padding, as the banners quiz always drew it.
+  height: 83px;
+}
+
+.quiz-option-icon {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.quiz-option-name {
+  margin-left: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+}

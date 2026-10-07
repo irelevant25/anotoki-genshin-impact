@@ -559,6 +559,14 @@ skill covers this workflow.
 ## Working conventions
 
 - **Regenerate, don't hand-edit generated code** — see the pipeline above.
+- **Versions and What's new**: `frontend/public/changelog.json`, newest first, is
+  the site's version (the footer shows its newest entry) and what What's new
+  says. A version is MAJOR.MINOR.PATCH - big changes, new features, bug fixes -
+  and `frontend/package.json` carries the same one. An entry holds only what a
+  regular player notices, in their words: nothing technical, nothing for
+  developers. The version a browser last saw is compared with `sameVersion()`
+  (`sites/main/common/footer/versions.ts`), so "1.0" kept from before 1.1.0 is
+  "1.0.0".
 - **Comment style**: explain *why*, in plain prose, at the point a reader would
   wonder. Match the surrounding density; the codebase favours a short paragraph
   over a redundant restatement of the code.

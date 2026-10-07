@@ -1,6 +1,23 @@
 [
   {
-    "version": "1.0",
+    "version": "1.1.0",
+    "date": "2026-10-07",
+    "changes": {
+      "added": [
+        "Your Profile works without signing in too — your games and statistics are kept for this browser for 30 days after your last visit, and come with you into your anotoki account when you sign in"
+      ],
+      "fixed": [
+        "Pixelate shows the sharp original portrait once the question is over",
+        "The character pictures in the quiz search box are no longer oversized in the Dish, Music, Pixelate and Voice quizzes"
+      ],
+      "updated": [
+        "Signed in, your theme, date format, clock and language follow your anotoki account — choose them once for every anotoki site",
+        "While the site is being updated it says so in your language instead of showing an error, and comes back by itself"
+      ]
+    }
+  },
+  {
+    "version": "1.0.0",
     "date": "2026-09-29",
     "changes": {
       "added": [
@@ -19,7 +36,7 @@
     }
   },
   {
-    "version": "0.9",
+    "version": "0.9.0",
     "date": "2026-09-05",
     "changes": {
       "added": [
@@ -42,7 +59,7 @@
     }
   },
   {
-    "version": "0.8",
+    "version": "0.8.0",
     "date": "2025-05-30",
     "changes": {
       "added": [
@@ -57,7 +74,7 @@
     }
   },
   {
-    "version": "0.7",
+    "version": "0.7.0",
     "date": "2025-04-17",
     "changes": {
       "added": ["Implemented minesweeper game", "Added feedback section", "Added GitHub icon with redirect on the bottom menu"],
@@ -66,7 +83,7 @@
     }
   },
   {
-    "version": "0.6",
+    "version": "0.6.0",
     "date": "2025-04-06",
     "changes": {
       "added": ["New quiz: character special dish", "new quiz: character voice over"],
@@ -79,7 +96,7 @@
     }
   },
   {
-    "version": "0.5",
+    "version": "0.5.0",
     "date": "2025-03-17",
     "changes": {
       "added": [
@@ -99,7 +116,7 @@
     }
   },
   {
-    "version": "0.4",
+    "version": "0.4.0",
     "date": "2025-03-12",
     "changes": {
       "added": ["Music quiz.", "Database for characters information."],
@@ -108,7 +125,7 @@
     }
   },
   {
-    "version": "0.3",
+    "version": "0.3.0",
     "date": "2025-03-07",
     "changes": {
       "added": [
@@ -130,7 +147,7 @@
     }
   },
   {
-    "version": "0.2",
+    "version": "0.2.0",
     "date": "2025-02-26",
     "changes": {
       "added": ["Score display. Characters tries display.", "Difficulties per try in banner quiz.", "Character pixelate quiz.", "Character mismatch quiz."],
@@ -139,7 +156,7 @@
     }
   },
   {
-    "version": "0.1",
+    "version": "0.1.0",
     "date": "2025-02-22",
     "changes": {
       "added": ["Initial release of the quiz website."],

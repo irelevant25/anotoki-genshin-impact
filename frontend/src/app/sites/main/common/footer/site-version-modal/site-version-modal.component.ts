@@ -6,8 +6,10 @@ import { BadgeComponent } from "../../../../../shared/local-lib/components/badge
 import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { sameVersion } from '../versions';
 
 export interface ChangelogEntry {
+  /** MAJOR.MINOR.PATCH - big changes, new features, bug fixes. */
   version: string;
   date: string;
   changes: {
@@ -35,13 +37,15 @@ export class SiteVersionModalComponent extends AbstractModalComponent {
     // Opening the changelog is what marks it read: the newest version shown is
     // recorded in this browser, so "What's new" does not open for it again.
     // Guarded because the footer's version button can be pressed before
-    // changelog.json has arrived, when there are no entries to hand over.
+    // changelog.json has arrived, when there are no entries to hand over. The
+    // version kept may be the newest one's old name ("1.0" for "1.0.0"), which
+    // is already this one.
     if (!this.data?.length) {
       return;
     }
     const lastVersion = this._storageService.read(StorageKeys.VERSION);
     const currentVersion = this.data[0].version;
-    if (lastVersion !== currentVersion) {
+    if (!sameVersion(lastVersion, currentVersion)) {
       this._storageService.write(StorageKeys.VERSION, currentVersion);
     }
   }

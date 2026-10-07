@@ -183,7 +183,9 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 ## Current state
 
-- Version 0.9 (the changelog has what each version brought).
+- Version 1.1.0 (the changelog has what each version brought). Since 1.1.0 a
+  version has three numbers, MAJOR.MINOR.PATCH - big changes, new features, bug
+  fixes - and `frontend/package.json` carries the same one.
 - Public database pages for characters, weapons, materials and banners. The admin
   panel also keeps artifacts, foods and enemies; they have no public pages yet.
 - Since 2026-09-27 signing in is the anotoki IAM's; since 2026-09-29 the code is
@@ -244,7 +246,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
   list); the setup page is offered only until the site was installed. The
   engine is the library's `Migrator`, which builds exactly the database the old
   one did (both folders, the same record table, the same order guard); the site's
-  own not-set-up page and Migrations pages are gone.
+  own not-set-up page and Migrations pages are gone, and migration `users/049`
+  drops the old page's strings.
 
 ## More
 

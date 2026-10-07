@@ -1,12 +1,24 @@
-// The canvas is drawn at a fixed 175px square and scaled up by the browser, so
-// it needs the same crisp scaling the drawing itself uses - left smooth, the
-// blocks would be blurred back out again at display size.
-.quiz-question-canvas {
+// The question's box: a square on a plate, because the portraits are cut-outs
+// that would otherwise dissolve into the wallpaper. The canvas and the finished
+// portrait share it, so the answer appears in place, with nothing moving.
+.quiz-question-canvas,
+.quiz-question-portrait {
   width: 300px;
   max-width: 80vw;
   height: auto;
   aspect-ratio: 1;
   border-radius: var(--border-radius-large);
   background-color: var(--bg-veil-strong);
+}
+
+// The canvas is drawn at a fixed 175px square and scaled up by the browser, so
+// it needs the same crisp scaling the drawing itself uses - left smooth, the
+// blocks would be blurred back out again at display size.
+.quiz-question-canvas {
   image-rendering: pixelated;
+}
+
+// The portrait as it is: scaled smoothly, and never out of its own shape.
+.quiz-question-portrait {
+  object-fit: contain;
 }

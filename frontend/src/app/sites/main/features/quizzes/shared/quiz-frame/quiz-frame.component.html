@@ -16,11 +16,24 @@
                 [placeholder]="'quiz.searchCharacter' | translate"
                 [minChars]="0"
                 [staticOptions]="options()"
+                [popupMaxHeight]="300"
                 (selectedOptionChange)="guess.emit($event); autocomplete.reset()"
             >
+                <!-- The list is drawn at the end of the page, outside the frame,
+                     but what this template makes keeps the frame's styles - so a
+                     suggestion is sized here, the same in all five quizzes. Three
+                     fit in the list's 300px. -->
                 <ng-template let-option>
-                    <img [appMaterialIcon]="option.data.icon_name ?? option.data.name" [appAssetFolder]="'character.icon'" [alt]="option.data.name" loading="lazy" />
-                    <span>{{ option.data.name }}</span>
+                    <span class="quiz-option">
+                        <img
+                            class="quiz-option-icon"
+                            [appMaterialIcon]="option.data.icon_name ?? option.data.name"
+                            [appAssetFolder]="'character.icon'"
+                            [alt]="option.data.name"
+                            loading="lazy"
+                        />
+                        <span class="quiz-option-name">{{ option.data.name }}</span>
+                    </span>
                 </ng-template>
             </app-autocomplete>
         }

@@ -8,6 +8,7 @@ import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { ChangelogEntry, SiteVersionModalComponent } from '../site-version-modal/site-version-modal.component';
+import { sameVersion } from '../versions';
 
 type ChangeKind = keyof ChangelogEntry['changes'];
 
@@ -78,7 +79,7 @@ export class SiteWhatsNewModalComponent extends AbstractModalComponent {
     // follows whatever entry the opener hands over, whenever it does.
     effect(() => {
       const version = this.latest()?.version;
-      if (version && this._storage.read(StorageKeys.VERSION) !== version) {
+      if (version && !sameVersion(this._storage.read(StorageKeys.VERSION), version)) {
         this._storage.write(StorageKeys.VERSION, version);
       }
     });

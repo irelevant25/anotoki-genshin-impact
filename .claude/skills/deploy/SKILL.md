@@ -156,6 +156,10 @@ reader's theme and language on their device and saves nothing. Then, signed in,
 the admin panel's theme button sends one `POST` to the IAM, and the IAM's
 account page shows the same theme.
 
+The old "not set up" page's strings (2026-10-07; `users/049`, strings only):
+safe before or after the upload - nothing reads them since the shared library's
+page took that page's place.
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against
