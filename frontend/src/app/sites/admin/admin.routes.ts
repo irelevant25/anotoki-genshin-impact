@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { MigrationsPageComponent } from '@anotoki/lib/migrations';
+import { MigrationsPageComponent } from '@anotoki/lib/migrations/page';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -91,9 +91,10 @@ export const routes: Routes = [
       { path: 'files', component: FilesManagerComponent },
       { path: 'files-explorer', component: FilesExplorerComponent },
       { path: 'file-categories', component: FileCategoriesComponent },
-      // The anotoki sites' one Migrations page (@anotoki/lib/migrations), for this
-      // site's ADMIN: what has run, what waits, and Apply. While an update waits it
-      // is the one page of the site that still opens - for an ADMIN.
+      // The anotoki sites' one Migrations page (@anotoki/lib/migrations/page), for
+      // this site's ADMIN: what has run, what waits, and Apply. While an update waits
+      // it is the one page of the site that still opens - for an ADMIN. Its own entry
+      // point, so it lands in this lazy chunk and never in the first load.
       { path: 'migrations', component: MigrationsPageComponent },
       { path: 'backups', component: BackupsComponent },
       { path: 'settings', component: SettingsComponent },

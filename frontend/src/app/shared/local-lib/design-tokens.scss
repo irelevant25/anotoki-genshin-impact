@@ -27,20 +27,35 @@
 // the admin Migrations page) colours itself through --anotoki-* properties.
 // Both palettes include this, so they follow whichever is in force.
 //
-// Its primary is words as well as buttons - a quiet "Sign in" link, focus
-// rings - so it is the links' colour, which reads on a card in both themes
-// (the dark --color-primary does not, as small text), with the inverse text
-// on it where it is a button.
+// Since its 0.2.0 both pages are drawn with the library's kit, which reads
+// more of these names than the 0.1 pages did. A name left out falls back to
+// the anotoki family's own colour - navy, in the dark theme - so every surface
+// the kit draws here (its dialogs and their footers, a hovered button, a quiet
+// badge) is mapped to one of this site's. The soft grounds of its notes and
+// badges and the edges of its buttons keep the family's, which read on this
+// site's pages in both themes.
+//
+// Its primary, the main buttons' fill, stays the links' colour it was in 0.1,
+// with the inverse text on it; its words that are links (the quiet "Sign in")
+// have their own name since 0.2.0, the same colour. Its focus ring is this
+// site's own (general.scss).
 // ─────────────────────────────────────────────────────────────────────────────
 @mixin anotoki-lib {
   --anotoki-bg: var(--bg-page);
   --anotoki-surface: var(--bg-card);
+  --anotoki-surface-2: var(--color-secondary-light);
+  --anotoki-surface-3: var(--bg-hover);
+  --anotoki-surface-raised: var(--bg-card);
   --anotoki-text: var(--text-primary);
   --anotoki-muted: var(--text-secondary);
   --anotoki-border: var(--border-color);
   --anotoki-primary: var(--color-link);
+  --anotoki-primary-hover: var(--color-link-hover);
   --anotoki-primary-contrast: var(--text-inverse);
+  --anotoki-link: var(--color-link);
+  --anotoki-focus: var(--color-primary);
   --anotoki-danger: var(--color-danger);
+  --anotoki-danger-hover: var(--color-danger-hover);
   --anotoki-danger-contrast: var(--color-danger-text);
   --anotoki-success: var(--color-success);
   --anotoki-warning: var(--color-warning);

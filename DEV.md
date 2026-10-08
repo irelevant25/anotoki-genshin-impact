@@ -229,11 +229,16 @@ for the two folders), `backend/api/site_state.php` (the site's state and the
 gate in front of every route), `backend/api/index.php` (the status and admin
 migrations routes), `frontend/src/app/shared/site-status.ts` (the pages'
 gate, the "being updated" page and the Migrations page, set up for this site),
-`frontend/src/app/app.config.ts` and `app.component.html`, the admin route
-`/admin/migrations`, and the `--anotoki-*` colours in `design-tokens.scss`.
+`frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
+gate's `<ng-template anotokiSitePages>`), the admin route `/admin/migrations`
+(the page from `@anotoki/lib/migrations/page`), and the `--anotoki-*` colours in
+`design-tokens.scss`.
 
 **Updating it** - both halves together, to the same version; read the
-library's `CHANGELOG.md` first (while it is 0.x a minor version may break):
+library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
+release that changes one half only is taken in that half: 0.2.0 changed the
+Angular half alone, so `vendor/anotoki/lib` stays 0.1.0 under `@anotoki/lib`
+0.2.0.
 
 ```bash
 cd backend

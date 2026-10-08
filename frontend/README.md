@@ -24,7 +24,7 @@ src/app/shared/         local-lib (the UI kit, abstract bases, the IAM's browser
                         theme, dates, clock and language, and saving to them); site-status.ts
                         (@anotoki/lib/migrations set up for this site: the gate the root component
                         puts around both sites, its "being updated" and "not set up" pages, the
-                        Migrations page)
+                        Migrations page - @anotoki/lib/migrations/page, in admin.routes.ts)
 src/app/api/            the generated API client - services, models, types (a player's own
                         routes take a trailing `context?: HttpContext`: whom it is issued as)
 public/                 config.json (where the API is: empty - its own origin, here as in

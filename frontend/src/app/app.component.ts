@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SiteGateComponent } from '@anotoki/lib/migrations';
+import { SiteGateComponent, SitePagesDirective } from '@anotoki/lib/migrations';
 
 /**
  * Both sites - the public one and the admin panel - behind the one gate every
@@ -15,7 +15,7 @@ import { SiteGateComponent } from '@anotoki/lib/migrations';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, SiteGateComponent],
+  imports: [RouterOutlet, SiteGateComponent, SitePagesDirective],
   providers: [],
 })
 export class AppComponent {}

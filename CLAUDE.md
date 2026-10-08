@@ -141,20 +141,28 @@ package `anotoki/lib` (`backend/vendor/anotoki/lib`, committed with the rest of
   `frontend/src/app/shared/site-status.ts`): the boot asks the status
   beside the public settings and never stops on an update; `siteStatusInterceptor`
   hears a 503 `update_pending` or `not_set_up`; the root component's
-  `<anotoki-site-gate>` around the router outlet draws, instead of either site,
+  `<anotoki-site-gate>` around the router outlet - given as a marked template,
+  `<ng-template anotokiSitePages>` (`SitePagesDirective` in its imports; without
+  the marker the gate draws nothing), so neither site is made while the gate's
+  page shows - draws, instead of either site,
   "The site is being updated" (English or Slovak, with a quiet Sign in while nobody
   is signed in) for everybody but this site's ADMIN, who reads "A database update
-  is waiting" and "Open Migrations"; `/admin/migrations` is
-  `<anotoki-migrations-page>` inside the admin layout, the one page that works
+  is waiting" and "Open Migrations"; both reload by themselves once the site is
+  back. `/admin/migrations` is `<anotoki-migrations-page>`, from its own entry
+  point `@anotoki/lib/migrations/page` (so it rides in the admin panel's lazy
+  chunk, never the first load), inside the admin layout, the one page that works
   while an update waits. Never installed: "This site is not set up yet" and the
-  setup page; installed once: "not available right now", never the setup page. Its
-  colours are the site's (`--anotoki-*`, `design-tokens.scss`).
+  setup page; installed once: "not available right now", never the setup page. Both
+  are drawn with the library's kit, in the site's colours (`--anotoki-*`, the
+  `anotoki-lib` mixin in `design-tokens.scss`).
 - **Updating the library**: both halves together, to one version - the constraint
   in `backend/composer.json` (`"anotoki/lib": "^0.1"`, from the GitHub VCS
   repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
-  version may break.
+  version may break. A release that changes one half only is taken in that half:
+  0.2.0 changed the Angular half alone, so `vendor/anotoki/lib` stays 0.1.0 under
+  `@anotoki/lib` 0.2.0.
 
 ## Signing in — the anotoki IAM
 
