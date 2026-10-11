@@ -3,8 +3,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /**
  * What somebody playing without signing in is told about their games: the

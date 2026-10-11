@@ -1,5 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { AdminSiteRoute, AdminSiteSetting, Language, LanguageApiService, RouteApiService, SettingApiService } from '../../../api';
+import { TranslationService } from '@anotoki/lib/translations';
+import { AdminSiteRoute, AdminSiteSetting, RouteApiService, SettingApiService } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
@@ -41,12 +42,16 @@ interface SettingCard {
 export class SettingsComponent extends AbstractModalComponent implements OnInit {
   private readonly _settingApi = inject(SettingApiService);
   private readonly _routeApi = inject(RouteApiService);
-  private readonly _languageApi = inject(LanguageApiService);
 
   readonly settings = signal<AdminSiteSetting[]>([]);
   readonly routes = signal<AdminSiteRoute[]>([]);
   readonly levels = signal<string[]>([]);
-  readonly languages = signal<Language[]>([]);
+  /**
+   * The languages on offer, as the pages' words came with them - only those:
+   * a message written in a language nobody can read the site in is a message
+   * nobody will see.
+   */
+  readonly languages = inject(TranslationService).languages;
   readonly failed = signal(false);
 
   private readonly _loadingSettings = signal(false);
@@ -121,13 +126,6 @@ export class SettingsComponent extends AbstractModalComponent implements OnInit 
         this._loadingRoutes.set(false);
         this.failed.set(true);
       },
-    });
-
-    // Only the enabled ones: a message written in a language nobody can read
-    // the site in is a message nobody will see.
-    this._languageApi.getLanguages().subscribe({
-      next: (languages) => this.languages.set(languages),
-      error: () => this.languages.set([]),
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, computed, effect, ElementRef, input, signal, viewChild } from '@angular/core';
-import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 
 /**
  * The player the music and voice quizzes share.

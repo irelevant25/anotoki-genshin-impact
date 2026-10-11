@@ -3,8 +3,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
 import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../shared/local-lib/services/security.service';
-import { TranslationService } from '../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 function currentPath(): string {
   return location.pathname + location.search;
@@ -20,9 +19,9 @@ function currentPath(): string {
  * what the admin panel turns into when its session ends in another tab.
  *
  * Unlike the rest of the admin panel it is translated: the people who see it
- * are, by definition, not the admins the panel's English is written for. The
- * document says English in the admin panel, so this says which language it is
- * in itself.
+ * are, by definition, not the admins the panel's English is written for - the
+ * panel is English for its staff only (shared/site-translations.ts), so this
+ * page reads in the reader's own language, and says which itself.
  */
 @Component({
   selector: 'app-admin-no-access',

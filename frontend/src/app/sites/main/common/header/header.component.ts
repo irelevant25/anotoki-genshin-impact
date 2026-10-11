@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { GuideIconComponent } from '../guide/guide-icon.component';
 import { GuideId } from '../guide/guide-catalog';
 import { DailyProgressService } from '../../features/quizzes/shared/daily-progress.service';

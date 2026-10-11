@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ROUTE_MAP } from '../../../../shared/routing-definition';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 
 @Component({
   selector: 'app-database',

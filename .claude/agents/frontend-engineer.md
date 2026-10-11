@@ -78,7 +78,19 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - **i18n**: user-facing copy goes through the `translate` pipe with a key; proper
   nouns - character names, usernames, version numbers - are shown as they are,
   not through the pipe (the footer's link items mark such a title with
-  `titleLiteral`). Dates render through `AppDatePipe`.
+  `titleLiteral`). Dates render through `AppDatePipe`. The pipe and
+  `TranslationService` are the anotoki library's (`@anotoki/lib/translations`,
+  configured in `shared/site-translations.ts`): `t()`, `has()`, `language()`,
+  `languages()`, `effectiveLanguage()` (English in the admin panel for its
+  staff - use it where a language decides a format), `setLanguage()`,
+  `languageNotSaved()`. A new key comes with a `users/` migration (English and
+  informal Slovak); one put together at run time is declared in
+  `shared/dynamic-keys.ts`. The admin Translations and Languages pages are the
+  library's (`@anotoki/lib/translations/admin`, lazy routes); the Guides page
+  (`sites/admin/localization/guides/`) and the guide modal
+  (`GuideApiService.getGuide()`) are this site's. Import a piece of the library's
+  kit from its own entry point (`@anotoki/lib/ui/config`, ...), never from
+  `@anotoki/lib/ui`.
 - **Theming**: light and dark both matter. Take colours from the existing CSS
   variables/tokens; never hard-code a colour that only reads in one theme.
 - **Accessibility & responsiveness**: keyboard focus states, and layouts that

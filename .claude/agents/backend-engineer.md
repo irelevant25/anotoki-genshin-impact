@@ -144,7 +144,29 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   there (its options and hooks), not in one caller. While a file waits, the
   SiteGate answers `503 update_pending` to all but `SITE_OPEN_WHILE_UPDATING`
   (`site_state.php`) - a route goes in that list only if nobody could get to
-  Apply without it.
+  Apply without it. After both folders it runs the library's own set,
+  `anotoki_translations` (`migrationSetNames()`; the order guard holds it third):
+  a `users/` migration never depends on a library file, writes only the words'
+  base columns, never takes a key under `anotoki.` (the library's), and its gate
+  names its own keys - never a total.
+
+## The words
+
+The languages, keys and strings are the anotoki library's translations module
+(`vendor/anotoki/lib`, `Anotoki\Lib\Translations`), set up in
+`api/translations.php` (released languages en and sk, the `{error, code}` body,
+the writer from the token, `audit_logs`, `GuideLanguageUsage`); its routes are
+put up behind `requireAuth()` + `requireRole(...ROLES_CONTENT)` in
+`routes/users/endpoints/translations.php` and are not in the generated client
+(SKIP_PREFIXES). There is no route, import flag or command that makes a key or
+edits a description any more: a key is a `users/` migration (the db-migration
+skill, `users/051`). The guides behind the question marks are `guide_contents`
+(`api/guides.php`, `routes/users/endpoints/guides.php`): public `GET
+/api/guides/{guide}`, ADMIN/EDITOR `GET /api/admin/guides`, `PUT
+/api/admin/guides/{guide}`. The bundle is open in every gate exactly
+(`TranslationsRoutes::openPath()`; `gatePathOpen()` reads a `~` entry as a
+pattern); the guides are not. `php tests/run.php tests/translations-*.test.php`
+covers the migration and every route, on throwaway databases.
 
 ## After you change the API
 

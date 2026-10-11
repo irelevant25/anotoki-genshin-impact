@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StaffSignInComponent } from '../../../common/staff-sign-in/staff-sign-in.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 
 /**
  * /staff while the site is open: the same sign-in as the account panel's, at

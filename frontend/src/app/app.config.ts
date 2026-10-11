@@ -4,6 +4,8 @@ import { registerLocaleData } from "@angular/common";
 import localeEn from "@angular/common/locales/en";
 import localeSk from "@angular/common/locales/sk";
 import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
+import { provideAnotokiTranslations, TranslationService } from "@anotoki/lib/translations";
+import { provideAnotokiUi } from "@anotoki/lib/ui/config";
 
 import { routes } from "./app.routes";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
@@ -12,8 +14,8 @@ import { SecurityService } from "./shared/local-lib/services/security.service";
 import { SiteSettingsService } from "./shared/local-lib/services/site-settings.service";
 import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
 import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
-import { TranslationService } from "./shared/local-lib/i18n/translation.service";
 import { siteStatusConfig } from "./shared/site-status";
+import { siteTranslationsConfig } from "./shared/site-translations";
 
 // export const appConfig: ApplicationConfig = {
 // providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
@@ -95,7 +97,9 @@ export const appConfig: ApplicationConfig = {
         // the document loads with no theme at all and falls back to the system.
         injector.get(ThemeToggleService);
         // Last, because it needs to know where the API is and who is signed
-        // in. It never rejects, so a language server that is down delays the
+        // in (@anotoki/lib/translations, shared/site-translations.ts). It
+        // never rejects, and waits a second at most with words from the last
+        // visit (three without), so a language server that is down delays the
         // start rather than stopping it.
         const i18n = injector.get(TranslationService);
         await i18n.init();
@@ -105,7 +109,7 @@ export const appConfig: ApplicationConfig = {
         // anything is drawn, and comes back to the address they opened.
         if (mustSignInFirst(siteSettings, securityService, siteStatus)) {
           await securityService
-            .login({ returnTo: location.pathname + location.search + location.hash, language: i18n.language() })
+            .login({ returnTo: location.pathname + location.search + location.hash, language: i18n.signInLanguage() })
             // The browser would not start it. The site's sign-in card is
             // drawn instead, and its button says why when pressed.
             .catch(() => undefined);
@@ -119,6 +123,11 @@ export const appConfig: ApplicationConfig = {
     // the request - its token, its one retry - is done.
     provideHttpClient(withInterceptors([siteStatusInterceptor, httpInterceptor])),
     provideAnotokiMigrations(siteStatusConfig),
+    // The site's words (shared/site-translations.ts), and the library kit's
+    // own - its buttons and dialogs on the status and admin pages - in the
+    // language on the page, from the same database (anotoki.*).
+    provideAnotokiTranslations(siteTranslationsConfig),
+    provideAnotokiUi(() => ({ ...inject(TranslationService).forKit() })),
     {
       provide: BASE_PATH,
       useFactory: () => inject(ConfigService).backendUrl,

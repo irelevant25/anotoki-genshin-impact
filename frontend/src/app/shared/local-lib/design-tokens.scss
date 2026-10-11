@@ -27,18 +27,27 @@
 // the admin Migrations page) colours itself through --anotoki-* properties.
 // Both palettes include this, so they follow whichever is in force.
 //
-// Since its 0.2.0 both pages are drawn with the library's kit, which reads
-// more of these names than the 0.1 pages did. A name left out falls back to
-// the anotoki family's own colour - navy, in the dark theme - so every surface
-// the kit draws here (its dialogs and their footers, a hovered button, a quiet
-// badge) is mapped to one of this site's. The soft grounds of its notes and
-// badges and the edges of its buttons keep the family's, which read on this
-// site's pages in both themes.
+// Since 0.3.0 the admin Translations and Languages pages are the library's
+// too, with its fields, switches, notes and badges. A colour left out falls
+// back to the anotoki family's own - navy, in the dark theme - so every colour
+// the kit reads on this site's pages is mapped to one of this site's: the
+// surfaces, the inks, the soft grounds of notes and badges (the *-light
+// family), the focus halo, the backdrop and the shadows. Sizes, radii but the
+// main one, fonts and motion stay the family's.
 //
 // Its primary, the main buttons' fill, stays the links' colour it was in 0.1,
 // with the inverse text on it; its words that are links (the quiet "Sign in")
 // have their own name since 0.2.0, the same colour. Its focus ring is this
 // site's own (general.scss).
+//
+// border-strong is the edge of every field, select, switch and outlined button
+// the kit draws, so it has to stand out 3:1 against the surfaces they sit on
+// (WCAG 1.4.11). None of this site's borders does - they are dividers, 2:1 at
+// most - so the edge is its muted text grey: 4.1:1 or more on every light
+// surface the kit uses, 3.8:1 or more on every dark one (3.3:1 even on
+// --bg-active). The switch's knob is the inverse text: white in light, the page's
+// near-black in dark, where the white knob would sit at 2.3:1 on this site's
+// light-blue primary when on.
 // ─────────────────────────────────────────────────────────────────────────────
 @mixin anotoki-lib {
   --anotoki-bg: var(--bg-page);
@@ -48,17 +57,38 @@
   --anotoki-surface-raised: var(--bg-card);
   --anotoki-text: var(--text-primary);
   --anotoki-muted: var(--text-secondary);
+  --anotoki-subtle: var(--text-muted);
   --anotoki-border: var(--border-color);
+  --anotoki-border-strong: var(--text-muted);
   --anotoki-primary: var(--color-link);
   --anotoki-primary-hover: var(--color-link-hover);
   --anotoki-primary-contrast: var(--text-inverse);
+  --anotoki-primary-soft: var(--color-primary-light);
+  --anotoki-primary-soft-text: var(--color-primary-light-text);
   --anotoki-link: var(--color-link);
   --anotoki-focus: var(--color-primary);
+  --anotoki-ring: var(--focus-ring);
   --anotoki-danger: var(--color-danger);
   --anotoki-danger-hover: var(--color-danger-hover);
   --anotoki-danger-contrast: var(--color-danger-text);
+  --anotoki-danger-soft: var(--color-danger-light);
+  --anotoki-danger-border: var(--color-danger-light-border);
   --anotoki-success: var(--color-success);
+  --anotoki-success-text: var(--color-success-light-text);
+  --anotoki-success-soft: var(--color-success-light);
+  --anotoki-success-border: var(--color-success-light-border);
   --anotoki-warning: var(--color-warning);
+  --anotoki-warning-text: var(--color-warning-light-text);
+  --anotoki-warning-soft: var(--color-warning-light);
+  --anotoki-warning-border: var(--color-warning-light-border);
+  --anotoki-info: var(--color-info);
+  --anotoki-info-soft: var(--color-info-light);
+  --anotoki-info-border: var(--color-info-light-border);
+  --anotoki-switch-thumb: var(--text-inverse);
+  --anotoki-backdrop: var(--bg-backdrop);
+  --anotoki-shadow-sm: var(--shadow-small);
+  --anotoki-shadow: var(--shadow-medium);
+  --anotoki-shadow-lg: var(--shadow-large);
   --anotoki-radius: var(--border-radius-large);
 }
 

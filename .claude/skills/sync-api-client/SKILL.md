@@ -64,6 +64,16 @@ Do not fix it in the generated file. The mechanical rules live in
 - **`GROUPS`** / **`GROUP_DOCS`** — which service a route belongs to (first prefix that matches;
   anything unmatched lands in the `lookup` service), and the doc comment for each group. A
   new area of routes (e.g. `/api/visitor`) gets its own line above `lookup`.
+- **`SKIP_PREFIXES`** — routes left out of the client: the anotoki library's own
+  (`/api/site-status`, `/api/admin/migrations`, and the words: `/api/translations`,
+  `/api/admin/translations`, `/api/admin/languages`), whose client is the library's
+  Angular half, and two broken families. The guides (`/api/guides`, `/api/admin/guides`)
+  are this site's and are generated.
+
+The generator writes the files it has routes for and leaves the others where they
+are: when a group goes (the `language` and `translation` services did, with the
+library's words), delete its `models/*.model.ts` and `services/*.service.ts` by
+hand - the indexes no longer export them.
 
 ## Owner routes take a context
 

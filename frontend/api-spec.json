@@ -4,6 +4,159 @@
     "routes": [
         {
             "method": "GET",
+            "path": "/api/admin/guides",
+            "args": [],
+            "file": "guides.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "GuideEditorView",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/guides.php",
+                "line": 60
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/guides/{guide}",
+            "args": [
+                {
+                    "name": "guide",
+                    "constraint": null
+                }
+            ],
+            "file": "guides.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "GuideEditorEntry",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/guides.php",
+                "line": 84
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/languages",
+            "args": [],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 127
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/languages",
+            "args": [],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 247
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/languages/{code}",
+            "args": [
+                {
+                    "name": "code",
+                    "constraint": null
+                }
+            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 293
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/languages/{code}",
+            "args": [
+                {
+                    "name": "code",
+                    "constraint": null
+                }
+            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 272
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
             "path": "/api/admin/migrations",
             "args": [],
             "file": "MigrationsRoutes.php",
@@ -13,7 +166,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 54
+                "line": 55
             },
             "expanded": [],
             "payload": null,
@@ -34,7 +187,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 89
+                "line": 90
             },
             "expanded": [],
             "payload": null,
@@ -55,7 +208,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 67
+                "line": 68
             },
             "expanded": [],
             "payload": null,
@@ -69,33 +222,20 @@
             "method": "GET",
             "path": "/api/admin/translations",
             "args": [],
-            "file": "translations.php",
-            "tables": [
-                "languages",
-                "translations",
-                "translation_keys",
-                "sites"
-            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
             "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "TranslationAdminView",
-                "list": false
-            },
+            "statuses": [],
+            "responds": null,
             "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 154
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 136
             },
             "expanded": [],
             "payload": null,
             "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
+            "auth": false,
+            "roles": [],
             "owner": false,
             "visitor_key": false
         },
@@ -103,33 +243,72 @@
             "method": "PUT",
             "path": "/api/admin/translations",
             "args": [],
-            "file": "translations.php",
-            "tables": [
-                "translation_keys",
-                "languages",
-                "translations"
-            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
             "success": 200,
-            "statuses": [
-                200,
-                422
-            ],
-            "responds": {
-                "shape": "TranslationSaveResult",
-                "list": false
-            },
+            "statuses": [],
+            "responds": null,
             "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 237
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 157
             },
             "expanded": [],
             "payload": null,
             "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/translations/{code}/export",
+            "args": [
+                {
+                    "name": "code",
+                    "constraint": null
+                }
             ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 179
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/translations/{code}/import",
+            "args": [
+                {
+                    "name": "code",
+                    "constraint": null
+                }
+            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 204
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
             "owner": false,
             "visitor_key": false
         },
@@ -8539,138 +8718,30 @@
         },
         {
             "method": "GET",
-            "path": "/api/languages",
-            "args": [],
-            "file": "languages.php",
-            "tables": [
-                "languages"
+            "path": "/api/guides/{guide}",
+            "args": [
+                {
+                    "name": "guide",
+                    "constraint": null
+                }
             ],
+            "file": "guides.php",
+            "tables": [],
             "success": 200,
-            "statuses": [
-                200
-            ],
+            "statuses": [],
             "responds": {
-                "shape": "languages",
-                "list": true
+                "shape": "GuideResponse",
+                "list": false
             },
             "source": {
-                "file": "backend/api/routes/users/endpoints/languages.php",
-                "line": 40
+                "file": "backend/api/routes/users/endpoints/guides.php",
+                "line": 54
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
             "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/languages",
-            "args": [],
-            "file": "languages.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 201,
-            "statuses": [
-                201,
-                409,
-                422
-            ],
-            "responds": {
-                "shape": "languages",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/languages.php",
-                "line": 79
-            },
-            "expanded": [],
-            "payload": "User\\Language",
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/languages/{code}",
-            "args": [
-                {
-                    "name": "code",
-                    "constraint": null
-                }
-            ],
-            "file": "languages.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                409
-            ],
-            "responds": {
-                "shape": "LanguageDeleted",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/languages.php",
-                "line": 145
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/languages/{code}",
-            "args": [
-                {
-                    "name": "code",
-                    "constraint": null
-                }
-            ],
-            "file": "languages.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                409
-            ],
-            "responds": {
-                "shape": "languages",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/languages.php",
-                "line": 117
-            },
-            "expanded": [],
-            "payload": "User\\Language",
-            "partial": true,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
             "owner": false,
             "visitor_key": false
         },
@@ -10972,7 +11043,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 33
+                "line": 34
             },
             "expanded": [],
             "payload": null,
@@ -11313,116 +11384,6 @@
             "visitor_key": false
         },
         {
-            "method": "POST",
-            "path": "/api/translation-keys",
-            "args": [],
-            "file": "translations.php",
-            "tables": [
-                "translation_keys",
-                "sites"
-            ],
-            "success": 201,
-            "statuses": [
-                201,
-                409,
-                422
-            ],
-            "responds": {
-                "shape": "translation_keys",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 342
-            },
-            "expanded": [],
-            "payload": "User\\TranslationKey",
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/translation-keys/{name}",
-            "args": [
-                {
-                    "name": "name",
-                    "constraint": null
-                }
-            ],
-            "file": "translations.php",
-            "tables": [
-                "translation_keys"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "TranslationKeyDeleted",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 402
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/translation-keys/{name}",
-            "args": [
-                {
-                    "name": "name",
-                    "constraint": null
-                }
-            ],
-            "file": "translations.php",
-            "tables": [
-                "translation_keys",
-                "sites"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                422
-            ],
-            "responds": {
-                "shape": "translation_keys",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 379
-            },
-            "expanded": [],
-            "payload": "User\\TranslationKey",
-            "partial": true,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
             "method": "GET",
             "path": "/api/translations/{code}",
             "args": [
@@ -11431,97 +11392,20 @@
                     "constraint": null
                 }
             ],
-            "file": "translations.php",
-            "tables": [
-                "languages"
-            ],
+            "file": "TranslationsRoutes.php",
+            "tables": [],
             "success": 200,
             "statuses": [],
-            "responds": {
-                "shape": "TranslationBundleResponse",
-                "list": false
-            },
+            "responds": null,
             "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 66
+                "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
+                "line": 99
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
             "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/translations/{code}/export",
-            "args": [
-                {
-                    "name": "code",
-                    "constraint": null
-                }
-            ],
-            "file": "translations.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": null,
-            "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 91
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/translations/{code}/import",
-            "args": [
-                {
-                    "name": "code",
-                    "constraint": null
-                }
-            ],
-            "file": "translations.php",
-            "tables": [
-                "languages"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                422
-            ],
-            "responds": {
-                "shape": "TranslationImportResult",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/translations.php",
-                "line": 310
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
             "owner": false,
             "visitor_key": false
         },
@@ -15583,92 +15467,6 @@
                     "name": "difficulty",
                     "types": [
                         "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                }
-            ],
-            "jsonFields": []
-        },
-        {
-            "name": "User\\Language",
-            "file": "language.php",
-            "fields": [
-                {
-                    "name": "code",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "native_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "enabled",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "sort_order",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                }
-            ],
-            "jsonFields": []
-        },
-        {
-            "name": "User\\TranslationKey",
-            "file": "language.php",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false
-                },
-                {
-                    "name": "description",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "site",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true
-                },
-                {
-                    "name": "is_html",
-                    "types": [
-                        "bool"
                     ],
                     "nullable": true,
                     "optional": true
@@ -20127,13 +19925,13 @@
             ]
         },
         {
-            "name": "LanguageDeleted",
-            "file": "translation.php",
+            "name": "GuideEditorEntry",
+            "file": "guide.php",
             "merges": null,
-            "description": "Deleting a language: the translations that went with it. (A reader's\nlanguage is their anotoki account's, so there is nobody here to move.)",
+            "description": "One guide on the admin Guides page: its markup in every language that has some.",
             "fields": [
                 {
-                    "name": "message",
+                    "name": "guide",
                     "types": [
                         "string"
                     ],
@@ -20143,14 +19941,128 @@
                     "description": null
                 },
                 {
-                    "name": "translations_deleted",
+                    "name": "values",
                     "types": [
-                        "int"
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "array<string, string>",
+                    "description": "Language code to markup; a language without one reads the English."
+                }
+            ]
+        },
+        {
+            "name": "GuideEditorLanguage",
+            "file": "guide.php",
+            "merges": null,
+            "description": "A language the guides may be written in, offered to readers or not yet.",
+            "fields": [
+                {
+                    "name": "code",
+                    "types": [
+                        "string"
                     ],
                     "nullable": false,
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "In English: \"Slovak\"."
+                },
+                {
+                    "name": "native_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "As its own speakers write it: \"Sloven\u010dina\"."
+                },
+                {
+                    "name": "enabled",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Offered to readers. A guide in a hidden language is written ahead and read once it is offered."
+                }
+            ]
+        },
+        {
+            "name": "GuideEditorView",
+            "file": "guide.php",
+            "merges": null,
+            "description": "`GET /api/admin/guides` - every guide, and every language, the hidden ones too.",
+            "fields": [
+                {
+                    "name": "languages",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "GuideEditorLanguage[]",
+                    "description": null
+                },
+                {
+                    "name": "guides",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "GuideEditorEntry[]",
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "GuideResponse",
+            "file": "guide.php",
+            "merges": null,
+            "description": "`GET /api/guides/{guide}` - one guide, as a page draws it.\n\n`language` is the language the markup is in: the one asked for where the\nguide has it, English otherwise - worth reading, like a bundle's.",
+            "fields": [
+                {
+                    "name": "guide",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "language",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "html",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through."
                 }
             ]
         },
@@ -21732,322 +21644,6 @@
                     "name": "id",
                     "types": [
                         "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationAdminView",
-            "file": "translation.php",
-            "merges": null,
-            "description": "Everything the translation editor draws in one request.\n\nDeliberately includes keys nothing has translated yet: those are the rows\nthat need attention.",
-            "fields": [
-                {
-                    "name": "languages",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "languages[]",
-                    "description": "The rows, so a disabled language still lists its own settings."
-                },
-                {
-                    "name": "keys",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "TranslationGridKey[]",
-                    "description": null
-                },
-                {
-                    "name": "sites",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "TranslationSite[]",
-                    "description": null
-                },
-                {
-                    "name": "currentSite",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Which site this deployment serves."
-                }
-            ]
-        },
-        {
-            "name": "TranslationBundleResponse",
-            "file": "translation.php",
-            "merges": null,
-            "description": "`GET /api/translations/{code}` - the strings, and which language they turned\nout to be.\n\nAn unknown or retired code answers in the fallback rather than failing, so\n`language` is worth reading: it is not always the code that was asked for.\n`values` is a flat key-to-string map with English merged underneath, so a key\nwith no string in this language still answers with something readable.",
-            "fields": [
-                {
-                    "name": "language",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "values",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, string>",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationGridKey",
-            "file": "translation.php",
-            "merges": null,
-            "description": "One key in the editing grid, with what every language has for it.",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "description",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "site",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "`common` when every site loads it, otherwise the site that owns it."
-                },
-                {
-                    "name": "is_html",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Markup rather than a sentence - edited in the HTML editor."
-                },
-                {
-                    "name": "values",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, string>",
-                    "description": null
-                },
-                {
-                    "name": "created_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "When the key was added. Null on the ones that predate the columns."
-                },
-                {
-                    "name": "created_by",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "created_by_username",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "updated_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "When any of the key's languages was last saved, and by whom - saving\na value stamps the key it belongs to as well as the value itself."
-                },
-                {
-                    "name": "updated_by",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "updated_by_username",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationImportResult",
-            "file": "translation.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "written",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "cleared",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "keys_created",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationKeyDeleted",
-            "file": "translation.php",
-            "merges": null,
-            "description": "Deleting a key takes its translations with it, by cascade.",
-            "fields": [
-                {
-                    "name": "message",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "translations_deleted",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationSaveResult",
-            "file": "translation.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "written",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "cleared",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "TranslationSite",
-            "file": "translation.php",
-            "merges": null,
-            "description": "One of the sites sharing this database, plus the pseudo-site `common`.",
-            "fields": [
-                {
-                    "name": "code",
-                    "types": [
-                        "string"
                     ],
                     "nullable": false,
                     "optional": false,
@@ -25835,6 +25431,43 @@
             ]
         },
         {
+            "table": "guide_contents",
+            "database": "users",
+            "interface": "GuideContent",
+            "columns": [
+                {
+                    "name": "guide",
+                    "sqlType": "VARCHAR(100)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "language_code",
+                    "sqlType": "VARCHAR(10)",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "html",
+                    "sqlType": "TEXT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "updated_by",
+                    "sqlType": "INTEGER",
+                    "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
             "table": "languages",
             "database": "users",
             "interface": "Language",
@@ -26444,31 +26077,6 @@
             ]
         },
         {
-            "table": "sites",
-            "database": "users",
-            "interface": "Site",
-            "columns": [
-                {
-                    "name": "code",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "name",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "sort_order",
-                    "sqlType": "INTEGER",
-                    "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
             "table": "stats",
             "database": "genshin_impact",
             "interface": "Stat",
@@ -26513,38 +26121,8 @@
                 },
                 {
                     "name": "created_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "updated_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "site",
-                    "sqlType": "VARCHAR(50)",
+                    "sqlType": "TIMESTAMPTZ",
                     "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "is_html",
-                    "sqlType": "BOOLEAN",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "created_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "updated_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
                     "enum": null
                 }
             ]
@@ -26573,21 +26151,9 @@
                     "enum": null
                 },
                 {
-                    "name": "created_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "updated_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "created_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": false,
                     "enum": null
                 },
                 {

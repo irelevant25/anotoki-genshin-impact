@@ -132,7 +132,8 @@ for the client `genshin` in the IAM (migration 002 there registers
 
 The site keeps everything in one database: the game content and its own half
 (translations, settings, page switches, people's records), built by
-`migrations/users/` then `migrations/genshin_impact/`. Production gets the one
+`migrations/users/` then `migrations/genshin_impact/`, then the anotoki library's
+own set `anotoki_translations` (from `vendor/anotoki/lib`). Production gets the one
 database `setup.php` asks for. A checkout still configured with two
 (`'databases'` in `database.local.php`) is merged once with
 `php merge-databases.php` before its data goes anywhere - see `DEV.md`,
@@ -142,8 +143,10 @@ database `setup.php` asks for. A checkout still configured with two
 
 FTP the new `migrations/{folder}/*.sql` up, then in the admin **Migrations** page
 (`/admin/migrations`) press **Apply pending** (`POST /api/admin/migrations/apply`,
-ADMIN). It runs every pending file in order, `users/` then `genshin_impact/`,
-stopping at the first failure; a second apply meanwhile is told it is busy. The
+ADMIN). It runs every pending file in order, `users/` then `genshin_impact/` then
+the anotoki library's own set `anotoki_translations` (its files come with
+`vendor/anotoki/lib`), stopping at the first failure; a second apply meanwhile
+is told it is busy. The
 engine (anotoki/lib's `Migrator`, set up in `backend/api/migration_runner.php`) is
 the same one the CLI and `setup.php` use. From the upload until the Apply the site
 shows everybody but its ADMIN "The site is being updated" - so do it in one go:
@@ -166,6 +169,14 @@ account page shows the same theme.
 The old "not set up" page's strings (2026-10-07; `users/049`, strings only):
 safe before or after the upload - nothing reads them since the shared library's
 page took that page's place.
+
+The words through the anotoki library (anotoki-lib 0.3.0; `users/050`, `051` and
+the library's `anotoki_translations/001`, `002`): export every language from the
+admin Translations page and take a dump (Backups page) first; then upload both
+builds and Apply at once - never before the upload, and no older build on the
+host afterwards (050 changes the shape of the words' tables, which an older build
+reads). 050's gate proves every string came through; full copies stay as
+`*_before_library` for one release. DEV.md, *Later schema changes*, has the rest.
 
 ## Copying local data up to production
 

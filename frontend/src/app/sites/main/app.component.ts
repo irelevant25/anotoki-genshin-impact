@@ -11,7 +11,7 @@ import { SiteSettingsService } from '../../shared/local-lib/services/site-settin
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../shared/local-lib/services/visitor-key.service';
 import { NotificationService } from '../../shared/local-lib/components/notification/notification.service';
-import { TranslationService } from '../../shared/local-lib/i18n/translation.service';
+import { TranslationService } from '@anotoki/lib/translations';
 import { QuizProgressService } from './features/quizzes/shared/quiz-progress.service';
 
 @Component({
@@ -93,6 +93,20 @@ export class AppComponent {
       const refusal = this._progress.refusal();
       if (refusal) {
         untracked(() => this._notifications.showWarning(this._i18n.t(refusal === 'full' ? 'visitor.full' : 'visitor.busy')));
+      }
+    });
+
+    // A language chosen in the account panel that the anotoki account would
+    // not take (the IAM out of reach, the sign-in ended): the page stays in it
+    // for the visit, and says it was not saved - once, whenever the panel was
+    // closed meanwhile. A language the IAM does not offer is no such refusal
+    // (@anotoki/lib/translations calls it quiet): it stays this site's own.
+    effect(() => {
+      if (this._i18n.languageNotSaved()) {
+        untracked(() => {
+          this._notifications.showError(this._i18n.t('account.formats.failed'));
+          this._i18n.clearLanguageNotSaved();
+        });
       }
     });
   }

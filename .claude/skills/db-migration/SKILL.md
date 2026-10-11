@@ -33,6 +33,21 @@ Use the next free number (zero-padded, matching the existing width) and a short
 snake_case name. Read the two or three most recent migrations in that folder
 first and match their structure exactly.
 
+After both folders the engine runs the anotoki library's own set,
+`anotoki_translations` (`vendor/anotoki/lib/php/migrations/translations`, never
+edited here): its 001 proves the words' tables are in the shape the library
+works with (users/050 moved them into it) and its 002 adds the library's words
+under `anotoki.*`. So a `users/` migration never depends on a library file - on
+a fresh install it runs before them - and writes only the words' base columns
+(`translation_keys (name, description)`, `translations (key_name,
+language_code, value)`, `languages (code, name, native_name, enabled,
+sort_order)`); `anotoki.` is the library's namespace, never a key of this
+site's; and a gate never counts keys outside this site's own namespaces (the
+library's arrive after it, and an owner may blank a Slovak string). To word a
+library string this site's own way: insert it first (`ON CONFLICT DO NOTHING`),
+then `UPDATE ... WHERE value = '<the library's words>'` for a database that has
+the library's already.
+
 ## House style
 
 - **Soft delete**: entity tables carry `deleted BOOLEAN NOT NULL DEFAULT FALSE`
@@ -52,9 +67,18 @@ first and match their structure exactly.
   The spec generator reads that CHECK into an `'a' | 'b'` union in the client; it
   does not read `CREATE TYPE … AS ENUM`. A lookup table is for values the admin
   maintains.
-- **New translation keys** go in a `users` migration with an English and a Slovak
-  string each, `ON CONFLICT DO NOTHING`, and a gate proving both exist - copy
-  `041_translations_after_iam.sql` or `042_not_set_up_strings.sql`.
+- **New translation keys** go in a `users` migration - and only there: no admin
+  page, import or command makes a key (users/050) - each with its description
+  (where it shows, what it is for, its `{placeholders}`: the code's, the admin
+  panel never edits it), an English and an informal Slovak ("ty") string, `ON
+  CONFLICT DO NOTHING`, and a gate naming exactly its keys and proving both
+  strings exist - copy `051_guide_strings.sql`. No scope, no HTML flag: every key
+  is this site's, and a string is text (a guide's body is `guide_contents`, a
+  guide a migration adds with its English there). A key put together at run
+  time also gets its prefix and tail in `frontend/src/app/shared/dynamic-keys.ts`.
+  Rewording a string a migration wrote is `UPDATE translations SET value = ...
+  WHERE ... AND value = '<the earlier words>'`, so an owner's rewording stands;
+  removing one is `DELETE FROM translation_keys` (its strings cascade).
 - **Idempotent where reasonable** (`IF NOT EXISTS` / `IF EXISTS`) so a partial
   application can be re-run.
 - **A verification gate.** Anything that moves or backfills data ends with a
@@ -70,8 +94,8 @@ From `backend/`:
 ```
 php migration.php --status      # see what is pending first
 php migration.php --dry-run     # confirm what would apply
-php migration.php               # create missing + apply pending (both folders)
-php migration.php --folder=users  # scope to one folder
+php migration.php               # create missing + apply pending (both folders, then the library's set)
+php migration.php --folder=users  # scope to one set (users, genshin_impact, anotoki_translations)
 ```
 
 The engine is the anotoki sites' shared one - anotoki/lib's `Migrator`

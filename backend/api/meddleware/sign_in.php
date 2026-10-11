@@ -1,5 +1,6 @@
 <?php
 
+use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
@@ -23,21 +24,21 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * Open whatever the switch, because without them the sign-in card cannot be
  * drawn or worded:
  *
- *   /api/settings/public   is how the page learns that sign-in is required
- *                          (and where the IAM is, and whether the site is closed)
- *   /api/languages         is which languages the card can be read in
- *   /api/translations/     is the words on it
- *   /api/site-status       is whether the site is there at all (site_state.php):
- *                          the pages ask it before anything else, and a 401
- *                          would read as a site that is down
+ *   /api/settings/public      is how the page learns that sign-in is required
+ *                             (and where the IAM is, and whether the site is closed)
+ *   /api/translations/{code}  is the words on it, with the languages it can be
+ *                             read in beside them - that path exactly
+ *   /api/site-status          is whether the site is there at all (site_state.php):
+ *                             the pages ask it before anything else, and a 401
+ *                             would read as a site that is down
  *
  * and one more, because a browser cannot send it a token:
  *
- *   /api/files/raw         a file of the asset tree, for the admin panel's
- *                          previews - an <img> or <audio> sends no Authorization
- *                          header, so gating it would break them for the admins
- *                          themselves, and it protects nothing: the same bytes
- *                          are under assets/
+ *   /api/files/raw            a file of the asset tree, for the admin panel's
+ *                             previews - an <img> or <audio> sends no Authorization
+ *                             header, so gating it would break them for the admins
+ *                             themselves, and it protects nothing: the same bytes
+ *                             are under assets/
  *
  * (/api/me, open during maintenance, is not here: it needs a token anyway.)
  * The pictures and audio under assets/ are the web server's, served without
@@ -60,14 +61,18 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * (503) is still the first answer, then this, then the per-page locks (423).
  */
 
-/** The paths that answer whatever the switch: each one itself and everything under it. */
-const SIGN_IN_OPEN_PREFIXES = [
+/**
+ * The paths that answer whatever the switch: each one itself and everything
+ * under it, or exactly what a pattern starting with `~` matches
+ * (gatePathOpen(), meddleware/maintenance.php) - the words' path is the
+ * anotoki library's to say, hence define() rather than const.
+ */
+define('SIGN_IN_OPEN_PREFIXES', [
     '/api/settings/public',
-    '/api/languages',
-    '/api/translations/',
+    TranslationsRoutes::openPath(),
     '/api/site-status',
     '/api/files/raw',
-];
+]);
 
 function signInGate(): callable
 {
@@ -76,12 +81,8 @@ function signInGate(): callable
         // /api/" shortcut: everything that reaches this stack is the API, so a
         // path is either open below or behind the switch - a spelling of a
         // route this did not think of is still behind it.
-        $path = gatePath($request);
-
-        foreach (SIGN_IN_OPEN_PREFIXES as $open) {
-            if ($path === $open || str_starts_with($path, rtrim($open, '/') . '/')) {
-                return $handler->handle($request);
-            }
+        if (gatePathOpen(gatePath($request), SIGN_IN_OPEN_PREFIXES)) {
+            return $handler->handle($request);
         }
 
         // A signed-in request never needs the switch: asked first, it costs

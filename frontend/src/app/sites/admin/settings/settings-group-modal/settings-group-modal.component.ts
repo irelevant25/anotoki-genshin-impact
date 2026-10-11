@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AdminSiteSetting, Language, SettingApiService, SiteSettingChange } from '../../../../api';
+import { SiteLanguage } from '@anotoki/lib/translations';
+import { AdminSiteSetting, SettingApiService, SiteSettingChange } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
@@ -33,7 +34,7 @@ export class SettingsGroupModalComponent extends AbstractModalComponent {
   readonly title = signal('');
   readonly note = signal('');
   readonly settings = signal<AdminSiteSetting[]>([]);
-  readonly languages = signal<Language[]>([]);
+  readonly languages = signal<readonly SiteLanguage[]>([]);
   readonly saving = signal(false);
 
   /** The form, as the values that would be sent. Text, like the column. */

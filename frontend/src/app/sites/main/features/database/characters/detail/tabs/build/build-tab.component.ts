@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 
 /**
  * A placeholder, as on the old site when a character had no build recorded.

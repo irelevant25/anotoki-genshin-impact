@@ -3,7 +3,7 @@
   "info": {
     "title": "Genshin Impact API",
     "version": "1.0.0",
-    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n4 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
+    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n13 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
   },
   "servers": [
     {
@@ -17,12 +17,8 @@
       "description": "The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language."
     },
     {
-      "name": "language",
-      "description": "Which languages the site offers, and which of them is the fallback."
-    },
-    {
-      "name": "translation",
-      "description": "Translation keys and their strings, per language."
+      "name": "guide",
+      "description": "The guides behind the question marks: a page of markup each, in every language that has one - read by the pages, written on the admin Guides page."
     },
     {
       "name": "backup",
@@ -126,21 +122,21 @@
     }
   ],
   "paths": {
-    "/api/admin/translations": {
+    "/api/admin/guides": {
       "get": {
         "tags": [
-          "translation"
+          "guide"
         ],
-        "operationId": "getAdminTranslations",
-        "summary": "Get admin translations",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
+        "operationId": "getAdminGuides",
+        "summary": "Get admin guides",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
         "responses": {
           "200": {
             "description": "The request succeeded.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TranslationAdminView"
+                  "$ref": "#/components/schemas/GuideEditorView"
                 }
               }
             }
@@ -160,20 +156,32 @@
             "bearerAuth": []
           }
         ]
-      },
+      }
+    },
+    "/api/admin/guides/{guide}": {
       "put": {
         "tags": [
-          "translation"
+          "guide"
         ],
-        "operationId": "saveAdminTranslations",
-        "summary": "Save admin translations",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `translation_keys`.",
+        "operationId": "saveAdminGuide",
+        "summary": "Save admin guide",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "parameters": [
+          {
+            "name": "guide",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TranslationSaveRequest"
+                "$ref": "#/components/schemas/GuideSaveRequest"
               }
             }
           }
@@ -184,7 +192,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TranslationSaveResult"
+                  "$ref": "#/components/schemas/GuideEditorEntry"
                 }
               }
             }
@@ -194,16 +202,6 @@
           },
           "403": {
             "$ref": "#/components/responses/Forbidden"
-          },
-          "422": {
-            "description": "The body was understood but will not do.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
           },
           "default": {
             "$ref": "#/components/responses/Error"
@@ -14681,22 +14679,29 @@
         ]
       }
     },
-    "/api/languages": {
+    "/api/guides/{guide}": {
       "get": {
         "tags": [
-          "language"
+          "guide"
         ],
-        "operationId": "getLanguages",
-        "summary": "Get languages",
-        "description": "Public. Reads `languages`.",
+        "operationId": "getGuide",
+        "summary": "Get guide",
+        "description": "Public.",
         "parameters": [
           {
-            "name": "all",
+            "name": "guide",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "number",
-              "const": 1
+              "type": "string"
             }
           }
         ],
@@ -14706,10 +14711,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Language"
-                  }
+                  "$ref": "#/components/schemas/GuideResponse"
                 }
               }
             }
@@ -14719,243 +14721,6 @@
           }
         },
         "security": []
-      },
-      "post": {
-        "tags": [
-          "language"
-        ],
-        "operationId": "createLanguage",
-        "summary": "Create language",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LanguagePayload"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Language"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "description": "That would collide with something that already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/responses/Invalid"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/languages/{code}": {
-      "delete": {
-        "tags": [
-          "language"
-        ],
-        "operationId": "deleteLanguage",
-        "summary": "Delete language",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LanguageDeleted"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "That would collide with something that already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "language"
-        ],
-        "operationId": "updateLanguage",
-        "summary": "Update language",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "code": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "native_name": {
-                    "type": "string"
-                  },
-                  "enabled": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean",
-                        "const": false
-                      },
-                      {
-                        "type": "boolean",
-                        "const": true
-                      }
-                    ]
-                  },
-                  "sort_order": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Language"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "That would collide with something that already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/responses/Invalid"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
       }
     },
     "/api/material-groups": {
@@ -19008,397 +18773,6 @@
           }
         },
         "security": []
-      }
-    },
-    "/api/translation-keys": {
-      "post": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "createTranslationKey",
-        "summary": "Create translation key",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `translation_keys`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TranslationKeyPayload"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationKey"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "description": "That would collide with something that already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/responses/Invalid"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/translation-keys/{name}": {
-      "delete": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "deleteTranslationKey",
-        "summary": "Delete translation key",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `translation_keys`.",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationKeyDeleted"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "updateTranslationKey",
-        "summary": "Update translation key",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `translation_keys`.",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  },
-                  "site": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  },
-                  "is_html": {
-                    "anyOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "boolean",
-                        "const": false
-                      },
-                      {
-                        "type": "boolean",
-                        "const": true
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationKey"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/responses/Invalid"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/translations/{code}": {
-      "get": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "getTranslations",
-        "summary": "Get translations",
-        "description": "Public. Reads `languages`.",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationBundleResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/translations/{code}/export": {
-      "get": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "exportTranslations",
-        "summary": "Export translations",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationBundle"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/translations/{code}/import": {
-      "put": {
-        "tags": [
-          "translation"
-        ],
-        "operationId": "importTranslations",
-        "summary": "Import translations",
-        "description": "Requires the `ADMIN` or `EDITOR` role. Reads `languages`.",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TranslationImportRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationImportResult"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "The body was understood but will not do.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
       }
     },
     "/api/upload": {
@@ -32896,6 +32270,121 @@
         ],
         "additionalProperties": false
       },
+      "GuideEditorEntry": {
+        "title": "GuideEditorEntry",
+        "description": "One guide on the admin Guides page: its markup in every language that has some.",
+        "type": "object",
+        "properties": {
+          "guide": {
+            "type": "string"
+          },
+          "values": {
+            "description": "Language code to markup; a language without one reads the English.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "guide",
+          "values"
+        ],
+        "additionalProperties": false
+      },
+      "GuideEditorLanguage": {
+        "title": "GuideEditorLanguage",
+        "description": "A language the guides may be written in, offered to readers or not yet.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "description": "In English: \"Slovak\".",
+            "type": "string"
+          },
+          "native_name": {
+            "description": "As its own speakers write it: \"Slovenčina\".",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Offered to readers. A guide in a hidden language is written ahead and read once it is offered.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "native_name",
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "GuideEditorView": {
+        "title": "GuideEditorView",
+        "description": "`GET /api/admin/guides` - every guide, and every language, the hidden ones too.",
+        "type": "object",
+        "properties": {
+          "languages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GuideEditorLanguage"
+            }
+          },
+          "guides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GuideEditorEntry"
+            }
+          }
+        },
+        "required": [
+          "languages",
+          "guides"
+        ],
+        "additionalProperties": false
+      },
+      "GuideResponse": {
+        "title": "GuideResponse",
+        "description": "`GET /api/guides/{guide}` - one guide, as a page draws it. `language` is the language the markup is in: the one asked for where the guide has it, English otherwise - worth reading, like a bundle's.",
+        "type": "object",
+        "properties": {
+          "guide": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "html": {
+            "description": "Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "guide",
+          "language",
+          "html"
+        ],
+        "additionalProperties": false
+      },
+      "GuideSaveRequest": {
+        "title": "GuideSaveRequest",
+        "description": "One guide's markup, only the languages that changed. A blank one deletes that language's markup - the guide then reads in English there - and English cannot be sent blank.",
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "additionalProperties": false
+      },
       "Character": {
         "title": "Character",
         "description": "A row of `characters` as the API reads it back.",
@@ -42234,101 +41723,6 @@
         ],
         "additionalProperties": false
       },
-      "Language": {
-        "title": "Language",
-        "description": "A row of `languages` as the API reads it back.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "native_name": {
-            "type": "string"
-          },
-          "enabled": {
-            "type": "boolean"
-          },
-          "sort_order": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "code",
-          "native_name",
-          "enabled",
-          "sort_order"
-        ],
-        "additionalProperties": false
-      },
-      "LanguageDeleted": {
-        "title": "LanguageDeleted",
-        "description": "Deleting a language: the translations that went with it. (A reader's language is their anotoki account's, so there is nobody here to move.)",
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "translations_deleted": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "message",
-          "translations_deleted"
-        ],
-        "additionalProperties": false
-      },
-      "LanguagePayload": {
-        "title": "LanguagePayload",
-        "description": "A body `User\\Language` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "native_name": {
-            "type": "string"
-          },
-          "enabled": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "boolean",
-                "const": false
-              },
-              {
-                "type": "boolean",
-                "const": true
-              }
-            ]
-          },
-          "sort_order": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        },
-        "required": [
-          "code",
-          "name",
-          "native_name"
-        ],
-        "additionalProperties": false
-      },
       "Material": {
         "title": "Material",
         "description": "A row of `materials` as the API reads it back.",
@@ -45341,430 +44735,6 @@
           }
         },
         "required": [
-          "name"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationAdminView": {
-        "title": "TranslationAdminView",
-        "description": "Everything the translation editor draws in one request. Deliberately includes keys nothing has translated yet: those are the rows that need attention.",
-        "type": "object",
-        "properties": {
-          "languages": {
-            "description": "The rows, so a disabled language still lists its own settings.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Language"
-            }
-          },
-          "keys": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TranslationGridKey"
-            }
-          },
-          "sites": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TranslationSite"
-            }
-          },
-          "currentSite": {
-            "description": "Which site this deployment serves.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "languages",
-          "keys",
-          "sites",
-          "currentSite"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationBundle": {
-        "title": "TranslationBundle",
-        "description": "One language's strings, keyed by translation key. English is merged underneath every bundle by the server, so a key with no string in this language still answers with something readable.",
-        "type": "object",
-        "additionalProperties": {
-          "type": "string"
-        }
-      },
-      "TranslationBundleResponse": {
-        "title": "TranslationBundleResponse",
-        "description": "`GET /api/translations/{code}` - the strings, and which language they turned out to be. An unknown or retired code answers in the fallback rather than failing, so `language` is worth reading: it is not always the code that was asked for. `values` is a flat key-to-string map with English merged underneath, so a key with no string in this language still answers with something readable.",
-        "type": "object",
-        "properties": {
-          "language": {
-            "type": "string"
-          },
-          "values": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "language",
-          "values"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationGridKey": {
-        "title": "TranslationGridKey",
-        "description": "One key in the editing grid, with what every language has for it.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "site": {
-            "description": "`common` when every site loads it, otherwise the site that owns it.",
-            "type": "string"
-          },
-          "is_html": {
-            "description": "Markup rather than a sentence - edited in the HTML editor.",
-            "type": "boolean"
-          },
-          "values": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "created_at": {
-            "description": "When the key was added. Null on the ones that predate the columns.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "created_by": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "created_by_username": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_at": {
-            "description": "When any of the key's languages was last saved, and by whom - saving a value stamps the key it belongs to as well as the value itself.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_by": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "updated_by_username": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
-        "required": [
-          "name",
-          "description",
-          "site",
-          "is_html",
-          "values",
-          "created_at",
-          "created_by",
-          "created_by_username",
-          "updated_at",
-          "updated_by",
-          "updated_by_username"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationImportRequest": {
-        "title": "TranslationImportRequest",
-        "type": "object",
-        "properties": {
-          "values": {
-            "$ref": "#/components/schemas/TranslationBundle"
-          },
-          "create_missing_keys": {
-            "description": "Off by default: an import should not invent keys nobody declared.",
-            "anyOf": [
-              {
-                "type": "boolean",
-                "const": false
-              },
-              {
-                "type": "boolean",
-                "const": true
-              }
-            ]
-          }
-        },
-        "required": [
-          "values"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationImportResult": {
-        "title": "TranslationImportResult",
-        "description": "The shape of a `TranslationImportResult` response.",
-        "type": "object",
-        "properties": {
-          "written": {
-            "type": "number"
-          },
-          "cleared": {
-            "type": "number"
-          },
-          "keys_created": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "written",
-          "cleared",
-          "keys_created"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationKey": {
-        "title": "TranslationKey",
-        "description": "A row of `translation_keys` as the API reads it back.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "site": {
-            "type": "string"
-          },
-          "is_html": {
-            "type": "boolean"
-          },
-          "created_by": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "updated_by": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        },
-        "required": [
-          "name",
-          "description",
-          "created_at",
-          "updated_at",
-          "site",
-          "is_html",
-          "created_by",
-          "updated_by"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationKeyDeleted": {
-        "title": "TranslationKeyDeleted",
-        "description": "Deleting a key takes its translations with it, by cascade.",
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "translations_deleted": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "message",
-          "translations_deleted"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationKeyPayload": {
-        "title": "TranslationKeyPayload",
-        "description": "A body `User\\TranslationKey` accepts, as validateBody() checks it. Optional here means what validateBody() means by it: a field is required only when the model neither allows null nor supplies a default. Every field is optional on an update, which is sent partial.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "site": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "is_html": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "boolean",
-                "const": false
-              },
-              {
-                "type": "boolean",
-                "const": true
-              }
-            ]
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationSaveRequest": {
-        "title": "TranslationSaveRequest",
-        "description": "A blank value clears the row, which reads as untranslated rather than empty.",
-        "type": "object",
-        "properties": {
-          "values": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "required": [
-          "values"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationSaveResult": {
-        "title": "TranslationSaveResult",
-        "description": "The shape of a `TranslationSaveResult` response.",
-        "type": "object",
-        "properties": {
-          "written": {
-            "type": "number"
-          },
-          "cleared": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "written",
-          "cleared"
-        ],
-        "additionalProperties": false
-      },
-      "TranslationSite": {
-        "title": "TranslationSite",
-        "description": "One of the sites sharing this database, plus the pseudo-site `common`.",
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
           "name"
         ],
         "additionalProperties": false

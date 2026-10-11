@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { SignInFailureComponent } from '../../../common/sign-in-failure/sign-in-failure.component';
 
 /**

@@ -10,7 +10,7 @@ import { copyObject, getValueByKey } from '../../helper.class';
 import { ButtonComponent } from '../button/button.component';
 import { AbstractRolesComponent } from '../../abstract-roles.class';
 import { AppDatePipe } from '../../pipes/date.pipe';
-import { TranslationService } from '../../i18n/translation.service';
+import { TranslationService } from '@anotoki/lib/translations';
 
 export interface SortEvent {
   column: string;

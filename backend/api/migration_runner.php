@@ -13,6 +13,14 @@
  * Migrator's `prepare`), and refusing to build the folders out of order
  * (migrationsOrderRefusal(), its `beforeApply`).
  *
+ * After the site's two folders comes one set that is the library's own:
+ * anotoki_translations (vendor/anotoki/lib/php/migrations/translations), the
+ * tables of the words in the shape the library works with, and its own words
+ * (anotoki-lib 0.3.0, api/translations.php). It runs last - users/ made those
+ * tables long before the library existed, and users/050 moved them into its
+ * shape - and it is recorded like the folders, under its own name in the
+ * bookkeeping table's `folder` column.
+ *
  * Whatever applies migrations goes through siteMigrator() - the command line
  * (migration.php), the admin panel's Migrations page (/api/admin/migrations,
  * api/index.php), the installer (setup.php) and merge-databases.php - so a
@@ -26,6 +34,7 @@
 
 use Anotoki\Lib\Migrations\MigrationSet;
 use Anotoki\Lib\Migrations\Migrator;
+use Anotoki\Lib\Translations\Schema as TranslationsSchema;
 
 /**
  * The migration folders, in the order they are applied. Both build the one
@@ -41,9 +50,30 @@ use Anotoki\Lib\Migrations\Migrator;
  * references to that table - which is what migrationsOrderRefusal() stops.
  *
  * Each folder is one of the engine's sets, under its own name: that name is
- * what the bookkeeping table's `folder` column holds.
+ * what the bookkeeping table's `folder` column holds. The library's set comes
+ * after them (migrationSetNames()), and is not a folder of this site's.
  */
 const MIGRATION_FOLDERS = ['users', 'genshin_impact'];
+
+/**
+ * Every set the database is built from, in the order they run: the site's two
+ * folders, then the library's anotoki_translations. That set needs the tables
+ * users/ made (and users/050 moved into its shape) and nothing of the
+ * content's, but it comes last all the same: a library's sets follow a site's
+ * own, and this one order is what the guard below holds every database to.
+ *
+ * @return list<string>
+ */
+function migrationSetNames(): array
+{
+    return [...MIGRATION_FOLDERS, TranslationsSchema::SET];
+}
+
+/** A set as a person reads its name: a folder of this site's, or the library's set. */
+function migrationSetLabel(string $set): string
+{
+    return in_array($set, MIGRATION_FOLDERS, true) ? "migrations/{$set}/" : "the anotoki library's {$set}";
+}
 
 /**
  * Key of the advisory lock every apply takes, so two appliers (the admin
@@ -61,8 +91,8 @@ function migrationsRoot(): string
 }
 
 /**
- * The folders as the engine's sets, in the order they run - or the one folder
- * named.
+ * The sets as the engine's, in the order they run - the two folders, then the
+ * library's - or the one set named.
  *
  * @return list<MigrationSet>
  */
@@ -74,18 +104,23 @@ function migrationSets(?string $only = null): array
             $sets[] = new MigrationSet($folder, migrationsRoot() . '/' . $folder);
         }
     }
+    if ($only === null || $only === TranslationsSchema::SET) {
+        $sets[] = TranslationsSchema::migrationSet();
+    }
 
     if ($sets === []) {
-        throw new InvalidArgumentException("No migrations folder '{$only}'. There are: " . implode(', ', MIGRATION_FOLDERS));
+        throw new InvalidArgumentException("No migrations folder '{$only}'. There are: " . implode(', ', migrationSetNames()));
     }
 
     return $sets;
 }
 
 /**
- * The engine, for one database: both folders in order, or only $only - the
- * command line's --folder, and merge-databases.php, which brings each half of
- * a two-database installation up to date on its own.
+ * The engine, for one database: both folders and the library's set in order,
+ * or only $only - the command line's --folder, and merge-databases.php, which
+ * brings each half of a two-database installation up to date on its own (its
+ * folder alone: the library's set is the merged database's, applied there
+ * once the halves are one).
  *
  * The order guard is for a database holding both folders; merge-databases.php
  * turns it off ($orderGuard false), because each of the two databases it
@@ -129,11 +164,11 @@ function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?
 }
 
 /**
- * The files on disk, folder by folder, as the engine lists them: by name, in
- * natural order, so a hundredth migration does not sort between the ninth and
- * the tenth.
+ * The files on disk, set by set - the two folders and the library's - as the
+ * engine lists them: by name, in natural order, so a hundredth migration does
+ * not sort between the ninth and the tenth.
  *
- * @return array<string, list<string>> folder => file names
+ * @return array<string, list<string>> set => file names
  */
 function migrationFilesByFolder(PDO $pdo): array
 {
@@ -270,13 +305,17 @@ function migrationsTableAddFolder(PDO $pdo): void
 /**
  * The folder a list of recorded file names came from: the one holding most of
  * them. A tie - nothing recorded but 001_initial_schema.sql, which both folders
- * have - is settled by the tables the database holds.
+ * have - is settled by the tables the database holds. Only the site's own
+ * folders are candidates: a table from before they shared one never recorded
+ * a file of the library's.
  */
 function migrationsFolderOf(array $recorded, PDO $pdo): string
 {
     $counts = [];
     foreach (migrationFilesByFolder($pdo) as $candidate => $files) {
-        $counts[$candidate] = count(array_intersect($recorded, $files));
+        if (in_array($candidate, MIGRATION_FOLDERS, true)) {
+            $counts[$candidate] = count(array_intersect($recorded, $files));
+        }
     }
     arsort($counts);
     [$first, $second] = array_values($counts) + [0, 0];
@@ -294,17 +333,18 @@ function migrationsFolderOf(array $recorded, PDO $pdo): string
 }
 
 /**
- * What the database has recorded, by folder - reading only, whichever shape
- * the table has (see migrationsTableAddFolder()) and none at all. For what
- * must understand a table the engine's `prepare` has not adopted yet: the
- * order guard, `migration.php --status`, the installer's test button and
+ * What the database has recorded, by set - the two folders and the library's
+ * - reading only, whichever shape the table has (see
+ * migrationsTableAddFolder()) and none at all. For what must understand a
+ * table the engine's `prepare` has not adopted yet: the order guard,
+ * `migration.php --status`, the installer's test button and
  * merge-databases.php.
  *
- * @return array<string, string[]> folder => file names
+ * @return array<string, string[]> set => file names
  */
 function recordedMigrations(PDO $pdo): array
 {
-    $byFolder = array_fill_keys(MIGRATION_FOLDERS, []);
+    $byFolder = array_fill_keys(migrationSetNames(), []);
 
     foreach (recordedMigrationRows($pdo) as $row) {
         $byFolder[$row['folder']][] = $row['filename'];
@@ -354,28 +394,45 @@ function recordedMigrationRows(PDO $pdo): array
  * names genshin_impact/ only), or genshin_impact/ applied on its own first. Its
  * migrations would then run over the later folder's tables - users/001 would
  * add its account roles to the character roles, and users/040 would fail for
- * good (see MIGRATION_FOLDERS). $only is the one folder about to be applied,
+ * good (see MIGRATION_FOLDERS). $only is the one set about to be applied,
  * when only one is.
+ *
+ * The library's set is the next in that order, after both folders
+ * (migrationSetNames()): its 001 makes the tables of the words where they are
+ * missing, so run before users/ it would leave users/ building on the
+ * library's tables instead of its own. Nothing applies it out of order -
+ * applying it alone before the folders is refused here like any set - but a
+ * record that says otherwise is refused all the same.
  */
 function migrationsOrderRefusal(array $recorded, ?string $only = null): ?string
 {
-    foreach (MIGRATION_FOLDERS as $position => $folder) {
-        if ($recorded[$folder] !== []) {
+    $sets = migrationSetNames();
+
+    foreach ($sets as $position => $set) {
+        if (($recorded[$set] ?? []) !== []) {
             continue;
         }
 
-        $later = array_slice(MIGRATION_FOLDERS, $position + 1);
+        $later = array_slice($sets, $position + 1);
         foreach ($later as $next) {
-            if ($recorded[$next] !== []) {
-                return "This database has run migrations/{$next}/ but not migrations/{$folder}/, which comes first - it is"
+            if (($recorded[$next] ?? []) === []) {
+                continue;
+            }
+            if (in_array($next, MIGRATION_FOLDERS, true)) {
+                return "This database has run migrations/{$next}/ but not migrations/{$set}/, which comes first - it is"
                     . ' the content half of a site that still has two databases, or a folder was applied on its own.'
-                    . " Applying migrations/{$folder}/ over it would build the site's half on top of the content's tables."
+                    . " Applying migrations/{$set}/ over it would build the site's half on top of the content's tables."
                     . ' Merge the other half in with `php merge-databases.php`, or install into an empty database.';
             }
+
+            return 'This database has run ' . migrationSetLabel($next) . ' but not ' . migrationSetLabel($set)
+                . ', which comes before it - a set was applied on its own. What comes first would now build on what came'
+                . ' after it, so nothing more is applied here: install into an empty database.';
         }
 
         if ($only !== null && in_array($only, $later, true)) {
-            return "migrations/{$folder}/ comes before migrations/{$only}/ and has not run here: apply it first, or apply everything.";
+            return migrationSetLabel($set) . ' comes before ' . migrationSetLabel($only)
+                . ' and has not run here: apply it first, or apply everything.';
         }
     }
 

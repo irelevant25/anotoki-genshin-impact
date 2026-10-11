@@ -1,8 +1,7 @@
 import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { SliderComponent } from '../../../../../shared/local-lib/components/slider/slider.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
-import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /** The seven elements a cell can hold. */
 const ELEMENTS = ['pyro', 'hydro', 'anemo', 'electro', 'dendro', 'cryo', 'geo'] as const;

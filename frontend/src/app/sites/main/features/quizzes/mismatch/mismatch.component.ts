@@ -5,7 +5,7 @@ import { HELPER } from '../../../../../shared/helper';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { todayString } from '../shared/daily';
 import { QuizProgressService } from '../shared/quiz-progress.service';

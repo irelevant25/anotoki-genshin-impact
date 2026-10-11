@@ -6,13 +6,12 @@ import { QuizActivityDay, QuizApiService, QuizDifficultyRow, QuizRecentResult, Q
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
 import { issuedAs } from '../../../../shared/local-lib/services/issued-as';
 import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
 import { MaterialIconDirective } from '../../../admin/shared/material-icon.directive';
 import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';

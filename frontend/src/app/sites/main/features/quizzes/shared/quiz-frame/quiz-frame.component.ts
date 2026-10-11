@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { AutocompleteComponent } from '../../../../../../shared/local-lib/components/autocomplete/autocomplete.component';
 import { ButtonComponent } from '../../../../../../shared/local-lib/components/button/button.component';
-import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
 

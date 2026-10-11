@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal, untracked, WritableSignal } from '@angular/core';
 import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/components/modal/modal-core/modal-core.class';
@@ -14,7 +14,6 @@ import { SecurityService } from '../../../../shared/local-lib/services/security.
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
 import { SiteWhatsNewModalComponent } from './site-whats-new-modal/site-whats-new-modal.component';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
 import { sameVersion } from './versions';
 
 export interface ButtomMenuItem {

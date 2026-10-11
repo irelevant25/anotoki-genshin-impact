@@ -4,7 +4,7 @@ import { AbstractInputComponent } from '../../abstract-input.class';
 import { MultiselectPopupComponent } from './popup/multiselect-popup.component';
 import { DropdownOption } from '../../services/options-helper.service';
 import { SCROLL_POPUP, ScrollDirective, ScrollPopup } from '../../scroll.directive';
-import { TranslationService } from '../../i18n/translation.service';
+import { TranslationService } from '@anotoki/lib/translations';
 
 export type MultiselectOptionsType = DropdownOption[] | string[] | number[];
 
@@ -94,7 +94,7 @@ export class MultiselectComponent extends AbstractInputComponent<Type> implement
    * own falls back to `other`, which every language has.
    */
   private _pluralKey(base: string, count: number): string {
-    const form = new Intl.PluralRules(this._i18n.language()).select(count);
+    const form = new Intl.PluralRules(this._i18n.effectiveLanguage()).select(count);
     return this._i18n.has(`${base}.${form}`) ? `${base}.${form}` : `${base}.other`;
   }
 

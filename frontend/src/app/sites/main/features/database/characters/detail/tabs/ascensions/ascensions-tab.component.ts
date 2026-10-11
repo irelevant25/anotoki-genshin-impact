@@ -1,6 +1,6 @@
 import { Component, computed, input, linkedSignal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../../../admin/shared/material-icon.directive';
 import { sumMaterials, toggleIn } from '../../../../shared/database-helpers';
 

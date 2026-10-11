@@ -1,0 +1,59 @@
+<div class="page-header">
+    <h1 class="page-title">Guides</h1>
+</div>
+
+<p class="page-note">
+    The pages behind the question marks, in every language that has one - a language without one reads the English. Each is markup, edited with a preview beside it. Their titles are strings, on the
+    Translations page; a new guide comes with the migration that brings its question mark.
+</p>
+
+<app-loader #loader [loading]="loading()"></app-loader>
+
+@if (!loader.loadingCtrl.loading()) {
+    @if (failed()) {
+        <p class="page-error" role="alert">{{ failed() }}</p>
+        <app-button text="Try again" variant="secondary" [outline]="true" size="small" (buttonClick)="load()"></app-button>
+    } @else {
+        <div class="table-wrap">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Guide</th>
+                        <th>Written in</th>
+                        <th class="col-actions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (guide of guides(); track guide.guide) {
+                        <tr>
+                            <td>
+                                <span class="guide-title">{{ title(guide) }}</span>
+                                <code class="guide-name">{{ guide.guide }}</code>
+                            </td>
+                            <td>
+                                <span class="language-chips">
+                                    @for (language of languages(); track language.code) {
+                                        <span
+                                            class="language-chip"
+                                            [class.is-missing]="!has(guide, language.code)"
+                                            [class.is-hidden]="!language.enabled"
+                                            [attr.title]="language.name + (has(guide, language.code) ? '' : ' - none: reads the English') + (language.enabled ? '' : ' (not offered to readers yet)')">
+                                            {{ language.code }}
+                                        </span>
+                                    }
+                                </span>
+                            </td>
+                            <td class="col-actions">
+                                <app-button text="Edit" size="very-small" (buttonClick)="edit(guide)"></app-button>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="3" class="empty-cell">No guides yet - they come with the migrations.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}

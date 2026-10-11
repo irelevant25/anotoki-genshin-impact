@@ -4,7 +4,7 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { BadgeComponent } from "../../../../../shared/local-lib/components/badge/badge.component";
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { sameVersion } from '../versions';
 

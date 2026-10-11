@@ -6,16 +6,20 @@ declare(strict_types=1);
  * What every test file loads first: check() and same(), temporary folders that
  * go when the file ends, and the tally tests/run.php reads.
  *
- * The tests here need no database and no server: each loads the code it tests
- * and nothing else, so nothing can reach your database, your settings or the
- * asset tree. A test of something that needs more belongs to a scratch
- * environment, the way DEV.md (Checking your work) describes.
+ * Most tests here need no database and no server: each loads the code it
+ * tests and nothing else, so nothing can reach your database, your settings
+ * or the asset tree. The few that need a database (the words: their migration
+ * and their routes) load tests/db_lib.php beside this, which makes databases
+ * of their own and a backend of its own to run the API in - never yours.
  */
 
 define('TEST_BACKEND', dirname(__DIR__));
 
 $GLOBALS['TEST_TALLY'] = ['pass' => 0, 'fail' => 0];
 $GLOBALS['TEST_TEMP'] = [];
+// What must be undone when the file ends, whatever happened - before the
+// folders go and the tally is printed (a failed check ends the file there).
+$GLOBALS['TEST_CLEANUP'] = [];
 
 // What the code under test logs (a refusal it explains with error_log()) goes
 // to a file of its own, so the output is the checks and nothing else.
@@ -88,6 +92,13 @@ function testRemove(string $path): void
 }
 
 register_shutdown_function(static function (): void {
+    foreach (array_reverse($GLOBALS['TEST_CLEANUP']) as $cleanup) {
+        try {
+            $cleanup();
+        } catch (\Throwable $e) {
+            echo '  (cleaning up: ' . $e->getMessage() . ")\n";
+        }
+    }
     foreach ($GLOBALS['TEST_TEMP'] as $dir) {
         testRemove($dir);
     }

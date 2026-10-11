@@ -1,5 +1,10 @@
 <app-modal [title]="title()" (closeModal)="closeModal()">
-    <div modal-body>
-        <app-rich-text [html]="content()"></app-rich-text>
+    <div modal-body class="guide-body" [class.is-loading]="loading()">
+        @if (failed()) {
+            <p class="guide-failed" role="alert">{{ "guide.loadFailed" | translate }}</p>
+        } @else {
+            <app-rich-text [html]="html()"></app-rich-text>
+        }
+        <app-loader [loading]="loading()" variant="plain" [text]="''" [minDuration]="0"></app-loader>
     </div>
 </app-modal>

@@ -7,8 +7,7 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
-import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../../../shared/local-lib/i18n/date-format.service';
 
@@ -116,16 +115,15 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
   }
 
   /**
-   * Shown once its strings are here; saved to the account after. A language
-   * the IAM does not offer (`invalid_request`) stays this site's own for the
-   * visit without a word - nothing went wrong, the IAM just does not have it.
+   * Shown once its strings are here; saved to the account after, while the
+   * account's choices apply (@anotoki/lib/translations: one save at a time,
+   * the latest last). A refusal leaves the page in the chosen language for
+   * the visit, and the public shell says so - but for a language the IAM
+   * does not offer (`invalid_request`), which stays this site's own without a
+   * word: nothing went wrong, the IAM just does not have it.
    */
   setLanguage(code: string): void {
-    void this.i18n.setLanguage(code).then((result) => {
-      if (result?.outcome === 'refused' && result.code !== 'invalid_request') {
-        this._notSaved();
-      }
-    });
+    void this.i18n.setLanguage(code);
   }
 
   /**

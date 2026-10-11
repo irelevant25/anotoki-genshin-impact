@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, linkedSignal } from '@angular/core';
 import { AccountPreferences, PreferenceSave } from '../services/account-preferences.service';
-import { TranslationService } from './translation.service';
+import { TranslationService } from '@anotoki/lib/translations';
 import type { AnotokiDateFormat, AnotokiTimeFormat } from '../iam/anotoki-auth';
 
 /**
@@ -245,7 +245,7 @@ export class DateFormatService {
   /** The time of day on the clock in force - `seconds` for the long form. */
   time(date: Date, seconds = false): string {
     const { hour12, chosenClock } = this.pattern();
-    return chosenClock ? formatClock(date, this._i18n.pageLanguage(), hour12, seconds) : formatTime(date, hour12, seconds);
+    return chosenClock ? formatClock(date, this._i18n.effectiveLanguage(), hour12, seconds) : formatTime(date, hour12, seconds);
   }
 
   /** How a date in each choice reads today, so a chooser can show examples. */
@@ -255,6 +255,6 @@ export class DateFormatService {
   }
 
   exampleTime(choice: TimeFormatChoice, now = new Date()): string {
-    return choice === 'auto' ? formatTime(now, devicePattern().hour12, false) : formatClock(now, this._i18n.pageLanguage(), choice === '12', false);
+    return choice === 'auto' ? formatTime(now, devicePattern().hour12, false) : formatClock(now, this._i18n.effectiveLanguage(), choice === '12', false);
   }
 }

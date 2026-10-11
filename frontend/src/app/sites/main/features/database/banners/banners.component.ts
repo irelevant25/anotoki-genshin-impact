@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
 import { forkJoin } from 'rxjs';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';

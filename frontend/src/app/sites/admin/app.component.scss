@@ -165,4 +165,10 @@
   overflow-y: auto;
   padding: var(--spacing-lg);
   min-width: 0;
+  // What the library's pages keep in view while this scrolls - the Translations
+  // page's column heads - sticks under the anotoki top bar, which this panel
+  // does not have: without this they would stop the bar's 60 px down, with
+  // rows passing above them. A sticky box stops inside its scroller's padding,
+  // so the padding comes off: flush with the top, as under the family's bar.
+  --anotoki-topbar-height: calc(-1 * var(--spacing-lg));
 }

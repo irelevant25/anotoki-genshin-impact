@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MigrationsPageComponent } from '@anotoki/lib/migrations/page';
+import { anotokiUnsavedChangesGuard } from '@anotoki/lib/translations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -27,8 +28,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { BackupsComponent } from './backups/backups.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FileCategoriesComponent } from './file-categories/file-categories.component';
-import { LanguagesComponent } from './localization/languages/languages.component';
-import { TranslationsComponent } from './localization/translations/translations.component';
+import { GuidesComponent } from './localization/guides/guides.component';
 import { lookupRoute } from './pages/pages';
 
 export const routes: Routes = [
@@ -80,9 +80,22 @@ export const routes: Routes = [
       { path: 'banners/create', component: BannerFormComponent },
       { path: 'banners/:id/edit', component: BannerFormComponent },
 
-      // Localization - the site's own text, not game content
-      { path: 'languages', component: LanguagesComponent },
-      { path: 'translations', component: TranslationsComponent },
+      // Localization - the site's own text, not game content. The languages
+      // and the strings are the anotoki library's pages
+      // (@anotoki/lib/translations/admin, configured in shared/site-translations.ts),
+      // each loaded when opened; leaving one with changes not saved asks first.
+      // The guides behind the question marks are the site's own page.
+      {
+        path: 'languages',
+        canDeactivate: [anotokiUnsavedChangesGuard],
+        loadComponent: () => import('@anotoki/lib/translations/admin').then((m) => m.LanguagesPageComponent),
+      },
+      {
+        path: 'translations',
+        canDeactivate: [anotokiUnsavedChangesGuard],
+        loadComponent: () => import('@anotoki/lib/translations/admin').then((m) => m.TranslationsPageComponent),
+      },
+      { path: 'guides', component: GuidesComponent },
 
       { path: 'backgrounds', component: BackgroundsListComponent },
       { path: 'feedback', component: FeedbackComponent },

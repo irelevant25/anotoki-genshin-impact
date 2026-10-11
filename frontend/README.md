@@ -13,18 +13,24 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         visitor notice (visitor-notice: how long a visitor's games are kept, and
                         Sign in) on the Profile, the quizzes hub and the Daily page; the shell
                         (app.component) says once what happened to a visitor's games, in toasts
-src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, translations, settings,
-                        backups, the audit log; /admin/migrations is the shared library's
-                        Migrations page (ADMIN only)
+src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words, settings,
+                        backups, the audit log; /admin/translations and /admin/languages are the
+                        shared library's pages (@anotoki/lib/translations/admin),
+                        localization/guides/ the guides' pages; /admin/migrations is the shared
+                        library's Migrations page (ADMIN only)
 src/app/shared/         local-lib (the UI kit, abstract bases, the IAM's browser SDK in iam/ -
-                        1.2.0, copied from the IAM byte for byte - i18n, theme-toggle/;
+                        1.2.0, copied from the IAM byte for byte - i18n/ (dates), theme-toggle/;
                         services/: who a request is - issued-as.ts, visitor-key.service.ts (this
                         browser's visitor key and the move at sign-in), saves-in-flight.service.ts,
                         http.interceptor.ts; account-preferences.service.ts - the anotoki account's
                         theme, dates, clock and language, and saving to them); site-status.ts
                         (@anotoki/lib/migrations set up for this site: the gate the root component
                         puts around both sites, its "being updated" and "not set up" pages, the
-                        Migrations page - @anotoki/lib/migrations/page, in admin.routes.ts)
+                        Migrations page - @anotoki/lib/migrations/page, in admin.routes.ts);
+                        site-translations.ts (@anotoki/lib/translations set up for this site: the
+                        `translate` pipe and TranslationService everywhere, the account's language,
+                        the admin pages' notes on guides); dynamic-keys.ts (the keys put together
+                        at run time, for `translations.php --status`)
 src/app/api/            the generated API client - services, models, types (a player's own
                         routes take a trailing `context?: HttpContext`: whom it is issued as)
 public/                 config.json (where the API is: empty - its own origin, here as in

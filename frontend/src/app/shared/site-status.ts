@@ -1,8 +1,8 @@
 import { Injector, inject, runInInjectionContext } from '@angular/core';
 import { AnotokiMigrationsConfig } from '@anotoki/lib/migrations';
+import { siteStatusWords, StatusWords, TranslationService } from '@anotoki/lib/translations';
 import { SecurityService } from './local-lib/services/security.service';
 import { SiteSettingsService } from './local-lib/services/site-settings.service';
-import { TranslationService } from './local-lib/i18n/translation.service';
 import { AppDatePipe } from './local-lib/pipes/date.pipe';
 
 /**
@@ -37,7 +37,13 @@ export function siteStatusConfig(): AnotokiMigrationsConfig {
     // Back to the page the reader is on. A browser that will not start it leaves them where they are.
     signIn: () => security.login().catch(() => undefined),
     // The page's language: the reader's on the site, English in the admin panel.
-    language: () => injector.get(TranslationService).pageLanguage(),
+    language: () => injector.get(TranslationService).effectiveLanguage(),
+    // The page's words: the database's (anotoki.siteStatus.*, where the owner
+    // may reword them on the Translations page), the library's own beneath.
+    // Read whenever the page draws, so it follows the language and the strings.
+    get words(): Record<string, StatusWords> {
+      return siteStatusWords(injector.get(TranslationService));
+    },
     // The Migrations page's dates, written the way this reader writes dates (the account's order and clock).
     formatDate: (iso) => (dates ??= runInInjectionContext(injector, () => new AppDatePipe())).transform(iso, 'datetime'),
     // An Apply has left nothing to run: the switches and the strings a migration may have brought.

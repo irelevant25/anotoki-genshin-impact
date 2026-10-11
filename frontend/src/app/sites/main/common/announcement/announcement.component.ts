@@ -1,8 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { SiteSettingsService, messageInLanguage } from '../../../../shared/local-lib/services/site-settings.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /** Where the dismissed announcement is remembered, per browser. */
 const DISMISSED_KEY = 'announcement-dismissed';

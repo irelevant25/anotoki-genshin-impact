@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../../../admin/shared/material-icon.directive';
 
 @Component({

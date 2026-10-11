@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
+import { TranslationService } from '@anotoki/lib/translations';
 import { GUIDES, GuideId } from './guide-catalog';
 import { GuideModalComponent } from './guide-modal.component';
 

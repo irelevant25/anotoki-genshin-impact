@@ -113,6 +113,7 @@ of 2026-10-07 - README.md, *Current state*): `anotoki-lib`
 package `anotoki/lib` (`backend/vendor/anotoki/lib`, committed with the rest of
 `vendor/`) and the npm package `@anotoki/lib` (the release tarball named in
 `frontend/package.json`). Never edited here; its README says what each part does.
+So, since 0.3.0, are the site's words - *The words* below.
 
 - **The states**, decided on the server for every request (`api/site_state.php`:
   the library's `SiteState` from `localConfigProblems()`, `storage/installed.lock`
@@ -126,7 +127,8 @@ package `anotoki/lib` (`backend/vendor/anotoki/lib`, committed with the rest of
   "/setup.php"` only while never installed. `update_pending`: every path 503
   `{code: "update_pending", message}` with `Retry-After: 60` but
   `SITE_OPEN_WHILE_UPDATING` - `/api/settings/public`, `/api/me`,
-  `/api/languages`, `/api/translations/{code}` and `/api/admin/migrations/**` - so
+  `/api/translations/{code}` (exactly: the library's
+  `TranslationsRoutes::openPath()`) and `/api/admin/migrations/**` - so
   a sign-in still works, the pages have their words and an ADMIN reaches Apply.
   `unavailable` and `ready` pass. A path goes in that list only when nobody could
   get to Apply without it.
@@ -154,15 +156,72 @@ package `anotoki/lib` (`backend/vendor/anotoki/lib`, committed with the rest of
   while an update waits. Never installed: "This site is not set up yet" and the
   setup page; installed once: "not available right now", never the setup page. Both
   are drawn with the library's kit, in the site's colours (`--anotoki-*`, the
-  `anotoki-lib` mixin in `design-tokens.scss`).
+  `anotoki-lib` mixin in `design-tokens.scss`), as are the admin Translations and
+  Languages pages. Every colour the kit reads on these pages is mapped to one of
+  the site's - one left out is the family's navy - and `border-strong`, the edge
+  of its fields, switches and outlined buttons, stays 3:1 or more against every
+  surface in both themes (WCAG 1.4.11; this site's own borders are dividers, 2:1
+  at most). The admin panel has no anotoki top bar: `.admin-main` sets
+  `--anotoki-topbar-height` to minus its padding, so the library's sticky heads
+  stick flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.1"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.3"`, from the GitHub VCS
   repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
-  version may break. A release that changes one half only is taken in that half:
-  0.2.0 changed the Angular half alone, so `vendor/anotoki/lib` stays 0.1.0 under
-  `@anotoki/lib` 0.2.0.
+  version may break. A release that changes one half only is taken in that half
+  (0.2.0 changed the Angular half alone); both halves are 0.3.0 now. Import a
+  piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
+  `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
+  every piece into the first load.
+
+## The words — through the library (anotoki-lib 0.3.0)
+
+The site's languages, keys and strings are kept in the anotoki family's one
+shape and read and written by the library's translations module (both halves),
+since `users/050` moved this site's tables into that shape. The owner's
+decisions for the move: keys come from migrations only (no route, import or
+command makes one), their descriptions are the code's, the guides behind the
+question marks are content of their own, and who may change the words stays
+ADMIN or EDITOR, languages too.
+
+- **Server**: `api/translations.php` is the site's part - `siteTranslations()`
+  (the library's `Translations`, released languages `en` and `sk`), the error body
+  `{error, code, ...}` (`translationsError()`), the writer (`translationsActor()`,
+  from the token), the audit log (`translationsAudit()` / `siteAuditWrite()`,
+  into `audit_logs`), and `GuideLanguageUsage` (a language's guides: counted on the
+  Languages page, gone with it). The routes are the library's
+  (`routes/users/endpoints/translations.php`): `GET /api/translations/{code}`
+  (public: `{language, languages, values, english?}`, snake_case, ETag) and, behind
+  `requireAuth()` + `requireRole(...ROLES_CONTENT)`, `GET /api/admin/languages`,
+  `GET|PUT /api/admin/translations`, `GET .../{code}/export`, `PUT .../{code}/import`,
+  `POST /api/admin/languages`, `PUT|DELETE /api/admin/languages/{code}`. They are
+  in api-config.mjs's `SKIP_PREFIXES`: the library's Angular half is their client.
+- **The schema**: `translations` / `translation_keys` / `languages` keyed by its
+  code, no scopes, flags or stamps; the library's own set `anotoki_translations`
+  (`vendor/anotoki/lib/php/migrations/translations`) runs after both folders
+  (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
+  its 002 adds the library's words under `anotoki.*` (54 keys: the kit's, the
+  status page's), which the owner may reword like any string. `anotoki.` is the
+  library's namespace: never a key of this site's. `translation_keys_before_library`
+  and `translations_before_library` are 050's full copies, kept for one release.
+- **The guides** (`api/guides.php`, `routes/users/endpoints/guides.php`,
+  `guide_contents`): `GET /api/guides/{guide}?language=` (public: the reader's
+  language, English where the guide has none), `GET /api/admin/guides`,
+  `PUT /api/admin/guides/{guide}` (ADMIN or EDITOR; English never blank). Markup,
+  drawn by `<app-rich-text>` only; made by migrations, edited on the admin Guides page.
+- **Pages**: `@anotoki/lib/translations` - its `TranslationService` (the reader's
+  language, the account's while its choices apply, `effectiveLanguage()` English in
+  the admin panel for its staff), its `translate` pipe in every template, the kit's
+  words (`forKit()`, `app.config.ts`) and the status page's (`siteStatusWords()`),
+  configured in `shared/site-translations.ts`; `noteAddress()` from the root
+  component after every navigation. The admin Translations and Languages pages are
+  the library's (`@anotoki/lib/translations/admin`, lazy, with
+  `anotokiUnsavedChangesGuard`); Guides is this site's
+  (`sites/admin/localization/guides/`).
+- **Command line**: `php translations.php` is the library's `TranslationsCommand`
+  with this site's `KeyScanner` (`--status`, `--export`, `--import`); keys put
+  together at run time are declared in `frontend/src/app/shared/dynamic-keys.ts`.
 
 ## Signing in — the anotoki IAM
 
@@ -203,8 +262,12 @@ page and the admin pages for accounts all live there.
   could not be saved back would undo the choice at the next load. The choosers
   (the account panel, the admin panel's theme button) show a choice at once and
   save it after; a refusal puts the account's theme or format back and says so,
-  a language the IAM does not offer (`invalid_request`) stays this site's for
-  the visit, silently. `ThemeToggleService`, `DateFormatService` and
+  keeps a refused language for the visit and says so (the public shell's toast,
+  on the library's `languageNotSaved`), and a language the IAM does not offer
+  (`invalid_request`) stays this site's for the visit, silently. The language's
+  saving and following are the library's `TranslationService`
+  (`shared/site-translations.ts` hands it `AccountPreferences`'s language and
+  save). `ThemeToggleService`, `DateFormatService` and
   `TranslationService` follow the account's values whenever they change (another
   site, another tab), but not while a choice of the same one is on its way. The
   API keeps no copy: `/api/me` answers no preference, the `PUT /api/me/theme`,
@@ -222,8 +285,9 @@ page and the admin pages for accounts all live there.
   `auth.login_required` in `GET /api/settings/public` - the frontend never asks
   the IAM. While on, the global `signInGate()` (`api/meddleware/sign_in.php`)
   answers every API path 401 `sign_in_required` to a request without a verified
-  token, except `SIGN_IN_OPEN_PREFIXES` (`/api/settings/public`, `/api/languages`,
-  `/api/translations/` - what the sign-in card needs - and `/api/files/raw`, the
+  token, except `SIGN_IN_OPEN_PREFIXES` (`/api/settings/public` and exactly
+  `/api/translations/{code}` - what the sign-in card needs, its words with the
+  languages beside them - and `/api/files/raw`, the
   asset previews an `<img>` loads without a token); a signed-in request never
   asks the switch. The files under `assets/` stay reachable by address (the web
   server's, out of PHP's reach - game art only). Only `Authorization: Bearer`
@@ -332,11 +396,15 @@ composer start                       # dev server: php -S localhost:8000 router.
 php migration.php                    # create missing + apply pending migrations
 php migration.php --status           # what has run and what is pending
 php migration.php --dry-run          # what would apply, applying nothing
-php migration.php --folder=users     # one migrations folder only
+php migration.php --folder=users     # one set only (users, genshin_impact, or the library's anotoki_translations)
 php db-dump.php                      # back the database up (pg_dump) before risky data work
 php merge-databases.php              # once, on a checkout still configured with two databases
 php assets.php --status              # the asset tree against the catalogue and the rows naming it
-php tests/run.php                    # the backend's tests (the upload rules); no database, no server
+php translations.php --status        # the keys the frontend asks for against the database's; each language's coverage
+php translations.php --export sk [f] # a language's own strings as flat JSON; --import sk f puts them back (no new keys)
+php tests/run.php                    # the backend's tests: the upload rules (no database), the words' migration and
+                                     # routes (genshin_test_* databases of their own on the PostgreSQL server
+                                     # config/database.local.php names - never its database - and a backend copy)
 
 # Frontend (from frontend/)
 npm start                            # bun ci, then ng serve on :4200 through proxy.conf.json (/api etc. to :8000)
@@ -406,12 +474,17 @@ node docs/security/build-report.mjs                            # after re-runnin
   engine's `beforeApply`.) Migrations that change data
   carry a `DO $$ … $$` verification gate that fails loudly if the result is
   wrong. Never edit an applied migration — add a new one (old ones still say
-  `php/` and `angular/` in their comments; leave them). The engine is the anotoki
+  `php/` and `angular/` in their comments; leave them). After both folders comes
+  the library's own set, `anotoki_translations` (*The words*), recorded with
+  `folder = 'anotoki_translations'`: a site migration never depends on a library
+  file, writes only the words' base columns, and its gate never counts keys
+  outside this site's own namespaces (`anotoki.` is the library's). The engine is the anotoki
   sites' shared one, anotoki/lib's `Migrator` (*Where the site stands*), set up
   for this site in `backend/api/migration_runner.php` (`siteMigrator()`: the two
-  folders in order, the lock `MIGRATION_LOCK`, `prepare` adopting the record
+  folders then the library's set, in order (`migrationSetNames()`), the lock
+  `MIGRATION_LOCK`, `prepare` adopting the record
   table from when each folder had a database of its own, `beforeApply` the order
-  guard): the CLI, the admin **Migrations** page's *Apply pending* (`POST
+  guard, which holds the library's set to the third place): the CLI, the admin **Migrations** page's *Apply pending* (`POST
   /api/admin/migrations/apply`, ADMIN — for hosts with no shell), the installer
   `backend/setup.php` and `merge-databases.php` all build the database the same
   way, one apply at a time (another one meanwhile is told it is busy). Until a
@@ -454,7 +527,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`api/meddleware/auth.php`) verifies the IAM access token and puts `user` on the
   request - this site's record of the person plus the `role` the token grants
   here (ADMIN / EDITOR / USER). Role groups: `ROLES_CONTENT` (ADMIN/EDITOR,
-  writing game content), `ROLES_SYSTEM_READ`, `ROLES_SYSTEM_WRITE`. Ownership via
+  writing game content - and the words: strings, languages, guides),
+  `ROLES_SYSTEM_READ`, `ROLES_SYSTEM_WRITE`. Ownership via
   `requireSelfOrAdmin` / `refuseForeignUserId`. `optionalAuthUser()` for open
   endpoints that behave differently when signed in; `recentSignInRefusal()` for
   the few actions that want a sign-in from the last ten minutes (restoring a
@@ -465,7 +539,10 @@ node docs/security/build-report.mjs                            # after re-runnin
   `signInGate()` (401 while the IAM requires sign-in) and `routeGate()` (423 for
   a page's locked API paths). `/api/site-status` passes all four. Only a path
   the sign-in card needs, or one a browser loads without a token (an `<img>`'s),
-  goes in `SIGN_IN_OPEN_PREFIXES`. A gate judges the path the router routes on,
+  goes in `SIGN_IN_OPEN_PREFIXES`; an entry of these lists that starts with `~`
+  is a pattern the whole path must match (`gatePathOpen()` - the words' bundle,
+  exactly `/api/translations/{code}`), any other is a path with everything under
+  it. A gate judges the path the router routes on,
   `gatePath()` (`meddleware/maintenance.php`: decoded once, as Slim decodes it) -
   never `getUri()->getPath()`, which keeps the percent-encoding: `/%61pi/characters`
   is routed to `/api/characters`. The sign-in gate has no "outside `/api/`"
@@ -537,15 +614,20 @@ node docs/security/build-report.mjs                            # after re-runnin
   DB-catalogued assets; **Files Explorer** (`sites/admin/files-explorer/`)
   browses the raw disk tree off a cached snapshot. Both preview through the
   shared `file-preview` modal.
-- **i18n**: user copy goes through the `translate` pipe with a key; proper
+- **i18n**: user copy goes through the `translate` pipe with a key (the
+  library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
+  words*); proper
   nouns (character names, usernames, version numbers) are shown as they are, not
   through the pipe. Dates go through `AppDatePipe`: the signed-in account's date
   order and clock (a chosen clock in the page language's words for am and pm),
   else the device's. The reading language is the signed-in account's when this
   site has it, else this device's (see *Signing in*, the account's
-  preferences). New keys arrive in a `users`
-  migration with English and Slovak strings (`php translations.php --status`
-  checks the code against the database).
+  preferences); the admin panel is English for its staff. New keys arrive in a
+  `users` migration with a description, English and Slovak strings - copy
+  `users/051` - never from the admin panel (`php translations.php --status`
+  checks the code against the database); a key put together at run time has
+  its prefix and every tail in `shared/dynamic-keys.ts`. A guide's body is no
+  key: it is `guide_contents`, read through `GET /api/guides/{guide}`.
 - **Theming**: the site has light/dark - one theme for the whole site, the admin
   panel included, the signed-in account's or this device's (`ThemeToggleService`);
   never hard-code a colour that only works in one theme.

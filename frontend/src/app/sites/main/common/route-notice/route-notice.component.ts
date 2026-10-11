@@ -2,8 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { RouteNotice, SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /**
  * What an admin is told about the page they are standing on.

@@ -26,15 +26,15 @@ const ROUTE_VISIBILITY = ['PUBLIC', 'USER', 'EDITOR', 'ADMIN'];
  * An admin is always exempt from the gate, so nobody can lock themselves out
  * with these - but they can lock out everybody else, and these are the paths
  * where that is worst. Who the reader is, the settings that would undo it, the
- * route table itself, the strings the resulting page would be written in, and
- * whether the site is there at all (site_state.php - the route gate never
- * judges it either). (Signing in is the IAM's and out of this table's reach
- * altogether.)
+ * route table itself, the strings the resulting page would be written in (and
+ * the languages, which come with them), and whether the site is there at all
+ * (site_state.php - the route gate never judges it either). (Signing in is the
+ * IAM's and out of this table's reach altogether.)
  *
  * Checked in both directions: '/api/' is refused because it covers /api/me,
  * and '/api/settings/public' is refused because it is covered by /api/settings.
  */
-const ROUTE_ENDPOINT_RESERVED = ['/api/me', '/api/settings', '/api/site-routes', '/api/site-status', '/api/languages', '/api/translations'];
+const ROUTE_ENDPOINT_RESERVED = ['/api/me', '/api/settings', '/api/site-routes', '/api/site-status', '/api/translations'];
 
 /**
  * Every route for this site, newest read cached, each with its endpoints.

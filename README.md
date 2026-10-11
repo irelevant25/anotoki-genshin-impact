@@ -14,9 +14,10 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
   chosen in the account panel (or the admin panel's theme button), they apply on
   every anotoki site. Without signing in, the theme and the language are this
   device's and dates are written the device's way.
-- **Admin panel**: every piece of game content and its media, translations and
-  languages, site switches (maintenance, announcements, which pages are open to
-  whom), migrations, backups, the audit log, errors and feedback.
+- **Admin panel**: every piece of game content and its media, the site's words
+  (translations, languages and the guides' pages), site switches (maintenance,
+  announcements, which pages are open to whom), migrations, backups, the audit
+  log, errors and feedback.
 - **What's new**: the version at the bottom of the site opens the changelog
   (`frontend/public/changelog.json`).
 
@@ -96,8 +97,12 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
   settings, migrations and backups. A role taken away stops working here within
   ten minutes.
 - **Languages**: the site's own words go through translation keys; names from
-  the game stay as they are. The English and Slovak strings live in the site's
-  half of the database and are edited in the admin panel.
+  the game stay as they are. The English and Slovak strings, and the guides'
+  pages, live in the site's half of the database. How they are kept, sent and
+  edited is the anotoki sites' shared library's (`anotoki-lib`'s translations,
+  as on every anotoki site): an EDITOR rewords a string, adds or hides a
+  language on the admin panel's Translations and Languages pages, and rewrites
+  a guide on its Guides page. A new key comes only with a migration.
 - **Site switches**: an admin can close the site for maintenance, show an
   announcement, and decide per page who sees it (everyone, signed in, editors,
   admins) or switch it off. The site hides what is closed, and the API refuses
@@ -139,11 +144,13 @@ backend/
                         endpoints/, models/ and responses/; meddleware/ (sign-in and roles, maintenance,
                         page gates, validation); the query builder, the asset code, the IAM's token
                         verifier (vendored); migration_runner.php and site_state.php (the migrations and
-                        where the site stands, on the shared library)
+                        where the site stands, on the shared library); translations.php and guides.php
+                        (the words, on the shared library; the guides' pages)
   config/               one module per concern; *.local.php per installation (written by setup.php)
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
-  tests/                php tests/run.php - the tests that need no database or server (the upload rules)
+  tests/                php tests/run.php - the upload rules, and the words' migration and routes (on
+                        throwaway databases)
   setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
@@ -249,6 +256,18 @@ not drift; [docs/README.md](docs/README.md) lists them.
   one did (both folders, the same record table, the same order guard); the site's
   own not-set-up page and Migrations pages are gone, and migration `users/049`
   drops the old page's strings.
+- Since 2026-10-11 the site's words are the shared library's too - `anotoki-lib`
+  0.3.0's translations, the one every anotoki site uses: the words' API
+  (`/api/translations/{code}`, `/api/admin/translations`, `/api/admin/languages`),
+  the admin Translations and Languages pages and `translations.php` are the
+  library's, behind this site's own checks (EDITOR or ADMIN). Migration
+  `users/050` moves the words into the library's shape - a language is known by
+  its code, a key has no scope and a string no stamps but its last change, blank
+  strings go, and the guides' pages move to `guide_contents`, read at
+  `/api/guides/{guide}` and rewritten on the admin panel's new Guides page - and
+  keeps full copies of the old tables for one release. At the owner's word, a key
+  comes only with a migration: the admin panel's "new key", the import's and the
+  command line's ways of making one are gone.
 
 ## More
 

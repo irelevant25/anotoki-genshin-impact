@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /**
  * The way in while the usual way in is shut.

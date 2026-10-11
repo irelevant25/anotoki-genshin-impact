@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { TranslatePipe } from '../../../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { RichTextComponent } from '../../../../../../../../shared/local-lib/components/rich-text/rich-text.component';
 import { CharacterVoiceOver } from '../../../../../../../../api';
 

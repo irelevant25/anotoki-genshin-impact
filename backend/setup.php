@@ -26,9 +26,10 @@ declare(strict_types=1);
  *
  * It builds the database first - creates it where the database user may, then
  * applies every pending migration of both folders (migrations/users/, the
- * site's half, and migrations/genshin_impact/, the game content) - and writes
- * nothing until that has worked, so a connection that does not work leaves no
- * config behind.
+ * site's half, and migrations/genshin_impact/, the game content) and of the
+ * anotoki library's set after them (anotoki_translations) - and writes nothing
+ * until that has worked, so a connection that does not work leaves no config
+ * behind.
  *
  * TWO WAYS TO RUN
  *
@@ -467,10 +468,10 @@ function setupTestDatabase(array $db): array
 }
 
 /**
- * The migrations of both folders, against a connection made from the entered
- * details, through the engine every way of building the database uses
- * (siteMigrator(), api/migration_runner.php). Throws with a plain message on
- * the first failure, having written no config file yet.
+ * The migrations of both folders and the library's set, against a connection
+ * made from the entered details, through the engine every way of building the
+ * database uses (siteMigrator(), api/migration_runner.php). Throws with a
+ * plain message on the first failure, having written no config file yet.
  *
  * @return string[] one human line per step
  */
@@ -512,9 +513,9 @@ function runInstall(array $config): array
     }
 
     $log = [];
-    foreach (MIGRATION_FOLDERS as $folder) {
+    foreach (migrationSetNames() as $folder) {
         $count = count(array_filter($result['applied'], fn (array $file): bool => $file['set'] === $folder));
-        $log[] = "{$name}, migrations/{$folder}/: " . ($count === 0 ? 'up to date, nothing to apply.' : "applied {$count} migration" . ($count === 1 ? '' : 's') . '.');
+        $log[] = "{$name}, " . migrationSetLabel($folder) . ': ' . ($count === 0 ? 'up to date, nothing to apply.' : "applied {$count} migration" . ($count === 1 ? '' : 's') . '.');
     }
 
     return $log;

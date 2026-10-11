@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { GAME_CATALOG } from './shared/game-catalog';
 import { GuideIconComponent } from '../../common/guide/guide-icon.component';
 

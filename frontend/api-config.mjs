@@ -36,8 +36,7 @@ export const GROUPS = [
     // A prefix, so it would also claim a future `/api/media` - which would then
     // want a group of its own above this line.
     ["me", ["/api/me"]],
-    ["language", ["/api/languages"]],
-    ["translation", ["/api/translations", "/api/translation-keys", "/api/admin/translations"]],
+    ["guide", ["/api/guides", "/api/admin/guides"]],
     ["backup", ["/api/backups"]],
     ["character", ["/api/characters", "/api/character/"]],
     ["voiceOverSet", ["/api/voice-over-sets"]],
@@ -68,8 +67,7 @@ export const GROUPS = [
 /** One line under each service class, saying what it covers. */
 export const GROUP_DOCS = {
     me: "The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language.",
-    language: "Which languages the site offers, and which of them is the fallback.",
-    translation: "Translation keys and their strings, per language.",
+    guide: "The guides behind the question marks: a page of markup each, in every language that has one - read by the pages, written on the admin Guides page.",
     backup: "Database dumps: listing them, making them, and restoring one.",
     character: "Characters and everything hanging off one - talents, ascensions, constellations, builds.",
     voiceOverSet: "The voice-over sets characters share their lines through, for the character-form picker.",
@@ -98,17 +96,17 @@ export const GROUP_DOCS = {
 };
 
 /**
- * The one endpoint whose response has no shape to name.
+ * Endpoints whose response has no shape to name - none at the moment.
  *
- * Everything else says what it answers with beside its own handler, in
- * `->add(responds(...))`. The translation export is a bare key-to-string map,
- * and a PHP constructor has no way to describe an index signature, so it stays
- * declared here. (The backup download is bytes rather than a shape; that is
- * BLOBS, further down.)
+ * Everything says what it answers with beside its own handler, in
+ * `->add(responds(...))`. The one that could not - the translation export, a
+ * bare key-to-string map, which a PHP constructor has no way to describe -
+ * went to the anotoki library with the rest of the words (SKIP_PREFIXES). A
+ * route that answers such a map again is named here, with the hand-written
+ * type in src/app/api/types/. (The backup download is bytes rather than a
+ * shape; that is BLOBS, further down.)
  */
-export const RESPONSES = {
-    "GET /api/translations/{code}/export": "TranslationBundle",
-};
+export const RESPONSES = {};
 
 /**
  * Request bodies the PHP models do not describe, and the hand-written type
@@ -118,8 +116,7 @@ export const BODIES = {
     "PUT /api/settings": "SiteSettingsSaveRequest",
     "PUT /api/site-routes": "SiteRoutesSaveRequest",
     "POST /api/site-routes": "SiteRouteCreateRequest",
-    "PUT /api/admin/translations": "TranslationSaveRequest",
-    "PUT /api/translations/{code}/import": "TranslationImportRequest",
+    "PUT /api/admin/guides/{guide}": "GuideSaveRequest",
     "PUT /api/feedback/{id}/status": "FeedbackStatusRequest",
     "POST /api/feedback": "FeedbackRequest",
     "POST /api/backups": "BackupRequest",
@@ -152,7 +149,7 @@ for (const entity of ["weapons", "artifacts", "materials", "foods", "enemies", "
  * A `?` on the end means every field is optional, and so is the argument.
  */
 export const QUERIES = {
-    "GET /api/languages": "LanguageQuery?",
+    "GET /api/guides/{guide}": "GuideQuery?",
     "GET /api/feedback": "FeedbackQuery?",
     "GET /api/audit-logs": "AuditLogQuery",
     "GET /api/explorer": "ExplorerQuery?",
@@ -210,8 +207,9 @@ export const NAMES = {
     "POST /api/uploads/{entity}/{field}": "uploadEntityFile",
     "POST /api/uploads/{entity}/{id}/{field}": "uploadRecordFile",
     "GET /api/dashboard/stats": "getDashboardStats",
-    "GET /api/admin/translations": "getAdminTranslations",
-    "PUT /api/admin/translations": "saveAdminTranslations",
+    "GET /api/guides/{guide}": "getGuide",
+    "GET /api/admin/guides": "getAdminGuides",
+    "PUT /api/admin/guides/{guide}": "saveAdminGuide",
     // The mechanical rule reads `/api/me` as a collection of "mes".
     "GET /api/me": "getMe",
     "GET /api/settings/public": "getPublicSettings",
@@ -237,10 +235,6 @@ export const NAMES = {
 
     "POST /api/visitor/move": "moveVisitor",
 
-    "GET /api/translations/{code}": "getTranslations",
-    "GET /api/translations/{code}/export": "exportTranslations",
-    "PUT /api/translations/{code}/import": "importTranslations",
-
     "GET /api/backups/status": "getBackupStatus",
     "GET /api/backups/{id}/download/{alias}": "downloadBackup",
     "GET /api/backups/{id}/preview/{alias}": "previewBackup",
@@ -259,9 +253,13 @@ export const NAMES = {
  * `site-status` and `admin/migrations` are the shared library's routes
  * (anotoki/lib's MigrationsRoutes, put up in api/index.php), and its Angular
  * half, @anotoki/lib/migrations, is already their client: the site's status
- * and the admin Migrations page. Its README says what they answer.
+ * and the admin Migrations page. So are the words - `translations` (the
+ * bundle the pages read) and the admin `translations` and `languages` (the
+ * library's TranslationsRoutes, put up in routes/users/endpoints/
+ * translations.php), whose client is @anotoki/lib/translations: its service and
+ * its admin Translations and Languages pages. Its README says what they answer.
  */
-export const SKIP_PREFIXES = ["/api/affiliations", "/api/characters-affiliations", "/api/site-status", "/api/admin/migrations"];
+export const SKIP_PREFIXES = ["/api/affiliations", "/api/characters-affiliations", "/api/site-status", "/api/admin/migrations", "/api/translations", "/api/admin/translations", "/api/admin/languages"];
 
 /**
  * Endpoints that answer with a file rather than JSON.

@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /**
  * What to say when a sign-in came back from the IAM without working, and the

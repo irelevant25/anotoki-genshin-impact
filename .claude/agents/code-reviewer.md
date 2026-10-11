@@ -44,7 +44,9 @@ subscribed, an `effect`/`computed` that misses a dependency.
   it). While the IAM requires sign-in, `signInGate()` (`api/meddleware/sign_in.php`)
   is what keeps the public routes from anybody signed out: a path added to
   `SIGN_IN_OPEN_PREFIXES` that neither the sign-in card nor a token-less `<img>`
-  needs is a hole, and so is a gate that matches a path by its spelling on the raw
+  needs is a hole (the words' bundle is open exactly, a `~` pattern from
+  `TranslationsRoutes::openPath()` - widening it to a prefix is a finding), and so
+  is a gate that matches a path by its spelling on the raw
   `getUri()->getPath()` instead of `gatePath()` (the router decodes:
   `/%61pi/characters` is `/api/characters`); the
   switch reads fail closed (a 404 or an IAM never reached = required). In the
@@ -121,6 +123,13 @@ that has not been followed by a client regenerate.
   set of values as a `CHECK (col IN (...))` the spec generator can read, not a
   new lookup table or a Postgres ENUM; an asset column's `{field}_name` only
   dropped where `assetColumnMap()` marks it as the file-name alias.
+- The words (the anotoki library's translations, `api/translations.php`): a
+  route, import or command that makes a key or edits its description is a
+  finding (keys come from `users/` migrations, owner's decision); so is a key
+  under `anotoki.` in a site migration, a gate that counts every key, a string
+  a migration overwrites without comparing it to the earlier words (an owner's
+  rewording), a language write open to anybody but ADMIN/EDITOR, and a guide's
+  markup drawn anywhere but `<app-rich-text>`.
 - Comments explain the *why* and match the file's density — flag both missing
   rationale on something subtle and noise that just restates the code.
 

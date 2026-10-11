@@ -6,11 +6,14 @@
  *   php migration.php                  create it if missing, apply what is pending
  *   php migration.php --status         say what has run and what has not
  *   php migration.php --dry-run        say what would be applied, and apply nothing
- *   php migration.php --folder=users   one migrations folder rather than both
+ *   php migration.php --folder=users   one migrations folder rather than all
  *
  * The one database is built from two folders, migrations/users/ (the site's
  * half: translations, languages, settings, page switches, people) and
- * migrations/genshin_impact/ (the game content) - they were two databases once.
+ * migrations/genshin_impact/ (the game content) - they were two databases once
+ * - and then the anotoki library's set anotoki_translations (the words'
+ * tables and the library's own words, vendor/anotoki/lib; --folder names it
+ * too).
  *
  * WHAT CHANGED, AND WHY
  *
@@ -91,7 +94,7 @@ function say(string $colour, string $text): void
 function sayMissing(string $folder, array $missing): void
 {
     foreach ($missing as $file) {
-        say('red', "  ! {$file} is recorded as applied but is not in migrations/{$folder}/");
+        say('red', "  ! {$file} is recorded as applied but is not in " . migrationSetLabel($folder));
     }
 }
 
@@ -112,12 +115,13 @@ $dryRun = isset($options['dry-run']);
 // --db named a database when each folder had one; it names the folder now.
 $only = isset($options['folder']) ? (string) $options['folder'] : (isset($options['db']) ? (string) $options['db'] : null);
 
-if ($only !== null && !in_array($only, MIGRATION_FOLDERS, true)) {
-    say('red', "No migrations folder '{$only}'. There are: " . implode(', ', MIGRATION_FOLDERS));
+if ($only !== null && !in_array($only, migrationSetNames(), true)) {
+    say('red', "No migrations folder '{$only}'. There are: " . implode(', ', migrationSetNames()));
     exit(1);
 }
 
-$folders = $only === null ? MIGRATION_FOLDERS : [$only];
+// The two folders and the library's set, in the order they run.
+$folders = $only === null ? migrationSetNames() : [$only];
 
 // Written by setup.php, which is also what builds the database the first time -
 // this is for everything after that.
@@ -173,7 +177,7 @@ if ($statusOnly || $dryRun) {
     }
 
     foreach ($folders as $folder) {
-        say('cyan', "\n  ── migrations/{$folder}/");
+        say('cyan', "\n  ── " . migrationSetLabel($folder));
 
         if ($statusOnly) {
             foreach ($files[$folder] as $file) {
@@ -213,7 +217,7 @@ $open = false;
 $announce = function (string $folder) use (&$announced, $missing): void {
     if (!isset($announced[$folder])) {
         $announced[$folder] = true;
-        say('cyan', "\n  ── migrations/{$folder}/");
+        say('cyan', "\n  ── " . migrationSetLabel($folder));
         sayMissing($folder, $missing[$folder]);
     }
 };
@@ -259,14 +263,14 @@ if ($result['failed'] !== null) {
     say('red', 'FAILED');
     say('red', '    ' . $result['error']);
     say('yellow', '    Nothing from this file was applied. The migrations before it stand.');
-    // Stopped here, the other folder included: everything after this file is
+    // Stopped here, the later sets included: everything after this file is
     // written expecting it to have run, and the two folders share one
     // namespace in an order that matters (api/migration_runner.php,
-    // MIGRATION_FOLDERS).
+    // MIGRATION_FOLDERS) - which the library's set comes after.
     $stoppedAt = $result['failed']['set'];
-    $notRun = array_slice(MIGRATION_FOLDERS, array_search($stoppedAt, MIGRATION_FOLDERS, true) + 1);
-    say('red', "\nStopped at migrations/{$stoppedAt}/." . ($notRun && $only === null
-        ? ' Not run: ' . implode(', ', array_map(fn ($f) => "migrations/{$f}/", $notRun)) . '.'
+    $notRun = array_slice(migrationSetNames(), array_search($stoppedAt, migrationSetNames(), true) + 1);
+    say('red', "\nStopped at " . migrationSetLabel($stoppedAt) . '.' . ($notRun && $only === null
+        ? ' Not run: ' . implode(', ', array_map(fn ($f) => migrationSetLabel($f), $notRun)) . '.'
         : ''));
     exit(1);
 }

@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { DailyStatus, dailyQuizzes, dailyStatus, todayString } from '../quizzes/shared/daily';
 import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
 import { DailyProgressService } from '../quizzes/shared/daily-progress.service';

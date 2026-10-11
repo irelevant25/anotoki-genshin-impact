@@ -1,10 +1,25 @@
 // The body sets its own rhythm - see rich-text.component.scss - so all this
 // has to do is stop a long guide running edge to edge on a wide screen.
 :host {
-    display: block;
+  display: block;
 }
 
 app-rich-text {
-    display: block;
-    max-width: 68ch;
+  display: block;
+  max-width: 68ch;
+}
+
+// The loader lies over the body while the guide is asked for: room for it,
+// before there is any markup to give the body a height.
+.guide-body {
+  position: relative;
+
+  &.is-loading {
+    min-height: 8rem;
+  }
+}
+
+.guide-failed {
+  margin: 0;
+  color: var(--text-secondary);
 }

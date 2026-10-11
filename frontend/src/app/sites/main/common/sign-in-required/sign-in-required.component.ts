@@ -5,8 +5,7 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
-import { TranslationService } from '../../../../shared/local-lib/i18n/translation.service';
-import { TranslatePipe } from '../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { SignInFailureComponent } from '../sign-in-failure/sign-in-failure.component';
 import { AUTH_CALLBACK_PATH } from '../../../../shared/routing-definition';
 

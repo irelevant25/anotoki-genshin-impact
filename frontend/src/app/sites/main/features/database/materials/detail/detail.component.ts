@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '../../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
 import { MaterialApiService, MaterialUsage } from '../../../../../../api';

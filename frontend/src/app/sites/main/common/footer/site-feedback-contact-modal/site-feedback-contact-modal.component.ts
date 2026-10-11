@@ -8,8 +8,7 @@ import { DropdownComponent } from '../../../../../shared/local-lib/components/dr
 import { ButtonComponent } from "../../../../../shared/local-lib/components/button/button.component";
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
-import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { FeedbackApiService } from '../../../../../api';

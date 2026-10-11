@@ -93,6 +93,7 @@ export class AppComponent {
         items: [
           { label: 'Languages', path: 'languages', icon: 'icon icon-globe' },
           { label: 'Translations', path: 'translations', icon: 'icon icon-list' },
+          { label: 'Guides', path: 'guides', icon: 'icon icon-book' },
         ],
       },
       {

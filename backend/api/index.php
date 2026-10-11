@@ -48,6 +48,10 @@ require_once __DIR__ . '/after_response.php';
 require_once __DIR__ . '/visitors.php';
 require_once __DIR__ . '/site_settings.php';
 require_once __DIR__ . '/site_routes.php';
+// The words, through anotoki/lib's translations - this site's part of them -
+// and the guides behind the question marks.
+require_once __DIR__ . '/translations.php';
+require_once __DIR__ . '/guides.php';
 // The migrations (on anotoki/lib's engine), and where the site stands: not set
 // up, a database update waiting, or ready.
 require_once __DIR__ . '/migration_runner.php';
@@ -74,12 +78,11 @@ require_once __DIR__ . '/meddleware/route_gate.php';
 
 // models
 require_once __DIR__ . '/routes/users/models/migration.php';
-require_once __DIR__ . '/routes/users/models/language.php';
 
 // responses
 require_once __DIR__ . '/routes/users/responses/me.php';
 require_once __DIR__ . '/routes/users/responses/backup.php';
-require_once __DIR__ . '/routes/users/responses/translation.php';
+require_once __DIR__ . '/routes/users/responses/guide.php';
 require_once __DIR__ . '/routes/users/responses/setting.php';
 require_once __DIR__ . '/routes/users/responses/visitor.php';
 
@@ -87,8 +90,10 @@ require_once __DIR__ . '/routes/users/responses/visitor.php';
 require_once __DIR__ . '/routes/users/endpoints/me.php';
 require_once __DIR__ . '/routes/users/endpoints/settings.php';
 require_once __DIR__ . '/routes/users/endpoints/routes.php';
-require_once __DIR__ . '/routes/users/endpoints/languages.php';
+// The strings and the languages: the anotoki library's routes, behind this
+// site's checks (api/translations.php is the site's part of them).
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
+require_once __DIR__ . '/routes/users/endpoints/guides.php';
 require_once __DIR__ . '/routes/users/endpoints/backups.php';
 require_once __DIR__ . '/routes/users/endpoints/visitor.php';
 

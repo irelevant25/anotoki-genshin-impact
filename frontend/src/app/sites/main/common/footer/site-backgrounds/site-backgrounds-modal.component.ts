@@ -4,7 +4,7 @@ import { ModalComponent } from '../../../../../shared/local-lib/components/modal
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 
 interface IBackground {
   name: string;

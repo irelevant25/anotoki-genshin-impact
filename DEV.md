@@ -155,11 +155,11 @@ Two servers of this site, plus the IAM's two when you need to sign in:
 | App | `npm start` (in `frontend/`) | `http://localhost:4200` |
 
 The router script matters. Without it `php -S` decides whether a request is for a
-file by looking for a dot in the last path segment, so any URL that ends in one -
-`PUT /api/translation-keys/guide.banners.content`, and every other translation
-key - is answered 404 without the API being reached. Apache has no such rule, so
-this only bites in development. `router.php` also serves `/uploads/...` from
-`public/` and the installer at `/setup.php`.
+file by looking for a dot in the last path segment, so any URL that ends in one
+is answered 404 without the API being reached (the translation keys' old routes,
+`PUT /api/translation-keys/guide.banners.content`, were all such URLs). Apache
+has no such rule, so this only bites in development. `router.php` also serves
+`/uploads/...` from `public/` and the installer at `/setup.php`.
 
 ```bash
 # Backend (backend/)
@@ -206,39 +206,49 @@ own games and statistics) comes out with a trailing `context?: HttpContext`
 parameter: the page says whom the request is issued as - the signed-in person
 or this browser's visitor.
 
-Two prefixes are left out of the client on purpose (`SKIP_PREFIXES` in
-`api-config.mjs`): `/api/site-status` and `/api/admin/migrations` are the shared
-library's routes, and its Angular half is already their client.
+Some prefixes are left out of the client on purpose (`SKIP_PREFIXES` in
+`api-config.mjs`): `/api/site-status` and `/api/admin/migrations`, and the words -
+`/api/translations`, `/api/admin/translations`, `/api/admin/languages` - are the
+shared library's routes, and its Angular half is already their client.
 
 ---
 
 ## The shared library (anotoki-lib)
 
-The migrations engine, and what the site does while it is not set up or waits
-for a database update, are the same on every anotoki site: one library,
-`anotoki-lib` (`https://github.com/irelevant25/anotoki-lib`; a clone sits at
-`../anotoki-lib`), never edited here. Two halves, one version:
+The migrations engine, what the site does while it is not set up or waits for a
+database update, and the site's words (since 0.3.0) are the same on every anotoki
+site: one library, `anotoki-lib` (`https://github.com/irelevant25/anotoki-lib`;
+a clone sits at `../anotoki-lib`), never edited here. Two halves, one version:
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.1"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.3"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
-for the two folders), `backend/api/site_state.php` (the site's state and the
+for the two folders and the library's own set `anotoki_translations` after
+them), `backend/api/site_state.php` (the site's state and the
 gate in front of every route), `backend/api/index.php` (the status and admin
-migrations routes), `frontend/src/app/shared/site-status.ts` (the pages'
+migrations routes), `backend/api/translations.php` and
+`routes/users/endpoints/translations.php` (the words: the library's
+`Translations` and its routes, set up for this site), `backend/translations.php`
+(its command line), `frontend/src/app/shared/site-status.ts` (the pages'
 gate, the "being updated" page and the Migrations page, set up for this site),
+`frontend/src/app/shared/site-translations.ts` (the words in the pages: the
+language, the `translate` pipe, the admin Translations and Languages pages),
 `frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
-gate's `<ng-template anotokiSitePages>`), the admin route `/admin/migrations`
-(the page from `@anotoki/lib/migrations/page`), and the `--anotoki-*` colours in
-`design-tokens.scss`.
+gate's `<ng-template anotokiSitePages>`), the admin routes `/admin/migrations`,
+`/admin/translations` and `/admin/languages` (the pages from their own entry
+points), and the `--anotoki-*` colours in `design-tokens.scss` (every colour the
+kit reads, its controls' edge at 3:1 or more) - with `--anotoki-topbar-height` at
+minus its padding on the admin panel's `.admin-main`, which has no anotoki top bar.
 
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
-release that changes one half only is taken in that half: 0.2.0 changed the
-Angular half alone, so `vendor/anotoki/lib` stays 0.1.0 under `@anotoki/lib`
-0.2.0.
+release that changes one half only is taken in that half (0.2.0 changed the
+Angular half alone); both are 0.3.0 now. A piece of the library's kit is
+imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
+never from `@anotoki/lib/ui`, which would pull every piece into the first load.
 
 ```bash
 cd backend
@@ -257,11 +267,13 @@ Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
 ## Database & migrations
 
 **The migrations are the schema.** There is no separate schema file; a database
-is what you get by replaying `backend/migrations/{genshin_impact,users}/NNN_name.sql`
-in order - including the rows they insert, so a database built today has the same
-languages, sites and translated strings as one built from the same folder a year
-from now. A file already recorded in a database's `migrations` table is never run
-again, so never edit an applied migration: write the next one.
+is what you get by replaying `backend/migrations/{users,genshin_impact}/NNN_name.sql`
+in order, and then the anotoki library's own set (`anotoki_translations`, in
+`vendor/anotoki/lib/php/migrations/translations`: the words' tables proved, the
+library's own words added) - including the rows they insert, so a database built
+today has the same languages and translated strings as one built from the same
+folders a year from now. A file already recorded in a database's `migrations`
+table is never run again, so never edit an applied migration: write the next one.
 
 - Locally: `php migration.php` (or `setup.php`) applies everything pending.
 - On the hosting, with no shell: FTP the new `.sql` up, then the admin
@@ -271,9 +283,10 @@ again, so never edit an applied migration: write the next one.
 The engine behind the CLI, that button, `setup.php` and `merge-databases.php` is
 the shared library's `Migrator`, set up for this site in one file,
 `backend/api/migration_runner.php` (`siteMigrator()`: `users/` then
-`genshin_impact/`, the record by folder and file, this site's advisory lock, the
+`genshin_impact/` then the library's `anotoki_translations`, the record by folder
+(set) and file, this site's advisory lock, the
 adoption of a record table from when each folder had a database of its own, and
-the refusal to run the folders out of order) - so a database built any of those
+the refusal to run the sets out of order) - so a database built any of those
 ways is the same database. Each file runs whole or not at all with its record,
 the run stops at the first that fails, and one apply runs at a time: a second -
 the button pressed twice, the CLI beside it - is told it is busy and does
@@ -295,8 +308,8 @@ shared library; `backend/api/site_state.php`):
 
 - the API answers `503 {"code": "update_pending"}` with `Retry-After: 60` to
   everything but what a sign-in and the Migrations page need:
-  `/api/settings/public`, `/api/me`, `/api/languages`,
-  `/api/translations/{code}` and `/api/admin/migrations/...`;
+  `/api/settings/public`, `/api/me`, `/api/translations/{code}` (the words, with
+  the languages beside them) and `/api/admin/migrations/...`;
   `GET /api/site-status` says `{"state": "update_pending", ...}`;
 - visitors and signed-in readers see "The site is being updated" in their
   language - no error, nothing but a quiet **Sign in** while nobody is signed
@@ -359,9 +372,17 @@ changes no schema and no other string, and is safe before or after the upload
 ## Checking your work
 
 The automated tests are few (the IAM, where the sign-in logic lives, has the
-suite): `backend/tests/`, code that decides on its own, run without a database
-or a server - so far the upload rules (what an upload may be called, where it
-may be written, the folders' `.htaccess` guard). What there is:
+suite): `backend/tests/` - the upload rules (what an upload may be called,
+where it may be written, the folders' `.htaccess` guard), run without a database
+or a server; and the words (`translations-migration.test.php`: users/050 on a
+database as its owner left it - reworded strings and guides, blanks, a hidden
+language - and what it refuses; `translations-routes.test.php`: the whole API
+in-process - the bundle, who may do what, saves, the languages, the guides, the
+gates). Those two make databases of their own, `genshin_test_*`, on the
+PostgreSQL server `config/database.local.php` names (never its database; the
+user needs CREATEDB, as setup.php's does) and drop them when they end, and run
+the API in a backend copy of their own with a key pair standing in for the IAM;
+without the config file they say they are skipped. What there is:
 
 ```bash
 # Frontend (frontend/)
@@ -388,7 +409,7 @@ scripts") is how a script gets one.
 IAM's admin console (Applications → genshin → Settings) and, within a minute,
 `curl http://localhost:8000/api/characters` answers 401 `sign_in_required`
 while `/api/settings/public` says `"login_required": true` and still answers,
-with `/api/languages` and `/api/translations/en`. In a private window the site
+with `/api/translations/en`. In a private window the site
 now goes straight to the IAM's sign-in and comes back to the page opened, signed
 in; where that cannot happen by itself (the IAM refused the sign-in, the browser
 would not start it, the API refuses the tokens the IAM issues) it draws "Sign in
@@ -496,7 +517,7 @@ own database - the IAM's advice above holds here too: a scratch copy of
 `backend/` with its own `config/*.local.php` and a throwaway database). Then
 `curl -si http://localhost:8000/api/site-status` says `update_pending`,
 `/api/characters` answers 503 `update_pending` with `Retry-After: 60`, and
-`/api/settings/public`, `/api/languages` and `/api/translations/en` still answer.
+`/api/settings/public` and `/api/translations/en` still answer.
 In a private window every page shows "The site is being updated" (in Slovak too,
 with the language chosen) and nothing else, Sign in included; signed in as an
 ADMIN the same page says "A database update is waiting", **Open Migrations**
@@ -521,14 +542,14 @@ Admin panel → System → Site Settings. A card per group; each opens a modal.
 
 | Switch | What it does |
 | --- | --- |
-| Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but who is signed in (`/api/me`), the public settings, the languages, the strings on the sign and the site's status (`/api/site-status`). Admins are exempt. |
+| Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but who is signed in (`/api/me`), the public settings, the strings on the sign (with the languages beside them) and the site's status (`/api/site-status`). Admins are exempt. |
 | Announcement | A dismissable bar above the header, one message per language, at one of three levels. |
 
 Whether anybody may sign in at all, and whether Google is offered, are the IAM's
 switches - in its admin console, for every site at once. So is **Sign-in
 required** for this site (Applications → genshin → Settings; off by default):
 while it is on, the API answers 401 `sign_in_required` to everybody not signed
-in, but for the public settings, the languages, the strings, the site's status
+in, but for the public settings, the strings (with the languages), the site's status
 and the asset previews (`/api/files/raw`, which an `<img>` loads without a token;
 `api/meddleware/sign_in.php`), and the pages send everybody signed out to the
 IAM first, or draw "Sign in to continue" instead of the site. Maintenance still
@@ -581,7 +602,7 @@ leaves its data being served - right for "that page is not finished", wrong for
 for. Paths are matched from the start, so `/api/quiz` covers `/api/quizzes` and
 `/api/quiz/stats` alike. Where two pages claim the same path the more open one
 wins, and a path covering `/api/me`, `/api/settings`, `/api/site-routes`,
-`/api/site-status`, `/api/languages` or `/api/translations` is refused on save
+`/api/site-status` or `/api/translations` is refused on save
 (the site's status is never locked whatever a row says).
 
 **Add a page** takes a path the migration did not seed. The **×** on a row stops
@@ -591,6 +612,34 @@ people back, the second the way back in when the site is closed.
 
 Everything above is enforced twice on purpose: the site draws the closed sign and
 hides the menu item, and the API means it.
+
+### The words: languages, translations, guides
+
+Admin panel → Localization, for ADMIN and EDITOR. **Languages** and
+**Translations** are the anotoki sites' shared pages (anotoki-lib's
+`@anotoki/lib/translations/admin`, the same on every anotoki site; the API is
+the library's too, `backend/api/translations.php` the site's part of it):
+
+- **Translations** - every key with its string in every language, each
+  language's coverage, a search over keys, descriptions and text, "Missing in",
+  export and import per language. Only the boxes you changed are sent; what you
+  type is kept in the tab until it is saved or discarded. A refusal (a
+  placeholder like `{days}` dropped from the English, say) is shown beside its
+  key, and nothing of that save is kept.
+- **Languages** - each language's names, order and whether readers are offered
+  it; a new one starts hidden and reads in English until its strings are
+  written. English and Slovak come with the site and cannot be deleted; another
+  language can, after the page offers to export its strings first - its guides
+  go with it.
+- **Guides** - the pages behind the question marks, a page of markup each,
+  edited with a preview beside it, every language at once; empty, a language
+  reads the English. The site's own page (`sites/admin/localization/guides/`).
+
+What the panel no longer does (since `users/050`): make, rename or delete a key,
+or edit its description - keys come from migrations with their descriptions;
+an import never creates one either. The guides' bodies left the strings for
+`guide_contents`. Before an upload that changes the words, export every language
+from the Translations page and keep the files.
 
 ### The asset library
 
@@ -813,7 +862,9 @@ refused, since `users/` would run over the content's tables.
 
 FTP the new `migrations/{folder}/*.sql` files up, then open the admin **Migrations**
 page and press **Apply pending** - `POST /api/admin/migrations/apply` runs them in
-order (ADMIN only), `users/` then `genshin_impact/`, stopping at the first failure.
+order (ADMIN only), `users/` then `genshin_impact/` then the anotoki library's
+`anotoki_translations` (its files come with `vendor/anotoki/lib`), stopping at
+the first failure.
 From the moment the files are up until they are applied the site is closed to
 everybody but its ADMIN (*While an update waits*), so do it in one go: upload,
 open the site, **Sign in** on the "being updated" page as an ADMIN, **Open
@@ -858,6 +909,23 @@ at most). The first load after the upload carries a visitor's site theme
 (`theme-main` in localStorage) over as the one theme; an admin panel theme kept
 apart on a device is forgotten.
 
+**The words through the anotoki library** (anotoki-lib 0.3.0; `users/049`, `050`,
+`051` and the library's `anotoki_translations/001`, `002`): before the upload,
+export every language from the admin Translations page (the old one: its
+Export) and take a database dump (the Backups page). Then upload both builds -
+`vendor/anotoki/lib` brings the library's set - and Apply pending at once; in
+between, the site is "being updated" and its old pages are gone. `050` moves the
+words' tables into the library's shape (keyed by the language's code, no
+scopes, flags or stamps; the guides into `guide_contents`) and proves that
+every string that was not blank came through word for word, keeping full
+copies (`translation_keys_before_library`, `translations_before_library`) for
+one release; it refuses - naming it - a language code that is no code, or a
+table that refers to the languages besides the strings. Never before the
+upload, and no older build on the host afterwards: it reads the old shape. Then,
+signed in, the Translations page shows every string as it was (and the
+library's own `anotoki.*` keys beside them), Languages each language's guides,
+and Guides the eleven guides.
+
 ### Copying local data up to production
 
 The database copy runs from your machine against the remote server, so the missing
@@ -889,7 +957,9 @@ the PostgreSQL client tools locally.
 | API cannot connect to the database | Postgres is not running, or the connection in `setup.php` is wrong - its **Test connection** says which. |
 | Apply says another database update is running | Another apply holds the migrations lock - the button in another tab, `php migration.php`, `setup.php`. Wait for it, then look again. |
 | A new/changed endpoint isn't callable from the frontend | The client is stale - run `npm run api`. |
-| Translation-key routes 404 in dev | The PHP server was started without `router.php`. Start it with `composer start` in `backend/`, which runs `php -S localhost:8000 router.php`. |
+| An API path with a dot in its last segment 404s in dev | The PHP server was started without `router.php`. Start it with `composer start` in `backend/`, which runs `php -S localhost:8000 router.php`. |
+| A page shows a key (`nav.daily`) instead of words | No string for it in the database: a key the code asks for that no migration wrote - `php translations.php --status` lists it. A key put together at run time needs its prefix and tail in `frontend/src/app/shared/dynamic-keys.ts`. |
+| The admin Translations or Languages page says to apply the pending database update | The words' tables are not in the library's shape yet: `users/050` and the library's set wait - Migrations → **Apply pending**. |
 | Every API call fails in dev (502 or 504 from `ng serve`) | The API is not running on `:8000`, which `proxy.conf.json` hands `/api` to - start it with `composer start` in `backend/`. |
 | Admin pages redirect to sign-in | Not signed in at the IAM, or the account holds neither the `genshin` ADMIN nor EDITOR role (grant it in the IAM admin console). |
 | Sign-in bounces back with an error | The IAM is not running on 4300/8100, or does not know `http://localhost:4200/auth/callback` - run `php clients.php --dev` in the IAM's `backend/`. `setup.php`'s IAM test checks both. |
@@ -906,6 +976,6 @@ the PostgreSQL client tools locally.
 - `php merge-databases.php [--check]` - once, on a checkout still configured with two databases: moves the second into the first.
 - `php db-push.php` - copy local data up to another server in one command. ⚠ erases the target (confirmed by typing the host); for seeding a fresh production server.
 - `php assets.php --status` - the asset tree against the `files` catalogue and the rows that name it.
-- `php translations.php --status` - the translation keys the frontend asks for against the ones the database has (`--add-missing`, `--export`, `--import`).
-- `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`, the upload rules); no database, no server.
+- `php translations.php --status` - the translation keys the frontend asks for against the ones the database has, each language's coverage, and stored strings a save would refuse (`--export CODE [FILE]`, `--import CODE FILE`; the anotoki library's command - no key is made here, keys come from migrations).
+- `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`: the upload rules; the words' migration and routes, on `genshin_test_*` databases of their own).
 - `php build-dist.php` - the production backend slice (see above).

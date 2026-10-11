@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../../../shared/local-lib/components/butt
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
+import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOption, asText, bindFiltersToUrl } from '../shared/filter-url';

@@ -9,11 +9,12 @@
  * the last path segment: anything with a dot in it is treated as a static file
  * and answered with 404 if there is none, without the API ever being reached.
  *
- * Almost every path is fine. Translation keys are not - they are all dots, so
- * `PUT /api/translation-keys/guide.banners.content` never arrived: the built-in
- * server answered 404 for a file it did not have. Apache
- * has no such rule: api/.htaccess sends everything under /api to index.php,
- * which is what this does.
+ * Almost every path is fine. One with a dot in its last segment is not: when
+ * the admin panel still edited translation keys by name (they are all dots),
+ * `PUT /api/translation-keys/guide.banners.content` never arrived - the
+ * built-in server answered 404 for a file it did not have. Apache has no such
+ * rule: api/.htaccess sends everything under /api to index.php, which is what
+ * this does.
  *
  * It also serves uploads, which live under public/ where Apache's document
  * root points. One document root cannot cover both those and the API, so the

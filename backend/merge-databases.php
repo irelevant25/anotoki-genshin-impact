@@ -29,6 +29,11 @@
  *      migrations as applied. Anything wrong rolls all of it back.
  *   3. Rewrites config/database.local.php to name the one database.
  *
+ * Each step applies its database's own folder and nothing else - never the
+ * anotoki library's set (anotoki_translations), which belongs to the merged
+ * database: `php migration.php` applies it there afterwards, as it would on
+ * any database that has both folders.
+ *
  * Nothing here deletes data; the old users database stays where it is - drop it
  * once the site runs well without it. It needs pg_dump, found as the Backups
  * page finds it (config/backup.php). The schema comes from pg_dump and the rows
@@ -455,6 +460,7 @@ if (DIRECTORY_SEPARATOR === '/') {
 line();
 line("Done. config/database.local.php names one database now: {$targetName}.");
 line("{$sourceName} is " . (isset($applied[$sourceName]) ? 'as it was after step 1' : 'untouched') . ' - drop it once the site runs well without it.');
+line('Then `php migration.php`: the anotoki library\'s set (anotoki_translations) is applied on the merged database only.');
 
 // An alias with no migrations folder (star_rail was one, meant for a site that
 // was never written) had nothing in it for this code to read; it goes from the

@@ -1,5 +1,6 @@
 <?php
 
+use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
@@ -14,18 +15,19 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * is drawn by the front end and enforced here, and the second one is the one
  * that decides.
  *
- * Five things stay open regardless, because without them the closed sign
+ * Four things stay open regardless, because without them the closed sign
  * cannot be drawn or got past:
  *
- *   /api/settings/public   is how anything learns the site is closed at all -
- *                          and where to sign in, since that is the IAM's
- *   /api/me                is who the signed-in reader is
- *   /api/languages         is which languages the sign can be read in
- *   /api/translations/     is the words on it
- *   /api/site-status       is whether the site is there at all - set up, and
- *                          not waiting for a database update (site_state.php);
- *                          shut, the pages would read it as a site that is
- *                          down and draw that instead of the closed sign
+ *   /api/settings/public      is how anything learns the site is closed at all -
+ *                             and where to sign in, since that is the IAM's
+ *   /api/me                   is who the signed-in reader is
+ *   /api/translations/{code}  is the words on it, with the languages it can be
+ *                             read in beside them - that path exactly, one
+ *                             language, nothing under it
+ *   /api/site-status          is whether the site is there at all - set up, and
+ *                             not waiting for a database update (site_state.php);
+ *                             shut, the pages would read it as a site that is
+ *                             down and draw that instead of the closed sign
  *
  * They are judged before the switch is read, so they answer even while
  * nothing can be read - the status above all, which has to say "not set up"
@@ -42,16 +44,37 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 /**
  * The paths that answer normally while the site is closed: each one itself and
  * everything under it - not every path that merely begins with the same
- * letters, so /api/languages keeps /api/languages/sk open, and /api/me does
- * not open a future /api/media.
+ * letters, so /api/me does not open a future /api/media - or, where it starts
+ * with `~`, exactly the paths the pattern matches (gatePathOpen()). The words
+ * are the anotoki library's path, which it says itself
+ * (TranslationsRoutes::openPath()); hence define() rather than const.
  */
-const MAINTENANCE_OPEN_PREFIXES = [
+define('MAINTENANCE_OPEN_PREFIXES', [
     '/api/settings/public',
     '/api/me',
-    '/api/languages',
-    '/api/translations/',
+    TranslationsRoutes::openPath(),
     '/api/site-status',
-];
+]);
+
+/**
+ * Whether a gate leaves a path open, by its list: an entry starting with `~`
+ * is a pattern the decoded path must match whole (end it with D); any other is
+ * a path that is open itself, with everything under it.
+ *
+ * @param list<string> $open
+ */
+function gatePathOpen(string $path, array $open): bool
+{
+    foreach ($open as $entry) {
+        if (str_starts_with($entry, '~')
+            ? preg_match($entry, $path) === 1
+            : ($path === $entry || str_starts_with($path, rtrim($entry, '/') . '/'))) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 /**
  * Whoever is making this request, or null when that is nobody.
@@ -96,12 +119,8 @@ function gatePath(Request $request): string
 function maintenanceGate(): callable
 {
     return function (Request $request, RequestHandler $handler): Response {
-        $path = gatePath($request);
-
-        foreach (MAINTENANCE_OPEN_PREFIXES as $open) {
-            if ($path === $open || str_starts_with($path, rtrim($open, '/') . '/')) {
-                return $handler->handle($request);
-            }
+        if (gatePathOpen(gatePath($request), MAINTENANCE_OPEN_PREFIXES)) {
+            return $handler->handle($request);
         }
 
         if (!maintenanceModeOn()) {

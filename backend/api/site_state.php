@@ -26,6 +26,7 @@
 use Anotoki\Lib\Migrations\Http\SiteGate;
 use Anotoki\Lib\Migrations\Http\SiteState;
 use Anotoki\Lib\Migrations\Migrator;
+use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -36,22 +37,25 @@ use Psr\Http\Server\RequestHandlerInterface;
  * each because without it nobody could get to Apply. Exact paths, or a
  * pattern when it starts with `~` (matched against the decoded path, as the
  * router reads it).
+ *
+ * define() rather than const: the words' path is the library's to say
+ * (TranslationsRoutes::openPath()), and a const cannot ask it.
  */
-const SITE_OPEN_WHILE_UPDATING = [
+define('SITE_OPEN_WHILE_UPDATING', [
     // The boot: where the IAM is and whether it requires signing in, and
     // whether the site is closed for maintenance.
     '/api/settings/public',
     // Who is signed in - the pages' idea of who is an ADMIN. Only the users
     // table, which is there from users/001 on.
     '/api/me',
-    // The pages' words: which languages there are, and the strings of one.
-    '/api/languages',
-    '~^/api/translations/[^/]+$~D',
+    // The pages' words in one language, with the languages on offer beside
+    // them: /api/translations/{code} exactly, one segment and nothing after.
+    TranslationsRoutes::openPath(),
     // The Migrations page: what has run and what waits, a file's SQL, and
     // Apply - for this site's ADMIN, judged by the token alone. Exactly those
     // three: a crafted path under them (dot segments, %2e%2e) stays held.
     '~^/api/admin/migrations(/file|/apply)?$~D',
-];
+]);
 
 /** Whether the installer finished on a real host: it writes storage/installed.lock there - never on this computer. */
 function siteInstalled(): bool

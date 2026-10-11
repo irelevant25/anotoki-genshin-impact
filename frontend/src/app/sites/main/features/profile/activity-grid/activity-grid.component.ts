@@ -1,6 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { TranslatePipe } from '../../../../../shared/local-lib/i18n/translate.pipe';
-import { TranslationService } from '../../../../../shared/local-lib/i18n/translation.service';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { ActivityCell } from '../profile-stats';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 
