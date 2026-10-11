@@ -90,16 +90,6 @@ class AssetRestoreResult extends ResponseShape
     }
 }
 
-/** `POST /api/upload` - a file dropped into a folder, with nothing else touched. */
-class UploadResult extends ResponseShape
-{
-    public function __construct(
-        public readonly string $filename,
-        public readonly string $path,
-    ) {
-    }
-}
-
 /**
  * `POST /api/uploads/{entity}/{field}` - stored where that field's files go,
  * but written onto no row. Used while a form is still being filled in.
@@ -432,68 +422,6 @@ class FileCategoryMove extends ResponseShape
         /** What it is called now - a collision in the new folder adds a suffix. */
         public readonly string $name,
         public readonly bool $renamed,
-    ) {
-    }
-}
-
-/** When the disk snapshot was taken, and how much of it is new. */
-class ExplorerStatus extends ResponseShape
-{
-    public function __construct(
-        /** Null until the disk has been scanned at least once. */
-        public readonly ?string $scanned_at,
-        /** The scan before this one, which `new` is counted against. */
-        public readonly ?string $previous_scanned_at,
-        public readonly int $total,
-        /** Files present now that were absent at the previous scan. */
-        public readonly int $new_count,
-    ) {
-    }
-}
-
-/** One sub-folder in the disk tree, with how many files sit under it. */
-class ExplorerFolder extends ResponseShape
-{
-    public function __construct(
-        public readonly string $name,
-        public readonly string $path,
-        public readonly int $files,
-    ) {
-    }
-}
-
-/** One file on disk, as the Explorer draws it. */
-class ExplorerFile extends ResponseShape
-{
-    public function __construct(
-        public readonly string $name,
-        /** Path relative to assets/. */
-        public readonly string $path,
-        public readonly string $folder,
-        public readonly string $extension,
-        public readonly int $size,
-        public readonly string $modified,
-        /** Served back through /api/files/raw. */
-        public readonly string $url,
-    ) {
-    }
-}
-
-/** One folder's worth of the disk tree: its sub-folders, its files, and a page. */
-class ExplorerListing extends ResponseShape
-{
-    public function __construct(
-        public readonly string $path,
-        public readonly string $search,
-        /** @var ExplorerFolder[] Empty while searching (results are flat). */
-        public readonly array $folders,
-        /** @var ExplorerFile[] */
-        public readonly array $files,
-        public readonly int $total,
-        public readonly int $page,
-        public readonly int $pageSize,
-        /** @var ExplorerStatus */
-        public readonly object $status,
     ) {
     }
 }

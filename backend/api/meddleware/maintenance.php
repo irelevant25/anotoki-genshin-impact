@@ -1,5 +1,7 @@
 <?php
 
+use Anotoki\Lib\Auth\Http\Identify;
+use Anotoki\Lib\Backups\Backups;
 use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -33,6 +35,13 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * nothing can be read - the status above all, which has to say "not set up"
  * when there are no settings to ask.
  *
+ * And two links an admin's browser opens by itself, which carry no token to
+ * let them past: a backup's download (/api/admin/backups/{id}/file, its
+ * single-use ticket its only check) and a file's preview in the file explorer
+ * (/api/admin/files/raw, signed for five minutes). Only an ADMIN gets either
+ * link - from routes this gate lets nobody else reach while the site is
+ * closed - so opening them here opens nothing.
+ *
  * Signing in itself happens at the IAM, which this switch does not reach: an
  * admin signs in there as usual and is let through here by their role.
  *
@@ -54,6 +63,8 @@ define('MAINTENANCE_OPEN_PREFIXES', [
     '/api/me',
     TranslationsRoutes::openPath(),
     '/api/site-status',
+    '~^/api/admin/backups/' . Backups::ID_PATTERN . '/file$~D',
+    '~^/api/admin/files/raw$~D',
 ]);
 
 /**
@@ -80,22 +91,19 @@ function gatePathOpen(string $path, array $open): bool
  * Whoever is making this request, or null when that is nobody.
  *
  * Asked early - a global middleware runs before any route's own, so there is
- * no `user` attribute to read yet - and answered from the verified token alone:
- * the gates need only the id and the role, and the token carries both, so no
- * query is spent on a request the gates are about to refuse.
+ * no `user` attribute to read yet - and answered from the verified token alone
+ * (the library's Identify ran first, meddleware/auth.php): the gates need only
+ * the id and the role, and the token carries both, so no query is spent on a
+ * request the gates are about to refuse.
  *
- * It never refuses. A token this cannot make sense of belongs to nobody, and
- * the gates say what that means in their own words.
+ * It never refuses: a token that does not verify was answered 401 by Identify
+ * before any gate ran.
  */
 function gateCaller(Request $request): ?array
 {
-    $claims = iamBearerClaims($request);
+    $person = Identify::person($request);
 
-    if ($claims === null) {
-        return null;
-    }
-
-    return ['id' => anotoki_iam_user_id($claims), 'role' => siteRoleFromClaims($claims)];
+    return $person === null ? null : ['id' => $person->sub, 'role' => siteRoleOf($person)];
 }
 
 /**

@@ -1,7 +1,7 @@
 import { Injectable, signal, computed, effect, PLATFORM_ID, inject, untracked } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { AccountPreferences, type PreferenceSave } from '@anotoki/lib/auth';
 import { LocalStorageService } from '../services/local-storage.service';
-import { AccountPreferences, PreferenceSave } from '../services/account-preferences.service';
 
 /** `auto` follows the operating system; the other two override it. */
 export type Theme = 'light' | 'dark' | 'auto';
@@ -75,7 +75,7 @@ export class ThemeToggleService {
       // save, or a token refreshed meanwhile, still says the theme the
       // account held before it, and the page would flick back.
       effect(() => {
-        const theme = this._account.theme();
+        const theme = this._account.preferences()?.theme;
         if (theme && !this._account.saving('theme')) {
           untracked(() => this._show(theme));
         }
@@ -99,7 +99,7 @@ export class ThemeToggleService {
   setTheme(theme: Theme): Promise<PreferenceSave> {
     this._show(theme);
     return this._account.save('theme', theme).then((result) => {
-      const kept = this._account.theme();
+      const kept = this._account.preferences()?.theme;
       if (result.outcome === 'refused' && kept) {
         this._show(kept);
       }

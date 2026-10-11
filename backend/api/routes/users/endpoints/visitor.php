@@ -7,7 +7,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // The move at sign-in
 //
 //   POST /api/visitor/move   Authorization: Bearer <token>   X-Visitor-Key: <key>
-//                            -> {found, games: {moved, kept, stale}, results}
+//                            {silent?: bool}
+//                            -> {found, games: {moved, kept, stale}, results, stayed}
 //
 // Somebody who played without signing in has a visitor here - their games and
 // statistics under a `users` row of its own, opened by the key their browser
@@ -24,6 +25,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //     totals are added to the person's, so they still add up;
 //   - then the visitor is gone, and its key opens nothing.
 //
+// Unless the sign-in was a silent one - the IAM's sign-in hint signed the
+// person in without a click, and the page says so (`silent: true`; the
+// library's callback knows) - and the account already has something here: then
+// nothing moves, the visitor stays as it was under its key on that browser,
+// and the answer says `stayed: true` (the owner's decision of 2026-10-11: a
+// browser's games come silently only into an account that is here for the
+// first time). A sign-in the person makes moves them as above. `silent` other
+// than true or false: 422 invalid.
+//
 // The one route that reads the key beside a token (requireVisitorKey()); the
 // key is never who a request is here, the token is. It works whatever the
 // IAM's "Sign-in required" says - the sign-in gate lets a verified token
@@ -38,5 +48,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // ---------------------------------------------------------------------------
 
 $app->post('/api/visitor/move', function (Request $request, Response $response) {
-    return respondJson($response, visitorMove($request->getAttribute('user'), $request->getAttribute('visitor_key')));
+    $body = $request->getParsedBody();
+    $silent = is_array($body) ? ($body['silent'] ?? false) : false;
+    if (!is_bool($silent)) {
+        throw new ApiRefusal(422, 'invalid', 'silent is true or false: whether the sign-in was the IAM\'s silent one.', [], ['field' => 'silent']);
+    }
+
+    return respondJson($response, visitorMove($request->getAttribute('user'), $request->getAttribute('visitor_key'), $silent));
 })->add(responds(VisitorMoveResult::class))->add(requireVisitorKey())->add(requireAuth());

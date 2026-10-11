@@ -1,5 +1,5 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { AuthCallbackComponent } from '@anotoki/lib/auth';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { ROUTE_MAP } from '../../shared/routing-definition';
@@ -24,13 +24,8 @@ import { DatabaseCharacterDetailComponent } from './features/database/characters
 import { DatabaseMaterialDetailComponent } from './features/database/materials/detail/detail.component';
 import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
 import { ProfileComponent } from './features/profile/profile.component';
-import { AuthCallbackComponent } from './features/account/auth-callback/auth-callback.component';
 import { StaffSignInPageComponent } from './features/account/staff/staff.component';
 import { routeAccessGuard } from './route-access.guard';
-import { SecurityService } from '../../shared/local-lib/services/security.service';
-
-/** The callback page is drawn only when a sign-in came back without working; otherwise it is home. */
-const somethingToReport: CanActivateFn = () => inject(SecurityService).signInFailure() !== null || inject(Router).createUrlTree(['/']);
 
 export const routes: Routes = [
   {
@@ -137,14 +132,16 @@ export const routes: Routes = [
         canMatch: [routeAccessGuard],
       },
 
-      // Where the IAM hands a sign-in back. Never switchable, and only drawn
-      // when the sign-in did not work: SecurityService.init() has normally
-      // finished it and moved on before the router looks, and a visit with
-      // nothing to report goes home rather than to an empty page.
+      // Where the IAM hands a sign-in back: the library's page
+      // (@anotoki/lib/auth). Never switchable, and normally never drawn - the
+      // app initializer has finished the sign-in and moved on before the router
+      // looks. What is left is a sign-in that did not work: the library's
+      // screen says why (anotoki.signIn.*), with Try again and Back. A visit
+      // with nothing to report goes home rather than to an empty page; search
+      // engines are asked not to index it (and robots.txt keeps them off /auth/).
       {
         path: ROUTE_MAP.map['authCallback'].path,
         component: AuthCallbackComponent,
-        canActivate: [somethingToReport],
       },
 
       // Never switchable: it is where the sign-in button goes when there is

@@ -12,7 +12,8 @@ code so it does not drift.
 
 Besides the reports, two things that are not generated:
 [`PG-DUMP-INSTALL.md`](PG-DUMP-INSTALL.md) - the PostgreSQL client tools unpacked
-into a home directory on the hosting, for the admin panel's Backups - and
+into a home directory on the hosting, for a `pg_dump` of your own there (the admin
+panel's Backups need none since anotoki-lib 0.4.1) - and
 [`images/`](images/), the anotoki logos (genshin, Honkai: Star Rail, the family
 mark; with and without a background), which nothing in the site loads.
 

@@ -11,9 +11,16 @@
  * The one database is built from two folders, migrations/users/ (the site's
  * half: translations, languages, settings, page switches, people) and
  * migrations/genshin_impact/ (the game content) - they were two databases once
- * - and then the anotoki library's set anotoki_translations (the words'
- * tables and the library's own words, vendor/anotoki/lib; --folder names it
- * too).
+ * - with the anotoki library's sets around them (vendor/anotoki/lib): its
+ * anotoki_admin first (the admin tools' tables), then the two folders, then its
+ * anotoki_translations (the words' tables and the library's own words) and
+ * anotoki_people (the scrub of the IAM's deleted accounts). --folder names any
+ * of them.
+ *
+ * Before it applies anything it makes a backup of the database as it is (the
+ * library's, storage/backups/*.anotoki-backup - once for each list of pending
+ * files), as the admin panel's Apply does; a backup that cannot be made stops
+ * it before anything runs.
  *
  * WHAT CHANGED, AND WHY
  *
@@ -68,7 +75,13 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/config/iam.php';
 require_once __DIR__ . '/api/migration_runner.php';
+// The backup before an apply, and the audit log it writes in: the anotoki
+// library's, set up for this site.
+require_once __DIR__ . '/api/after_response.php';
+require_once __DIR__ . '/api/audit_log.php';
+require_once __DIR__ . '/api/admin_tools.php';
 
 use Anotoki\Lib\Migrations\MigrationSet;
 
@@ -243,7 +256,7 @@ $engine = siteMigrator($pdo, $only, beforeFile: function (PDO $pdo, MigrationSet
     $announce($set->name);
     echo '  ' . $file . ' ... ';
     $open = true;
-});
+}, backups: siteBackups());
 
 try {
     $result = $engine->apply();
@@ -259,14 +272,28 @@ if ($result['busy']) {
     exit(1);
 }
 
+// The audit entries that waited for their table go in - as after the admin
+// panel's Apply - with this run's own.
+siteAudit()->flushPending();
+if ($result['applied'] !== [] || $result['failed'] !== null) {
+    siteAudit()->record(null, null, 'migrations.applied', null, null, array_filter([
+        'files' => array_map(static fn (array $file): string => $file['set'] . '/' . $file['name'], $result['applied']),
+        'failed' => $result['failed'] === null ? null : $result['failed']['set'] . '/' . $result['failed']['name'],
+        'via' => 'command line',
+    ], static fn (mixed $value): bool => $value !== null));
+}
+
 if ($result['failed'] !== null) {
     say('red', 'FAILED');
     say('red', '    ' . $result['error']);
     say('yellow', '    Nothing from this file was applied. The migrations before it stand.');
+    if ($result['note'] !== null) {
+        say('grey', '    ' . $result['note']);
+    }
     // Stopped here, the later sets included: everything after this file is
     // written expecting it to have run, and the two folders share one
     // namespace in an order that matters (api/migration_runner.php,
-    // MIGRATION_FOLDERS) - which the library's set comes after.
+    // MIGRATION_FOLDERS) - which the library's sets stand around.
     $stoppedAt = $result['failed']['set'];
     $notRun = array_slice(migrationSetNames(), array_search($stoppedAt, migrationSetNames(), true) + 1);
     say('red', "\nStopped at " . migrationSetLabel($stoppedAt) . '.' . ($notRun && $only === null
@@ -285,6 +312,11 @@ if ($open) {
     say('green', 'done');
 }
 $upToDateBefore(null);
+
+// The backup made before it ran anything: its name.
+if ($result['note'] !== null) {
+    say('grey', "\n  " . $result['note']);
+}
 
 if ($result['applied']) {
     say('cyan', "\nDone.");

@@ -60,6 +60,13 @@ class QuizCarryResult extends ResponseShape
         public readonly int $unplayed,
         /** @var QuizProgress[] Every saved game of the player, after the carry. */
         public readonly array $games,
+        /**
+         * True when nothing was carried because the sign-in was a silent one
+         * (the IAM's sign-in hint) and the account already has something here:
+         * the browser keeps its games (the owner's decision of 2026-10-11).
+         * The counts are then 0, and `games` the account's own.
+         */
+        public readonly bool $stayed,
     ) {
     }
 }

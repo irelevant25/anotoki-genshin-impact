@@ -32,6 +32,13 @@ class VisitorMoveResult extends ResponseShape
         public readonly object $games,
         /** Finished questions moved into the person's statistics, every one (their totals added to the person's). */
         public readonly int $results,
+        /**
+         * True when nothing moved because the sign-in was a silent one (the
+         * IAM's sign-in hint) and the account already has something here: the
+         * visitor stays as it was, and its key still opens it on this browser
+         * (the owner's decision of 2026-10-11). Everything else is then 0.
+         */
+        public readonly bool $stayed,
     ) {
     }
 }

@@ -1,29 +1,29 @@
 <?php
 
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Anotoki\Lib\Auth\Person;
 
 /**
  * Who is asking, as the IAM says - and this site's own small record of them.
  *
- * The access token is checked here with the IAM's published keys (see
- * anotoki_iam.php): signature, issuer, audience `genshin`, expiry, and that it
- * is an access token rather than an ID token. Nothing about the request is
- * trusted beyond what that token proves. Its `sub` is the person's IAM id,
- * which is the id this site has always keyed their quiz progress and every
- * created_by on - the accounts moved to the IAM with their ids.
+ * The access token is checked by the anotoki library (anotoki-lib 0.4.1, its
+ * AccessTokens behind Identify - api/admin_tools.php, api/index.php) with the
+ * IAM's published keys: RS256 and an access token's type pinned, issuer,
+ * audience `genshin`, expiry. Nothing about the request is trusted beyond
+ * what that token proves. Its `sub` is the person's IAM id, which is the id
+ * this site has always keyed their quiz progress and every created_by on - the
+ * accounts moved to the IAM with their ids.
  *
  * The `users` table stays, slimmed to what is this site's own: the name to
- * show beside an audit entry or a translation, and the email a feedback reply
- * goes to. It is filled in from the token as people arrive and kept in step
- * when the IAM says their name or address changed. It holds no password and
- * decides nothing. The theme, the dates, the clock and the language are the
- * IAM account's (its migration 015): the pages read them from the IAM's tokens
- * and save them to it themselves. The columns that kept this site's own copy -
- * theme_main, theme_admin, language, date_format, time_format - went with
- * users/048.
- * Visitors - people playing without signing in - have rows there too, with
- * negative ids (users/045): api/visitors.php makes them, never this file, and
- * an IAM id is always 1 or more.
+ * show beside an audit entry or a translation. It is kept from the token by
+ * the library's people module (PeopleRecorder: made on a first visit, the name
+ * kept to the token's, at most a statement a request) and blanked by its scrub
+ * when the IAM deletes the account. It holds no password and decides nothing,
+ * and no address: the IAM keeps that (users/052 dropped this site's copy), and
+ * /api/me answers the one the token carries. The theme, the dates, the clock
+ * and the language are the IAM account's too (its migration 015). Visitors -
+ * people playing without signing in - have rows there as well, with negative
+ * ids (users/045): api/visitors.php makes them, never this file, and an IAM id
+ * is always 1 or more.
  *
  * The role is the token's too: `roles` lists this site's roles for the person
  * - MEMBER, which every account holds, plus ADMIN or EDITOR for the staff - and
@@ -35,88 +35,48 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * require sign-in they can still read it as anybody can.
  */
 
-/** The claims of the request's bearer token, verified - or null. Checked once per token per request. */
-function iamBearerClaims(Request $request): ?array
-{
-    static $verified = [];
-
-    $token = anotoki_iam_bearer_token($request->getHeaderLine('Authorization'));
-
-    if ($token === null) {
-        return null;
-    }
-
-    if (!array_key_exists($token, $verified)) {
-        $claims = anotoki_iam_verify_access_token($token, iamClientConfig(), $reason);
-        // Worth a line in the PHP log - an expired token is routine, a bad
-        // signature or the wrong audience is somebody holding the wrong thing.
-        if ($claims === null && $reason !== 'expired') {
-            error_log('[iam] refused an access token: ' . $reason);
-        }
-        $verified = [$token => $claims];
-    }
-
-    return $verified[$token];
-}
-
 /**
  * The one role the rest of the API compares: the highest this site's roles
  * grant. The endpoints were written against a single role per account, and
  * ADMIN has always implied everything EDITOR may do. MEMBER, and anything else
  * the IAM may list, is USER: an ordinary signed-in reader.
  */
-function siteRoleFromClaims(array $claims): string
+function siteRoleOf(Person $person): string
 {
-    $roles = anotoki_iam_roles($claims);
-
-    return in_array('ADMIN', $roles, true) ? 'ADMIN' : (in_array('EDITOR', $roles, true) ? 'EDITOR' : 'USER');
+    return $person->has('ADMIN') ? 'ADMIN' : ($person->has('EDITOR') ? 'EDITOR' : 'USER');
 }
 
 /**
- * The person behind a verified token, with this site's record of them made or
- * brought up to date.
+ * The person a verified token names, with this site's record of them made or
+ * brought up to date (the library's PeopleRecorder - one statement that
+ * changes nothing on the ordinary path), as the routes read them: the row,
+ * the one `role`, every role, when they last signed in at the IAM, and the
+ * address their token carries.
  *
- * One read on the ordinary path; a write only for a first visit or when the IAM
- * reports a new name or address. The name is not unique here - the IAM owns
- * that - so two people swapping names at the IAM cannot collide in this table.
+ * The name is not unique here - the IAM owns that - so two people swapping
+ * names at the IAM cannot collide in this table. Should there be no row - an
+ * id the IAM listed as deleted, which the recorder never makes one for - the
+ * token's own name stands in.
  */
-function siteUserFromClaims(array $claims): array
+function siteUserOf(Person $person): array
 {
     $pdo = usersDb();
-    $id = (int) anotoki_iam_user_id($claims);
-    // An IAM id is always 1 or more; 0 and below are visitors' (users/045).
-    // A token naming one is not a person this file may make or update a row for.
-    if ($id < 1) {
-        throw new LogicException('An IAM user id is 1 or more; this token names ' . $id . '.');
-    }
-    // A token without the profile scope carries no name: the stored one stays
-    // then, rather than everybody becoming "user{id}" on such a request.
-    $claimedName = trim((string) ($claims['preferred_username'] ?? ''));
-    $email = isset($claims['email']) && is_string($claims['email']) ? $claims['email'] : null;
+    sitePeople()->recorder()->seen($pdo, $person);
 
-    $statement = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-    $statement->execute([$id]);
-    $row = $statement->fetch();
+    $statement = $pdo->prepare('SELECT * FROM users WHERE id = ? AND id > 0');
+    $statement->execute([$person->sub]);
+    $row = $statement->fetch() ?: ['id' => $person->sub, 'username' => $person->name ?? 'user' . $person->sub];
 
-    if ($row === false) {
-        $pdo->prepare('INSERT INTO users (id, username, email) VALUES (?, ?, ?) ON CONFLICT (id) DO NOTHING')
-            ->execute([$id, $claimedName !== '' ? $claimedName : 'user' . $id, $email]);
-        $statement->execute([$id]);
-        $row = $statement->fetch();
-    } elseif (($claimedName !== '' && $row['username'] !== $claimedName) || ($email !== null && $row['email'] !== $email)) {
-        $username = $claimedName !== '' ? $claimedName : $row['username'];
-        $pdo->prepare('UPDATE users SET username = ?, email = COALESCE(?, email) WHERE id = ?')->execute([$username, $email, $id]);
-        $row['username'] = $username;
-        $row['email'] = $email ?? $row['email'];
-    }
+    // A database that has not run users/052 yet still has the column of the
+    // address; whatever it holds, the token's is the one that counts.
+    unset($row['email']);
 
-    // array_replace, not +: the token's role must win over any `role` column.
-    // One is still there on a database that has not run migration 040 yet, or
-    // after restoring a backup from before it - and there `+` would have kept
-    // the old table's role, whatever the IAM now says.
+    // array_replace, not +: the token's role must win over any `role` column
+    // a backup from before users/040 would bring back.
     return array_replace($row, [
-        'role' => siteRoleFromClaims($claims),
-        'roles' => anotoki_iam_roles($claims),
-        'auth_time' => isset($claims['auth_time']) ? (int) $claims['auth_time'] : null,
+        'role' => siteRoleOf($person),
+        'roles' => $person->roles,
+        'auth_time' => $person->authTime,
+        'email' => $person->email,
     ]);
 }

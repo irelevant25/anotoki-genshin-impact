@@ -18,9 +18,6 @@ import {
   EnemyGroupPayload,
   EnemyType,
   EnemyTypePayload,
-  ErrorLogCleared,
-  ErrorLogEntry,
-  ErrorLogReport,
   FoodType,
   FoodTypePayload,
   MaterialGroup,
@@ -38,8 +35,6 @@ import {
   TalentTypePayload,
   WeaponType,
 } from '../models';
-import { ErrorLogQuery } from '../types';
-import { toHttpParams } from '../http-params';
 
 /**
  * The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.
@@ -184,15 +179,6 @@ export class LookupApiService {
   }
 
   /**
-   * `DELETE /api/errors`
-   *
-   * Requires the `ADMIN` role.
-   */
-  deleteErrors(): Observable<ErrorLogCleared> {
-    return this._http.delete<ErrorLogCleared>('/api/errors');
-  }
-
-  /**
    * `DELETE /api/food-types/{name}`
    *
    * Requires the `ADMIN` or `EDITOR` role.
@@ -323,24 +309,6 @@ export class LookupApiService {
    */
   getEnemyTypes(): Observable<EnemyType[]> {
     return this._http.get<EnemyType[]>('/api/enemy-types');
-  }
-
-  /**
-   * `GET /api/errors/{fingerprint}`
-   *
-   * Requires the `ADMIN` or `EDITOR` role.
-   */
-  getError(fingerprint: string, params?: ErrorLogQuery): Observable<ErrorLogEntry[]> {
-    return this._http.get<ErrorLogEntry[]>(`/api/errors/${encodeURIComponent(fingerprint)}`, { params: toHttpParams(params) });
-  }
-
-  /**
-   * `GET /api/errors`
-   *
-   * Requires the `ADMIN` or `EDITOR` role.
-   */
-  getErrors(params?: ErrorLogQuery): Observable<ErrorLogReport> {
-    return this._http.get<ErrorLogReport>('/api/errors', { params: toHttpParams(params) });
   }
 
   /**

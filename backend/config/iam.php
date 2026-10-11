@@ -19,8 +19,11 @@
 // Optional there: cache_dir (where the IAM's key set and its answer to "is
 // sign-in required here?" are kept between requests, storage/cache by default
 // - a folder only this site writes, never a shared temp directory) and the
-// SDK's own keys, application_ttl / application_timeout among them - see
-// api/anotoki_iam.php. There is no committed default for either value: a site
+// other keys the anotoki library's IamClient::fromArray() takes - the IAM's
+// PHP SDK's own, application_ttl / application_timeout among them (the SDK
+// itself is gone: the library took its place, api/admin_tools.php). The
+// issuer is https on a real host - the library refuses plain http to any
+// computer but this one. There is no committed default for either value: a site
 // that silently signed people in at somebody's localhost would be worse than
 // one that says it is not set up.
 // ---------------------------------------------------------------------------

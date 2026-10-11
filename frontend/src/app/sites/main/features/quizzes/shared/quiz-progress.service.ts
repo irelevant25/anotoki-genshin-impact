@@ -1,10 +1,10 @@
 import { computed, effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { defer, finalize, firstValueFrom, from, Observable, of, shareReplay, tap } from 'rxjs';
+import { AnotokiAuth, type Caller, issuedAs, SavesInFlight } from '@anotoki/lib/auth';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
-import { SavesInFlight } from '../../../../../shared/local-lib/services/saves-in-flight.service';
 import { VisitorKey } from '../../../../../shared/local-lib/services/visitor-key.service';
-import { apiErrorCode, Caller, issuedAs } from '../../../../../shared/local-lib/services/issued-as';
+import { signedInSilently } from '../../../../../shared/silent-sign-in';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { QuizId, QuizState } from './quiz.types';
 import { ALL_QUIZZES, todayString } from './daily';
@@ -37,6 +37,12 @@ export function hasPlay(state: QuizState | undefined): state is QuizState {
   return !!state && ((state.tries?.length ?? 0) > 0 || state.isQuestionComplete === true);
 }
 
+/** The family's refusal code in an API error's body (`{error, code}`), or null. */
+function apiErrorCode(error: HttpErrorResponse): string | null {
+  const code = (error.error as { code?: unknown } | null)?.code;
+  return typeof code === 'string' ? code : null;
+}
+
 /**
  * Where a quiz's progress lives.
  *
@@ -57,7 +63,10 @@ export function hasPlay(state: QuizState | undefined): state is QuizState {
  * The browser's own games are carried in once - when a visitor is made (the
  * game just played among them) and when a person's games are first loaded
  * after a sign-in - and then cleared from it; the server keeps the account's
- * game where both have one, and a daily of another day never moves.
+ * game where both have one, and a daily of another day never moves. After a
+ * silent sign-in (the IAM's hint, no click) an account that already has
+ * something here takes none of them in, and the browser keeps them (`stayed`,
+ * the owner's decision of 2026-10-11) - as VisitorKey's move does.
  *
  * Who a request is for is decided here as it is issued (`issuedAs()`), never
  * by the interceptor from whether a token happens to be there.
@@ -79,6 +88,7 @@ export class QuizProgressService {
   private readonly _security = inject(SecurityService);
   private readonly _visitorKey = inject(VisitorKey);
   private readonly _saves = inject(SavesInFlight);
+  private readonly _auth = inject(AnotokiAuth);
 
   /** Whose saved games are being played now. */
   readonly owner = computed<ProgressOwner>(() => {
@@ -404,12 +414,18 @@ export class QuizProgressService {
       // where both have one, a daily of another day never moves. Cleared from
       // the browser afterwards - and so are the ones not worth carrying (a
       // fresh draw, yesterday's daily): the browser keeps no games of an
-      // owner the server knows.
+      // owner the server knows. But after a silent sign-in (the IAM's hint,
+      // no click) an account that has its own here takes none in (`stayed`,
+      // the owner's decision of 2026-10-11): the browser keeps them, for when
+      // nobody is signed in here again or the person signs in themselves.
       const browserGames = this._carryable();
       let held = games;
       if (browserGames.length) {
-        const result = await firstValueFrom(this._quizApi.carryQuizProgress({ games: browserGames }, issuedAs(caller)));
-        this._clearBrowserGames();
+        const silent = caller === 'person' && signedInSilently(untracked(this._auth.sub));
+        const result = await firstValueFrom(this._quizApi.carryQuizProgress({ games: browserGames, silent }, issuedAs(caller)));
+        if (!result.stayed) {
+          this._clearBrowserGames();
+        }
         if (result.carried > 0) {
           this.carried.set(result);
         }
@@ -459,6 +475,18 @@ export class QuizProgressService {
 
   private _clearBrowserGames(): void {
     this._stateService.clearQuizStates(ALL_QUIZZES);
+  }
+
+  /**
+   * The signed-in person's saved games were deleted elsewhere - their own, on
+   * the admin panel's People page: nothing held is theirs any more, and the
+   * open pages load again (saving what is held would only put it back).
+   * Nothing for a visitor's games or the browser's own.
+   */
+  forgetPersonGames(): void {
+    if (this._loadedFor?.startsWith('person:') || this._loading?.owner.startsWith('person:')) {
+      this._newTicket();
+    }
   }
 
   /** The owner changed under the open pages: nothing held is theirs; they load again. */

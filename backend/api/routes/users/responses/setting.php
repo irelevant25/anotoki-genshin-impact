@@ -95,6 +95,13 @@ class SiteAuthConfig extends ResponseShape
          * true the API answers 401 sign_in_required to anybody not signed in.
          */
         public readonly bool $login_required,
+        /**
+         * Whether signing in is on offer at all: false once the IAM has said it
+         * does not know this site (or switched it off) - then the pages offer
+         * no sign-in, and the IAM's sign-in hint sends nobody there
+         * (the anotoki library's AuthRoutes::configBody()).
+         */
+        public readonly bool $sign_in_available,
     ) {
     }
 }

@@ -6,11 +6,12 @@ declare(strict_types=1);
  * What every test file loads first: check() and same(), temporary folders that
  * go when the file ends, and the tally tests/run.php reads.
  *
- * Most tests here need no database and no server: each loads the code it
- * tests and nothing else, so nothing can reach your database, your settings
- * or the asset tree. The few that need a database (the words: their migration
- * and their routes) load tests/db_lib.php beside this, which makes databases
- * of their own and a backend of its own to run the API in - never yours.
+ * A test that needs no database and no server loads the code it tests and
+ * nothing else, so nothing can reach your database, your settings or the
+ * asset tree. Those that need a database (the words' migration and routes,
+ * the library's data moves, admin tools and gates, migration.php) load
+ * tests/db_lib.php beside this, which makes databases of their own and a
+ * backend of its own to run the API in - never yours.
  */
 
 define('TEST_BACKEND', dirname(__DIR__));

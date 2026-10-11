@@ -84,11 +84,13 @@ function testDatabase(string $label, ?string $template = null): string
 }
 
 /**
- * Builds a database with the site's engine, as the installer would: every
- * folder whole, or a folder only up to the file $upTo names (set => file
- * name), the rest of it left for later. The library's set is not among them:
- * siteMigrator() brings it, with whatever was left. Needs
- * api/migration_runner.php loaded.
+ * Builds a database with the site's engine, as the installer would, in the
+ * sets' own order (migrationSetNames()): every folder whole, or a folder only
+ * up to the file $upTo names (set => file name), the rest of it left for
+ * later. The library's sets are among them only where $upTo names them too -
+ * a database as it stood before a release brought them (anotoki_translations
+ * up to 002 for one installed before 0.4) - and siteMigrator() brings the rest
+ * of them, with whatever else was left. Needs api/migration_runner.php loaded.
  *
  * @param array<string, string> $upTo
  * @return array the engine's answer: applied, failed, error, busy, note
@@ -96,19 +98,23 @@ function testDatabase(string $label, ?string $template = null): string
 function testMigrate(PDO $pdo, array $upTo = []): array
 {
     $sets = [];
-    foreach (MIGRATION_FOLDERS as $folder) {
-        $source = migrationsRoot() . '/' . $folder;
-        if (!isset($upTo[$folder])) {
-            $sets[] = new MigrationSet($folder, $source);
+    foreach (migrationSetNames() as $name) {
+        $folder = in_array($name, MIGRATION_FOLDERS, true);
+        if (!$folder && !isset($upTo[$name])) {
             continue;
         }
-        $copy = testTempDir("migrations-$folder");
+        $source = $folder ? migrationsRoot() . '/' . $name : libraryMigrationSet($name)->directory;
+        if (!isset($upTo[$name])) {
+            $sets[] = new MigrationSet($name, $source);
+            continue;
+        }
+        $copy = testTempDir("migrations-$name");
         foreach (glob("$source/*.sql") ?: [] as $file) {
-            if (strnatcmp(basename($file), $upTo[$folder]) <= 0) {
+            if (strnatcmp(basename($file), $upTo[$name]) <= 0) {
                 copy($file, "$copy/" . basename($file));
             }
         }
-        $sets[] = new MigrationSet($folder, $copy);
+        $sets[] = $folder ? new MigrationSet($name, $copy) : MigrationSet::library($name, $copy);
     }
 
     return (new Migrator($pdo, $sets, ['lock' => MIGRATION_LOCK, 'prepare' => ensureMigrationsTable(...)]))->apply();

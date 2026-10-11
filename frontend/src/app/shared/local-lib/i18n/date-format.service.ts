@@ -1,7 +1,6 @@
 import { Injectable, computed, inject, linkedSignal } from '@angular/core';
-import { AccountPreferences, PreferenceSave } from '../services/account-preferences.service';
+import { AccountPreferences, type AnotokiDateFormat, type AnotokiTimeFormat, type PreferenceSave } from '@anotoki/lib/auth';
 import { TranslationService } from '@anotoki/lib/translations';
-import type { AnotokiDateFormat, AnotokiTimeFormat } from '../iam/anotoki-auth';
 
 /**
  * The orders a date can be written in.
@@ -196,11 +195,11 @@ export class DateFormatService {
    * its way: an earlier answer would flick it back.
    */
   readonly dateChoice = linkedSignal<AnotokiDateFormat | null, DateFormatChoice>({
-    source: () => this._account.dateFormat(),
+    source: () => this._account.preferences()?.date_format ?? null,
     computation: (account, previous) => (previous && this._account.saving('date_format') ? previous.value : (account ?? 'auto')),
   });
   readonly timeChoice = linkedSignal<AnotokiTimeFormat | null, TimeFormatChoice>({
-    source: () => this._account.timeFormat(),
+    source: () => this._account.preferences()?.time_format ?? null,
     computation: (account, previous) => (previous && this._account.saving('time_format') ? previous.value : (account ?? 'auto')),
   });
 
@@ -225,7 +224,7 @@ export class DateFormatService {
     this.dateChoice.set(choice);
     return this._account.save('date_format', choice === 'auto' ? null : choice).then((result) => {
       if (result.outcome === 'refused') {
-        this.dateChoice.set(this._account.dateFormat() ?? 'auto');
+        this.dateChoice.set(this._account.preferences()?.date_format ?? 'auto');
       }
       return result;
     });
@@ -236,7 +235,7 @@ export class DateFormatService {
     this.timeChoice.set(choice);
     return this._account.save('time_format', choice === 'auto' ? null : choice).then((result) => {
       if (result.outcome === 'refused') {
-        this.timeChoice.set(this._account.timeFormat() ?? 'auto');
+        this.timeChoice.set(this._account.preferences()?.time_format ?? 'auto');
       }
       return result;
     });

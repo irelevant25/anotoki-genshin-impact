@@ -3,6 +3,9 @@ import { provideRouter } from "@angular/router";
 import { registerLocaleData } from "@angular/common";
 import localeEn from "@angular/common/locales/en";
 import localeSk from "@angular/common/locales/sk";
+import { provideAnotokiAdmin } from "@anotoki/lib/admin";
+import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from "@anotoki/lib/auth";
+import { provideAnotokiFeedback } from "@anotoki/lib/feedback";
 import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
 import { provideAnotokiTranslations, TranslationService } from "@anotoki/lib/translations";
 import { provideAnotokiUi } from "@anotoki/lib/ui/config";
@@ -14,8 +17,13 @@ import { SecurityService } from "./shared/local-lib/services/security.service";
 import { SiteSettingsService } from "./shared/local-lib/services/site-settings.service";
 import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
 import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
+import { AUTH_CALLBACK_PATH } from "./shared/routing-definition";
+import { siteAdminToolsConfig } from "./shared/site-admin-tools";
+import { siteAuthConfig } from "./shared/site-auth";
+import { siteFeedbackConfig } from "./shared/site-feedback";
 import { siteStatusConfig } from "./shared/site-status";
 import { siteTranslationsConfig } from "./shared/site-translations";
+import { clientNotingSilentSignIns } from "./shared/silent-sign-in";
 
 // export const appConfig: ApplicationConfig = {
 // providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
@@ -36,8 +44,8 @@ export const BASE_PATH = new InjectionToken<string>('basePath');
  *
  * Only when the IAM requires sign-in here and the reader is not signed in -
  * and never where that would go round in circles, the same rule the admin
- * panel's gate keeps: not while the SDK still holds a session this site's API
- * refuses (the IAM would hand the same tokens straight back), not after a
+ * panel's gate keeps: not while the library still holds a session this site's
+ * API refuses (the IAM would hand the same tokens straight back), not after a
  * sign-in that has just come back without working (it is to be explained, not
  * repeated), not on the callback's own address, and not while maintenance mode
  * has the site closed (the closed sign says so; an admin signs in at /staff).
@@ -66,6 +74,7 @@ export const appConfig: ApplicationConfig = {
       const injector = inject(Injector);
       const configService = inject(ConfigService);
       const siteSettings = inject(SiteSettingsService);
+      const auth = inject(AnotokiAuth);
       const securityService = inject(SecurityService);
       const siteStatus = inject(SiteStatus);
 
@@ -85,8 +94,25 @@ export const appConfig: ApplicationConfig = {
         // where the IAM's address comes from.
         await siteSettings.init();
         await status;
-        // Before the router's first navigation: a sign-in coming back from the
-        // IAM is finished here, and the address it started from put back.
+        // Before the router's first navigation (@anotoki/lib/auth,
+        // shared/site-auth.ts): a sign-in coming back from the IAM is finished
+        // here and the address it started from put back; a stored session is
+        // restored, and follows the IAM - signed out there is signed out here,
+        // at this page load. A visitor signed in at the IAM (its sign-in hint)
+        // is signed in here with one silent hop: the page leaves for the IAM
+        // and comes back, and this never resolves.
+        await auth.init();
+        // A sign-in that came back without one - refused at the IAM, cancelled
+        // there, too slow - has been put back by the library where it started,
+        // with nothing said. It is told at the callback's address instead,
+        // before the router looks: the library's screen there says why, with
+        // Try again and Back (to where it started). A silent hop that came
+        // back without one is never a failure: the library says nothing of it.
+        if (auth.signInFailure() && location.pathname !== AUTH_CALLBACK_PATH) {
+          history.replaceState(null, '', AUTH_CALLBACK_PATH);
+        }
+        // This site's own record of whoever is signed in (/api/me), so the
+        // first page is drawn for them.
         await securityService.init(siteSettings.auth());
         // Built only now, after the session: the theme is the signed-in
         // account's, which is known from here on, and the strings read the
@@ -109,7 +135,7 @@ export const appConfig: ApplicationConfig = {
         // anything is drawn, and comes back to the address they opened.
         if (mustSignInFirst(siteSettings, securityService, siteStatus)) {
           await securityService
-            .login({ returnTo: location.pathname + location.search + location.hash, language: i18n.signInLanguage() })
+            .login({ returnTo: location.pathname + location.search + location.hash })
             // The browser would not start it. The site's sign-in card is
             // drawn instead, and its button says why when pressed.
             .catch(() => undefined);
@@ -119,15 +145,31 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     // The site's status first: it hears an API answer saying the site is not
-    // ready (503 update_pending or not_set_up) after the site's own handling of
-    // the request - its token, its one retry - is done.
-    provideHttpClient(withInterceptors([siteStatusInterceptor, httpInterceptor])),
+    // ready (503 update_pending or not_set_up) after the rest of the handling
+    // of the request - its token, its one retry - is done. Then this site's
+    // own (the base URL, the multipart override, the move's key), and last the
+    // sign-in's (@anotoki/lib/auth): who each request of the API is, its token
+    // or its visitor key.
+    provideHttpClient(withInterceptors([siteStatusInterceptor, httpInterceptor, anotokiAuthInterceptor])),
     provideAnotokiMigrations(siteStatusConfig),
+    // Signing in through the anotoki IAM (shared/site-auth.ts), and its
+    // screens' words - the library's anotoki.signIn.*. Its IAM client notes
+    // whether each sign-in was the hint's silent one (shared/silent-sign-in.ts):
+    // the move of this browser's visitor into the account asks.
+    provideAnotokiAuth(siteAuthConfig),
+    { provide: ANOTOKI_AUTH_CLIENT_FACTORY, useValue: clientNotingSilentSignIns },
     // The site's words (shared/site-translations.ts), and the library kit's
     // own - its buttons and dialogs on the status and admin pages - in the
     // language on the page, from the same database (anotoki.*).
     provideAnotokiTranslations(siteTranslationsConfig),
     provideAnotokiUi(() => ({ ...inject(TranslationService).forKit() })),
+    // The visitors' feedback form (shared/site-feedback.ts) and its words, the
+    // library's anotoki.feedback.*; the form itself loads when it is opened.
+    provideAnotokiFeedback(siteFeedbackConfig),
+    // The admin tools' configuration (shared/site-admin-tools.ts) - here, where
+    // the library's pages and the navigation's feedback count read it; the
+    // pages themselves load with the admin panel's routes.
+    provideAnotokiAdmin(siteAdminToolsConfig),
     {
       provide: BASE_PATH,
       useFactory: () => inject(ConfigService).backendUrl,

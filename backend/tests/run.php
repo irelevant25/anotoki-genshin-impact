@@ -9,9 +9,16 @@ declare(strict_types=1);
  *   php tests/run.php                        every file
  *   php tests/run.php tests/uploads.test.php some of them
  *
- * They need no database, no server and no config/*.local.php (tests/lib.php):
- * what they cover is code that decides on its own - the upload rules so far.
- * The rest of the API is checked by hand (DEV.md, Checking your work).
+ * The upload rules need nothing (tests/lib.php). The rest - the words'
+ * migration and routes, the anotoki library's admin tools, people and sign-in
+ * (anotoki-lib 0.4.1: the data moves of users/052 and genshin_impact/028-029,
+ * every admin route's permissions, the gates), what a silent sign-in brings
+ * in (the visitor's move, the browser's games' carry), the command line - make
+ * genshin_test_* databases of their own on the PostgreSQL server
+ * config/database.local.php names, never its database, and run the API in a
+ * backend copy of their own (tests/db_lib.php). Without that file they say
+ * they are skipped. The rest of the API is checked by hand (DEV.md, Checking
+ * your work). Run them on PHP 8.2 too: the hosts run 8.2 and up.
  */
 
 $root = dirname(__DIR__);

@@ -11,8 +11,8 @@ use Psr\Http\Message\ResponseInterface as Response;
  * transaction rolls it back on the way out, as for any exception.
  *
  * Not a failure of the API: the handler writes no PHP log line and no trace
- * for it, and the response logger records it like any other 4xx or 503 a
- * route returns.
+ * for it, and the error log writes its answer as it would any other a route
+ * returns - when its rule takes the status (siteErrorLog()).
  */
 final class ApiRefusal extends RuntimeException
 {

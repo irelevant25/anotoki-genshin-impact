@@ -59,7 +59,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  *   ownerPrivate()    the headers on every answer about somebody's own data
  *   visitorMove()     at sign-in, a visitor's games and statistics into the
  *                     person's account, and the visitor gone (POST
- *                     /api/visitor/move: the token AND the key)
+ *                     /api/visitor/move: the token AND the key) - after a
+ *                     silent sign-in, only into an account with nothing here
  *
  * requireOwner() (api/meddleware/auth.php) says who a request is; the routes
  * in api/routes/genshin_impact/endpoints/quiz_progress.php are what it
@@ -411,6 +412,16 @@ function ownerPrivate(Response $response): Response
  *   the totals   added to the person's per character and quiz, so they
  *                still add up to the log.
  *
+ * After a silent sign-in ($silent: the IAM's sign-in hint signed the person
+ * in, nobody clicked anything - the page says so) only into an account that
+ * has nothing here yet: one with anything of its own here
+ * (personHasData()) takes nothing in, and the visitor stays as it is -
+ * {found: true, stayed: true} with zeros - its key still opening it on that
+ * browser, until a sign-in the person makes there (the owner's decision of
+ * 2026-10-11: a browser's games never land silently in an account that
+ * already has its own here). Asked under the same locks, so what the answer
+ * says is what was there.
+ *
  * Repeatable: a key nobody has (moved already by another tab, swept, never
  * there) is {found: false} with zeros - no error. Another request holding
  * the rows past the lock timeout, or a write that met the move's (a deadlock,
@@ -420,9 +431,9 @@ function ownerPrivate(Response $response): Response
  * visitors_unavailable. Whatever the IAM's switch says - requiring sign-in
  * stops a key from being somebody, not from being handed in with a token.
  *
- * @return array{found: bool, games: array{moved: int, kept: int, stale: int}, results: int}
+ * @return array{found: bool, games: array{moved: int, kept: int, stale: int}, results: int, stayed: bool}
  */
-function visitorMove(array $person, string $key): array
+function visitorMove(array $person, string $key, bool $silent = false): array
 {
     if (isVisitor($person) || (int) ($person['id'] ?? 0) < 1) {
         throw new LogicException('Only a signed-in person takes a visitor in.');
@@ -437,7 +448,7 @@ function visitorMove(array $person, string $key): array
     $personId = (int) $person['id'];
     $today = gmdate('Y-m-d');
     try {
-        $moved = visitorTransaction(static function (PDO $pdo) use ($key, $personId, $today): array|null|false {
+        $moved = visitorTransaction(static function (PDO $pdo) use ($key, $personId, $today, $silent): array|null|false {
             $pdo->prepare("SELECT set_config('lock_timeout', ?, true)")->execute([visitorSetting('move_lock_timeout_ms') . 'ms']);
 
             $select = $pdo->prepare('SELECT id FROM users WHERE visitor_key_hash = ? AND id < 0 FOR UPDATE');
@@ -451,6 +462,12 @@ function visitorMove(array $person, string $key): array
             $select->execute([$personId]);
             if ($select->fetchColumn() === false) {
                 return false;
+            }
+
+            // A silent sign-in brings nothing into an account that has its own
+            // here: the visitor stays, untouched (the owner's decision).
+            if ($silent && personHasData($pdo, $personId)) {
+                return ['games' => ['moved' => 0, 'kept' => 0, 'stale' => 0], 'results' => 0, 'stayed' => true];
             }
 
             // The saved games. (No jsonb `?` operator: it would be read as a
@@ -499,6 +516,7 @@ function visitorMove(array $person, string $key): array
             return [
                 'games' => ['moved' => $movedGames, 'kept' => (int) $games['movable'] - $movedGames, 'stale' => (int) $games['stale']],
                 'results' => $log->rowCount(),
+                'stayed' => false,
             ];
         });
     } catch (\PDOException $e) {
@@ -523,8 +541,27 @@ function visitorMove(array $person, string $key): array
     }
 
     return $moved === null
-        ? ['found' => false, 'games' => ['moved' => 0, 'kept' => 0, 'stale' => 0], 'results' => 0]
+        ? ['found' => false, 'games' => ['moved' => 0, 'kept' => 0, 'stale' => 0], 'results' => 0, 'stayed' => false]
         : ['found' => true] + $moved;
+}
+
+/**
+ * Whether $userId has anything of its own here yet - a saved game (even a
+ * fresh draw: a quiz page was opened), a finished question or a total, in
+ * any of VISITOR_PERSON_TABLES. What a silent sign-in's move asks
+ * (visitorMove()): an account with none is somebody here for the first time.
+ */
+function personHasData(PDO $pdo, int $userId): bool
+{
+    foreach (VISITOR_PERSON_TABLES as $table) {
+        $statement = $pdo->prepare("SELECT 1 FROM $table WHERE user_id = ? LIMIT 1");
+        $statement->execute([$userId]);
+        if ($statement->fetchColumn() !== false) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**

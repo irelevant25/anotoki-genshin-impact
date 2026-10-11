@@ -28,8 +28,11 @@ to backend work.
   (where an upload goes and what it is called - `_uploadTargets()`,
   `assetBaseName()`), `backend/api/media_convert.php` (uploads re-encoded to AVIF /
   Opus), `backend/api/asset_stats.php` (Files-page figures, DB-backed),
-  `backend/api/explorer.php` (the disk-snapshot the Files Explorer and drift figures
-  share), `backend/api/migration_runner.php` (the migrations, on anotoki/lib's
+  `backend/api/explorer.php` (the disk snapshot the Files page's drift figures
+  read), `backend/api/admin_tools.php` (anotoki-lib 0.4.1 set up for this site:
+  the IAM's tokens and switch, people, the error log, feedback, backups, the file
+  explorer), `backend/api/audit_log.php` (the library's audit log; DbQuery, the
+  catalogue and the words write it), `backend/api/migration_runner.php` (the migrations, on anotoki/lib's
   shared engine) and `site_state.php` (where the site stands - the shared
   library's gate in front of every route),
   `backend/api/meddleware/auth.php` and `validation.php` (the folder is spelled
@@ -80,21 +83,29 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   metadata via `fullResourceShapes()`.
 - Register the new endpoint file with a `require_once` in `backend/api/index.php`,
   in the matching section.
-- Four global gates run before any route (`api/index.php`): the shared library's
-  SiteGate (503 `not_set_up` / `update_pending`, `api/site_state.php`), maintenance
-  (503), sign-in required (401, `api/meddleware/sign_in.php` - the IAM's switch, read by
-  `signInRequired()` through the vendored SDK) and the page locks (423);
-  `/api/site-status` passes all four. A new
-  public route needs nothing from them: while the IAM requires sign-in it is
-  closed to anybody signed out like every other. Add a path to
-  `SIGN_IN_OPEN_PREFIXES` only if the sign-in card itself needs it, or a browser
-  loads it without a token (`/api/files/raw`, an `<img>`'s). A gate (or anything
-  that lets a path past by its spelling) reads `gatePath($request)` - the path
-  decoded as the router decodes it - never the raw `getUri()->getPath()`, or
-  `/%61pi/...` walks past it to the `/api/...` route. Never edit
-  `api/anotoki_iam.php` (the IAM's SDK, copied byte for byte) or write a fetch of
-  the IAM beside it. A token's `MEMBER` role is an ordinary reader (`USER`);
-  nothing asks for it.
+- The global middleware (`api/index.php`): the shared library's SiteGate (503
+  `not_set_up` / `update_pending`, `api/site_state.php`), the library's Identify
+  (who a request is: a Bearer that does not verify is 401 `invalid_token` but on
+  `TOKENLESS_PATHS`, `meddleware/auth.php`), the audit context, maintenance (503),
+  sign-in required (401, the library's `SignInGate` over the IAM's switch,
+  `api/meddleware/sign_in.php`) and the page locks (423); `/api/site-status`
+  passes them all. A new public route needs nothing from them: while the IAM
+  requires sign-in it is closed to anybody signed out like every other. Add a
+  path to `SIGN_IN_OPEN_PATHS` only if the sign-in card itself needs it, or a
+  browser loads it without a token (`/api/files/raw`, an `<img>`'s; the admin
+  tools' two links). A gate (or anything that lets a path past by its spelling)
+  reads `gatePath($request)` - the path decoded as the router decodes it - never
+  the raw `getUri()->getPath()`, or `/%61pi/...` walks past it to the `/api/...`
+  route. A token is read by the library alone (`Identify`, `AccessTokens`,
+  `api/admin_tools.php`) - never a verifier or a fetch of the IAM of our own.
+  A token's `MEMBER` role is an ordinary reader (`USER`); nothing asks for it.
+- The admin tools (the error log, the audit log, feedback, backups, the file
+  explorer, people) are the library's routes, ADMIN only, judged from the token:
+  each `*Routes::admin()` group guards itself and gets `RequireRole::admin()`
+  here too (`api/index.php`); this site's answers are `api/admin_tools.php`'s.
+  Record an admin change with `siteAudit()->record(...)` (or `auditContent()`,
+  `auditFile()`), never a table of our own. A new route of the library goes in
+  `frontend/api-config.mjs`'s `SKIP_PREFIXES`.
 
 ## Migrations
 
@@ -133,8 +144,9 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   (add / drop / rename / retype a column, add a CHECK) and DROP TABLE; a
   statement outside that changes the database but not the generated client.
 - Apply with `php migration.php` (from `backend/`); check with `--status` /
-  `--dry-run` first. Use `--folder=users` to scope to one folder. Back up first
-  (`php db-dump.php`) when it rewrites or deletes rows.
+  `--dry-run` first. Use `--folder=users` to scope to one folder. It backs the
+  database up first (the library's backup, in `storage/backups/`), as the admin
+  panel's Apply does.
 - The engine is anotoki/lib's `Migrator` (`backend/vendor/anotoki/lib`, the
   anotoki sites' shared library - never edited here), set up for this site in
   `backend/api/migration_runner.php` (`siteMigrator()`) and shared by the CLI, the
@@ -144,18 +156,21 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   there (its options and hooks), not in one caller. While a file waits, the
   SiteGate answers `503 update_pending` to all but `SITE_OPEN_WHILE_UPDATING`
   (`site_state.php`) - a route goes in that list only if nobody could get to
-  Apply without it. After both folders it runs the library's own set,
-  `anotoki_translations` (`migrationSetNames()`; the order guard holds it third):
-  a `users/` migration never depends on a library file, writes only the words'
+  Apply without it. Around both folders it runs the library's own sets, in the
+  order `migrationSetNames()` gives: `anotoki_admin` first (the admin tools'
+  tables; the order guard lets it be missing where the rest ran - every database
+  installed before 0.4), `anotoki_translations` and `anotoki_people` after: a
+  `users/` migration never depends on a library file, writes only the words'
   base columns, never takes a key under `anotoki.` (the library's), and its gate
-  names its own keys - never a total.
+  names its own keys - never a total. A `genshin_impact/` migration may build on
+  `anotoki_admin`'s tables (028 and 029 moved the old audit log and feedback in).
 
 ## The words
 
 The languages, keys and strings are the anotoki library's translations module
 (`vendor/anotoki/lib`, `Anotoki\Lib\Translations`), set up in
 `api/translations.php` (released languages en and sk, the `{error, code}` body,
-the writer from the token, `audit_logs`, `GuideLanguageUsage`); its routes are
+the writer from the token, the library's audit log, `GuideLanguageUsage`); its routes are
 put up behind `requireAuth()` + `requireRole(...ROLES_CONTENT)` in
 `routes/users/endpoints/translations.php` and are not in the generated client
 (SKIP_PREFIXES). There is no route, import flag or command that makes a key or
@@ -183,8 +198,9 @@ Production is FTP-only with no shell, served same-origin. It rarely constrains a
 single endpoint, but keep it in mind:
 
 - **No shell in production.** Do not build a runtime feature on `proc_open` /
-  `exec` / an external binary — the backup feature (`pg_dump`/`pg_restore`)
-  already cannot run there. Prefer pure PDO/PHP.
+  `exec` / an external binary - the backups are the library's for that reason
+  (COPY through PDO; `pg_dump` only in the command-line `db-dump.php` /
+  `db-push.php`). Prefer pure PDO/PHP.
 - `php build-dist.php` assembles the deployable slice and deliberately omits the
   generators, `openapi.json`, `docs.html`, and every `*.local.php` secret. A new
   dev-only script at the `backend/` root is fine — it will not ship. A new runtime
@@ -212,9 +228,14 @@ development through `ng serve`'s proxy. Never print a `.local.php` file's conten
 
 ## Verifying
 
-- `php -l <file>` after every edit, and `php tests/run.php` (no database, no
-  server) - with a test of the attack it stops for any change to the upload
-  rules (`api/upload_guard.php`, `api/asset_naming.php`).
+- `php -l <file>` after every edit, and `php tests/run.php` - on PHP 8.2 too
+  (the hosts run 8.2 and up) - with a test of the attack it stops for any change
+  to the upload rules (`api/upload_guard.php`, `api/asset_naming.php`). The tests
+  that need a database make `genshin_test_*` ones of their own and a backend copy
+  (`tests/db_lib.php`); an endpoint change gets a test there - an admin route's
+  for nobody, a MEMBER, an EDITOR and the ADMIN (`tests/library-tools-routes.test.php`),
+  a data move's on a database shaped like an installed one
+  (`tests/library-tools-migration.test.php`).
 - Run the dev server (`composer start` from `backend/`) and hit
   the route with `curl` for the real status, headers and body. A checkout without
   its config answers `not_set_up` to everything: `http://localhost:8000/setup.php`

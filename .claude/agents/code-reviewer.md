@@ -36,15 +36,26 @@ subscribed, an `effect`/`computed` that misses a dependency.
 - Mass assignment: writes go through `DbModel` whitelisting, not raw `$body`.
 - Uploads: extension/type validated server-side against an allowlist, not from
   the client filename.
-- Sign-in is the anotoki IAM's: a token is only ever trusted after
-  `iamBearerClaims()` (`api/site_user.php` + the vendored `api/anotoki_iam.php`)
-  has verified it; no endpoint takes a password or issues a token of its own; the
-  role comes from the verified token, never from the request. The vendored SDK is
-  the IAM's file byte for byte (never edited, no fetch of the site's own beside
-  it). While the IAM requires sign-in, `signInGate()` (`api/meddleware/sign_in.php`)
+- Sign-in is the anotoki IAM's: a token is only ever trusted after the anotoki
+  library's `Identify` / `AccessTokens` (`api/admin_tools.php`,
+  `identifyRequests()` in `meddleware/auth.php`) has verified it; no endpoint
+  takes a password or issues a token of its own; the role comes from the
+  verified token, never from the request; no cookie is read as somebody. A
+  token verifier or a fetch of the IAM of the site's own beside the library is a
+  finding, and so is a path added to `TOKENLESS_PATHS` that reads who is asking.
+  The library's admin tools are ADMIN only: a group without this site's
+  `RequireRole::admin()` beside its own guard, an EDITOR let in, or a third route
+  outside the admin check (only the backups' ticketed download and the explorer's
+  signed previews are) is a finding. So is anything that deletes a `files` row
+  something points at (every `*_file_id` is ON DELETE SET NULL: the picture
+  leaves the content silently) - a rename or a move keeps the row
+  (`catalogueMove()`), `explorerGuard()` refuses the rest - and a sender's
+  address taken from the token into feedback (`feedbackSender()` hands the id
+  alone). While the IAM requires sign-in, the
+  library's `SignInGate` (`api/meddleware/sign_in.php`)
   is what keeps the public routes from anybody signed out: a path added to
-  `SIGN_IN_OPEN_PREFIXES` that neither the sign-in card nor a token-less `<img>`
-  needs is a hole (the words' bundle is open exactly, a `~` pattern from
+  `SIGN_IN_OPEN_PATHS` that neither the sign-in card nor a token-less browser
+  load needs is a hole (the words' bundle is open exactly, a `~` pattern from
   `TranslationsRoutes::openPath()` - widening it to a prefix is a finding), and so
   is a gate that matches a path by its spelling on the raw
   `getUri()->getPath()` instead of `gatePath()` (the router decodes:
@@ -52,14 +63,25 @@ subscribed, an `effect`/`computed` that misses a dependency.
   switch reads fail closed (a 404 or an IAM never reached = required). In the
   frontend, whatever starts a sign-in by itself (the app initializer's
   `mustSignInFirst()`, `admin-access.guard.ts`) must keep the no-loop rule:
-  never on the callback, after a failed sign-in, or while the SDK holds a
-  session the API refuses (`holdsSession()`).
+  never on the callback, after a failed sign-in, or while the library holds a
+  session the API refuses (`holdsSession()`). The library's admin tools and
+  People are this site's ADMIN's alone - `isAdmin` in `shared/site-admin-tools.ts`
+  and `sites/admin/people.ts`, and the navigation's ADMIN-only items: one offered to an EDITOR
+  is a finding. A request of the API that says nobody in particular goes bare
+  only on a page whose person's session ended while visitors are welcome
+  (`http.interceptor.ts`); widening that, or a player's own request issued
+  without `issuedAs()`, is a finding.
 - Visitors (playing without signing in): `X-Visitor-Key` is read by
   `requireOwner()` (`api/meddleware/auth.php`) and, beside a verified token, by
   `requireVisitorKey()` for the move at sign-in (`visitorMove()`: the visitor's
   row then the person's `FOR UPDATE` under a lock timeout, the person's game kept
   where both have one, every log row moved, totals added, 503
-  `visitor_move_retry` on a lock timeout or deadlock) - and nothing else: a key read
+  `visitor_move_retry` on a lock timeout or deadlock; after a silent sign-in -
+  `silent: true`, the IAM's hint - nothing at all into an account that has
+  anything here yet, by the move or by the carry of the browser's own games:
+  `stayed: true`, the visitor and the browser's games untouched, the owner's
+  decision of 2026-10-11, so a silent merge into such an account is a finding)
+  - and nothing else: a key read
   anywhere else, a key looked at when a `Bearer` header was sent (a bad token
   must answer 401, never fall back to the key) or while sign-in is required, is
   a finding. So is a write of a player's own data that does not go through
@@ -100,7 +122,9 @@ subscribed, an `effect`/`computed` that misses a dependency.
   test, and in an upload folder's `.htaccess` any `php_flag`, `Options` or
   `Require`, inside `<IfModule>` or not - each can answer 500 for the folder
   on a host whose AllowOverride does not allow it (only RemoveHandler and
-  RemoveType, which need FileInfo).
+  RemoveType, which need FileInfo, and inside `<IfModule mod_headers.c>` the
+  nosniff and download `Header` rules) - and a guard without the nosniff or the
+  download rule (an old `.svg` in the asset tree would run on the site's origin).
 - Deployment boundary: a runtime feature must not depend on a shell
   (`proc_open`/`exec`) or an external binary — production is FTP-only. A new
   runtime `require` must resolve from what `build-dist.php` ships. Anything that

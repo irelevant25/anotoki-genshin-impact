@@ -60,7 +60,9 @@ $scanner = new KeyScanner(
 exit((new TranslationsCommand(
     translations: siteTranslations(...),
     scanner: $scanner,
-    audit: static fn (string $action, ?string $type, ?string $id, array $details) => siteAuditWrite('translations', (string) $id, 'UPDATE', null, $details),
+    // The library's names for it (translations.imported), by nobody - the
+    // audit log is the anotoki library's (api/audit_log.php).
+    audit: static fn (string $action, ?string $type, ?string $id, array $details) => siteAudit()->record(null, null, $action, $type, $id, $details),
     pending: static fn (): array => array_map(
         static fn (array $file): string => $file['set'] . '/' . $file['name'],
         siteMigrator(getDb())->applicable()

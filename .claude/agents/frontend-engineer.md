@@ -32,6 +32,19 @@ first. This file adds frontend-specific detail.
   component, one line each in `LOOKUP_PAGES` (`pages/pages.ts`) and a
   `lookupRoute(...)` in `admin.routes.ts`.
 - Shared UI kit and abstract bases: `frontend/src/app/shared/local-lib/`.
+- The anotoki library's modules, each set up in one file: signing in
+  (`@anotoki/lib/auth`, `shared/site-auth.ts` - `AnotokiAuth`, its interceptor,
+  `issuedAs()`, `SavesInFlight`, `AccountPreferences`, the callback and the
+  sign-in failure's screen; `SecurityService` is this site's view of it, never a
+  second client of the IAM), the visitors' feedback form
+  (`@anotoki/lib/feedback`, `shared/site-feedback.ts`), the admin tools and People
+  (`@anotoki/lib/admin/*`, `@anotoki/lib/people/page`; `shared/site-admin-tools.ts`
+  at the app's root - the library's pages read it through a root service - and
+  `sites/admin/people.ts` on the admin panel's route), the gate
+  (`shared/site-status.ts`) and the words (`shared/site-translations.ts`). The
+  library's pages load from their own entry points on lazy routes: nothing of
+  `@anotoki/lib/admin/*` pages, `people/page` or `feedback/form` belongs in the
+  first load (the small `@anotoki/lib/admin` and `feedback` configurations do).
 - **Generated** API client: `frontend/src/app/api/` (`services/`, `models/`,
   `types/`). Do not hand-edit — it is regenerated from the backend.
 
@@ -53,12 +66,13 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - **A player's own data** (`/api/quiz/progress`, `/result`, `/results`,
   `/stats`, `/activity`): only through `QuizProgressService` (or the Profile),
   each request issued with `issuedAs('person' | 'visitor')` from
-  `QuizProgressService.owner()` - never decided from whether
-  `getAccessToken()` returned something, never `X-Visitor-Key` set by hand. A
+  `QuizProgressService.owner()` - never decided from whether a token happens
+  to be there, never `X-Visitor-Key` set by hand (the move's key rides in
+  `VISITOR_KEY_CARRIED`, `http.interceptor.ts`). A
   quiz page passes `progress.ticket()` with every save and result and loads
   again on `progress.restarts()`; anything new that starts a sign-in goes
   through `SecurityService.login()` / `register()`, which wait for the saves on
-  their way (`SavesInFlight`). What a visitor is told is worded in two places
+  their way (the library's `SavesInFlight`). What a visitor is told is worded in two places
   only: `common/visitor-notice/` (its days are the server's
   `visitorKeepDays()`, never a number of its own) and the public shell's
   toasts (`sites/main/app.component.ts`, from `VisitorKey` /

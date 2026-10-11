@@ -1,5 +1,6 @@
 <?php
 
+use Anotoki\Lib\Admin\Schema as AdminSchema;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -57,6 +58,65 @@ const DASHBOARD_CONTENT = [
     ['label' => 'Banners',    'table' => 'banners',    'route' => 'banners',    'icon' => 'icon-scroll'],
 ];
 
+/**
+ * The feedback card: how much there is, how much is new, lately, and by kind
+ * (bug, idea, other) - off the library's table, anotoki_feedback.
+ */
+function dashboardFeedback(PDO $pdo): array
+{
+    $counts = $pdo->query(
+        "SELECT count(*) AS total,
+                count(*) FILTER (WHERE status = 'new') AS new,
+                count(*) FILTER (WHERE created_at >= now() - interval '7 days') AS last7,
+                count(*) FILTER (WHERE created_at >= now() - interval '30 days') AS last30
+           FROM anotoki_feedback"
+    )->fetch();
+    $feedback = [
+        'total' => (int) $counts['total'],
+        'new' => (int) $counts['new'],
+        'last7' => (int) $counts['last7'],
+        'last30' => (int) $counts['last30'],
+        'byType' => [],
+    ];
+    foreach ($pdo->query('SELECT kind, count(*) AS total FROM anotoki_feedback GROUP BY kind ORDER BY total DESC, kind') as $row) {
+        $feedback['byType'][] = ['type' => $row['kind'], 'total' => (int) $row['total']];
+    }
+
+    return $feedback;
+}
+
+/**
+ * Recent editing: what happened lately and where it left off - off the
+ * library's audit log (the content's writes, the catalogue's, the words', the
+ * admin tools' own). A count of the whole log is not worth showing: it is
+ * dominated by the bulk import that filled the database and never changes
+ * shape again.
+ */
+function dashboardActivity(): array
+{
+    $audit = siteAudit();
+    $today = new DateTimeImmutable('today');
+    $latest = $audit->latest(12);
+    $names = peopleNamesById(array_values(array_filter(array_column($latest, 'actor_id'), 'is_int')));
+
+    return [
+        'today' => $audit->countSince($today),
+        'last7' => $audit->countSince(new DateTimeImmutable('-7 days')),
+        'last30' => $audit->countSince(new DateTimeImmutable('-30 days')),
+        // In the shape the card has always read: the table and the row an entry
+        // is about, the action (content.update, catalogue.insert, backup.created,
+        // ...), when, and who.
+        'recent' => array_map(static fn (array $entry): array => [
+            'id' => $entry['id'],
+            'table_name' => (string) ($entry['target_type'] ?? ''),
+            'record_id' => (string) ($entry['target_id'] ?? ''),
+            'action' => $entry['action'],
+            'changed_at' => $entry['created_at'],
+            'changed_by_username' => $entry['actor_id'] === null ? null : ($names[$entry['actor_id']] ?? null),
+        ], $latest),
+    ];
+}
+
 $app->get('/api/dashboard/stats', function (Request $request, Response $response) {
     $pdo = genshinDb();
 
@@ -112,51 +172,15 @@ $app->get('/api/dashboard/stats', function (Request $request, Response $response
     $gaps = array_values(array_filter($gaps, fn($gap) => $gap['missing'] > 0));
     usort($gaps, fn($a, $b) => $b['missing'] <=> $a['missing']);
 
-    // ── Feedback ─────────────────────────────────────────────────────────────
-    $feedback = [
-        'total'  => (int) $pdo->query('SELECT count(*) FROM feedback')->fetchColumn(),
-        'new'    => (int) $pdo->query("SELECT count(*) FROM feedback WHERE status = 'new'")->fetchColumn(),
-        'last7'  => (int) $pdo->query("SELECT count(*) FROM feedback WHERE created_at >= now() - interval '7 days'")->fetchColumn(),
-        'last30' => (int) $pdo->query("SELECT count(*) FROM feedback WHERE created_at >= now() - interval '30 days'")->fetchColumn(),
-        'byType' => [],
-    ];
-    foreach ($pdo->query('SELECT type, count(*) AS total FROM feedback GROUP BY type ORDER BY total DESC') as $row) {
-        $feedback['byType'][] = ['type' => $row['type'], 'total' => (int) $row['total']];
-    }
-
-    // ── Recent editing ───────────────────────────────────────────────────────
+    // ── Feedback and recent editing: the ADMIN's ─────────────────────────────
     //
-    // A count of the whole audit trail is not worth showing: it is dominated by
-    // the bulk import that filled the database and never changes shape again.
-    // What is useful is what happened lately and where it left off.
-    $activity = [
-        'today'  => (int) $pdo->query("SELECT count(*) FROM audit_logs WHERE changed_at >= current_date")->fetchColumn(),
-        'last7'  => (int) $pdo->query("SELECT count(*) FROM audit_logs WHERE changed_at >= now() - interval '7 days'")->fetchColumn(),
-        'last30' => (int) $pdo->query("SELECT count(*) FROM audit_logs WHERE changed_at >= now() - interval '30 days'")->fetchColumn(),
-        'recent' => [],
-    ];
-
-    $recent = $pdo->query(
-        'SELECT id, table_name, record_id, action, changed_by, changed_at
-         FROM audit_logs ORDER BY changed_at DESC, id DESC LIMIT 12'
-    )->fetchAll();
-
-    // The names are the site's half's (the users table), resolved in one go.
-    $userIds = array_filter(array_unique(array_column($recent, 'changed_by')));
-    $names = [];
-    if ($userIds) {
-        $placeholders = implode(',', array_fill(0, count($userIds), '?'));
-        $stmt = usersDb()->prepare("SELECT id, username FROM users WHERE id IN ($placeholders)");
-        $stmt->execute(array_values($userIds));
-        foreach ($stmt->fetchAll() as $user) {
-            $names[$user['id']] = $user['username'];
-        }
-    }
-    foreach ($recent as &$row) {
-        $row['changed_by_username'] = $names[$row['changed_by']] ?? null;
-    }
-    unset($row);
-    $activity['recent'] = $recent;
+    // Both are read off the anotoki library's admin tools - feedback and the
+    // audit log - which are the site's ADMIN's alone (the owner's decision:
+    // EDITORs see none of them). An EDITOR's dashboard has neither (null), and
+    // the content gaps, the words and the assets as before.
+    $isAdmin = isAdminUser($request->getAttribute('user'));
+    $feedback = $isAdmin && AdminSchema::has($pdo, AdminSchema::FEEDBACK_TABLE) ? dashboardFeedback($pdo) : null;
+    $activity = $isAdmin && siteAudit()->ready() ? dashboardActivity() : null;
 
     // ── Translations ─────────────────────────────────────────────────────────
     $translations = ['keys' => 0, 'languages' => []];

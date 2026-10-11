@@ -4,16 +4,12 @@
 
 export * from './artifact.service';
 export * from './ascensionSet.service';
-export * from './audit-log.service';
 export * from './background.service';
-export * from './backup.service';
 export * from './banner.service';
 export * from './character.service';
 export * from './constellationSet.service';
 export * from './dashboard.service';
 export * from './enemy.service';
-export * from './explorer.service';
-export * from './feedback.service';
 export * from './file.service';
 export * from './fileCategory.service';
 export * from './food.service';

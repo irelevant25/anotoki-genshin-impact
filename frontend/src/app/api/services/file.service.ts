@@ -25,7 +25,6 @@ import {
   RecordUploadResult,
   TrashEmptied,
   TrashedFile,
-  UploadResult,
 } from '../models';
 import {
   AssetCleanupQuery,
@@ -223,15 +222,6 @@ export class FileApiService {
    */
   uploadEntityFile(entity: string, field: string, body: FormData): Observable<EntityUploadResult> {
     return this._http.post<EntityUploadResult>(`/api/uploads/${encodeURIComponent(entity)}/${encodeURIComponent(field)}`, body);
-  }
-
-  /**
-   * `POST /api/upload`
-   *
-   * Requires the `ADMIN` or `EDITOR` role.
-   */
-  uploadFile(body: FormData): Observable<UploadResult> {
-    return this._http.post<UploadResult>('/api/upload', body);
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { AnotokiAuth } from '@anotoki/lib/auth';
 import { PublicSiteRoute, PublicSiteSettings, SettingApiService } from '../../../api';
 import { SecurityService } from './security.service';
 
@@ -37,6 +38,7 @@ export type RouteNotice = { kind: 'blocked' } | { kind: 'restricted'; visibility
 export class SiteSettingsService {
   private readonly _api = inject(SettingApiService);
   private readonly _security = inject(SecurityService);
+  private readonly _auth = inject(AnotokiAuth);
 
   private readonly _settings = signal<PublicSiteSettings | null>(null);
 
@@ -63,15 +65,17 @@ export class SiteSettingsService {
 
   /**
    * Whether the IAM wants everybody signed in before they use this site - its
-   * switch, per site, which the API reads and relays here so the page never
-   * asks the IAM itself.
+   * switch, per site, which the API reads and relays in `auth` so the page
+   * never asks the IAM itself.
    *
-   * False when the settings could not be read, like every getter here: with no
-   * settings there is no IAM to send anybody to either, and the API refuses
-   * whoever it has to by itself (meddleware/sign_in.php) - this only spares
-   * the reader a site full of pages that would all answer 401.
+   * The sign-in's own answer (@anotoki/lib/auth, from `auth` at boot), which
+   * fails closed, unlike every other getter here: true unless the server said
+   * false - so true when the settings could not be read - and true from the
+   * moment a visitor's request is refused `sign_in_required` (the switch turned
+   * on since the page loaded: the shell then draws the sign-in card, and a
+   * visitor's key stops being sent - it is kept, not forgotten).
    */
-  readonly loginRequired = computed(() => this._settings()?.auth?.login_required ?? false);
+  readonly loginRequired = this._auth.loginRequired;
 
   /**
    * Whether the server keeps a visitor's games - somebody playing without
@@ -84,10 +88,6 @@ export class SiteSettingsService {
 
   /** Days the server keeps a visitor's games after their last visit - its number, so the notice never disagrees with the sweep. */
   readonly visitorKeepDays = computed(() => this._settings()?.visitors?.keep_days ?? 30);
-
-  /** The settings read `noteSignInRequired()` started, while it is on its way. */
-  private _noting: Promise<void> | null = null;
-  private _notedAt = 0;
 
   /** The bar across the top of the page, or null when there is nothing to say. */
   readonly announcement = computed(() => this._settings()?.announcement ?? null);
@@ -115,25 +115,6 @@ export class SiteSettingsService {
       // Left as it was - null on the first read, which every getter above
       // reads as "nothing is switched off".
     }
-  }
-
-  /**
-   * The API answered 401 `sign_in_required` to a request that went without a
-   * token: the IAM's switch was turned on since these settings were read. Read
-   * them again, so `loginRequired` flips and the shell draws the sign-in card
-   * (and a visitor's key stops being sent - it is kept, not forgotten).
-   *
-   * Once at a time and at most once every ten seconds: every page's requests
-   * can meet the same answer at once.
-   */
-  noteSignInRequired(): void {
-    if (this._noting || Date.now() - this._notedAt < 10_000) {
-      return;
-    }
-    this._notedAt = Date.now();
-    this._noting = this.refresh().finally(() => {
-      this._noting = null;
-    });
   }
 
   /**

@@ -33,11 +33,15 @@ Use the next free number (zero-padded, matching the existing width) and a short
 snake_case name. Read the two or three most recent migrations in that folder
 first and match their structure exactly.
 
-After both folders the engine runs the anotoki library's own set,
-`anotoki_translations` (`vendor/anotoki/lib/php/migrations/translations`, never
-edited here): its 001 proves the words' tables are in the shape the library
-works with (users/050 moved them into it) and its 002 adds the library's words
-under `anotoki.*`. So a `users/` migration never depends on a library file - on
+Around both folders the engine runs the anotoki library's own sets
+(`vendor/anotoki/lib/php/migrations/`, never edited here): `anotoki_admin` FIRST
+(the admin tools' tables `anotoki_audit_log` and `anotoki_feedback` - a
+`genshin_impact/` migration may build on them, as 028 and 029 moved the old
+rows in), and after the folders `anotoki_translations` - its 001 proves the
+words' tables are in the shape the library works with (users/050 moved them
+into it), its 002-004 add the library's words under `anotoki.*` - and
+`anotoki_people` (the scrub's tables; users/052 added `users.anonymized_at`
+for it). So a `users/` migration never depends on a library file - on
 a fresh install it runs before them - and writes only the words' base columns
 (`translation_keys (name, description)`, `translations (key_name,
 language_code, value)`, `languages (code, name, native_name, enabled,
@@ -94,8 +98,8 @@ From `backend/`:
 ```
 php migration.php --status      # see what is pending first
 php migration.php --dry-run     # confirm what would apply
-php migration.php               # create missing + apply pending (both folders, then the library's set)
-php migration.php --folder=users  # scope to one set (users, genshin_impact, anotoki_translations)
+php migration.php               # a backup, then create missing + apply pending (every set in order)
+php migration.php --folder=users  # scope to one set (users, genshin_impact, anotoki_admin, anotoki_translations, anotoki_people)
 ```
 
 The engine is the anotoki sites' shared one - anotoki/lib's `Migrator`
@@ -111,11 +115,16 @@ an update waits*) - on your own checkout too, until `php migration.php` runs.
 
 ## Before touching data, back it up
 
-If the migration rewrites or deletes existing rows, take a backup first
-(`php db-dump.php` from `backend/` - it writes the database to
-`storage/backups/manual/<timestamp>/` - or the admin Backups page) so a bad gate
-is recoverable. The maintainer's real data lives in the dev database — treat it
-as production.
+`php migration.php` and the admin panel's Apply back the database up before
+they run anything (the library's backup, `storage/backups/*.anotoki-backup`,
+once for each list of pending files; a backup that cannot be made stops the
+run). Take one of your own as well when the migration rewrites or deletes rows
+(the admin Backups page, or `php db-dump.php` - a pg_dump into
+`storage/backups/manual/<timestamp>/`), so a bad gate is recoverable. Rehearse a
+data move on a throwaway database shaped like an installed one, with rows in
+every table it touches (`tests/db_lib.php`'s `testMigrate()`; the
+`library-tools-migration` test is the pattern) - never on the maintainer's: the
+real data lives in the dev database - treat it as production.
 
 ## After
 

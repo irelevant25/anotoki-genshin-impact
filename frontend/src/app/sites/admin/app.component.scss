@@ -147,6 +147,36 @@
   margin-left: auto;
 }
 
+// The feedback nobody has opened yet, at the far end of "Feedback"
+// (FeedbackUnread): white on the site's blue, 4.5:1 in both themes.
+.nav-item .nav-badge {
+  margin-left: auto;
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+// Its words, for a screen reader alone.
+.nav-item .nav-badge-words {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .badge-readonly {
   font-size: 9px;
   background: var(--bg-hover);

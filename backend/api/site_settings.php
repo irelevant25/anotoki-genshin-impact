@@ -1,5 +1,7 @@
 <?php
 
+use Anotoki\Lib\Auth\Http\AuthRoutes;
+
 /**
  * The switches an admin can throw without a deploy.
  *
@@ -118,28 +120,30 @@ function maintenanceModeOn(): bool
  * Whether the IAM says everybody must sign in before using this site.
  *
  * The IAM's switch, on this site's page in its admin console ("Sign-in
- * required"): read by the vendored SDK from the IAM's public answer about the
- * application, kept for a minute in the cache folder (config/iam.php's
- * cache_dir, beside the key set - a folder only this site writes, since the
- * kept answer is what opens the site to people who have not signed in), and
- * true whenever nothing better is known: an IAM that does not know `genshin`
- * or has switched it off answers 404, which means required; an IAM out of
- * reach leaves the last answer standing, or required when there never was
- * one. Remembered for the rest of the request, so the gate and the public
- * settings agree.
+ * required"): read by the anotoki library's SignInRule (siteSignInRule(),
+ * api/admin_tools.php) from the IAM's public answer about the application,
+ * kept for a minute in the cache folder (config/iam.php's cache_dir, beside
+ * the key set - a folder only this site writes, since the kept answer is what
+ * opens the site to people who have not signed in), and true whenever nothing
+ * better is known: an IAM that does not know `genshin` or has switched it off
+ * answers 404, which means required; an IAM out of reach leaves the last
+ * answer standing, or required when there never was one. One answer for the
+ * whole request (the library's Identify asks it afresh for each), so the gate
+ * and the public settings agree.
  *
  * Off is what this site has always been - a reference work anyone can read -
  * and the IAM's default for it. Only somebody who has not signed in is ever
- * affected, so signInGate() asks only for them.
+ * affected, so the gate asks only for them.
  */
 function signInRequired(): bool
 {
-    $required = anotoki_iam_login_required(iamClientConfig(), $reason);
+    $rule = siteSignInRule();
+    $required = $rule->required();
 
     // An answer from the IAM, or the last one kept, is routine; these are not -
     // an IAM that does not know this site, or one that could not be asked.
-    if (in_array($reason, ['unknown_application', 'stale', 'never_read', 'not_configured'], true)) {
-        error_log('[iam] sign-in required: ' . ($required ? 'yes' : 'no') . ' (' . $reason . ')');
+    if (in_array($rule->reason(), ['unknown_application', 'stale', 'never_read', 'not_configured'], true)) {
+        error_log('[iam] sign-in required: ' . ($required ? 'yes' : 'no') . ' (' . $rule->reason() . ')');
     }
 
     return $required;
@@ -159,19 +163,24 @@ function publicSiteSettings(): array
 {
     $announcementOn = siteSettingBool('announcement_enabled', false);
     $announcement = siteSettingArray('announcement_message');
-    $iam = iamClientConfig();
+    $iam = siteIam();
+    // Asked here first for its log line (an IAM that does not know this site,
+    // or could not be asked); the answer below is the same, kept for the request.
+    signInRequired();
 
     return [
         'maintenance' => maintenanceModeOn(),
         'maintenance_message' => siteSettingArray('maintenance_message'),
-        'auth' => [
-            'issuer' => $iam['issuer'],
-            'client_id' => $iam['client_id'],
-            'account_url' => $iam['issuer'] . '/account',
-            'admin_url' => $iam['issuer'] . '/admin',
-            // The IAM's switch, relayed: the page learns it here, from its
-            // own server, and never asks the IAM itself.
-            'login_required' => signInRequired(),
+        // What the pages need to sign in, the anotoki library's boot
+        // configuration (AuthRoutes::configBody()): the IAM, this site's id
+        // there, the IAM's switch relayed - the page learns it here, from its
+        // own server, and never asks the IAM itself - and sign_in_available,
+        // false once the IAM has said it does not know this site (then no
+        // sign-in is offered, and the sign-in hint sends nobody to the IAM).
+        // Beside them this site's two links into the IAM.
+        'auth' => AuthRoutes::configBody(siteSignInRule(), $iam) + [
+            'account_url' => $iam->accountUrl(),
+            'admin_url' => $iam->issuer . '/admin',
         ],
         // Null rather than a disabled announcement: the banner either has
         // something to say or is not there, and the front end should not have

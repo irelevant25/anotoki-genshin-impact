@@ -23,6 +23,8 @@
  * but the site's ADMIN, who is shown the way to the Migrations page.
  */
 
+use Anotoki\Lib\Backups\Http\BackupsRoutes;
+use Anotoki\Lib\ErrorLog\Http\ErrorLogRoutes;
 use Anotoki\Lib\Migrations\Http\SiteGate;
 use Anotoki\Lib\Migrations\Http\SiteState;
 use Anotoki\Lib\Migrations\Migrator;
@@ -55,6 +57,13 @@ define('SITE_OPEN_WHILE_UPDATING', [
     // Apply - for this site's ADMIN, judged by the token alone. Exactly those
     // three: a crafted path under them (dot segments, %2e%2e) stays held.
     '~^/api/admin/migrations(/file|/apply)?$~D',
+    // The error log and the backups (the anotoki library's admin tools): they
+    // need no table, so they work while the update waits - what failed, and a
+    // backup taken just before Apply, are the point. Exactly their routes as
+    // the library names them, a backup's restore never among them; for this
+    // site's ADMIN, judged by the token alone.
+    ...ErrorLogRoutes::openPaths(),
+    ...BackupsRoutes::openPaths(),
 ]);
 
 /** Whether the installer finished on a real host: it writes storage/installed.lock there - never on this computer. */

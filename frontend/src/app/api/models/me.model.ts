@@ -15,6 +15,7 @@ export interface SiteUser {
   /** The IAM user id, which this site keys everything of theirs on. */
   id: number;
   username: string;
+  /** The address their token carries - this site keeps no copy of it. */
   email: string | null;
   /** The highest of this site's roles the token grants: ADMIN, EDITOR or USER. */
   role: string;
@@ -22,6 +23,6 @@ export interface SiteUser {
   roles: string[];
   background: string | null;
   version: string | null;
-  /** When they first arrived on this site. */
+  /** When they first arrived on this site: ISO 8601 in UTC. */
   created_at: string | null;
 }

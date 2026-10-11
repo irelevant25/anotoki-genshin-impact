@@ -1,18 +1,21 @@
 <?php
 
 /**
- * The real asset tree on disk, snapshotted so nobody has to walk it twice.
+ * The real asset tree on disk, snapshotted so nobody has to walk it twice - for
+ * the Files page's "on disk vs in the database" figures.
  *
  * Walking fifty thousand files and asking the filesystem each one's size takes a
  * second or two - long enough that it must not happen on every page load. So it
- * happens once, into a snapshot cached beside the other asset caches, and both
- * the Files Explorer and the Files page's "on disk vs in the database" figures
- * read from that. A re-scan is the only thing that walks the disk again, and it
- * refreshes the one snapshot both of them share.
+ * happens once, into a snapshot cached beside the other asset caches, and the
+ * figures read from that; a re-scan is the only thing that walks the disk again.
  *
  * The snapshot also remembers what it held last time, so a re-scan can say how
  * many files are new since - which is the whole point of scanning after a batch
  * has been dropped in over FTP.
+ *
+ * The admin panel's file explorer, which browsed the tree from this snapshot,
+ * is the anotoki library's since 0.4.1 (api/admin_tools.php): it keeps a
+ * snapshot of its own, in its own folder, taken by its own Rescan.
  */
 
 function explorerSnapshotFile(): string
@@ -154,126 +157,5 @@ function catalogueDriftFromSnapshot(PDO $pdo, bool $refresh = false): array
         'uncatalogued' => $uncatalogued,
         'unfiled' => $unfiled,
         'missing' => $missing,
-    ];
-}
-
-/** One file entry in the shape the Explorer draws with. */
-function _explorerFileEntry(string $relative, array $meta): array
-{
-    $slash = strrpos($relative, '/');
-    $folder = $slash === false ? '' : substr($relative, 0, $slash);
-    $name = $slash === false ? $relative : substr($relative, $slash + 1);
-
-    return [
-        'name' => $name,
-        'path' => $relative,
-        'folder' => $folder,
-        'extension' => strtolower(pathinfo($name, PATHINFO_EXTENSION)),
-        'size' => (int) ($meta['size'] ?? 0),
-        'modified' => (string) ($meta['modified'] ?? ''),
-        'url' => '/api/files/raw?folder=' . rawurlencode($folder) . '&name=' . rawurlencode($name),
-    ];
-}
-
-const EXPLORER_PAGE_SIZE = 120;
-
-/**
- * One folder's worth of the tree: its immediate sub-folders and its own files.
- *
- * With a search term it works like the search box in a file manager instead -
- * every file under here whose name matches, flat, folders set aside.
- */
-function explorerListing(array $snapshot, string $path, string $search, int $page): array
-{
-    $path = trim(str_replace('\\', '/', $path), '/');
-    $prefix = $path === '' ? '' : $path . '/';
-    $search = trim($search);
-    $page = max(1, $page);
-
-    $folders = [];
-    $files = [];
-
-    foreach ($snapshot['files'] as $relative => $meta) {
-        if ($prefix !== '' && !str_starts_with($relative, $prefix)) {
-            continue;
-        }
-        $rest = substr($relative, strlen($prefix));
-
-        if ($search !== '') {
-            // Recursive search under here: any descendant file that matches.
-            if (stripos(basename($rest), $search) !== false) {
-                $files[] = _explorerFileEntry($relative, $meta);
-            }
-            continue;
-        }
-
-        $slash = strpos($rest, '/');
-        if ($slash === false) {
-            $files[] = _explorerFileEntry($relative, $meta);
-        } else {
-            $sub = substr($rest, 0, $slash);
-            $folders[$sub] = ($folders[$sub] ?? 0) + 1;
-        }
-    }
-
-    usort($files, fn($a, $b) => strnatcasecmp($a['name'], $b['name']));
-
-    $folderList = [];
-    foreach ($folders as $name => $count) {
-        $folderList[] = ['name' => $name, 'path' => ($prefix . $name), 'files' => $count];
-    }
-    usort($folderList, fn($a, $b) => strnatcasecmp($a['name'], $b['name']));
-
-    $total = count($files);
-    $slice = array_slice($files, ($page - 1) * EXPLORER_PAGE_SIZE, EXPLORER_PAGE_SIZE);
-
-    return [
-        'path' => $path,
-        'search' => $search,
-        'folders' => $search === '' ? $folderList : [],
-        'files' => $slice,
-        'total' => $total,
-        'page' => $page,
-        'pageSize' => EXPLORER_PAGE_SIZE,
-    ];
-}
-
-/** The files new since the previous scan, in the same shape, paginated. */
-function explorerNewListing(array $snapshot, string $search, int $page): array
-{
-    $search = trim($search);
-    $page = max(1, $page);
-
-    $files = [];
-    foreach ($snapshot['new'] ?? [] as $relative) {
-        if ($search !== '' && stripos(basename($relative), $search) === false) {
-            continue;
-        }
-        $files[] = _explorerFileEntry($relative, $snapshot['files'][$relative] ?? []);
-    }
-    usort($files, fn($a, $b) => strnatcasecmp($a['path'], $b['path']));
-
-    $total = count($files);
-    $slice = array_slice($files, ($page - 1) * EXPLORER_PAGE_SIZE, EXPLORER_PAGE_SIZE);
-
-    return [
-        'path' => '',
-        'search' => $search,
-        'folders' => [],
-        'files' => $slice,
-        'total' => $total,
-        'page' => $page,
-        'pageSize' => EXPLORER_PAGE_SIZE,
-    ];
-}
-
-/** The header line: when it was scanned, how much it holds, how much is new. */
-function explorerStatus(array $snapshot): array
-{
-    return [
-        'scanned_at' => $snapshot['scanned_at'] ?? null,
-        'previous_scanned_at' => $snapshot['previous_scanned_at'] ?? null,
-        'total' => count($snapshot['files'] ?? []),
-        'new_count' => count($snapshot['new'] ?? []),
     ];
 }

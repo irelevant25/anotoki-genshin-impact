@@ -1,43 +1,99 @@
 <?php
 
+use Anotoki\Lib\Auth\Http\Identify;
+use Anotoki\Lib\Backups\Backups;
+use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 /**
- * Middleware: a valid IAM access token, and who it names.
+ * The paths that never read who is asking, whatever the request sends: the
+ * site's status, the words' bundle and the boot settings (what a page needs
+ * before anybody can be signed in), the asset previews an <img> loads (no
+ * header can go with one), and the two links the admin tools hand out to be
+ * opened by the browser itself - a backup's download, its single-use ticket
+ * its only check, and a file's preview, its signature its only check. Each
+ * entry is a path with everything under it, or a pattern starting with `~`
+ * (gatePathOpen(), meddleware/maintenance.php).
  *
- * Signing in happens at the IAM (see site_user.php); this only checks the
- * token the site's frontend got there. There is no session row to look up any
- * more - the token names the IAM session in `sid`, and the IAM ends sessions by
- * refusing the next refresh, so a signed-out person is anonymous here within
- * one access token's lifetime (ten minutes).
+ * A token sent to one of them is not looked at - so one that has run out
+ * cannot turn the boot or the words into a 401 - as before the library judged
+ * who a request is.
+ */
+define('TOKENLESS_PATHS', [
+    '/api/site-status',
+    TranslationsRoutes::openPath(),
+    '/api/settings/public',
+    '/api/files/raw',
+    '/api/admin/files/raw',
+    '~^/api/admin/backups/' . Backups::ID_PATTERN . '/file$~D',
+]);
+
+/**
+ * Middleware, once for every request (api/index.php, inside the SiteGate and
+ * in front of the other gates): who it is, by the anotoki library's Identify
+ * (siteIdentify(), api/admin_tools.php) - an `Authorization: Bearer` token
+ * that verifies is that person (Identify::person() from here on); one that
+ * does not, or a Bearer header with none, is 401 invalid_token, on every path
+ * but TOKENLESS_PATHS, which are nobody whatever was sent. Only the Bearer
+ * scheme claims anybody: `Basic ...` (what a host behind a password file
+ * sends with everything) is nobody. No cookie is ever read as somebody - the
+ * IAM's sign-in hint least of all - and the visitor key is not read here:
+ * requireOwner() and requireVisitorKey() below are its only readers.
  *
- * The request carries `user` (this site's record plus the `role` the token
- * grants) and `session` (`['id' => sid]`, for the audit log to say which
- * sign-in a change came from).
+ * On TOKENLESS_PATHS Identify is not asked at all: the request gets the
+ * attributes it gives nobody. Taking the header off was not enough - the
+ * library reads the server's copies of it too (HTTP_AUTHORIZATION,
+ * REDIRECT_HTTP_AUTHORIZATION, which php-fpm, CGI and `php -S` set), so a token
+ * that had run out still turned the boot and the words into a 401 there.
+ */
+function identifyRequests(Identify $identify): callable
+{
+    return function (Request $request, RequestHandler $handler) use ($identify): Response {
+        if (gatePathOpen(gatePath($request), TOKENLESS_PATHS)) {
+            // What Identify::process() does for nobody: the one answer about
+            // signing in asked afresh for this request, and who it is.
+            siteSignInRule()->reset();
+
+            return $handler->handle($request
+                ->withAttribute(Identify::SELF, $identify)
+                ->withAttribute(Identify::PERSON, null)
+                ->withAttribute(Identify::VISITOR, null)
+                ->withAttribute(Identify::CALLER, 'nobody'));
+        }
+
+        return $identify->process($request, $handler);
+    };
+}
+
+/**
+ * Middleware: somebody signed in, and who they are here.
+ *
+ * Signing in happens at the IAM (see site_user.php); Identify has checked the
+ * token the site's frontend got there - a token that did not verify never gets
+ * this far (401 invalid_token). Without one, this answers 401
+ * sign_in_required. There is no session row to look up any more - the token
+ * names the IAM session in `sid`, and the IAM ends sessions by refusing the
+ * next refresh, so a signed-out person is anonymous here within one access
+ * token's lifetime (ten minutes).
+ *
+ * The request carries `user` (this site's record, kept by the library's
+ * PeopleRecorder, plus the `role` the token grants) and `session`
+ * (`['id' => sid]`). The audit log knows the session already: the library's
+ * AuditContextMiddleware holds it for the request.
  */
 function requireAuth(): callable
 {
     return function (Request $request, RequestHandler $handler): Response {
-        $claims = iamBearerClaims($request);
+        $person = Identify::person($request);
 
-        if ($claims === null) {
-            return respondJson(new \Slim\Psr7\Response(), [
-                'error' => 'Sign in to do this',
-                'code' => 'invalid_token',
-            ], 401)->withHeader('WWW-Authenticate', 'Bearer error="invalid_token"');
+        if ($person === null) {
+            return Identify::of($request)->signInRequiredRefusal();
         }
 
-        $user = siteUserFromClaims($claims);
-        $sessionId = isset($claims['sid']) ? (string) $claims['sid'] : null;
-
-        // Anything writing an audit row below can say which sign-in it was,
-        // without being handed the request to find out.
-        auditSession($sessionId);
-
         return $handler->handle(
-            $request->withAttribute('user', $user)->withAttribute('session', ['id' => $sessionId]),
+            $request->withAttribute('user', siteUserOf($person))->withAttribute('session', ['id' => $person->sid]),
         );
     };
 }
@@ -51,10 +107,11 @@ function requireAuth(): callable
  * order (the family's design, 4.2):
  *
  *   1. `Authorization: Bearer ...` (with or without a token after it): that
- *      person, or 401 invalid_token as requireAuth() answers - a bad or
- *      expired token never falls back to the key, which is not even read.
- *      Only the Bearer scheme claims anybody: `Basic ...` (a host behind a
- *      password file sends it with everything) is as if nothing was sent.
+ *      person - Identify's - or 401 invalid_token, which Identify answered
+ *      before this ran: a bad or expired token never falls back to the key,
+ *      which is not even read. Only the Bearer scheme claims anybody:
+ *      `Basic ...` (a host behind a password file sends it with everything)
+ *      is as if nothing was sent.
  *   2. Else, while the IAM requires sign-in here (signInRequired()): 401
  *      sign_in_required. The key is never looked up, counted or swept early,
  *      and nobody is made. (signInGate() has answered this already; asking
@@ -103,20 +160,15 @@ function requireOwner(string $nobody = 'refuse'): callable
 /** The request with its owner on it (requireOwner()'s four kinds), or an ApiRefusal. */
 function ownerRequest(Request $request, string $nobody): Request
 {
-    if (anotoki_iam_sent_bearer($request->getHeaderLine('Authorization'))) {
-        $claims = iamBearerClaims($request);
-        if ($claims === null) {
-            throw new ApiRefusal(401, 'invalid_token', 'Sign in to do this', ['WWW-Authenticate' => 'Bearer error="invalid_token"']);
-        }
-        $user = siteUserFromClaims($claims);
-        $sessionId = isset($claims['sid']) ? (string) $claims['sid'] : null;
-        auditSession($sessionId);
+    $person = Identify::person($request);
+    if ($person !== null) {
         visitorSweepAfterAnswer();
 
-        return $request->withAttribute('user', $user)->withAttribute('session', ['id' => $sessionId]);
+        return $request->withAttribute('user', siteUserOf($person))->withAttribute('session', ['id' => $person->sid]);
     }
 
-    if (signInRequired()) {
+    // The one answer about signing in this request has (Identify asked it).
+    if (Identify::of($request)->signInRequired()) {
         throw ownerSignInRequired();
     }
 
@@ -203,80 +255,6 @@ function requireRole(string ...$roles): callable
     };
 }
 
-/**
- * Middleware: this site's ADMIN, judged by the access token alone - for the
- * admin Migrations page's routes (/api/admin/migrations), which have to work
- * while a database update waits. requireAuth() keeps the person's row in the
- * users table in step, and a waiting migration may be the very one that
- * changes that table; this asks no table anything, so nothing the update has
- * yet to make stands between an administrator and Apply.
- *
- * The same answers as requireAuth() and requireRole(): 401 invalid_token
- * without a token that verifies, 403 for anybody whose token does not grant
- * ADMIN here.
- */
-function requireAdminToken(): callable
-{
-    return function (Request $request, RequestHandler $handler): Response {
-        $caller = gateCaller($request);
-
-        if ($caller === null) {
-            return respondJson(new \Slim\Psr7\Response(), [
-                'error' => 'Sign in to do this',
-                'code' => 'invalid_token',
-            ], 401)->withHeader('WWW-Authenticate', 'Bearer error="invalid_token"');
-        }
-
-        if (!isAdminUser($caller)) {
-            return respondJson(new \Slim\Psr7\Response(), ['error' => 'Forbidden: insufficient permissions'], 403);
-        }
-
-        return $handler->handle($request);
-    };
-}
-
-/**
- * The signed-in user, or null - without refusing the request either way.
- *
- * For endpoints that are open to everyone but behave differently when they
- * know who is asking, such as the feedback form: signing in fills the sender
- * in for you, but not signing in is a perfectly good way to send one. An
- * expired token is not an error here, just an anonymous visitor.
- *
- * Not middleware, because middleware here exists to reject. Call it from
- * inside the handler.
- */
-function optionalAuthUser(Request $request): ?array
-{
-    $claims = iamBearerClaims($request);
-
-    return $claims === null ? null : siteUserFromClaims($claims);
-}
-
-/**
- * Proof the person at the keyboard signed in a moment ago, for the few actions
- * worth asking that of - restoring a database over its current contents.
- *
- * It replaces "type your password again", which this site can no longer ask:
- * it has no passwords. `auth_time` in the token is when the credentials were
- * last presented at the IAM (a refresh does not move it), so the frontend
- * answers `reauth_required` by sending the person through the IAM's sign-in
- * once more and trying again.
- */
-function recentSignInRefusal(array $user, int $withinSeconds = 600): ?array
-{
-    $authTime = $user['auth_time'] ?? null;
-
-    if ($authTime === null || $authTime + $withinSeconds < time()) {
-        return [
-            'error' => 'Sign in again to confirm - this asks for a sign-in from the last ten minutes',
-            'code' => 'reauth_required',
-        ];
-    }
-
-    return null;
-}
-
 // ---------------------------------------------------------------------------
 // Who is allowed to do what
 // ---------------------------------------------------------------------------
@@ -288,10 +266,17 @@ function recentSignInRefusal(array $user, int $withinSeconds = 600): ?array
 //                   required" is on for it: then signInGate() turns away
 //                   everybody not signed in, before any route is reached.)
 //
-//   System          the admin site's own machinery: audit logs, migrations,
-//                   backups, feedback. ADMIN does everything, EDITOR can look
-//                   but not touch, nobody else sees it. (Accounts used to be
-//                   here too; they are the IAM's now.)
+//   System          the admin site's own machinery. The anotoki library's
+//                   admin tools - the error log, the audit log, feedback,
+//                   backups, the file explorer, the People page - and the
+//                   Migrations page are ADMIN's alone (the owner's decision:
+//                   EDITORs see none of them), judged from the token
+//                   (RequireRole::admin(), api/index.php), so they need no
+//                   table a waiting update may change. The site's settings
+//                   and page switches are ADMIN's; the dashboard is ADMIN's
+//                   and EDITOR's, without the feedback and the audit figures
+//                   for an EDITOR. (Accounts used to be here too; they are
+//                   the IAM's now.)
 //
 //   Somebody's own  quiz progress and history. Yours, or an admin's to see
 //   data            (the admin routes on those tables). A player's own
@@ -311,7 +296,7 @@ function recentSignInRefusal(array $user, int $withinSeconds = 600): ?array
 /** Writing game content: entries, lookup tables, uploaded files. */
 const ROLES_CONTENT = ['ADMIN', 'EDITOR'];
 
-/** Reading the System area. Editors get to look. */
+/** Reading what of the System area is this site's own (the dashboard). Editors get to look. */
 const ROLES_SYSTEM_READ = ['ADMIN', 'EDITOR'];
 
 /** Changing anything in the System area. */

@@ -50,9 +50,10 @@ endpoint.
 
 Optional, for specific admin features:
 
-- **`pg_dump` / `pg_restore`** - the admin **Backups** page and `db-dump.php`.
-  Found on `PATH` or in the usual PostgreSQL install folders; point elsewhere
-  with `backend/config/backup.local.php`.
+- **`pg_dump` / `pg_restore`** - `db-dump.php` and `db-push.php` alone (the
+  admin **Backups** page needs neither since anotoki-lib 0.4.1: it backs up by
+  COPY through PDO). Found on `PATH` or in the usual PostgreSQL install
+  folders; point elsewhere with `backend/config/backup.local.php`.
 - **ffmpeg** - audio conversion (PNG→AVIF works out of the box). See
   [The asset library](#the-asset-library).
 
@@ -141,7 +142,10 @@ regenerate the API client: run `npm run api` yourself after changing the API (se
 [The code-generation pipeline](#the-code-generation-pipeline)).
 
 Open `http://localhost:4200`, and the admin panel at `http://localhost:4200/admin`.
-"Sign in" goes to the IAM on `:4300` and comes back signed in.
+"Sign in" goes to the IAM on `:4300` and comes back signed in. Signed in at the
+IAM already (its own pages, or another anotoki site), opening this site signs you
+in by itself - the IAM's sign-in hint, a cookie that is host-only `localhost` in
+development: open both as `localhost`, never `127.0.0.1`.
 
 ---
 
@@ -216,26 +220,38 @@ shared library's routes, and its Angular half is already their client.
 ## The shared library (anotoki-lib)
 
 The migrations engine, what the site does while it is not set up or waits for a
-database update, and the site's words (since 0.3.0) are the same on every anotoki
-site: one library, `anotoki-lib` (`https://github.com/irelevant25/anotoki-lib`;
-a clone sits at `../anotoki-lib`), never edited here. Two halves, one version:
+database update, the site's words (since 0.3.0), and - since 0.4.1 - signing in
+(the IAM's tokens and switch, who a request is), the site's record of people
+(the People page, the scrub of the accounts the IAM deleted) and the admin tools
+(the error log, the audit log, feedback, backups, the file explorer) are the
+same on every anotoki site: one library, `anotoki-lib`
+(`https://github.com/irelevant25/anotoki-lib`; a clone sits at
+`../anotoki-lib`), never edited here. Two halves, one version:
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.3"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.4.1"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
-for the two folders and the library's own set `anotoki_translations` after
-them), `backend/api/site_state.php` (the site's state and the
+for the two folders with the library's own sets around them - `anotoki_admin`
+first, `anotoki_translations` and `anotoki_people` after), `backend/api/site_state.php` (the site's state and the
 gate in front of every route), `backend/api/index.php` (the status and admin
-migrations routes), `backend/api/translations.php` and
+migrations routes, the admin tools' routes, the gates), `backend/api/admin_tools.php`
+(signing in, people and the admin tools set up for this site) and
+`backend/api/audit_log.php` (the audit log), `backend/api/translations.php` and
 `routes/users/endpoints/translations.php` (the words: the library's
 `Translations` and its routes, set up for this site), `backend/translations.php`
 (its command line), `frontend/src/app/shared/site-status.ts` (the pages'
 gate, the "being updated" page and the Migrations page, set up for this site),
 `frontend/src/app/shared/site-translations.ts` (the words in the pages: the
 language, the `translate` pipe, the admin Translations and Languages pages),
+`frontend/src/app/shared/site-auth.ts` (signing in: the IAM from the public
+settings, the sign-in hint, the interceptor, the visitor key on a player's own
+routes), `frontend/src/app/shared/site-feedback.ts` (the visitors' feedback
+form), `frontend/src/app/shared/site-admin-tools.ts` (the admin tools,
+provided at the app's root) and `frontend/src/app/sites/admin/people.ts` (the
+People page, on the admin panel's route) - their pages on lazy routes,
 `frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
 gate's `<ng-template anotokiSitePages>`), the admin routes `/admin/migrations`,
 `/admin/translations` and `/admin/languages` (the pages from their own entry
@@ -246,7 +262,8 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
-Angular half alone); both are 0.3.0 now. A piece of the library's kit is
+Angular half alone); both are 0.4.1 now (never 0.4.0, whose admin Feedback
+search fails on PHP 8.2). A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
 
@@ -268,9 +285,12 @@ Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
 
 **The migrations are the schema.** There is no separate schema file; a database
 is what you get by replaying `backend/migrations/{users,genshin_impact}/NNN_name.sql`
-in order, and then the anotoki library's own set (`anotoki_translations`, in
-`vendor/anotoki/lib/php/migrations/translations`: the words' tables proved, the
-library's own words added) - including the rows they insert, so a database built
+in order, with the anotoki library's own sets around them (in
+`vendor/anotoki/lib/php/migrations/`): `anotoki_admin` first (the admin tools'
+tables, `anotoki_audit_log` and `anotoki_feedback`, which `genshin_impact/028`
+and `029` move the old rows into), then the two folders, then
+`anotoki_translations` (the words' tables proved, the library's own words added)
+and `anotoki_people` (the scrub's two tables) - including the rows they insert, so a database built
 today has the same languages and translated strings as one built from the same
 folders a year from now. A file already recorded in a database's `migrations`
 table is never run again, so never edit an applied migration: write the next one.
@@ -282,19 +302,22 @@ table is never run again, so never edit an applied migration: write the next one
 
 The engine behind the CLI, that button, `setup.php` and `merge-databases.php` is
 the shared library's `Migrator`, set up for this site in one file,
-`backend/api/migration_runner.php` (`siteMigrator()`: `users/` then
-`genshin_impact/` then the library's `anotoki_translations`, the record by folder
-(set) and file, this site's advisory lock, the
-adoption of a record table from when each folder had a database of its own, and
-the refusal to run the sets out of order) - so a database built any of those
+`backend/api/migration_runner.php` (`siteMigrator()`: the library's
+`anotoki_admin`, `users/`, `genshin_impact/`, the library's `anotoki_translations`
+and `anotoki_people`, the record by folder (set) and file, this site's advisory
+lock, the adoption of a record table from when each folder had a database of its
+own, and the refusal to run the sets out of order - but `anotoki_admin`, which a
+database installed before 0.4 meets last) - so a database built any of those
 ways is the same database. Each file runs whole or not at all with its record,
 the run stops at the first that fails, and one apply runs at a time: a second -
 the button pressed twice, the CLI beside it - is told it is busy and does
-nothing. `generate-api-spec.php` replays the same folder to work out
+nothing. The button and the CLI make a backup of the database as it is first
+(the library's, in `storage/backups/`, once for each list of pending files; a
+backup that cannot be made stops the run before anything is applied);
+`setup.php` does not. `generate-api-spec.php` replays the same folder to work out
 what each table looks like, so a new column reaches the generated client without
 being written down anywhere else. Migrations that change data end with a
-`DO $$ … $$` gate that fails loudly when the result is wrong; back up first
-(`php db-dump.php`) when one rewrites or deletes rows.
+`DO $$ … $$` gate that fails loudly when the result is wrong.
 
 A `users/` migration never names a `genshin_impact/` table: on a fresh install
 every `users/` file runs before `genshin_impact/001` makes the content and quiz
@@ -309,7 +332,9 @@ shared library; `backend/api/site_state.php`):
 - the API answers `503 {"code": "update_pending"}` with `Retry-After: 60` to
   everything but what a sign-in and the Migrations page need:
   `/api/settings/public`, `/api/me`, `/api/translations/{code}` (the words, with
-  the languages beside them) and `/api/admin/migrations/...`;
+  the languages beside them) and `/api/admin/migrations/...` - and the two admin
+  tools that need no table, the error log (`/api/admin/errors`) and the backups
+  (`/api/admin/backups`, a backup's restore excepted), for the ADMIN;
   `GET /api/site-status` says `{"state": "update_pending", ...}`;
 - visitors and signed-in readers see "The site is being updated" in their
   language - no error, nothing but a quiet **Sign in** while nobody is signed
@@ -367,22 +392,65 @@ the shared library's page took its place - nothing reads them any more. It
 changes no schema and no other string, and is safe before or after the upload
 (the page of a build from before the library falls back to its own English).
 
+**And (written 2026-10-11): anotoki-lib 0.4.1** - signing in, people and the
+admin tools from the library. In the order they run: the library's
+`anotoki_admin/001_audit_log.sql` and `002_feedback.sql` (its tables),
+`users/052_people.sql` (`users.anonymized_at` added, `users.email` dropped - no
+anotoki site keeps anybody's address, the owner's decision - and
+`users.created_at` a TIMESTAMPTZ, read in the server's zone),
+`users/053_drop_old_feedback_and_callback_strings.sql` (the old feedback form's
+and sign-in callback page's 36 strings, which nothing reads since the
+library's took their place - the key scan says so; the keys the pages still
+read are kept), `genshin_impact/028_audit_into_library.sql` (every `audit_logs` row into
+`anotoki_audit_log` under its id: `content.*`, the files catalogue's
+`catalogue.*`), `029_feedback_into_library.sql` (every `feedback` message into
+`anotoki_feedback` under its id, without `ip` and `submitter_hash` - the
+owner's decision), the library's `anotoki_translations/003` and `004` (the
+sign-in page's and the feedback form's words) and `anotoki_people/001`. 028 and
+029 keep the old tables, renamed `audit_logs_before_library` and
+`feedback_before_library` (the latter without `ip` and `submitter_hash`), unread,
+until a later release's migration drops them - and each gate proves every row
+came through, field for field; a file that would lose something (a message
+longer than the library's 10,000 characters, an id already taken) stops with
+nothing of it applied. Apply makes a backup first. **Not a way back**: a build
+from before them writes `users.email` and the old tables - upload the new build
+first, then Apply, and never put an older build on the host again. The site's
+own error log files (`storage/logs/errors-*.jsonl`) and its pg_dump backups
+(`storage/backups/<stamp>-<hex>/`, `storage/backups/manual/`) are no longer read
+by anything; they stay where they are until you remove them (by FTP on the
+host).
+
 ---
 
 ## Checking your work
 
-The automated tests are few (the IAM, where the sign-in logic lives, has the
-suite): `backend/tests/` - the upload rules (what an upload may be called,
-where it may be written, the folders' `.htaccess` guard), run without a database
-or a server; and the words (`translations-migration.test.php`: users/050 on a
-database as its owner left it - reworded strings and guides, blanks, a hidden
-language - and what it refuses; `translations-routes.test.php`: the whole API
-in-process - the bundle, who may do what, saves, the languages, the guides, the
-gates). Those two make databases of their own, `genshin_test_*`, on the
-PostgreSQL server `config/database.local.php` names (never its database; the
-user needs CREATEDB, as setup.php's does) and drop them when they end, and run
-the API in a backend copy of their own with a key pair standing in for the IAM;
-without the config file they say they are skipped. What there is:
+`backend/tests/` - the upload rules (what an upload may be called, where it may
+be written, the folders' `.htaccess` guard), run without a database or a server;
+the words (`translations-migration.test.php`: users/050 on a database as its
+owner left it - reworded strings and guides, blanks, a hidden language - and
+what it refuses, and users/053's strings gone with the keys still read kept; `translations-routes.test.php`: the whole API in-process - the
+bundle, who may do what, saves, the languages, the guides, the gates); and
+anotoki-lib 0.4.1 here (`library-tools-migration.test.php`: users/052 and
+genshin_impact/028-029 on a database shaped like an installed one, with rows in
+every table that moves, in a server zone that is not UTC - every row under its
+id, field for field - and what they refuse; `library-tools-routes.test.php`:
+every admin tool's route for nobody, a MEMBER, an EDITOR and the ADMIN, who a
+request is (the server's copies of the header too), the feedback form, a backup
+made, downloaded once and restored (the scrub run inside it), the file
+explorer's rules and every link to a file kept through a rename, a move, a
+refused delete and an Undo, the People page and the scrub, the gates;
+`silent-sign-in.test.php`: what a silent sign-in brings in - the visitor's
+move and the browser's own games' carry, each into an account here for the
+first time, into one with its own games (nothing comes, the visitor and the
+browser's games left as they were), and a sign-in the person makes into that
+one;
+`migration-cli.test.php`: `php migration.php` itself). All but the first make
+databases of their own, `genshin_test_*`, on the PostgreSQL server
+`config/database.local.php` names (never its database; the user needs CREATEDB,
+as setup.php's does) and drop them when they end, and run the API in a backend
+copy of their own with a key pair standing in for the IAM; without the config
+file they say they are skipped. Run them on PHP 8.2 as well as the newest: the
+hosts run 8.2 and up. What there is:
 
 ```bash
 # Frontend (frontend/)
@@ -455,7 +523,7 @@ The move at sign-in takes both - a person's token (the IAM account page's
 curl -si -X POST http://localhost:8000/api/visitor/move \
   -H 'Authorization: Bearer <token>' -H 'X-Visitor-Key: <that key>' \
   -H 'Content-Type: application/json' -d '{}'
-# 200 {"found": true, "games": {"moved": 1, "kept": 0, "stale": 0}, "results": 0}
+# 200 {"found": true, "games": {"moved": 1, "kept": 0, "stale": 0}, "results": 0, "stayed": false}
 ```
 
 The person's own game stays where both have one for a quiz; the visitor's
@@ -466,6 +534,20 @@ log rows move and its totals are added to the person's; the key is 401
 (5000; `visitors.local.php` can make it shorter for a try): 503
 `visitor_move_retry` with `Retry-After: 2`, nothing moved.
 
+After a **silent sign-in** - the IAM's sign-in hint signed the person in,
+nobody clicked anything - the page sends `{"silent": true}`, and the visitor
+comes only into an account that has nothing here yet (no saved game, not
+even a fresh draw, no finished question, no total). Into one that has,
+nothing moves - `{"found": true, ..., "stayed": true}` with zeros - and the
+visitor stays as it was, its key still opening it in that browser, until a
+sign-in the person makes there (the owner's decision of 2026-10-11: a
+browser's games never land silently in an account that already has its own
+here). `silent` other than true or false: 422. The carry of the games a
+browser kept by itself (`POST /api/quiz/progress/carry`, when no visitor could
+be made) follows the same rule: a person's carry with `"silent": true` writes
+nothing into such an account and answers `"stayed": true` with the account's
+own games, and the browser keeps its games.
+
 In a browser (a private window, signed out, 045 applied): opening a quiz
 makes nobody - its fresh question stays in the browser; the first guess makes
 the visitor (localStorage `genshin-visitor` holds its key, `app_data` no
@@ -473,7 +555,14 @@ longer holds the quiz games - they went to the server with it), and the
 Profile shows that browser's figures. Signing in from there moves them into
 the account (the Network tab shows one `POST /api/visitor/move` with both the
 token and the key, before the person's games are read); the key is gone
-afterwards. A person's requests never carry `X-Visitor-Key` - but the move's -
+afterwards. Signed in by the IAM's hint instead (signed in on another anotoki
+site first) into an account that already has games here, the move says
+`"silent": true` and answers `stayed`: the key stays in `genshin-visitor` (and
+games the browser kept by itself stay in `app_data`), nothing is said, signing
+out brings the visitor's games back, and the person's own Sign in brings them
+into the account (localStorage
+`genshin-silent-sign-in` holds the account's id while its session is a silent
+one). A person's requests never carry `X-Visitor-Key` - but the move's -
 and a visitor's never carry a token. With the switch on, the key stays in the
 browser unsent until the next sign-in. Whom a request is for is decided by the
 page (`issuedAs()`), and a person's request with no token is never sent: to
@@ -550,8 +639,9 @@ switches - in its admin console, for every site at once. So is **Sign-in
 required** for this site (Applications → genshin → Settings; off by default):
 while it is on, the API answers 401 `sign_in_required` to everybody not signed
 in, but for the public settings, the strings (with the languages), the site's status
-and the asset previews (`/api/files/raw`, which an `<img>` loads without a token;
-`api/meddleware/sign_in.php`), and the pages send everybody signed out to the
+and what a browser opens without a token - the asset previews (`/api/files/raw`,
+an `<img>`'s), the file explorer's previews (signed links) and a backup's
+download (a single-use ticket); `api/meddleware/sign_in.php`), and the pages send everybody signed out to the
 IAM first, or draw "Sign in to continue" instead of the site. Maintenance still
 comes first: a closed site answers 503, and shows its closed sign, before anybody
 is asked to sign in. The IAM also decides who may
@@ -671,24 +761,104 @@ which runs `shell.php.png` as PHP where PHP is mapped by AddHandler; the
 tree's `.htaccess` guard is the second line (`api/upload_guard.php`, and
 [Looking for files that could run](#the-upload-map)).
 
-### Backups
+### The admin tools (anotoki-lib 0.4.1)
 
-The **Backups** page shells out to `pg_dump` and `pg_restore`, found on `PATH` or
-in the usual PostgreSQL install folders, or named in `config/backup.local.php`:
+Admin panel → System: **Error log**, **Audit log**, **Feedback** (with the count
+of new messages beside it), **Backups**, **Files explorer** and **People** - the
+anotoki sites' shared pages and API (`backend/api/admin_tools.php`,
+`audit_log.php`: this site's answers to them), for this site's **ADMIN alone**:
+an EDITOR sees none of them, and the dashboard shows an EDITOR no feedback and no
+recent editing (the owner's decision). Each route answers 401 to nobody and 403
+to anybody but the ADMIN, judged from the token.
 
-```php
-<?php return ['pg_dump' => 'C:/Program Files/PostgreSQL/18/bin/pg_dump.exe', 'pg_restore' => '...'];
-```
-
-Dumps go to `backend/storage/backups/`, one folder per backup with `genshin.dump` -
-the whole database - and a `backup.json` manifest; `storage/` is gitignored.
-Restoring asks for a sign-in from the last ten minutes and a typed confirmation,
-takes a backup of the current state first, and runs in one transaction. Backups
-from when the site had two databases are downloadable only (see
-[A checkout with two databases](#a-checkout-with-two-databases)).
-`pg_restore --clean` drops only what the dump contains: a table created after the
-backup survives the restore. The hosting has no shell, so this page does not work
-there - see [Copying local data up](#copying-local-data-up-to-production).
+- **Error log** - what went wrong, in files (`storage/error-log/`, a day a file,
+  30 days, 64 MB at most), so it works while the database is down or an update
+  waits: by the anotoki family's rule, every answer of 500 and up and the 404s,
+  405s, 413s, 415s and 429s (a refused token or role, a 409 or a 422 is the API
+  doing its job, and is not written - the owner's decision of 2026-10-11, in
+  place of this site's old "every answer of 400 and up"), every exception with
+  a trace that holds no call's arguments, PHP's warnings and fatal errors - never
+  a body, a query string, a header, a token or an address (a keyed hash of it
+  instead). The pages' own errors (what goes wrong in the browser) are coming:
+  every anotoki site will write them here once the library's browser half that
+  sends them is out (0.4.2) - until then the API takes none. The site's own log
+  files from before (`storage/logs/errors-*.jsonl`) are not read and not
+  touched: they stay until you remove them.
+- **Audit log** - the library's `anotoki_audit_log`: every content write
+  (`content.insert|update|delete`, filed under the entity it belongs to), the
+  files catalogue's (`catalogue.*`), the words', and the tools' own (a backup
+  made, a message marked, a file moved, a person's data deleted, an Apply), each
+  with who and from which IAM session. `genshin_impact/028` moved the old log
+  in, every entry under its id.
+- **Feedback** - the footer's form is the library's (`POST /api/feedback`): bug,
+  idea or other, a place, a subject (a bug's and an idea's), the message and the
+  site's fields (`steps_to_reproduce`, `expected_behavior`, `actual_behavior`,
+  `browser_device_info`, `why_important`, `additional_info`); five an hour and
+  twenty a day from one address, three hundred a day in all; nothing of where a
+  message came from kept with it; no mail. The reply address is what the sender
+  leaves in the form's field: signed in, the page fills it with their account's,
+  and what they leave there is kept with the message - cleared, none is; "send
+  without my name" keeps neither their name nor an address (the owner's
+  decision of 2026-10-11: "it's their choice"; the server never takes the
+  address from the token). An account the IAM deletes has it blanked by the
+  People page's scrub. `genshin_impact/029` moved the old messages in.
+- **Backups** - of the database, by PostgreSQL's COPY through PDO: no pg_dump, so
+  they work on the host too. `storage/backups/<id>.anotoki-backup`: one a day
+  after the first answer of a UTC day (14 kept), one before every Apply and every
+  `php migration.php` run (5), one before a restore (5), and those made on the
+  page (kept until deleted). A backup has no maximum age (the owner's decision
+  of 2026-10-11): the automatic kinds go only as newer ones of their kind take
+  their place, the ones made on the page only when you delete them - and a
+  person deleted since stays in them until then. They are not encrypted (the
+  owner's decision of 2026-10-11): whoever gets a backup file reads in it the
+  people's names, the feedback's messages and reply addresses, the visitors'
+  starting IP addresses (`visitor_starts`), everybody's play history and the
+  IAM session ids the audit log keeps - so they stay in `storage/backups/`
+  (denied to the web) and leave only by the single-use download. Making,
+  downloading (a single-use link, a minute), deleting and restoring each ask for
+  a sign-in at the IAM from the last ten minutes (the page offers "Sign in
+  again"), and are audited. A restore puts back everything but the bookkeeping
+  and the audit log, all or nothing, only into a database whose migrations match
+  the backup's - then runs the scrub of the IAM's deleted accounts at once, so
+  nobody the IAM deleted since the backup is named again; a scrub that cannot
+  finish (the IAM out of reach) is said with the restore's answer and in the
+  error log, and runs again with the next request. What it cannot undo yet: a person's
+  games deleted on the People page, or a message deleted on the Feedback page,
+  after the backup was made come back with it - replaying those deletes is the
+  library's work for 0.4.2. The pg_dump backups from
+  before (`storage/backups/<stamp>-<hex>/` and `manual/`) are no backups of the
+  library's - never listed, never touched: download them by FTP, remove them when
+  you like. `php db-dump.php` still makes a pg_dump of your own with the client
+  tools (`config/backup.local.php`).
+- **Files explorer** - the asset tree (`assets/`, listed from a snapshot that
+  **Rescan** takes) and `public/uploads/`: browse, search, upload (by the
+  button or by dropping), new folders, rename and move, delete into a trash
+  (`storage/explorer/trash/`) and back. The library's rules decide what goes in:
+  one extension per name, from the folder's list, every other dot a dash; no
+  part of a name a server could run (`shell.php.png` is refused); the bytes what
+  the extension says. A file already there that the rules would refuse now stays:
+  it is listed, previewed by its own extension (a picture as a picture, anything
+  the folder does not take as a download) and can be moved to the trash, never
+  run - and since the asset tree's `.htaccess` sends nosniff and hands anything
+  but a picture over as a download, an old `.svg` or `.html` there never runs on
+  the site when its address is opened either. What the explorer does in the
+  asset tree reaches the catalogue, and never takes a picture or a sound away
+  from the content: a file renamed or moved - or a folder, with everything in it
+  - keeps its catalogue row, the same id under the new path, so every character,
+  weapon or region showing it still does; a file the content shows cannot go in
+  the trash (409, saying which rows use it: point them elsewhere, or rename or
+  move it instead), nor anything the catalogue has be moved where no category
+  claims it; a new file is catalogued, one nothing shows put in the trash is
+  forgotten, and catalogued again when it comes back. Uploads arrive as they
+  are: the Files page's Convert makes their AVIF or Opus. (The Files page's own
+  Delete still forgets a file's row and with it every link to it, as it always
+  did.)
+- **People** - everybody who signed in here, by IAM id, with their saved games,
+  quiz results and messages; **Delete** takes their saved games, results and
+  statistics (their row and their messages stay), asking only its question;
+  **Check now** runs the scrub of the accounts the IAM deleted (otherwise once an
+  hour, after an answer): the name becomes `deleted-{id}`, the address and
+  browser their messages kept go, the data stays.
 
 ### Filling the profile page with something to look at (optional)
 
@@ -842,11 +1012,12 @@ php merge-databases.php           # do it
 It copies the `users` database's tables and every row into the content database in one
 transaction (anything wrong rolls all of it back), then rewrites
 `database.local.php`. The old `users` database is left as it was; drop it once the
-site runs without it. It needs `pg_dump`, found as the Backups page finds it.
+site runs without it. It needs `pg_dump`, found as `db-dump.php` finds it
+(`config/backup.local.php`).
 
-Backups made before the merge hold two dumps. The Backups page still downloads
-them, but restores only one-database backups: either half alone would leave the
-database disagreeing with itself about which migrations ran.
+Backups made before the merge hold two dumps, in the pg_dump folders the
+Backups page made before anotoki-lib 0.4.1; nothing reads those any more -
+restore one by hand with `pg_restore` if you ever need it.
 
 The site that ran at `anotoki.eu` until 2026-09-29 was the two-database build from
 before the IAM. Its database user was already gone by then, so nothing was moved
@@ -861,10 +1032,11 @@ refused, since `users/` would run over the content's tables.
 ### Later schema changes
 
 FTP the new `migrations/{folder}/*.sql` files up, then open the admin **Migrations**
-page and press **Apply pending** - `POST /api/admin/migrations/apply` runs them in
-order (ADMIN only), `users/` then `genshin_impact/` then the anotoki library's
-`anotoki_translations` (its files come with `vendor/anotoki/lib`), stopping at
-the first failure.
+page and press **Apply pending** - `POST /api/admin/migrations/apply` makes a
+backup of the database as it is, then runs them in order (ADMIN only): the
+anotoki library's `anotoki_admin`, `users/`, `genshin_impact/`, the library's
+`anotoki_translations` and `anotoki_people` (the library's files come with
+`vendor/anotoki/lib`), stopping at the first failure.
 From the moment the files are up until they are applied the site is closed to
 everybody but its ADMIN (*While an update waits*), so do it in one go: upload,
 open the site, **Sign in** on the "being updated" page as an ADMIN, **Open
@@ -926,6 +1098,40 @@ signed in, the Translations page shows every string as it was (and the
 library's own `anotoki.*` keys beside them), Languages each language's guides,
 and Guides the eleven guides.
 
+**Signing in, people and the admin tools through the anotoki library**
+(anotoki-lib 0.4.1, 2026-10-11; the files in *While an update waits*, from
+`anotoki_admin/001` to `anotoki_people/001`): the IAM needs nothing new (its
+sign-in hint and its list of deleted accounts are there already). Upload both
+builds - `vendor/anotoki/lib` brings the library's sets - and Apply pending at
+once: the Apply backs the database up first (the library's backup, now that
+backups need no pg_dump), then moves the audit log and the feedback into the
+library's tables, every row under its id, drops `users.email` and the old
+feedback form's and callback page's strings. Never before the upload, and no
+older build on the host afterwards. Then, signed in as the
+ADMIN: the System pages are the library's (an EDITOR sees none of them); the
+Audit log shows the old entries as `content.*` and `catalogue.*`, Feedback the
+old messages; the People page lists everybody; **Files explorer** → **Rescan**
+once, to take the asset tree's snapshot. Add `Disallow: /auth/` to robots.txt
+with the frontend's build (the sign-in hint signs visitors in from there). The
+asset tree's new `.htaccess` (nosniff; anything but a picture a download) goes
+up with `dist/`.
+
+Serve the site from one address: redirect every other name it answers to
+(`www.`, the host's own alias) to the address the IAM knows it by. The IAM's
+sign-in hint signs a visitor in with a silent hop to the IAM and back, and the
+IAM sends nobody back to an address it was not given - on an alias the hop ends
+at the IAM's error, not signed in.
+
+The last step, when you no longer want a way back: what this update took out
+of the database is still in files made before it, until you delete them -
+`users.email` and the feedback's `ip` and `submitter_hash` in the backup the
+Apply made first (`storage/backups/*-before-migration-*.anotoki-backup`, the
+Backups page deletes it) and in the old pg_dump folders
+(`storage/backups/<stamp>-<hex>/`, `storage/backups/manual/`), and every
+request's IP address, as it came, in the old error log files
+(`storage/logs/errors-*.jsonl`). Remove those by FTP; nothing reads them any
+more.
+
 ### Copying local data up to production
 
 The database copy runs from your machine against the remote server, so the missing
@@ -967,7 +1173,9 @@ the PostgreSQL client tools locally.
 | Every request answers 401 though signed in | The API cannot fetch the IAM's key set from `http://localhost:4300/.well-known/jwks.json` - the IAM's frontend dev server must be running, it serves the issuer's URLs. |
 | A player's games without signing in are gone ("...are no longer kept") | Nobody played in that browser for `keep_days` (30) and the sweep deleted them, or they were moved into an account by a sign-in in that browser - look in the account. A browser that clears its storage loses its key, and with it the games. |
 | Signed-out players' games stay in the browser only ("Too many people are playing without signing in") | A visitor limit refused a new one (429 `too_many_visitors`): `max_visitors` reached (the dashboard's *visitors* card), or the per-address / hourly limits - behind Cloudflare without its ranges in `client_address.trusted_proxies`, everybody shares one address. Raise them in `config/visitors.local.php`; existing visitors are not affected. With `users/045` pending the same happens without a message. |
-| Backups page: "pg_dump was not found" | The PostgreSQL client tools aren't on PATH. Point at them in `backend/config/backup.local.php`. |
+| `php db-dump.php`: "pg_dump was not found" | The PostgreSQL client tools aren't on PATH. Point at them in `backend/config/backup.local.php`. (The admin Backups page needs no pg_dump.) |
+| Backups page: making, downloading or deleting a backup answers "Sign in again" (403 `reauth_required`) | It asks for a sign-in at the IAM from the last ten minutes - the button signs in again and comes back. |
+| A request with an old token answers 401 `invalid_token` on a public page's data | A token that does not verify is refused on every path but the boot, the words, the status and the two browser links (the anotoki library's Identify): the pages refresh it and ask again. |
 | Locked out of an account (lost password) | Accounts are the IAM's: its dev mail goes to its own `backend/storage/mail/`, and its `reset-password.php` restores access. |
 
 ## Handy scripts (from `backend/`)

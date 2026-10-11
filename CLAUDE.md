@@ -129,16 +129,22 @@ So, since 0.3.0, are the site's words - *The words* below.
   `SITE_OPEN_WHILE_UPDATING` - `/api/settings/public`, `/api/me`,
   `/api/translations/{code}` (exactly: the library's
   `TranslationsRoutes::openPath()`) and `/api/admin/migrations/**` - so
-  a sign-in still works, the pages have their words and an ADMIN reaches Apply.
-  `unavailable` and `ready` pass. A path goes in that list only when nobody could
-  get to Apply without it.
+  a sign-in still works, the pages have their words and an ADMIN reaches Apply;
+  and the two admin tools that need no table, the error log and the backups
+  (exactly the library's `ErrorLogRoutes::openPaths()` and
+  `BackupsRoutes::openPaths()` - a backup's restore never), so an ADMIN sees what
+  failed and backs up before Apply. `unavailable` and `ready` pass. A path goes in
+  that list only when nobody could get to Apply without it.
 - **The Migrations page's API** is the library's `MigrationsRoutes`: `GET
   /api/admin/migrations`, `GET /api/admin/migrations/file?set=&name=`, `POST
   /api/admin/migrations/apply` (409 `busy` while another apply runs). ADMIN only,
-  judged by the token alone (`requireAdminToken()`, `meddleware/auth.php`): nothing
-  a waiting migration has yet to make may stand between an ADMIN and Apply. Both
-  prefixes are in api-config.mjs's `SKIP_PREFIXES` - the library's Angular half
-  is their client.
+  judged by the token alone (the library's `RequireRole::admin()`, behind its
+  `Identify`): nothing a waiting migration has yet to make may stand between an
+  ADMIN and Apply. Apply makes a backup of the database as it is first (the
+  library's `Backups::beforeApplyHook()`, through `siteMigrator(..., backups:)`;
+  `php migration.php` does too, `setup.php` does not), and after it the audit
+  log's waiting entries go in, with `migrations.applied`. Both prefixes are in
+  api-config.mjs's `SKIP_PREFIXES` - the library's Angular half is their client.
 - **The pages** (`@anotoki/lib/migrations`, configured in
   `frontend/src/app/shared/site-status.ts`): the boot asks the status
   beside the public settings and never stops on an update; `siteStatusInterceptor`
@@ -165,12 +171,13 @@ So, since 0.3.0, are the site's words - *The words* below.
   `--anotoki-topbar-height` to minus its padding, so the library's sticky heads
   stick flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.3"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.4.1"`, from the GitHub VCS
   repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
   version may break. A release that changes one half only is taken in that half
-  (0.2.0 changed the Angular half alone); both halves are 0.3.0 now. Import a
+  (0.2.0 changed the Angular half alone); both halves are 0.4.1 now (never
+  0.4.0, whose PHP failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
   every piece into the first load.
@@ -188,8 +195,9 @@ ADMIN or EDITOR, languages too.
 - **Server**: `api/translations.php` is the site's part - `siteTranslations()`
   (the library's `Translations`, released languages `en` and `sk`), the error body
   `{error, code, ...}` (`translationsError()`), the writer (`translationsActor()`,
-  from the token), the audit log (`translationsAudit()` / `siteAuditWrite()`,
-  into `audit_logs`), and `GuideLanguageUsage` (a language's guides: counted on the
+  from the token), the audit log (`translationsAudit()`, into the library's
+  `anotoki_audit_log` under its own names - `language.*`, `translations.saved|
+  imported` - `api/audit_log.php`), and `GuideLanguageUsage` (a language's guides: counted on the
   Languages page, gone with it). The routes are the library's
   (`routes/users/endpoints/translations.php`): `GET /api/translations/{code}`
   (public: `{language, languages, values, english?}`, snake_case, ETag) and, behind
@@ -201,8 +209,9 @@ ADMIN or EDITOR, languages too.
   code, no scopes, flags or stamps; the library's own set `anotoki_translations`
   (`vendor/anotoki/lib/php/migrations/translations`) runs after both folders
   (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
-  its 002 adds the library's words under `anotoki.*` (54 keys: the kit's, the
-  status page's), which the owner may reword like any string. `anotoki.` is the
+  its 002-004 add the library's words under `anotoki.*` (94 keys: the kit's, the
+  status page's, the sign-in page's, the feedback form's), which the owner may
+  reword like any string. `anotoki.` is the
   library's namespace: never a key of this site's. `translation_keys_before_library`
   and `translations_before_library` are 050's full copies, kept for one release.
 - **The guides** (`api/guides.php`, `routes/users/endpoints/guides.php`,
@@ -232,27 +241,59 @@ one identity provider, the **anotoki IAM** at iam.anotoki.eu (repository
 Registration, passwords, emailed codes, Google, two-factor, sessions, the account
 page and the admin pages for accounts all live there.
 
-- **Frontend**: the vendored browser SDK (`anotoki-auth.mjs` and its `.d.ts` in
-  local-lib's `iam/`, the IAM's `sdk/js/` v1.2.0, copied byte for byte - never
-  edited here) does the OpenID Connect code flow with PKCE - "Sign in" goes to
-  the IAM and comes back to `/auth/callback` - and the interceptor sends the
-  access token as `Authorization: Bearer`. The issuer and client id come from
-  `GET /api/settings/public` (`auth`).
-- **Backend**: `api/site_user.php` verifies the token with the vendored
-  `api/anotoki_iam.php` (RS256 against the IAM's published keys, issuer,
-  audience `genshin`, `typ at+jwt`, expiry) and keeps the `users` row - id =
-  the IAM user id, name, address - in step with it.
-  Config: `config/iam.local.php` (dev: issuer `http://localhost:4300`). The SDK
-  is the IAM's `sdk/php/anotoki_iam.php` (v1.1.0), copied byte for byte - never
-  edited here, never a fetch of our own beside it.
+- **Frontend**: the anotoki library's auth module (`@anotoki/lib/auth`, since
+  0.4.1; set up in `shared/site-auth.ts`) - the IAM's browser SDK ported into
+  the library, under the same storage keys (nobody was signed out by the move).
+  It does the OpenID Connect code flow with PKCE - "Sign in" goes to the IAM
+  and comes back to `/auth/callback`, the library's page ("Signing you in…", or
+  its screen of a sign-in that did not work - why, from the code alone, with Try
+  again and Back, in the library's words `anotoki.signIn.*`; `noindex`, and
+  `public/robots.txt` says `Disallow: /auth/`; the library puts a failed
+  sign-in's address back where it started, so the app initializer moves it to
+  `/auth/callback` before the router starts) - and its interceptor
+  (`anotokiAuthInterceptor`, after the site's own `http.interceptor.ts`) sends
+  the access token as `Authorization: Bearer`. The issuer, the client id,
+  `login_required` and `sign_in_available` come from `GET /api/settings/public`
+  (`auth`, read first at boot) - the page never asks the IAM. **The IAM's
+  sign-in hint**: genshin lets visitors in, so a visitor who is signed in at the
+  IAM (its `anotoki_signed_in` cookie, which opens nothing) is signed in here
+  with one silent `prompt=none` hop at boot - once per hint value, at most once
+  a minute, never from a frame or while the site is blocked, never for a crawler
+  (which holds no cookie); and a session follows the IAM: signed out there is
+  signed out here at the next page load. `SecurityService` is this site's view
+  of it - its signals, and this site's own record of the person from `/api/me`
+  (the name, the one role, when they first came; the address is the token's,
+  the site keeps none). A page shown to a person whose session then ended goes
+  on as a visitor's page: its requests that say nobody in particular go bare
+  (`http.interceptor.ts`); a player's own data is always issued as somebody.
+- **Backend**: the anotoki library's auth module (anotoki-lib 0.4.1,
+  `Anotoki\Lib\Auth`, set up in `api/admin_tools.php`) - the IAM's PHP SDK this
+  site kept a copy of is gone. Its `Identify` runs once for every request, in
+  front of the gates (`identifyRequests()`, `meddleware/auth.php`): an
+  `Authorization: Bearer` token is checked by its `AccessTokens` (RS256 and
+  `typ at+jwt` pinned, a `kid` of the IAM's key set, issuer, audience `genshin`,
+  expiry) - a person, or 401 `invalid_token` on every path but
+  `TOKENLESS_PATHS` (the status, the words' bundle, `/api/settings/public`,
+  `/api/files/raw` and the two links an admin's browser opens), which read no
+  token at all: Identify is not asked there, the request gets the attributes it
+  gives nobody - taking the header off would not do, as the library reads the
+  server's copies of it too (`HTTP_AUTHORIZATION`, `REDIRECT_HTTP_AUTHORIZATION`,
+  set by php-fpm, CGI and `php -S`); `Basic ...` is nobody; no cookie is ever read as somebody, the
+  IAM's sign-in hint least of all. `api/site_user.php` (`siteUserOf()`) keeps the
+  `users` row - id = the IAM user id, the name - through the library's
+  `PeopleRecorder`; no address (users/052: the IAM holds it, `/api/me` answers
+  the token's). Config: `config/iam.local.php` (dev: issuer
+  `http://localhost:4300`), read by the library's `IamClient::fromArray()` - the
+  SDK's keys; its key set and switch answer kept in `storage/cache` as before.
+  Never a fetch of the IAM of our own beside the library.
 - **The theme, the dates, the clock and the language are the account's** (the
   IAM's migration 015, the owner's decision of 2026-10-06; its
   `docs/integrating-an-app.md`, "The account's preferences"): one choice every
   anotoki site follows - this one's admin panel included, which has no theme of
-  its own any more. The SDK's `user().preferences` and `locale` carry them
-  (`SecurityService.claims`), and `AccountPreferences`
-  (`shared/local-lib/services/account-preferences.service.ts`) is the one place
-  that says when they apply and that saves to them (`savePreferences()`): one
+  its own any more. The library's `AnotokiAuth` carries them (`preferences()`,
+  `locale()`), and the library's `AccountPreferences` (`@anotoki/lib/auth` -
+  this site's own, moved into the library) is the one place
+  that says when they apply and that saves to them (`save()`): one
   save at a time, the latest choice of each last, one preference a request. They
   apply only while somebody is signed in here and `preferences` is not null - a
   visitor, or an IAM before 015, keeps the device's: the theme and the language
@@ -276,24 +317,32 @@ page and the admin pages for accounts all live there.
   `themes` lookup) went with `users/048`, at the owner's word.
 - **Sign-in required** is the IAM's switch, per site (its admin console:
   Applications → genshin → Settings), off for this site by default - a
-  reference work anyone can read. The backend reads it with the SDK's
-  `anotoki_iam_login_required()` (`signInRequired()` in `api/site_settings.php`):
-  `GET {issuer}/api/public/applications/genshin`, kept a minute in `cache_dir`
+  reference work anyone can read. The backend reads it with the library's
+  `SignInRule` (`siteSignInRule()`, `api/admin_tools.php`; `signInRequired()` in
+  `api/site_settings.php` logs an odd answer): `GET
+  {issuer}/api/public/applications/genshin`, kept a minute in `cache_dir`
   (`storage/cache` - a private folder), and **fail closed**: a 404 (the IAM does
   not know the site, or switched it off) means required, an IAM out of reach
-  keeps the last answer, or required when there never was one. It is relayed as
-  `auth.login_required` in `GET /api/settings/public` - the frontend never asks
-  the IAM. While on, the global `signInGate()` (`api/meddleware/sign_in.php`)
+  keeps the last answer, or required when there never was one; one answer a
+  request. It is relayed in `GET /api/settings/public` as the library's
+  `AuthRoutes::configBody()` - `auth.login_required` and `auth.sign_in_available`
+  (false once the IAM said it does not know the site: no sign-in offered, the
+  hint sends nobody) beside the issuer and client id - the frontend never asks
+  the IAM. While on, the library's `SignInGate` (`api/meddleware/sign_in.php`)
   answers every API path 401 `sign_in_required` to a request without a verified
-  token, except `SIGN_IN_OPEN_PREFIXES` (`/api/settings/public` and exactly
+  token, except `SIGN_IN_OPEN_PATHS` (exactly: `/api/settings/public` and
   `/api/translations/{code}` - what the sign-in card needs, its words with the
-  languages beside them - and `/api/files/raw`, the
-  asset previews an `<img>` loads without a token); a signed-in request never
-  asks the switch. The files under `assets/` stay reachable by address (the web
-  server's, out of PHP's reach - game art only). Only `Authorization: Bearer`
-  claims to be somebody: a bearer that does not verify answers 401
+  languages beside them - `/api/site-status`, and what a browser loads without a
+  token: `/api/files/raw`, the asset previews; `/api/admin/files/raw`, the file
+  explorer's signed previews; `/api/admin/backups/{id}/file`, a backup's
+  single-use download); a signed-in request never asks the switch. The files
+  under `assets/` stay reachable by address (the web server's, out of PHP's
+  reach - game art only). Only `Authorization: Bearer` claims to be somebody
+  (the library's Identify): a bearer that does not verify answers 401
   `invalid_token`, `Basic ...` is no claim at all. The frontend's half (`loginRequired` in
-  `SiteSettingsService`): while it is on, the app initializer sends somebody
+  `SiteSettingsService` - the auth module's, which fails closed: true unless the
+  settings said false, and true from the moment a visitor's request is refused
+  `sign_in_required`): while it is on, the app initializer sends somebody
   signed out to the IAM before the first page is drawn and back to the
   address they opened - never on the callback, after a sign-in that came back
   failed, while the SDK holds a session the API refuses (the admin gate's
@@ -308,7 +357,8 @@ page and the admin pages for accounts all live there.
   back in `X-Visitor-Key` (*Visitors* below). Who a request to a player's own
   routes (`/api/quiz/progress`, `/result`, `/stats`, `/activity`, `/results`,
   `/progress/carry`) is, is `requireOwner()`'s alone, in this order: a
-  `Bearer` header - that person or 401 `invalid_token`, the key never read;
+  `Bearer` header - that person, or 401 `invalid_token` from the library's
+  Identify before any route runs - the key never read;
   else sign-in required - 401 `sign_in_required`, the key never looked up;
   else a key - that visitor or 401 `visitor_unknown`; else nobody, who reads
   nothing (`[]`) and whose first save **with a play** makes a visitor inside
@@ -330,10 +380,31 @@ page and the admin pages for accounts all live there.
   person's of another day is replaced by the visitor's of today), every log
   row moves as it is and the totals are added, then the visitor is gone;
   repeatable (a key nobody has: `{found: false}`), 503 `visitor_move_retry`
-  with `Retry-After` when another request held the rows. **The pages'
-  half** (`shared/local-lib/services/`: `issued-as.ts`, `visitor-key.service.ts`,
-  `saves-in-flight.service.ts`, `http.interceptor.ts`; and
-  `QuizProgressService`): a request to a player's own routes is issued as the
+  with `Retry-After` when another request held the rows. **After a silent
+  sign-in** (the owner's decision of 2026-10-11): the page sends `silent: true`
+  when the session was made by the IAM's sign-in hint without a click
+  (`shared/silent-sign-in.ts` - the library's IAM client, given as
+  `ANOTOKI_AUTH_CLIENT_FACTORY` in `app.config.ts`, notes the callback's
+  `AnotokiInitResult.silent` in localStorage `genshin-silent-sign-in`, the
+  account's id; a sign-in the person makes clears it), and the visitor then
+  comes only into an account with nothing here yet - no row in any of
+  `VISITOR_PERSON_TABLES`, a fresh draw included (`personHasData()`, asked
+  under the move's locks). Into one that has, nothing moves: `stayed: true`
+  with zeros, the visitor untouched under its key, which `VisitorKey` keeps
+  (that page load asks no more; the next asks again) until a sign-in the
+  person makes, which moves it as above. The carry of the games the browser
+  kept by itself (`POST /api/quiz/progress/carry`) follows the same rule: a
+  person's carry with `silent: true` into such an account writes nothing and
+  answers `stayed: true` (zeros, the account's own games), and
+  `QuizProgressService` keeps the browser's games (`app_data`) for when nobody
+  is signed in here again or the person signs in themselves; on a visitor's
+  carry `silent` says nothing. Never a silent merge into an account with its
+  own here; `silent` other than true or false is 422 on both. **The pages'
+  half** (the auth module's `issuedAs()`, interceptor and `SavesInFlight`, set
+  up in `shared/site-auth.ts` - the key goes on a player's own routes only;
+  `shared/local-lib/services/visitor-key.service.ts`, the site's key store and
+  the move, its key handed to the move's request through `http.interceptor.ts`;
+  and `QuizProgressService`): a request to a player's own routes is issued as the
   person or as this browser's visitor (`issuedAs()`, an `HttpContext`) from
   what the page shows - never decided from whether a token happens to be
   there; a person's request whose token comes back null is never sent (it
@@ -393,18 +464,22 @@ page and the admin pages for accounts all live there.
 # Backend (from backend/)
 composer start                       # dev server: php -S localhost:8000 router.php (mimics the production Apache; serves /setup.php too)
                                      # then http://localhost:8000/setup.php on a fresh checkout
-php migration.php                    # create missing + apply pending migrations
+php migration.php                    # create missing + apply pending migrations, after a backup (the library's)
 php migration.php --status           # what has run and what is pending
 php migration.php --dry-run          # what would apply, applying nothing
-php migration.php --folder=users     # one set only (users, genshin_impact, or the library's anotoki_translations)
-php db-dump.php                      # back the database up (pg_dump) before risky data work
+php migration.php --folder=users     # one set only (users, genshin_impact, or the library's anotoki_admin,
+                                     # anotoki_translations, anotoki_people)
+php db-dump.php                      # a pg_dump of your own (the admin Backups page needs no pg_dump)
 php merge-databases.php              # once, on a checkout still configured with two databases
 php assets.php --status              # the asset tree against the catalogue and the rows naming it
 php translations.php --status        # the keys the frontend asks for against the database's; each language's coverage
 php translations.php --export sk [f] # a language's own strings as flat JSON; --import sk f puts them back (no new keys)
-php tests/run.php                    # the backend's tests: the upload rules (no database), the words' migration and
-                                     # routes (genshin_test_* databases of their own on the PostgreSQL server
-                                     # config/database.local.php names - never its database - and a backend copy)
+php tests/run.php                    # the backend's tests: the upload rules (no database); the words' migration and
+                                     # routes, the library's data moves, every admin route's permissions, sign-in,
+                                     # the gates, what a silent sign-in brings in (the move, the carry),
+                                     # migration.php (genshin_test_* databases of their own on the
+                                     # PostgreSQL server config/database.local.php names - never its database -
+                                     # and a backend copy). On PHP 8.2 too: PHPRC=<its ini folder> <php 8.2> tests/run.php
 
 # Frontend (from frontend/)
 npm start                            # bun ci, then ng serve on :4200 through proxy.conf.json (/api etc. to :8000)
@@ -474,17 +549,26 @@ node docs/security/build-report.mjs                            # after re-runnin
   engine's `beforeApply`.) Migrations that change data
   carry a `DO $$ … $$` verification gate that fails loudly if the result is
   wrong. Never edit an applied migration — add a new one (old ones still say
-  `php/` and `angular/` in their comments; leave them). After both folders comes
-  the library's own set, `anotoki_translations` (*The words*), recorded with
-  `folder = 'anotoki_translations'`: a site migration never depends on a library
-  file, writes only the words' base columns, and its gate never counts keys
-  outside this site's own namespaces (`anotoki.` is the library's). The engine is the anotoki
+  `php/` and `angular/` in their comments; leave them). Around both folders come
+  the library's own sets (anotoki-lib 0.4.1, in its README's order), each recorded
+  with `folder = '<set>'`: `anotoki_admin` FIRST (the admin tools' tables,
+  `anotoki_audit_log` and `anotoki_feedback` - `genshin_impact/028` and `029`
+  moved the old `audit_logs` and `feedback` into them, every row under its id;
+  nothing else makes an `anotoki_*` table), then `users/` and `genshin_impact/`,
+  then `anotoki_translations` (*The words*) and `anotoki_people` (the scrub's two
+  tables, after `users/052` readied `users`): a site migration never depends on
+  a library file but `anotoki_admin`'s tables, writes only the words' base
+  columns, and its gate never counts keys outside this site's own namespaces
+  (`anotoki.` is the library's). The engine is the anotoki
   sites' shared one, anotoki/lib's `Migrator` (*Where the site stands*), set up
-  for this site in `backend/api/migration_runner.php` (`siteMigrator()`: the two
-  folders then the library's set, in order (`migrationSetNames()`), the lock
-  `MIGRATION_LOCK`, `prepare` adopting the record
-  table from when each folder had a database of its own, `beforeApply` the order
-  guard, which holds the library's set to the third place): the CLI, the admin **Migrations** page's *Apply pending* (`POST
+  for this site in `backend/api/migration_runner.php` (`siteMigrator()`: the sets
+  in order (`migrationSetNames()`), the lock `MIGRATION_LOCK`, `prepare` adopting
+  the record table from when each folder had a database of its own,
+  `beforeApply` the order guard - which lets `anotoki_admin` be missing where
+  everything after it ran, as on every database installed before 0.4, and
+  refuses `--folder` of a later set while it has not run - and, for the button
+  and the CLI, a backup of the database before anything runs): the CLI, the
+  admin **Migrations** page's *Apply pending* (`POST
   /api/admin/migrations/apply`, ADMIN — for hosts with no shell), the installer
   `backend/setup.php` and `merge-databases.php` all build the database the same
   way, one apply at a time (another one meanwhile is told it is busy). Until a
@@ -523,30 +607,93 @@ node docs/security/build-report.mjs                            # after re-runnin
   `visitorMove()` is the one place a visitor's rows become a person's: a table
   added to `VISITOR_PERSON_TABLES` needs its own rule there (the move refuses
   to run until it has one).
-- **Auth is the anotoki IAM's** (see *Signing in* above). `requireAuth()`
-  (`api/meddleware/auth.php`) verifies the IAM access token and puts `user` on the
-  request - this site's record of the person plus the `role` the token grants
-  here (ADMIN / EDITOR / USER). Role groups: `ROLES_CONTENT` (ADMIN/EDITOR,
+- **Auth is the anotoki IAM's** (see *Signing in* above), through the anotoki
+  library's auth module. `identifyRequests()` (`api/meddleware/auth.php`, the
+  library's `Identify`) says who every request is, once; `requireAuth()` then
+  wants a person (401 `sign_in_required` for nobody) and puts `user` on the
+  request - this site's record of the person (`siteUserOf()`, the library's
+  `PeopleRecorder`) plus the `role` the token grants here (ADMIN / EDITOR / USER)
+  - and `session` (the IAM's `sid`). Role groups: `ROLES_CONTENT` (ADMIN/EDITOR,
   writing game content - and the words: strings, languages, guides),
-  `ROLES_SYSTEM_READ`, `ROLES_SYSTEM_WRITE`. Ownership via
-  `requireSelfOrAdmin` / `refuseForeignUserId`. `optionalAuthUser()` for open
-  endpoints that behave differently when signed in; `recentSignInRefusal()` for
-  the few actions that want a sign-in from the last ten minutes (restoring a
-  backup). Four global gates run before any route, in this order
-  (`api/index.php`; each says what it leaves open): the shared library's
-  `SiteGate` (503 while the site is not set up or an update waits -
-  `api/site_state.php`), `maintenanceGate()` (503 while the site is closed),
-  `signInGate()` (401 while the IAM requires sign-in) and `routeGate()` (423 for
-  a page's locked API paths). `/api/site-status` passes all four. Only a path
-  the sign-in card needs, or one a browser loads without a token (an `<img>`'s),
-  goes in `SIGN_IN_OPEN_PREFIXES`; an entry of these lists that starts with `~`
-  is a pattern the whole path must match (`gatePathOpen()` - the words' bundle,
-  exactly `/api/translations/{code}`), any other is a path with everything under
-  it. A gate judges the path the router routes on,
+  `ROLES_SYSTEM_READ` (the dashboard), `ROLES_SYSTEM_WRITE`. Ownership via
+  `requireSelfOrAdmin` / `refuseForeignUserId`. The library's admin tools and the
+  Migrations routes are ADMIN's alone, judged from the token (`RequireRole::admin()`).
+  The global middleware runs in this order (`api/index.php`; each says what it
+  leaves open): the shared library's `SiteGate` (503 while the site is not set
+  up or an update waits - `api/site_state.php`); inside it the people's hourly
+  scrub and the day's backup (after the answer); `Identify` (401 `invalid_token`
+  for a token that does not verify, but on `TOKENLESS_PATHS`); the audit log's
+  context (who acts, from which session); `maintenanceGate()` (503 while the
+  site is closed); `signInGate()` (the library's `SignInGate`: 401 while the IAM
+  requires sign-in) and `routeGate()` (423 for a page's locked API paths).
+  `/api/site-status` passes them all. Only a path the sign-in card needs, or one
+  a browser loads without a token (an `<img>`'s, the admin tools' two links),
+  goes in `SIGN_IN_OPEN_PATHS` (exact paths, or a `~` pattern - never a
+  prefix); in the other lists an entry that starts with `~` is a pattern the
+  whole path must match (`gatePathOpen()` - the words' bundle, exactly
+  `/api/translations/{code}`), any other is a path with everything under it. A
+  gate judges the path the router routes on,
   `gatePath()` (`meddleware/maintenance.php`: decoded once, as Slim decodes it) -
   never `getUri()->getPath()`, which keeps the percent-encoding: `/%61pi/characters`
   is routed to `/api/characters`. The sign-in gate has no "outside `/api/`"
   shortcut: what reaches it is the API, open by its list or behind the switch.
+- **The admin tools and People, the server's half** (anotoki-lib 0.4.1;
+  `api/admin_tools.php` gives each this site's answers once - `siteAdminContext()`:
+  the actor and the ADMIN check from the token, the proof a backup asks for (a
+  sign-in at the IAM of the last ten minutes, `auth_time`), the address bucket
+  of `clientAddressCounted()`, this API's `{error, code}` body). Each route group
+  guards itself and gets `RequireRole::admin()` from this site as well:
+  `/api/admin/errors` (`siteErrorLog()`: files in `storage/error-log/` - the
+  site's old `storage/logs/errors-*.jsonl` stay where they are, unread; the
+  answers the anotoki family's rule takes, the library's default - every 5xx,
+  and 404, 405, 413, 415, 429 - never a 401, 403, 409 or 422 (the owner's
+  decision of 2026-10-11, in place of this site's old "every answer of 400 and
+  up"); an `ApiRefusal` is an answer, not a failure. The pages' own errors
+  (`ErrorLogRoutes::client`) are coming to every anotoki site with the library's
+  browser half in 0.4.2 - not mounted until then), `/api/admin/audit` (`siteAudit()`, `api/audit_log.php`:
+  `anotoki_audit_log` - `content.*` from DbQuery and the guides, `catalogue.*`
+  from `auditFile()`, the words' and the tools' own; entries wait in
+  `storage/logs/audit-pending.jsonl` until `genshin_impact/028` has run),
+  `/api/admin/feedback` and the public `POST /api/feedback` (`siteFeedback()`:
+  kinds bug/idea/other, `FEEDBACK_SECTIONS`, `FEEDBACK_FIELDS` - the old
+  columns' names; nothing of where a message came from kept; the reply address
+  is what the sender leaves in the form's field, which the page fills with
+  their account's - `feedbackSender()` hands the library the id alone, never
+  the token's address; "send without my name" keeps neither - the owner's
+  decision of 2026-10-11, "it's their choice"), `/api/admin/backups`
+  (`siteBackups()`: COPY through PDO, no pg_dump, `storage/backups/*.anotoki-backup`;
+  daily, before every Apply and restore; restore on; no maximum age - the owner's
+  decision of 2026-10-11: the automatic kinds go only as newer ones of their kind
+  replace them (14 daily, 5 and 5), a manual one only when the owner deletes it,
+  and a deleted person's data stays in them until then; not encrypted - the
+  owner's decision of 2026-10-11: a backup file shows whoever gets it the
+  people's names, the feedback's messages and reply addresses, the visitors'
+  starting IPs (`visitor_starts`), play history and the IAM session ids of the
+  audit log, so it stays in the denied `storage/backups/` and leaves only by the
+  single-use download; after a restore `backupRestored()` runs the scrub of the
+  IAM's deleted accounts on the restore's connection, and one that does not
+  finish is thrown - the library's `after_restore_error` - with the upkeep's
+  stamp removed after the answer so the next request retries; People and
+  Feedback deletes made after the backup come back with it, their replay the
+  library's 0.4.2 work; the old pg_dump folders never touched),
+  `/api/admin/files` (`siteFileExplorer()`: roots `assets` - the asset tree, a
+  snapshot - and `uploads` - `public/uploads/`; the library's upload rules; its
+  trash and snapshots in `storage/explorer/`, apart from the Files page's
+  `storage/trash/`. The catalogue's rows follow what it does and keep their ids:
+  every `*_file_id` is ON DELETE SET NULL, so a row deleted and made again
+  strips the picture from the content - `explorerAfterWrite()` moves the same
+  rows on a rename or move (`catalogueMove()`, a folder's with it), and
+  `explorerGuard()`, after the ADMIN check, refuses 409 `file_in_use` for a
+  file the content shows (`catalogueReferences()`, every foreign key to
+  `files`) and 409 `not_catalogued` for a move where no category claims the
+  file; before a write it puts this site's guard `.htaccess` in a root that has
+  none) and `/api/admin/people` (`sitePeople()`: `users` by `username` and
+  `created_at`; the delete hook `peopleDeleteGames()` takes a person's
+  `VISITOR_PERSON_TABLES` rows; the scrub hook `peopleScrubCopies()` blanks the
+  feedback's address and browser). `BackupsRoutes::file()` and
+  `FilesRoutes::raw()` stand outside every admin check - a single-use ticket, a
+  signed link - and are open in the maintenance and sign-in gates for that
+  reason. All of them are in api-config.mjs's `SKIP_PREFIXES`.
 - **Assets**: files live under `assets/` (untracked), catalogued in the `files`
   table; every asset column across the entity tables is a foreign key into it.
   `backend/api/asset_columns.php` lists which columns are assets. The tree holds the
@@ -567,12 +714,17 @@ node docs/security/build-report.mjs                            # after re-runnin
   the conversion). Every write into the tree goes through `_assetUploadDir()`
   (inside the tree by `_assetPathInside()` - realpath, with the separator - and
   behind the guard), and each upload folder has an `.htaccess` guard
-  (`uploadGuardRules()`: mod_mime's RemoveHandler/RemoveType only, which need
-  just AllowOverride FileInfo, as the rewrite rules do; never `php_flag`,
+  (`uploadGuardRules()`: mod_mime's RemoveHandler/RemoveType, which need just
+  AllowOverride FileInfo, as the rewrite rules do; and inside
+  `<IfModule mod_headers.c>`, `uploadGuardHeaders()`: nosniff, and anything but
+  a raster picture served as a download - public/uploads/'s rules word for word,
+  so an old `.svg` or `.html` in the tree never runs on the site's origin, while
+  an `<img>` or an `<audio>` reads its file as before; never `php_flag`,
   `Options` or `Require` - each can answer 500 for the folder on a host whose
   AllowOverride does not allow it, and in `assets/` that is every picture),
   shipped by `build-dist.php` and written by the API before an upload where it
-  is missing. `php tests/run.php` checks all of it.
+  is missing (the file explorer's writes too, `explorerGuard()`). `php
+  tests/run.php` checks all of it.
 
 ## Frontend layout & conventions
 
@@ -611,9 +763,28 @@ node docs/security/build-report.mjs                            # after re-runnin
   and `lookupRoute('path')` in `admin.routes.ts`.
 - **Public DB pages** live in `sites/main/features/database/<entity>/`.
 - **Admin assets**: the **Files** page (`sites/admin/files/`) browses the
-  DB-catalogued assets; **Files Explorer** (`sites/admin/files-explorer/`)
-  browses the raw disk tree off a cached snapshot. Both preview through the
-  shared `file-preview` modal.
+  DB-catalogued assets, previewing through its `file-preview` modal; **Files
+  Explorer** (`/admin/files-explorer`) is the library's file explorer over the
+  asset tree and `public/uploads/` (below).
+- **The admin tools and People are the anotoki library's** (0.4.1): Feedback,
+  Audit Logs, Error Log, Files Explorer and Backups (`@anotoki/lib/admin/*`) and
+  People (`@anotoki/lib/people/page`), each on a lazy route of the admin panel
+  at the address this site's own page had - `/admin/feedback`,
+  `/admin/audit-logs`, `/admin/errors`, `/admin/files-explorer`,
+  `/admin/backups`, and the new `/admin/people`. The tools' configuration is
+  `shared/site-admin-tools.ts`, provided at the app's root (`app.config.ts`) -
+  the library's pages read it through a root service, and so does the badge -
+  and People's is `sites/admin/people.ts`, on the panel's route; the pages
+  themselves never load before they are opened. For this site's ADMIN alone (the owner's decision: EDITORs see
+  none of them): the navigation shows them to the ADMIN only, a page tells
+  anybody else whose it is and asks nothing, and the server refuses them. Beside
+  Feedback, the messages nobody has opened (`FeedbackUnread`; no mail is sent).
+  People's Delete takes a person's games (saved games, quiz results, statistics)
+  and asks in the site's words - their record and their feedback stay. The
+  visitors' feedback form is the library's too (`@anotoki/lib/feedback`,
+  `shared/site-feedback.ts`: the server's thirteen sections, a bug's and an
+  idea's own fields in the site's `feedback.*` words), in the footer's dialog
+  (`site-feedback-modal`), loaded when it is opened.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper

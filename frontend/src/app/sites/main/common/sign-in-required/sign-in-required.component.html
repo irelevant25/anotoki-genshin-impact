@@ -13,7 +13,8 @@
         }
 
         @if (signInFailure()) {
-            <app-sign-in-failure></app-sign-in-failure>
+            <!-- The library's screen of a sign-in that did not work (@anotoki/lib/auth): why, Try again, Back. -->
+            <anotoki-sign-in-failure></anotoki-sign-in-failure>
         } @else {
             <div class="sign-in-required-actions">
                 <app-button [text]="'common.signIn' | translate" variant="primary" [disabled]="!available()" (buttonClick)="signIn()"></app-button>

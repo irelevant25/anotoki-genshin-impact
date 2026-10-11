@@ -10,11 +10,9 @@
  * the fix is to regenerate.
  */
 
-export * from './admin.type';
-export * from './backup.type';
 export * from './common.type';
-export * from './feedback.type';
 export * from './file.type';
 export * from './guide.type';
 export * from './quiz.type';
 export * from './setting.type';
+export * from './visitor.type';

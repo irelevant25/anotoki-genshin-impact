@@ -13,13 +13,27 @@
  * Migrator's `prepare`), and refusing to build the folders out of order
  * (migrationsOrderRefusal(), its `beforeApply`).
  *
- * After the site's two folders comes one set that is the library's own:
- * anotoki_translations (vendor/anotoki/lib/php/migrations/translations), the
- * tables of the words in the shape the library works with, and its own words
- * (anotoki-lib 0.3.0, api/translations.php). It runs last - users/ made those
- * tables long before the library existed, and users/050 moved them into its
- * shape - and it is recorded like the folders, under its own name in the
- * bookkeeping table's `folder` column.
+ * Around the site's two folders come three sets that are the library's own
+ * (vendor/anotoki/lib/php/migrations), in the order its README gives:
+ *
+ *   anotoki_admin         FIRST: the admin tools' tables - anotoki_audit_log and
+ *                         anotoki_feedback (anotoki-lib 0.4.1). The site's own
+ *                         files move their old rows into them (genshin_impact/
+ *                         028 and 029), so they must be there before; nothing
+ *                         else makes an anotoki_* table, so they meet nothing.
+ *   users, genshin_impact the site's own.
+ *   anotoki_translations  the tables of the words in the shape the library works
+ *                         with, and its own words (anotoki-lib 0.3.0,
+ *                         api/translations.php) - after the folders: users/ made
+ *                         those tables long before the library existed, and
+ *                         users/050 moved them into its shape.
+ *   anotoki_people        the people module's two tables (anotoki-lib 0.4.1):
+ *                         the scrub's place in the IAM's list of deleted
+ *                         accounts, and the ids it scrubbed - after users/052,
+ *                         which readies `users` for it.
+ *
+ * Each is recorded like the folders, under its own name in the bookkeeping
+ * table's `folder` column.
  *
  * Whatever applies migrations goes through siteMigrator() - the command line
  * (migration.php), the admin panel's Migrations page (/api/admin/migrations,
@@ -32,8 +46,11 @@
  * nothing un-applies anything.
  */
 
+use Anotoki\Lib\Admin\Schema as AdminSchema;
+use Anotoki\Lib\Backups\Backups;
 use Anotoki\Lib\Migrations\MigrationSet;
 use Anotoki\Lib\Migrations\Migrator;
+use Anotoki\Lib\People\Schema as PeopleSchema;
 use Anotoki\Lib\Translations\Schema as TranslationsSchema;
 
 /**
@@ -50,29 +67,42 @@ use Anotoki\Lib\Translations\Schema as TranslationsSchema;
  * references to that table - which is what migrationsOrderRefusal() stops.
  *
  * Each folder is one of the engine's sets, under its own name: that name is
- * what the bookkeeping table's `folder` column holds. The library's set comes
- * after them (migrationSetNames()), and is not a folder of this site's.
+ * what the bookkeeping table's `folder` column holds. The library's sets come
+ * before and after them (migrationSetNames()), and are no folders of this
+ * site's.
  */
 const MIGRATION_FOLDERS = ['users', 'genshin_impact'];
 
 /**
- * Every set the database is built from, in the order they run: the site's two
- * folders, then the library's anotoki_translations. That set needs the tables
- * users/ made (and users/050 moved into its shape) and nothing of the
- * content's, but it comes last all the same: a library's sets follow a site's
- * own, and this one order is what the guard below holds every database to.
+ * Every set the database is built from, in the order they run - the order the
+ * anotoki library's README gives: its anotoki_admin first (the site's own files
+ * move rows into its tables), the site's two folders, then its
+ * anotoki_translations (the tables users/ made, in the shape users/050 moved
+ * them into) and anotoki_people (after users/052 readied `users`). This one
+ * order is what the guard below holds every database to.
  *
  * @return list<string>
  */
 function migrationSetNames(): array
 {
-    return [...MIGRATION_FOLDERS, TranslationsSchema::SET];
+    return [AdminSchema::SET, ...MIGRATION_FOLDERS, TranslationsSchema::SET, PeopleSchema::SET];
 }
 
-/** A set as a person reads its name: a folder of this site's, or the library's set. */
+/** A set as a person reads its name: a folder of this site's, or one of the library's sets. */
 function migrationSetLabel(string $set): string
 {
     return in_array($set, MIGRATION_FOLDERS, true) ? "migrations/{$set}/" : "the anotoki library's {$set}";
+}
+
+/** The library's sets, by name, as the engine takes them. */
+function libraryMigrationSet(string $name): ?MigrationSet
+{
+    return match ($name) {
+        AdminSchema::SET => AdminSchema::migrationSet(),
+        TranslationsSchema::SET => TranslationsSchema::migrationSet(),
+        PeopleSchema::SET => PeopleSchema::migrationSet(),
+        default => null,
+    };
 }
 
 /**
@@ -91,21 +121,20 @@ function migrationsRoot(): string
 }
 
 /**
- * The sets as the engine's, in the order they run - the two folders, then the
- * library's - or the one set named.
+ * The sets as the engine's, in the order they run (migrationSetNames()) - or
+ * the one set named.
  *
  * @return list<MigrationSet>
  */
 function migrationSets(?string $only = null): array
 {
     $sets = [];
-    foreach (MIGRATION_FOLDERS as $folder) {
-        if ($only === null || $only === $folder) {
-            $sets[] = new MigrationSet($folder, migrationsRoot() . '/' . $folder);
+    foreach (migrationSetNames() as $name) {
+        if ($only === null || $only === $name) {
+            $sets[] = in_array($name, MIGRATION_FOLDERS, true)
+                ? new MigrationSet($name, migrationsRoot() . '/' . $name)
+                : libraryMigrationSet($name);
         }
-    }
-    if ($only === null || $only === TranslationsSchema::SET) {
-        $sets[] = TranslationsSchema::migrationSet();
     }
 
     if ($sets === []) {
@@ -116,11 +145,11 @@ function migrationSets(?string $only = null): array
 }
 
 /**
- * The engine, for one database: both folders and the library's set in order,
- * or only $only - the command line's --folder, and merge-databases.php, which
- * brings each half of a two-database installation up to date on its own (its
- * folder alone: the library's set is the merged database's, applied there
- * once the halves are one).
+ * The engine, for one database: every set in order, or only $only - the
+ * command line's --folder, and merge-databases.php, which brings each half of
+ * a two-database installation up to date on its own (its folder alone: the
+ * library's sets are the merged database's, applied there once the halves are
+ * one).
  *
  * The order guard is for a database holding both folders; merge-databases.php
  * turns it off ($orderGuard false), because each of the two databases it
@@ -128,10 +157,19 @@ function migrationSets(?string $only = null): array
  * $beforeFile(pdo, set, name) is told each file as it starts, inside the
  * file's transaction - the command line's progress.
  *
+ * With $backups (the library's, siteBackups()) a backup of the database as it
+ * is is made before an apply runs anything - once for each list of pending
+ * files, after the order guard, and an apply whose backup cannot be made runs
+ * nothing (Backups::beforeApplyHook()). The admin panel's Apply and the
+ * command line ask for it; the installer does not (on a real host it builds an
+ * empty database, and it may be building another database than the one this
+ * installation's settings name), and neither do the tests' own engines - the
+ * backup reads the database the settings name, never the one given here.
+ *
  * The connection is used as it is given, and needs PDO::ERRMODE_EXCEPTION:
  * getDb(), setup.php and the scripts all set it.
  */
-function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?Closure $beforeFile = null): Migrator
+function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?Closure $beforeFile = null, ?Backups $backups = null): Migrator
 {
     $options = [
         'lock' => MIGRATION_LOCK,
@@ -144,13 +182,14 @@ function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?
         $options['beforeFile'] = $beforeFile;
     }
 
+    $guard = null;
     if ($orderGuard) {
         // Once, before anything runs. The engine ends the apply with this
         // message as its error, nothing applied. (It runs after `prepare`, so
         // a refused database has had its record labelled by folder - which
         // any later run would do the same way, and which is right whatever
         // happens next.)
-        $options['beforeApply'] = function (PDO $pdo, array $files) use ($only): ?string {
+        $guard = function (PDO $pdo, array $files) use ($only): ?string {
             $refusal = migrationsOrderRefusal(recordedMigrations($pdo), $only);
             if ($refusal !== null) {
                 throw new RuntimeException($refusal);
@@ -158,6 +197,12 @@ function siteMigrator(PDO $pdo, ?string $only = null, bool $orderGuard = true, ?
 
             return null;
         };
+    }
+
+    if ($backups !== null) {
+        $options['beforeApply'] = $backups->beforeApplyHook($guard);
+    } elseif ($guard !== null) {
+        $options['beforeApply'] = $guard;
     }
 
     return new Migrator($pdo, migrationSets($only), $options);
@@ -397,12 +442,19 @@ function recordedMigrationRows(PDO $pdo): array
  * good (see MIGRATION_FOLDERS). $only is the one set about to be applied,
  * when only one is.
  *
- * The library's set is the next in that order, after both folders
- * (migrationSetNames()): its 001 makes the tables of the words where they are
- * missing, so run before users/ it would leave users/ building on the
- * library's tables instead of its own. Nothing applies it out of order -
- * applying it alone before the folders is refused here like any set - but a
- * record that says otherwise is refused all the same.
+ * The library's anotoki_translations is the next in that order, after both
+ * folders (migrationSetNames()): its 001 makes the tables of the words where
+ * they are missing, so run before users/ it would leave users/ building on the
+ * library's tables instead of its own; anotoki_people follows it. Nothing
+ * applies them out of order - applying one alone before the folders is refused
+ * here like any set - but a record that says otherwise is refused all the same.
+ *
+ * The one set allowed to be missing while later ones have run is the
+ * library's anotoki_admin: it runs first on a new database, but every database
+ * installed before anotoki-lib 0.4 meets it last, on top of everything - and
+ * that is safe, as it makes only tables named anotoki_*, which nothing else
+ * makes. Applying a set alone while it has not run is still refused: the site's
+ * own files move rows into its tables.
  */
 function migrationsOrderRefusal(array $recorded, ?string $only = null): ?string
 {
@@ -414,7 +466,7 @@ function migrationsOrderRefusal(array $recorded, ?string $only = null): ?string
         }
 
         $later = array_slice($sets, $position + 1);
-        foreach ($later as $next) {
+        foreach ($set === AdminSchema::SET ? [] : $later as $next) {
             if (($recorded[$next] ?? []) === []) {
                 continue;
             }

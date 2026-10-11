@@ -106,6 +106,8 @@ export interface SiteAuthConfig {
   admin_url: string;
   /** Whether the IAM requires everybody to sign in before using this site. Read from the IAM by the server, fresh within a minute; while it is true the API answers 401 sign_in_required to anybody not signed in. */
   login_required: boolean;
+  /** Whether signing in is on offer at all: false once the IAM has said it does not know this site (or switched it off) - then the pages offer no sign-in, and the IAM's sign-in hint sends nobody there (the anotoki library's AuthRoutes::configBody()). */
+  sign_in_available: boolean;
 }
 
 /**

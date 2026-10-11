@@ -16,6 +16,7 @@ class SiteUser extends ResponseShape
         /** The IAM user id, which this site keys everything of theirs on. */
         public readonly int $id,
         public readonly string $username,
+        /** The address their token carries - this site keeps no copy of it. */
         public readonly ?string $email,
         /** The highest of this site's roles the token grants: ADMIN, EDITOR or USER. */
         public readonly string $role,
@@ -23,7 +24,7 @@ class SiteUser extends ResponseShape
         public readonly array $roles,
         public readonly ?string $background,
         public readonly ?string $version,
-        /** When they first arrived on this site. */
+        /** When they first arrived on this site: ISO 8601 in UTC. */
         public readonly ?string $created_at,
     ) {
     }

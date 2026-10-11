@@ -1,5 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FeedbackUnread } from '@anotoki/lib/admin';
 import { NotificationComponent } from '../../shared/local-lib/components/notification/notification.component';
 import { CommonModule } from '@angular/common';
 import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
@@ -19,6 +20,8 @@ interface NavItem {
   href?: string;
   icon?: string;
   readOnly?: boolean;
+  /** How many wait for somebody to look: the feedback nobody has opened yet. */
+  badge?: number | null;
 }
 
 @Component({
@@ -29,6 +32,14 @@ interface NavItem {
 })
 export class AppComponent {
   private readonly _security = inject(SecurityService);
+
+  /**
+   * The feedback nobody has opened yet, beside "Feedback": no mail is sent for
+   * a message, so this is how the ADMIN hears of one (@anotoki/lib/admin; the
+   * Feedback page keeps it in step). Asked whenever the reader becomes this
+   * site's ADMIN - it asks nothing for anybody else.
+   */
+  private readonly _unread = inject(FeedbackUnread);
 
   /**
    * Whether the panel is still for whoever is reading it.
@@ -47,8 +58,23 @@ export class AppComponent {
     // Left out if the site could not learn where that is.
     const adminUrl = this._security.adminUrl();
     const accounts: NavItem[] = adminUrl ? [{ label: 'Accounts & access', href: adminUrl, icon: 'icon icon-user-group' }] : [];
-    // The Migrations page and its API are the ADMIN's alone (@anotoki/lib/migrations).
-    const migrations: NavItem[] = this._security.role() === 'ADMIN' ? [{ label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true }] : [];
+    // The anotoki library's pages are the ADMIN's alone, and so are their APIs:
+    // the Migrations page (@anotoki/lib/migrations), the admin tools
+    // (shared/site-admin-tools.ts) and the People page (people.ts) - the
+    // owner's decision: EDITORs see none
+    // of them.
+    const admin = this._security.role() === 'ADMIN';
+    const people: NavItem[] = admin ? [{ label: 'People', path: 'people', icon: 'icon icon-user-check' }] : [];
+    const tools: NavItem[] = admin
+      ? [
+          { label: 'Feedback', path: 'feedback', icon: 'icon icon-mail', badge: this._unread.count() || null },
+          { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
+          { label: 'Error Log', path: 'errors', icon: 'icon icon-triangle-alert', readOnly: true },
+          { label: 'Files Explorer', path: 'files-explorer', icon: 'icon icon-computer' },
+          { label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true },
+          { label: 'Backups', path: 'backups', icon: 'icon icon-download' },
+        ]
+      : [];
 
     return [
       {
@@ -98,17 +124,16 @@ export class AppComponent {
       },
       {
         label: 'System',
-        items: [
-          ...accounts,
-          { label: 'Site Settings', path: 'settings', icon: 'icon icon-settings' },
-          { label: 'Feedback', path: 'feedback', icon: 'icon icon-mail' },
-          { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
-          { label: 'Error Log', path: 'errors', icon: 'icon icon-triangle-alert', readOnly: true },
-          { label: 'Files Explorer', path: 'files-explorer', icon: 'icon icon-computer', readOnly: true },
-          ...migrations,
-          { label: 'Backups', path: 'backups', icon: 'icon icon-download' },
-        ],
+        items: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'icon icon-settings' }, ...tools],
       },
     ];
   });
+
+  constructor() {
+    effect(() => {
+      if (this._security.role() === 'ADMIN') {
+        untracked(() => void this._unread.refresh());
+      }
+    });
+  }
 }

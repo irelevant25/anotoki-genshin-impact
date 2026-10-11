@@ -42,7 +42,7 @@ define('ANOTOKI_ROUTES_ONLY', true);
 require "$backend/api/index.php";
 
 $built = siteMigrator(getDb())->apply();
-check('a database built by every migration, the library\'s set last', $built['error'] === null && end($built['applied'])['set'] === 'anotoki_translations', (string) $built['error']);
+check('a database built by every migration, the library\'s people set last', $built['error'] === null && end($built['applied'])['set'] === 'anotoki_people', (string) $built['error']);
 
 const ADMIN = 1;
 const EDITOR = 2;
@@ -161,8 +161,8 @@ same('a key: its name, the code\'s description, its strings - no scope, flag or 
 $saved = send('PUT', '/api/admin/translations', EDITOR, ['values' => ['nav.daily' => ['sk' => 'Výzva dňa']]]);
 same('an EDITOR\'s save: 200 and the grid', [200, true], [$saved->getStatusCode(), isset(body($saved)['keys'])]);
 same('...kept, written by the EDITOR', ['Výzva dňa', EDITOR], array_values($pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'nav.daily' AND language_code = 'sk'")->fetch()));
-$audit = $pdo->query("SELECT table_name, record_id, action, changed_by, changes FROM audit_logs WHERE table_name = 'translations' ORDER BY id DESC LIMIT 1")->fetch();
-same('...and in the audit log: the languages, how many, which keys', ['translations', 'sk', 'UPDATE', EDITOR, ['sk'], 1, ['nav.daily']], [$audit['table_name'] ?? null, $audit['record_id'] ?? null, $audit['action'] ?? null, (int) ($audit['changed_by'] ?? 0), json_decode((string) ($audit['changes'] ?? '{}'), true)['languages'] ?? null, json_decode((string) ($audit['changes'] ?? '{}'), true)['count'] ?? null, json_decode((string) ($audit['changes'] ?? '{}'), true)['keys'] ?? null]);
+$audit = $pdo->query("SELECT target_type, target_id, action, actor_id, actor_session, details FROM anotoki_audit_log WHERE action = 'translations.saved' ORDER BY id DESC LIMIT 1")->fetch();
+same('...and in the audit log (the library\'s): the languages, how many, which keys - by whom, from which sign-in', ['translations', 'sk', 'translations.saved', EDITOR, 'sid-' . EDITOR, ['sk'], 1, ['nav.daily']], [$audit['target_type'] ?? null, $audit['target_id'] ?? null, $audit['action'] ?? null, (int) ($audit['actor_id'] ?? 0), $audit['actor_session'] ?? null, json_decode((string) ($audit['details'] ?? '{}'), true)['languages'] ?? null, json_decode((string) ($audit['details'] ?? '{}'), true)['count'] ?? null, json_decode((string) ($audit['details'] ?? '{}'), true)['keys'] ?? null]);
 
 $unknown = send('PUT', '/api/admin/translations', EDITOR, ['values' => ['no.such.key' => ['sk' => 'x']]]);
 same('a key nobody made: 422 unknown_key, {error, code, keys}', [422, 'unknown_key', ['no.such.key'], true], [$unknown->getStatusCode(), body($unknown)['code'] ?? null, body($unknown)['keys'] ?? null, is_string(body($unknown)['error'] ?? null)]);
@@ -216,7 +216,7 @@ same('a released language cannot be deleted: 409 seeded_language', [409, 'seeded
 $deleted = send('DELETE', '/api/admin/languages/de', EDITOR);
 same('deleting German: what went with it - its strings and its guide', [200, ['strings' => 0, 'guides' => 1]], [$deleted->getStatusCode(), body($deleted)]);
 same('...the guide went too', 0, (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'de'")->fetchColumn());
-same('the languages\' changes are in the audit log', ['DELETE', 'INSERT', 'UPDATE'], $pdo->query("SELECT DISTINCT action FROM audit_logs WHERE table_name = 'languages' ORDER BY action")->fetchAll(PDO::FETCH_COLUMN));
+same('the languages\' changes are in the audit log', ['language.created', 'language.deleted', 'language.updated'], $pdo->query("SELECT DISTINCT action FROM anotoki_audit_log WHERE target_type = 'language' AND action LIKE 'language.%' ORDER BY action")->fetchAll(PDO::FETCH_COLUMN));
 
 // ── The guides ──────────────────────────────────────────────────────────────
 
@@ -235,8 +235,8 @@ same('the Guides page: every guide, every language', [11, ['en', 'sk'], ['code',
 $put = send('PUT', '/api/admin/guides/daily', EDITOR, ['values' => ['sk' => '<h4>Nový návod</h4>']]);
 same('an EDITOR saves a guide: 200, the guide as it is now', [200, 'daily', '<h4>Nový návod</h4>'], [$put->getStatusCode(), body($put)['guide'] ?? null, body($put)['values']['sk'] ?? null]);
 same('...written by the EDITOR, read by the pages', [EDITOR, '<h4>Nový návod</h4>'], [(int) $pdo->query("SELECT updated_by FROM guide_contents WHERE guide = 'daily' AND language_code = 'sk'")->fetchColumn(), body(send('GET', '/api/guides/daily?language=sk'))['html']]);
-$audit = $pdo->query("SELECT record_id, changes FROM audit_logs WHERE table_name = 'guide_contents' ORDER BY id DESC LIMIT 1")->fetch();
-same('...and in the audit log, old and new', ['daily', '<h4>Nový návod</h4>'], [$audit['record_id'] ?? null, json_decode((string) ($audit['changes'] ?? '{}'), true)['sk']['new'] ?? null]);
+$audit = $pdo->query("SELECT action, target_id, details FROM anotoki_audit_log WHERE target_type = 'guide_contents' ORDER BY id DESC LIMIT 1")->fetch();
+same('...and in the audit log, old and new', ['content.update', 'daily', '<h4>Nový návod</h4>'], [$audit['action'] ?? null, $audit['target_id'] ?? null, json_decode((string) ($audit['details'] ?? '{}'), true)['sk']['new'] ?? null]);
 same('English left blank: 422 fallback_required, nothing kept', [422, 'fallback_required', true], [send('PUT', '/api/admin/guides/daily', EDITOR, ['values' => ['en' => ' ']])->getStatusCode(), body(send('PUT', '/api/admin/guides/daily', EDITOR, ['values' => ['en' => ' ']]))['code'] ?? null, (bool) $pdo->query("SELECT 1 FROM guide_contents WHERE guide = 'daily' AND language_code = 'en'")->fetchColumn()]);
 same('a language there is not: 422 unknown_language', [422, 'unknown_language'], (function (): array {
     $response = send('PUT', '/api/admin/guides/daily', EDITOR, ['values' => ['xx' => '<p>x</p>']]);

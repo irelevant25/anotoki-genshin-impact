@@ -16,9 +16,15 @@ export interface QuizProgressRequest<TState = unknown> {
  * (`POST /api/quiz/progress/carry`) - at most twelve: six quizzes, each a free
  * game and a daily one. Per game the account's own stays where it has one; a
  * daily of another day never moves; a game nobody has played yet is skipped.
+ *
+ * `silent`: a person's carry after a silent sign-in (the IAM's sign-in hint,
+ * no click). Then nothing is carried into an account that already has
+ * something here - the answer says `stayed`, and the browser keeps its games
+ * (the owner's decision of 2026-10-11). Nothing on a visitor's carry.
  */
 export interface QuizCarryRequest<TState = unknown> {
   games: { quiz: string; is_daily: boolean; state: TState }[];
+  silent?: boolean;
 }
 
 /**

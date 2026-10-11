@@ -5,8 +5,8 @@ import { ButtonComponent } from '../../../../shared/local-lib/components/button/
 import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
+import { SignInFailureComponent } from '@anotoki/lib/auth';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { SignInFailureComponent } from '../sign-in-failure/sign-in-failure.component';
 import { AUTH_CALLBACK_PATH } from '../../../../shared/routing-definition';
 
 /**
@@ -19,10 +19,11 @@ import { AUTH_CALLBACK_PATH } from '../../../../shared/routing-definition';
  * there by itself - so it says what is happening and offers the same way in
  * again: signing in, or making an account, both at the IAM and both coming
  * back to the address being read. It stays when that cannot happen on its own:
- * the browser would not start the sign-in, the SDK holds a session this site's
- * API refuses (going again by itself would only loop), or a sign-in came back
- * without working - which is explained here, at the callback's address, since
- * the card would otherwise swallow the only explanation.
+ * the browser would not start the sign-in, the library holds a session this
+ * site's API refuses (going again by itself would only loop), or a sign-in came
+ * back without working - which the library's screen explains here, at the
+ * callback's address, since the card would otherwise swallow the only
+ * explanation.
  *
  * No language chooser, as on the closed sign: the language is the stored
  * choice or the browser's.

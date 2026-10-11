@@ -34,6 +34,14 @@
                                         <i [class]="item.icon"></i>
                                     }
                                     <span>{{ item.label }}</span>
+                                    <!-- The feedback nobody has opened yet: the number, and in
+                                         words for a screen reader ("Feedback 3 new"). -->
+                                    @if (item.badge) {
+                                        <span class="nav-badge">
+                                            {{ item.badge }}
+                                            <span class="nav-badge-words">{{ " new" }}</span>
+                                        </span>
+                                    }
                                     @if (item.readOnly) {
                                         <span class="badge-readonly">R</span>
                                     }

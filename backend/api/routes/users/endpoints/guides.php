@@ -77,7 +77,7 @@ $app->put('/api/admin/guides/{guide}', function (Request $request, Response $res
         return guideRefused($response, $result);
     }
     if ($result['changed'] !== []) {
-        siteAuditWrite('guide_contents', $guide, 'UPDATE', translationsActor($request), $result['changed']);
+        auditContent('guide_contents', $guide, 'UPDATE', translationsActor($request), $result['changed']);
     }
 
     return JsonResponse::write($response, 200, guideEntry($pdo, $guide));

@@ -18,23 +18,23 @@ import { WeaponFormComponent } from './weapons/weapon-form/weapon-form.component
 import { FoodsListComponent } from './foods/foods-list/foods-list.component';
 import { FoodFormComponent } from './foods/food-form/food-form.component';
 import { FilesManagerComponent } from './files/files-manager/files-manager.component';
-import { FilesExplorerComponent } from './files-explorer/files-explorer.component';
 import { BannersListComponent } from './banners/banners-list/banners-list.component';
 import { BannerFormComponent } from './banners/banner-form/banner-form.component';
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
-import { AuditLogsComponent } from './audit-logs/audit-logs.component';
-import { ErrorsComponent } from './errors/errors.component';
-import { FeedbackComponent } from './feedback/feedback.component';
-import { BackupsComponent } from './backups/backups.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FileCategoriesComponent } from './file-categories/file-categories.component';
 import { GuidesComponent } from './localization/guides/guides.component';
 import { lookupRoute } from './pages/pages';
+import { provideAdminPeople } from './people';
 
 export const routes: Routes = [
   {
     path: '',
     component: AppComponent,
+    // The library's People page, configured for this panel (people.ts) - with
+    // the panel, never in the first load. (The admin tools' configuration is
+    // the app's: shared/site-admin-tools.ts.)
+    providers: [provideAdminPeople()],
     children: [
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
@@ -98,19 +98,25 @@ export const routes: Routes = [
       { path: 'guides', component: GuidesComponent },
 
       { path: 'backgrounds', component: BackgroundsListComponent },
-      { path: 'feedback', component: FeedbackComponent },
-      { path: 'audit-logs', component: AuditLogsComponent },
-      { path: 'errors', component: ErrorsComponent },
       { path: 'files', component: FilesManagerComponent },
-      { path: 'files-explorer', component: FilesExplorerComponent },
       { path: 'file-categories', component: FileCategoriesComponent },
       // The anotoki sites' one Migrations page (@anotoki/lib/migrations/page), for
       // this site's ADMIN: what has run, what waits, and Apply. While an update waits
       // it is the one page of the site that still opens - for an ADMIN. Its own entry
       // point, so it lands in this lazy chunk and never in the first load.
       { path: 'migrations', component: MigrationsPageComponent },
-      { path: 'backups', component: BackupsComponent },
       { path: 'settings', component: SettingsComponent },
+
+      // The anotoki library's admin tools (@anotoki/lib/admin/*, shared/site-admin-tools.ts)
+      // and its People page (people.ts), at the addresses this panel's own pages had: for this
+      // site's ADMIN alone - anybody else is told whose a page is. Each loaded when
+      // opened, from an entry point of its own.
+      { path: 'feedback', loadComponent: () => import('@anotoki/lib/admin/feedback').then((m) => m.FeedbackPageComponent) },
+      { path: 'audit-logs', loadComponent: () => import('@anotoki/lib/admin/audit').then((m) => m.AuditLogPageComponent) },
+      { path: 'errors', loadComponent: () => import('@anotoki/lib/admin/errors').then((m) => m.ErrorLogPageComponent) },
+      { path: 'files-explorer', loadComponent: () => import('@anotoki/lib/admin/files').then((m) => m.FilesPageComponent) },
+      { path: 'backups', loadComponent: () => import('@anotoki/lib/admin/backups').then((m) => m.BackupsPageComponent) },
+      { path: 'people', loadComponent: () => import('@anotoki/lib/people/page').then((m) => m.PeoplePageComponent) },
 
       // Writable lookup tables
       lookupRoute('relationship-types'),

@@ -1,0 +1,6 @@
+# The site's pages are for everybody, crawlers included - but not /auth/, where
+# the anotoki IAM hands a sign-in back (/auth/callback): there is nothing there
+# to index, and the page itself asks not to be (noindex). A crawler never holds
+# the IAM's sign-in hint, so it is never sent to sign in either.
+User-agent: *
+Disallow: /auth/

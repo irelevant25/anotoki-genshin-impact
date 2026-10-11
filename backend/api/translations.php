@@ -13,7 +13,8 @@
  *     for, so neither can be deleted (switching one off is always possible);
  *   - its error body, {error, code, ...}, as every answer of this API words a
  *     refusal; who is saving (the signed-in person, from the token); and its
- *     audit log, where every change of the words is kept (audit_logs);
+ *     audit log, where every change of the words is kept (the library's
+ *     anotoki_audit_log, api/audit_log.php);
  *   - what its own tables make of a language: the guides written in it
  *     (guide_contents, users/050), which go with it when it is deleted.
  *
@@ -32,6 +33,8 @@
 use Anotoki\Lib\Support\JsonResponse;
 use Anotoki\Lib\Support\Refusal;
 use Anotoki\Lib\Translations\LanguageUsage;
+
+require_once __DIR__ . '/audit_log.php';
 use Anotoki\Lib\Translations\Translations;
 use Anotoki\Lib\Translations\TranslationsConfig;
 use Psr\Http\Message\ResponseInterface;
@@ -67,7 +70,8 @@ function translationsError(ResponseInterface $response, Refusal $refusal): Respo
 /**
  * Who is saving: the person requireAuth() put on the request, from their
  * verified token - never anything a body says. Their row is in `users` by
- * then (siteUserFromClaims()), which translations.updated_by refers to.
+ * then (siteUserOf(), api/site_user.php), which translations.updated_by
+ * refers to.
  */
 function translationsActor(ServerRequestInterface $request): ?int
 {
@@ -77,56 +81,35 @@ function translationsActor(ServerRequestInterface $request): ?int
 }
 
 /**
- * A change of the words, into the audit log the admin panel reads (Audit
- * Logs): a language added, changed or deleted, strings saved or imported -
- * by whom, from which sign-in, and what changed. It stands in for the stamps
+ * A change of the words, into the audit log the admin panel reads (the
+ * library's Audit page): a language added, changed or deleted, strings saved
+ * or imported - by whom, from which sign-in, and what changed - under the
+ * library's own names (language.created|updated|deleted, translations.saved|
+ * imported), as every anotoki site records them. It stands in for the stamps
  * the keys and strings carried before users/050: the library keeps who saved
  * each string last (translations.updated_by), and this keeps the history.
+ * (Entries from before genshin_impact/028 say content.* on the tables
+ * languages and translations.)
  *
  * The library calls it after a write that changed something, with its own
  * details: what a language is now, or a save's summary (the languages it
- * touched, how many strings, the first hundred keys).
+ * touched, how many strings, the first hundred keys). A save names no target
+ * of its own; it is filed, as this site always filed it, under `translations`
+ * and the languages it touched ("sk"), so the Audit page finds a language's
+ * saves by what they were about. The command line's import is written by
+ * nobody.
  */
 function translationsAudit(ServerRequestInterface $request, string $action, ?string $type, ?string $id, array $details): void
 {
-    [$table, $verb] = match ($action) {
-        'language.created' => ['languages', 'INSERT'],
-        'language.deleted' => ['languages', 'DELETE'],
-        'language.updated' => ['languages', 'UPDATE'],
-        default => ['translations', 'UPDATE'],
-    };
-    $record = $id ?? implode(', ', array_map('strval', $details['languages'] ?? []));
-
-    siteAuditWrite($table, $record, $verb, translationsActor($request), $details);
-}
-
-/**
- * One row of the audit log, for a change that does not go through DbQuery
- * (which writes its own): the table and the row it is about, what was done,
- * by whom, and the details. The log is the content half's table
- * (genshin_impact/001): on a database without it yet the change stands,
- * unlogged - as DbQuery's own writes do then.
- */
-function siteAuditWrite(string $table, string $record, string $action, ?int $by, array $changes): void
-{
-    try {
-        usersDb()->prepare(
-            'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes, entity_table, entity_id, session_id)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-        )->execute([
-            $table,
-            mb_substr($record, 0, 100),
-            $action,
-            $by,
-            json_encode($changes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
-            $table,
-            mb_substr($record, 0, 100),
-            // The command line has no sign-in to name.
-            function_exists('auditSession') ? auditSession() : null,
-        ]);
-    } catch (\PDOException) {
-        // No audit log yet: the change itself stands.
-    }
+    $languages = implode(', ', array_map('strval', is_array($details['languages'] ?? null) ? $details['languages'] : []));
+    siteAudit()->record(
+        $request,
+        translationsActor($request),
+        $action,
+        $type ?? 'translations',
+        $id ?? ($languages === '' ? null : $languages),
+        $details,
+    );
 }
 
 /**

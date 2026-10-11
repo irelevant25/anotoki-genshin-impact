@@ -5,19 +5,24 @@
 <app-loader #loader [loading]="loading()"></app-loader>
 
 @if (!loader.loadingCtrl.loading() && stats(); as data) {
-    <!-- Things waiting on a person, first. -->
+    <!-- Things waiting on a person, first. The feedback and the audit log are
+         the ADMIN's alone: for an EDITOR the server sends neither. -->
     <div class="attention-row">
-        <a class="attention-card" routerLink="/admin/feedback" [class.is-quiet]="!data.feedback.new">
-            <span class="attention-value">{{ data.feedback.new }}</span>
-            <span class="attention-label">unread feedback</span>
-            <span class="attention-meta">{{ data.feedback.total }} in total · {{ data.feedback.last7 }} this week</span>
-        </a>
+        @if (data.feedback; as feedback) {
+            <a class="attention-card" routerLink="/admin/feedback" [class.is-quiet]="!feedback.new">
+                <span class="attention-value">{{ feedback.new }}</span>
+                <span class="attention-label">unread feedback</span>
+                <span class="attention-meta">{{ feedback.total }} in total · {{ feedback.last7 }} this week</span>
+            </a>
+        }
 
-        <div class="attention-card is-quiet">
-            <span class="attention-value">{{ data.activity.last7 }}</span>
-            <span class="attention-label">edits this week</span>
-            <span class="attention-meta">{{ data.activity.today }} today · {{ data.activity.last30 }} in 30 days</span>
-        </div>
+        @if (data.activity; as activity) {
+            <div class="attention-card is-quiet">
+                <span class="attention-value">{{ activity.last7 }}</span>
+                <span class="attention-label">edits this week</span>
+                <span class="attention-meta">{{ activity.today }} today · {{ activity.last30 }} in 30 days</span>
+            </div>
+        }
 
         <!-- People playing without signing in, against the ceiling that turns
              new ones away: quiet until it comes near. -->
@@ -76,26 +81,29 @@
             }
         </section>
 
-        <section class="panel">
-            <header class="panel-head">
-                <h2 class="panel-title">Recent changes</h2>
-                <a class="panel-link" routerLink="/admin/audit-logs">Audit log</a>
-            </header>
+        @if (data.activity; as activity) {
+            <section class="panel">
+                <header class="panel-head">
+                    <h2 class="panel-title">Recent changes</h2>
+                    <a class="panel-link" routerLink="/admin/audit-logs">Audit log</a>
+                </header>
 
-            @if (!data.activity.recent.length) {
-                <p class="panel-empty">Nothing recorded yet.</p>
-            } @else {
-                <ul class="feed">
-                    @for (entry of data.activity.recent; track entry.id) {
-                        <li class="feed-item">
-                            <span class="pill" [class]="'action-' + entry.action.toLowerCase()">{{ entry.action }}</span>
-                            <span class="feed-title">{{ entry.table_name }} #{{ entry.record_id }}</span>
-                            <span class="feed-meta">{{ entry.changed_by_username || "system" }} · {{ entry.changed_at | appDate: "datetime" }}</span>
-                        </li>
-                    }
-                </ul>
-            }
-        </section>
+                @if (!activity.recent.length) {
+                    <p class="panel-empty">Nothing recorded yet.</p>
+                } @else {
+                    <ul class="feed">
+                        @for (entry of activity.recent; track entry.id) {
+                            <li class="feed-item">
+                                <span class="pill" [class]="'action-' + actionVerb(entry.action)" [title]="entry.action">{{ actionVerb(entry.action) }}</span>
+                                <!-- What it was about - or, for one about nothing in particular (a migration applied), the action itself. -->
+                                <span class="feed-title">{{ entry.table_name ? entry.table_name + " #" + entry.record_id : entry.action }}</span>
+                                <span class="feed-meta">{{ entry.changed_by_username || "system" }} · {{ entry.changed_at | appDate: "datetime" }}</span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </section>
+        }
     </div>
 
     <!-- The asset tree. A day-old survey, because walking sixty thousand files

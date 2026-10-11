@@ -144,9 +144,10 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
   // Where the anotoki IAM sends the browser back after signing in. The path is
   // half of a contract: the IAM has `{origin}/auth/callback` registered as this
   // site's redirect URI, byte for byte, and will send nobody anywhere else - so
-  // renaming it here means changing the client registration there too. Normally
-  // never drawn: SecurityService.init() finishes the sign-in and puts the reader
-  // back where they were before the router looks at the address.
+  // renaming it here means changing the client registration there too (and the
+  // sign-in's `redirectPath`, shared/site-auth.ts: the library's default is this
+  // one). Normally never drawn: the library's AnotokiAuth.init() finishes the
+  // sign-in and puts the reader back where they were before the router looks.
   authCallback: {
     title: 'Signing in',
     path: 'auth/callback',
@@ -174,7 +175,7 @@ export const ROUTE_MAP = new AlfRoutingMap(ROUTE_MAP_DATA);
  */
 export const STAFF_PATH: string = ROUTE_MAP_DATA['staff'].path;
 
-/** The sign-in callback as an absolute path, for the SDK's redirect URI and the pages that look for it. */
+/** The sign-in callback as an absolute path, for the pages that look for it (the redirect URI is the library's same default). */
 export const AUTH_CALLBACK_PATH = `/${ROUTE_MAP_DATA['authCallback'].path}`;
 
 /**

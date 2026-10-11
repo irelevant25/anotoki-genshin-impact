@@ -187,6 +187,15 @@ $app->delete('/api/quiz/progress/{quiz}', function (Request $request, Response $
 // replaced by the browser's of today; a game nobody has played yet
 // ("unplayed") and a quiz this site does not know ("unknown") are skipped.
 // A carry that would make a visitor and keeps nothing makes nobody (422).
+//
+// A person's carry after a silent sign-in - the IAM's sign-in hint signed them
+// in without a click, and the page says so (`silent: true`) - carries nothing
+// into an account that already has something here (personHasData()): it
+// answers `stayed: true` with zeros and the account's games, and the browser
+// keeps its own (the owner's decision of 2026-10-11, the move's rule:
+// api/visitors.php, visitorMove()). A sign-in the person makes carries as
+// above. `silent` says nothing on a visitor's carry; other than true or
+// false it is 422.
 $app->post('/api/quiz/progress/carry', function (Request $request, Response $response) {
     $maker = $request->getAttribute('user') === null;
     $body = (array) $request->getParsedBody();
@@ -201,13 +210,22 @@ $app->post('/api/quiz/progress/carry', function (Request $request, Response $res
         }
         quizStateMustFit($game['state']);
     }
+    $silent = $body['silent'] ?? false;
+    if (!is_bool($silent)) {
+        throw quizRefusedBody('silent', 'silent is true or false: whether the sign-in was the IAM\'s silent one.');
+    }
     if ($maker && $games === []) {
         throw quizRefusedBody('games', 'There are no games to keep.');
     }
 
     $today = gmdate('Y-m-d');
-    $written = ownerWrite($request, function (PDO $pdo, int $userId) use ($games, $today, $maker): array {
+    $written = ownerWrite($request, function (PDO $pdo, int $userId, bool $visitor) use ($games, $today, $maker, $silent): array {
         $counts = ['carried' => 0, 'kept' => 0, 'stale' => 0, 'unknown' => 0, 'unplayed' => 0];
+        // After a silent sign-in, nothing comes into an account that has its
+        // own here: the browser keeps its games (the owner's decision).
+        if ($silent && !$visitor && personHasData($pdo, $userId)) {
+            return $counts + ['games' => quizProgressRows($pdo, $userId), 'stayed' => true];
+        }
         // An existing game stays, but for a daily of another day; what does
         // not write is "kept". (No jsonb `?` operator here: it would be read
         // as a placeholder.)
@@ -238,7 +256,7 @@ $app->post('/api/quiz/progress/carry', function (Request $request, Response $res
             throw quizRefusedBody('games', 'None of these games has been played today, so there is nothing to keep.');
         }
 
-        return $counts + ['games' => quizProgressRows($pdo, $userId)];
+        return $counts + ['games' => quizProgressRows($pdo, $userId), 'stayed' => false];
     });
 
     return withVisitorMade(respondJson($response, $written['result']), $written['key']);

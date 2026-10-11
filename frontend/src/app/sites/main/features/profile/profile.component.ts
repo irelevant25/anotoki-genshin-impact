@@ -10,7 +10,7 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
-import { issuedAs } from '../../../../shared/local-lib/services/issued-as';
+import { issuedAs } from '@anotoki/lib/auth';
 import { QuizProgressService } from '../quizzes/shared/quiz-progress.service';
 import { MaterialIconDirective } from '../../../admin/shared/material-icon.directive';
 import { difficultyName } from '../quizzes/shared/quiz.types';

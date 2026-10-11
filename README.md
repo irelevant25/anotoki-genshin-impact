@@ -17,7 +17,8 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
 - **Admin panel**: every piece of game content and its media, the site's words
   (translations, languages and the guides' pages), site switches (maintenance,
   announcements, which pages are open to whom), migrations, backups, the audit
-  log, errors and feedback.
+  log, errors, feedback, the file explorer and the people the site keeps a
+  record of - the last seven the anotoki library's pages, for the ADMIN alone.
 - **What's new**: the version at the bottom of the site opens the changelog
   (`frontend/public/changelog.json`).
 
@@ -26,8 +27,10 @@ Everything on the public site is open without an account - unless the IAM's
 sends you to sign in before it shows anything. Playing without signing in, your
 games and statistics are kept on the server for your browser, for 30 days after
 your last visit (the Profile, the quizzes and the Daily page say so); signing in
-brings them into your anotoki account, where they stay. Signing in also opens
-the admin panel to the people who hold a role here.
+brings them into your anotoki account, where they stay. Signed in to your
+anotoki account already - at the IAM, or on another anotoki site - you are
+signed in here without a click. Signing in also opens the admin panel to the
+people who hold a role here.
 
 | Part | Folder | Stack |
 | --- | --- | --- |
@@ -89,13 +92,15 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
   AVIF and Opus on the way in, and named after what they show ("Hu Tao" →
   `HU_TAO`).
 - **Signing in** happens at the anotoki IAM (OpenID Connect); this site is its
-  client `genshin`. The backend checks every access token itself - the IAM's
-  signature, issuer, audience and expiry - and keeps a small record of each
-  person: name and address. How they like the sites to look is their anotoki
-  account's, which the pages read and save through the IAM. Roles are granted in the
-  IAM's admin console: **EDITOR** changes game content, **ADMIN** also the site's
-  settings, migrations and backups. A role taken away stops working here within
-  ten minutes.
+  client `genshin`. The backend checks every access token itself, with the
+  anotoki sites' shared library - the IAM's signature, issuer, audience and
+  expiry - and keeps a small record of each person: the name and when they first
+  came (the address is the IAM's; the site keeps none). How they like the sites
+  to look is their anotoki account's, which the pages read and save through the
+  IAM. Roles are granted in the IAM's admin console: **EDITOR** changes game
+  content, **ADMIN** also the site's settings, migrations, backups, the error
+  and audit logs, feedback, the file explorer and the people the site keeps a
+  record of. A role taken away stops working here within ten minutes.
 - **Languages**: the site's own words go through translation keys; names from
   the game stay as they are. The English and Slovak strings, and the guides'
   pages, live in the site's half of the database. How they are kept, sent and
@@ -108,9 +113,10 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
   admins) or switch it off. The site hides what is closed, and the API refuses
   it too - everything during maintenance, and a page's data once its API paths
   are named. `/staff` is the way back in while the site is closed.
-- **Migrations are the schema**: SQL files in `backend/migrations/`, applied in
-  order - by `php migration.php` here, and from the admin panel's Migrations page
-  on the hosting.
+- **Migrations are the schema**: SQL files in `backend/migrations/` (and the
+  shared library's own, around them), applied in order - by `php migration.php`
+  here, and from the admin panel's Migrations page on the hosting; both back the
+  database up first.
 - **While the site is not ready** it behaves as every anotoki site does, through
   the library they share, `anotoki-lib` (`anotoki/lib` in `backend/vendor/`,
   `@anotoki/lib` in the frontend): while a database update waits, visitors and
@@ -131,8 +137,9 @@ upload: `npm run build:deploy` in `frontend/` and `php build-dist.php` in
 `backend/`, neither carrying any configuration or secret; `assets/` is uploaded
 on its own. The first install runs through `setup.php` in the browser, proved by
 a token only FTP can read; it writes the settings, then locks and deletes
-itself. Later schema changes are applied from the admin panel's Migrations page -
-until they are, the site tells everybody but its ADMIN that it is being updated.
+itself. Later schema changes are applied from the admin panel's Migrations page,
+which backs the database up first - until they are, the site tells everybody but
+its ADMIN that it is being updated.
 The IAM has to be installed first. The upload map and every step:
 [DEV.md](DEV.md) ("Deploying to the hosting").
 
@@ -142,22 +149,26 @@ The IAM has to be installed first. The upload map and every step:
 backend/
   api/                  index.php (the Slim app); routes/genshin_impact/ and routes/users/, each with
                         endpoints/, models/ and responses/; meddleware/ (sign-in and roles, maintenance,
-                        page gates, validation); the query builder, the asset code, the IAM's token
-                        verifier (vendored); migration_runner.php and site_state.php (the migrations and
+                        page gates, validation); the query builder, the asset code; admin_tools.php and
+                        audit_log.php (the shared library's sign-in, people and admin tools, set up for
+                        this site); migration_runner.php and site_state.php (the migrations and
                         where the site stands, on the shared library); translations.php and guides.php
                         (the words, on the shared library; the guides' pages)
   config/               one module per concern; *.local.php per installation (written by setup.php)
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
+                        (the shared library's own sets around them, from vendor/)
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
-  tests/                php tests/run.php - the upload rules, and the words' migration and routes (on
+  tests/                php tests/run.php - the upload rules; the words' migration and routes, the library's
+                        data moves and admin tools, what a silent sign-in brings in, migration.php (on
                         throwaway databases)
   setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile
   src/app/sites/admin/  the admin panel
-  src/app/shared/       local-lib (the UI kit, abstract bases, the IAM's browser SDK), site-status.ts
-                        (the shared library's gate and Migrations page, set up for this site)
+  src/app/shared/       local-lib (the UI kit, abstract bases), site-auth.ts (the shared library's
+                        sign-in, set up for this site), site-feedback.ts (its feedback form), site-status.ts
+                        (its gate and Migrations page), site-translations.ts (its words)
   src/app/api/          the API client, generated from the backend (npm run api)
   public/               config.json (where the API is), changelog.json
 docs/                   generated reports: reference/, performance/, security/; PG-DUMP-INSTALL.md (pg_dump
@@ -268,6 +279,44 @@ not drift; [docs/README.md](docs/README.md) lists them.
   keeps full copies of the old tables for one release. At the owner's word, a key
   comes only with a migration: the admin panel's "new key", the import's and the
   command line's ways of making one are gone.
+- Since 2026-10-11, too, signing in, the people the site keeps a record of and
+  the admin tools are the shared library's - `anotoki-lib` 0.4.1, as on every
+  anotoki site. The API checks the IAM's tokens with the library (its copy of the
+  IAM's PHP SDK is gone) and keeps no address any more: migration `users/052`
+  drops it - the IAM has it, and `/api/me` answers the token's. The admin panel's
+  error log, audit log, feedback, backups and file explorer are the library's,
+  and its new People page lists the people the site keeps a record of and can
+  delete a person's games; whoever's anotoki account is deleted is anonymized
+  here too, by itself - all for the ADMIN alone (an EDITOR no longer sees
+  feedback or the audit log, nor their counts on the dashboard). Migrations
+  `genshin_impact/028` and `029` move the audit log and the feedback into the
+  library's tables, every row under its number - the feedback without the IP
+  address it came from and its hash of the sender - and keep the old tables
+  until a later release; `users/053` takes away the old feedback form's and
+  sign-in page's words. The error log writes what the anotoki sites' does
+  (every 5xx, and 404, 405, 413, 415, 429 - no longer every answer of 400 and
+  up); the pages' own errors join it with the library's next release. Backups
+  no longer need `pg_dump`, so they work on the hosting too, with no maximum
+  age: one a day, and one before every
+  update. The site's own backups and error logs from before stay on disk where
+  they are, untouched, until the owner removes them. In the pages, signing in is
+  the library's too (the copy of the IAM's browser SDK is gone; the same storage
+  keys, so nobody was signed out): somebody signed in at the IAM - on its own
+  pages or another anotoki site - is signed in here without a click (the IAM's
+  sign-in hint), signed out there is signed out here at the next page load, and
+  a sign-in that did not work is explained on the library's screen at
+  `/auth/callback` (`robots.txt` keeps crawlers off `/auth/`). What a browser
+  played without signing in comes into the account at such a sign-in without
+  a click only when the account has nothing here yet; an account with games of
+  its own here takes nothing in, and those games stay that browser's until
+  the person signs in there themselves (the owner's decision of 2026-10-11;
+  `POST /api/visitor/move` and `/api/quiz/progress/carry` with `silent`). The admin panel's
+  Feedback, Audit Logs, Error Log, Files Explorer and Backups are the library's
+  pages at their old addresses, with the new `/admin/people` - for the ADMIN
+  alone, the messages nobody has opened counted beside Feedback - and the
+  footer's feedback form is the library's, loaded when it is opened. The first
+  load grows from 125.8 to 138.4 kB (transfer): the library's sign-in, with its
+  two screens, in place of the site's own.
 
 ## More
 

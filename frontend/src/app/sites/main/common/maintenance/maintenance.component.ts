@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { SignInFailureComponent } from '@anotoki/lib/auth';
 import { SiteSettingsService, messageInLanguage } from '../../../../shared/local-lib/services/site-settings.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { StaffSignInComponent } from '../staff-sign-in/staff-sign-in.component';
-import { SignInFailureComponent } from '../sign-in-failure/sign-in-failure.component';
 import { AUTH_CALLBACK_PATH, STAFF_PATH } from '../../../../shared/routing-definition';
 
 /**

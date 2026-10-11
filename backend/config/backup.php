@@ -1,12 +1,19 @@
 <?php
 
 // ---------------------------------------------------------------------------
-// config/backup.php — where backups go, and what makes them
+// config/backup.php — pg_dump and pg_restore, for the command-line tools
 // ---------------------------------------------------------------------------
-// A backup is one directory under storage/backups/ holding a pg_dump file per
-// database plus a backup.json manifest describing them. The manifest lives on
-// disk rather than in a table on purpose: a list of backups that is itself
-// inside the database would roll back the moment you restored an old one.
+// The admin panel's Backups page is the anotoki library's since anotoki-lib
+// 0.4.1 (api/admin_tools.php): COPY through PDO, no pg_dump, on every host -
+// storage/backups/<id>.anotoki-backup. What is here is for the tools on the
+// developer's computer that still run the PostgreSQL client: db-dump.php
+// (storage/backups/manual/<stamp>/) and db-push.php. setup.php still writes
+// backup.local.php when it finds the client under ~/pgclient on a host.
+//
+// The page's own pg_dump backups from before - one directory under
+// storage/backups/ each, a pg_dump file per database and a backup.json - are
+// no backups of the library's: it never lists or touches them. They stay where
+// they are until the owner removes them (a copy comes down by FTP).
 //
 // pg_dump is not usually on PATH on Windows, so it is looked for in the
 // standard install locations too. To point at a particular one, create

@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
 import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
-import { AccountPreferences, PreferenceSave } from '../../../../../shared/local-lib/services/account-preferences.service';
+import { AccountPreferences, type PreferenceSave } from '@anotoki/lib/auth';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';

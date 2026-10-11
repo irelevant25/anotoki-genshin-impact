@@ -6,6 +6,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VisitorMoveResult } from '../models';
+import { VisitorMoveRequest } from '../types';
 
 /**
  * This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in.
@@ -19,7 +20,7 @@ export class VisitorApiService {
    *
    * Requires a signed-in user and this browser's visitor key (`X-Visitor-Key`).
    */
-  moveVisitor(body: Record<string, unknown>, context?: HttpContext): Observable<VisitorMoveResult> {
+  moveVisitor(body: VisitorMoveRequest, context?: HttpContext): Observable<VisitorMoveResult> {
     return this._http.post<VisitorMoveResult>('/api/visitor/move', body, { context });
   }
 }

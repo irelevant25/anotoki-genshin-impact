@@ -4,6 +4,752 @@
     "routes": [
         {
             "method": "GET",
+            "path": "/api/admin/audit",
+            "args": [],
+            "file": "AuditRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Audit/Http/AuditRoutes.php",
+                "line": 68
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/audit/facets",
+            "args": [],
+            "file": "AuditRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Audit/Http/AuditRoutes.php",
+                "line": 80
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/backups",
+            "args": [],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 69
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/backups",
+            "args": [],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 91
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/backups/proof",
+            "args": [],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 73
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/backups/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 120
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/backups/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 100
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/backups/{id}/file",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 218
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/backups/{id}/preview",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 155
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/backups/{id}/restore",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 183
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/backups/{id}/ticket",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{8}-[0-9]{6}Z-(?:daily|manual|before-migration|before-restore)-[0-9a-f]{32}"
+                }
+            ],
+            "file": "BackupsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
+                "line": 146
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/errors",
+            "args": [],
+            "file": "ErrorLogRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
+                "line": 79
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/errors",
+            "args": [],
+            "file": "ErrorLogRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
+                "line": 59
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/errors/{fingerprint}",
+            "args": [
+                {
+                    "name": "fingerprint",
+                    "constraint": "[0-9a-f]{12}"
+                }
+            ],
+            "file": "ErrorLogRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
+                "line": 68
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/feedback",
+            "args": [],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 94
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/feedback/facets",
+            "args": [],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 102
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/feedback/unread",
+            "args": [],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 110
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/feedback/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{1,18}"
+                }
+            ],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 164
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/feedback/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{1,18}"
+                }
+            ],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 124
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/feedback/{id}/status",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{1,18}"
+                }
+            ],
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 150
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/files/raw",
+            "args": [],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 203
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/files/roots",
+            "args": [],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 65
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/files/{root}",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 137
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/files/{root}",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 77
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/files/{root}/folder",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 113
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/files/{root}/move",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 127
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/files/{root}/rescan",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 81
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/files/{root}/trash",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 169
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/files/{root}/trash",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 143
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/files/{root}/trash/restore",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 158
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/files/{root}/upload",
+            "args": [
+                {
+                    "name": "root",
+                    "constraint": "(?!(?:raw|roots)$)[a-z][a-z0-9_-]{0,31}"
+                }
+            ],
+            "file": "FilesRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/Files/Http/FilesRoutes.php",
+                "line": 99
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
             "path": "/api/admin/guides",
             "args": [],
             "file": "guides.php",
@@ -93,7 +839,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
-                "line": 247
+                "line": 249
             },
             "expanded": [],
             "payload": null,
@@ -119,7 +865,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
-                "line": 293
+                "line": 295
             },
             "expanded": [],
             "payload": null,
@@ -145,7 +891,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
-                "line": 272
+                "line": 274
             },
             "expanded": [],
             "payload": null,
@@ -209,6 +955,74 @@
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Migrations/Http/MigrationsRoutes.php",
                 "line": 68
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/people",
+            "args": [],
+            "file": "PeopleRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
+                "line": 125
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/people/sync",
+            "args": [],
+            "file": "PeopleRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
+                "line": 147
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/people/{sub}",
+            "args": [
+                {
+                    "name": "sub",
+                    "constraint": null
+                }
+            ],
+            "file": "PeopleRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
+                "line": 138
             },
             "expanded": [],
             "payload": null,
@@ -302,7 +1116,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Translations/Http/TranslationsRoutes.php",
-                "line": 204
+                "line": 206
             },
             "expanded": [],
             "payload": null,
@@ -896,70 +1710,6 @@
         },
         {
             "method": "GET",
-            "path": "/api/audit-logs",
-            "args": [],
-            "file": "audit_logs.php",
-            "tables": [
-                "audit_logs",
-                "users"
-            ],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "AuditLogPage",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/audit_logs.php",
-                "line": 116
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/audit-logs/filters",
-            "args": [],
-            "file": "audit_logs.php",
-            "tables": [
-                "audit_logs",
-                "users"
-            ],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "AuditLogFilters",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/audit_logs.php",
-                "line": 34
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
             "path": "/api/backgrounds",
             "args": [],
             "file": "backgrounds.php",
@@ -1119,280 +1869,6 @@
             "roles": [
                 "ADMIN",
                 "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/backups",
-            "args": [],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "BackupEntry",
-                "list": true
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 255
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/backups",
-            "args": [],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                422,
-                500
-            ],
-            "responds": {
-                "shape": "BackupEntry",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 337
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/backups/status",
-            "args": [],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "BackupStatus",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 301
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/backups/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]{8}-[0-9]{6}-[a-z0-9]{6}"
-                }
-            ],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "ApiMessage",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 465
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/backups/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]{8}-[0-9]{6}-[a-z0-9]{6}"
-                }
-            ],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "BackupEntry",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 312
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/backups/{id}/download/{alias}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]{8}-[0-9]{6}-[a-z0-9]{6}"
-                },
-                {
-                    "name": "alias",
-                    "constraint": "[a-z0-9_]+"
-                }
-            ],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                404,
-                500
-            ],
-            "responds": null,
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 505
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/backups/{id}/preview/{alias}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]{8}-[0-9]{6}-[a-z0-9]{6}"
-                },
-                {
-                    "name": "alias",
-                    "constraint": "[a-z0-9_]+"
-                }
-            ],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                422,
-                503
-            ],
-            "responds": {
-                "shape": "BackupPreview",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 720
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/backups/{id}/restore/{alias}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]{8}-[0-9]{6}-[a-z0-9]{6}"
-                },
-                {
-                    "name": "alias",
-                    "constraint": "[a-z0-9_]+"
-                }
-            ],
-            "file": "backups.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                403,
-                404,
-                422,
-                500
-            ],
-            "responds": {
-                "shape": "RestoreResult",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/backups.php",
-                "line": 835
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
             ],
             "owner": false,
             "visitor_key": false
@@ -5535,11 +6011,9 @@
             "args": [],
             "file": "dashboard.php",
             "tables": [
-                "feedback",
-                "audit_logs",
-                "users",
                 "translation_keys",
                 "languages",
+                "users",
                 "user_quiz_history"
             ],
             "success": 200,
@@ -5552,7 +6026,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/dashboard.php",
-                "line": 257
+                "line": 281
             },
             "expanded": [],
             "payload": null,
@@ -6955,410 +7429,23 @@
             "visitor_key": false
         },
         {
-            "method": "DELETE",
-            "path": "/api/errors",
-            "args": [],
-            "file": "errors.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ErrorLogCleared",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/errors.php",
-                "line": 186
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/errors",
-            "args": [],
-            "file": "errors.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ErrorLogReport",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/errors.php",
-                "line": 160
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/errors/{fingerprint}",
-            "args": [
-                {
-                    "name": "fingerprint",
-                    "constraint": null
-                }
-            ],
-            "file": "errors.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "ErrorLogEntry",
-                "list": true
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/errors.php",
-                "line": 180
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/explorer",
-            "args": [],
-            "file": "explorer.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ExplorerListing",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/explorer.php",
-                "line": 30
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/explorer/new",
-            "args": [],
-            "file": "explorer.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ExplorerListing",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/explorer.php",
-                "line": 42
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/explorer/rescan",
-            "args": [],
-            "file": "explorer.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ExplorerStatus",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/explorer.php",
-                "line": 60
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/explorer/status",
-            "args": [],
-            "file": "explorer.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "ExplorerStatus",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/explorer.php",
-                "line": 52
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/feedback",
-            "args": [],
-            "file": "feedback.php",
-            "tables": [
-                "feedback"
-            ],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "FeedbackPage",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 223
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
             "method": "POST",
             "path": "/api/feedback",
             "args": [],
-            "file": "feedback.php",
-            "tables": [
-                "feedback"
-            ],
-            "success": 201,
-            "statuses": [
-                201,
-                422,
-                429
-            ],
-            "responds": {
-                "shape": "ApiMessage",
-                "list": false
-            },
+            "file": "FeedbackRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
             "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 133
+                "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
+                "line": 64
             },
             "expanded": [],
             "payload": null,
             "partial": false,
             "auth": false,
             "roles": [],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/feedback/filters",
-            "args": [],
-            "file": "feedback.php",
-            "tables": [
-                "feedback"
-            ],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "FeedbackFilters",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 162
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/feedback/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "feedback.php",
-            "tables": [
-                "feedback"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "feedback",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 278
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
-            "path": "/api/feedback/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "feedback.php",
-            "tables": [
-                "feedback"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "feedback",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 239
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/feedback/{id}/status",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": null
-                }
-            ],
-            "file": "feedback.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                404,
-                422
-            ],
-            "responds": {
-                "shape": "FeedbackStatusChanged",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/feedback.php",
-                "line": 262
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
             "owner": false,
             "visitor_key": false
         },
@@ -9574,7 +9661,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 37
+                "line": 58
             },
             "expanded": [],
             "payload": null,
@@ -9964,7 +10051,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 402
+                "line": 420
             },
             "expanded": [],
             "payload": null,
@@ -10016,7 +10103,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 245
+                "line": 263
             },
             "expanded": [],
             "payload": null,
@@ -10114,7 +10201,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 314
+                "line": 332
             },
             "expanded": [],
             "payload": null,
@@ -10142,7 +10229,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 430
+                "line": 448
             },
             "expanded": [],
             "payload": null,
@@ -10170,7 +10257,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 338
+                "line": 356
             },
             "expanded": [],
             "payload": null,
@@ -10198,7 +10285,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 376
+                "line": 394
             },
             "expanded": [],
             "payload": null,
@@ -11411,37 +11498,6 @@
         },
         {
             "method": "POST",
-            "path": "/api/upload",
-            "args": [],
-            "file": "upload.php",
-            "tables": [],
-            "success": 201,
-            "statuses": [
-                201,
-                400,
-                415
-            ],
-            "responds": {
-                "shape": "UploadResult",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/genshin_impact/endpoints/upload.php",
-                "line": 74
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN",
-                "EDITOR"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
             "path": "/api/uploads/{entity}/{field}",
             "args": [
                 {
@@ -11676,7 +11732,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/visitor.php",
-                "line": 42
+                "line": 58
             },
             "expanded": [],
             "payload": null,
@@ -17035,764 +17091,6 @@
             ]
         },
         {
-            "name": "AuditLogEntry",
-            "file": "admin.php",
-            "merges": null,
-            "description": "One logged change.\n\nTwo things differ from the `audit_logs` row: the username is joined in, and\n`changes` is decoded - the column stores it as JSON text.",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "table_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "record_id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "entity_table",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "What the changed row belongs to, which is the row itself unless it is\na child - a talent's cost says `characters` and the character's id, so\none filter gives the whole history of one thing. Null on entries\nwritten before the columns existed whose row has since been replaced."
-                },
-                {
-                    "name": "entity_id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "action",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "INSERT | UPDATE | DELETE"
-                },
-                {
-                    "name": "changed_by",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "changed_by_username",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "session_id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The sign-in it was made from, which is what knows the address and the\nbrowser and can be revoked: the IAM's session id (`sid`) - or, for\nentries from before the move to the IAM, the old numeric one, which\nthe IAM kept. Null for anything with no session behind it - a\nmigration, a sweep, a file found on disk."
-                },
-                {
-                    "name": "changed_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "changes",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": "array<string, mixed>",
-                    "description": "Column to { old, new }. Absent on an insert, which logs the whole row."
-                }
-            ]
-        },
-        {
-            "name": "AuditLogFilters",
-            "file": "admin.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "tables",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                },
-                {
-                    "name": "actions",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                },
-                {
-                    "name": "users",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "AuditLogUser[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "AuditLogPage",
-            "file": "admin.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "total",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "page",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pageSize",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "items",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "AuditLogEntry[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "AuditLogUser",
-            "file": "admin.php",
-            "merges": null,
-            "description": "An account, reduced to what the audit filter needs to name it.",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "username",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupDatabase",
-            "file": "backup.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "alias",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "file",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The dump on disk, e.g. `genshin_impact.dump`."
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "duration_ms",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "rows",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Counted before the dump, so the number describes what went into it."
-                },
-                {
-                    "name": "tables",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": "BackupTableCount[]|null",
-                    "description": null
-                },
-                {
-                    "name": "error",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupEntry",
-            "file": "backup.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "created_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "created_by",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "description",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "complete | partial | failed | incomplete"
-                },
-                {
-                    "name": "format",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pg_dump_version",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "duration_ms",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "databases",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "BackupDatabase[]",
-                    "description": null
-                },
-                {
-                    "name": "note",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": true,
-                    "of": null,
-                    "description": "Only on a backup that never finished, explaining what it is."
-                }
-            ]
-        },
-        {
-            "name": "BackupPreview",
-            "file": "backup.php",
-            "merges": null,
-            "description": "What restoring this database would cost, counted table by table.",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "alias",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "created_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "live",
-                    "types": [
-                        "object"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "BackupSize",
-                    "description": null
-                },
-                {
-                    "name": "backup",
-                    "types": [
-                        "object"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "BackupSize",
-                    "description": null
-                },
-                {
-                    "name": "lost",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Rows that exist now, are absent from the backup, and would be lost."
-                },
-                {
-                    "name": "differences",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "RestoreDifference[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupSize",
-            "file": "backup.php",
-            "merges": null,
-            "description": "Rows and tables on one side of a restore.",
-            "fields": [
-                {
-                    "name": "rows",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "tables",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupStatus",
-            "file": "backup.php",
-            "merges": null,
-            "description": "Whether this installation can take a backup at all, and what it has already.",
-            "fields": [
-                {
-                    "name": "driver",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "supported",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pg_dump",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pg_dump_version",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pg_restore",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "directory",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "writable",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "free_space",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "backup_count",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "stored_size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "databases",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "BackupStatusDatabase[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupStatusDatabase",
-            "file": "backup.php",
-            "merges": null,
-            "description": "One database as the status page counts it, without reading any dump.",
-            "fields": [
-                {
-                    "name": "alias",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "tables",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "error",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "BackupTableCount",
-            "file": "backup.php",
-            "merges": null,
-            "description": "What /api/backups answers with.\n\nNone of this is in a database. A backup is a set of dump files with a\nmanifest beside them, so the manifest is the only place these shapes exist.",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "rows",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "BannerFull",
             "file": "content.php",
             "merges": null,
@@ -18555,20 +17853,20 @@
                     "types": [
                         "object"
                     ],
-                    "nullable": false,
+                    "nullable": true,
                     "optional": false,
-                    "of": "DashboardFeedback",
-                    "description": null
+                    "of": "DashboardFeedback|null",
+                    "description": "The ADMIN's alone: null for an EDITOR (the admin tools are the ADMIN's)."
                 },
                 {
                     "name": "activity",
                     "types": [
                         "object"
                     ],
-                    "nullable": false,
+                    "nullable": true,
                     "optional": false,
-                    "of": "DashboardActivity",
-                    "description": null
+                    "of": "DashboardActivity|null",
+                    "description": "The ADMIN's alone: null for an EDITOR (the audit log is the ADMIN's)."
                 },
                 {
                     "name": "translations",
@@ -18875,812 +18173,6 @@
                     "optional": false,
                     "of": null,
                     "description": "The catalogue row the file was filed as, or null if it could not be."
-                }
-            ]
-        },
-        {
-            "name": "ErrorLogCleared",
-            "file": "admin.php",
-            "merges": null,
-            "description": "How many log files were removed.",
-            "fields": [
-                {
-                    "name": "deleted",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ErrorLogEntry",
-            "file": "admin.php",
-            "merges": null,
-            "description": "One thing that went wrong.\n\nRead back from the JSON lines under backend/storage/logs rather than a table, so\nthat an outage of the database is a thing this can report rather than a thing\nthat stops it reporting.",
-            "fields": [
-                {
-                    "name": "at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "level",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "error | warning"
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "type",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The exception class, or `Response` when a handler answered 5xx without throwing."
-                },
-                {
-                    "name": "message",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "file",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "line",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "method",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "user_id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "session_id",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The IAM session id the request was made under."
-                },
-                {
-                    "name": "ip",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "fingerprint",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Identity of the failure, shared by every repeat of it."
-                },
-                {
-                    "name": "trace",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ErrorLogGroup",
-            "file": "admin.php",
-            "merges": null,
-            "description": "Every occurrence of one failure, collapsed into a row with a count beside it.",
-            "fields": [
-                {
-                    "name": "fingerprint",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "level",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "type",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "message",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "file",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "line",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "count",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "first_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "last_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "paths",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The paths this failure was reached through, most-hit first."
-                },
-                {
-                    "name": "latest",
-                    "types": [
-                        "ErrorLogEntry"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The most recent occurrence, in full."
-                }
-            ]
-        },
-        {
-            "name": "ErrorLogReport",
-            "file": "admin.php",
-            "merges": null,
-            "description": "What the error log has to say, ready to draw.",
-            "fields": [
-                {
-                    "name": "total",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Matching the filter, before the limit."
-                },
-                {
-                    "name": "errors",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "warnings",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "distinct",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Distinct failures, which is usually far fewer than `total`."
-                },
-                {
-                    "name": "days",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Every day a log file exists for, newest first."
-                },
-                {
-                    "name": "daily",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ErrorLogTally[]",
-                    "description": "one per day in range, oldest first, for the chart"
-                },
-                {
-                    "name": "statuses",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ErrorLogTally[]",
-                    "description": "one per status code seen"
-                },
-                {
-                    "name": "groups",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ErrorLogGroup[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ErrorLogTally",
-            "file": "admin.php",
-            "merges": null,
-            "description": "How many of something. Used for the counts by status and by day.",
-            "fields": [
-                {
-                    "name": "key",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "errors",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "warnings",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ExplorerFile",
-            "file": "file.php",
-            "merges": null,
-            "description": "One file on disk, as the Explorer draws it.",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Path relative to assets/."
-                },
-                {
-                    "name": "folder",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "extension",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "size",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "modified",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "url",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Served back through /api/files/raw."
-                }
-            ]
-        },
-        {
-            "name": "ExplorerFolder",
-            "file": "file.php",
-            "merges": null,
-            "description": "One sub-folder in the disk tree, with how many files sit under it.",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "files",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ExplorerListing",
-            "file": "file.php",
-            "merges": null,
-            "description": "One folder's worth of the disk tree: its sub-folders, its files, and a page.",
-            "fields": [
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "search",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "folders",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ExplorerFolder[]",
-                    "description": "Empty while searching (results are flat)."
-                },
-                {
-                    "name": "files",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ExplorerFile[]",
-                    "description": null
-                },
-                {
-                    "name": "total",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "page",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pageSize",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "object"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "ExplorerStatus",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "ExplorerStatus",
-            "file": "file.php",
-            "merges": null,
-            "description": "When the disk snapshot was taken, and how much of it is new.",
-            "fields": [
-                {
-                    "name": "scanned_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "Null until the disk has been scanned at least once."
-                },
-                {
-                    "name": "previous_scanned_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "The scan before this one, which `new` is counted against."
-                },
-                {
-                    "name": "total",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "new_count",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Files present now that were absent at the previous scan."
-                }
-            ]
-        },
-        {
-            "name": "FeedbackFilters",
-            "file": "content.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "sections",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                },
-                {
-                    "name": "statuses",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                },
-                {
-                    "name": "types",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                },
-                {
-                    "name": "byStatus",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, int>",
-                    "description": null
-                },
-                {
-                    "name": "byType",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, int>",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "FeedbackPage",
-            "file": "content.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "total",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "page",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "pageSize",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "items",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "feedback[]",
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "FeedbackStatusChanged",
-            "file": "content.php",
-            "merges": null,
-            "description": "Echoed back after a status change, so the list can update in place.",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "status",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
                 }
             ]
         },
@@ -20649,6 +19141,16 @@
                     "optional": false,
                     "of": "QuizProgress[]",
                     "description": "Every saved game of the player, after the carry."
+                },
+                {
+                    "name": "stayed",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "True when nothing was carried because the sign-in was a silent one\n(the IAM's sign-in hint) and the account already has something here:\nthe browser keeps its games (the owner's decision of 2026-10-11).\nThe counts are then 0, and `games` the account's own."
                 }
             ]
         },
@@ -21203,152 +19705,6 @@
             ]
         },
         {
-            "name": "RestoreDifference",
-            "file": "backup.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "live",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "Null where the table is on one side only."
-                },
-                {
-                    "name": "backup",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "delta",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Rows that exist now and are not in the backup, so the ones a restore\nloses. Meaningless for `kept`."
-                },
-                {
-                    "name": "kind",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "`changed` - in both, with different counts.\n`created` - in the backup only, so the restore creates it.\n`kept`    - here only. pg_restore --clean drops what the dump\ncontains, so a table made since the backup survives it."
-                }
-            ]
-        },
-        {
-            "name": "RestoreResult",
-            "file": "backup.php",
-            "merges": null,
-            "description": null,
-            "fields": [
-                {
-                    "name": "restored",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "from",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "safety_backup",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "The backup taken of the old state immediately before replacing it."
-                },
-                {
-                    "name": "duration_ms",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "disconnected",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "rows",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "tables",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "BackupTableCount[]",
-                    "description": null
-                },
-                {
-                    "name": "warnings",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "SiteAnnouncement",
             "file": "setting.php",
             "merges": null,
@@ -21431,6 +19787,16 @@
                     "optional": false,
                     "of": null,
                     "description": "Whether the IAM requires everybody to sign in before using this site.\nRead from the IAM by the server, fresh within a minute; while it is\ntrue the API answers 401 sign_in_required to anybody not signed in."
+                },
+                {
+                    "name": "sign_in_available",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Whether signing in is on offer at all: false once the IAM has said it\ndoes not know this site (or switched it off) - then the pages offer\nno sign-in, and the IAM's sign-in hint sends nobody there\n(the anotoki library's AuthRoutes::configBody())."
                 }
             ]
         },
@@ -21514,7 +19880,7 @@
                     "nullable": true,
                     "optional": false,
                     "of": null,
-                    "description": null
+                    "description": "The address their token carries - this site keeps no copy of it."
                 },
                 {
                     "name": "role",
@@ -21564,7 +19930,7 @@
                     "nullable": true,
                     "optional": false,
                     "of": null,
-                    "description": "When they first arrived on this site."
+                    "description": "When they first arrived on this site: ISO 8601 in UTC."
                 }
             ]
         },
@@ -21759,34 +20125,6 @@
             ]
         },
         {
-            "name": "UploadResult",
-            "file": "file.php",
-            "merges": null,
-            "description": "`POST /api/upload` - a file dropped into a folder, with nothing else touched.",
-            "fields": [
-                {
-                    "name": "filename",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "VisitorMoveGames",
             "file": "visitor.php",
             "merges": null,
@@ -21859,6 +20197,16 @@
                     "optional": false,
                     "of": null,
                     "description": "Finished questions moved into the person's statistics, every one (their totals added to the person's)."
+                },
+                {
+                    "name": "stayed",
+                    "types": [
+                        "bool"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "True when nothing moved because the sign-in was a silent one (the\nIAM's sign-in hint) and the account already has something here: the\nvisitor stays as it was, and its key still opens it on this browser\n(the owner's decision of 2026-10-11). Everything else is then 0."
                 }
             ]
         },
@@ -22258,7 +20606,7 @@
             ]
         },
         {
-            "table": "audit_logs",
+            "table": "audit_logs_before_library",
             "database": "genshin_impact",
             "interface": "AuditLog",
             "columns": [
@@ -22324,7 +20672,7 @@
                 },
                 {
                     "name": "session_id",
-                    "sqlType": "VARCHAR(64) USING session_id::text",
+                    "sqlType": "VARCHAR(64)",
                     "nullable": true,
                     "enum": null
                 }
@@ -24882,7 +23230,7 @@
             ]
         },
         {
-            "table": "feedback",
+            "table": "feedback_before_library",
             "database": "genshin_impact",
             "interface": "Feedback",
             "columns": [
@@ -25010,12 +23358,6 @@
                     "enum": null
                 },
                 {
-                    "name": "submitter_hash",
-                    "sqlType": "VARCHAR(64)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "created_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
@@ -25024,12 +23366,6 @@
                 {
                     "name": "updated_at",
                     "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "ip",
-                    "sqlType": "VARCHAR(45)",
                     "nullable": true,
                     "enum": null
                 }
@@ -26237,12 +24573,6 @@
                     "enum": null
                 },
                 {
-                    "name": "email",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
                     "name": "background",
                     "sqlType": "VARCHAR(100)",
                     "nullable": true,
@@ -26256,7 +24586,7 @@
                 },
                 {
                     "name": "created_at",
-                    "sqlType": "TIMESTAMP",
+                    "sqlType": "TIMESTAMPTZ",
                     "nullable": true,
                     "enum": null
                 },
@@ -26274,6 +24604,12 @@
                 },
                 {
                     "name": "last_seen_at",
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": true,
+                    "enum": null
+                },
+                {
+                    "name": "anonymized_at",
                     "sqlType": "TIMESTAMPTZ",
                     "nullable": true,
                     "enum": null

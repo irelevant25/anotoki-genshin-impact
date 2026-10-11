@@ -224,6 +224,26 @@ foreach (['.php', '.phtml', '.phar', '.pht', '.php3', '.php5', '.php7', '.php8',
 }
 check('public/uploads/.htaccess carries the same rules, word for word', str_contains($uploads, uploadGuardRules()));
 
+/** What an .htaccess says inside <IfModule mod_headers.c>, comments and indentation aside. */
+function headerRulesOf(string $htaccess): array
+{
+    if (preg_match('/<IfModule mod_headers\.c>(.*?)<\/IfModule>/s', $htaccess, $block) !== 1) {
+        return [];
+    }
+
+    return array_values(array_filter(
+        array_map('trim', preg_split('/\R/', $block[1])),
+        static fn (string $line): bool => $line !== '' && !str_starts_with($line, '#'),
+    ));
+}
+$headers = headerRulesOf(uploadGuardHtaccess());
+same('the asset tree\'s guard: nosniff, and anything but a raster picture as a download - public/uploads/.htaccess\'s rules, word for word', headerRulesOf($uploads), $headers);
+check('...nosniff on every file', in_array('Header set X-Content-Type-Options "nosniff"', $headers, true));
+$download = preg_match('/<FilesMatch "([^"]+)">/', uploadGuardHeaders(), $match) === 1 ? '~' . $match[1] . '~' : '~^$~';
+same('...as a download: an old page, an SVG and a sound (an <audio> plays it all the same) - never a raster picture, whatever its case',
+    [true, true, true, true, false, false, false, false],
+    array_map(static fn (string $name): bool => preg_match($download, $name) === 1, ['old.html', 'old.svg', 'Amber.opus', 'voice.ogg', 'Amber.png', 'Amber.avif', 'Fontaine.jpg', 'CARD.WEBP']));
+
 $guarded = testTempDir('ensure');
 check('ensureUploadGuard() writes one where there is none', ensureUploadGuard($guarded) && file_get_contents("$guarded/.htaccess") === uploadGuardHtaccess());
 check('...and leaves no temporary file behind', glob("$guarded/.htaccess.*") === []);

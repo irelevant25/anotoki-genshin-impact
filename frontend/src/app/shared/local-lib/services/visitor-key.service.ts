@@ -1,8 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpContext, HttpErrorResponse } from '@angular/common/http';
 import { DestroyRef, Injectable, computed, effect, inject, signal, untracked } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { AnotokiAuth, issuedAs, type VisitorKeyStore } from '@anotoki/lib/auth';
 import { VisitorApiService, VisitorMoveResult } from '../../../api';
-import { CARRIES_VISITOR_KEY, issuedAs } from './issued-as';
+import { signedInSilently } from '../../silent-sign-in';
+import { VISITOR_KEY_CARRIED } from './http.interceptor';
 import { SecurityService } from './security.service';
 import { SiteSettingsService } from './site-settings.service';
 
@@ -24,8 +26,10 @@ export const MOVE_RETRY_MS: readonly number[] = [2_000, 10_000, 30_000];
  * games and statistics on the server. The server makes it on the first save
  * with a play from somebody with neither a token nor a key (api/visitors.php),
  * sends it once in the `X-Visitor-Key` header of that answer and keeps only its
- * hash. This browser keeps it in localStorage; the interceptor sends it on the
- * requests issued as a visitor's (`ISSUED_AS`, issued-as.ts).
+ * hash. This browser keeps it in localStorage; the library's interceptor
+ * (@anotoki/lib/auth, shared/site-auth.ts) sends it on the requests issued as
+ * a visitor's to a player's own routes, and keeps the key an answer brings -
+ * this is its VisitorKeyStore.
  *
  * - **Read at send time.** `current()` reads storage on every request, and a
  *   `storage` event keeps the `key` signal in step, so every tab sends the key
@@ -44,30 +48,38 @@ export const MOVE_RETRY_MS: readonly number[] = [2_000, 10_000, 30_000];
  *   still the one that was sent.
  * - **The move, after every sign-in** while a key is held (whether or not the
  *   site requires one): `POST /api/visitor/move` with the token and the key,
- *   one at a time. A 200 (found or not) forgets the key and counts `moves` up
- *   (what lists a player's games and statistics loads them again); `moved`
- *   holds what it did, for the shell's toast. A 422 (not a key the server
- *   could ever know) forgets it. A network error or a 5xx keeps it and asks
- *   again (MOVE_RETRY_MS, or the answer's Retry-After); a 401 keeps it for the
- *   next sign-in.
+ *   one at a time, saying whether the session was made by a silent sign-in -
+ *   the IAM's sign-in hint, no click (shared/silent-sign-in.ts). A 200 (found
+ *   or not) forgets the key and counts `moves` up (what lists a player's games
+ *   and statistics loads them again); `moved` holds what it did, for the
+ *   shell's toast. A 200 that says `stayed` - a silent sign-in into an account
+ *   that already has its own here takes nothing in (the owner's decision of
+ *   2026-10-11) - keeps the key: the visitor stays this browser's until a
+ *   sign-in the person makes, and this page load asks no more (the next one
+ *   asks again: the session is still a silent one). A 422 (not a key the
+ *   server could ever know) forgets it. A network error or a 5xx keeps it and
+ *   asks again (MOVE_RETRY_MS, or the answer's Retry-After); a 401 keeps it
+ *   for the next sign-in.
  * - **`settledMove()`** is what a person's first load of their games waits
  *   for: pending whenever somebody is signed in and a key is held - from the
  *   moment both are true, not from when the move's request happens to start -
- *   and resolved only by an answer that ends the key (200, 422) or by giving
- *   up for this page load. Otherwise a quiz page opened right after the
+ *   and resolved only by an answer that ends the key (200, 422), a `stayed`,
+ *   or by giving up for this page load. Otherwise a quiz page opened right after the
  *   sign-in would draw a fresh question and save it as the person's before the
  *   move ran, and the move would then keep that over the visitor's game.
  *
  * A private window that refuses storage: the key lives in memory for the tab.
  *
  * This service reads SecurityService and SiteSettingsService, never the other
- * way round: the move is started here, by an effect.
+ * way round: the move is started here, by an effect. The library's sign-in
+ * reads it only as a request leaves.
  */
 @Injectable({ providedIn: 'root' })
-export class VisitorKey {
+export class VisitorKey implements VisitorKeyStore {
   private readonly _security = inject(SecurityService);
   private readonly _settings = inject(SiteSettingsService);
   private readonly _api = inject(VisitorApiService);
+  private readonly _auth = inject(AnotokiAuth);
 
   /** The key, when storage cannot keep it (or refused to). */
   private _memory: string | null = null;
@@ -104,7 +116,10 @@ export class VisitorKey {
    */
   lastMade: string | null = null;
 
-  /** The key this page load gave up moving (a 401, or no answer after the retries). */
+  /**
+   * The key this page load moves no more: a 401, no answer after the retries,
+   * or a `stayed` (the account keeps apart from it).
+   */
   private readonly _gaveUpFor = signal<string | null>(null);
 
   private _moving = false;
@@ -115,7 +130,7 @@ export class VisitorKey {
   /**
    * Whether nothing is waiting to be moved: nobody signed in, no key, the
    * server keeps no visitors (nothing to move into an account then - the key
-   * waits), or this page load gave up on this key.
+   * waits), or this page load moves this key no more.
    */
   readonly moveSettled = computed(
     () =>
@@ -233,8 +248,15 @@ export class VisitorKey {
       this._retryTimer = null;
     }
     try {
-      const result = await firstValueFrom(this._api.moveVisitor({}, issuedAs('person').set(CARRIES_VISITOR_KEY, key)));
+      const silent = signedInSilently(untracked(this._auth.sub));
+      const result = await firstValueFrom(this._api.moveVisitor({ silent }, issuedAs('person', new HttpContext().set(VISITOR_KEY_CARRIED, key))));
       this._retries = 0;
+      if (result.stayed) {
+        // A silent sign-in, into an account with its own here: nothing moved,
+        // and the visitor stays this browser's under its key (see the class).
+        this._gaveUpFor.set(key);
+        return;
+      }
       this.forget(key);
       this.moves.update((count) => count + 1);
       if (result.games.moved + result.games.kept > 0 || result.results > 0) {

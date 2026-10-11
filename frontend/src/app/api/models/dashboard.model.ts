@@ -5,32 +5,12 @@
 import type { AssetCatalogueCounts, AssetConversionCount, AssetFormatCount } from './file.model';
 
 /**
- * A row of `feedback` as the API reads it back.
+ * A row of `translation_keys` as the API reads it back.
  */
-export interface Feedback {
-  id: number;
-  type: 'Bug' | 'Suggestion' | 'Other';
-  status: 'new' | 'read' | 'resolved' | 'spam';
-  section: string | null;
-  title: string | null;
-  user_id: number | null;
-  username: string | null;
-  email: string | null;
-  message: string | null;
-  steps_to_reproduce: string | null;
-  expected_behavior: string | null;
-  actual_behavior: string | null;
-  browser_device_info: string | null;
-  details: string | null;
-  why_important: string | null;
-  additional_info: string | null;
-  page_url: string | null;
-  user_agent: string | null;
-  language: string | null;
-  submitter_hash: string | null;
-  created_at: string | null;
-  updated_at: string | null;
-  ip: string | null;
+export interface TranslationKey {
+  name: string;
+  description: string | null;
+  created_at: string;
 }
 
 /**
@@ -133,8 +113,10 @@ export interface DashboardStats {
   content: DashboardContent[];
   /** Biggest job first. */
   gaps: DashboardGap[];
-  feedback: DashboardFeedback;
-  activity: DashboardActivity;
+  /** The ADMIN's alone: null for an EDITOR (the admin tools are the ADMIN's). */
+  feedback: DashboardFeedback | null;
+  /** The ADMIN's alone: null for an EDITOR (the audit log is the ADMIN's). */
+  activity: DashboardActivity | null;
   translations: DashboardTranslations;
   assets: DashboardAssets;
   visitors: DashboardVisitors;

@@ -626,6 +626,14 @@ function applyAlters(string $sql, array &$tables): void
 
         $action = trim(preg_replace('/\s+/', ' ', $action));
 
+        // The table itself renamed: genshin_impact/028 and 029 keep the old
+        // audit_logs and feedback for a release under names of their own.
+        if (preg_match('/^RENAME TO "?(\w+)"?$/i', $action, $renamed)) {
+            $tables[$renamed[1]] = ['table' => $renamed[1]] + $tables[$table];
+            unset($tables[$table]);
+            continue;
+        }
+
         // One ALTER TABLE can carry several clauses - most of the image-name
         // migration is a single statement adding six columns at once - and
         // splitting on top-level commas is what tells them apart without also
@@ -699,7 +707,8 @@ function applyAlterClause(string $clause, array &$columns): void
         $change = $m[2];
 
         if (preg_match('/^TYPE (.+)$/i', $change, $type)) {
-            $columns[$index]['sqlType'] = trim($type[1]);
+            // `TYPE TIMESTAMPTZ USING created_at AT TIME ZONE ...`: the type, not how the old values are read into it.
+            $columns[$index]['sqlType'] = trim(preg_split('/\s+USING\s+/i', $type[1])[0]);
         } elseif (preg_match('/^SET NOT NULL/i', $change)) {
             $columns[$index]['nullable'] = false;
         } elseif (preg_match('/^DROP NOT NULL/i', $change)) {

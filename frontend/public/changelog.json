@@ -4,7 +4,8 @@
     "date": "2026-10-07",
     "changes": {
       "added": [
-        "Your Profile works without signing in too — your games and statistics are kept for this browser for 30 days after your last visit, and come with you into your anotoki account when you sign in"
+        "Your Profile works without signing in too — your games and statistics are kept for this browser for 30 days after your last visit, and come with you into your anotoki account when you sign in (when you are signed in automatically, only if your account has no games here yet)",
+        "Signed in to your anotoki account on another anotoki site? Then you are signed in here too, without a click — and signing out there signs you out here"
       ],
       "fixed": [
         "Pixelate shows the sharp original portrait once the question is over",

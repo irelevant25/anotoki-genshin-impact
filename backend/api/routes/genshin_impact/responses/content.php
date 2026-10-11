@@ -223,47 +223,6 @@ class BannerFullRow extends ResponseShape
     }
 }
 
-// ── Feedback ──────────────────────────────────────────────────────────────────
-
-class FeedbackPage extends ResponseShape
-{
-    public function __construct(
-        public readonly int $total,
-        public readonly int $page,
-        public readonly int $pageSize,
-        /** @var feedback[] */
-        public readonly array $items,
-    ) {
-    }
-}
-
-class FeedbackFilters extends ResponseShape
-{
-    public function __construct(
-        /** @var string[] */
-        public readonly array $sections,
-        /** @var string[] */
-        public readonly array $statuses,
-        /** @var string[] */
-        public readonly array $types,
-        /** @var array<string, int> */
-        public readonly array $byStatus,
-        /** @var array<string, int> */
-        public readonly array $byType,
-    ) {
-    }
-}
-
-/** Echoed back after a status change, so the list can update in place. */
-class FeedbackStatusChanged extends ResponseShape
-{
-    public function __construct(
-        public readonly int $id,
-        public readonly string $status,
-    ) {
-    }
-}
-
 // ── Material usage ────────────────────────────────────────────────────────────
 
 /**

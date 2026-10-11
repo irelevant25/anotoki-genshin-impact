@@ -1,7 +1,6 @@
-// The pages that stand on their own - /staff, and the sign-in callback when
-// there is something to say. One panel, centred, saying what happened - shared
-// because they are the same page with different words in it. Each page's own
-// stylesheet brings it in with @use.
+// The account page that stands on its own - /staff: one panel, centred. (The
+// sign-in callback, which drew it too, is the anotoki library's page now, in
+// the library's own frame.) The page's own stylesheet brings it in with @use.
 
 .account-landing {
   max-width: 520px;

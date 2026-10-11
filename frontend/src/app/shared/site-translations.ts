@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
+import { AccountPreferences } from '@anotoki/lib/auth';
 import { SiteStatus } from '@anotoki/lib/migrations';
 import { AdminLanguage, AnotokiTranslationsConfig, isAdminArea, LanguageDeleted } from '@anotoki/lib/translations';
-import { AccountPreferences } from './local-lib/services/account-preferences.service';
 import { SecurityService } from './local-lib/services/security.service';
 
 /** How many guides a language has (the server's `guides`, backend api/translations.php). */

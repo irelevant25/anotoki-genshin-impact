@@ -3,23 +3,28 @@
 /**
  * Which entity a change belongs to, as opposed to which row it touched.
  *
- * `audit_logs.record_id` has always held the id of the row that changed, and
- * that is the right thing for it to hold. It is just not the question anybody
- * asks. Editing one character rewrites its talents, its ascension costs, its
- * voice overs - dozens of rows across a dozen tables, each logged under its own
+ * An entry's target (target_type, target_id in the anotoki library's
+ * anotoki_audit_log - audit_logs' table_name and record_id before
+ * genshin_impact/028) has always been the row that changed, and that is the
+ * right thing for it to hold. It is just not the question anybody asks.
+ * Editing one character rewrites its talents, its ascension costs, its voice
+ * overs - dozens of rows across a dozen tables, each logged under its own
  * table and its own id, none of which says "character 42". So the log could
  * answer "what happened to talent 900" and could not answer "what happened to
  * Amber", which is the only one worth asking.
  *
- * `entity_table` and `entity_id` are that second answer. For a change to a
- * character they are the character; for a change to one of its talent costs
- * they are still the character. Filtering by them gives the whole history of
- * one thing, which is what the audit screen is for.
+ * The scope (scope_type, scope_id; entity_table and entity_id before) is that
+ * second answer. For a change to a character it is the character; for a
+ * change to one of its talent costs it is still the character. Filtering by
+ * it gives the whole history of one thing, which is what the audit screen is
+ * for.
  *
- * Two ways they get filled. A `/full` save knows which entity it is saving, so
+ * Two ways it gets filled. A `/full` save knows which entity it is saving, so
  * it says so with auditScope() and every write underneath inherits it. Anything
  * else - a plain create, a file being catalogued - is its own entity, and
- * writeAuditLog() falls back to the row it just wrote.
+ * auditContent() (api/audit_log.php) falls back to the row it just wrote. Who
+ * made the change and from which sign-in is the library's to hold for the
+ * request (AuditContextMiddleware, api/index.php).
  */
 
 /**
@@ -79,38 +84,6 @@ function auditScope(?string $table = null, ?string $id = null, bool $clear = fal
     }
 
     return $scope;
-}
-
-/**
- * The sign-in this request came from, for as long as it lasts.
- *
- * `changed_by` says who made a change; this says which session they made it
- * from, which is the thing that also knows the address and the browser and can
- * be revoked. Set once by the auth middleware and read by whatever writes an
- * audit row, rather than threaded through every call that might want it.
- *
- * Null for anything with no session behind it - a migration, a sweep, a file
- * found on disk.
- *
- * The id is the IAM's `sid` - the session at the IAM the access token was
- * issued under - so an entry here can be looked up in the IAM's admin console
- * (Sessions, search by id). Entries written before the move carry the old
- * numeric id, which the IAM kept for the sessions it brought over.
- */
-function auditSession(?string $id = null, bool $clear = false): ?string
-{
-    static $session = null;
-
-    if ($clear) {
-        $session = null;
-        return null;
-    }
-
-    if ($id !== null) {
-        $session = $id;
-    }
-
-    return $session;
 }
 
 /** Runs a save with everything it writes filed under one entity. */

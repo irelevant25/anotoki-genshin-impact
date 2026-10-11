@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal, untracked, WritableSignal } from '@angular/core';
+import { Component, effect, inject, signal, Type, untracked, WritableSignal } from '@angular/core';
 import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
@@ -6,7 +6,6 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/components/modal/modal-core/modal-core.class';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { SiteFeedbackContactModalComponent } from './site-feedback-contact-modal/site-feedback-contact-modal.component';
 import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../shared/state-manager.service';
@@ -33,6 +32,11 @@ export interface ButtomMenuItem {
     compoponent: any;
     config?: ModalConfig;
   };
+  /** A dialog whose code is loaded only when it is opened - what no page needs before then. */
+  lazyModal?: {
+    load: () => Promise<Type<unknown>>;
+    config?: ModalConfig;
+  };
 }
 
 @Component({
@@ -56,13 +60,15 @@ export class FooterComponent extends AbstractModalComponent {
         config: { size: '6' }
       }
     }),
+    // The anotoki library's feedback form, which brings the kit's fields:
+    // loaded when somebody opens it.
     feedback: signal<ButtomMenuItem>({
       id: 'site-feedback-contact',
       title: 'footer.feedback',
-      modal: {
-        compoponent: SiteFeedbackContactModalComponent,
-        config: { size: '3' }
-      }
+      lazyModal: {
+        load: () => import('./site-feedback-modal/site-feedback-modal.component').then((m) => m.SiteFeedbackModalComponent),
+        config: { size: '3' },
+      },
     }),
     github: signal<ButtomMenuItem>({
       id: 'site-github',
@@ -217,6 +223,17 @@ export class FooterComponent extends AbstractModalComponent {
   }
 
   onMenuItemClick(menuItem: ButtomMenuItem): void {
+    const lazy = menuItem.lazyModal;
+    if (lazy) {
+      lazy
+        .load()
+        .then((component) => this.openModal(component, lazy.config || { size: '2' }))
+        // A part of the site that could not be loaded - the network gone, a
+        // newer build uploaded since this page loaded: nothing opens, and the
+        // button is there to press again.
+        .catch((error: unknown) => console.error('This part of the site could not be loaded', error));
+      return;
+    }
     if (!menuItem.modal) {
       return;
     }

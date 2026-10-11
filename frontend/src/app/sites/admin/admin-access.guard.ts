@@ -26,7 +26,7 @@ export const adminAccessGuard: CanMatchFn = (_route, segments: UrlSegment[]) => 
     return true;
   }
 
-  // Only when the SDK holds no session either. With one, this site's API is
+  // Only when the library holds no session either. With one, this site's API is
   // refusing the IAM's tokens, and a sign-in started from here would come
   // straight back to the same refusal and start another - a loop that mints a
   // code and tokens every round. The page this falls through to has the button.

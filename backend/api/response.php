@@ -13,7 +13,7 @@
  *
  *     ->add(responds('characters', list: true))     a list of `characters` rows
  *     ->add(responds('characters'))                 one of them
- *     ->add(responds(FeedbackPage::class))          a shape declared below
+ *     ->add(responds(DashboardStats::class))        a shape declared below
  *     ->add(responds(ApiMessage::class))
  *
  * A row response names its table, because the row is the table - every column,

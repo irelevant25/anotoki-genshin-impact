@@ -274,6 +274,200 @@ function catalogueForgetFile(PDO $pdo, string $folder, string $filename): int
     return $stmt->rowCount();
 }
 
+/**
+ * The catalogue's rows at a place in the asset tree - the file there, and
+ * with $under every file below it when it is a folder - each with the path
+ * it stands for (category path / name . extension), relative to the tree.
+ *
+ * @return list<array{id: int, category_id: int, name: string, extension: string, relative: string}>
+ */
+function catalogueRowsAt(PDO $pdo, string $relative, bool $under = true): array
+{
+    $relative = trim(str_replace('\\', '/', $relative), '/');
+    if ($relative === '') {
+        return [];
+    }
+
+    $path = "c.path || '/' || f.name || CASE WHEN f.extension = '' THEN '' ELSE '.' || f.extension END";
+    $prefix = $relative . '/';
+    $statement = $pdo->prepare(
+        "SELECT f.id, f.category_id, f.name, f.extension, $path AS relative
+           FROM files f JOIN file_categories c ON c.id = f.category_id
+          WHERE $path = ?" . ($under ? " OR left($path, ?) = ?" : '') . '
+          ORDER BY f.id'
+    );
+    $statement->execute($under ? [$relative, mb_strlen($prefix, 'UTF-8'), $prefix] : [$relative]);
+
+    return array_map(static fn (array $row): array => [
+        'id' => (int) $row['id'],
+        'category_id' => (int) $row['category_id'],
+        'name' => (string) $row['name'],
+        'extension' => (string) $row['extension'],
+        'relative' => (string) $row['relative'],
+    ], $statement->fetchAll(PDO::FETCH_ASSOC));
+}
+
+/**
+ * What in the site's content points at these catalogued files: every column
+ * with a foreign key to files.id - read from the database's own constraints,
+ * so a column added later counts without being named here - soft-deleted rows
+ * too, as a row put back wants its picture. Each such column ("table.column")
+ * with how many rows point at one of them; nothing when nothing does.
+ *
+ * Why it matters: every one of those keys is ON DELETE SET NULL, so a row of
+ * the catalogue that goes takes its picture or its sound away from whatever
+ * pointed at it, silently, and putting the file back does not bring the link
+ * back.
+ *
+ * @param list<int> $ids
+ * @return array<string, int>
+ */
+function catalogueReferences(PDO $pdo, array $ids): array
+{
+    $ids = array_values(array_unique(array_map('intval', $ids)));
+    if ($ids === []) {
+        return [];
+    }
+
+    $columns = $pdo->query(
+        "SELECT n.nspname AS schema_name, cl.relname AS table_name, a.attname AS column_name
+           FROM pg_constraint c
+           JOIN pg_class cl ON cl.oid = c.conrelid
+           JOIN pg_namespace n ON n.oid = cl.relnamespace
+           JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = c.conkey[1]
+          WHERE c.contype = 'f' AND c.confrelid = 'files'::regclass AND cardinality(c.conkey) = 1
+          ORDER BY 2, 3"
+    )->fetchAll(PDO::FETCH_ASSOC);
+
+    $quote = static fn (string $name): string => '"' . str_replace('"', '""', $name) . '"';
+    // One parameter however many files a folder holds: an array, not a list of placeholders.
+    $list = '{' . implode(',', $ids) . '}';
+    $found = [];
+    foreach ($columns as $column) {
+        $statement = $pdo->prepare(sprintf(
+            'SELECT count(*) FROM %s.%s WHERE %s = ANY (CAST(? AS integer[]))',
+            $quote($column['schema_name']),
+            $quote($column['table_name']),
+            $quote($column['column_name'])
+        ));
+        $statement->execute([$list]);
+        $count = (int) $statement->fetchColumn();
+        if ($count > 0) {
+            $found[$column['table_name'] . '.' . $column['column_name']] = $count;
+        }
+    }
+
+    return $found;
+}
+
+/**
+ * Where the catalogue's rows at $from (a file, or a folder and all below it)
+ * would stand once moved to $to: for each, its new path and the row that path
+ * makes - the category that claims the new folder (null when none does: no
+ * row of the catalogue can say where the file is then), the name below it,
+ * the extension.
+ *
+ * @return list<array{id: int, from: string, to: string, category_id: ?int, name: string, extension: string}>
+ */
+function catalogueMovePlan(PDO $pdo, string $from, string $to): array
+{
+    $from = trim(str_replace('\\', '/', $from), '/');
+    $to = trim(str_replace('\\', '/', $to), '/');
+    $categories = catalogueCategories($pdo);
+
+    $plan = [];
+    foreach (catalogueRowsAt($pdo, $from) as $row) {
+        $relative = $to . substr($row['relative'], strlen($from));
+        $slash = strrpos($relative, '/');
+        $folder = $slash === false ? '' : substr($relative, 0, $slash);
+        $file = $slash === false ? $relative : substr($relative, $slash + 1);
+        $category = $folder === '' ? null : catalogueCategoryFor($categories, $folder);
+        $extension = strtolower((string) pathinfo($file, PATHINFO_EXTENSION));
+        $stem = $extension === '' ? $file : substr($file, 0, -(strlen($extension) + 1));
+        $within = $category === null ? '' : trim(substr($folder, strlen($category['path'])), '/');
+
+        $plan[] = [
+            'id' => $row['id'],
+            'from' => $row['relative'],
+            'to' => $relative,
+            'category_id' => $category === null ? null : (int) $category['id'],
+            'name' => $within === '' ? $stem : $within . '/' . $stem,
+            'extension' => $extension,
+        ];
+    }
+
+    return $plan;
+}
+
+/**
+ * Takes the catalogue along with what the file explorer renamed or moved in
+ * the asset tree: the same rows, their ids kept - so every picture and sound
+ * the site's content points at stays pointed at - under their new path.
+ *
+ * A row no category would claim where it went is left where it was (the
+ * explorer's guard refuses such a move before it happens), and so is one
+ * whose new place another row holds already (a row whose file was gone); the
+ * Files page lists both as missing. A file moved alone is audited with its
+ * id, a folder once for all it held.
+ *
+ * @return array{moved: int, left: int}
+ */
+function catalogueMove(PDO $pdo, string $from, string $to, ?int $by = null): array
+{
+    $plan = catalogueMovePlan($pdo, $from, $to);
+    $update = $pdo->prepare('UPDATE files SET category_id = ?, name = ?, extension = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
+
+    $moved = 0;
+    $left = 0;
+    foreach ($plan as $row) {
+        if ($row['category_id'] === null) {
+            $left++;
+            continue;
+        }
+        try {
+            $update->execute([$row['category_id'], $row['name'], $row['extension'], $row['id']]);
+            $moved++;
+        } catch (PDOException $e) {
+            // The unique (category, name, extension): another row has that place.
+            if ($e->getCode() !== '23505') {
+                throw $e;
+            }
+            $left++;
+        }
+    }
+
+    if ($moved > 0) {
+        $single = count($plan) === 1 && $plan[0]['from'] === trim(str_replace('\\', '/', $from), '/');
+        auditFile($pdo, $single ? $plan[0]['id'] : 0, 'MOVE', $single
+            ? ['from' => $plan[0]['from'], 'to' => $plan[0]['to']]
+            : ['from' => trim($from, '/'), 'to' => trim($to, '/'), 'files' => $moved, 'left' => $left], $by);
+    }
+
+    return ['moved' => $moved, 'left' => $left];
+}
+
+/**
+ * The catalogue's row of a file the explorer put in the trash goes - unless
+ * something in the site's content points at it (the explorer's guard refuses
+ * that delete first; this holds when it got past anyway): then the row stays,
+ * listed as missing, and the file put back from the trash is the same row
+ * again, every link with it.
+ */
+function catalogueForgetUnreferenced(PDO $pdo, string $relative, ?int $by = null): int
+{
+    $forgotten = 0;
+    foreach (catalogueRowsAt($pdo, $relative, under: false) as $row) {
+        if (catalogueReferences($pdo, [$row['id']]) !== []) {
+            continue;
+        }
+        $pdo->prepare('DELETE FROM files WHERE id = ?')->execute([$row['id']]);
+        auditFile($pdo, $row['id'], 'DELETE', ['path' => $row['relative'], 'why' => 'put in the trash in the file explorer'], $by);
+        $forgotten++;
+    }
+
+    return $forgotten;
+}
+
 function catalogueUploadedStem(PDO $pdo, string $folder, string $stem, ?int $by = null): int
 {
     $categories = catalogueCategories($pdo);

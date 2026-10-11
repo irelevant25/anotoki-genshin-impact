@@ -37,7 +37,6 @@ export const GROUPS = [
     // want a group of its own above this line.
     ["me", ["/api/me"]],
     ["guide", ["/api/guides", "/api/admin/guides"]],
-    ["backup", ["/api/backups"]],
     ["character", ["/api/characters", "/api/character/"]],
     ["voiceOverSet", ["/api/voice-over-sets"]],
     ["ascensionSet", ["/api/ascension-sets"]],
@@ -52,11 +51,8 @@ export const GROUPS = [
     ["quiz", ["/api/quizzes", "/api/quiz-", "/api/quiz/", "/api/user-quiz-history"]],
     ["background", ["/api/backgrounds"]],
     ["stat", ["/api/stats"]],
-    ["feedback", ["/api/feedback"]],
     ["fileCategory", ["/api/file-categories"]],
-    ["explorer", ["/api/explorer"]],
-    ["file", ["/api/files", "/api/upload"]],
-    ["audit-log", ["/api/audit-logs"]],
+    ["file", ["/api/files", "/api/uploads"]],
     ["setting", ["/api/settings"]],
     ["route", ["/api/site-routes"]],
     ["dashboard", ["/api/dashboard"]],
@@ -68,7 +64,6 @@ export const GROUPS = [
 export const GROUP_DOCS = {
     me: "The signed-in reader as this site knows them. Signing in is the anotoki IAM's, and so are the theme, the dates, the clock and the language.",
     guide: "The guides behind the question marks: a page of markup each, in every language that has one - read by the pages, written on the admin Guides page.",
-    backup: "Database dumps: listing them, making them, and restoring one.",
     character: "Characters and everything hanging off one - talents, ascensions, constellations, builds.",
     voiceOverSet: "The voice-over sets characters share their lines through, for the character-form picker.",
     ascensionSet: "The ascension sets characters share their ascension stats through, for the character-form picker.",
@@ -83,11 +78,8 @@ export const GROUP_DOCS = {
     quiz: "The quizzes, a player's progress through them, and the history behind the stats.",
     background: "Site backgrounds a visitor can pick between.",
     stat: "The stat names the rest of the data refers to.",
-    feedback: "Messages sent from the site's contact form.",
     file: "The asset tree on disk: browsing it, adding to it, and undoing a deletion.",
-    explorer: "The real files on disk, browsed like a file manager off a cached snapshot.",
     fileCategory: "The kinds of asset there are, and which folder each kind lives in.",
-    "audit-log": "Who changed which row, and to what.",
     setting: "The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in.",
     route: "Which pages of the site exist, who they are drawn for, and which API paths go dark with them.",
     dashboard: "The counts on the admin landing page.",
@@ -103,8 +95,7 @@ export const GROUP_DOCS = {
  * bare key-to-string map, which a PHP constructor has no way to describe -
  * went to the anotoki library with the rest of the words (SKIP_PREFIXES). A
  * route that answers such a map again is named here, with the hand-written
- * type in src/app/api/types/. (The backup download is bytes rather than a
- * shape; that is BLOBS, further down.)
+ * type in src/app/api/types/.
  */
 export const RESPONSES = {};
 
@@ -117,13 +108,10 @@ export const BODIES = {
     "PUT /api/site-routes": "SiteRoutesSaveRequest",
     "POST /api/site-routes": "SiteRouteCreateRequest",
     "PUT /api/admin/guides/{guide}": "GuideSaveRequest",
-    "PUT /api/feedback/{id}/status": "FeedbackStatusRequest",
-    "POST /api/feedback": "FeedbackRequest",
-    "POST /api/backups": "BackupRequest",
-    "POST /api/backups/{id}/restore/{alias}": "RestoreRequest",
     "PUT /api/quiz/progress/{quiz}": "QuizProgressRequest",
     "POST /api/quiz/result": "QuizResultRequest",
     "POST /api/quiz/progress/carry": "QuizCarryRequest",
+    "POST /api/visitor/move": "VisitorMoveRequest",
     "POST /api/files": "FormData",
     "POST /api/files/convert": "AssetConvertRequest",
     "POST /api/files/cleanup": "AssetCleanupRequest",
@@ -131,7 +119,6 @@ export const BODIES = {
     "PUT /api/file-categories/{id}": "FileCategorySaveRequest",
     "PUT /api/files/{id}/category": "FileCategoryMoveRequest",
     "POST /api/files/restore": "FormData",
-    "POST /api/upload": "FormData",
     "POST /api/uploads/{entity}/{field}": "FormData",
     "POST /api/uploads/{entity}/{id}/{field}": "FormData",
     "POST /api/characters/full": "FormData",
@@ -150,15 +137,9 @@ for (const entity of ["weapons", "artifacts", "materials", "foods", "enemies", "
  */
 export const QUERIES = {
     "GET /api/guides/{guide}": "GuideQuery?",
-    "GET /api/feedback": "FeedbackQuery?",
-    "GET /api/audit-logs": "AuditLogQuery",
-    "GET /api/explorer": "ExplorerQuery?",
-    "GET /api/explorer/new": "ExplorerQuery?",
     "GET /api/files": "AssetFileQuery",
     "GET /api/files/stats": "AssetStatsQuery?",
     "GET /api/files/cleanup": "AssetCleanupQuery",
-    "GET /api/errors": "ErrorLogQuery?",
-    "GET /api/errors/{fingerprint}": "ErrorLogQuery?",
     "DELETE /api/files": "AssetFileRef",
     "DELETE /api/files/missing": "MissingFileRef?",
     "DELETE /api/files/trash": "TrashedFileRef?",
@@ -176,15 +157,6 @@ export const NAMES = {
     "GET /api/constellation-sets": "getConstellationSets",
     "GET /api/constellation-sets/{id}": "getConstellationSet",
     "GET /api/quiz/voice-over/random": "getRandomVoiceOverRound",
-    "GET /api/feedback": "getFeedbackPage",
-    "POST /api/feedback": "sendFeedback",
-    "GET /api/feedback/filters": "getFeedbackFilters",
-    "GET /api/feedback/{id}": "getFeedbackEntry",
-    "DELETE /api/feedback/{id}": "deleteFeedbackEntry",
-    "GET /api/explorer": "getExplorerListing",
-    "GET /api/explorer/new": "getExplorerNewFiles",
-    "GET /api/explorer/status": "getExplorerStatus",
-    "POST /api/explorer/rescan": "rescanExplorer",
     "GET /api/files": "getAssetFiles",
     "GET /api/files/folders": "getAssetFolders",
     "GET /api/files/trash": "getTrashedFiles",
@@ -203,7 +175,6 @@ export const NAMES = {
     "POST /api/files": "uploadAssetFile",
     "DELETE /api/files": "deleteAssetFile",
     "POST /api/files/restore": "restoreAssetFile",
-    "POST /api/upload": "uploadFile",
     "POST /api/uploads/{entity}/{field}": "uploadEntityFile",
     "POST /api/uploads/{entity}/{id}/{field}": "uploadRecordFile",
     "GET /api/dashboard/stats": "getDashboardStats",
@@ -219,8 +190,6 @@ export const NAMES = {
     "PUT /api/site-routes": "saveRoutes",
     "POST /api/site-routes": "addRoute",
     "DELETE /api/site-routes/{id}": "deleteRoute",
-    "GET /api/audit-logs": "getAuditLogPage",
-    "GET /api/audit-logs/filters": "getAuditLogFilters",
 
     "GET /api/quizzes": "getQuizzes",
     "GET /api/quiz/progress": "getQuizProgress",
@@ -234,11 +203,6 @@ export const NAMES = {
     "GET /api/quiz/results": "getRecentQuizResults",
 
     "POST /api/visitor/move": "moveVisitor",
-
-    "GET /api/backups/status": "getBackupStatus",
-    "GET /api/backups/{id}/download/{alias}": "downloadBackup",
-    "GET /api/backups/{id}/preview/{alias}": "previewBackup",
-    "POST /api/backups/{id}/restore/{alias}": "restoreBackup",
 };
 
 /**
@@ -257,15 +221,36 @@ export const NAMES = {
  * bundle the pages read) and the admin `translations` and `languages` (the
  * library's TranslationsRoutes, put up in routes/users/endpoints/
  * translations.php), whose client is @anotoki/lib/translations: its service and
- * its admin Translations and Languages pages. Its README says what they answer.
+ * its admin Translations and Languages pages. And since 0.4.1 the admin tools,
+ * People and the visitors' feedback form - `admin/errors`, `admin/audit`,
+ * `admin/feedback`, `admin/backups`, `admin/files`, `admin/people` and the
+ * form's `feedback` (the library's *Routes::admin() and public(), put up in
+ * api/index.php): their client is @anotoki/lib/admin/*, @anotoki/lib/people/page
+ * and @anotoki/lib/feedback/form. Its README says what they answer.
  */
-export const SKIP_PREFIXES = ["/api/affiliations", "/api/characters-affiliations", "/api/site-status", "/api/admin/migrations", "/api/translations", "/api/admin/translations", "/api/admin/languages"];
+export const SKIP_PREFIXES = [
+    "/api/affiliations",
+    "/api/characters-affiliations",
+    "/api/site-status",
+    "/api/admin/migrations",
+    "/api/translations",
+    "/api/admin/translations",
+    "/api/admin/languages",
+    "/api/admin/errors",
+    "/api/admin/audit",
+    "/api/admin/feedback",
+    "/api/feedback",
+    "/api/admin/backups",
+    "/api/admin/files",
+    "/api/admin/people",
+];
 
 /**
- * Endpoints that answer with a file rather than JSON.
- * These are typed as a Blob and asked for with responseType: 'blob'.
+ * Endpoints that answer with a file rather than JSON - none at the moment (the
+ * backups' download went to the library with the backups). One would be typed
+ * as a Blob and asked for with responseType: 'blob'.
  */
-export const BLOBS = new Set(["GET /api/backups/{id}/download/{alias}"]);
+export const BLOBS = new Set([]);
 
 /** Plurals the rules below would get wrong. */
 export const IRREGULAR_SINGULAR = { quizzes: "quiz", statuses: "status" };

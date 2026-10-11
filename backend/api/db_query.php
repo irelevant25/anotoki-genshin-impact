@@ -314,33 +314,23 @@ class DbQuery
     }
 
     /**
-     * Write a row to audit_logs. Silently skips if the table doesn't exist yet.
+     * One entry in the audit log (the anotoki library's, api/audit_log.php):
+     * content.insert|update|delete on the row that changed, filed under what
+     * it belongs to - the row itself until a /full save says otherwise: it
+     * sets the entity once and every child it re-inserts is filed under that
+     * rather than under itself. See api/audit_scope.php.
      *
-     * `record_id` is the row that changed. `entity_id` is what it belongs to,
-     * which is the same thing until a /full save says otherwise - it sets the
-     * entity once and every child it re-inserts is filed under that rather than
-     * under itself. See api/audit_scope.php.
+     * Never throws, and inside the save's transaction it writes behind a
+     * savepoint, so an entry that cannot be written never takes the change
+     * down with it. $pdo is the save's connection, which the log writes on too.
      */
     private static function writeAuditLog(PDO $pdo, string $table, string $recordId, string $action, int $userId, array $changes): void
     {
+        if (!function_exists('auditContent')) {
+            return;
+        }
         $scope = function_exists('auditScope') ? auditScope() : null;
 
-        try {
-            $pdo->prepare(
-                'INSERT INTO audit_logs (table_name, record_id, action, changed_by, changes, entity_table, entity_id, session_id)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-            )->execute([
-                $table,
-                $recordId,
-                $action,
-                $userId,
-                json_encode($changes),
-                $scope['table'] ?? $table,
-                $scope['id'] ?? $recordId,
-                function_exists('auditSession') ? auditSession() : null,
-            ]);
-        } catch (\PDOException) {
-            // silently skip if audit_logs table not yet created
-        }
+        auditContent($table, $recordId, $action, $userId, $changes, $scope === null ? null : [$scope['table'], $scope['id']]);
     }
 }

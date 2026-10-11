@@ -325,11 +325,3 @@ export interface TrashedFile {
   deleted_at: string;
   size: number;
 }
-
-/**
- * `POST /api/upload` - a file dropped into a folder, with nothing else touched.
- */
-export interface UploadResult {
-  filename: string;
-  path: string;
-}

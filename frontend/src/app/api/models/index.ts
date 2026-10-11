@@ -4,16 +4,12 @@
 
 export * from './artifact.model';
 export * from './ascensionSet.model';
-export * from './audit-log.model';
 export * from './background.model';
-export * from './backup.model';
 export * from './banner.model';
 export * from './character.model';
 export * from './constellationSet.model';
 export * from './dashboard.model';
 export * from './enemy.model';
-export * from './explorer.model';
-export * from './feedback.model';
 export * from './file.model';
 export * from './fileCategory.model';
 export * from './food.model';

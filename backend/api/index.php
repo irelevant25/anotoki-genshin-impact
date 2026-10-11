@@ -23,7 +23,8 @@ require_once __DIR__ . '/helpers.php';
 // (site_state.php) - the spec generator, which loads this file only to read
 // the route table, needs none either.
 
-require_once __DIR__ . '/error_log.php';
+// The audit log (the anotoki library's), before everything that writes it.
+require_once __DIR__ . '/audit_log.php';
 require_once __DIR__ . '/audit_scope.php';
 require_once __DIR__ . '/db_query.php';
 require_once __DIR__ . '/model.php';
@@ -38,7 +39,9 @@ require_once __DIR__ . '/asset_stats.php';
 require_once __DIR__ . '/explorer.php';
 require_once __DIR__ . '/asset_cleanup.php';
 require_once __DIR__ . '/full_resource.php';
-require_once __DIR__ . '/anotoki_iam.php';
+// Who a request is, this site's record of people, and the admin tools: the
+// anotoki library's modules, set up for this site.
+require_once __DIR__ . '/admin_tools.php';
 require_once __DIR__ . '/site_user.php';
 // Visitors - playing without signing in, while the IAM does not require it:
 // the address the limits count, the work done after the answer (the sweep),
@@ -57,13 +60,35 @@ require_once __DIR__ . '/guides.php';
 require_once __DIR__ . '/migration_runner.php';
 require_once __DIR__ . '/site_state.php';
 
+use Anotoki\Lib\Audit\AuditContextMiddleware;
+use Anotoki\Lib\Audit\Http\AuditRoutes;
+use Anotoki\Lib\Auth\Http\Identify;
+use Anotoki\Lib\Auth\Http\RequireRole;
+use Anotoki\Lib\Backups\Http\BackupsRoutes;
+use Anotoki\Lib\ErrorLog\ErrorLogMiddleware;
+use Anotoki\Lib\ErrorLog\Http\ErrorLogRoutes;
+use Anotoki\Lib\Feedback\Http\FeedbackRoutes;
+use Anotoki\Lib\Files\Http\FilesRoutes;
 use Anotoki\Lib\Migrations\Http\MigrationsRoutes;
 use Anotoki\Lib\Migrations\Http\SiteGate;
+use Anotoki\Lib\Migrations\Http\SiteState;
 use Anotoki\Lib\Migrations\Migrator;
+use Anotoki\Lib\People\Http\PeopleRoutes;
+use Anotoki\Lib\People\Http\PeopleUpkeep;
 use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
+
+// What went wrong, written down for the admin panel's Error log (the anotoki
+// library's, api/admin_tools.php) - made first, so it can name each line's
+// route. PHP's own fatal errors and warnings too, while serving: the spec
+// generator, which loads this file only to read the route table, has nothing
+// to report.
+$errorLog = siteErrorLog($app);
+if (!defined('ANOTOKI_ROUTES_ONLY')) {
+    $errorLog->installPhpHandlers();
+}
 
 // meddleware
 require_once __DIR__ . '/meddleware/validation.php';
@@ -81,7 +106,6 @@ require_once __DIR__ . '/routes/users/models/migration.php';
 
 // responses
 require_once __DIR__ . '/routes/users/responses/me.php';
-require_once __DIR__ . '/routes/users/responses/backup.php';
 require_once __DIR__ . '/routes/users/responses/guide.php';
 require_once __DIR__ . '/routes/users/responses/setting.php';
 require_once __DIR__ . '/routes/users/responses/visitor.php';
@@ -94,7 +118,6 @@ require_once __DIR__ . '/routes/users/endpoints/routes.php';
 // site's checks (api/translations.php is the site's part of them).
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/guides.php';
-require_once __DIR__ . '/routes/users/endpoints/backups.php';
 require_once __DIR__ . '/routes/users/endpoints/visitor.php';
 
 ///////////////////
@@ -175,14 +198,9 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/domain_levels.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_families.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/enemy_groups.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/stats.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/audit_logs.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/errors.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/feedback.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/dashboard.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/upload.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/uploads.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/files.php';
-require_once __DIR__ . '/routes/genshin_impact/endpoints/explorer.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/file_categories.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/weapons_refinements.php';
@@ -247,26 +265,118 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recom
 // GET /api/site-status, for anybody: where the site stands - what the pages ask
 // as they start. And the admin Migrations page's API: what has run and what
 // waits (GET), a file's SQL (GET /file?set=&name=) and Apply (POST /apply) -
-// for this site's ADMIN, judged by the token alone, so nothing a waiting
-// migration has yet to make stands between an administrator and Apply.
+// for this site's ADMIN, judged by the token alone (the library's RequireRole),
+// so nothing a waiting migration has yet to make stands between an
+// administrator and Apply. Every Apply takes a backup of the database as it
+// is first (the library's Backups); after one, the audit entries that waited
+// for their table go in, and the Apply is written down itself.
 MigrationsRoutes::status($app, siteState());
-MigrationsRoutes::admin($app, '/api/admin/migrations', fn (): Migrator => siteMigrator(getDb()))
-    ->add(requireAdminToken());
+MigrationsRoutes::admin(
+    $app,
+    '/api/admin/migrations',
+    fn (): Migrator => siteMigrator(getDb(), backups: siteBackups()),
+    function (\Psr\Http\Message\ServerRequestInterface $request, array $result): void {
+        siteAudit()->flushPending();
+        $applied = array_map(static fn (array $file): string => $file['set'] . '/' . $file['name'], $result['applied'] ?? []);
+        if ($applied !== [] || ($result['failed'] ?? null) !== null) {
+            siteAudit()->record($request, Identify::person($request)?->sub, 'migrations.applied', null, null, array_filter([
+                'files' => $applied,
+                'failed' => isset($result['failed']) ? $result['failed']['set'] . '/' . $result['failed']['name'] : null,
+            ], static fn (mixed $value): bool => $value !== null));
+        }
+    },
+)->add(RequireRole::admin());
+
+///////////////////
+// THE ADMIN TOOLS (anotoki/lib)
+///////////////////
+
+// The anotoki library's admin tools, each an admin page of the library's own
+// (api/admin_tools.php): the error log, the audit log, feedback, backups, the
+// file explorer and the People page - for this site's ADMIN alone (the owner's
+// decision: EDITORs see none of them). Every group asks the ADMIN check itself
+// (from the token, through the AdminContext - 401 for nobody, 403 for anybody
+// else), and this site's own check is added to each as well, which answers
+// first. Both judge the token alone, so the error log and the backups work
+// while an update waits (SITE_OPEN_WHILE_UPDATING) - restore aside.
+ErrorLogRoutes::admin($app, '/api/admin/errors', $errorLog, siteAdminContext(), siteAudit())->add(RequireRole::admin());
+AuditRoutes::admin($app, '/api/admin/audit', siteAudit(), siteAdminContext(), peopleNamesById(...))->add(RequireRole::admin());
+FeedbackRoutes::admin($app, '/api/admin/feedback', siteFeedback(), siteAdminContext(), siteAudit(), peopleNamesById(...))->add(RequireRole::admin());
+BackupsRoutes::admin($app, '/api/admin/backups', siteBackups(), siteAdminContext())->add(RequireRole::admin());
+// The explorer's writes in the asset tree keep the catalogue's rows (same ids)
+// and never take a file the site's content points at: explorerGuard() refuses
+// that before the library acts, after the ADMIN check (added first, so it runs
+// second); explorerAfterWrite() takes the rows along.
+FilesRoutes::admin($app, '/api/admin/files', siteFileExplorer(), siteAdminContext(), siteAudit())
+    ->add(explorerGuard($app->getResponseFactory()))
+    ->add(RequireRole::admin());
+PeopleRoutes::admin(
+    $app,
+    '/api/admin/people',
+    sitePeople(),
+    columns: peopleColumns(),
+    visitors: peopleVisitors(...),
+    delete: peopleDeleteGames(...),
+    error: refusalResponse(...),
+    audit: siteAudit(),
+    context: siteAdminContext(),
+)->add(RequireRole::admin());
+
+// Two links the browser opens by itself, with no token to send - deliberately
+// outside every admin check: a backup's download, its single-use ticket (handed
+// to an ADMIN, by the route above, for one backup and a minute) the check; a
+// file's preview, its five-minute signature the check. The gates leave both
+// open (TOKENLESS_PATHS, MAINTENANCE_OPEN_PREFIXES, SIGN_IN_OPEN_PATHS).
+BackupsRoutes::file($app, '/api/admin/backups', siteBackups(), siteAdminContext());
+FilesRoutes::raw($app, '/api/admin/files/raw', siteFileExplorer(), siteAdminContext());
+
+// The visitors' feedback form (the footer's): open to everybody - the gates
+// apply to it as to any route, so while the IAM requires sign-in it is for
+// people signed in. Who sent it comes from the token alone; nothing of where
+// it came from is kept (Feedback, api/admin_tools.php).
+FeedbackRoutes::public($app, '/api/feedback', siteFeedback(), siteAdminContext(), feedbackSender(...));
+
+///////////////////
+// THE GATES
+///////////////////
 
 // Added before the error and header middleware, which means they run inside
 // both: a 503 or 401 from here still carries the security headers, and
 // anything they throw is still handled. The last added runs first: where the
 // site stands (site_state.php - not set up, or a database update waiting),
-// then the closed sign (maintenance.php), then sign-in required (sign_in.php),
-// then the per-page locks (route_gate.php) - each file says what it leaves
-// open.
+// then who the request is (the library's Identify, meddleware/auth.php - a
+// token that does not verify is 401 invalid_token here), then the closed sign
+// (maintenance.php), then sign-in required (sign_in.php), then the per-page
+// locks (route_gate.php) - each file says what it leaves open.
+//
+// Inside the SiteGate, so a site that is not set up never runs them: the
+// people's scrub (at most hourly, after an answer, while the site is ready)
+// and the day's backup (the first answer of a UTC day). And the audit log
+// holds who acts for as long as a request is answered (the person and their
+// IAM session), so every entry it writes meanwhile names them.
 $app->add(routeGate());
 $app->add(signInGate());
 $app->add(maintenanceGate());
+$app->add(AuditContextMiddleware::fromRequest(siteAudit(), static function (\Psr\Http\Message\ServerRequestInterface $request): array {
+    $person = Identify::person($request);
+
+    return $person === null ? [] : ['actor' => $person->sub, 'session' => $person->sid];
+}));
+$app->add(identifyRequests(siteIdentify($app->getResponseFactory())));
+$app->add(function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface {
+    $response = $handler->handle($request);
+    siteBackups()->dailyIfDue();
+
+    return $response;
+});
+$app->add(new PeopleUpkeep(sitePeople(), static fn (): bool => siteState()->state() === SiteState::READY, afterResponse(...)));
 $app->add(new SiteGate(siteState(), $app->getResponseFactory(), SITE_OPEN_WHILE_UPDATING, setupPath: SETUP_PATH));
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
-$errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {
+// The site's answer to what was thrown, and the line in the error log for it
+// (the library's wrapHandler: with the status and code of this answer, and a
+// trace without any call's arguments).
+$errorMiddleware->setDefaultErrorHandler($errorLog->wrapHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {
     $statusCode = 500;
     $message = 'Internal server error';
 
@@ -287,9 +397,11 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
         return siteNotSetUpResponse($request, $app->getResponseFactory());
     } elseif ($exception instanceof ApiRefusal) {
         // An answer the work decided on (helpers.php), not a failure: no PHP
-        // log line, no trace in the error log - the response logger below
-        // records it like any 4xx or 503 a route returns. (The owner routes
-        // answer their own, in requireOwner(), with ownerPrivate()'s headers.)
+        // log line, no trace in the error log (siteErrorLog()'s
+        // ignoreExceptions) - the answer's own line below records it as it
+        // would any answer a route returns, when the error log's rule takes
+        // its status. (The owner routes answer their own, in requireOwner(),
+        // with ownerPrivate()'s headers.)
         return apiRefusalResponse($exception);
     } elseif ($exception instanceof \PDOException) {
         $sqlState = $exception->getCode();
@@ -306,84 +418,22 @@ $errorMiddleware->setDefaultErrorHandler(function (\Psr\Http\Message\ServerReque
 
     error_log('[' . get_class($exception) . '] ' . $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine());
 
-    // Built before anything below can return it. The early return for the log's
-    // own routes used to hand back a $response that did not exist yet, and a
-    // null out of an error handler is a TypeError nothing is left to catch - so
-    // `POST /api/errors`, a plain 405, answered with a PHP fatal instead.
     $response = $app->getResponseFactory()->createResponse($statusCode);
     $response->getBody()->write(json_encode(['error' => $message]));
-    $response = $response->withHeader('Content-Type', 'application/json');
 
-    // And somewhere the admin panel can read it. A 404 for an unknown route is
-    // a warning rather than an error: worth seeing when a client is calling
-    // something that does not exist, not worth waking anybody for. A failure
-    // while reading the log is answered but not written to it.
-    if (str_starts_with((string) $request->getUri()->getPath(), '/api/errors')) {
-        return $response;
-    }
+    return $response->withHeader('Content-Type', 'application/json');
+}));
 
-    errorLogHandled(true);
-    $user = $request->getAttribute('user');
-    $session = $request->getAttribute('session');
-    logApiError([
-        'level' => $statusCode >= 500 ? 'error' : 'warning',
-        'status' => $statusCode,
-        'type' => get_class($exception),
-        'message' => $exception->getMessage(),
-        'file' => $exception->getFile(),
-        'line' => $exception->getLine(),
-        'method' => $request->getMethod(),
-        'path' => (string) $request->getUri()->getPath(),
-        'user_id' => isset($user['id']) ? (int) $user['id'] : null,
-        'session_id' => isset($session['id']) ? (string) $session['id'] : null,
-        'ip' => function_exists('requestIp') ? requestIp($request) : null,
-        'trace' => $exception->getTraceAsString(),
-    ]);
-
-    return $response;
-});
-
-// Most failures never reach the handler above, because a route answers 4xx by
-// returning it rather than throwing - a refused token, a denied role, a row
-// that is not there. Those are exactly the ones worth seeing, so they are read
-// off the response instead.
-//
-// Volume is not an argument for leaving them out: five hundred expired-token
-// refusals share a fingerprint and read as one line saying five hundred.
-$app->add(function ($request, $handler) {
-    errorLogHandled(false);
-
-    $response = $handler->handle($request);
-    $status = $response->getStatusCode();
-    $path = (string) $request->getUri()->getPath();
-
-    // Nothing to say, already said by the error handler with a trace attached,
-    // or a request to read the log - which is not itself an event in the log.
-    if ($status < 400 || errorLogHandled() || str_starts_with($path, '/api/errors')) {
-        return $response;
-    }
-
-    $body = (string) $response->getBody();
-    $response->getBody()->rewind();
-    $user = $request->getAttribute('user');
-    $session = $request->getAttribute('session');
-
-    logApiError([
-        'level' => $status >= 500 ? 'error' : 'warning',
-        'status' => $status,
-        'type' => 'Response',
-        'message' => substr($body, 0, 500),
-        'file' => '',
-        'line' => 0,
-        'method' => $request->getMethod(),
-        'path' => $path,
-        'user_id' => isset($user['id']) ? (int) $user['id'] : null,
-        'session_id' => isset($session['id']) ? (string) $session['id'] : null,
-        'ip' => function_exists('requestIp') ? requestIp($request) : null,
-    ]);
-
-    return $response;
-});
+// Many answers never reach the handler above, because a route returns them
+// rather than throwing - a row that is not there, a 503 while closed. The
+// error log reads those off the answer instead (the library's outer
+// middleware: an answer its rule takes - every 5xx, and 404, 405, 413, 415,
+// 429, the family's - that no exception's line said already; its code and
+// sentence, never its body). A refused token or role, a 409 or a 422 is the
+// API doing its job, and is not written (siteErrorLog()). Outside the error
+// middleware, so it sees what that answered too; the log's own routes are
+// never written into it.
+$app->add(ErrorLogMiddleware::outer($errorLog));
 
 // No CORS: the pages and the API are one origin everywhere - the web root in
 // production, ng serve's proxy (frontend/proxy.conf.json) in development - and
@@ -430,7 +480,8 @@ $app->add(new \Slim\Middleware\MethodOverrideMiddleware());
 
 // The API-client generator loads this file purely to read the route table, and
 // must not serve a request while doing it. What a request queued for after its
-// answer (the visitors' sweep, after_response.php) runs once the answer is out.
+// answer (the visitors' sweep, the people's scrub, the day's backup, feedback's
+// pruning - after_response.php) runs once the answer is out.
 if (!defined('ANOTOKI_ROUTES_ONLY')) {
     $app->run();
     afterResponseRun();

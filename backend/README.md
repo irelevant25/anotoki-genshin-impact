@@ -12,37 +12,58 @@ api/            index.php - the Slim app, every request to /api lands here
   routes/       genshin_impact/ (the game content) and users/ (the site's own half:
                 translations, languages, settings, page switches, people's records),
                 each with endpoints/, models/ (DbModel) and responses/ (ResponseShape)
-  meddleware/   sign-in and roles (the IAM's token; requireOwner() - a player's own data,
-                the signed-in person or this browser's visitor; requireVisitorKey() - the
-                visitor's key beside a token, for the move at sign-in in users/endpoints/
-                visitor.php), the global gates - maintenance,
-                sign-in required (the IAM's switch, sign_in.php), page locks - validation
-                db_query.php (the query builder), model.php, full_resource.php (shared
-                CRUD), migration_runner.php (the migrations on the anotoki sites' shared
-                engine, anotoki/lib's Migrator: the two folders, then the library's own
-                set, the lock, the order guard), site_state.php (where the site stands - not set up, an update
+  meddleware/   who a request is and what they may (auth.php: the anotoki library's
+                Identify in front of everything - a token that does not verify is 401
+                invalid_token, but on the few paths that read no token; requireAuth();
+                requireOwner() - a player's own data, the signed-in person or this
+                browser's visitor; requireVisitorKey() - the visitor's key beside a token,
+                for the move at sign-in in users/endpoints/visitor.php; the role groups),
+                the global gates - maintenance, sign-in required (the library's SignInGate
+                over the IAM's switch, sign_in.php), page locks - validation
+                admin_tools.php (anotoki-lib 0.4.1 set up for this site: the IAM and its
+                switch - AccessTokens, SignInRule, Identify, in place of the IAM's PHP SDK -
+                the people module, and the admin tools: the error log, feedback, backups,
+                the file explorer - its guard keeps every link the content has to a
+                file - each with this site's answers), audit_log.php (the
+                library's audit log for this site; the command line loads it too)
+                db_query.php (the query builder; its writes are audited), model.php,
+                full_resource.php (shared CRUD), migration_runner.php (the migrations on the
+                anotoki sites' shared engine, anotoki/lib's Migrator: the library's
+                anotoki_admin first, the two folders, its anotoki_translations and
+                anotoki_people after them; the lock, the order guard, the backup before an
+                Apply), site_state.php (where the site stands - not set up, an update
                 waiting, ready - and the shared library's gate in front of every route,
                 with GET /api/site-status and the admin Migrations page's /api/admin/
                 migrations), asset_*.php and
-                media_convert.php (the asset tree), upload_guard.php (nothing uploaded
-                may run: the names, the folders' .htaccess), anotoki_iam.php (the IAM's token
-                verifier and sign-in switch reader, the SDK v1.1.0 vendored byte for byte),
-                site_user.php, site_settings.php; translations.php (the words: anotoki/lib's
-                Translations set up for this site - the released languages, the guides
-                counted per language, the audit log) and guides.php (the guides' pages,
-                guide_contents); visitors.php (playing without signing
+                media_convert.php (the asset tree; explorer.php its snapshot for the Files
+                page's figures), upload_guard.php (nothing uploaded
+                may run: the names, the folders' .htaccess - no script, nosniff,
+                anything but a picture as a download), site_user.php (this site's
+                record of a person, from the token), site_settings.php; translations.php
+                (the words: anotoki/lib's Translations set up for this site - the released
+                languages, the guides counted per language, the audit log) and guides.php
+                (the guides' pages, guide_contents); visitors.php (playing without signing
                 in: make, find, lock, sweep, move into an account at sign-in; ownerWrite(),
                 the one way a player's own data is written), client_address.php (the address its limits
-                count), after_response.php (work done after the answer - the sweep)
+                count), after_response.php (work done after the answer - the visitors' and
+                the people's sweeps, the day's backup, feedback's pruning)
 config/         one module per concern (db, secret, iam, site, backup, visitors), read
                 through local.php; *.local.php per installation, gitignored, written by
                 setup.php - but the optional visitors.local.php, written by hand if at all
 migrations/     users/ then genshin_impact/ - the one database's schema, SQL applied in order
-                (then the anotoki library's own set, anotoki_translations, from vendor/)
+                (and the anotoki library's own sets around them, from vendor/: anotoki_admin
+                before, anotoki_translations and anotoki_people after)
 public/uploads/ uploaded media (only its .htaccess is committed)
-storage/        logs, backups, caches, the visitors' sweep marker (gitignored)
-tests/          php tests/run.php - the upload rules (no database), the words' migration and
-                routes (throwaway databases, db_lib.php); never shipped
+storage/        caches, error-log/ (the library's error log), backups/ (the library's
+                *.anotoki-backup), explorer/ (the file explorer's trash and snapshots),
+                logs/ (the audit log's waiting entries), the visitors' sweep marker
+                (gitignored). The site's own error log files from before 0.4.1
+                (logs/errors-*.jsonl) and its pg_dump backups (backups/<stamp>-<hex>/,
+                backups/manual/) stay where they are, untouched: the owner removes them
+tests/          php tests/run.php - the upload rules (no database); the words' migration and
+                routes, the library's data moves, admin routes, sign-in and gates, what
+                a silent sign-in brings in (the visitor's move, the browser's games'
+                carry), the command line (throwaway databases, db_lib.php); never shipped
 vendor/         committed: the hosting has no Composer - anotoki/lib, the anotoki sites'
                 shared library, among it (updating it: ../DEV.md, The shared library)
 ```
@@ -53,13 +74,13 @@ vendor/         committed: the hosting has no Composer - anotoki/lib, the anotok
 | --- | --- |
 | `router.php` | the development server's router: `/api` to `api/index.php`, `/uploads/...` from `public/`, `/setup.php` (it stands in for the hosting's Apache) |
 | `setup.php` | the settings page on this computer, the one-time installer on the hosting: the database (`anotoki_genshin` on port 5432 to start from), the IAM and - on a host - the setup token, nothing else (this site's address comes from the request, pg_dump from `~/pgclient`); builds the database and writes `config/*.local.php` |
-| `migration.php` | applies pending migrations, both folders and then the library's set (`--status`, `--dry-run`, `--folder=users`) |
+| `migration.php` | applies pending migrations, every set in order - the library's around the two folders - after a backup of the database as it is (`--status`, `--dry-run`, `--folder=users`) |
 | `translations.php` | the words from the command line, the library's `TranslationsCommand`: `--status` (the keys the frontend uses against the database's, each language's coverage), `--export sk [file]` / `--import sk file`; it makes no key - keys come with migrations |
 | `build-dist.php` | the runtime-only slice for the upload, into `dist/` (with the asset tree's guard, `assets/.htaccess`) |
-| `tests/run.php` | the backend's tests, `tests/*.test.php`: the upload rules; the words' migration and routes on throwaway `genshin_test_*` databases |
+| `tests/run.php` | the backend's tests, `tests/*.test.php`: the upload rules; on throwaway `genshin_test_*` databases the words' migration and routes, the library's data moves and admin routes, what a silent sign-in brings in, the command line |
 | `generate-api-spec.php` | writes `../frontend/api-spec.json` for the generated client (`npm run api` in `frontend/` calls it) |
 | `assets.php` | the asset tree against the catalogue and the rows naming it (`--status`, ...) |
-| `db-dump.php`, `db-push.php` | back the database up with pg_dump; copy it to another server |
+| `db-dump.php`, `db-push.php` | back the database up with pg_dump; copy it to another server (the computer's own PostgreSQL client - the admin panel's Backups need none) |
 | `merge-databases.php` | once, for a checkout still configured with two databases |
 | `seed_quiz_history.php` | plausible quiz history for looking at the profile page |
 
@@ -69,24 +90,34 @@ vendor/         committed: the hosting has no Composer - anotoki/lib, the anotok
 composer start               # php -S localhost:8000 router.php - the API and setup.php
                              # then http://localhost:8000/setup.php on a fresh checkout
 php migration.php --status   # what has run and what is pending
-php migration.php            # apply what is pending (setup.php does this too)
+php migration.php            # apply what is pending, after a backup (setup.php applies too)
 php translations.php --status   # the keys the pages use against the database's
-php db-dump.php              # before risky data work
-php tests/run.php            # the tests: the upload rules; the words (throwaway databases)
+php db-dump.php              # a pg_dump of your own, besides the library's backups
+php tests/run.php            # the tests (throwaway databases); on PHP 8.2 too
 php build-dist.php           # the upload -> dist/
 ```
 
 ## Checking it
 
-The automated tests are few (the sign-in logic lives in the IAM, which has the
-suite): `php tests/run.php` runs `tests/*.test.php`, each in a PHP process of its
-own - the upload rules (names, containment, the `.htaccess` guards) with no
-database, server or config, and the words: `translations-migration` builds a
-database from this site's own migrations, words it as an owner would and proves
-`users/050` keeps every string; `translations-routes` drives the library's routes,
-the guides and the gates in-process. Those two make `genshin_test_*` databases on
-the PostgreSQL server `config/database.local.php` names, drop them when done, and
-are skipped where there is none. Beyond them, `php -l` every file you
+`php tests/run.php` runs `tests/*.test.php`, each in a PHP process of its own -
+on PHP 8.2 too, as the hosts run 8.2 and up: the upload rules (names,
+containment, the `.htaccess` guards) with no database, server or config; the
+words: `translations-migration` builds a database from this site's own
+migrations, words it as an owner would and proves `users/050` keeps every
+string (and `users/053` takes only the old feedback form's and callback
+page's); `translations-routes` drives the library's routes, the guides and the
+gates in-process; the anotoki library's 0.4.1 modules: `library-tools-migration`
+moves a database shaped like an installed one, with rows in every table that
+moves, through `users/052` and `genshin_impact/028`-`029` and proves every row
+came through under its id; `library-tools-routes` drives every admin tool's
+route (nobody, a MEMBER, an EDITOR, the ADMIN), who a request is, the feedback
+form, a backup made, downloaded and restored (the scrub run inside it), the
+file explorer's rules and every link to a file kept through its renames,
+moves, a refused delete and an Undo, the People page and the scrub, and the
+gates around them; `migration-cli` runs
+`migration.php` itself. All but the first make `genshin_test_*` databases on
+the PostgreSQL server `config/database.local.php` names, drop them when done,
+and are skipped where there is none. Beyond them, `php -l` every file you
 touched, `php migration.php --dry-run` for a new
 migration, `npm run api` in `frontend/` for a changed route, then use the API -
 the happy path and its 401/403/404/409/422 answers. The IAM's "Sign-in required"

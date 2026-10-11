@@ -110,6 +110,17 @@ export class DashboardComponent implements OnInit {
     ];
   });
 
+  /**
+   * What a change did, in a word - the last part of the audit log's action
+   * (`content.insert`, `catalogue.delete`, `backup.created`): what the pill says
+   * and what colours it. The action names are the anotoki library's audit
+   * log's since its move (genshin_impact/028); the table and the row say what
+   * it was about.
+   */
+  actionVerb(action: string): string {
+    return action.slice(action.lastIndexOf('.') + 1).toLowerCase();
+  }
+
   ngOnInit(): void {
     this.load();
   }

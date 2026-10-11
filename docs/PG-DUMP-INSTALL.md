@@ -8,6 +8,13 @@ This installs only the PostgreSQL **client** tools (`pg_dump`,
 `pg_restore`, `psql`) — not a database server — by downloading the
 official `.deb` packages and unpacking them into your home directory.
 
+The site's admin **Backups** page does not need them any more: since
+anotoki-lib 0.4.1 its backups are the shared library's, made through PHP's
+own database connection (COPY), on any host. This guide is for a `pg_dump`
+of your own, outside the site. The page's old `pg_dump` backups (one folder
+each under `backend/storage/backups/`) stay where they are until you remove
+them; the new page neither lists nor touches them.
+
 ---
 
 ## 0. Check your environment

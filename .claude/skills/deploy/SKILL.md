@@ -54,7 +54,9 @@ backend/setup.php                 →  public_html/setup.php first install only,
 
 `backend/dist/assets/.htaccess` is the asset tree's guard: nothing in the tree
 may run as a script (the host's Apache would run `x.php.png` as PHP where PHP is
-mapped by AddHandler). It merges into the tree on the host; never leave it out.
+mapped by AddHandler), no file is sniffed into markup, and anything but a raster
+picture goes out as a download (an old `.svg` or `.html` never runs on the
+site's origin). It merges into the tree on the host; never leave it out.
 Once, and after any upload of files by FTP, look for names that could run -
 DEV.md, *Looking for files that could run*.
 
@@ -132,8 +134,9 @@ for the client `genshin` in the IAM (migration 002 there registers
 
 The site keeps everything in one database: the game content and its own half
 (translations, settings, page switches, people's records), built by
-`migrations/users/` then `migrations/genshin_impact/`, then the anotoki library's
-own set `anotoki_translations` (from `vendor/anotoki/lib`). Production gets the one
+`migrations/users/` then `migrations/genshin_impact/`, with the anotoki library's
+own sets around them (from `vendor/anotoki/lib`): `anotoki_admin` before,
+`anotoki_translations` and `anotoki_people` after. Production gets the one
 database `setup.php` asks for. A checkout still configured with two
 (`'databases'` in `database.local.php`) is merged once with
 `php merge-databases.php` before its data goes anywhere - see `DEV.md`,
@@ -143,10 +146,11 @@ database `setup.php` asks for. A checkout still configured with two
 
 FTP the new `migrations/{folder}/*.sql` up, then in the admin **Migrations** page
 (`/admin/migrations`) press **Apply pending** (`POST /api/admin/migrations/apply`,
-ADMIN). It runs every pending file in order, `users/` then `genshin_impact/` then
-the anotoki library's own set `anotoki_translations` (its files come with
-`vendor/anotoki/lib`), stopping at the first failure; a second apply meanwhile
-is told it is busy. The
+ADMIN). It backs the database up first (the library's backup, which needs no
+shell), then runs every pending file in order - the anotoki library's
+`anotoki_admin`, `users/`, `genshin_impact/`, the library's `anotoki_translations`
+and `anotoki_people` (the library's files come with `vendor/anotoki/lib`) -
+stopping at the first failure; a second apply meanwhile is told it is busy. The
 engine (anotoki/lib's `Migrator`, set up in `backend/api/migration_runner.php`) is
 the same one the CLI and `setup.php` use. From the upload until the Apply the site
 shows everybody but its ADMIN "The site is being updated" - so do it in one go:
@@ -178,6 +182,27 @@ host afterwards (050 changes the shape of the words' tables, which an older buil
 reads). 050's gate proves every string came through; full copies stay as
 `*_before_library` for one release. DEV.md, *Later schema changes*, has the rest.
 
+Signing in, people and the admin tools through the anotoki library (anotoki-lib
+0.4.1, 2026-10-11; the library's `anotoki_admin/001`-`002`, `users/052`-`053`,
+`genshin_impact/028`-`029`, the library's `anotoki_translations/003`-`004` and
+`anotoki_people/001`): upload both builds and Apply at once - never before the
+upload, and no older build on the host afterwards (052 drops `users.email`, 053
+the old feedback form's and callback page's strings, 028 and 029 move
+`audit_logs` and `feedback` into the library's tables under their ids, keeping
+the old ones as `*_before_library` until a later release drops them -
+`feedback`'s without `ip` and `submitter_hash`). Apply makes a backup first. Then, as the
+ADMIN: the Files explorer's **Rescan** once. `robots.txt` with `Disallow: /auth/`
+comes with the frontend's build, the asset tree's new `assets/.htaccess`
+(nosniff, anything but a picture a download) with `dist/`. Redirect every alias
+of the site (`www.`, the host's own name) to the address the IAM knows: the
+sign-in hint's silent hop dead-ends at the IAM on any other. The last step, when
+the owner no longer wants a way back: `users.email` and the feedback's `ip` and
+`submitter_hash` are out of the database but still in the backup the Apply made
+first (`storage/backups/*-before-migration-*.anotoki-backup`) and in the old
+pg_dump folders (`storage/backups/<stamp>-<hex>/`, `manual/`), and every
+request's IP address in the old `storage/logs/errors-*.jsonl` - nothing reads
+them; they go when the owner deletes them (DEV.md, the 0.4.1 entry).
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against
@@ -198,16 +223,17 @@ the remote database, so no shell is needed there either.
   with the IAM, not with this site's database.
 
 Both need the PostgreSQL client tools locally; if `pg_dump`/`pg_restore` are not
-on PATH, point `config/backup.local.php` at them (same file the Backups page
-uses). Production itself cannot run them - the admin **Backups** page therefore
-does not work on the live host; back production up with a local `pg_dump` against
-the remote database, or the host's own DB export.
+on PATH, point `config/backup.local.php` at them. Production cannot run them -
+but the admin **Backups** page needs neither (anotoki-lib 0.4.1: COPY through
+PDO): it backs production up on the host itself, daily and before every Apply,
+and a backup downloads as one `.anotoki-backup` file (`tail -n +3 x.anotoki-backup
+| tar -xz` opens it anywhere).
 
 ## Constraints to respect
 
-- **No shell / no `proc_open`** in production. The backup feature (`pg_dump` /
-  `pg_restore`) will not run there — a prod snapshot has to come from the host's
-  own DB export. Do not add production features that depend on a shell.
+- **No shell / no `proc_open`** in production. `pg_dump` / `pg_restore` will not
+  run there (the library's backups need neither). Do not add production
+  features that depend on a shell.
 - **`.local.php` = this installation's real values**, dev and prod each their own,
   all written by `setup.php`. Nothing committed stands in for them. Never ship or
   commit a `*.local.php`, and never print one.

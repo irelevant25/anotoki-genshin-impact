@@ -17,13 +17,19 @@
  *              _assetUploadStem()), and nothing named like a script goes back
  *              into the tree (uploadNameRunsOnServer())
  *   the folder each one's .htaccess takes PHP and the other script handlers
- *              away (uploadGuardRules()), put there by every deploy and, when
- *              it is missing, before every upload (ensureUploadGuard())
+ *              away (uploadGuardRules()) and - where Apache has mod_headers -
+ *              keeps a browser from reading a file as anything but its own
+ *              type, and hands anything that is not a picture over as a
+ *              download (uploadGuardHeaders(): an old .svg or .html in the
+ *              asset tree never runs on the site's origin), put there by every
+ *              deploy and, when it is missing, before every upload
+ *              (ensureUploadGuard())
  *
  * The rules are only those that cannot take the folder down on an Apache we do
  * not know: mod_mime's RemoveHandler and RemoveType, which need AllowOverride
  * FileInfo - and the web root's own rewrite rules need that already, so it is
- * there wherever the site works. They take back any AddHandler or AddType
+ * there wherever the site works - and mod_headers' Header, which needs the
+ * same and stands inside <IfModule>. They take back any AddHandler or AddType
  * mapping of a script extension in the folder. Never php_flag, Options or
  * Require: each can answer 500 for every file in the folder on a host whose
  * AllowOverride does not allow it (php_flag needs Options even under mod_php,
@@ -82,6 +88,26 @@ function uploadGuardRules(): string
 }
 
 /**
+ * How the files of an upload folder are served, where Apache has mod_headers:
+ * never sniffed into markup, and anything that is not one of the raster
+ * pictures an upload may be - audio, SVG (a picture that can carry script),
+ * whatever an old upload or FTP left - handed over as a download rather than
+ * shown on the site's origin. public/uploads/.htaccess's rules, word for word;
+ * an <img> or an <audio> reads its file whatever the download header says.
+ */
+function uploadGuardHeaders(): string
+{
+    return implode("\n", [
+        '<IfModule mod_headers.c>',
+        '    Header set X-Content-Type-Options "nosniff"',
+        '    <FilesMatch "(?i)\.(?!(?:avif|png|jpe?g|webp|gif)$)[^./]*$">',
+        '        Header set Content-Disposition "attachment"',
+        '    </FilesMatch>',
+        '</IfModule>',
+    ]) . "\n";
+}
+
+/**
  * The .htaccess an upload folder gets: the guard, and why it is there. The
  * asset tree's, word for word; public/uploads/ ships a longer one of its own
  * and gets this only if that one has gone.
@@ -101,7 +127,15 @@ function uploadGuardHtaccess(): string
         '# answer 500 for every file in the folder on a host whose AllowOverride does',
         '# not allow it.',
         '',
-    ]) . uploadGuardRules();
+    ]) . uploadGuardRules() . implode("\n", [
+        '',
+        '# Where Apache has mod_headers (which needs the same FileInfo): no file is',
+        '# sniffed into markup, and anything that is not a raster picture - audio,',
+        '# SVG (a picture that can carry script), whatever else is here - goes out as',
+        '# a download, never shown on the site\'s origin. An <img> or an <audio> reads',
+        '# its file whatever the download header says.',
+        '',
+    ]) . uploadGuardHeaders();
 }
 
 /**

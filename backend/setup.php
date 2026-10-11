@@ -27,9 +27,12 @@ declare(strict_types=1);
  * It builds the database first - creates it where the database user may, then
  * applies every pending migration of both folders (migrations/users/, the
  * site's half, and migrations/genshin_impact/, the game content) and of the
- * anotoki library's set after them (anotoki_translations) - and writes nothing
- * until that has worked, so a connection that does not work leaves no config
- * behind.
+ * anotoki library's sets around them (anotoki_admin before, anotoki_translations
+ * and anotoki_people after) - and writes nothing until that has worked, so a
+ * connection that does not work leaves no config behind. No backup is taken
+ * first, as the admin panel's Apply and migration.php take one: on a real host
+ * this builds an empty database, and the database it builds may not be the one
+ * the settings it is about to write name yet.
  *
  * TWO WAYS TO RUN
  *
@@ -468,7 +471,7 @@ function setupTestDatabase(array $db): array
 }
 
 /**
- * The migrations of both folders and the library's set, against a connection
+ * The migrations of both folders and the library's sets, against a connection
  * made from the entered details, through the engine every way of building the
  * database uses (siteMigrator(), api/migration_runner.php). Throws with a
  * plain message on the first failure, having written no config file yet.

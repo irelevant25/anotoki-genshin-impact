@@ -1,25 +1,25 @@
 <?php
 
+use Anotoki\Lib\Auth\Http\SignInGate;
+use Anotoki\Lib\Backups\Backups;
 use Anotoki\Lib\Translations\Http\TranslationsRoutes;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 /**
  * Middleware: while the IAM requires sign-in for this site, nobody who has not
- * signed in gets past.
+ * signed in gets past - the anotoki library's SignInGate (anotoki-lib 0.4.1),
+ * behind its Identify (meddleware/auth.php).
  *
  * The switch is the IAM's ("Sign-in required" on this site's page in its admin
- * console; signInRequired() reads it). Off - this site's default, and what it
- * has always been - this does nothing. On, the site is for people with an
- * account: every API path answers 401 `sign_in_required` to a request without
- * a verified token, and the frontend sends the person to sign in.
+ * console; the library's SignInRule reads it, api/admin_tools.php). Off - this
+ * site's default, and what it has always been - this does nothing. On, the
+ * site is for people with an account: every API path answers 401
+ * `sign_in_required` to a request without a verified token, and the frontend
+ * sends the person to sign in.
  *
- * A gate of its own rather than requireAuth() on every route, because the
- * reference pages, the quizzes and the games are some hundred public GET
- * routes, and one forgotten would be a hole nobody notices. Like the two gates
- * beside it, it never reads the `user` attribute - there is not one yet - and
- * asks gateCaller(), so a request pays for the token once.
+ * A gate of its own rather than a check on every route, because the reference
+ * pages, the quizzes and the games are some hundred public GET routes, and one
+ * forgotten would be a hole nobody notices. A signed-in request never asks the
+ * switch: it costs them nothing when the IAM is slow.
  *
  * Open whatever the switch, because without them the sign-in card cannot be
  * drawn or worded:
@@ -32,13 +32,17 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  *                             the pages ask it before anything else, and a 401
  *                             would read as a site that is down
  *
- * and one more, because a browser cannot send it a token:
+ * and three more, because a browser cannot send them a token:
  *
  *   /api/files/raw            a file of the asset tree, for the admin panel's
  *                             previews - an <img> or <audio> sends no Authorization
  *                             header, so gating it would break them for the admins
  *                             themselves, and it protects nothing: the same bytes
  *                             are under assets/
+ *   /api/admin/files/raw      the file explorer's previews: signed for five minutes,
+ *                             the signature their only check
+ *   /api/admin/backups/{id}/file  a backup's download: its single-use ticket its
+ *                             only check (only an ADMIN signed in gets either link)
  *
  * (/api/me, open during maintenance, is not here: it needs a token anyway.)
  * The pictures and audio under assets/ are the web server's, served without
@@ -49,59 +53,29 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * anybody without a role here that may sign in (MEMBER, which every account
  * holds until an admin takes it away). And only an `Authorization: Bearer`
  * header claims to be somebody: a token that does not verify answers 401
- * `invalid_token`, so the frontend refreshes it, while `Basic ...` (what a host
- * behind a password file sends with everything) is no claim at all.
+ * `invalid_token` (Identify, before this), so the frontend refreshes it, while
+ * `Basic ...` (what a host behind a password file sends with everything) is no
+ * claim at all.
  *
- * Every path is judged as the router will read it (gatePath(): decoded once),
- * never as it arrived - `/%61pi/characters` is routed to /api/characters, so
- * it is refused like it. And there is no "outside /api/" to wave through:
- * whatever reaches this stack is the API, open below or behind the switch.
+ * Every entry is the whole path, decoded once as the router decodes it, or a
+ * pattern starting with `~` the whole path must match - never a prefix: there
+ * is no "outside /api/" to wave through, and what reaches this stack is the
+ * API, open here by name or behind the switch. `/%61pi/characters` is routed
+ * to /api/characters, so it is refused like it.
  *
  * Registered between the maintenance gate and the route gate: the closed sign
  * (503) is still the first answer, then this, then the per-page locks (423).
  */
-
-/**
- * The paths that answer whatever the switch: each one itself and everything
- * under it, or exactly what a pattern starting with `~` matches
- * (gatePathOpen(), meddleware/maintenance.php) - the words' path is the
- * anotoki library's to say, hence define() rather than const.
- */
-define('SIGN_IN_OPEN_PREFIXES', [
+define('SIGN_IN_OPEN_PATHS', [
     '/api/settings/public',
     TranslationsRoutes::openPath(),
     '/api/site-status',
     '/api/files/raw',
+    '/api/admin/files/raw',
+    '~^/api/admin/backups/' . Backups::ID_PATTERN . '/file$~D',
 ]);
 
-function signInGate(): callable
+function signInGate(): SignInGate
 {
-    return function (Request $request, RequestHandler $handler): Response {
-        // Decoded, as the router reads it (gatePath()), and no "only under
-        // /api/" shortcut: everything that reaches this stack is the API, so a
-        // path is either open below or behind the switch - a spelling of a
-        // route this did not think of is still behind it.
-        if (gatePathOpen(gatePath($request), SIGN_IN_OPEN_PREFIXES)) {
-            return $handler->handle($request);
-        }
-
-        // A signed-in request never needs the switch: asked first, it costs
-        // them nothing when the IAM is slow.
-        if (gateCaller($request) !== null || !signInRequired()) {
-            return $handler->handle($request);
-        }
-
-        if (anotoki_iam_sent_bearer($request->getHeaderLine('Authorization'))) {
-            return respondJson(new \Slim\Psr7\Response(), [
-                'error' => 'Sign in to do this',
-                'code' => 'invalid_token',
-            ], 401)->withHeader('WWW-Authenticate', 'Bearer error="invalid_token"');
-        }
-
-        return respondJson(
-            new \Slim\Psr7\Response(),
-            ['error' => 'Sign in to continue', 'code' => 'sign_in_required'],
-            401,
-        )->withHeader('WWW-Authenticate', 'Bearer');
-    };
+    return new SignInGate(SIGN_IN_OPEN_PATHS);
 }
