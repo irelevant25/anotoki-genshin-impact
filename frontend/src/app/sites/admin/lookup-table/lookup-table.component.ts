@@ -1,11 +1,16 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { BadgeComponent } from '@anotoki/lib/ui/badge';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LookupApiService, StatApiService } from '../../../api';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
-import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import { ToastService } from '@anotoki/lib/ui/toast';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 
 export interface LookupTableConfig {
   title: string;
@@ -19,7 +24,7 @@ export interface LookupTableConfig {
   selector: 'app-lookup-table',
   templateUrl: './lookup-table.component.html',
   styleUrls: ['./lookup-table.component.scss'],
-  imports: [CommonModule, FormsModule, ButtonComponent, LoaderComponent],
+  imports: [PageHeaderComponent, BadgeComponent, TextFieldComponent, SpinnerComponent, TooltipDirective, CommonModule, FormsModule, ButtonComponent],
 })
 export class LookupTableComponent implements OnInit {
   config = input.required<LookupTableConfig>();
@@ -28,11 +33,11 @@ export class LookupTableComponent implements OnInit {
   loading = signal(false);
   saving = signal(false);
   newName = signal('');
-  deleteConfirm = signal<string | null>(null);
 
   private readonly _lookupApi = inject(LookupApiService);
   private readonly _statApi = inject(StatApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
+  private readonly _confirm = inject(ConfirmService);
 
   private get _pkField(): string {
     return this.config().pkField ?? 'name';
@@ -110,7 +115,7 @@ export class LookupTableComponent implements OnInit {
     this.loading.set(true);
     this._listFn().subscribe({
       next: (data) => { this.items.set(data); this.loading.set(false); },
-      error: () => { this.loading.set(false); this._notify.showError('Failed to load data'); },
+      error: () => { this.loading.set(false); this._notify.error('Failed to load data'); },
     });
   }
 
@@ -123,34 +128,31 @@ export class LookupTableComponent implements OnInit {
         this.newName.set('');
         this.saving.set(false);
         this.load();
-        this._notify.showSuccess('Created successfully');
+        this._notify.success('Created successfully');
       },
       error: (e) => {
         this.saving.set(false);
-        this._notify.showError(e?.error?.message ?? 'Failed to create');
+        this._notify.error(e?.error?.message ?? 'Failed to create');
       },
     });
   }
 
-  confirmDelete(pk: string): void {
-    this.deleteConfirm.set(pk);
-  }
-
-  cancelDelete(): void {
-    this.deleteConfirm.set(null);
+  /** Asks first (the kit's question, its focus on No), then deletes. */
+  async confirmDelete(pk: string): Promise<void> {
+    if (await this._confirm.ask({ title: `Delete ${pk}?`, confirmLabel: 'Delete', tone: 'danger' })) {
+      this.delete(pk);
+    }
   }
 
   delete(pk: string): void {
     if (!this._deleteFn) return;
     this._deleteFn(pk).subscribe({
       next: () => {
-        this.deleteConfirm.set(null);
         this.load();
-        this._notify.showSuccess('Deleted successfully');
+        this._notify.success('Deleted successfully');
       },
       error: (e) => {
-        this.deleteConfirm.set(null);
-        this._notify.showError(e?.error?.message ?? 'Failed to delete');
+        this._notify.error(e?.error?.message ?? 'Failed to delete');
       },
     });
   }

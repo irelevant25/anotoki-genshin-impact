@@ -1,81 +1,14 @@
-.checkbox-container {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
+// The kit's checkbox draws itself; this only places it.
+.checkbox-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
 
-  // Hide the native input but keep it in flow so the sibling ~ selector works
-  input.checkbox {
-    appearance: none;
-    position: absolute;
-    opacity: 0;
-    width: calc(var(--input-height) / 1.5);
-    height: calc(var(--input-height) / 1.5);
-    cursor: pointer;
-    margin: 0;
-    z-index: 1; // stays on top for click events
-  }
-
-  .checkmark {
-    position: relative;
-    display: inline-block;
-    width: calc(var(--input-height) / 1.5);
-    height: calc(var(--input-height) / 1.5);
-    // background-color: var(--bg-card);
-    // border: 2px solid #ccc;
-    border-radius: var(--border-radius);
-    transition: background-color 0.15s ease, border-color 0.15s ease;
-    flex-shrink: 0;
-
-    &::after {
-      content: '';
-      position: absolute;
-      display: none;
-      left: 50%;
-      top: 42%;
-      width: 30%;
-      height: 55%;
-      border: solid white;
-      border-width: 0 2.5px 2.5px 0;
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-  }
-
-  // Hover state
-  &:hover input:not(:disabled) ~ .checkmark {
-    background-color: var(--border-color-dark);
-    border-color: var(--border-color-dark);
-  }
-
-  // Checked state
-  input:checked ~ .checkmark {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-
-    &::after {
-      display: block;
-    }
-  }
-
-  // Error state
-  input.error ~ .checkmark {
-    border-color: var(--color-danger, var(--color-danger));
-  }
-
-  // Valid state
-  input.valid ~ .checkmark {
-    border-color: var(--color-success, var(--color-success));
-  }
-
-  // Focus state (accessibility)
-  input:focus-visible ~ .checkmark {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-
-  // Disabled state
-  input:disabled ~ .checkmark {
-    opacity: 0.5;
-    cursor: not-allowed;
+  // In a form's grid beside other fields ([inline]="false"): level with the
+  // bottom of the fields beside it, whose labels sit above them.
+  &.in-grid {
+    justify-content: flex-end;
+    height: 100%;
+    min-height: var(--anotoki-control-height);
   }
 }

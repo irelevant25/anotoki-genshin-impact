@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { SliderComponent } from '../../../../../shared/local-lib/components/slider/slider.component';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 

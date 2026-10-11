@@ -1,61 +1,20 @@
-// Table, filter bar and row actions shared by every admin list page.
+// The filter bar and the columns shared by every admin list page. The table
+// itself is the kit's (.table in .table-scroll), as are its buttons.
 
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+// The page's heading and its spinner are the kit's; this only spaces the
+// heading (the spinner's room is local-lib/components.scss's .page-spinner).
+anotoki-page-header {
   margin-bottom: var(--spacing-lg);
 }
 
-.page-title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-}
-
-.table-wrap {
-  overflow-x: auto;
+// The kit's table, framed the way the panel's cards are.
+.table-scroll {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-large);
-}
-
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-base);
-
-  th {
-    background: var(--bg-table-header);
-    color: var(--text-secondary);
-    padding: var(--spacing-sm) var(--spacing-md);
-    text-align: left;
-    font-weight: var(--font-weight-semibold);
-    font-size: var(--font-size-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 8px var(--spacing-md);
-    border-bottom: 1px solid var(--border-color-subtle);
-    color: var(--text-primary);
-    vertical-align: middle;
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-
-  tr:hover td {
-    background: var(--bg-hover);
-  }
+  background: var(--bg-card);
 }
 
 .col-id {
-  color: var(--text-muted);
   font-size: var(--font-size-sm);
   width: 50px;
 }
@@ -87,28 +46,15 @@
   font-size: var(--font-size-xs);
 }
 
+// The kit's table sets each cell's words at its top; the row's small buttons
+// are taller than a line, so they reach up by half the difference and sit
+// level with the first line beside them.
 .action-btns {
   display: flex;
   gap: var(--spacing-xs);
   justify-content: flex-end;
   align-items: center;
-
-  a {
-    display: contents;
-  }
-}
-
-.confirm-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  justify-content: flex-end;
-}
-
-.confirm-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-danger);
-  white-space: nowrap;
+  margin-block: calc((1.6em - var(--anotoki-control-height-sm)) / 2);
 }
 
 .empty-cell {
@@ -134,7 +80,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--spacing-sm);
-  height: var(--input-height);
+  min-height: var(--anotoki-control-height);
   white-space: nowrap;
 }
 

@@ -31,6 +31,12 @@
   padding: var(--spacing-lg) 0;
 }
 
+// Start at its own width in the middle, as Tournament's is, not stretched
+// across the column like the sliders above it.
+.setup-start {
+  align-self: center;
+}
+
 .setup-hint {
   margin: 0;
   color: var(--text-secondary);

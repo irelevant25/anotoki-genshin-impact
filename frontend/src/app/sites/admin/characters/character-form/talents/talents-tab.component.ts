@@ -1,13 +1,12 @@
 import { Component, computed, inject, input, model, output, signal } from '@angular/core';
-import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TalentCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
@@ -32,14 +31,13 @@ const MAX_COST_LEVEL = 10;
   selector: 'app-talents-tab',
   templateUrl: './talents-tab.component.html',
   styleUrls: ['./talents-tab.component.scss'],
-  imports: [
+  imports: [TooltipDirective, 
     EntityImageComponent,
     ButtonComponent,
     TextComponent,
     TextareaComponent,
     DropdownComponent,
     TabsComponent,
-    TabComponent,
     FieldContainerComponent,
     NumberComponent,
     MaterialIconDirective,
@@ -66,13 +64,9 @@ export class TalentsTabComponent extends AbstractModalComponent {
    * character. Mirrors the ascension "Choose set".
    */
   chooseSet(): void {
-    const modal = this.modalService.open<TalentSetSelectorComponent, number | undefined>(TalentSetSelectorComponent, {
-      size: '4',
-      scrollable: true,
-    });
-    modal.componentInstance.currentSetId.set(this.talentSetId() ?? null);
+    const modal = this.dialogs.open<TalentSetSelectorComponent, number | undefined>(TalentSetSelectorComponent, { heading: 'Choose a talent set', size: 'lg', data: this.talentSetId() ?? null });
 
-    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+    void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
         return;
       }
@@ -81,9 +75,9 @@ export class TalentsTabComponent extends AbstractModalComponent {
           this.talents.set((detail?.talents ?? []).map((data) => ({ uid: createUid(), data: data as unknown as TalentWrapper['data'] })));
           this.talentCost.set((detail?.talent_cost ?? []) as unknown as TalentCostFormData[]);
           this.talentSetChosen.emit(setId);
-          this.notificationService.showSuccess(`Now using set #${setId} (${detail?.talents?.length ?? 0} talents).`);
+          this.notificationService.success(`Now using set #${setId} (${detail?.talents?.length ?? 0} talents).`);
         },
-        error: () => this.notificationService.showError('Could not load that set’s talents.'),
+        error: () => this.notificationService.error('Could not load that set’s talents.'),
       });
     });
   }
@@ -121,7 +115,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
     this.talents.set([]);
     this.talentCost.set([]);
     this.deleteAllArmed.set(false);
-    this.notificationService.showSuccess(`${count} talents removed. They are deleted when you save.`);
+    this.notificationService.success(`${count} talents removed. They are deleted when you save.`);
   }
 
   cancelDeleteAll(): void {

@@ -1,154 +1,127 @@
-<app-modal title="Parts of the site" subtitle="Which pages exist, and who they exist for" (closeModal)="dismiss()">
-    <div modal-body>
-        <p class="routes-note">
-            <strong>Visible to</strong> is who the page is drawn for — it leaves the menu and stops matching in the router for everybody else.
-            <strong>Off</strong> takes it away from everybody who is not an admin, whatever the first column says. Admins keep every page either way, with a
-            mark on it, or there would be no way to look at what you had just switched off.
-        </p>
+<p class="routes-note">
+    <strong>Visible to</strong> is who the page is drawn for — it leaves the menu and stops matching in the router for everybody else.
+    <strong>Off</strong> takes it away from everybody who is not an admin, whatever the first column says. Admins keep every page either way, with a
+    mark on it, or there would be no way to look at what you had just switched off.
+</p>
 
-        <div class="routes-wrap">
-            <table class="routes-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Page</th>
-                        <th scope="col" class="col-visibility">Visible to</th>
-                        <th scope="col" class="col-off">Off</th>
-                        <th scope="col" class="col-api">Also locks</th>
-                        <th scope="col" class="col-remove"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (route of routes(); track route.id) {
-                        <tr [class.route-changed]="isChanged(route)" [class.route-off]="of(route).blocked">
-                            <td class="route-path">
-                                <code>{{ route.path }}</code>
-                                @if (isChanged(route)) {
-                                    <span class="route-flag">changed</span>
-                                }
-                            </td>
-
-                            <td class="col-visibility">
-                                <select class="admin-select" (change)="setVisibility(route, $any($event.target).value)">
-                                    @for (level of levels(); track level) {
-                                        <option [value]="level" [selected]="level === of(route).visibility">{{ label(level) }}</option>
-                                    }
-                                </select>
-                            </td>
-
-                            <td class="col-off">
-                                <input type="checkbox" [checked]="of(route).blocked" (change)="setBlocked(route, $any($event.target).checked)" />
-                            </td>
-
-                            <td class="col-api">
-                                <button type="button" class="link endpoint-toggle" (click)="toggleEndpoints(route)">
-                                    @if (of(route).endpoints.length) {
-                                        {{ of(route).endpoints.length }} API {{ of(route).endpoints.length === 1 ? 'path' : 'paths' }}
-                                    } @else {
-                                        nothing
-                                    }
-                                </button>
-                            </td>
-
-                            <!-- Stops governing the page rather than removing
-                                 it from the site: a page with no row is public
-                                 and always drawn, which is what everything was
-                                 before this table existed. -->
-                            <td class="col-remove">
-                                @if (removeConfirm() === route.id) {
-                                    <span class="confirm-row">
-                                        <app-button text="Remove" variant="danger" size="very-small" (buttonClick)="remove(route)"></app-button>
-                                        <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelRemove()"></app-button>
-                                    </span>
-                                } @else {
-                                    <button type="button" class="route-remove" title="Stop governing this page" (click)="askToRemove(route.id)">&times;</button>
-                                }
-                            </td>
-                        </tr>
-
-                        <!-- Folded away rather than nested in a second modal: a
-                             modal on top of a modal to edit two strings is a
-                             worse answer than a row that opens. -->
-                        @if (expanded() === route.id) {
-                            <tr class="endpoint-row">
-                                <td colspan="5">
-                                    <p class="endpoint-help">
-                                        API paths that go dark with this page. Matched from the start, so <code>/api/quiz</code> covers
-                                        <code>/api/quizzes</code> and <code>/api/quiz/stats</code> alike. Leave it empty and only the page is affected —
-                                        its data carries on being served, which is what you want for a page that is simply not finished.
-                                    </p>
-
-                                    @if (of(route).endpoints.length) {
-                                        <ul class="endpoint-list">
-                                            @for (prefix of of(route).endpoints; track prefix) {
-                                                <li>
-                                                    <code>{{ prefix }}</code>
-                                                    <button type="button" class="endpoint-remove" title="Remove" (click)="removeEndpoint(route, prefix)">&times;</button>
-                                                </li>
-                                            }
-                                        </ul>
-                                    }
-
-                                    <div class="endpoint-add">
-                                        <input
-                                            class="admin-input"
-                                            type="text"
-                                            placeholder="/api/quiz"
-                                            [value]="newEndpoint()"
-                                            (input)="newEndpoint.set($any($event.target).value)"
-                                            (keydown.enter)="addEndpoint(route)"
-                                        />
-                                        <app-button text="Add" size="small" [disabled]="!newEndpoint().trim()" (buttonClick)="addEndpoint(route)"></app-button>
-                                    </div>
-                                </td>
-                            </tr>
+<div class="table-scroll routes-wrap">
+    <table class="table routes-table">
+        <thead>
+            <tr>
+                <th scope="col">Page</th>
+                <th scope="col" class="col-visibility">Visible to</th>
+                <th scope="col" class="col-off">Off</th>
+                <th scope="col" class="col-api">Also locks</th>
+                <th scope="col" class="col-remove"><span class="visually-hidden">Remove</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (route of routes(); track route.id) {
+                <tr [class.route-changed]="isChanged(route)" [class.route-off]="of(route).blocked">
+                    <td class="route-path">
+                        <code>{{ route.path }}</code>
+                        @if (isChanged(route)) {
+                            <span class="route-flag">changed</span>
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </td>
 
-        <!-- The seeded rows are every route the router declared at the time,
-             so this is for one written since - or for a page somebody wants
-             governed before its route exists, which is the useful order when
-             the point is that it should not be reachable yet. -->
-        <div class="add-row">
-            @if (adding()) {
-                <input
-                    class="admin-input add-path"
-                    type="text"
-                    placeholder="/quizzes/something-new"
-                    [value]="newPath()"
-                    (input)="newPath.set($any($event.target).value)"
-                    (keydown.enter)="add()"
-                />
+                    <td class="col-visibility">
+                        <anotoki-select inline [label]="'Visible to: ' + route.path" hideLabel [options]="levelChoices()" [value]="of(route).visibility" (valueChange)="setVisibility(route, $event)" />
+                    </td>
 
-                <select class="admin-select add-visibility" (change)="newVisibility.set($any($event.target).value)">
-                    @for (level of levels(); track level) {
-                        <option [value]="level" [selected]="level === newVisibility()">{{ label(level) }}</option>
-                    }
-                </select>
+                    <td class="col-off">
+                        <anotoki-checkbox [checked]="of(route).blocked" (checkedChange)="setBlocked(route, $event)"><span class="visually-hidden">Off: {{ route.path }}</span></anotoki-checkbox>
+                    </td>
 
-                <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newPath().trim()" (buttonClick)="add()"></app-button>
-                <app-button text="Cancel" variant="secondary" size="small" [outline]="true" (buttonClick)="cancelAdding()"></app-button>
+                    <td class="col-api">
+                        <button anotokiButton variant="link" size="sm" class="endpoint-toggle" [attr.aria-expanded]="expanded() === route.id" (click)="toggleEndpoints(route)">
+                            @if (of(route).endpoints.length) {
+                                {{ of(route).endpoints.length }} API {{ of(route).endpoints.length === 1 ? 'path' : 'paths' }}
+                            } @else {
+                                nothing
+                            }
+                        </button>
+                    </td>
 
-                <span class="add-note">Admins only by default — the safe answer for a page nobody has thought about yet.</span>
-            } @else {
-                <app-button text="Add a page" icon="icon-plus" variant="secondary" size="small" (buttonClick)="startAdding()"></app-button>
+                    <!-- Stops governing the page rather than removing
+                         it from the site: a page with no row is public
+                         and always drawn, which is what everything was
+                         before this table existed. -->
+                    <td class="col-remove">
+                        @if (removeConfirm() === route.id) {
+                            <span class="confirm-row">
+                                <button anotokiButton variant="danger" size="sm" (click)="remove(route)">Remove</button>
+                                <button anotokiButton size="sm" (click)="cancelRemove()">No</button>
+                            </span>
+                        } @else {
+                            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Stop governing this page" anotokiTooltip="Stop governing this page" (click)="askToRemove(route.id)"><anotoki-icon name="x" [size]="16" /></button>
+                        }
+                    </td>
+                </tr>
+
+                <!-- Folded away rather than nested in a second modal: a
+                     modal on top of a modal to edit two strings is a
+                     worse answer than a row that opens. -->
+                @if (expanded() === route.id) {
+                    <tr class="endpoint-row">
+                        <td colspan="5">
+                            <p class="endpoint-help">
+                                API paths that go dark with this page. Matched from the start, so <code>/api/quiz</code> covers
+                                <code>/api/quizzes</code> and <code>/api/quiz/stats</code> alike. Leave it empty and only the page is affected —
+                                its data carries on being served, which is what you want for a page that is simply not finished.
+                            </p>
+
+                            @if (of(route).endpoints.length) {
+                                <ul class="endpoint-list">
+                                    @for (prefix of of(route).endpoints; track prefix) {
+                                        <li>
+                                            <code>{{ prefix }}</code>
+                                            <button anotokiButton variant="ghost" size="sm" iconOnly [attr.aria-label]="'Remove ' + prefix" anotokiTooltip="Remove" (click)="removeEndpoint(route, prefix)"><anotoki-icon name="x" [size]="14" /></button>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+
+                            <div class="endpoint-add">
+                                <anotoki-text-field class="endpoint-field" label="API path" hideLabel placeholder="/api/quiz" [value]="newEndpoint()" (valueChange)="newEndpoint.set($event)" (keydown.enter)="addEndpoint(route)" />
+                                <button anotokiButton variant="primary" [disabled]="!newEndpoint().trim()" (click)="addEndpoint(route)">Add</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
             }
-        </div>
-    </div>
+        </tbody>
+    </table>
+</div>
 
-    <div modal-footer class="d-flex gap-3 justify-content-end align-items-center">
-        <span class="routes-count">
-            @if (changed().length) {
-                {{ changed().length }} unsaved
-            } @else {
-                Nothing changed
-            }
-        </span>
+<!-- The seeded rows are every route the router declared at the time,
+     so this is for one written since - or for a page somebody wants
+     governed before its route exists, which is the useful order when
+     the point is that it should not be reachable yet. -->
+<div class="add-row">
+    @if (adding()) {
+        <anotoki-text-field class="add-path" label="Page" placeholder="/quizzes/something-new" [value]="newPath()" (valueChange)="newPath.set($event)" (keydown.enter)="add()" />
+        <anotoki-select class="add-visibility" label="Visible to" [options]="levelChoices()" [value]="newVisibility()" (valueChange)="newVisibility.set($event)" />
 
-        <app-button text="Discard" variant="secondary" [outline]="true" [disabled]="!changed().length || saving()" (buttonClick)="reset()"></app-button>
-        <app-button text="Cancel" variant="secondary" (buttonClick)="dismiss()"></app-button>
-        <app-button text="Save" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
-    </div>
-</app-modal>
+        <button anotokiButton variant="primary" [disabled]="!newPath().trim()" [loading]="saving()" (click)="add()"><span class="icon icon-plus" aria-hidden="true"></span> Add</button>
+        <button anotokiButton (click)="cancelAdding()">Cancel</button>
+
+        <span class="add-note">Admins only by default — the safe answer for a page nobody has thought about yet.</span>
+    } @else {
+        <button anotokiButton size="sm" (click)="startAdding()"><span class="icon icon-plus" aria-hidden="true"></span> Add a page</button>
+    }
+</div>
+
+<ng-template anotokiDialogFooter>
+    <span class="routes-count">
+        @if (changed().length) {
+            {{ changed().length }} unsaved
+        } @else {
+            Nothing changed
+        }
+    </span>
+
+    <button anotokiButton [disabled]="!changed().length || saving()" (click)="reset()">Discard</button>
+    <button anotokiButton (click)="dismiss()">Cancel</button>
+    <button anotokiButton variant="primary" [disabled]="!changed().length" [loading]="saving()" (click)="save()"><span class="icon icon-check" aria-hidden="true"></span> Save</button>
+</ng-template>

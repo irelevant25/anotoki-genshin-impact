@@ -3,7 +3,7 @@
         <div class="sub-card">
             <div class="sub-card-header">
                 <span class="sub-card-index">Phase {{ item.data.phase }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(item)">Delete</app-button>
+                <button anotokiButton variant="danger" (click)="removeAscension(item)">Delete</button>
             </div>
             <div class="form-grid">
                 <app-number [label]="'Phase'" [(value)]="item.data.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
@@ -19,7 +19,7 @@
                 <div class="cost-section">
                     <div class="cost-header">
                         <span class="cost-label">Materials</span>
-                        <app-button variant="primary" [outline]="true" (buttonClick)="addCost(item)">Add</app-button>
+                        <button anotokiButton (click)="addCost(item)">Add</button>
                     </div>
                     <div class="cost-cards">
                         @for (cost of item.costs; track cost) {
@@ -39,7 +39,7 @@
                                 ></app-dropdown>
                                 <div class="cost-card-footer">
                                     <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
-                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCost(item, cost)"></app-button>
+                                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove this material" anotokiTooltip="Remove this material" (click)="removeCost(item, cost)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         }
@@ -50,6 +50,6 @@
     }
 
     @if (canAdd()) {
-        <app-button variant="primary" [outline]="true" (buttonClick)="addAscension()">Add</app-button>
+        <button anotokiButton (click)="addAscension()">Add</button>
     }
 </div>

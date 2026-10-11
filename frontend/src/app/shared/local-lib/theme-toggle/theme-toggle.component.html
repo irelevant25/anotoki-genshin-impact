@@ -1,9 +1,10 @@
 <button
-    type="button"
-    class="theme-toggle-btn"
-    (click)="toggle()"
+    anotokiButton
+    variant="ghost"
+    size="sm"
+    iconOnly
     [attr.aria-label]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
-    [title]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
->
-    <span class="icon icon-size-4" [class.icon-sun]="theme.isDarkMode()" [class.icon-moon]="!theme.isDarkMode()"></span>
+    [anotokiTooltip]="theme.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+    (click)="toggle()">
+    <anotoki-icon [name]="theme.isDarkMode() ? 'sun' : 'moon'" [size]="18" />
 </button>

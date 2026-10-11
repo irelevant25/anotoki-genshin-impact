@@ -1,5 +1,5 @@
 import { Component, computed, input, model, OnDestroy } from '@angular/core';
-import { ButtonComponent } from '../../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextComponent } from '../../../../../../shared/local-lib/components/text/text.component';
 import { HtmlEditorComponent } from '../../../../../../shared/local-lib/components/html-editor/html-editor.component';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';

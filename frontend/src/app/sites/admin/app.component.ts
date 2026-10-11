@@ -1,8 +1,14 @@
-import { Component, computed, effect, inject, untracked } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { DrawerComponent } from '@anotoki/lib/ui/drawer';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { filter } from 'rxjs';
 import { FeedbackUnread } from '@anotoki/lib/admin';
-import { NotificationComponent } from '../../shared/local-lib/components/notification/notification.component';
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
+import { ConfirmHostComponent } from '@anotoki/lib/ui/dialog';
+import { ToastHostComponent } from '@anotoki/lib/ui/toast';
 import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { AdminNoAccessComponent } from './no-access/no-access.component';
@@ -28,7 +34,19 @@ interface NavItem {
   selector: 'app-admin-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationComponent, CommonModule, ThemeToggleComponent, AdminNoAccessComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    NgTemplateOutlet,
+    ButtonComponent,
+    DrawerComponent,
+    IconComponent,
+    ToastHostComponent,
+    ConfirmHostComponent,
+    ThemeToggleComponent,
+    AdminNoAccessComponent,
+  ],
 })
 export class AppComponent {
   private readonly _security = inject(SecurityService);
@@ -51,6 +69,9 @@ export class AppComponent {
    * than staying up with every request behind it refused.
    */
   readonly allowed = this._security.isStaff;
+
+  /** The navigation's drawer, on a phone: open until a page is chosen or it is put away. */
+  readonly menuOpen = signal(false);
 
   readonly navGroups = computed<NavGroup[]>(() => {
     // Accounts, who may do what here, and where everybody is signed in are the
@@ -130,6 +151,13 @@ export class AppComponent {
   });
 
   constructor() {
+    inject(Router)
+      .events.pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => this.menuOpen.set(false));
+
     effect(() => {
       if (this._security.role() === 'ADMIN') {
         untracked(() => void this._unread.refresh());

@@ -1,11 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
 import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
-import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { AccountPreferences, type PreferenceSave } from '@anotoki/lib/auth';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { SelectComponent, SelectOption } from '@anotoki/lib/ui/forms';
+import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
@@ -26,7 +27,7 @@ import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../
   selector: 'app-site-account-modal',
   templateUrl: './site-account-modal.component.html',
   styleUrls: ['./site-account-modal.component.scss'],
-  imports: [ModalComponent, ButtonComponent, LoaderComponent, TranslatePipe, AppDatePipe],
+  imports: [ButtonComponent, DialogFooterDirective, SegmentedComponent, SelectComponent, TranslatePipe, AppDatePipe],
   providers: [],
 })
 export class SiteAccountModalComponent extends AbstractModalComponent {
@@ -50,6 +51,11 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
   readonly user = this.security.currentUser;
 
   /** The role as a word rather than a code: ADMIN is "Administrator". */
+  constructor() {
+    super();
+    this.dialogHeading(() => this.i18n.t('account.title'));
+  }
+
   readonly roleKey = computed(() => `account.roleName.${(this.user()?.role ?? 'user').toLowerCase()}`);
 
   /**
@@ -88,6 +94,14 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
     { value: '24', label: 'account.formats.clock24' },
     { value: '12', label: 'account.formats.clock12' },
   ];
+
+  // The choices as the kit's choosers take them, in the reader's language.
+  readonly themeChoices = computed<SegmentedOption[]>(() => this.themeOptions.map((option) => ({ value: option.value, label: this.i18n.t(option.label) })));
+  readonly dateChoices = computed<SelectOption[]>(() =>
+    this.dateOptions.map((option) => ({ value: option.value, label: option.value === 'auto' ? this.i18n.t(option.label) : `${this.formats.example(option.value)} (${this.i18n.t(option.label)})` })),
+  );
+  readonly timeChoices = computed<SegmentedOption[]>(() => this.timeOptions.map((option) => ({ value: option.value, label: this.formats.exampleTime(option.value), hint: this.i18n.t(option.label) })));
+  readonly languageChoices = computed(() => this.i18n.languages().map((language) => ({ value: language.code, label: language.native_name, lang: language.code })));
 
   /** Off to the IAM, coming back to the page this was opened on. */
   login(): void {
@@ -153,17 +167,17 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
 
   private _saidFormats(result: PreferenceSave): void {
     if (result.outcome === 'saved') {
-      this.notificationService.showSuccess(this.i18n.t('account.formats.saved'));
+      this.notificationService.success(this.i18n.t('account.formats.saved'));
     } else if (result.outcome === 'refused') {
       this._notSaved();
     }
   }
 
   private _notSaved(): void {
-    this.notificationService.showError(this.i18n.t('account.formats.failed'));
+    this.notificationService.error(this.i18n.t('account.formats.failed'));
   }
 
   private _cannotStart(): void {
-    this.notificationService.showError(this.i18n.t('auth.startFailed'));
+    this.notificationService.error(this.i18n.t('auth.startFailed'));
   }
 }

@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { ArtifactApiService, LookupApiService, ArtifactFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toStringArray } from '../../shared/admin-full-resource.model';
@@ -17,7 +18,7 @@ import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact, PieceWrapper } from 
   selector: 'app-artifact-form',
   templateUrl: './artifact-form.component.html',
   styleUrls: ['./artifact-form.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TabsComponent, TabComponent, BaseInfoTabComponent, PiecesTabComponent],
+  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, RouterLink, ButtonComponent, BaseInfoTabComponent, PiecesTabComponent],
 })
 export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> implements OnInit, OnDestroy {
   readonly entityLabel = 'Artifact';
@@ -49,7 +50,7 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

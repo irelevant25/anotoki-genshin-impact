@@ -1,6 +1,2 @@
-<app-modal [title]="title()" (closeModal)="closeModal()">
-    <div modal-body>
-        <!-- The dialog's heading is the form's: none of its own. Cancel, and Close after the thanks, close the dialog. -->
-        <anotoki-feedback-form [heading]="null" [closable]="true" (closed)="closeModal()"></anotoki-feedback-form>
-    </div>
-</app-modal>
+<!-- The dialog's heading is the form's: none of its own. Cancel, and Close after the thanks, close the dialog. -->
+<anotoki-feedback-form [heading]="null" [closable]="true" (closed)="closeModal()"></anotoki-feedback-form>

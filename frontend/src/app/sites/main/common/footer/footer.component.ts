@@ -3,16 +3,16 @@ import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { CustomModalRef, ModalConfig } from '../../../../shared/local-lib/components/modal/modal-core/modal-core.class';
+import { AnotokiDialogOptions } from '@anotoki/lib/ui/dialog';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
-import { SiteWhatsNewModalComponent } from './site-whats-new-modal/site-whats-new-modal.component';
+import { SiteWhatsNewModalComponent, WhatsNewData } from './site-whats-new-modal/site-whats-new-modal.component';
 import { sameVersion } from './versions';
 
 export interface ButtomMenuItem {
@@ -29,13 +29,13 @@ export interface ButtomMenuItem {
   url?: string;
   hidden?: boolean;
   modal?: {
-    compoponent: any;
-    config?: ModalConfig;
+    compoponent: Type<unknown>;
+    config?: AnotokiDialogOptions;
   };
   /** A dialog whose code is loaded only when it is opened - what no page needs before then. */
   lazyModal?: {
     load: () => Promise<Type<unknown>>;
-    config?: ModalConfig;
+    config?: AnotokiDialogOptions;
   };
 }
 
@@ -57,7 +57,7 @@ export class FooterComponent extends AbstractModalComponent {
       title: 'footer.backgrounds',
       modal: {
         compoponent: SiteBackgroundsModalComponent,
-        config: { size: '6' }
+        config: { size: 'lg' }
       }
     }),
     // The anotoki library's feedback form, which brings the kit's fields:
@@ -67,7 +67,7 @@ export class FooterComponent extends AbstractModalComponent {
       title: 'footer.feedback',
       lazyModal: {
         load: () => import('./site-feedback-modal/site-feedback-modal.component').then((m) => m.SiteFeedbackModalComponent),
-        config: { size: '3' },
+        config: { size: 'md' },
       },
     }),
     github: signal<ButtomMenuItem>({
@@ -82,7 +82,7 @@ export class FooterComponent extends AbstractModalComponent {
       title: 'footer.versions',
       modal: {
         compoponent: SiteVersionModalComponent,
-        config: { size: '3' }
+        config: { size: 'md' }
       }
     }),
     account: signal<ButtomMenuItem>({
@@ -90,7 +90,7 @@ export class FooterComponent extends AbstractModalComponent {
       title: 'footer.account',
       modal: {
         compoponent: SiteAccountModalComponent,
-        config: { size: '3' }
+        config: { size: 'md' }
       }
     })
     // logout: signal<ButtomMenuItem>({
@@ -105,7 +105,7 @@ export class FooterComponent extends AbstractModalComponent {
   /** "What's new" once a new version is noticed, until it opens. */
   private readonly _whatsNew = signal<{ latest: ChangelogEntry; hasEarlier: boolean } | null>(null);
 
-  constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: NotificationService) {
+  constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: ToastService) {
     super();
     this.loadVersion();
     this.initializeBackground();
@@ -194,10 +194,7 @@ export class FooterComponent extends AbstractModalComponent {
         if (sameVersion(this._storageService.read(StorageKeys.VERSION), note.latest.version)) {
           return;
         }
-        const modal = this.openModal<SiteWhatsNewModalComponent>(SiteWhatsNewModalComponent, { size: '3' });
-        modal.componentInstance.latest.set(note.latest);
-        modal.componentInstance.hasEarlier.set(note.hasEarlier);
-        modal.componentInstance.changelog.set(this.changelog);
+        this.openModal(SiteWhatsNewModalComponent, { size: 'md', data: { latest: note.latest, hasEarlier: note.hasEarlier, changelog: this.changelog } satisfies WhatsNewData });
       });
     });
   }
@@ -227,7 +224,7 @@ export class FooterComponent extends AbstractModalComponent {
     if (lazy) {
       lazy
         .load()
-        .then((component) => this.openModal(component, lazy.config || { size: '2' }))
+        .then((component) => this.openModal(component, lazy.config ?? { size: 'sm' }))
         // A part of the site that could not be loaded - the network gone, a
         // newer build uploaded since this page loaded: nothing opens, and the
         // button is there to press again.
@@ -237,7 +234,7 @@ export class FooterComponent extends AbstractModalComponent {
     if (!menuItem.modal) {
       return;
     }
-    const modal: CustomModalRef<any, any> = this.openModal(menuItem.modal.compoponent, menuItem.modal.config || { size: '2' });
-    modal.componentInstance.data = this.changelog;
+    // The version list reads the changelog this footer already has; the rest ignore it.
+    this.openModal(menuItem.modal.compoponent, { size: 'sm', ...menuItem.modal.config, data: this.changelog });
   }
 }

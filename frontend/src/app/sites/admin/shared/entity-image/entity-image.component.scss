@@ -6,14 +6,16 @@
   min-width: 0;
 }
 
+// Labelled as the kit's fields beside it are, required mark included.
 .entity-image-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
+  color: var(--anotoki-text);
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.55;
 }
 
 .required-indicator {
-  color: var(--color-danger);
+  color: inherit;
 }
 
 .entity-image-frame {

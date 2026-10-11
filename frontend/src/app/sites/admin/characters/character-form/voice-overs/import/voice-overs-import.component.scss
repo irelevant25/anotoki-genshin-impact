@@ -169,20 +169,10 @@
   color: var(--text-secondary);
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
-
-.import-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.import-footer-actions {
-  display: flex;
-  gap: var(--spacing-sm);
+// The choice that goes with the import, last in the body, above the dialog's buttons.
+.import-replace {
+  display: block;
+  margin-top: var(--spacing-md);
 }
 
 // ── JSON example ──────────────────────────────────────────────────────────────

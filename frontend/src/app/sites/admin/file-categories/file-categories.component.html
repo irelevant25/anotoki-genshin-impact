@@ -1,17 +1,14 @@
-<div class="page-header">
-    <h1 class="page-title">File categories</h1>
-    <div class="header-actions">
-        @if (retiredCount()) {
-            <app-button
-                [text]="showRetired() ? 'Hide retired' : 'Show retired (' + retiredCount() + ')'"
-                variant="secondary"
-                [outline]="true"
-                size="small"
-                (buttonClick)="showRetired.set(!showRetired())"></app-button>
-        }
-        <app-button text="Add a category" icon="icon-plus" size="small" (buttonClick)="startAdding()"></app-button>
-    </div>
-</div>
+<anotoki-page-header heading="File categories">
+    @if (retiredCount()) {
+        <button anotokiButton size="sm" (click)="showRetired.set(!showRetired())">
+            {{ showRetired() ? "Hide retired" : "Show retired (" + retiredCount() + ")" }}
+        </button>
+    }
+    <button anotokiButton variant="primary" size="sm" (click)="startAdding()">
+        <span class="icon icon-plus" aria-hidden="true"></span>
+        Add a category
+    </button>
+</anotoki-page-header>
 
 <p class="page-note">
     A category is a kind of asset and the folder that kind lives in. It is not a label: every file's path is built from it, so changing a folder moves what is in it, and retiring a category empties it
@@ -26,24 +23,29 @@
 
 @if (adding()) {
     <div class="add-row">
-        <input class="admin-input" type="text" placeholder="character.icon" [value]="newCode()" (input)="newCode.set($any($event.target).value)" (keydown.enter)="add()" />
-        <input class="admin-input" type="text" placeholder="Name (optional)" [value]="newLabel()" (input)="newLabel.set($any($event.target).value)" (keydown.enter)="add()" />
+        <anotoki-text-field class="add-field" label="Code" placeholder="character.icon" [value]="newCode()" (valueChange)="newCode.set($event)" (keydown.enter)="add()" />
+        <anotoki-text-field class="add-field" label="Name" optional [value]="newLabel()" (valueChange)="newLabel.set($event)" (keydown.enter)="add()" />
         @if (newPathPreview()) {
             <span class="add-preview">
                 →
                 <code>assets/{{ newPathPreview() }}/</code>
             </span>
         }
-        <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newCode().trim()" (buttonClick)="add()"></app-button>
-        <app-button text="Cancel" variant="secondary" [outline]="true" size="small" (buttonClick)="cancelAdding()"></app-button>
+        <button anotokiButton variant="primary" [disabled]="!newCode().trim()" [loading]="saving()" (click)="add()">
+            <span class="icon icon-plus" aria-hidden="true"></span>
+            Add
+        </button>
+        <button anotokiButton (click)="cancelAdding()">Cancel</button>
     </div>
 }
 
-<app-loader #loader [loading]="loading()"></app-loader>
-
-@if (!loader.loadingCtrl.loading()) {
-    <div class="table-wrap">
-        <table class="admin-table">
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
+    <!-- The kit's stacked table: on a phone each category is a card, its values
+         labelled and its buttons in view, rather than a table to scroll sideways. -->
+    <div class="table-scroll">
+        <table class="table table-stack">
             <thead>
                 <tr>
                     <th scope="col">Code</th>
@@ -51,65 +53,59 @@
                     <th scope="col">Folder</th>
                     <th scope="col" class="col-num">Files</th>
                     <th scope="col" class="col-num">Size</th>
-                    <th scope="col" class="col-actions"></th>
+                    <th scope="col" class="cell-actions"><span class="visually-hidden">Actions</span></th>
                 </tr>
             </thead>
             <tbody>
                 @for (category of visible(); track category.id) {
                     <tr [class.is-retired]="category.deleted" [class.is-system]="category.is_system">
-                        <td>
+                        <td data-label="Code">
                             <code>{{ category.code }}</code>
                         </td>
 
                         @if (editing() === category.id) {
-                            <td>
-                                <input class="admin-input" type="text" [value]="editLabel()" (input)="editLabel.set($any($event.target).value)" />
+                            <td data-label="Name">
+                                <anotoki-text-field label="Name" hideLabel [value]="editLabel()" (valueChange)="editLabel.set($event)" />
                             </td>
-                            <td>
-                                <input class="admin-input" type="text" [value]="editPath()" (input)="editPath.set($any($event.target).value)" />
+                            <td data-label="Folder">
+                                <anotoki-text-field label="Folder" hideLabel [value]="editPath()" (valueChange)="editPath.set($event)" />
                             </td>
                         } @else {
-                            <td>{{ category.label }}</td>
-                            <td class="col-path">
+                            <td data-label="Name">{{ category.label }}</td>
+                            <td class="col-path" data-label="Folder">
                                 <code>{{ category.path }}/</code>
                             </td>
                         }
 
-                        <td class="col-num">{{ category.files | number }}</td>
-                        <td class="col-num">{{ category.bytes ? (category.bytes | fileSize) : "—" }}</td>
+                        <td class="col-num" data-label="Files">{{ category.files | number }}</td>
+                        <td class="col-num" data-label="Size">{{ category.bytes ? (category.bytes | fileSize) : "—" }}</td>
 
-                        <td class="col-actions">
-                            @if (category.is_system) {
-                                <!-- Everything with no category has to be somewhere,
+                        <td class="cell-actions">
+                            <div class="action-btns">
+                                @if (category.is_system) {
+                                    <!-- Everything with no category has to be somewhere,
                                      and that somewhere cannot be editable. -->
-                                <span class="system-note">where unfiled files go</span>
-                            } @else if (category.deleted) {
-                                <app-button text="Bring back" variant="secondary" [outline]="true" size="very-small" (buttonClick)="revive(category)"></app-button>
-                            } @else if (editing() === category.id) {
-                                <app-button text="Save" size="very-small" [loading]="saving()" (buttonClick)="save(category)"></app-button>
-                                <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelEditing()"></app-button>
-                            } @else if (retireConfirm() === category.id) {
-                                <span class="confirm">
-                                    @if (category.files) {
-                                        <span class="confirm-note">{{ category.files | number }} files → unfiled.</span>
-                                    }
-                                    <app-button text="Retire" variant="danger" size="very-small" (buttonClick)="retire(category)"></app-button>
-                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelRetire()"></app-button>
-                                </span>
-                            } @else {
-                                <app-button text="Edit" variant="secondary" [outline]="true" size="very-small" (buttonClick)="startEditing(category)"></app-button>
-                                <app-button text="Retire" variant="secondary" [outline]="true" size="very-small" (buttonClick)="askToRetire(category.id)"></app-button>
-                            }
+                                    <span class="system-note">where unfiled files go</span>
+                                } @else if (category.deleted) {
+                                    <button anotokiButton size="sm" (click)="revive(category)">Bring back</button>
+                                } @else if (editing() === category.id) {
+                                    <button anotokiButton variant="primary" size="sm" [loading]="saving()" (click)="save(category)">Save</button>
+                                    <button anotokiButton size="sm" (click)="cancelEditing()">Cancel</button>
+                                } @else {
+                                    <button anotokiButton size="sm" (click)="startEditing(category)">Edit</button>
+                                    <button anotokiButton size="sm" (click)="askToRetire(category)">Retire</button>
+                                }
+                            </div>
                         </td>
                     </tr>
                 }
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">{{ visible().length | number }} categories</td>
-                    <td class="col-num">{{ totals().files | number }}</td>
-                    <td class="col-num">{{ totals().bytes | fileSize }}</td>
-                    <td></td>
+                    <td colspan="3" data-label="All">{{ visible().length | number }} categories</td>
+                    <td class="col-num" data-label="Files">{{ totals().files | number }}</td>
+                    <td class="col-num" data-label="Size">{{ totals().bytes | fileSize }}</td>
+                    <td class="cell-actions"></td>
                 </tr>
             </tfoot>
         </table>

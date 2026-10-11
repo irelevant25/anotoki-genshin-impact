@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
 import { SignInFailureComponent } from '@anotoki/lib/auth';
@@ -37,7 +37,7 @@ import { AUTH_CALLBACK_PATH } from '../../../../shared/routing-definition';
 export class SignInRequiredComponent {
   private readonly _security = inject(SecurityService);
   private readonly _router = inject(Router);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
   private readonly _visitorKey = inject(VisitorKey);
 
@@ -78,7 +78,7 @@ export class SignInRequiredComponent {
   }
 
   private _startFailed(): void {
-    this._notifications.showError(this._i18n.t('auth.startFailed'));
+    this._notifications.error(this._i18n.t('auth.startFailed'));
   }
 
   private _pathOf(url: string): string {

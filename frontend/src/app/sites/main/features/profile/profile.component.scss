@@ -374,12 +374,8 @@
   }
 }
 
-// The two long breakdowns share one section now - see the template. The tab
-// component brings its own padding, so the section only supplies the panel.
-.profile-tabs {
-  padding-inline: 0;
-
-  ::ng-deep .nav-tabs {
-    margin-bottom: var(--spacing-md);
-  }
+// The two long breakdowns share one section now - see the template: the
+// kit's row of tabs, and under it the panel that is chosen.
+.profile-tab-panel {
+  padding-top: var(--spacing-md);
 }

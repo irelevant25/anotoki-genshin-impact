@@ -1,28 +1,28 @@
 <div class="set-toolbar">
-    <app-button
-        text="Choose set"
-        icon="icon-layers"
-        variant="secondary"
-        [outline]="true"
-        tooltipText="Use another character's talent set (for the Traveler's variants)"
-        (buttonClick)="chooseSet()"
-    ></app-button>
+    <button
+        anotokiButton
+        anotokiTooltip="Use another character's talent set (for the Traveler's variants)"
+        (click)="chooseSet()">
+        <span class="icon icon-layers" aria-hidden="true"></span> Choose set
+    </button>
     @if (deleteAllArmed()) {
-        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>
-        <app-button [text]="'Delete all ' + talents().length + '?'" variant="danger" (buttonClick)="deleteAll()"></app-button>
+        <button anotokiButton (click)="cancelDeleteAll()">Cancel</button>
+        <button anotokiButton variant="danger" (click)="deleteAll()">{{ 'Delete all ' + talents().length + '?' }}</button>
     } @else {
-        <app-button text="Delete all" variant="danger" [outline]="true" [disabled]="!talents().length" (buttonClick)="deleteAll()"></app-button>
+        <button anotokiButton variant="danger" [disabled]="!talents().length" (click)="deleteAll()">Delete all</button>
     }
 </div>
 
-<app-tabs>
-    <app-tab [title]="'Talents'" [icon]="'icon-book'">
+<!-- The talents and what levelling them costs, one at a time: the kit's tabs. Both panels
+     stay in the page (hidden but for the one chosen), so the save still checks every field. -->
+<anotoki-tabs #talentTabs="anotokiTabs" label="Talents and their cost" [tabs]="[{ id: 'talents', label: 'Talents' }, { id: 'cost', label: 'Cost' }]" active="talents" />
+<div class="talent-panel" role="tabpanel" [id]="talentTabs.panelId('talents')" [attr.aria-labelledby]="talentTabs.tabId('talents')" [hidden]="talentTabs.active() !== 'talents'">
         <div class="sub-list">
             @for (talent of sortedTalents(); track talent.uid) {
                 <div class="sub-card">
                     <div class="sub-card-header">
                         <span class="sub-card-index">{{ talent.data.type }} · {{ talent.data.name || 'Unnamed' }}</span>
-                        <app-button variant="danger" [outline]="true" (buttonClick)="removeTalent(talent)">Delete</app-button>
+                        <button anotokiButton variant="danger" (click)="removeTalent(talent)">Delete</button>
                     </div>
                     <app-field-container [cols]="4">
                         <app-number
@@ -50,11 +50,11 @@
                     </app-field-container>
                 </div>
             }
-            <app-button variant="primary" [outline]="true" (buttonClick)="addTalent()">Add</app-button>
+            <button anotokiButton (click)="addTalent()">Add</button>
         </div>
-    </app-tab>
+</div>
 
-    <app-tab [title]="'Cost'" [icon]="'icon-coins'">
+<div class="talent-panel" role="tabpanel" [id]="talentTabs.panelId('cost')" [attr.aria-labelledby]="talentTabs.tabId('cost')" [hidden]="talentTabs.active() !== 'cost'">
         <div class="sub-list">
             @for (group of costGroups(); track group.level) {
                 <div class="sub-card">
@@ -67,12 +67,12 @@
                             [max]="maxCostLevel"
                             (inputChange)="onCostLevelChange(group, $event)"
                         ></app-number>
-                        <app-button variant="danger" [outline]="true" (buttonClick)="removeCostLevel(group)">Delete</app-button>
+                        <button anotokiButton variant="danger" (click)="removeCostLevel(group)">Delete</button>
                     </div>
                     <div class="cost-section">
                         <div class="cost-header">
                             <span class="cost-label">Materials</span>
-                            <app-button variant="primary" [outline]="true" (buttonClick)="addCostMaterial(group)">Add</app-button>
+                            <button anotokiButton (click)="addCostMaterial(group)">Add</button>
                         </div>
                         <div class="cost-cards">
                             @for (cost of group.cost; track cost) {
@@ -100,7 +100,7 @@
                                     ></app-dropdown>
                                     <div class="cost-card-footer">
                                         <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
-                                        <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCostMaterial(group, cost)"></app-button>
+                                        <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove this material" anotokiTooltip="Remove this material" (click)="removeCostMaterial(group, cost)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                                     </div>
                                 </div>
                             }
@@ -110,8 +110,7 @@
             }
 
             @if (canAddCostLevel()) {
-                <app-button variant="primary" [outline]="true" (buttonClick)="addCostLevel()">Add</app-button>
+                <button anotokiButton (click)="addCostLevel()">Add</button>
             }
         </div>
-    </app-tab>
-</app-tabs>
+</div>

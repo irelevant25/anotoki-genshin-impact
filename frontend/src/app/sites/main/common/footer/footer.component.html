@@ -1,22 +1,24 @@
 <div class="bottom-container">
     @for (menuItemSignal of menuItems | keyvalue: preserveOrder; track menuItemSignal.value().id) {
         @let menuItem = menuItemSignal.value();
-        <div class="item" (click)="onMenuItemClick(menuItem)" [class.hidden]="menuItem.hidden">
-            @if (isSafeUrl(menuItem.url)) {
-                <a [href]="menuItem.url" target="_blank" rel="noopener noreferrer">
-                    <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
-                </a>
-            } @else {
+        <!-- Real links and buttons, so the keyboard reaches each one: an address
+             outside opens in a new tab, everything else opens its dialog. -->
+        @if (isSafeUrl(menuItem.url)) {
+            <a class="item" [class.hidden]="menuItem.hidden" [href]="menuItem.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="menuItem.icon ? menuItem.titleLiteral : null">
                 <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
-            }
-        </div>
+            </a>
+        } @else {
+            <button type="button" class="item" [class.hidden]="menuItem.hidden" (click)="onMenuItemClick(menuItem)">
+                <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
+            </button>
+        }
     }
 </div>
 
 <ng-template #menuContent let-item>
     @if (item.icon) {
-        <span class="icon {{ item.icon }}"></span>
+        <span class="icon {{ item.icon }}" aria-hidden="true"></span>
     } @else {
-        <div>{{ item.titleLiteral || (item.title | translate) }}</div>
+        <span>{{ item.titleLiteral || (item.title | translate) }}</span>
     }
 </ng-template>

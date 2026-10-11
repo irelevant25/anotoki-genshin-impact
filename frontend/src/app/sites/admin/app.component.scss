@@ -8,8 +8,12 @@
   height: 100vh;
   background: var(--bg-page);
   color: var(--text-primary);
-  font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: var(--font-size-base);
+}
+
+// Only a phone has it (below).
+.admin-phone-bar {
+  display: none;
 }
 
 // ── Sidebar ──────────────────────────────────────────────────────────────────
@@ -164,19 +168,6 @@
   overflow: visible;
 }
 
-// Its words, for a screen reader alone.
-.nav-item .nav-badge-words {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .badge-readonly {
   font-size: 9px;
   background: var(--bg-hover);
@@ -201,4 +192,60 @@
   // rows passing above them. A sticky box stops inside its scroller's padding,
   // so the padding comes off: flush with the top, as under the family's bar.
   --anotoki-topbar-height: calc(-1 * var(--spacing-lg));
+}
+
+// In the phone's drawer: the same navigation, the drawer's own padding around it.
+.drawer-nav {
+  padding: 0;
+  overflow: visible;
+
+  .nav-item {
+    padding-block: 10px;
+    font-size: var(--font-size-base);
+  }
+}
+
+// ── A phone ──────────────────────────────────────────────────────────────────
+//
+// A fixed 220 px column leaves a phone's page 170 px; so up to 860 px the page
+// has the whole width and scrolls as a page, under a row with the brand, the
+// theme and the Menu button that opens the navigation in the kit's drawer.
+@media (max-width: 860px) {
+  :host {
+    height: auto;
+  }
+
+  .admin-layout {
+    display: block;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .admin-sidebar {
+    display: none;
+  }
+
+  .admin-phone-bar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    height: 56px;
+    padding: 0 var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-sidebar);
+
+    .sidebar-logo {
+      margin-right: auto;
+    }
+  }
+
+  .admin-main {
+    overflow: visible;
+    padding: var(--spacing-md);
+    // The library's sticky heads stop under the row, which stays in view.
+    --anotoki-topbar-height: 56px;
+  }
 }

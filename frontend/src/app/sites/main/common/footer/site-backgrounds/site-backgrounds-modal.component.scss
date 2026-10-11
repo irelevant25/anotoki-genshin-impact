@@ -1,14 +1,32 @@
-img {
-  width: 210px;
-  height: 210px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+// Four to a row in the dialog on a desktop, two on a phone.
+.background-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+}
+
+.background-thumbnail {
+  display: block;
+  width: 100%;
+  padding: 0;
   border: 2px solid transparent;
   border-radius: var(--border-radius-large);
-  object-fit: cover;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
     border-color: var(--color-primary);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
   }
 }

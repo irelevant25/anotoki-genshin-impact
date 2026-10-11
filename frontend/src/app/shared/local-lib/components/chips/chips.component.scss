@@ -1,7 +1,8 @@
 .chip {
   padding: 5px var(--spacing-sm);
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  // A control's edge: 3:1 against the page, as the kit's fields have.
+  border: 1px solid var(--anotoki-border-strong);
   border-radius: 20px;
   font-size: var(--font-size-sm);
   color: var(--text-secondary);

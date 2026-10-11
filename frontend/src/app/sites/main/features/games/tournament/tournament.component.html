@@ -4,11 +4,11 @@
     @if (!loader.loadingCtrl.loading()) {
         @if (!tournament()) {
             <div class="setup">
-                <app-dropdown [label]="'game.tournament.formatLabel' | translate" [options]="formatOptions()" [(value)]="format"></app-dropdown>
+                <anotoki-select class="setup-field" [label]="'game.tournament.formatLabel' | translate" [options]="formatOptions()" [(value)]="format" />
 
-                <app-dropdown [label]="'game.tournament.sizeLabel' | translate" [options]="sizeOptions" [(value)]="size"></app-dropdown>
+                <anotoki-select class="setup-field" [label]="'game.tournament.sizeLabel' | translate" [options]="sizeOptions" [(value)]="size" />
 
-                <app-button [text]="'game.tournament.start' | translate" variant="primary" size="large" (buttonClick)="start()"></app-button>
+                <button anotokiButton variant="primary" size="lg" (click)="start()">{{ 'game.tournament.start' | translate }}</button>
             </div>
         } @else {
             <div class="tournament">
@@ -69,13 +69,9 @@
                     </div>
                 }
 
-                <app-button
-                    [text]="(isOver() ? 'game.tournament.again' : 'game.tournament.back') | translate"
-                    variant="primary"
-                    [outline]="!isOver()"
-                    size="large"
-                    (buttonClick)="backToSetup()"
-                ></app-button>
+                <button anotokiButton size="lg" [variant]="isOver() ? 'primary' : 'secondary'" (click)="backToSetup()">
+                    {{ (isOver() ? 'game.tournament.again' : 'game.tournament.back') | translate }}
+                </button>
             </div>
         }
     }

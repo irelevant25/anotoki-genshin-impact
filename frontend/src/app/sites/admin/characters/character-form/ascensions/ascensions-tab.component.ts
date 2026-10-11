@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, model, output, signal } from '@angular/core';
-import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
@@ -18,7 +18,7 @@ const MAX_ASCENSIONS = 7;
   selector: 'app-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
+  imports: [TooltipDirective, ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
 })
 export class AscensionsTabComponent extends AbstractModalComponent {
   ascensions = model<AscensionWrapper[]>([]);
@@ -47,13 +47,9 @@ export class AscensionsTabComponent extends AbstractModalComponent {
    * set on the character. Mirrors the voice-over "Choose set".
    */
   chooseSet(): void {
-    const modal = this.modalService.open<AscensionSetSelectorComponent, number | undefined>(AscensionSetSelectorComponent, {
-      size: '4',
-      scrollable: true,
-    });
-    modal.componentInstance.currentSetId.set(this.ascensionSetId() ?? null);
+    const modal = this.dialogs.open<AscensionSetSelectorComponent, number | undefined>(AscensionSetSelectorComponent, { heading: 'Choose an ascension set', size: 'lg', data: this.ascensionSetId() ?? null });
 
-    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+    void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
         return;
       }
@@ -68,9 +64,9 @@ export class AscensionsTabComponent extends AbstractModalComponent {
             }))
           );
           this.ascensionSetChosen.emit(setId);
-          this.notificationService.showSuccess(`Now using set #${setId} (${detail?.ascensions?.length ?? 0} ascensions).`);
+          this.notificationService.success(`Now using set #${setId} (${detail?.ascensions?.length ?? 0} ascensions).`);
         },
-        error: () => this.notificationService.showError('Could not load that set’s ascensions.'),
+        error: () => this.notificationService.error('Could not load that set’s ascensions.'),
       });
     });
   }
@@ -86,7 +82,7 @@ export class AscensionsTabComponent extends AbstractModalComponent {
     const count = this.ascensions().length;
     this.ascensions.set([]);
     this.deleteAllArmed.set(false);
-    this.notificationService.showSuccess(`${count} ascensions removed. They are deleted when you save.`);
+    this.notificationService.success(`${count} ascensions removed. They are deleted when you save.`);
   }
 
   cancelDeleteAll(): void {

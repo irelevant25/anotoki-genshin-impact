@@ -1,10 +1,10 @@
-import { Component, Input, inject } from '@angular/core';
-import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
+import { Component, inject } from '@angular/core';
+import { ANOTOKI_DIALOG_DATA } from '@anotoki/lib/ui/dialog';
+import { BadgeComponent } from '@anotoki/lib/ui/badge';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
-import { BadgeComponent } from "../../../../../shared/local-lib/components/badge/badge.component";
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { TranslatePipe } from '@anotoki/lib/translations';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { sameVersion } from '../versions';
 
@@ -23,14 +23,17 @@ export interface ChangelogEntry {
   selector: 'app-site-version-modal',
   templateUrl: './site-version-modal.component.html',
   styleUrls: ['./site-version-modal.component.scss'],
-  imports: [ModalComponent, BadgeComponent, TranslatePipe],
+  imports: [BadgeComponent, TranslatePipe],
   providers: [AppDatePipe],
 })
 export class SiteVersionModalComponent extends AbstractModalComponent {
-  @Input() data: ChangelogEntry[] = []; // CHANGELOG
+  /** The changelog, newest first: the footer hands over what it has read. */
+  readonly data: ChangelogEntry[] = inject<ChangelogEntry[] | null>(ANOTOKI_DIALOG_DATA, { optional: true }) ?? [];
 
   constructor(private _storageService: LocalStorageService) {
     super();
+    const i18n = inject(TranslationService);
+    this.dialogHeading(() => i18n.t('changelog.title'));
   }
 
   ngOnInit(): void {

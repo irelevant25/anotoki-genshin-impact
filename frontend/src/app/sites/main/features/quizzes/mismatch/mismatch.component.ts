@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HELPER } from '../../../../../shared/helper';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { todayString } from '../shared/daily';

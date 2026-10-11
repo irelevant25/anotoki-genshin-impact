@@ -1,20 +1,19 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
-import { asNumber, asOption, asText, bindFiltersToUrl } from '../shared/filter-url';
+import { asNumber, asText, bindFiltersToUrl } from '../shared/filter-url';
 import { MaterialApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-materials',
   templateUrl: './materials.component.html',
   styleUrls: ['./materials.component.scss'],
-  imports: [RouterModule, ButtonComponent, DropdownComponent, TextComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseMaterialsComponent {
   private readonly _materialApi = inject(MaterialApiService);
@@ -25,10 +24,10 @@ export class DatabaseMaterialsComponent {
   // Clicking the rarity already on clears it, so null means "any".
   filterRarity = signal<number | null>(null);
 
-  filterCategory = signal<string | number | boolean | null | undefined>(undefined);
-  filterRegion = signal<string | number | boolean | null | undefined>(undefined);
-  filterVersion = signal<string | number | boolean | null | undefined>(undefined);
-  filterName = signal<string | number | null | undefined>('');
+  filterCategory = signal('');
+  filterRegion = signal('');
+  filterVersion = signal('');
+  filterName = signal('');
 
   rarities = computed(() => rarityValues(this.materials()));
   // `type` is what the old site called the category; `group` has 108 values,
@@ -68,9 +67,9 @@ export class DatabaseMaterialsComponent {
     // list as it was left and the address can be handed to somebody else.
     bindFiltersToUrl({
       rarity: [this.filterRarity, asNumber],
-      category: [this.filterCategory, asOption],
-      region: [this.filterRegion, asOption],
-      version: [this.filterVersion, asOption],
+      category: [this.filterCategory, asText],
+      region: [this.filterRegion, asText],
+      version: [this.filterVersion, asText],
       name: [this.filterName, asText],
     });
 
@@ -89,9 +88,9 @@ export class DatabaseMaterialsComponent {
 
   resetFilters(): void {
     this.filterRarity.set(null);
-    this.filterCategory.set(undefined);
-    this.filterRegion.set(undefined);
-    this.filterVersion.set(undefined);
+    this.filterCategory.set('');
+    this.filterRegion.set('');
+    this.filterVersion.set('');
     this.filterName.set('');
   }
 }

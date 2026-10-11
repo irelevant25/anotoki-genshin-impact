@@ -1,6 +1,7 @@
 import { computed, Directive, inject, signal, Signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import { ToastService } from '@anotoki/lib/ui/toast';
 
 /** Sorts version strings numerically ("1.10" after "1.9"), newest first. */
 export function compareVersionsDesc(a: string | undefined, b: string | undefined): number {
@@ -28,21 +29,22 @@ export function includedIn(value: unknown, selected: (string | number | boolean)
 }
 
 /**
- * Shared behaviour for the admin list pages: loading, delete-with-confirm and
- * building filter options out of the rows that were actually loaded.
+ * Shared behaviour for the admin list pages: loading, delete - after the kit's
+ * question, its focus on No - and building filter options out of the rows
+ * that were actually loaded.
  */
 @Directive()
 export abstract class AdminListComponent<TRow extends { id: number }> {
   rows = signal<TRow[]>([]);
   loading = signal(false);
-  deleteConfirm = signal<number | null>(null);
 
   /** Plural, lower case - used in notifications. */
   abstract readonly entityLabel: string;
   /** Rows after filtering, provided by the concrete list. */
   abstract readonly filtered: Signal<TRow[]>;
 
-  protected readonly notify = inject(NotificationService);
+  protected readonly notify = inject(ToastService);
+  private readonly _confirm = inject(ConfirmService);
 
   protected abstract fetch(): Observable<TRow[]>;
   protected abstract remove(id: number): Observable<unknown>;
@@ -56,29 +58,26 @@ export abstract class AdminListComponent<TRow extends { id: number }> {
       },
       error: () => {
         this.loading.set(false);
-        this.notify.showError(`Failed to load ${this.entityLabel}`);
+        this.notify.error(`Failed to load ${this.entityLabel}`);
       },
     });
   }
 
-  confirmDelete(id: number): void {
-    this.deleteConfirm.set(id);
-  }
-
-  cancelDelete(): void {
-    this.deleteConfirm.set(null);
+  /** Asks first (the kit's question), then deletes. */
+  async confirmDelete(id: number, name?: string | null): Promise<void> {
+    if (await this._confirm.ask({ title: `Delete ${name || `#${id}`}?`, confirmLabel: 'Delete', tone: 'danger' })) {
+      this.delete(id);
+    }
   }
 
   delete(id: number): void {
     this.remove(id).subscribe({
       next: () => {
-        this.deleteConfirm.set(null);
         this.load();
-        this.notify.showSuccess('Deleted');
+        this.notify.success('Deleted');
       },
       error: (error) => {
-        this.deleteConfirm.set(null);
-        this.notify.showError(error?.error?.error ?? error?.error?.message ?? 'Failed to delete');
+        this.notify.error(error?.error?.error ?? error?.error?.message ?? 'Failed to delete');
       },
     });
   }

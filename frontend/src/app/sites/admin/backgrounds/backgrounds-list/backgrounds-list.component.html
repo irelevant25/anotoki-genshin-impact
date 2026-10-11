@@ -1,17 +1,13 @@
-<div class="page-header">
-    <h1 class="page-title">Backgrounds</h1>
-</div>
-
-<p class="page-hint">Site wallpapers. Each has a full image and a thumbnail, both filed under the background's name.</p>
+<anotoki-page-header heading="Backgrounds" lead="Site wallpapers. Each has a full image and a thumbnail, both filed under the background's name." />
 
 <div class="add-row">
-    <app-text [placeholder]="'New background name…'" [(value)]="newName"></app-text>
-    <app-button text="Add" icon="icon-plus" size="small" [disabled]="!newName()" (buttonClick)="add()"></app-button>
+    <app-text class="add-name" [placeholder]="'New background name…'" [(value)]="newName"></app-text>
+    <button anotokiButton variant="primary" [disabled]="!newName()" (click)="add()"><span class="icon icon-plus" aria-hidden="true"></span> Add</button>
 </div>
 
-<app-loader #loader [loading]="loading()"></app-loader>
-
-@if (!loader.loadingCtrl.loading()) {
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
     <div class="background-grid">
         @for (entry of backgrounds(); track entry.id) {
             <div class="background-card">
@@ -19,11 +15,11 @@
                 <div class="background-head">
                     @if (renaming() === entry.id) {
                         <app-text class="rename-input" [(value)]="renameValue"></app-text>
-                        <app-button text="Save" variant="primary" size="very-small" [loading]="busy() === entry.id" (buttonClick)="saveRename(entry)"></app-button>
-                        <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelRename()"></app-button>
+                        <button anotokiButton variant="primary" size="sm" [loading]="busy() === entry.id" (click)="saveRename(entry)">Save</button>
+                        <button anotokiButton size="sm" (click)="cancelRename()">Cancel</button>
                     } @else {
                         <span class="background-name" [title]="entry.name">{{ entry.name }}</span>
-                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Rename" (buttonClick)="startRename(entry)"></app-button>
+                        <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Rename" anotokiTooltip="Rename" (click)="startRename(entry)"><span class="icon icon-pen icon-size-4" aria-hidden="true"></span></button>
                     }
                 </div>
 
@@ -45,12 +41,7 @@
                 </div>
 
                 <div class="background-actions">
-                    @if (deleteConfirm() === entry.id) {
-                        <app-button text="Confirm" variant="danger" size="very-small" [loading]="busy() === entry.id" (buttonClick)="delete(entry)"></app-button>
-                        <app-button text="No" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelDelete()"></app-button>
-                    } @else {
-                        <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="confirmDelete(entry)"></app-button>
-                    }
+                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" [loading]="busy() === entry.id" (click)="confirmDelete(entry)"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
                 </div>
             </div>
         } @empty {

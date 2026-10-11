@@ -1,35 +1,15 @@
 @if (!hidden()) {
-    <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-            </label>
-        }
-
-        <input
-            #inputElement
-            [id]="inputId"
-            [value]="value() | formatNumber"
-            [disabled]="disabled()"
-            type="text"
-            [placeholder]="placeholder() ?? ''"
-            class="form-control"
-            [class.error]="hasError()"
-            [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-            (input)="onInput($event)"
-            (blur)="onBlur()"
-            (focus)="onFocus()" />
-
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
-        }
-    </div>
+    <anotoki-text-field
+        [class]="class()"
+        [label]="kitLabel()"
+        [hideLabel]="!label()"
+        [value]="text()"
+        [inputmode]="allowDecimal() ? 'decimal' : 'numeric'"
+        [placeholder]="placeholder() ?? ''"
+        [hint]="kitHint()"
+        [error]="shownError()"
+        [required]="required()"
+        [disabled]="disabled()"
+        (valueChange)="onKitInput($event)"
+        (blurred)="onBlur()" />
 }

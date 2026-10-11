@@ -1,9 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { SelectComponent, SelectOption } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { shuffle, Tournament, TOURNAMENT_SIZES, TournamentFormat } from './tournament.class';
 import { CharacterApiService } from '../../../../../api';
@@ -24,7 +23,7 @@ const PICK_PAUSE_MS = 450;
   selector: 'app-games-tournament',
   templateUrl: './tournament.component.html',
   styleUrls: ['./tournament.component.scss'],
-  imports: [ButtonComponent, DropdownComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [ButtonComponent, SelectComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class GamesTournamentComponent {
   private readonly _characterApi = inject(CharacterApiService);
@@ -33,8 +32,8 @@ export class GamesTournamentComponent {
   readonly loading = signal(true);
   readonly characters = signal<any[]>([]);
 
-  readonly format = signal<string | number | boolean | null | undefined>('single');
-  readonly size = signal<string | number | boolean | null | undefined>(8);
+  readonly format = signal<string>('single');
+  readonly size = signal<string>('8');
 
   readonly tournament = signal<Tournament<any> | null>(null);
   /** Bumped after every pick, since the bracket is a plain object. */
@@ -49,14 +48,14 @@ export class GamesTournamentComponent {
    * because `t` reads a signal, which is what makes the list follow a change
    * of language.
    */
-  readonly formatOptions = computed<DropdownOption[]>(() =>
+  readonly formatOptions = computed<SelectOption[]>(() =>
     (['single', 'double', 'roundRobin'] as const).map((format) => ({
-      key: format,
-      value: this._i18n.t(`game.tournament.format.${format}`),
+      value: format,
+      label: this._i18n.t(`game.tournament.format.${format}`),
     })),
   );
 
-  readonly sizeOptions: DropdownOption[] = TOURNAMENT_SIZES.map((size) => ({ key: size, value: String(size) }));
+  readonly sizeOptions: SelectOption[] = TOURNAMENT_SIZES.map((size) => ({ value: String(size), label: String(size) }));
 
   readonly match = computed(() => {
     this._version();

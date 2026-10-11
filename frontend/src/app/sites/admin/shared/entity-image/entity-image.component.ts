@@ -1,9 +1,10 @@
 import { Component, computed, effect, inject, input, output } from '@angular/core';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TooltipComponent } from '../../../../shared/local-lib/components/tooltip/tooltip.component';
-import { ModalService } from '../../../../shared/local-lib/components/modal/modal.service';
+import { AnotokiDialog } from '@anotoki/lib/ui/dialog';
 import { AbstractInputComponent } from '../../../../shared/local-lib/abstract-input.class';
-import { ImageUploadComponent, PickedImage } from '../image-upload/image-upload.component';
+import { ImageUploadComponent, ImageUploadData, PickedImage } from '../image-upload/image-upload.component';
 
 /**
  * One image slot on a form: the current picture, the name it is stored under,
@@ -23,7 +24,7 @@ import { ImageUploadComponent, PickedImage } from '../image-upload/image-upload.
   selector: 'app-entity-image',
   templateUrl: './entity-image.component.html',
   styleUrls: ['./entity-image.component.scss'],
-  imports: [ButtonComponent, TooltipComponent],
+  imports: [TooltipDirective, ButtonComponent, TooltipComponent],
   providers: [
     {
       provide: AbstractInputComponent,
@@ -44,7 +45,7 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   picked = output<PickedImage>();
   cleared = output<void>();
 
-  private readonly _modals = inject(ModalService);
+  private readonly _dialogs = inject(AnotokiDialog);
 
   /** A pending pick wins over the stored image, so the user sees their choice. */
   src = computed(() => this.pending()?.preview ?? this.path() ?? undefined);
@@ -59,15 +60,19 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   }
 
   open(): void {
-    const modal = this._modals.open<ImageUploadComponent, PickedImage | undefined>(ImageUploadComponent, { size: '5' });
-    modal.componentInstance.label.set(this.label());
-    modal.componentInstance.name.set(this.displayName());
-    modal.componentInstance.kind.set(this.kind());
-    // Open the "choose existing" browser on this slot's own folder, worked out
-    // from where the current picture lives, so the likely files are shown first.
-    modal.componentInstance.folderHint.set(this._folderFromPath(this.path()));
+    const modal = this._dialogs.open<ImageUploadComponent, PickedImage | undefined, ImageUploadData>(ImageUploadComponent, {
+      size: 'lg',
+      data: {
+        label: this.label(),
+        name: this.displayName(),
+        kind: this.kind(),
+        // Open the "choose existing" browser on this slot's own folder, worked out
+        // from where the current picture lives, so the likely files are shown first.
+        folderHint: this._folderFromPath(this.path()),
+      },
+    });
 
-    modal.closed.subscribe((result) => {
+    void modal.closed.then((result) => {
       this.markAsTouched();
       if (result) {
         this.picked.emit(result);

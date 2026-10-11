@@ -1,5 +1,5 @@
 import { Component, computed, input, model } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';

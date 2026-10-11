@@ -1,33 +1,33 @@
-<app-modal [title]="'Choose an ascension set'" (closeModal)="cancel()">
-    <div modal-body class="set-body">
-        <p class="set-hint">
-            Point this character at another set's ascensions — used to give the Traveler's variants one shared set. It only changes which set
-            this character uses; the ascension rows themselves are left as they are.
-        </p>
+<div class="set-body">
+    <p class="set-hint">
+        Point this character at another set's ascensions — used to give the Traveler's variants one shared set. It only changes which set
+        this character uses; the ascension rows themselves are left as they are.
+    </p>
 
-        <app-loader #loader [loading]="loadingSets()"></app-loader>
+    @if (loadingSets()) {
+        <anotoki-spinner label />
+    }
 
-        @if (!loadingSets()) {
-            <div class="set-list">
-                @for (set of sets(); track set.id) {
-                    <button
-                        type="button"
-                        class="set-row"
-                        [class.selected]="selectedId() === set.id"
-                        [class.current]="currentSetId() === set.id"
-                        (click)="selectedId.set(set.id)">
-                        <span class="set-members">{{ members(set) }}</span>
-                        <span class="set-meta">{{ set.ascension_count }} ascensions · set #{{ set.id }}{{ currentSetId() === set.id ? " · current" : "" }}</span>
-                    </button>
-                } @empty {
-                    <p class="set-empty">No ascension sets yet.</p>
-                }
-            </div>
-        }
-    </div>
+    @if (!loadingSets()) {
+        <div class="set-list">
+            @for (set of sets(); track set.id) {
+                <button
+                    type="button"
+                    class="set-row"
+                    [class.selected]="selectedId() === set.id"
+                    [class.current]="currentSetId() === set.id"
+                    (click)="selectedId.set(set.id)">
+                    <span class="set-members">{{ members(set) }}</span>
+                    <span class="set-meta">{{ set.ascension_count }} ascensions · set #{{ set.id }}{{ currentSetId() === set.id ? " · current" : "" }}</span>
+                </button>
+            } @empty {
+                <p class="set-empty">No ascension sets yet.</p>
+            }
+        </div>
+    }
+</div>
 
-    <div modal-footer class="set-footer">
-        <app-button [text]="'Use this set'" variant="primary" [disabled]="selectedId() === null" (buttonClick)="choose()"></app-button>
-        <app-button [text]="'Cancel'" variant="secondary" [outline]="true" (buttonClick)="cancel()"></app-button>
-    </div>
-</app-modal>
+<ng-template anotokiDialogFooter>
+    <button anotokiButton (click)="cancel()">Cancel</button>
+    <button anotokiButton variant="primary" [disabled]="selectedId() === null" (click)="choose()">Use this set</button>
+</ng-template>

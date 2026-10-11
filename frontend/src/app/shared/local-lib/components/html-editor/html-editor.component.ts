@@ -1,7 +1,7 @@
 import { Component, ElementRef, computed, model, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { MenuComponent, MenuItemComponent, MenuTriggerDirective } from '@anotoki/lib/ui/menu';
 import { DropdownOption } from '../../services/options-helper.service';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { RichTextComponent } from '../rich-text/rich-text.component';
@@ -11,7 +11,7 @@ type Type = string;
 
 @Component({
   selector: 'app-html-editor',
-  imports: [DropdownComponent, ColorPickerComponent, FormsModule, RichTextComponent],
+  imports: [MenuComponent, MenuItemComponent, MenuTriggerDirective, ColorPickerComponent, FormsModule, RichTextComponent],
   templateUrl: './html-editor.component.html',
   styleUrls: ['./html-editor.component.scss'],
   providers: [
@@ -98,6 +98,16 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     event?.preventDefault();
     document.execCommand(command, false, value);
     this.editorElement()?.nativeElement.focus();
+  }
+
+  /** The words an option of the toolbar's menus shows. */
+  optionLabel(options: DropdownOption[], key: string): string {
+    return String(options.find((option) => option.key === key)?.value ?? key);
+  }
+
+  /** Before a toolbar menu takes the focus: what it will apply to. */
+  rememberSelection(): void {
+    this.saveSelection();
   }
 
   private saveSelection(): void {

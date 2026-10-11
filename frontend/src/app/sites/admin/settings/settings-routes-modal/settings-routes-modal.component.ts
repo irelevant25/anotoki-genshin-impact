@@ -1,9 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { CheckboxComponent, SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { FormsModule } from '@angular/forms';
 import { AdminSiteRoute, RouteApiService, SiteRouteChange } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { VISIBILITY_LABELS } from '../settings-words';
 
 /** A page as the form is holding it, before anything is saved. */
@@ -27,17 +30,26 @@ interface RouteDraft {
  * Naming an endpoint is the deliberate act that turns the sign into a lock, so
  * it takes a deliberate click to reach.
  */
+/** What the Settings page hands over when it opens the parts of the site. */
+export interface SettingsRoutesData {
+  routes: AdminSiteRoute[];
+  levels: string[];
+}
+
 @Component({
   selector: 'app-settings-routes-modal',
   templateUrl: './settings-routes-modal.component.html',
   styleUrls: ['./settings-routes-modal.component.scss'],
-  imports: [FormsModule, ModalComponent, ButtonComponent],
+  imports: [IconComponent, CheckboxComponent, TextFieldComponent, SelectComponent, TooltipDirective, FormsModule, DialogFooterDirective, ButtonComponent],
 })
 export class SettingsRoutesModalComponent extends AbstractModalComponent {
   private readonly _api = inject(RouteApiService);
 
-  readonly routes = signal<AdminSiteRoute[]>([]);
-  readonly levels = signal<string[]>([]);
+  private readonly _data = inject<SettingsRoutesData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
+
+  // What the Settings page hands over: the parts of the site, and who they can be for.
+  readonly routes = signal<AdminSiteRoute[]>(this._data?.routes ?? []);
+  readonly levels = signal<string[]>(this._data?.levels ?? []);
   readonly saving = signal(false);
 
   readonly draft = signal<Record<number, RouteDraft>>({});
@@ -70,9 +82,17 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
     return VISIBILITY_LABELS[level] ?? level;
   }
 
+  /** Who a page can be for, as the kit's select takes them. */
+  readonly levelChoices = computed(() => this.levels().map((level) => ({ value: level, label: this.label(level) })));
+
   readonly changed = computed(() => this.routes().filter((route) => this._differs(route)));
 
-  /** Called by the page once it has handed the rows over. */
+  constructor() {
+    super();
+    this.start();
+  }
+
+  /** The form, as the rows stand. */
   start(): void {
     this.draft.set(
       Object.fromEntries(
@@ -140,7 +160,7 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
     this._api.saveRoutes({ routes: changes }).subscribe({
       next: () => {
         this.saving.set(false);
-        this.notificationService.showSuccess('Saved.');
+        this.notificationService.success('Saved.');
         this.closeModal(true);
       },
       error: (error) => {
@@ -148,7 +168,7 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
         // The API refuses a prefix that would cover the way back in, and says
         // which one and why. That sentence is the whole answer, so it is shown
         // rather than replaced with "could not be saved".
-        this.notificationService.showError(error?.error?.error ?? 'Those could not be saved.');
+        this.notificationService.error(error?.error?.error ?? 'Those could not be saved.');
       },
     });
   }
@@ -191,14 +211,14 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
         this._adopt(list);
         this.saving.set(false);
         this.adding.set(false);
-        this.notificationService.showSuccess('Page added.');
+        this.notificationService.success('Page added.');
       },
       error: (error) => {
         this.saving.set(false);
         // The API refuses a path that is not one the router could declare, one
         // that is already here, and the three that are how somebody gets into
         // their account. Each says which and why, so that sentence is shown.
-        this.notificationService.showError(error?.error?.error ?? 'That could not be added.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be added.');
       },
     });
   }
@@ -227,11 +247,11 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
         this._wrote = true;
         this._adopt(list);
         this.saving.set(false);
-        this.notificationService.showSuccess('That page is no longer governed.');
+        this.notificationService.success('That page is no longer governed.');
       },
       error: (error) => {
         this.saving.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'That could not be removed.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be removed.');
       },
     });
   }

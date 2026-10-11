@@ -1,12 +1,15 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { ErrorStateComponent } from '@anotoki/lib/ui/error-state';
+import { BadgeComponent } from '@anotoki/lib/ui/badge';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslationService } from '@anotoki/lib/translations';
 import { GuideApiService, GuideEditorEntry, GuideEditorLanguage } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { GUIDES, GuideId } from '../../../main/common/guide/guide-catalog';
-import { GuideEditorModalComponent } from './guide-editor-modal/guide-editor-modal.component';
+import { GuideEditorData, GuideEditorModalComponent } from './guide-editor-modal/guide-editor-modal.component';
 
 /** Why the guides could not be read, in the server's words where it said any. */
 function failureText(error: unknown): string {
@@ -37,7 +40,7 @@ function failureText(error: unknown): string {
   selector: 'app-admin-guides',
   templateUrl: './guides.component.html',
   styleUrls: ['./guides.component.scss'],
-  imports: [ButtonComponent, LoaderComponent],
+  imports: [PageHeaderComponent, ErrorStateComponent, BadgeComponent, SpinnerComponent, ButtonComponent],
 })
 export class GuidesComponent extends AbstractModalComponent implements OnInit {
   private readonly _api = inject(GuideApiService);
@@ -79,17 +82,16 @@ export class GuidesComponent extends AbstractModalComponent implements OnInit {
   }
 
   edit(entry: GuideEditorEntry): void {
-    const modal = this.openModal<GuideEditorModalComponent, GuideEditorEntry | null>(GuideEditorModalComponent, { size: '6', scrollable: true });
-    modal.componentInstance.guide.set(entry.guide);
-    modal.componentInstance.heading.set(this.title(entry));
-    modal.componentInstance.languages.set(this.languages());
-    modal.componentInstance.initial.set({ ...entry.values });
-    modal.componentInstance.start();
+    const modal = this.openModal<GuideEditorEntry | null, GuideEditorData>(GuideEditorModalComponent, {
+      size: 'lg',
+      description: 'The guide behind its question mark, in every language. Empty: the language reads the English.',
+      data: { guide: entry.guide, heading: this.title(entry), languages: this.languages(), initial: { ...entry.values } },
+    });
 
-    modal.closed.subscribe((saved) => {
+    void modal.closed.then((saved) => {
       if (saved) {
         this.guides.update((guides) => guides.map((guide) => (guide.guide === saved.guide ? saved : guide)));
-        this.notificationService.showSuccess(`${this.title(saved)}: saved.`);
+        this.notificationService.success(`${this.title(saved)}: saved.`);
       }
     });
   }

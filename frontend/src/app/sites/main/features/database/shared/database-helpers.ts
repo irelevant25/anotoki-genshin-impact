@@ -1,5 +1,5 @@
 import { parseJsonColumn } from '../../../../../api';
-import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
+import type { SelectOption } from '@anotoki/lib/ui/forms';
 
 /**
  * The era the Luna releases belong to. Nod-Krai shipped as "Luna" plus a Roman
@@ -77,20 +77,20 @@ export function distinctValues(rows: any[], field: string): string[] {
 }
 
 /**
- * Options whose key is the raw value off the row, so a selection can be
+ * Options whose value is the raw value off the row, so a selection can be
  * compared straight against the data, and whose label is what a reader expects.
  */
-export function buildVersionOptions(rows: any[], field: string = 'version'): DropdownOption[] {
+export function buildVersionOptions(rows: any[], field: string = 'version'): SelectOption[] {
   return distinctValues(rows, field)
     .sort(compareVersionsDesc)
-    .map((version) => ({ key: version, value: versionLabel(version) }));
+    .map((version) => ({ value: version, label: versionLabel(version) }));
 }
 
 /** Distinct values of a field as plain A-Z options. */
-export function buildValueOptions(rows: any[], field: string): DropdownOption[] {
+export function buildValueOptions(rows: any[], field: string): SelectOption[] {
   return distinctValues(rows, field)
     .sort((a, b) => a.localeCompare(b))
-    .map((value) => ({ key: value, value }));
+    .map((value) => ({ value, label: value }));
 }
 
 /** Rarities present, highest first - the order the tiers are read in. */

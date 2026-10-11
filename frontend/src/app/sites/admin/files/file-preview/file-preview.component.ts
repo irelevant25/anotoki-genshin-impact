@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AudioPlayerComponent } from '../../../../shared/local-lib/components/audio-player/audio-player.component';
 import { AssetFile } from '../../../../api';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
@@ -18,7 +18,7 @@ export function isPreviewableFile(extension: string): boolean {
   selector: 'app-file-preview',
   templateUrl: './file-preview.component.html',
   styleUrls: ['./file-preview.component.scss'],
-  imports: [ModalComponent, ButtonComponent, AudioPlayerComponent],
+  imports: [DialogFooterDirective, ButtonComponent, AudioPlayerComponent],
 })
 export class FilePreviewComponent extends AbstractModalComponent {
   /** The API path the listing hands back, with the backend in front of it. */
@@ -33,7 +33,8 @@ export class FilePreviewComponent extends AbstractModalComponent {
   });
 
   /** Set by the opener before the modal renders. */
-  file = signal<AssetFile | undefined>(undefined);
+  /** The file to show: what the page hands over. */
+  file = signal<AssetFile | undefined>(inject<AssetFile | null>(ANOTOKI_DIALOG_DATA, { optional: true }) ?? undefined);
 
   /** Natural pixel size, once the image reports it. */
   naturalWidth = signal(0);
@@ -66,6 +67,6 @@ export class FilePreviewComponent extends AbstractModalComponent {
   }
 
   close(): void {
-    this.modalRef?.close();
+    this.dialogRef?.close();
   }
 }

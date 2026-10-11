@@ -1,13 +1,10 @@
-<div class="page-header">
-    <h1 class="page-title">Banners</h1>
-    <a routerLink="create">
-        <app-button text="Add Banner" icon="icon-plus"></app-button>
-    </a>
-</div>
+<anotoki-page-header heading="Banners">
+    <a anotokiButton variant="primary" routerLink="create"><span class="icon icon-plus" aria-hidden="true"></span> Add Banner</a>
+</anotoki-page-header>
 
-<app-loader [loading]="loading()"></app-loader>
-
-@if (!loading()) {
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
     <div class="filter-bar">
         <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
         <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
@@ -15,13 +12,13 @@
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
             @if (hasActiveFilter()) {
-                <app-button text="Reset" variant="secondary" [outline]="true" size="small" (buttonClick)="resetFilters()"></app-button>
+                <button anotokiButton size="sm" (click)="resetFilters()">Reset</button>
             }
         </div>
     </div>
 
-    <div class="table-wrap">
-        <table class="admin-table">
+    <div class="table-scroll">
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -73,20 +70,10 @@
                             }
                         </td>
                         <td class="col-actions">
-                            @if (deleteConfirm() === banner.id) {
-                                <span class="confirm-row">
-                                    <span class="confirm-text">Delete?</span>
-                                    <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(banner.id)"></app-button>
-                                    <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
-                                </span>
-                            } @else {
-                                <div class="action-btns">
-                                    <a [routerLink]="[banner.id, 'edit']">
-                                        <app-button icon="icon-pen icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Edit"></app-button>
-                                    </a>
-                                    <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(banner.id)"></app-button>
-                                </div>
-                            }
+                            <div class="action-btns">
+                                <a anotokiButton variant="ghost" size="sm" iconOnly aria-label="Edit" anotokiTooltip="Edit" [routerLink]="[banner.id, 'edit']"><span class="icon icon-pen icon-size-4" aria-hidden="true"></span></a>
+                                <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(banner.id, banner.name)"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
+                            </div>
                         </td>
                     </tr>
                 }

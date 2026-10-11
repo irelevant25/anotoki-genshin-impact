@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
@@ -26,7 +26,7 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 })
 export class StaffSignInComponent {
   private readonly _security = inject(SecurityService);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
 
   /** Whether there is an IAM to send anybody to. */
@@ -38,6 +38,6 @@ export class StaffSignInComponent {
    * offer them.
    */
   signIn(): void {
-    this._security.login({ returnTo: '/' }).catch(() => this._notifications.showError(this._i18n.t('auth.startFailed')));
+    this._security.login({ returnTo: '/' }).catch(() => this._notifications.error(this._i18n.t('auth.startFailed')));
   }
 }

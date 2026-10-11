@@ -1,9 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialApiService } from '../../../../api';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
@@ -15,7 +17,7 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-materials-list',
   templateUrl: './materials-list.component.html',
   styleUrls: ['./materials-list.component.scss'],
-  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent, MaterialIconDirective],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, DropdownComponent, MultiselectComponent, MaterialIconDirective],
 })
 export class MaterialsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'materials';

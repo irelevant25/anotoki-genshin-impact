@@ -40,7 +40,7 @@
 
         <!-- The daily run gives one question a day, so there is no next. -->
         @if (!isDaily() && isQuestionComplete()) {
-            <app-button [text]="'quiz.next' | translate" variant="primary" size="large" (buttonClick)="next.emit()"></app-button>
+            <button anotokiButton variant="primary" size="lg" (click)="next.emit()">{{ 'quiz.next' | translate }}</button>
         }
     </div>
 

@@ -1,22 +1,5 @@
 @use "../../shared/admin-list" as *;
 
-.header-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-}
-
-.page-hint {
-  margin: 0 0 var(--spacing-md);
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-
-  code {
-    padding: 1px var(--spacing-xxs);
-    border-radius: 3px;
-    background: var(--bg-hover);
-  }
-}
-
 // Folder list beside the grid; collapses to stacked on narrow screens.
 .files-layout {
   // The loader inside is an absolutely positioned overlay: without this it
@@ -26,24 +9,6 @@
   grid-template-columns: 300px minmax(0, 1fr);
   gap: var(--spacing-lg);
   align-items: start;
-
-  // Lifted out of the grid as well, or it would take the first column and push
-  // the folder pane into the second.
-  //
-  // Which leaves an empty box stretched over the whole browser, and that box
-  // was eating every click meant for the cards underneath - the category
-  // dropdown and Replace looked disabled because nothing ever reached them.
-  // The host lets clicks through; the overlay inside still catches them while
-  // it is actually up, which is the one time blocking is the point.
-  > app-loader {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-
-    .loading-overlay {
-      pointer-events: auto;
-    }
-  }
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -153,16 +118,6 @@
   color: var(--text-secondary);
 }
 
-.pager {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.pager-label {
-  font-variant-numeric: tabular-nums;
-}
-
 .file-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -251,13 +206,6 @@
 .file-rename-input {
   min-width: 0;
   flex: 1;
-  padding: 2px var(--spacing-xs);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background: var(--bg-input, var(--bg-card));
-  color: var(--text-primary);
-  font: inherit;
-  font-size: var(--font-size-sm);
 }
 
 .file-size {
@@ -277,24 +225,7 @@
 // The category a file is filed under, and the way to change it. Changing it
 // moves the file, so it sits with the card rather than in a menu somewhere.
 .file-category {
-  width: 100%;
   margin-top: var(--spacing-xxs);
-  padding: 2px var(--spacing-xxs);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-secondary);
-  font-size: var(--font-size-xs);
-  font-family: inherit;
-  outline: none;
-
-  &:focus {
-    border-color: var(--color-primary);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-  }
 }
 
 // A file the catalogue has not heard of yet. The check on the panel above is

@@ -1,32 +1,20 @@
-import { Component, model, Pipe, PipeTransform } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, model, signal } from '@angular/core';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 
 import { AbstractInputComponent } from '../../abstract-input.class';
 
-@Pipe({ name: 'formatNumber' })
-export class NumberPipe implements PipeTransform {
-  private _padding?: number;
-  setPadding(padding: number): this {
-    this._padding = padding;
-    return this;
-  }
-  transform(value?: Type, padding?: number): string {
-    let result = Number.isNaN(value) ? '' : (value?.toString() ?? '');
-    const actualPadding = padding ?? this._padding;
-
-    if (typeof value === 'number' && actualPadding !== undefined) {
-      result = value.toFixed(actualPadding);
-    }
-
-    return result.replace('.', ',');
-  }
-}
-
 type Type = string | number | null;
 
+/**
+ * A number in the site's forms: the kit's text field with a number keyboard.
+ * What is typed stays as it is while it is no number this field takes (a
+ * letter, a second decimal point, below the minimum) and says why; once it is
+ * one, it is the value - as the text it was typed as, a point for a comma, the
+ * way the forms send it. Empty is NaN, which `required` reads as empty.
+ */
 @Component({
   selector: 'app-number',
-  imports: [FormsModule, NumberPipe],
+  imports: [TextFieldComponent],
   templateUrl: './number.component.html',
   styleUrls: ['./number.component.scss'],
   providers: [
@@ -43,84 +31,77 @@ export class NumberComponent extends AbstractInputComponent<Type> {
   min = model<number | undefined>(undefined);
   max = model<number | undefined>(undefined);
 
-  oldValue: string = '';
-  Number = Number;
+  /** What is in the box while it is not a number this field takes; null once it is. */
+  private readonly _draft = signal<string | null>(null);
 
-  onInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    let value = target.value;
-    if (value.startsWith('.') || value.startsWith(',')) {
-      value = `0${value}`;
-      target.value = value;
+  readonly text = computed(() => {
+    const draft = this._draft();
+    if (draft !== null) {
+      return draft;
     }
-    if (!this.isValueAcceptable(value)) {
-      target.value = this.oldValue;
+    const value = this.value();
+    return value === null || value === undefined || (typeof value === 'number' && Number.isNaN(value)) ? '' : String(value);
+  });
+
+  /** Why what is typed is not taken - said before the rules' own errors. */
+  readonly formatError = computed(() => (this._draft() === null ? null : this._rangeWords()));
+
+  readonly shownError = computed(() => this.formatError() ?? this.kitError());
+
+  onKitInput(text: string): void {
+    let typed = text.trim();
+    if (typed.startsWith('.') || typed.startsWith(',')) {
+      typed = `0${typed}`;
+    }
+    if (!this.isValueAcceptable(typed)) {
+      this._draft.set(text);
       return;
     }
-    this.oldValue = target.value;
-    let newValue: Type = target.value.replace(',', '.');
-    if (newValue === null || newValue === undefined || newValue === '') {
-      newValue = NaN;
-    }
-    this.value.set(newValue);
-    this.inputChange.emit(this.value());
+    this._draft.set(null);
+    const value: Type = typed === '' ? NaN : typed.replace(',', '.');
+    this.value.set(value);
+    this.inputChange.emit(value);
   }
 
-  isValueAcceptable(value?: Type | null): boolean {
-    value = value ? (value?.toString() ?? '') : this.value();
-    value = value?.toString() ?? '';
-
-    if (!/[0-9.,-]*/.test(value)) {
+  isValueAcceptable(value: string): boolean {
+    if (value === '') {
+      return true;
+    }
+    if (/[.,].*[.,]/.test(value) || !/^-?\d*[.,]?\d*$/.test(value)) {
       return false;
     }
-
-    if (/[.,].*[.,]/.test(value)) {
-      return false;
-    }
-
-    if (value.includes(',')) {
-      value = value.replace(',', '.');
-    }
-
-    const number = parseInt(value);
-    // Check if min is defined and if it is greater than the value
-    const minValue = this.min();
-    if (minValue !== undefined && number < minValue) {
-      return false;
-    }
-    // Check if max is defined and if it is less than the value
-    const maxValue = this.max();
-    if (maxValue !== undefined && number > maxValue) {
-      return false;
-    }
-    // Check if allowNegative is false and if the value is negative
     if (!this.allowNegative() && value.startsWith('-')) {
       return false;
     }
-    // Check if allowDecimal is false and if the value has a decimal point
-    if (!this.allowDecimal() && value.includes('.')) {
+    if (!this.allowDecimal() && /[.,]/.test(value)) {
       return false;
     }
-    // Check if decimalPlaces is greater than 0 and if the value has more decimal places than allowed
-    if (this.allowDecimal() && this.decimalPlaces() > 0 && value.includes('.')) {
-      const decimalNumber = value.split('.').at(-1)?.length;
-      if (decimalNumber && decimalNumber > this.decimalPlaces()) {
-        return false;
-      }
-    }
-    // Check if allowNegative is true and if the value is just a negative sign
-    if (this.allowNegative() && value.length === 1 && value === '-') {
-      return true;
-    }
-    // Check if allowDecimal is true and if the value ends with a decimal point
-    if (this.allowDecimal() && value && value.length >= 1 && value.endsWith('.')) {
-      return true;
-    }
-    // Check if value is a number
-    if (value && value.length > 0 && isNaN(number)) {
+    const decimals = value.split(/[.,]/)[1];
+    if (this.allowDecimal() && this.decimalPlaces() > 0 && decimals !== undefined && decimals.length > this.decimalPlaces()) {
       return false;
     }
-    // If all checks pass, return true
-    return true;
+    if (value === '-' || /[.,]$/.test(value)) {
+      return false;
+    }
+    const number = Number(value.replace(',', '.'));
+    const min = this.min();
+    const max = this.max();
+    return !Number.isNaN(number) && (min === undefined || number >= min) && (max === undefined || number <= max);
+  }
+
+  private _rangeWords(): string {
+    const min = this.min();
+    const max = this.max();
+    const kind = this.allowDecimal() ? 'A number' : 'A whole number';
+    if (min !== undefined && max !== undefined) {
+      return `${kind} from ${min} to ${max}`;
+    }
+    if (min !== undefined) {
+      return `${kind}, ${min} or more`;
+    }
+    if (max !== undefined) {
+      return `${kind}, ${max} or less`;
+    }
+    return `${kind}`;
   }
 }

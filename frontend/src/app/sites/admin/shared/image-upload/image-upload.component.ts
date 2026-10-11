@@ -1,10 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
+import { PaginationComponent } from '@anotoki/lib/ui/pagination';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { AssetFile, FileApiService } from '../../../../api';
@@ -37,6 +39,14 @@ export function isExistingPick(picked: PickedImage): boolean {
 
 const BROWSE_PAGE_SIZE = 60;
 
+/** What an image slot hands over when it opens the picker. */
+export interface ImageUploadData {
+  label: string;
+  name: string;
+  kind: 'image' | 'audio';
+  folderHint: string;
+}
+
 /**
  * Picks one image for a form slot — by uploading a new file, or by choosing one
  * already in the catalogue. A slot that holds a sound (a character's demo
@@ -54,20 +64,26 @@ const BROWSE_PAGE_SIZE = 60;
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss'],
-  imports: [ModalComponent, ButtonComponent, TextComponent, DropdownComponent, LoaderComponent, FileComponent],
+  imports: [SegmentedComponent, PaginationComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, TextComponent, DropdownComponent, FileComponent],
 })
 export class ImageUploadComponent extends AbstractModalComponent {
-  /** Shown in the title, e.g. "Card Icon". */
-  label = signal<string>('Image');
-  /** The name a fresh upload will be stored under, derived by the form. */
-  name = signal<string>('');
-  /** The folder to open the "choose existing" browser on, if the form knows one. */
-  folderHint = signal<string>('');
-  /** What the slot takes: a picture, or a sound. */
-  kind = signal<'image' | 'audio'>('image');
+  /** What the slot hands over (ImageUploadData). */
+  private readonly _data = inject<ImageUploadData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
 
-  /** Which half of the modal is showing. */
+  /** Shown in the title, e.g. "Card Icon". */
+  label = signal<string>(this._data?.label ?? 'Image');
+  /** The name a fresh upload will be stored under, derived by the form. */
+  name = signal<string>(this._data?.name ?? '');
+  /** The folder to open the "choose existing" browser on, if the form knows one. */
+  folderHint = signal<string>(this._data?.folderHint ?? '');
+  /** What the slot takes: a picture, or a sound. */
+  kind = signal<'image' | 'audio'>(this._data?.kind ?? 'image');
+
+  /** Which half of the dialog is showing. */
   mode = signal<'upload' | 'existing'>('upload');
+  readonly modes = [
+    { value: 'upload', label: 'Upload a file' },
+    { value: 'existing', label: 'Choose from files' }];
 
   // ── Upload ──────────────────────────────────────────────────────────────────
   file = signal<File | undefined>(undefined);
@@ -93,6 +109,12 @@ export class ImageUploadComponent extends AbstractModalComponent {
   private readonly _searchDebounce = new Subject<void>();
 
   title = computed(() => (this.mode() === 'upload' ? `Upload ${this.label()}` : `Choose ${this.label()}`));
+
+  constructor() {
+    super();
+    // The dialog's heading says which half is showing.
+    this.dialogHeading(() => this.title());
+  }
 
   /** Upload needs a file and a name; choosing needs a catalogued file selected. */
   canSubmit = computed(() =>
@@ -162,7 +184,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
       },
       error: () => {
         this.browsing.set(false);
-        this.notificationService.showError('Could not read the asset folders');
+        this.notificationService.error('Could not read the asset folders');
       },
     });
   }
@@ -183,7 +205,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
       },
       error: () => {
         this.browsing.set(false);
-        this.notificationService.showError('Could not read that folder');
+        this.notificationService.error('Could not read that folder');
       },
     });
   }
@@ -243,7 +265,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
       }
       // Hand the object URL over; the form owns revoking it from here.
       this.uploadPreview.set(undefined);
-      this.modalRef?.close({ file, preview } satisfies PickedImage);
+      this.dialogRef?.close({ file, preview } satisfies PickedImage);
       return;
     }
 
@@ -251,7 +273,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
     // preview is a full URL the form can render immediately; path is the bare
     // catalogue path stored for display until the row reloads (the backend
     // ignores it once the file_id is set).
-    this.modalRef?.close({
+    this.dialogRef?.close({
       preview: this.thumbUrl(chosen),
       existing: { fileId: chosen.file_id!, path: chosen.url, name: chosen.name },
     } satisfies PickedImage);
@@ -259,7 +281,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
 
   cancel(): void {
     this._revokeUpload();
-    this.modalRef?.close(undefined);
+    this.dialogRef?.close(undefined);
   }
 
   private _revokeUpload(): void {

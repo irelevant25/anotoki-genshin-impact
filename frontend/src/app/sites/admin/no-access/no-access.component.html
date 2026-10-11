@@ -8,7 +8,7 @@
             <p>{{ 'admin.noAccess.text' | translate: { username: user.username } }}</p>
 
             <div class="no-access-actions">
-                <app-button [text]="'admin.noAccess.switch' | translate" variant="secondary" [outline]="true" (buttonClick)="switchAccount()"></app-button>
+                <button anotokiButton (click)="switchAccount()">{{ 'admin.noAccess.switch' | translate }}</button>
             </div>
         } @else {
             <h1>{{ 'admin.noAccess.signInTitle' | translate }}</h1>
@@ -17,7 +17,7 @@
                 <p>{{ 'admin.noAccess.signInText' | translate }}</p>
 
                 <div class="no-access-actions">
-                    <app-button [text]="'common.signIn' | translate" variant="primary" (buttonClick)="signIn()"></app-button>
+                    <button anotokiButton variant="primary" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
                 </div>
             } @else {
                 <p>{{ 'auth.unavailable' | translate }}</p>

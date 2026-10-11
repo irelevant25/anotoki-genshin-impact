@@ -1,8 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../shared/local-lib/components/textarea/textarea.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -20,17 +22,15 @@ import { toAssetLiteralName } from '../../shared/asset-name';
   selector: 'app-material-form',
   templateUrl: './material-form.component.html',
   styleUrls: ['./material-form.component.scss'],
-  imports: [
+  imports: [PageHeaderComponent, IconComponent, SpinnerComponent, 
     RouterLink,
     ButtonComponent,
-    LoaderComponent,
     TextComponent,
     TextareaComponent,
     DropdownComponent,
     MultiselectComponent,
     FieldContainerComponent,
-    EntityImageComponent,
-  ],
+    EntityImageComponent],
 })
 export class MaterialFormComponent extends AdminFormComponent<MaterialFull> implements OnInit {
   readonly entityLabel = 'Material';
@@ -77,7 +77,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

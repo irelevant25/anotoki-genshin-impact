@@ -1,9 +1,9 @@
-import { Component, computed, effect, inject, model, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { ANOTOKI_DIALOG_DATA } from '@anotoki/lib/ui/dialog';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { GuideApiService } from '../../../../api';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
 import { RichTextComponent } from '../../../../shared/local-lib/components/rich-text/rich-text.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { GUIDES, Guide, GuideId } from './guide-catalog';
 
@@ -23,18 +23,14 @@ import { GUIDES, Guide, GuideId } from './guide-catalog';
   selector: 'app-guide-modal',
   templateUrl: './guide-modal.component.html',
   styleUrls: ['./guide-modal.component.scss'],
-  imports: [ModalComponent, RichTextComponent, LoaderComponent, TranslatePipe],
+  imports: [RichTextComponent, SpinnerComponent, TranslatePipe],
 })
 export class GuideModalComponent extends AbstractModalComponent {
   private readonly _i18n = inject(TranslationService);
   private readonly _guides = inject(GuideApiService);
 
-  /**
-   * Set by whoever opened the modal. A signal rather than a plain field: the
-   * app is zoneless, so assigning to a property after the component exists
-   * would not repaint it.
-   */
-  readonly guide = model<GuideId | null>(null);
+  /** Which guide: what the question mark that opened this hands over. */
+  readonly guide = signal<GuideId | null>(inject<GuideId | null>(ANOTOKI_DIALOG_DATA, { optional: true }));
 
   private readonly _entry = computed<Guide | null>(() => {
     const id = this.guide();
@@ -54,6 +50,7 @@ export class GuideModalComponent extends AbstractModalComponent {
 
   constructor() {
     super();
+    this.dialogHeading(() => this.title());
 
     // Asked for when the guide is set - and again if the reader's language
     // changes while it is open. A request still out when either changes, or

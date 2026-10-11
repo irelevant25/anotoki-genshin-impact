@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { RouteNotice, SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
+import { AlertComponent } from '@anotoki/lib/ui/alert';
 
 /**
  * What an admin is told about the page they are standing on.
@@ -25,7 +26,7 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
   selector: 'app-route-notice',
   templateUrl: './route-notice.component.html',
   styleUrls: ['./route-notice.component.scss'],
-  imports: [TranslatePipe],
+  imports: [AlertComponent, TranslatePipe],
 })
 export class RouteNoticeComponent {
   private readonly _settings = inject(SiteSettingsService);

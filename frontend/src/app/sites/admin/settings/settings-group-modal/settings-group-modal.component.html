@@ -1,80 +1,65 @@
-<app-modal [title]="title()" [subtitle]="note()" (closeModal)="closeModal()">
-    <div modal-body class="settings-body">
-        @for (setting of settings(); track setting.name) {
-            <div class="setting" [class.setting-changed]="isChanged(setting)">
-                <div class="setting-head">
+<div class="settings-body">
+    @for (setting of settings(); track setting.name) {
+        <div class="setting" [class.setting-changed]="isChanged(setting)">
+            <div class="setting-head">
+                <!-- A switch carries its own label; every other control has it here. -->
+                @if (setting.type !== 'boolean') {
                     <span class="setting-label">{{ words(setting.name).label }}</span>
-                    @if (isChanged(setting)) {
-                        <span class="setting-flag">changed</span>
-                    }
-                    @if (setting.updated_at) {
-                        <span class="setting-history">
-                            last changed {{ setting.updated_at | appDate: 'datetime' }}@if (setting.updated_by) { by {{ setting.updated_by }} }
-                        </span>
-                    }
-                </div>
-
-                @if (words(setting.name).help) {
-                    <p class="setting-help">{{ words(setting.name).help }}</p>
                 }
-
-                <!-- One control per declared type. A setting the form does not
-                     recognise falls through to the plain text box, which is
-                     what the column holds anyway. -->
-                @switch (setting.type) {
-                    @case ('boolean') {
-                        <label class="checkbox-label">
-                            <input type="checkbox" [checked]="boolean(setting)" (change)="setBoolean(setting, $any($event.target).checked)" />
-                            <span>{{ boolean(setting) ? 'On' : 'Off' }}</span>
-                        </label>
-                    }
-
-                    @case ('choice') {
-                        <select class="admin-select setting-choice" (change)="setText(setting, $any($event.target).value)">
-                            @for (option of setting.options; track option) {
-                                <option [value]="option" [selected]="option === text(setting)">{{ optionLabel(option) }}</option>
-                            }
-                        </select>
-                    }
-
-                    @case ('i18n') {
-                        <div class="setting-languages">
-                            @for (language of languages(); track language.code) {
-                                <div class="form-field">
-                                    <label [attr.for]="setting.name + '-' + language.code">{{ language.name }}</label>
-                                    <textarea
-                                        class="admin-textarea"
-                                        [id]="setting.name + '-' + language.code"
-                                        rows="3"
-                                        [value]="message(setting, language.code)"
-                                        (input)="setMessage(setting, language.code, $any($event.target).value)"
-                                    ></textarea>
-                                </div>
-                            }
-                            @if (!languages().length) {
-                                <p class="setting-help">No languages are enabled, so there is nowhere to write this.</p>
-                            }
-                        </div>
-                    }
-
-                    @default {
-                        <input class="admin-input" type="text" [value]="text(setting)" (input)="setText(setting, $any($event.target).value)" />
-                    }
+                @if (isChanged(setting)) {
+                    <span class="setting-flag">changed</span>
+                }
+                @if (setting.updated_at) {
+                    <span class="setting-history">
+                        last changed {{ setting.updated_at | appDate: 'datetime' }}@if (setting.updated_by) { by {{ setting.updated_by }} }
+                    </span>
                 }
             </div>
-        }
-    </div>
 
-    <div modal-footer class="d-flex gap-3 justify-content-end align-items-center">
-        <span class="settings-count">
-            @if (changed().length) {
-                {{ changed().length }} unsaved
-            } @else {
-                Nothing changed
+            @if (words(setting.name).help) {
+                <p class="setting-help">{{ words(setting.name).help }}</p>
             }
-        </span>
 
-        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="closeModal()"></app-button>
-        <app-button text="Save" icon="icon-check" [loading]="saving()" [disabled]="!changed().length" (buttonClick)="save()"></app-button>
-    </div>
-</app-modal>
+            <!-- One control per declared type. A setting the form does not
+                 recognise falls through to the plain text box, which is
+                 what the column holds anyway. -->
+            @switch (setting.type) {
+                @case ('boolean') {
+                    <anotoki-switch [checked]="boolean(setting)" (checkedChange)="setBoolean(setting, $event)">{{ words(setting.name).label }}</anotoki-switch>
+                }
+
+                @case ('choice') {
+                    <anotoki-select class="setting-choice" [label]="words(setting.name).label" hideLabel [options]="choices(setting)" [value]="text(setting)" (valueChange)="setText(setting, $event)" />
+                }
+
+                @case ('i18n') {
+                    <div class="setting-languages">
+                        @for (language of languages(); track language.code) {
+                            <anotoki-textarea [label]="language.name" [rows]="3" [value]="message(setting, language.code)" (valueChange)="setMessage(setting, language.code, $event)" />
+                        }
+                        @if (!languages().length) {
+                            <p class="setting-help">No languages are enabled, so there is nowhere to write this.</p>
+                        }
+                    </div>
+                }
+
+                @default {
+                    <anotoki-text-field [label]="words(setting.name).label" hideLabel [value]="text(setting)" (valueChange)="setText(setting, $event)" />
+                }
+            }
+        </div>
+    }
+</div>
+
+<ng-template anotokiDialogFooter>
+    <span class="settings-count">
+        @if (changed().length) {
+            {{ changed().length }} unsaved
+        } @else {
+            Nothing changed
+        }
+    </span>
+
+    <button anotokiButton (click)="closeModal()">Cancel</button>
+    <button anotokiButton variant="primary" [disabled]="!changed().length" [loading]="saving()" (click)="save()"><span class="icon icon-check" aria-hidden="true"></span> Save</button>
+</ng-template>

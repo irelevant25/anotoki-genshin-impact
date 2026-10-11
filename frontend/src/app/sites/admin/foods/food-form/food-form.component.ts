@@ -1,10 +1,11 @@
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { Audited, Material } from '../../../../api';
 import { FoodApiService, LookupApiService, MaterialApiService, FoodFull, IdNameEntry } from '../../../../api';
@@ -19,7 +20,7 @@ import { emptyFood, FOOD_QUALITIES, foodImageName, FoodWrapper, RecipeWrapper } 
   selector: 'app-food-form',
   templateUrl: './food-form.component.html',
   styleUrls: ['./food-form.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TabsComponent, TabComponent, BaseInfoTabComponent, QualitiesTabComponent, RecipeTabComponent],
+  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, RouterLink, ButtonComponent, BaseInfoTabComponent, QualitiesTabComponent, RecipeTabComponent],
 })
 export class FoodFormComponent extends AdminFormComponent<FoodFull> implements OnInit, OnDestroy {
   readonly entityLabel = 'Food';
@@ -76,7 +77,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

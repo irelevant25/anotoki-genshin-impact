@@ -9,14 +9,10 @@ app-rich-text {
   max-width: 68ch;
 }
 
-// The loader lies over the body while the guide is asked for: room for it,
-// before there is any markup to give the body a height.
+// Room for the spinner while the guide is asked for, before there is any
+// markup to give the body a height.
 .guide-body {
-  position: relative;
-
-  &.is-loading {
-    min-height: 8rem;
-  }
+  min-height: 8rem;
 }
 
 .guide-failed {

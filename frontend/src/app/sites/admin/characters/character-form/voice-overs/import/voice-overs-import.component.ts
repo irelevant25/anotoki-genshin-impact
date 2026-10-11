@@ -1,7 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { ButtonComponent as KitButtonComponent } from '@anotoki/lib/ui/button';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { AbstractModalComponent } from '../../../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextareaComponent } from '../../../../../../shared/local-lib/components/textarea/textarea.component';
 import { CheckboxComponent } from '../../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { DropdownComponent } from '../../../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -24,17 +26,25 @@ export interface VoiceOverImportResult {
   replaceExisting: boolean;
 }
 
+/** What the voice-over tab hands over when it opens the import. */
+export interface VoiceOverImportData {
+  characterName: string;
+  existingCount: number;
+}
+
 @Component({
   selector: 'app-voice-overs-import',
   templateUrl: './voice-overs-import.component.html',
   styleUrls: ['./voice-overs-import.component.scss'],
-  imports: [ModalComponent, ButtonComponent, TextareaComponent, CheckboxComponent, DropdownComponent, FileComponent],
+  imports: [TooltipDirective, KitButtonComponent, DialogFooterDirective, ButtonComponent, TextareaComponent, CheckboxComponent, DropdownComponent, FileComponent],
 })
 export class VoiceOversImportComponent extends AbstractModalComponent {
-  /** Set by the opener before the modal renders. */
-  characterName = signal<string>('');
+  private readonly _data = inject<VoiceOverImportData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
+
+  /** Whose lines these are, and how many they have now: what the opener hands over. */
+  characterName = signal<string>(this._data?.characterName ?? '');
   readonly voiceOverTypes = VOICE_OVER_TYPES;
-  existingCount = signal<number>(0);
+  existingCount = signal<number>(this._data?.existingCount ?? 0);
 
   json = signal<string>('');
   jsonError = signal<string | undefined>(undefined);
@@ -222,10 +232,10 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
       }
     }
 
-    this.modalRef?.close({ wrappers, replaceExisting: this.replaceExisting() } as VoiceOverImportResult);
+    this.dialogRef?.close({ wrappers, replaceExisting: this.replaceExisting() } as VoiceOverImportResult);
   }
 
   cancel(): void {
-    this.modalRef?.close(undefined);
+    this.dialogRef?.close(undefined);
   }
 }

@@ -2,6 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
 import { SiteSettingsService, messageInLanguage } from '../../../../shared/local-lib/services/site-settings.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
+import { AlertComponent, AlertTone } from '@anotoki/lib/ui/alert';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 
 /** Where the dismissed announcement is remembered, per browser. */
 const DISMISSED_KEY = 'announcement-dismissed';
@@ -24,7 +26,7 @@ const DISMISSED_KEY = 'announcement-dismissed';
   selector: 'app-announcement',
   templateUrl: './announcement.component.html',
   styleUrls: ['./announcement.component.scss'],
-  imports: [TranslatePipe],
+  imports: [AlertComponent, ButtonComponent, TranslatePipe],
 })
 export class AnnouncementComponent {
   private readonly _settings = inject(SiteSettingsService);
@@ -43,10 +45,10 @@ export class AnnouncementComponent {
   readonly text = computed(() => messageInLanguage(this._settings.announcement()?.message, this._i18n.language()));
 
   /** info, warning or danger. Anything else is drawn as information. */
-  readonly level = computed(() => {
+  readonly level = computed<AlertTone>(() => {
     const level = this._settings.announcement()?.level ?? 'info';
 
-    return ['info', 'warning', 'danger'].includes(level) ? level : 'info';
+    return level === 'warning' || level === 'danger' ? level : 'info';
   });
 
   readonly visible = computed(() => this.text() !== '' && this.text() !== this._dismissed());

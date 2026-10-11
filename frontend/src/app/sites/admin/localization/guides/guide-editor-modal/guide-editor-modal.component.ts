@@ -1,10 +1,10 @@
 import { Component, computed, inject, model, signal } from '@angular/core';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { GuideApiService, GuideEditorEntry, GuideEditorLanguage } from '../../../../../api';
-import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { HtmlEditorComponent } from '../../../../../shared/local-lib/components/html-editor/html-editor.component';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 
 /** The server's sentence for a refused save, or a plain one when there was no answer. */
@@ -38,22 +38,31 @@ function refusalText(failure: unknown): string {
  * deletes its markup - the guide then reads in English there - and English
  * cannot be left empty.
  */
+/** What the Guides page hands over when it opens a guide. */
+export interface GuideEditorData {
+  guide: string;
+  heading: string;
+  languages: GuideEditorLanguage[];
+  initial: Record<string, string>;
+}
+
 @Component({
   selector: 'app-guide-editor-modal',
   templateUrl: './guide-editor-modal.component.html',
   styleUrls: ['./guide-editor-modal.component.scss'],
-  imports: [ModalComponent, HtmlEditorComponent, ButtonComponent],
+  imports: [DialogFooterDirective, HtmlEditorComponent, ButtonComponent],
 })
 export class GuideEditorModalComponent extends AbstractModalComponent {
   private readonly _api = inject(GuideApiService);
+  private readonly _data = inject<GuideEditorData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
 
-  /** The guide being edited, and its title as the pages show it. */
-  readonly guide = model<string>('');
-  readonly heading = model<string>('');
+  /** The guide being edited, and its title as the pages show it: what the Guides page hands over. */
+  readonly guide = signal<string>(this._data?.guide ?? '');
+  readonly heading = signal<string>(this._data?.heading ?? '');
 
-  readonly languages = model<GuideEditorLanguage[]>([]);
-  /** Language code to markup, as it stood when the modal opened. */
-  readonly initial = model<Record<string, string>>({});
+  readonly languages = signal<GuideEditorLanguage[]>(this._data?.languages ?? []);
+  /** Language code to markup, as it stood when the dialog opened. */
+  readonly initial = signal<Record<string, string>>({ ...(this._data?.initial ?? {}) });
 
   readonly current = signal<Record<string, string>>({});
   readonly active = signal<string>('');
@@ -83,7 +92,13 @@ export class GuideEditorModalComponent extends AbstractModalComponent {
     return !!(this.current()[code] ?? '').trim();
   }
 
-  /** Called once by whoever opened the modal, after the inputs are set. */
+  constructor() {
+    super();
+    this.dialogHeading(() => this.heading() || this.guide());
+    this.start();
+  }
+
+  /** The first language's pane, open on what is saved. */
   start(): void {
     this.current.set({ ...this.initial() });
     const first = this.languages()[0]?.code ?? '';
@@ -125,7 +140,7 @@ export class GuideEditorModalComponent extends AbstractModalComponent {
       }
     }
     if (!Object.keys(values).length) {
-      this.modalRef?.close(null);
+      this.dialogRef?.close(null);
       return;
     }
 
@@ -133,7 +148,7 @@ export class GuideEditorModalComponent extends AbstractModalComponent {
     this.error.set(null);
     try {
       const saved: GuideEditorEntry = await firstValueFrom(this._api.saveAdminGuide(this.guide(), { values }));
-      this.modalRef?.close(saved);
+      this.dialogRef?.close(saved);
     } catch (failure: unknown) {
       this.error.set(refusalText(failure));
       // A refusal about one language: show that one.
@@ -147,6 +162,6 @@ export class GuideEditorModalComponent extends AbstractModalComponent {
   }
 
   cancel(): void {
-    this.modalRef?.close(null);
+    this.dialogRef?.close(null);
   }
 }

@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, model, output, signal } from '@angular/core';
-import { takeUntil } from 'rxjs';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ConstellationSetApiService } from '../../../../../api';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
@@ -19,7 +19,7 @@ const MAX_CONSTELLATIONS = 6;
   selector: 'app-constellations-tab',
   templateUrl: './constellations-tab.component.html',
   styleUrls: ['./constellations-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, TextareaComponent, NumberComponent, EntityImageComponent, FieldContainerComponent],
+  imports: [TooltipDirective, ButtonComponent, TextComponent, TextareaComponent, NumberComponent, EntityImageComponent, FieldContainerComponent],
 })
 export class ConstellationsTabComponent extends AbstractModalComponent {
   constellations = model<ConstellationWrapper[]>([]);
@@ -38,13 +38,9 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
    * character. Mirrors the ascension "Choose set".
    */
   chooseSet(): void {
-    const modal = this.modalService.open<ConstellationSetSelectorComponent, number | undefined>(ConstellationSetSelectorComponent, {
-      size: '4',
-      scrollable: true,
-    });
-    modal.componentInstance.currentSetId.set(this.constellationSetId() ?? null);
+    const modal = this.dialogs.open<ConstellationSetSelectorComponent, number | undefined>(ConstellationSetSelectorComponent, { heading: 'Choose a constellation set', size: 'lg', data: this.constellationSetId() ?? null });
 
-    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+    void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
         return;
       }
@@ -52,9 +48,9 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
         next: (rows) => {
           this.constellations.set((rows ?? []).map((data) => ({ uid: createUid(), data: data as unknown as ConstellationWrapper['data'] })));
           this.constellationSetChosen.emit(setId);
-          this.notificationService.showSuccess(`Now using set #${setId} (${rows?.length ?? 0} constellations).`);
+          this.notificationService.success(`Now using set #${setId} (${rows?.length ?? 0} constellations).`);
         },
-        error: () => this.notificationService.showError('Could not load that set’s constellations.'),
+        error: () => this.notificationService.error('Could not load that set’s constellations.'),
       });
     });
   }
@@ -73,7 +69,7 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
     const count = this.constellations().length;
     this.constellations.set([]);
     this.deleteAllArmed.set(false);
-    this.notificationService.showSuccess(`${count} constellations removed. They are deleted when you save.`);
+    this.notificationService.success(`${count} constellations removed. They are deleted when you save.`);
   }
 
   cancelDeleteAll(): void {

@@ -1,8 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { CalendarComponent } from '../../../../shared/local-lib/components/calendar/calendar.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -26,16 +29,14 @@ interface FeaturedWrapper {
   selector: 'app-banner-form',
   templateUrl: './banner-form.component.html',
   styleUrls: ['./banner-form.component.scss'],
-  imports: [
+  imports: [PageHeaderComponent, IconComponent, SpinnerComponent, TooltipDirective, 
     RouterLink,
     ButtonComponent,
-    LoaderComponent,
     TextComponent,
     CalendarComponent,
     DropdownComponent,
     FieldContainerComponent,
-    EntityImageComponent,
-  ],
+    EntityImageComponent],
 })
 export class BannerFormComponent extends AdminFormComponent<BannerFull> implements OnInit {
   readonly entityLabel = 'Banner';
@@ -78,7 +79,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

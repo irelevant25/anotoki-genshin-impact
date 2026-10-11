@@ -1,4 +1,31 @@
+.not-found {
+  text-align: center;
+}
+
 p {
   font-size: var(--font-size-xl);
   color: var(--color-nav-link);
+}
+
+// The question mark in a circle, in the theme's colours: the page's quiet
+// ground, a field's edge, the quiet words' grey.
+.error-illustration {
+  max-width: 100%;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  circle {
+    fill: var(--anotoki-surface-2);
+    stroke: var(--anotoki-border-strong);
+    stroke-width: 2;
+  }
+
+  text {
+    fill: var(--anotoki-subtle);
+    font-family: inherit;
+    font-size: 24px;
+  }
 }

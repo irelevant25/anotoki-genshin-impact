@@ -1,10 +1,9 @@
-<div class="page-header justify-content-between">
-    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
-    <h1 class="page-title">{{ banner().name || pageTitle() }}</h1>
-</div>
+<anotoki-page-header [heading]="banner().name || pageTitle()">
+    <a pageEyebrow anotokiButton variant="link" size="sm" class="back-link" [routerLink]="backLink()"><anotoki-icon name="arrowLeft" [size]="16" /> Back</a>
+</anotoki-page-header>
 
 @if (loading()) {
-    <app-loader [loading]="true"></app-loader>
+    <anotoki-spinner class="page-spinner" label />
 } @else {
     <div class="form-section">
         <h3 class="section-title">Run</h3>
@@ -37,12 +36,12 @@
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
                     <app-dropdown class="featured-picker" [options]="characterOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— character —'"></app-dropdown>
-                    <app-button icon="icon-chevron-up icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move up" [disabled]="first" (buttonClick)="move('characters', entry, -1)"></app-button>
-                    <app-button icon="icon-chevron-down icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move down" [disabled]="last" (buttonClick)="move('characters', entry, 1)"></app-button>
-                    <app-button icon="icon-delete" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="remove('characters', entry)"></app-button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('characters', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('characters', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('characters', entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                 </div>
             }
-            <app-button variant="primary" [outline]="true" (buttonClick)="add('characters')">Add character</app-button>
+            <button anotokiButton (click)="add('characters')">Add character</button>
         </div>
     </div>
 
@@ -53,19 +52,17 @@
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
                     <app-dropdown class="featured-picker" [options]="weaponOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— weapon —'"></app-dropdown>
-                    <app-button icon="icon-chevron-up icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move up" [disabled]="first" (buttonClick)="move('weapons', entry, -1)"></app-button>
-                    <app-button icon="icon-chevron-down icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Move down" [disabled]="last" (buttonClick)="move('weapons', entry, 1)"></app-button>
-                    <app-button icon="icon-delete" variant="danger" [outline]="true" size="very-small" tooltipText="Remove" (buttonClick)="remove('weapons', entry)"></app-button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('weapons', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('weapons', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('weapons', entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                 </div>
             }
-            <app-button variant="primary" [outline]="true" (buttonClick)="add('weapons')">Add weapon</app-button>
+            <button anotokiButton (click)="add('weapons')">Add weapon</button>
         </div>
     </div>
 
     <div class="form-footer">
-        <a [routerLink]="backLink()">
-            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
-        </a>
-        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Banner'" [loading]="saving()" (buttonClick)="save()"></app-button>
+        <a anotokiButton [routerLink]="backLink()">Cancel</a>
+        <button anotokiButton variant="primary" [loading]="saving()" (click)="save()">{{ isEdit() ? 'Save Changes' : 'Create Banner' }}</button>
     </div>
 }

@@ -20,11 +20,8 @@ export interface FilterCodec<T> {
   readonly parse?: (raw: string) => T;
 }
 
-/** Free text, where absent and empty mean the same thing. */
+/** Free text, or a choice from a list (the kit's select holds text too), where absent and empty mean the same thing. */
 export const asText: FilterCodec<string> = { empty: '' };
-
-/** A dropdown. Cleared leaves `undefined`, which is what `isChosen` tests for. */
-export const asOption: FilterCodec<string | undefined> = { empty: undefined };
 
 /** A chip that toggles off to `null`. */
 export const asToggle: FilterCodec<string | null> = { empty: null };

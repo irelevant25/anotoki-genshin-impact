@@ -13,6 +13,14 @@
   padding: var(--spacing-md) 0;
 }
 
+// The kit's fields, one width each, so a row of them reads as one bar - and
+// one to a line on a phone. 12rem keeps the characters' bar, the longest, with
+// its Reset on one row at 1280 px, as it was.
+.filter {
+  width: 12rem;
+  max-width: 100%;
+}
+
 // A row of toggles - rarities, elements, weapon types. Clicking the one that is
 // already on turns it off, so the group needs no "any" entry of its own.
 .chip-group {

@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, signal, computed, effect, Vi
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ValidationErrorService } from './services/validation.service';
-import { AbstractTooltipComponent } from './abstract-tooltip.class';
+import { AbstractRolesComponent } from './abstract-roles.class';
 import { requiredValidator } from './validators/required.class';
 import { DomSanitizer } from '@angular/platform-browser';
 import { isNullOrEmpty } from './helper.class';
@@ -16,7 +16,21 @@ import { isNullOrEmpty } from './helper.class';
     },
   ],
 })
-export abstract class AbstractInputComponent<T = string> extends AbstractTooltipComponent implements Validator {
+/**
+ * What every field of the site's forms shares: its value (any type - a number,
+ * a date, a choice's key - where the kit's fields hold text), `required` and
+ * `validators`, and the error said once the field is touched. The admin forms
+ * find every field in them through `registry` to check them all before a save
+ * and to open the tab holding the first wrong one.
+ *
+ * Most of them are drawn by the anotoki kit (@anotoki/lib/ui/forms): their
+ * templates are one kit field each, given the label, the hint and the error
+ * worked out here (`kitLabel`, `kitHint`, `kitError`) and turning its text
+ * back into this field's type. The kit has no multiselect, date picker, chips,
+ * file picker, slider or search with pictures: those draw themselves, in the
+ * kit's look (components.scss).
+ */
+export abstract class AbstractInputComponent<T = string> extends AbstractRolesComponent implements Validator {
   static readonly registry = new Set<AbstractInputComponent<any>>();
   static readonly registryVersion = signal(0);
 
@@ -55,6 +69,13 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
     return this.errorMessage() !== undefined && this.errorMessage() !== null && this.isTouched() && !this.disabled();
   });
   isValid = computed(() => !this.errorMessage());
+
+  /** The kit field's label: the field's own, marked when it must be filled; else what the placeholder says, for screen readers. */
+  readonly kitLabel = computed(() => (this.label() ? this.label() + (this.required() ? ' *' : '') : (this.placeholder() ?? '')));
+  /** The quieter line under the field. */
+  readonly kitHint = computed(() => this.description() || null);
+  /** The error the kit field says (role="alert", aria-invalid), once the field has been touched. */
+  readonly kitError = computed(() => (this.displayError() && this.hasError() ? (this.errorMessage() ?? null) : null));
   isNullOrEmpty = computed(() => {
     const val = this.computedValue();
     return isNullOrEmpty(val);
@@ -107,8 +128,14 @@ export abstract class AbstractInputComponent<T = string> extends AbstractTooltip
     this.updateErrorMessageInternal();
   }
 
-  override ngOnDestroy(): void {
-    super.ngOnDestroy();
+  /** Says the field is drawn (a form that measures its fields waits for it). */
+  readonly initialized = output<boolean>();
+
+  ngAfterViewInit(): void {
+    this.initialized.emit(true);
+  }
+
+  ngOnDestroy(): void {
     AbstractInputComponent.registry.delete(this);
     AbstractInputComponent.registryVersion.update((v) => v + 1);
     this.unsubscriber.next();

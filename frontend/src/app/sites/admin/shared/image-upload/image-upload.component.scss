@@ -43,7 +43,7 @@
   background: var(--bg-hover);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace;
+  font-family: var(--anotoki-font-mono);
   font-size: var(--font-size-sm);
   color: var(--text-primary);
   word-break: break-all;
@@ -82,31 +82,7 @@
 
 .picker-modes {
   display: flex;
-  gap: var(--spacing-xs);
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.picker-mode {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: 1px solid transparent;
-  border-radius: var(--border-radius);
-  background: none;
-  color: var(--text-secondary);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-
-  &.is-active {
-    background: var(--bg-hover);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-  }
+  margin-bottom: var(--spacing-sm);
 }
 
 /* ── Choose from files ───────────────────────────────────────────────────── */
@@ -209,12 +185,6 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-}
-
-.browse-page-label {
-  font-size: var(--font-size-sm);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-secondary);
 }
 
 .browse-empty {

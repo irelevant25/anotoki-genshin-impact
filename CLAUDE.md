@@ -161,15 +161,11 @@ So, since 0.3.0, are the site's words - *The words* below.
   chunk, never the first load), inside the admin layout, the one page that works
   while an update waits. Never installed: "This site is not set up yet" and the
   setup page; installed once: "not available right now", never the setup page. Both
-  are drawn with the library's kit, in the site's colours (`--anotoki-*`, the
-  `anotoki-lib` mixin in `design-tokens.scss`), as are the admin Translations and
-  Languages pages. Every colour the kit reads on these pages is mapped to one of
-  the site's - one left out is the family's navy - and `border-strong`, the edge
-  of its fields, switches and outlined buttons, stays 3:1 or more against every
-  surface in both themes (WCAG 1.4.11; this site's own borders are dividers, 2:1
-  at most). The admin panel has no anotoki top bar: `.admin-main` sets
-  `--anotoki-topbar-height` to minus its padding, so the library's sticky heads
-  stick flush with its top.
+  are drawn with the library's kit in the site's colours, as every page is (*The
+  kit and the palette*, under Frontend conventions). The admin panel has no
+  anotoki top bar: `.admin-main` sets `--anotoki-topbar-height` to minus its
+  padding (on a phone, to its own 56 px row), so the library's sticky heads stick
+  flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
   in `backend/composer.json` (`"anotoki/lib": "^0.4.1"`, from the GitHub VCS
   repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
@@ -486,6 +482,12 @@ npm start                            # bun ci, then ng serve on :4200 through pr
                                      # - it does not regenerate the API client: npm run api after an API change
 npm run api                          # regenerate the API client (see above)
 npm run lint
+node scripts/screenshots.mjs         # every page and its dialogs in headless Edge, light and dark, 1280 and 390 px:
+                                     # screenshots to compare before and after a change to the pages, and what a
+                                     # picture hides (wider than a phone, console errors, a key shown as a word).
+                                     # A production build, a throwaway database and backend copy
+                                     # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
+                                     # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
 
 # Production build (see Deployment)
 cd frontend && npm run build:deploy  # FE → frontend/dist/angular/browser/ (prod config.json + SPA .htaccess)
@@ -752,10 +754,47 @@ node docs/security/build-report.mjs                            # after re-runnin
   else sends `X-Visitor-Key` or decides person / visitor (see *Signing in*).
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
-- **local-lib** (`src/app/shared/local-lib/`) holds the shared UI kit and the
-  abstract bases: `AbstractInputComponent`, `AbstractModalComponent` (gives
-  `openModal`, `closeModal`, `notificationService`), `AbstractRolesComponent`.
-  Build on these rather than reinventing them.
+- **The kit and the palette**: the pages are drawn with the anotoki family's UI
+  kit (anotoki-lib 0.4.1), each piece imported from its own entry point -
+  `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
+  (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
+  `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
+  `ui/card`, `ui/page-header`, `ui/empty-state`, `ui/error-state`, `ui/badge`,
+  `ui/alert`, `ui/icon`, `ui/spinner` - never `@anotoki/lib/ui`. The toasts'
+  host is in each site's root component, the confirm host in the admin panel's.
+  A kit slot (`alertActions`, `cardActions`, `drawerActions`...) goes on a
+  wrapper around the buttons, never on a button: the kit draws the slot's
+  element `display: contents`, and a button carrying it loses its box. A size
+  a kit input takes is in its own unit (a popover's `minWidth` is rem).
+  The family has one palette and genshin gives it its colours: `styles.scss`
+  writes `anotoki.root(...)` with genshin's light and dark values (the owner's
+  decision: a site keeps its look by its colours, never by re-styling the
+  kit's pieces), keeping text 4.5:1 on every ground and `border-strong` (every
+  field's edge) and `focus` 3:1 (WCAG 1.4.11; genshin's own borders are dividers,
+  2:1 at most). Then the family's Manrope, base and tables, then
+  `local-lib/general.scss`. The site's own names for colours (`--bg-card`,
+  `--text-secondary`, `--color-primary`, ...) are those tokens again
+  (`design-tokens.scss`); its own colours - the wallpaper's veils, the
+  elements, the rarities - stay its own. A colour a page needs is one of these
+  custom properties (*Theming*).
+- **local-lib** (`src/app/shared/local-lib/`) holds what the kit has no piece
+  for and the bases the pages build on: the field adapters `app-text`,
+  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown` (the kit's
+  fields, keeping the typed values and the validation the admin forms run
+  through `AbstractInputComponent`) and `app-multiselect` (the kit's popover of
+  its checkboxes); the site's own fields, drawn as the kit draws its fields
+  (`components.scss`): the date picker, chips, file picker, slider, colour
+  picker, the quiz's search with pictures, the HTML editor, rich text; the
+  waypoint loader, the audio players, the theme toggle. The bases:
+  `AbstractInputComponent`, `AbstractModalComponent` (`openModal()` over the
+  kit's `AnotokiDialog`, data through `ANOTOKI_DIALOG_DATA`, `closeModal()`,
+  `dialogHeading()`, `notificationService` = the kit's `ToastService`),
+  `AbstractRolesComponent`. A piece the kit lacks is built here from the kit's
+  pieces and tokens, and goes to the library when another site wants it.
+- **The admin frame**: the navigation is a 220 px column beside the page; up to
+  860 px the page has the whole width under a row with the brand, the theme and
+  a Menu button that opens the same navigation in the kit's drawer
+  (`sites/admin/app.component.*`). Every page works at 390 px.
 - **Admin CRUD** for an entity lives in `sites/admin/<entity>/<entity>-list/`
   and `<entity>-form/`, wired in `sites/admin/admin.routes.ts` with a nav entry
   in `sites/admin/app.component.ts`. Simple lookup tables use the shared

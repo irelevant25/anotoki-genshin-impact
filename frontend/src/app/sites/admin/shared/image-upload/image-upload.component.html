@@ -1,108 +1,104 @@
-<app-modal [title]="title()" (closeModal)="cancel()">
-    <div modal-body class="picker-body">
-        <div class="picker-modes" role="tablist">
-            <button type="button" class="picker-mode" [class.is-active]="mode() === 'upload'" (click)="show('upload')">Upload a file</button>
-            <button type="button" class="picker-mode" [class.is-active]="mode() === 'existing'" (click)="show('existing')">Choose from files</button>
+<div class="picker-body">
+    <!-- The two ways to fill the slot: the kit's segmented control. -->
+    <anotoki-segmented class="picker-modes" label="Where the file comes from" [options]="modes" [value]="mode()" (valueChange)="show($any($event))" />
+
+    @if (mode() === 'upload') {
+        <div class="upload-body">
+            <app-file
+                [label]="'File'"
+                [buttonText]="kind() === 'audio' ? 'Choose audio' : 'Choose image'"
+                [buttonOutline]="true"
+                [acceptedExtensions]="extensions()"
+                [fileNamePosition]="'right'"
+                (inputChange)="onFileSelect($event)"
+            ></app-file>
+
+            @if (uploadPreview(); as src) {
+                <div class="upload-preview">
+                    @if (kind() === 'audio') {
+                        <audio controls [src]="src"></audio>
+                    } @else {
+                        <img [src]="src" [alt]="name()" />
+                    }
+                </div>
+            }
+
+            <div class="upload-name">
+                <span class="upload-name-label">Saved as</span>
+                @if (name()) {
+                    <code class="upload-name-value">{{ name() }}</code>
+                    <span class="upload-name-hint">Named after the entity - rename it there and this follows.</span>
+                } @else {
+                    <span class="upload-name-missing">Give the entity a name first - the file is named after it.</span>
+                }
+            </div>
         </div>
+    } @else {
+        <div class="browse-body">
+            <p class="browse-hint">Pick a file already in the library. The same file can sit on many entities — nothing is copied.</p>
 
-        @if (mode() === 'upload') {
-            <div class="upload-body">
-                <app-file
-                    [label]="'File'"
-                    [buttonText]="kind() === 'audio' ? 'Choose audio' : 'Choose image'"
-                    [buttonOutline]="true"
-                    [acceptedExtensions]="extensions()"
-                    [fileNamePosition]="'right'"
-                    (inputChange)="onFileSelect($event)"
-                ></app-file>
+            <div class="browse-controls">
+                <app-dropdown
+                    [label]="'Folder'"
+                    [options]="folders()"
+                    [(value)]="folder"
+                    (inputChange)="onFolderChange()"
+                ></app-dropdown>
+                <app-text [label]="'Search'" [placeholder]="'file name'" [(value)]="search" (inputChange)="onSearchInput()"></app-text>
+            </div>
 
-                @if (uploadPreview(); as src) {
-                    <div class="upload-preview">
-                        @if (kind() === 'audio') {
-                            <audio controls [src]="src"></audio>
-                        } @else {
-                            <img [src]="src" [alt]="name()" />
+            @if (browsing()) {
+                <anotoki-spinner class="dialog-spinner" label />
+            } @else {
+                @if (results().length) {
+                    <div class="browse-grid">
+                        @for (file of results(); track file.url) {
+                            <button
+                                type="button"
+                                class="browse-tile"
+                                [class.is-selected]="isSelected(file)"
+                                [class.is-uncatalogued]="file.file_id === null"
+                                [title]="file.file_id === null ? file.name + ' — not in the catalogue yet, cannot be linked' : file.name"
+                                (click)="select(file)"
+                            >
+                                @if (kind() === 'audio') {
+                                    <span class="browse-sound"><i class="icon icon-music icon-size-4"></i></span>
+                                } @else {
+                                    <img [src]="thumbUrl(file)" [alt]="file.name" loading="lazy" />
+                                }
+                                <span class="browse-name">{{ file.name }}</span>
+                                @if (file.file_id === null) {
+                                    <span class="browse-flag">uncatalogued</span>
+                                }
+                            </button>
                         }
                     </div>
-                }
 
-                <div class="upload-name">
-                    <span class="upload-name-label">Saved as</span>
-                    @if (name()) {
-                        <code class="upload-name-value">{{ name() }}</code>
-                        <span class="upload-name-hint">Named after the entity - rename it there and this follows.</span>
-                    } @else {
-                        <span class="upload-name-missing">Give the entity a name first - the file is named after it.</span>
+                    <!-- A sound has no thumbnail to tell it by, so the chosen one can be heard first. -->
+                    @if (kind() === 'audio' && selected(); as chosen) {
+                        <audio class="browse-player" controls [src]="thumbUrl(chosen)"></audio>
                     }
-                </div>
-            </div>
-        } @else {
-            <div class="browse-body">
-                <p class="browse-hint">Pick a file already in the library. The same file can sit on many entities — nothing is copied.</p>
 
-                <div class="browse-controls">
-                    <app-dropdown
-                        [label]="'Folder'"
-                        [options]="folders()"
-                        [(value)]="folder"
-                        (inputChange)="onFolderChange()"
-                    ></app-dropdown>
-                    <app-text [label]="'Search'" [placeholder]="'file name'" [(value)]="search" (inputChange)="onSearchInput()"></app-text>
-                </div>
-
-                <app-loader #browseLoader [loading]="browsing()"></app-loader>
-
-                @if (!browseLoader.loadingCtrl.loading()) {
-                    @if (results().length) {
-                        <div class="browse-grid">
-                            @for (file of results(); track file.url) {
-                                <button
-                                    type="button"
-                                    class="browse-tile"
-                                    [class.is-selected]="isSelected(file)"
-                                    [class.is-uncatalogued]="file.file_id === null"
-                                    [title]="file.file_id === null ? file.name + ' — not in the catalogue yet, cannot be linked' : file.name"
-                                    (click)="select(file)"
-                                >
-                                    @if (kind() === 'audio') {
-                                        <span class="browse-sound"><i class="icon icon-music icon-size-4"></i></span>
-                                    } @else {
-                                        <img [src]="thumbUrl(file)" [alt]="file.name" loading="lazy" />
-                                    }
-                                    <span class="browse-name">{{ file.name }}</span>
-                                    @if (file.file_id === null) {
-                                        <span class="browse-flag">uncatalogued</span>
-                                    }
-                                </button>
-                            }
+                    @if (totalPages() > 1) {
+                        <div class="browse-pager">
+                            <anotoki-pagination [page]="page()" [pageSize]="pageSize" [total]="total()" (pageChange)="goToPage($event)" />
                         </div>
-
-                        <!-- A sound has no thumbnail to tell it by, so the chosen one can be heard first. -->
-                        @if (kind() === 'audio' && selected(); as chosen) {
-                            <audio class="browse-player" controls [src]="thumbUrl(chosen)"></audio>
-                        }
-
-                        @if (totalPages() > 1) {
-                            <div class="browse-pager">
-                                <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
-                                <span class="browse-page-label">{{ page() }} / {{ totalPages() }}</span>
-                                <app-button icon="icon-chevron-right" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === totalPages()" (buttonClick)="goToPage(page() + 1)"></app-button>
-                            </div>
-                        }
-                    } @else {
-                        <p class="browse-empty">No {{ kind() === 'audio' ? 'audio files' : 'images' }} in this folder{{ search() ? ' match that search' : '' }}.</p>
                     }
+                } @else {
+                    <p class="browse-empty">No {{ kind() === 'audio' ? 'audio files' : 'images' }} in this folder{{ search() ? ' match that search' : '' }}.</p>
                 }
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
+</div>
 
-    <div modal-footer class="picker-footer">
-        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancel()"></app-button>
-        <app-button
-            [text]="mode() === 'upload' ? (kind() === 'audio' ? 'Use this file' : 'Use this image') : 'Use selected file'"
-            [disabled]="!canSubmit()"
-            (buttonClick)="submit()"
-        ></app-button>
-    </div>
-</app-modal>
+<ng-template anotokiDialogFooter>
+    <button anotokiButton (click)="cancel()">Cancel</button>
+    <button
+        anotokiButton
+        variant="primary"
+        [disabled]="!canSubmit()"
+        (click)="submit()">
+        {{ mode() === 'upload' ? (kind() === 'audio' ? 'Use this file' : 'Use this image') : 'Use selected file' }}
+    </button>
+</ng-template>

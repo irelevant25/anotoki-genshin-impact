@@ -1,29 +1,28 @@
-<div class="page-header">
-    <h1 class="page-title">{{ config().title }}</h1>
+<anotoki-page-header [heading]="config().title">
     @if (config().readOnly) {
-        <span class="badge-readonly">Read-only</span>
+        <anotoki-badge pageMeta>Read-only</anotoki-badge>
     }
-</div>
+</anotoki-page-header>
 
-<app-loader #loader [loading]="loading()"></app-loader>
-
-@if (!loader.loadingCtrl.loading()) {
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
     @if (!config().readOnly && _createFn) {
         <div class="add-row">
-            <input class="admin-input" type="text" placeholder="New entry name..." [value]="newName()" (input)="newName.set($any($event.target).value)" (keydown.enter)="add()" />
-            <app-button text="Add" icon="icon-plus" size="small" [loading]="saving()" [disabled]="!newName().trim()" (buttonClick)="add()"> </app-button>
+            <anotoki-text-field class="add-name" label="New entry" hideLabel placeholder="New entry name…" [value]="newName()" (valueChange)="newName.set($event)" (keydown.enter)="add()" />
+            <button anotokiButton variant="primary" [disabled]="!newName().trim()" [loading]="saving()" (click)="add()"><span class="icon icon-plus" aria-hidden="true"></span> Add</button>
         </div>
     }
 
-    <div class="table-wrap">
-        <table class="admin-table">
+    <div class="table-scroll">
+        <table class="table">
             <thead>
                 <tr>
                     @for (col of getColumns(); track col) {
                         <th>{{ col }}</th>
                     }
                     @if (!config().readOnly && _deleteFn) {
-                        <th class="col-actions"></th>
+                        <th class="cell-actions"><span class="visually-hidden">Actions</span></th>
                     }
                 </tr>
             </thead>
@@ -39,16 +38,10 @@
                             <td>{{ item[col] ?? '—' }}</td>
                         }
                         @if (!config().readOnly && _deleteFn) {
-                            <td class="col-actions">
-                                @if (deleteConfirm() === getPk(item)) {
-                                    <span class="confirm-row">
-                                        <span class="confirm-text">Delete?</span>
-                                        <app-button text="Yes" variant="danger" size="very-small" (buttonClick)="delete(getPk(item))"></app-button>
-                                        <app-button text="No" variant="secondary" size="very-small" (buttonClick)="cancelDelete()"></app-button>
-                                    </span>
-                                } @else {
-                                    <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(getPk(item))"></app-button>
-                                }
+                            <td class="cell-actions">
+                                <div class="action-btns">
+                                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(getPk(item))"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
+                                </div>
                             </td>
                         }
                     </tr>

@@ -17,13 +17,14 @@
         ></app-file>
         @if (audioLabel(); as label) {
             <div class="audio-preview">
-                <app-button
-                    [icon]="isPlaying() ? 'icon-stop' : 'icon-play'"
-                    variant="primary"
-                    [outline]="true"
-                    size="very-small"
-                    (buttonClick)="togglePlay()"
-                ></app-button>
+                <button
+                    anotokiButton
+                    size="sm"
+                    iconOnly
+                    [attr.aria-label]="isPlaying() ? 'Stop' : 'Play'"
+                    (click)="togglePlay()">
+                    <span [class]="'icon ' + (isPlaying() ? 'icon-stop' : 'icon-play')" aria-hidden="true"></span>
+                </button>
                 <span class="audio-filename">{{ label }}</span>
             </div>
         }

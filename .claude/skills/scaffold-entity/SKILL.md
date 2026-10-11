@@ -90,7 +90,8 @@ every component is three files) and `<name>-form/<name>-form.component.ts` (+ it
 - register the routes in `sites/admin/admin.routes.ts`,
 - add a nav entry in `sites/admin/app.component.ts` (right section, correct
   role/`readOnly` flag).
-Follow the **frontend-engineer** conventions (signals, local-lib bases, generated
+Follow the **frontend-engineer** conventions (signals, the kit and local-lib's
+adapters and bases, generated
 services, both themes, `translate` pipe, `AppDatePipe`). Upload assets through the
 existing image/audio flow.
 

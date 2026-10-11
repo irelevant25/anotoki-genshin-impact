@@ -1,9 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { Background, BackgroundApiService, FileApiService, toFormData } from '../../../../api';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
@@ -21,7 +24,7 @@ import { assetSuffix, toAssetLiteralName } from '../../shared/asset-name';
   selector: 'app-backgrounds-list',
   templateUrl: './backgrounds-list.component.html',
   styleUrls: ['./backgrounds-list.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, TextComponent, EntityImageComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, ButtonComponent, TextComponent, EntityImageComponent],
 })
 export class BackgroundsListComponent implements OnInit {
   backgrounds = signal<Background[]>([]);
@@ -31,14 +34,14 @@ export class BackgroundsListComponent implements OnInit {
   newName = signal<string | number | null | undefined>('');
   renaming = signal<number | undefined>(undefined);
   renameValue = signal<string | number | null | undefined>('');
-  deleteConfirm = signal<number | undefined>(undefined);
 
   /** Shown until the reload lands, so a replaced picture is visible at once. */
   picked = signal<Record<string, PickedImage>>({});
 
   private readonly _backgroundApi = inject(BackgroundApiService);
   private readonly _fileApi = inject(FileApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
+  private readonly _confirm = inject(ConfirmService);
 
   ngOnInit(): void {
     this.load();
@@ -53,7 +56,7 @@ export class BackgroundsListComponent implements OnInit {
       },
       error: () => {
         this.loading.set(false);
-        this._notify.showError('Failed to load backgrounds');
+        this._notify.error('Failed to load backgrounds');
       },
     });
   }
@@ -66,10 +69,10 @@ export class BackgroundsListComponent implements OnInit {
     this._backgroundApi.createBackground({ name }).subscribe({
       next: () => {
         this.newName.set('');
-        this._notify.showSuccess(`${name} added`);
+        this._notify.success(`${name} added`);
         this.load();
       },
-      error: (error) => this._notify.showError(error?.error?.error ?? 'Could not add the background'),
+      error: (error) => this._notify.error(error?.error?.error ?? 'Could not add the background'),
     });
   }
 
@@ -94,22 +97,21 @@ export class BackgroundsListComponent implements OnInit {
         this.busy.set(undefined);
         this.renaming.set(undefined);
         // The files are named after the background, so they need renaming too.
-        this._notify.showSuccess(`Renamed to ${name}. Rename the image files to match on the Files page.`);
+        this._notify.success(`Renamed to ${name}. Rename the image files to match on the Files page.`);
         this.load();
       },
       error: (error) => {
         this.busy.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'Could not rename the background');
+        this._notify.error(error?.error?.error ?? 'Could not rename the background');
       },
     });
   }
 
-  confirmDelete(entry: Background): void {
-    this.deleteConfirm.set(entry.id);
-  }
-
-  cancelDelete(): void {
-    this.deleteConfirm.set(undefined);
+  /** Asks first (the kit's question, its focus on No), then removes it. */
+  async confirmDelete(entry: Background): Promise<void> {
+    if (await this._confirm.ask({ title: `Remove ${entry.name}?`, message: 'Its image files are left where they are.', confirmLabel: 'Remove', tone: 'danger' })) {
+      this.delete(entry);
+    }
   }
 
   delete(entry: Background): void {
@@ -117,14 +119,12 @@ export class BackgroundsListComponent implements OnInit {
     this._backgroundApi.deleteBackground(entry.id).subscribe({
       next: () => {
         this.busy.set(undefined);
-        this.deleteConfirm.set(undefined);
-        this._notify.showSuccess(`${entry.name} removed. Its image files are untouched.`);
+        this._notify.success(`${entry.name} removed. Its image files are untouched.`);
         this.load();
       },
       error: (error) => {
         this.busy.set(undefined);
-        this.deleteConfirm.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'Could not remove the background');
+        this._notify.error(error?.error?.error ?? 'Could not remove the background');
       },
     });
   }
@@ -162,12 +162,12 @@ export class BackgroundsListComponent implements OnInit {
         // An upload answers with {path, name}; an update answers with the row.
         entry[field] = existing ? existing.path : (result as { path: string }).path;
         entry[`${field}_name`] = existing ? existing.name : (result as { name: string }).name;
-        this._notify.showSuccess(`${entry.name} ${field} updated`);
+        this._notify.success(`${entry.name} ${field} updated`);
       },
       error: (error) => {
         this.busy.set(undefined);
         this._clearPicked(key);
-        this._notify.showError(error?.error?.error ?? `Could not set the ${field}`);
+        this._notify.error(error?.error?.error ?? `Could not set the ${field}`);
       },
     });
   }

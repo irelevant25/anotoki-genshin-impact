@@ -1,10 +1,12 @@
 import { DecimalPipe } from '@angular/common';
+import { PaginationComponent } from '@anotoki/lib/ui/pagination';
+import { CheckboxComponent } from '@anotoki/lib/ui/forms';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Component, computed, inject, signal } from '@angular/core';
 import { AssetCleanupFile, AssetCleanupProgress, FileApiService } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
 
 /** Files per request while the deletion runs. The server also stops on a clock. */
@@ -27,13 +29,13 @@ const CLEANUP_BATCH = 400;
   selector: 'app-cleanup-modal',
   templateUrl: './cleanup-modal.component.html',
   styleUrls: ['./cleanup-modal.component.scss'],
-  imports: [ModalComponent, ButtonComponent, LoaderComponent, DecimalPipe, FileSizePipe],
+  imports: [PaginationComponent, CheckboxComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, DecimalPipe, FileSizePipe],
 })
 export class CleanupModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);
 
-  /** Set by the page that opens this: `image` or `audio`. */
-  readonly kind = signal<'image' | 'audio'>('image');
+  /** Pictures or sound: what the page hands over. */
+  readonly kind = signal<'image' | 'audio'>(inject<'image' | 'audio' | null>(ANOTOKI_DIALOG_DATA, { optional: true }) ?? 'image');
 
   readonly files = signal<AssetCleanupFile[]>([]);
   readonly total = signal(0);
@@ -63,7 +65,13 @@ export class CleanupModalComponent extends AbstractModalComponent {
     return Math.round((100 * (progress.total - progress.remaining)) / progress.total);
   });
 
-  /** Called by the page once it has said which kind this is. */
+  constructor() {
+    super();
+    this.dialogHeading(() => this.title());
+    this.start();
+  }
+
+  /** The first page of candidates, for the kind handed over. */
   start(): void {
     this.load(1);
   }
@@ -82,7 +90,7 @@ export class CleanupModalComponent extends AbstractModalComponent {
       },
       error: () => {
         this.loading.set(false);
-        this.notificationService.showError('Could not read the list.');
+        this.notificationService.error('Could not read the list.');
       },
     });
   }
@@ -169,7 +177,7 @@ export class CleanupModalComponent extends AbstractModalComponent {
 
         if (progress.finished) {
           this.running.set(false);
-          this.notificationService.showSuccess(`${progress.trashed.toLocaleString()} moved to the trash.`);
+          this.notificationService.success(`${progress.trashed.toLocaleString()} moved to the trash.`);
           return;
         }
 
@@ -181,7 +189,7 @@ export class CleanupModalComponent extends AbstractModalComponent {
       },
       error: (error) => {
         this.running.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'The cleanup stopped.');
+        this.notificationService.error(error?.error?.error ?? 'The cleanup stopped.');
       },
     });
   }

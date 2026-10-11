@@ -1,12 +1,13 @@
-import { Component, computed, ElementRef, inject, OnDestroy, OnInit, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { AbstractInputComponent } from '../../../../shared/local-lib/abstract-input.class';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { VoiceOversTabComponent } from './voice-overs/voice-overs-tab.component';
 import { ConstellationsTabComponent } from './constellations/constellations-tab.component';
@@ -44,9 +45,10 @@ import {
   imports: [
     RouterLink,
     ButtonComponent,
-    LoaderComponent,
+    IconComponent,
+    PageHeaderComponent,
+    SpinnerComponent,
     TabsComponent,
-    TabComponent,
     BaseInfoTabComponent,
     VoiceOversTabComponent,
     ConstellationsTabComponent,
@@ -55,9 +57,8 @@ import {
   ],
 })
 export class CharacterFormComponent implements OnInit, OnDestroy {
+  /** The form's tabs (the kit's). */
   @ViewChild(TabsComponent) private _tabs?: TabsComponent;
-  @ViewChildren(TabComponent) private _tabList?: QueryList<TabComponent>;
-  @ViewChildren(TabComponent, { read: ElementRef }) private _tabElements?: QueryList<ElementRef<HTMLElement>>;
 
   // Form state
   character = signal<CharacterWrapper>(emptyCharacter());
@@ -99,7 +100,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   private readonly _lookupApi = inject(LookupApiService);
   private readonly _materialApi = inject(MaterialApiService);
   private readonly _statApi = inject(StatApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
@@ -158,7 +159,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.loadingLookups.set(false);
-        this._notify.showError('Failed to load form options');
+        this._notify.error('Failed to load form options');
       },
     });
   }
@@ -197,7 +198,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.loadingCharacter.set(false);
-        this._notify.showError('Failed to load character');
+        this._notify.error('Failed to load character');
       },
     });
   }
@@ -224,7 +225,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result) => {
           this.saving.set(false);
-          this._notify.showSuccess(this.isEdit() ? 'Character updated' : 'Character created');
+          this._notify.success(this.isEdit() ? 'Character updated' : 'Character created');
           if (this.isEdit()) {
             this._loadCharacter(this.characterId()!);
           } else {
@@ -233,7 +234,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.saving.set(false);
-          this._notify.showError(error?.error?.error ?? error?.error?.message ?? 'Failed to save character');
+          this._notify.error(error?.error?.error ?? error?.error?.message ?? 'Failed to save character');
         },
       });
   }
@@ -270,7 +271,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
 
     const invalid = inputs.filter((input) => !input.isValid());
     if (invalid.length > 0) {
-      this._notify.showError(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
+      this._notify.error(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
       this._revealInput(invalid[0].elementRef.nativeElement);
       return false;
     }
@@ -278,13 +279,13 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     // Image names are derived from what the row is called, so an unnamed row
     // has nowhere to put its picture.
     if (this._collectPendingImages().some((entry) => !entry.name)) {
-      this._notify.showError('Name the character, constellation or talent before uploading its image.');
+      this._notify.error('Name the character, constellation or talent before uploading its image.');
       return false;
     }
 
     const duplicate = this._findDuplicateCost();
     if (duplicate) {
-      this._notify.showError(duplicate);
+      this._notify.error(duplicate);
       return false;
     }
     return true;
@@ -318,12 +319,15 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     return new Set(materialIds).size !== materialIds.length;
   }
 
-  /** Opens the tab holding the given element - tabs stay in the DOM, so it may be hidden. */
+  /**
+   * Opens the tab holding the given element - every panel stays in the page,
+   * hidden but for the one chosen (`data-tab` names its tab) - and brings it
+   * into view.
+   */
   private _revealInput(element: HTMLElement): void {
-    const tabIndex = this._tabElements?.toArray().findIndex((tab) => tab.nativeElement.contains(element)) ?? -1;
-    const tab = tabIndex >= 0 ? this._tabList?.get(tabIndex) : undefined;
+    const tab = element.closest('[data-tab]')?.getAttribute('data-tab');
     if (tab && this._tabs) {
-      this._tabs.setActiveTab(tab);
+      this._tabs.active.set(tab);
     }
     setTimeout(() => element.scrollIntoView({ behavior: 'smooth', block: 'center' }));
   }

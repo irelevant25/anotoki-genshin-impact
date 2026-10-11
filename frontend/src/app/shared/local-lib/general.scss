@@ -42,12 +42,12 @@
   border-radius: 100%;
 }
 
-/* Remove default button styles */
+/* The site's own buttons - a menu item, a quiz's answer - draw themselves; the
+   kit's buttons set all of this on their own. */
 button {
   border: none;
   background: none;
   cursor: pointer;
-  font-family: inherit;
 }
 
 .d-grid {
@@ -535,31 +535,23 @@ button {
   }
 }
 
-/* Remove default input styles */
+/* The site's own inputs fill their place; the kit's fields size their own. */
 input,
 select,
 textarea {
-  font-family: inherit;
-  font-size: inherit;
   width: 100%;
 }
-
-/* Remove default list styles */
 
 ol {
   padding-left: var(--spacing-xl);
 }
 
-/* Remove default link styles */
+/* A link here is mostly a card or a menu item it wraps rather than words in a
+   sentence: no underline, the colour of what it holds - where the family's
+   base underlines links. (The focus ring is the base's.) */
 a {
   text-decoration: none;
   color: inherit;
-}
-
-/* Focus styles for accessibility */
-*:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
 }
 
 .no-wrap {

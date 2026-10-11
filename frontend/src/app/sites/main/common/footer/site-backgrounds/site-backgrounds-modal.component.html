@@ -1,29 +1,28 @@
-<app-modal [title]="'backgrounds.title' | translate" (closeModal)="closeModal()">
-    <div modal-body>
-        <div class="mb-4">
-            <h3>{{ 'backgrounds.whatTitle' | translate }}</h3>
-            <p>{{ 'backgrounds.whatText' | translate }}</p>
-        </div>
+<div class="mb-4">
+    <h3>{{ 'backgrounds.whatTitle' | translate }}</h3>
+    <p>{{ 'backgrounds.whatText' | translate }}</p>
+</div>
 
-        <div class="mb-4">
-            <h3>{{ 'backgrounds.howTitle' | translate }}</h3>
-            <ol>
-                <li>{{ 'backgrounds.step1' | translate }}</li>
-                <li>{{ 'backgrounds.step2' | translate }}</li>
-                <li>{{ 'backgrounds.step3' | translate }}</li>
-                <li>{{ 'backgrounds.step4' | translate }}</li>
-            </ol>
-        </div>
+<div class="mb-4">
+    <h3>{{ 'backgrounds.howTitle' | translate }}</h3>
+    <ol>
+        <li>{{ 'backgrounds.step1' | translate }}</li>
+        <li>{{ 'backgrounds.step2' | translate }}</li>
+        <li>{{ 'backgrounds.step3' | translate }}</li>
+        <li>{{ 'backgrounds.step4' | translate }}</li>
+    </ol>
+</div>
 
-        <h3>{{ 'backgrounds.availableTitle' | translate }}</h3>
-        <p>{{ 'backgrounds.availableText' | translate }}</p>
+<h3>{{ 'backgrounds.availableTitle' | translate }}</h3>
+<p>{{ 'backgrounds.availableText' | translate }}</p>
 
-        <p class="text-muted i my-3">{{ 'backgrounds.note' | translate }}</p>
+<p class="text-muted i my-3">{{ 'backgrounds.note' | translate }}</p>
 
-        <div class="d-flex justify-content-center gap-10 flex-wrap p-3">
-            @for (item of BACKGROUNDS; track item.wallpaper) {
-                <img loading="lazy" [src]="item.preview" [alt]="item.name" [title]="item.name" (click)="changeBackground(item)" class="background-thumbnail" />
-            }
-        </div>
-    </div>
-</app-modal>
+<div class="background-grid">
+    @for (item of BACKGROUNDS; track item.wallpaper) {
+        <!-- A button holding the picture, so the keyboard can choose one too. -->
+        <button type="button" class="background-thumbnail" [title]="item.name" (click)="changeBackground(item)">
+            <img loading="lazy" [src]="item.preview" [alt]="item.name" />
+        </button>
+    }
+</div>

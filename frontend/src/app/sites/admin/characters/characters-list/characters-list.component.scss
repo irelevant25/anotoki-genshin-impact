@@ -35,7 +35,8 @@
   color: var(--text-muted);
 }
 
-.badge {
+// An element's name in its own colour - the game's, which no badge tone of the kit is.
+.element-badge {
   display: inline-block;
   padding: 2px 8px;
   border-radius: var(--border-radius);

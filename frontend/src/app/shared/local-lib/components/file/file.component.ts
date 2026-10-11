@@ -1,8 +1,8 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, computed, model, signal } from '@angular/core';
 import { FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
 
-import { ButtonComponent, ButtonVariant } from '../button/button.component';
 import { AbstractInputComponent } from '../../abstract-input.class';
+import { ButtonComponent, ButtonVariant } from '@anotoki/lib/ui/button';
 
 export interface FileItemType {
   id?: number;
@@ -36,6 +36,8 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   buttonText = model<string | undefined>(undefined);
   buttonOutline = model<boolean>(false);
   buttonVariant = model<ButtonVariant>('primary');
+  /** The kit's button: an outlined one is its quiet (secondary) button. */
+  readonly kitVariant = computed<ButtonVariant>(() => (this.buttonOutline() ? 'secondary' : this.buttonVariant()));
   showFileNames = model<boolean>(true);
   fileNamePosition = model<'bottom' | 'right'>('bottom');
   buttonClass = model<string>('');

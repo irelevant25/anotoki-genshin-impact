@@ -1,10 +1,9 @@
 import { Component, computed, input, model } from '@angular/core';
-import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
-import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { RadioComponent } from '../../../../../shared/local-lib/components/radio/radio.component';
+import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { Artifact, Audited, Material } from '../../../../../api';
 import { ArtifactFormData } from '../../../../../sites/admin/shared/admin-form.model';
@@ -15,7 +14,7 @@ import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyD
   selector: 'app-enemy-drops-tab',
   templateUrl: './drops-tab.component.html',
   styleUrls: ['./drops-tab.component.scss'],
-  imports: [AccordionComponent, AccordionItemComponent, ButtonComponent, NumberComponent, DropdownComponent, RadioComponent, MaterialIconDirective],
+  imports: [TooltipDirective, ButtonComponent, NumberComponent, DropdownComponent, SegmentedComponent, MaterialIconDirective],
 })
 export class DropsTabComponent {
   groups = model<DropGroupWrapper[]>([]);
@@ -24,7 +23,8 @@ export class DropsTabComponent {
   artifacts = input<Audited<Artifact>[]>([]);
   domainLevels = input<string[]>([]);
 
-  readonly kindOptions = DROP_KIND_OPTIONS;
+  /** Material or artifact, as the kit's segmented control takes them. */
+  readonly kindChoices: SegmentedOption[] = DROP_KIND_OPTIONS.map((option) => ({ value: option.key, label: option.value }));
 
   materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name })));
   artifactOptions = computed<DropdownOption[]>(() => this.artifacts().map((artifact) => ({ key: artifact.id ?? -1, value: artifact.name })));

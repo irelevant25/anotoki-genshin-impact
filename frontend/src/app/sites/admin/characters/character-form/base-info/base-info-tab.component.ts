@@ -1,5 +1,5 @@
 import { Component, computed, input, model } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { IdNameEntry } from '../../../../../api';
 import { RelationshipFormData } from '../../../shared/admin-form.model';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';

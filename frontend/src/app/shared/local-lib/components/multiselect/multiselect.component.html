@@ -1,55 +1,43 @@
 @if (!hidden()) {
     <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-            </label>
-        }
+        <span class="form-label" [id]="inputId + '-label'">{{ kitLabel() }}</span>
 
-        <div class="multiselect">
-            <input
-                #inputElement
-                scroll
-                [id]="inputId"
-                [value]="displayValue()"
-                [placeholder]="placeholder() ?? ''"
-                [disabled]="disabled()"
-                class="form-control cursor-default"
-                [class.placeholder]="selectedOptions().length === 0"
-                [class.error]="hasError()"
-                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-                (keydown)="onKeyDown($event)"
-                (click)="togglePopup()"
-                (blur)="onBlur()"
-                (focus)="onFocus()"
-                readonly />
-            <span class="multiselect-arrow" [class.down]="!isPopupOpen" [class.up]="isPopupOpen"></span>
-            @if (selectedOptions().length > 0) {
-                <span class="selection-count">{{ selectedOptions().length }}</span>
+        <!-- Named by the label and what is chosen, so a screen reader hears both. -->
+        <button
+            type="button"
+            class="form-control multiselect-trigger"
+            [id]="inputId"
+            [anotokiPopoverTrigger]="choices"
+            [attr.aria-labelledby]="inputId + '-label ' + inputId + '-value'"
+            [attr.aria-describedby]="kitError() ? inputId + '-error' : kitHint() ? inputId + '-hint' : null"
+            [attr.aria-invalid]="kitError() ? 'true' : null"
+            [class.error]="!!kitError()"
+            [disabled]="disabled()"
+            (blur)="onBlur()">
+            <span class="multiselect-value" [id]="inputId + '-value'" [class.placeholder]="!selectedOptions().length">{{ displayValue() || placeholder() || "—" }}</span>
+            @if (selectedOptions().length) {
+                <span class="selection-count" aria-hidden="true">{{ selectedOptions().length }}</span>
             }
-        </div>
+        </button>
 
-        @if (showBadges()) {
-            <div class="badge-wrapper mt-2">
-                @for (option of selectedOptions(); let i = $index; track option) {
-                    <span class="badge padding-small text-small fw-400" [style.background-color]="'var(--color-primary-light)'" [style.color]="'var(--color-primary-light-text)'">
-                        {{ option.value }}
-                        <i class="icon icon-x icon-size-2 ms-2 cursor-pointer badge-remove" (click)="removeSelectedOption(i)"></i>
-                    </span>
+        <anotoki-popover #choices [label]="label() || placeholder() || 'Choose'">
+            <div class="multiselect-options">
+                @for (option of computedOptions(); track option.key) {
+                    <anotoki-checkbox [checked]="isSelected(option)" (checkedChange)="toggleOption(option, $event)">{{ option.value }}</anotoki-checkbox>
+                } @empty {
+                    <p class="no-options">Nothing to choose from</p>
                 }
             </div>
-        }
+            @if (selectedOptions().length) {
+                <button anotokiButton variant="link" size="sm" class="multiselect-clear" (click)="clear()">Clear</button>
+            }
+        </anotoki-popover>
 
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
+        @if (kitHint() && !kitError()) {
+            <p class="form-description" [id]="inputId + '-hint'">{{ kitHint() }}</p>
+        }
+        @if (kitError(); as error) {
+            <p class="error-message" [id]="inputId + '-error'" role="alert">{{ error }}</p>
         }
     </div>
 }

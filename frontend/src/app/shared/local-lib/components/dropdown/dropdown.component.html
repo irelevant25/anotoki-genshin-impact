@@ -1,49 +1,15 @@
 @if (!hidden()) {
-    <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-            </label>
-        }
-
-        <div class="dropdown">
-            <input
-                #inputElement
-                scroll
-                [id]="inputId"
-                [attr.size]="width() === 'min-content' ? contentLength() || 1 : null"
-                [value]="
-                    value() === undefined || value() === null || value() === ''
-                        ? (placeholder() ?? emptyOptionText() ?? '')
-                        : (value() ? (prefix() ?? '') : '') + (computedOption()?.value ?? '') + (value() ? (suffix() ?? '') : '')
-                "
-                [placeholder]="placeholder() ?? ''"
-                [disabled]="disabled()"
-                class="form-control cursor-default"
-                [class]="inputClass()"
-                [class.placeholder]="value() === undefined || value() === null || value() === ''"
-                [class.error]="hasError()"
-                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-                (keydown)="onKeyDown($event)"
-                (click)="togglePopup()"
-                (heightChange)="positionPopup()"
-                (blur)="onBlur()"
-                (focus)="onFocus()"
-                readonly
-            />
-            <span class="dropdown-arrow" [class.down]="!isPopupOpen()" [class.up]="isPopupOpen()"></span>
-        </div>
-
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
-        }
-    </div>
+    <anotoki-select
+        [class]="class()"
+        [label]="kitLabel()"
+        [hideLabel]="!label()"
+        [options]="kitOptions()"
+        [value]="kitValue()"
+        [placeholder]="emptyOption() ? (emptyOptionText() ?? placeholder() ?? '') : null"
+        [hint]="kitHint()"
+        [error]="kitError()"
+        [required]="required()"
+        [disabled]="disabled()"
+        (valueChange)="onKitChange($event)"
+        (focusout)="onBlur()" />
 }

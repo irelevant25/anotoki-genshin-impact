@@ -457,6 +457,7 @@ hosts run 8.2 and up. What there is:
 npx tsc --noEmit -p tsconfig.app.json          # types
 npm run lint                                   # includes: no inline template/styles
 npx ng build --configuration development --output-path <a scratch folder>   # templates are only fully checked by a build
+node scripts/screenshots.mjs --out <a scratch folder>   # every page in a real browser (below)
 
 # Backend (backend/)
 php -l <file>                                  # every PHP file you touched
@@ -466,6 +467,22 @@ php migration.php --dry-run                    # a new migration is picked up
 # The generated client is in step with the backend
 cd frontend && npm run api && git diff --stat src/app/api api-spec.json
 ```
+
+**Every page in a real browser.** `node scripts/screenshots.mjs` (in `frontend/`)
+builds the site for production and shows every page of it - the public site as
+a visitor, its dialogs, then the admin panel as its ADMIN, and two pages signed
+in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
+wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
+and `report.json`. It flags what a picture hides: a page wider than a phone, an
+error in the console, a key shown where a word should be. Take one before a
+change to the pages and one after, and look at them side by side. It shows
+them on a site of its own: a throwaway `genshin_test_browser_*` database with a
+little game content and a backend copy (`backend/tests/tools/browser-env.php`,
+the tests' PostgreSQL server, never its database), the anotoki library's
+stand-in IAM, the build and the API on one origin on ports 8592-8595 - and stops
+all of it and drops the database when it ends, also when something fails. It
+needs PHP 8.2 or later (`PHP=` names one where `php` is older); `--only admin-`
+keeps some pages, `--no-build` takes the last build.
 
 Then run both servers and use the thing: the page you changed, both themes, a
 phone-width window, and the API's failure answers (401/403/404/409/422) with

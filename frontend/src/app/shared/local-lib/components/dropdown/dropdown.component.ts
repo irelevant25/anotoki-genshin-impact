@@ -1,17 +1,22 @@
-import { ApplicationRef, Component, ComponentRef, computed, ContentChild, createComponent, effect, EnvironmentInjector, model, output, TemplateRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, effect, model } from '@angular/core';
+import { SelectComponent, SelectOption } from '@anotoki/lib/ui/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
-import { DropdownPopupComponent } from './popup/dropdown-popup.component';
 import { DropdownOption } from '../../services/options-helper.service';
-import { SCROLL_POPUP, ScrollDirective, ScrollPopup } from '../../scroll.directive';
 
 export type DropdownOptionsType = DropdownOption[] | string[] | number[];
 
 type Type = string | number | boolean;
 
+/**
+ * One choice out of a list in the site's forms: the kit's select - native, so
+ * a phone opens its own picker - holding the chosen option's key in whatever
+ * type it is (a rarity's number, a region's name), where the kit's select
+ * holds text. `emptyOption` puts "none" first (`emptyOptionText`); without it
+ * a value the list does not have becomes its first option.
+ */
 @Component({
   selector: 'app-dropdown',
-  imports: [FormsModule, ScrollDirective],
+  imports: [SelectComponent],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   providers: [
@@ -19,28 +24,15 @@ type Type = string | number | boolean;
       provide: AbstractInputComponent,
       useExisting: DropdownComponent,
     },
-    {
-      provide: SCROLL_POPUP,
-      useExisting: DropdownComponent,
-    },
   ],
 })
-export class DropdownComponent extends AbstractInputComponent<Type> implements ScrollPopup {
-  @ContentChild(TemplateRef) optionTemplate?: TemplateRef<any>;
-
+export class DropdownComponent extends AbstractInputComponent<Type> {
   options = model<DropdownOptionsType>([]);
   emptyOption = model<boolean>(false);
-  selectClass = model<string>('');
   selectedOption = model<DropdownOption | undefined>(undefined);
-  closeOnScroll = model<boolean>(true);
   prefix = model<string | undefined>(undefined);
   suffix = model<string | undefined>(undefined);
   emptyOptionText = model<string | undefined>(undefined);
-  forceOptionWhenEmpty = model<boolean>(false);
-
-  hoveredOption = output<DropdownOption | undefined>();
-  closed = output<void>();
-  opened = output<void>();
 
   computedOptions = computed(() => {
     const raw = this.options();
@@ -51,60 +43,52 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
     return raw.map((option) => {
       if (typeof option === 'object' && 'key' in option && 'value' in option) {
         return option as DropdownOption;
-      } else if (typeof option === 'string' || typeof option === 'number') {
-        return { key: option, value: option };
       }
-      return { key: option, value: String(option) };
+      return { key: option, value: option } as DropdownOption;
     });
   });
+
   /**
-   * The option the input shows, worked out from the value alone.
+   * The option the field shows, worked out from the value alone.
    *
-   * It must not read `selectedOption`: that signal is written from this one, so
-   * preferring it here made the pair feed each other. Once it held an option,
-   * every later value found the old option sitting in front of the lookup, and
-   * the input went on showing the first thing picked while the value moved on.
+   * It must not read `selectedOption`: that signal is written from this one,
+   * so preferring it here made the pair feed each other.
    */
   computedOption = computed(() => {
     const options = this.computedOptions();
     const value = this.value();
     return options.find((option) => option.key == value);
   });
-  contentLength = computed(() => {
-    const options = this.computedOptions();
-    const inputLength = this.value()?.toString().length ?? 0;
-    const optionLength = options.reduce((longest, option) => Math.max(longest, option.value.toString().length), 0);
-    return Math.max(inputLength, optionLength);
-  });
-  isPopupOpen = model<boolean>(false);
-  popupRef: ComponentRef<DropdownPopupComponent> | null = null;
 
-  constructor(
-    private _appRef: ApplicationRef,
-    private _injector: EnvironmentInjector,
-  ) {
+  /** The options as the kit's select takes them: text for a key, the prefix and suffix around the words. */
+  readonly kitOptions = computed<SelectOption[]>(() =>
+    this.computedOptions().map((option) => ({
+      value: String(option.key),
+      label: `${this.prefix() ?? ''}${option.value}${this.suffix() ?? ''}`,
+      disabled: option.disabled,
+    })),
+  );
+
+  readonly kitValue = computed(() => {
+    const value = this.value();
+    return value === undefined || value === null ? '' : String(value);
+  });
+
+  constructor() {
     super();
     effect(() => {
       this.options();
-      this.afterValueChange?.(this.value());
-    });
-
-    effect(() => {
       this.emptyOption();
       this.afterValueChange?.(this.value());
     });
   }
 
-  override ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.closePopup();
-  }
-
-  selectOption(option?: DropdownOption): void {
-    this.value.set(option?.key);
+  onKitChange(text: string): void {
+    const option = this.computedOptions().find((candidate) => String(candidate.key) === text);
+    this.value.set(option ? option.key : null);
     this.inputChange.emit(this.value());
+    this.isTouched.set(true);
     this.emitValidationState();
-    this.closePopup();
   }
 
   override afterValueChange(value?: Type | null): void {
@@ -114,145 +98,5 @@ export class DropdownComponent extends AbstractInputComponent<Type> implements S
     } else {
       this.selectedOption.set(this.computedOption());
     }
-  }
-
-  override onBlur(event?: Event): void {
-    if (!this.isPopupOpen()) {
-      super.onBlur(event);
-    }
-  }
-
-  onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen() || !this.popupRef) {
-      return;
-    }
-
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.popupRef.instance.highlightNext();
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.popupRef.instance.highlightPrevious();
-        break;
-      case 'Enter':
-        event.preventDefault();
-        this.popupRef.instance.selectHighlighted();
-        break;
-      case 'Escape':
-        event.preventDefault();
-        this.closePopup();
-        this.inputElement?.nativeElement.blur();
-        break;
-      default:
-        if (event.key.length === 1) {
-          this.popupRef?.instance?.scrollToChar(event.key);
-        }
-        break;
-    }
-  }
-
-  // popup functions
-
-  togglePopup(): void {
-    if (this.isPopupOpen()) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
-  }
-
-  createPopup(): ComponentRef<DropdownPopupComponent> {
-    this.popupRef = createComponent(DropdownPopupComponent, {
-      environmentInjector: this._injector,
-    });
-
-    // Attach to application
-    this._appRef.attachView(this.popupRef.hostView);
-
-    document.body.appendChild(this.popupRef.location.nativeElement);
-
-    return this.popupRef;
-  }
-
-  destroyPopup(): void {
-    if (this.popupRef) {
-      // Remove from DOM
-      const element = this.popupRef.location.nativeElement;
-      if (element && element.parentNode) {
-        element.parentNode.removeChild(element);
-      }
-
-      // Detach from application
-      this._appRef.detachView(this.popupRef.hostView);
-
-      // Destroy component
-      this.popupRef.destroy();
-      this.popupRef = null;
-    }
-  }
-
-  openPopup(): void {
-    if (this.isPopupOpen() && this.popupRef) {
-      return;
-    }
-
-    this.popupRef = this.createPopup();
-    this.popupRef.instance.component = this;
-    this.isPopupOpen.set(true);
-
-    this.positionPopup();
-
-    this.popupRef.instance.optionSelected.subscribe((option?: DropdownOption) => {
-      this.selectOption(option);
-    });
-
-    this.popupRef.instance.optionHovered.subscribe((option?: DropdownOption) => {
-      this.hoveredOption.emit(option);
-    });
-
-    this.popupRef.instance.onClose.subscribe(() => {
-      this.closePopup();
-    });
-
-    this.updatePopup();
-    this.opened.emit();
-  }
-
-  updatePopup(): void {
-    if (this.popupRef) {
-      this.popupRef.instance.options = this.computedOptions();
-      this.popupRef.instance.prefix = this.prefix();
-      this.popupRef.instance.suffix = this.suffix();
-      this.popupRef.instance.emptyOptionText = this.emptyOptionText();
-      this.popupRef.instance.emptyOption = this.emptyOption();
-      this.popupRef.instance.resetHighlight();
-      this.popupRef.instance.optionTemplate = this.optionTemplate;
-    }
-  }
-
-  positionPopup(): void {
-    if (!this.popupRef) {
-      return;
-    }
-
-    const inputRect = this.inputElement?.nativeElement.getBoundingClientRect() ?? { top: 0, left: 0, bottom: 0, width: 0, height: 0 };
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-    this.popupRef.instance.top.set(inputRect.bottom + scrollTop);
-    this.popupRef.instance.left.set(inputRect.left + scrollLeft);
-    // this.popupRef.instance.width.set(inputRect.width);
-  }
-
-  closePopup(): void {
-    if (!this.isPopupOpen()) {
-      return;
-    }
-    this.destroyPopup();
-    this.isPopupOpen.set(false);
-    this.onBlur();
-    this.closed.emit();
   }
 }

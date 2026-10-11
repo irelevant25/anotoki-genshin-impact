@@ -1,11 +1,13 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { ErrorStateComponent } from '@anotoki/lib/ui/error-state';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { TranslationService } from '@anotoki/lib/translations';
 import { AdminSiteRoute, AdminSiteSetting, RouteApiService, SettingApiService } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
-import { SettingsGroupModalComponent } from './settings-group-modal/settings-group-modal.component';
-import { SettingsRoutesModalComponent } from './settings-routes-modal/settings-routes-modal.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { SettingsGroupData, SettingsGroupModalComponent } from './settings-group-modal/settings-group-modal.component';
+import { SettingsRoutesData, SettingsRoutesModalComponent } from './settings-routes-modal/settings-routes-modal.component';
 import { SETTING_GROUPS, optionLabel, settingWords } from './settings-words';
 
 /** A card on the page: what it covers, and what it currently says. */
@@ -37,7 +39,7 @@ interface SettingCard {
   selector: 'app-admin-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
-  imports: [ButtonComponent, LoaderComponent],
+  imports: [PageHeaderComponent, ErrorStateComponent, SpinnerComponent, ButtonComponent],
 })
 export class SettingsComponent extends AbstractModalComponent implements OnInit {
   private readonly _settingApi = inject(SettingApiService);
@@ -130,21 +132,21 @@ export class SettingsComponent extends AbstractModalComponent implements OnInit 
   }
 
   openCard(card: SettingCard): void {
-    const modal = this.openModal<SettingsGroupModalComponent>(SettingsGroupModalComponent, { size: '5' }, () => this.load());
-
-    modal.componentInstance.title.set(card.title);
-    modal.componentInstance.note.set(card.note);
-    modal.componentInstance.settings.set(card.settings);
-    modal.componentInstance.languages.set(this.languages());
-    modal.componentInstance.start();
+    this.openModal<boolean, SettingsGroupData>(
+      SettingsGroupModalComponent,
+      { size: 'lg', description: card.note || null, data: { title: card.title, note: card.note, settings: card.settings, languages: this.languages() } },
+      () => this.load(),
+    );
   }
 
   openRoutes(): void {
-    const modal = this.openModal<SettingsRoutesModalComponent>(SettingsRoutesModalComponent, { size: '6' }, () => this.load());
-
-    modal.componentInstance.routes.set(this.routes());
-    modal.componentInstance.levels.set(this.levels());
-    modal.componentInstance.start();
+    // Re-read whenever it closes: a row may have been written however it was closed.
+    void this.openModal<boolean, SettingsRoutesData>(SettingsRoutesModalComponent, {
+      heading: 'Parts of the site',
+      description: 'Which pages exist, and who they exist for',
+      size: 'lg',
+      data: { routes: this.routes(), levels: this.levels() },
+    }).closed.then(() => this.load());
   }
 
   /** One switch, in the fewest words that say what it is doing. */

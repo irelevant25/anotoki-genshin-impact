@@ -1,11 +1,10 @@
-import { computed, Directive, ElementRef, inject, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { computed, Directive, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { AbstractInputComponent } from '../../../shared/local-lib/abstract-input.class';
 import { PickedImage } from './image-upload/image-upload.component';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
-import { TabsComponent } from '../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ToastService } from '@anotoki/lib/ui/toast';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { FileApiService, toFormData } from '../../../api';
 
 /** An image picked but not yet sent, and where to put the result. */
@@ -38,9 +37,8 @@ export interface PendingImage {
  */
 @Directive()
 export abstract class AdminFormComponent<TFull> {
+  /** The form's tabs (the kit's), where it has them. */
   @ViewChild(TabsComponent) private _tabs?: TabsComponent;
-  @ViewChildren(TabComponent) private _tabList?: QueryList<TabComponent>;
-  @ViewChildren(TabComponent, { read: ElementRef }) private _tabElements?: QueryList<ElementRef<HTMLElement>>;
 
   /** Singular, lower case - used in page titles and notifications. */
   abstract readonly entityLabel: string;
@@ -55,7 +53,7 @@ export abstract class AdminFormComponent<TFull> {
   pageTitle = computed(() => `${this.isEdit() ? 'Edit' : 'Create'} ${this.entityLabel}`);
   backLink = computed(() => (this.isEdit() ? '../..' : '..'));
 
-  protected readonly notify = inject(NotificationService);
+  protected readonly notify = inject(ToastService);
   private readonly _fileApi = inject(FileApiService);
   protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
@@ -106,7 +104,7 @@ export abstract class AdminFormComponent<TFull> {
       },
       error: () => {
         this.loadingEntity.set(false);
-        this.notify.showError(`Failed to load ${this.entityLabel.toLowerCase()}`);
+        this.notify.error(`Failed to load ${this.entityLabel.toLowerCase()}`);
       },
     });
   }
@@ -131,7 +129,7 @@ export abstract class AdminFormComponent<TFull> {
       .subscribe({
         next: (result) => {
           this.saving.set(false);
-          this.notify.showSuccess(`${this.entityLabel} ${this.isEdit() ? 'updated' : 'created'}`);
+          this.notify.success(`${this.entityLabel} ${this.isEdit() ? 'updated' : 'created'}`);
           if (this.isEdit()) {
             this.load(this.entityId()!);
           } else {
@@ -140,7 +138,7 @@ export abstract class AdminFormComponent<TFull> {
         },
         error: (error) => {
           this.saving.set(false);
-          this.notify.showError(error?.error?.error ?? error?.error?.message ?? `Failed to save ${this.entityLabel.toLowerCase()}`);
+          this.notify.error(error?.error?.error ?? error?.error?.message ?? `Failed to save ${this.entityLabel.toLowerCase()}`);
         },
       });
   }
@@ -180,7 +178,7 @@ export abstract class AdminFormComponent<TFull> {
 
     const invalid = inputs.filter((input) => !input.isValid());
     if (invalid.length > 0) {
-      this.notify.showError(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
+      this.notify.error(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
       this.revealInput(invalid[0].elementRef.nativeElement);
       return false;
     }
@@ -188,24 +186,27 @@ export abstract class AdminFormComponent<TFull> {
     // Image names are derived from what the entity is called, so an unnamed
     // entity has nowhere to put its pictures.
     if (this.collectPendingImages().some((entry) => !entry.name)) {
-      this.notify.showError(`Name the ${this.entityLabel.toLowerCase()} before uploading its images.`);
+      this.notify.error(`Name the ${this.entityLabel.toLowerCase()} before uploading its images.`);
       return false;
     }
 
     const extra = this.extraValidation();
     if (extra) {
-      this.notify.showError(extra);
+      this.notify.error(extra);
       return false;
     }
     return true;
   }
 
-  /** Opens the tab holding the given element - tabs stay in the DOM, so it may be hidden. */
+  /**
+   * Opens the tab holding the given element - every panel stays in the page,
+   * hidden but for the one chosen (`data-tab` names its tab) - and brings it
+   * into view.
+   */
   protected revealInput(element: HTMLElement): void {
-    const tabIndex = this._tabElements?.toArray().findIndex((tab) => tab.nativeElement.contains(element)) ?? -1;
-    const tab = tabIndex >= 0 ? this._tabList?.get(tabIndex) : undefined;
+    const tab = element.closest('[data-tab]')?.getAttribute('data-tab');
     if (tab && this._tabs) {
-      this._tabs.setActiveTab(tab);
+      this._tabs.active.set(tab);
     }
     setTimeout(() => element.scrollIntoView({ behavior: 'smooth', block: 'center' }));
   }

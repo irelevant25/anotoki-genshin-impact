@@ -1,16 +1,25 @@
-import { Component, computed, effect, inject, model } from '@angular/core';
-import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { BadgeComponent } from '../../../../../shared/local-lib/components/badge/badge.component';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { TranslatePipe } from '@anotoki/lib/translations';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { ChangelogEntry, SiteVersionModalComponent } from '../site-version-modal/site-version-modal.component';
 import { sameVersion } from '../versions';
 
 type ChangeKind = keyof ChangelogEntry['changes'];
+
+/** What the footer hands over when it opens this. */
+export interface WhatsNewData {
+  /** The newest version - the one this is about. */
+  latest: ChangelogEntry;
+  /** Whether this browser also missed versions before the newest one. */
+  hasEarlier: boolean;
+  /** Every version, for "See all changes". */
+  changelog: ChangelogEntry[];
+}
 
 /** One line of the list: a change, and what kind of change it was. */
 interface ChangeLine {
@@ -45,23 +54,21 @@ const KINDS: { kind: ChangeKind; icon: string; label: string }[] = [
   selector: 'app-site-whats-new-modal',
   templateUrl: './site-whats-new-modal.component.html',
   styleUrls: ['./site-whats-new-modal.component.scss'],
-  imports: [ModalComponent, ButtonComponent, BadgeComponent, TranslatePipe, AppDatePipe],
+  imports: [ButtonComponent, DialogFooterDirective, TranslatePipe, AppDatePipe],
 })
 export class SiteWhatsNewModalComponent extends AbstractModalComponent {
   private readonly _storage = inject(LocalStorageService);
 
-  // Set by whoever opens the modal, right after opening it. Signals rather than
-  // plain fields, so the list below can be derived from them (a computed) and
-  // the version marked seen whenever an entry is handed over (the effect).
+  private readonly _data = inject<WhatsNewData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
 
   /** The newest version - the one this is about. */
-  readonly latest = model<ChangelogEntry | null>(null);
+  readonly latest = signal<ChangelogEntry | null>(this._data?.latest ?? null);
 
   /** Whether this browser also missed versions before the newest one. */
-  readonly hasEarlier = model<boolean>(false);
+  readonly hasEarlier = signal<boolean>(this._data?.hasEarlier ?? false);
 
   /** Every version, for "See all changes". */
-  readonly changelog = model<ChangelogEntry[]>([]);
+  readonly changelog = signal<ChangelogEntry[]>(this._data?.changelog ?? []);
 
   readonly lines = computed<ChangeLine[]>(() => {
     const changes = this.latest()?.changes;
@@ -73,6 +80,8 @@ export class SiteWhatsNewModalComponent extends AbstractModalComponent {
 
   constructor() {
     super();
+    const i18n = inject(TranslationService);
+    this.dialogHeading(() => i18n.t('whatsNew.title'));
 
     // Being shown is what marks the version seen, as opening the changelog
     // does, so this greets each version once per browser. An effect, so it
@@ -91,8 +100,7 @@ export class SiteWhatsNewModalComponent extends AbstractModalComponent {
    * component, and a destroyed component should not be the one still at work.
    */
   seeAllChanges(): void {
-    const modal = this.openModal<SiteVersionModalComponent>(SiteVersionModalComponent, { size: '3' });
-    modal.componentInstance.data = this.changelog();
+    this.openModal(SiteVersionModalComponent, { size: 'md', data: this.changelog() });
     this.closeModal();
   }
 }

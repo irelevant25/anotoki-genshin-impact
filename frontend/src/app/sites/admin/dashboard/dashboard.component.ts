@@ -1,9 +1,13 @@
 import { DecimalPipe } from '@angular/common';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { CardComponent } from '@anotoki/lib/ui/card';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { BadgeComponent, BadgeTone } from '@anotoki/lib/ui/badge';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardApiService, DashboardStats } from '../../../api';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
-import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
 import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
 
@@ -22,11 +26,11 @@ const DASHBOARD_FORMAT_CARDS = 5;
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [AppDatePipe, DecimalPipe, FileSizePipe, RouterLink, LoaderComponent],
+  imports: [PageHeaderComponent, CardComponent, BadgeComponent, SpinnerComponent, ButtonComponent, AppDatePipe, DecimalPipe, FileSizePipe, RouterLink],
 })
 export class DashboardComponent implements OnInit {
   private readonly _dashboardApi = inject(DashboardApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
 
   readonly stats = signal<DashboardStats | null>(null);
   readonly loading = signal(false);
@@ -117,6 +121,12 @@ export class DashboardComponent implements OnInit {
    * log's since its move (genshin_impact/028); the table and the row say what
    * it was about.
    */
+  /** The kit badge's tone for what an audit entry did: made, changed, removed - or anything else. */
+  actionTone(action: string): BadgeTone {
+    const verb = this.actionVerb(action);
+    return verb === 'insert' ? 'success' : verb === 'update' ? 'info' : verb === 'delete' ? 'danger' : 'neutral';
+  }
+
   actionVerb(action: string): string {
     return action.slice(action.lastIndexOf('.') + 1).toLowerCase();
   }
@@ -134,7 +144,7 @@ export class DashboardComponent implements OnInit {
       },
       error: () => {
         this.loading.set(false);
-        this._notify.showError('Failed to load dashboard');
+        this._notify.error('Failed to load dashboard');
       },
     });
   }

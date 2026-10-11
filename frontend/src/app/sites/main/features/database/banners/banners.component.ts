@@ -2,14 +2,13 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
 import { forkJoin } from 'rxjs';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TranslatePipe } from '@anotoki/lib/translations';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm } from '../shared/database-helpers';
-import { asOption, asText, bindFiltersToUrl } from '../shared/filter-url';
+import { asText, bindFiltersToUrl } from '../shared/filter-url';
 import { Banner, BannerApiService, Character, CharacterApiService, Expanded, Weapon, WeaponApiService } from '../../../../../api';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 
@@ -22,7 +21,7 @@ type IBannerFull = Banner & {
   selector: 'app-database-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [AppDatePipe, RouterModule, ButtonComponent, TranslatePipe, DropdownComponent, TextComponent, LoaderComponent, MaterialIconDirective],
+  imports: [AppDatePipe, RouterModule, ButtonComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, MaterialIconDirective],
   providers: [],
 })
 export class DatabaseBannersComponent {
@@ -31,9 +30,9 @@ export class DatabaseBannersComponent {
   weapons = signal<Expanded<Weapon, 'created_by' | 'updated_by'>[]>([]);
   loading = signal(true);
 
-  filterVersions = signal<string | number | boolean | null | undefined>(undefined);
-  filterCharacterName = signal<string | number | null | undefined>('');
-  filterWeaponName = signal<string | number | null | undefined>('');
+  filterVersions = signal('');
+  filterCharacterName = signal('');
+  filterWeaponName = signal('');
 
   // The key stays the raw `version` off the banner, so it can be compared
   // straight against the data; only the label gets the Luna number added.
@@ -95,7 +94,7 @@ export class DatabaseBannersComponent {
     // The filters go in the URL, so coming back from a detail page finds the
     // list as it was left and the address can be handed to somebody else.
     bindFiltersToUrl({
-      version: [this.filterVersions, asOption],
+      version: [this.filterVersions, asText],
       character: [this.filterCharacterName, asText],
       weapon: [this.filterWeaponName, asText],
     });
@@ -145,7 +144,7 @@ export class DatabaseBannersComponent {
   }
 
   resetFilters(): void {
-    this.filterVersions.set(undefined);
+    this.filterVersions.set('');
     this.filterCharacterName.set('');
     this.filterWeaponName.set('');
   }

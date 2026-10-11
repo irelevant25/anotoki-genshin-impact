@@ -1,7 +1,7 @@
 <div class="cost-section">
     <div class="cost-header">
         <span class="cost-label">Ingredients</span>
-        <app-button variant="primary" [outline]="true" (buttonClick)="addIngredient()">Add</app-button>
+        <button anotokiButton (click)="addIngredient()">Add</button>
     </div>
     <div class="cost-cards">
         @for (entry of recipe(); track entry.uid) {
@@ -21,7 +21,7 @@
                 ></app-dropdown>
                 <div class="cost-card-footer">
                     <app-number [placeholder]="'Qty'" [(value)]="entry.data.quantity" [required]="true" [min]="1"></app-number>
-                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeIngredient(entry)"></app-button>
+                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove this ingredient" anotokiTooltip="Remove this ingredient" (click)="removeIngredient(entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                 </div>
             </div>
         }

@@ -1,58 +1,16 @@
 @if (!hidden()) {
-    <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-                @if (maxLength() && maxLengthCounter()) {
-                    <span class="max-length-counter">
-                        ({{ remainsWord }}
-                        {{ remainingChars }}
-                        {{ charsWord }})
-                    </span>
-                }
-            </label>
-        }
-
-        @if (description()) {
-            <label class="form-description">
-                {{ description() }}
-            </label>
-        }
-
-        @if (disabled()) {
-            <div #inputElement class="form-control overflow-auto break-word" [class]="inputClass()" [style.height]="height()" [class.disabled]="disabled()" [innerHTML]="computedValue()"></div>
-        } @else {
-            <textarea
-                #inputElement
-                autoResize
-                [id]="inputId"
-                [rows]="rows()"
-                [dynamicRows]="dynamicRows()"
-                [value]="computedValue()"
-                [textareaValue]="computedValue()"
-                [disabled]="disabled()"
-                [placeholder]="placeholder() ?? ''"
-                class="form-control"
-                [class]="inputClass()"
-                [class.resize]="resize()"
-                [style.height]="height()"
-                [class.error]="hasError()"
-                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-                (input)="onInput($event)"
-                (blur)="onBlur()"
-                (focus)="onFocus()"></textarea>
-        }
-
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
-        }
-    </div>
+    <anotoki-textarea
+        [class]="class()"
+        [label]="kitLabel()"
+        [hideLabel]="!label()"
+        [value]="text()"
+        [rows]="rows()"
+        [placeholder]="placeholder() ?? ''"
+        [hint]="kitHint()"
+        [error]="kitError()"
+        [required]="required()"
+        [disabled]="disabled()"
+        [maxlength]="maxLength() ?? null"
+        (valueChange)="onKitInput($event)"
+        (focusout)="onBlur()" />
 }

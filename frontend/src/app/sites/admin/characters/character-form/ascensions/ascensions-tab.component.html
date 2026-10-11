@@ -1,17 +1,15 @@
 <div class="set-toolbar">
-    <app-button
-        text="Choose set"
-        icon="icon-layers"
-        variant="secondary"
-        [outline]="true"
-        tooltipText="Use another character's ascension set (for the Traveler's variants)"
-        (buttonClick)="chooseSet()"
-    ></app-button>
+    <button
+        anotokiButton
+        anotokiTooltip="Use another character's ascension set (for the Traveler's variants)"
+        (click)="chooseSet()">
+        <span class="icon icon-layers" aria-hidden="true"></span> Choose set
+    </button>
     @if (deleteAllArmed()) {
-        <app-button text="Cancel" variant="secondary" [outline]="true" (buttonClick)="cancelDeleteAll()"></app-button>
-        <app-button [text]="'Delete all ' + ascensions().length + '?'" variant="danger" (buttonClick)="deleteAll()"></app-button>
+        <button anotokiButton (click)="cancelDeleteAll()">Cancel</button>
+        <button anotokiButton variant="danger" (click)="deleteAll()">{{ 'Delete all ' + ascensions().length + '?' }}</button>
     } @else {
-        <app-button text="Delete all" variant="danger" [outline]="true" [disabled]="!ascensions().length" (buttonClick)="deleteAll()"></app-button>
+        <button anotokiButton variant="danger" [disabled]="!ascensions().length" (click)="deleteAll()">Delete all</button>
     }
 </div>
 
@@ -20,7 +18,7 @@
         <div class="sub-card">
             <div class="sub-card-header">
                 <span class="sub-card-index">Phase {{ item.wrapper.ascension.phase }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removeAscension(item.wrapper)">Delete</app-button>
+                <button anotokiButton variant="danger" (click)="removeAscension(item.wrapper)">Delete</button>
             </div>
             <div class="form-grid">
                 <app-number [label]="'Phase'" [(value)]="item.wrapper.ascension.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
@@ -45,7 +43,7 @@
                 <div class="cost-section">
                     <div class="cost-header">
                         <span class="cost-label">Materials</span>
-                        <app-button variant="primary" [outline]="true" (buttonClick)="addCost(item.wrapper)">Add</app-button>
+                        <button anotokiButton (click)="addCost(item.wrapper)">Add</button>
                     </div>
                     <div class="cost-cards">
                         @for (cost of item.cost; track cost) {
@@ -73,7 +71,7 @@
                                 ></app-dropdown>
                                 <div class="cost-card-footer">
                                     <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
-                                    <app-button icon="icon-delete" variant="danger" [outline]="true" (buttonClick)="removeCost(item.wrapper, cost)"></app-button>
+                                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove this material" anotokiTooltip="Remove this material" (click)="removeCost(item.wrapper, cost)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         }
@@ -84,6 +82,6 @@
     }
 
     @if (canAdd()) {
-        <app-button variant="primary" [outline]="true" (buttonClick)="addAscension()">Add</app-button>
+        <button anotokiButton (click)="addAscension()">Add</button>
     }
 </div>

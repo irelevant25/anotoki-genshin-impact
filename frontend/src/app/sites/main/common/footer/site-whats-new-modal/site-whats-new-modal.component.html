@@ -1,45 +1,41 @@
-<app-modal [title]="'whatsNew.title' | translate" (closeModal)="closeModal()">
-    <div modal-body>
-        @if (latest(); as entry) {
-            <!-- Which release this is: its number and its date, in the
-                 changelog's purple, on a band rather than the changelog's
-                 card. The number is shown as it is, never translated. -->
-            <div class="whats-new-band">
-                <span class="icon icon-stars whats-new-mark" aria-hidden="true"></span>
-                <app-badge [colorBg]="'var(--color-version)'" [colorText]="'var(--color-version-text)'" radius="1rem" padding="small" textSize="base">v{{ entry.version }}</app-badge>
-                <time class="whats-new-date" [attr.datetime]="entry.date">{{ entry.date | appDate }}</time>
-            </div>
+@if (latest(); as entry) {
+    <!-- Which release this is: its number and its date, in the
+         changelog's purple, on a band rather than the changelog's
+         card. The number is shown as it is, never translated. -->
+    <div class="whats-new-band">
+        <span class="icon icon-stars whats-new-mark" aria-hidden="true"></span>
+        <span class="whats-new-version">v{{ entry.version }}</span>
+        <time class="whats-new-date" [attr.datetime]="entry.date">{{ entry.date | appDate }}</time>
+    </div>
 
-            <!-- role="list": without its bullets, WebKit stops reading it as
-                 a list to VoiceOver. -->
-            <ul class="whats-new-list" role="list">
-                @for (line of lines(); track $index) {
-                    <li class="whats-new-line" [class]="'kind-' + line.kind">
-                        <!-- The disc says the kind to the eye; the hidden word
-                             says it to a screen reader. Its space is inside it
-                             because the line break between the two spans is
-                             dropped when the template is compiled. -->
-                        <span class="whats-new-kind" aria-hidden="true" [title]="line.label | translate">
-                            <span class="icon {{ line.icon }}"></span>
-                        </span>
-                        <span class="visually-hidden">{{ line.label | translate }}: </span>
-                        <span>{{ line.text }}</span>
-                    </li>
-                }
-            </ul>
-
-            <!-- That there are more, and not how many: a count would need
-                 Slovak's plural forms for the sake of one sentence. -->
-            @if (hasEarlier()) {
-                <p class="whats-new-earlier">
-                    <span class="icon icon-history" aria-hidden="true"></span>
-                    <span>{{ 'whatsNew.earlier' | translate }}</span>
-                </p>
-            }
+    <!-- role="list": without its bullets, WebKit stops reading it as
+         a list to VoiceOver. -->
+    <ul class="whats-new-list" role="list">
+        @for (line of lines(); track $index) {
+            <li class="whats-new-line" [class]="'kind-' + line.kind">
+                <!-- The disc says the kind to the eye; the hidden word
+                     says it to a screen reader. Its space is inside it
+                     because the line break between the two spans is
+                     dropped when the template is compiled. -->
+                <span class="whats-new-kind" aria-hidden="true" [title]="line.label | translate">
+                    <span class="icon {{ line.icon }}"></span>
+                </span>
+                <span class="visually-hidden">{{ line.label | translate }}: </span>
+                <span>{{ line.text }}</span>
+            </li>
         }
-    </div>
-    <div modal-footer class="whats-new-actions">
-        <app-button [text]="'whatsNew.allChanges' | translate" variant="secondary" [outline]="true" (buttonClick)="seeAllChanges()"></app-button>
-        <app-button [text]="'whatsNew.gotIt' | translate" variant="primary" (buttonClick)="closeModal()"></app-button>
-    </div>
-</app-modal>
+    </ul>
+
+    <!-- That there are more, and not how many: a count would need
+         Slovak's plural forms for the sake of one sentence. -->
+    @if (hasEarlier()) {
+        <p class="whats-new-earlier">
+            <span class="icon icon-history" aria-hidden="true"></span>
+            <span>{{ 'whatsNew.earlier' | translate }}</span>
+        </p>
+    }
+}
+<ng-template anotokiDialogFooter>
+    <button anotokiButton (click)="seeAllChanges()">{{ 'whatsNew.allChanges' | translate }}</button>
+    <button anotokiButton variant="primary" (click)="closeModal()">{{ 'whatsNew.gotIt' | translate }}</button>
+</ng-template>

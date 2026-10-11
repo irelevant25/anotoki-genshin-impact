@@ -1,10 +1,9 @@
-<app-modal [title]="title()" (closeModal)="closeModal()">
-    <div modal-body class="guide-body" [class.is-loading]="loading()">
-        @if (failed()) {
-            <p class="guide-failed" role="alert">{{ "guide.loadFailed" | translate }}</p>
-        } @else {
-            <app-rich-text [html]="html()"></app-rich-text>
-        }
-        <app-loader [loading]="loading()" variant="plain" [text]="''" [minDuration]="0"></app-loader>
-    </div>
-</app-modal>
+<div class="guide-body">
+    @if (loading()) {
+        <anotoki-spinner label />
+    } @else if (failed()) {
+        <p class="guide-failed" role="alert">{{ "guide.loadFailed" | translate }}</p>
+    } @else {
+        <app-rich-text [html]="html()"></app-rich-text>
+    }
+</div>

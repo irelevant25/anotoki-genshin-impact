@@ -1,9 +1,12 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { CharacterApiService } from '../../../../api';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import { ToastService } from '@anotoki/lib/ui/toast';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
@@ -26,12 +29,11 @@ function compareVersionsDesc(a: string, b: string): number {
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
   styleUrls: ['./characters-list.component.scss'],
-  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, DropdownComponent, MultiselectComponent],
 })
 export class CharactersListComponent implements OnInit {
   characters = signal<any[]>([]);
   loading = signal(false);
-  deleteConfirm = signal<number | null>(null);
 
   // ── Filters ─────────────────────────────────────────────────────────────────
   filterId = signal<string | number | null | undefined>('');
@@ -101,7 +103,8 @@ export class CharactersListComponent implements OnInit {
   );
 
   private readonly _characterApi = inject(CharacterApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
+  private readonly _confirm = inject(ConfirmService);
 
   ngOnInit(): void {
     this.load();
@@ -116,7 +119,7 @@ export class CharactersListComponent implements OnInit {
       },
       error: () => {
         this.loading.set(false);
-        this._notify.showError('Failed to load characters');
+        this._notify.error('Failed to load characters');
       },
     });
   }
@@ -131,24 +134,21 @@ export class CharactersListComponent implements OnInit {
     this.filterVersions.set([]);
   }
 
-  confirmDelete(id: number): void {
-    this.deleteConfirm.set(id);
-  }
-
-  cancelDelete(): void {
-    this.deleteConfirm.set(null);
+  /** Asks first (the kit's question, its focus on No), then deletes. */
+  async confirmDelete(id: number, name?: string | null): Promise<void> {
+    if (await this._confirm.ask({ title: `Delete ${name || `#${id}`}?`, confirmLabel: 'Delete', tone: 'danger' })) {
+      this.delete(id);
+    }
   }
 
   delete(id: number): void {
     this._characterApi.deleteCharacter(id).subscribe({
       next: () => {
-        this.deleteConfirm.set(null);
         this.load();
-        this._notify.showSuccess('Character deleted');
+        this._notify.success('Character deleted');
       },
       error: (e) => {
-        this.deleteConfirm.set(null);
-        this._notify.showError(e?.error?.error ?? e?.error?.message ?? 'Failed to delete');
+        this._notify.error(e?.error?.error ?? e?.error?.message ?? 'Failed to delete');
       },
     });
   }

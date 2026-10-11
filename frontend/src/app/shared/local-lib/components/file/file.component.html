@@ -2,9 +2,6 @@
     <div class="form-field" [class]="class()">
         @if (label()) {
             <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
                 {{ label() }}
                 @if (required()) {
                     <span class="required-indicator">*</span>
@@ -55,14 +52,14 @@
         <div class="d-flex gap-3" [class.flex-col]="fileNamePosition() === 'bottom'" [class.flex-row]="fileNamePosition() === 'right'">
             <!-- File selection button -->
             @if (!hideButton()) {
-                <app-button
-                    [text]="buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor')"
+                <button
+                    anotokiButton
+                    [variant]="kitVariant()"
                     [class]="buttonClass()"
-                    [variant]="buttonVariant()"
                     [disabled]="disabled()"
-                    (buttonClick)="onButtonClick($event)"
-                    [outline]="buttonOutline()"
-                ></app-button>
+                    (click)="onButtonClick($event)">
+                    {{ buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor') }}
+                </button>
             }
 
             <!-- Selected files display -->
@@ -79,7 +76,7 @@
                     }
                     <!-- Clear all files button (for multiple files) -->
                     @if (multiple() && !disabled() && (value() ?? '').length > 1) {
-                        <app-button text="Vymazať všetky súbory" [variant]="'danger'" [class]="buttonClass()" type="button" (click)="clearFiles()"></app-button>
+                        <button anotokiButton variant="danger" type="button" [class]="buttonClass()" (click)="clearFiles()">Vymazať všetky súbory</button>
                     }
                 </div>
             }

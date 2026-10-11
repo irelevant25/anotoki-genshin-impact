@@ -24,7 +24,7 @@
                 <span class="max-score-note">{{ 'game.minesweeper.maxScoreNote' | translate }}</span>
             </div>
 
-            <app-button class="ms-auto me-auto" [text]="'game.minesweeper.start' | translate" variant="primary" size="large" (buttonClick)="start()"></app-button>
+            <button anotokiButton variant="primary" size="lg" class="setup-start" (click)="start()">{{ 'game.minesweeper.start' | translate }}</button>
         </div>
     } @else {
         <!-- The one reaction that kills this round. Everything on the board is
@@ -96,8 +96,8 @@
         }
 
         <div class="board-actions">
-            <app-button [text]="'game.minesweeper.newGame' | translate" variant="primary" (buttonClick)="newGame()"></app-button>
-            <app-button [text]="'game.minesweeper.backToSetup' | translate" variant="secondary" [outline]="true" (buttonClick)="backToSetup()"></app-button>
+            <button anotokiButton variant="primary" (click)="newGame()">{{ 'game.minesweeper.newGame' | translate }}</button>
+            <button anotokiButton (click)="backToSetup()">{{ 'game.minesweeper.backToSetup' | translate }}</button>
         </div>
 
         <div class="legend">

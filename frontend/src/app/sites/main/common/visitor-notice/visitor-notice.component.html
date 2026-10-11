@@ -1,12 +1,7 @@
-<aside class="visitor-notice">
-    <span class="visitor-notice-mark icon icon-info" aria-hidden="true"></span>
-    <p class="visitor-notice-text">{{ 'visitor.notice' | translate: { days: keepDays() } }}</p>
-    <app-button
-        class="visitor-notice-action"
-        [text]="'common.signIn' | translate"
-        variant="primary"
-        size="small"
-        [disabled]="!available()"
-        (buttonClick)="signIn()"
-    ></app-button>
-</aside>
+<!-- Information, not a warning - nothing is wrong yet: the kit's callout, with the way in under the words. -->
+<anotoki-alert class="visitor-notice" tone="info">
+    {{ 'visitor.notice' | translate: { days: keepDays() } }}
+    <div alertActions>
+        <button anotokiButton variant="primary" size="sm" [disabled]="!available()" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
+    </div>
+</anotoki-alert>

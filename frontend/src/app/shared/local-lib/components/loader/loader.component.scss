@@ -21,36 +21,6 @@
   opacity: 0.5;
 }
 
-.loading-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  background-color: var(--bg-card);
-  color: var(--text-primary);
-  border-radius: var(--border-radius, 8px);
-  box-shadow: var(--shadow-medium);
-
-  .loading-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border-color);
-    border-top: 2px solid var(--color-primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
 // The teleport waypoint, ported from old/utils/loading.{js,css}
 //
@@ -61,9 +31,9 @@
 // over the neighbours. The floor keeps it visible in a container too small to
 // hold it at all.
 //
-// The keyframes carry a `waypoint-` prefix to keep them together and apart from
-// the `spin` above; Angular rewrites the names per component, so they could not
-// have collided with another component's either way.
+// The keyframes carry a `waypoint-` prefix to keep them together; Angular
+// rewrites the names per component, so they could not have collided with
+// another component's either way.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Where each element's mark sits, and when it pulses. Positions are percentages

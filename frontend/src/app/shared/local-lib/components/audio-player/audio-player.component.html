@@ -20,15 +20,16 @@
         <span class="audio-error">This file could not be played.</span>
     } @else {
         <div class="audio-controls">
-            <app-button
-                [icon]="playing() ? 'icon-pause' : 'icon-play'"
-                variant="primary"
-                [outline]="true"
-                size="very-small"
-                [tooltipText]="playing() ? 'Pause' : 'Play'"
-                (buttonClick)="togglePlay()"
-            ></app-button>
-            <app-button icon="icon-stop" variant="secondary" [outline]="true" size="very-small" tooltipText="Stop" (buttonClick)="stop()"></app-button>
+            <button
+                anotokiButton
+                size="sm"
+                iconOnly
+                [attr.aria-label]="playing() ? 'Pause' : 'Play'"
+                [anotokiTooltip]="playing() ? 'Pause' : 'Play'"
+                (click)="togglePlay()">
+                <span [class]="'icon ' + (playing() ? 'icon-pause' : 'icon-play')" aria-hidden="true"></span>
+            </button>
+            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Stop" anotokiTooltip="Stop" (click)="stop()"><span class="icon icon-stop" aria-hidden="true"></span></button>
 
             <span class="audio-time">{{ elapsedLabel() }}</span>
             <input

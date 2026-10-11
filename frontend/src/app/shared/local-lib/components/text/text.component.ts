@@ -1,12 +1,16 @@
-import { Component, model } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, computed, model } from '@angular/core';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { AbstractInputComponent } from '../../abstract-input.class';
 
 type Type = string | number;
 
+/**
+ * A line of text in the site's forms: the kit's text field, holding this
+ * form's value and saying its rules' errors (AbstractInputComponent).
+ */
 @Component({
   selector: 'app-text',
-  imports: [FormsModule],
+  imports: [TextFieldComponent],
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss'],
   providers: [
@@ -18,41 +22,14 @@ type Type = string | number;
 })
 export class TextComponent extends AbstractInputComponent<Type> {
   maxLength = model<number | undefined>(undefined);
-  maxLengthCounter = model<boolean>(true);
 
   /** Left off unless asked for, so existing fields behave exactly as before. */
   autocomplete = model<string | undefined>(undefined);
 
-  remainingChars: number = 0;
-  remainsWord: string = '';
-  charsWord: string = '';
+  readonly text = computed(() => String(this.computedValue() ?? ''));
 
-  onInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const newValue = target.value;
-    this.value.set(newValue);
-    this.inputChange.emit(newValue as Type);
-  }
-
-  override afterValueChange(): void {
-    this.recalculateRemainingLength();
-  }
-
-  recalculateRemainingLength(): void {
-    const max = this.maxLength();
-    const val = this.computedValue().toString() || '';
-    this.remainingChars = max ? max - val.length : 0;
-
-    // remainsWord
-    this.remainsWord = this.remainingChars >= 2 && this.remainingChars <= 4 ? 'zostávajú' : 'zostáva';
-
-    // charsWord
-    if (this.remainingChars <= 0 || this.remainingChars >= 5) {
-      this.charsWord = 'znakov';
-    } else if (this.remainingChars === 1) {
-      this.charsWord = 'znak';
-    } else {
-      this.charsWord = 'znaky';
-    }
+  onKitInput(text: string): void {
+    this.value.set(text);
+    this.inputChange.emit(text);
   }
 }

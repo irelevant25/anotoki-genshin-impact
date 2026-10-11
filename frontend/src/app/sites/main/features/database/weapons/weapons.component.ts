@@ -1,20 +1,19 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
-import { asNumber, asOption, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { WeaponApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-weapons',
   templateUrl: './weapons.component.html',
   styleUrls: ['./weapons.component.scss'],
-  imports: [RouterModule, ButtonComponent, DropdownComponent, TextComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseWeaponsComponent {
   private readonly _weaponApi = inject(WeaponApiService);
@@ -26,8 +25,8 @@ export class DatabaseWeaponsComponent {
   filterType = signal<string | null>(null);
   filterRarity = signal<number | null>(null);
 
-  filterVersion = signal<string | number | boolean | null | undefined>(undefined);
-  filterName = signal<string | number | null | undefined>('');
+  filterVersion = signal('');
+  filterName = signal('');
 
   types = computed(() => distinctValues(this.weapons(), 'type').sort((a, b) => a.localeCompare(b)));
   rarities = computed(() => rarityValues(this.weapons()));
@@ -61,7 +60,7 @@ export class DatabaseWeaponsComponent {
     bindFiltersToUrl({
       type: [this.filterType, asToggle],
       rarity: [this.filterRarity, asNumber],
-      version: [this.filterVersion, asOption],
+      version: [this.filterVersion, asText],
       name: [this.filterName, asText],
     });
 
@@ -85,7 +84,7 @@ export class DatabaseWeaponsComponent {
   resetFilters(): void {
     this.filterType.set(null);
     this.filterRarity.set(null);
-    this.filterVersion.set(undefined);
+    this.filterVersion.set('');
     this.filterName.set('');
   }
 }

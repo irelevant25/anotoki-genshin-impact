@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { AlertComponent } from '@anotoki/lib/ui/alert';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
@@ -22,11 +23,11 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
   selector: 'app-visitor-notice',
   templateUrl: './visitor-notice.component.html',
   styleUrls: ['./visitor-notice.component.scss'],
-  imports: [ButtonComponent, TranslatePipe],
+  imports: [AlertComponent, ButtonComponent, TranslatePipe],
 })
 export class VisitorNoticeComponent {
   private readonly _security = inject(SecurityService);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
 
   /** Days a visitor's games are kept after their last visit - the server's number. */
@@ -37,6 +38,6 @@ export class VisitorNoticeComponent {
 
   signIn(): void {
     // Back to this page; the sign-in waits for the saves on their way first.
-    this._security.login().catch(() => this._notifications.showError(this._i18n.t('auth.startFailed')));
+    this._security.login().catch(() => this._notifications.error(this._i18n.t('auth.startFailed')));
   }
 }

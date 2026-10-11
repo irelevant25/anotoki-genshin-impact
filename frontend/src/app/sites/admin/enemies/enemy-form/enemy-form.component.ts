@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { Artifact, Audited, Material } from '../../../../api';
 import { ArtifactApiService, EnemyApiService, LookupApiService, MaterialApiService, EnemyFull } from '../../../../api';
 import { ArtifactFormData } from '../../../../sites/admin/shared/admin-form.model';
@@ -20,7 +21,7 @@ import { DropGroupWrapper, emptyEnemy, EnemyWrapper, flattenDropGroups, groupDro
   selector: 'app-enemy-form',
   templateUrl: './enemy-form.component.html',
   styleUrls: ['./enemy-form.component.scss'],
-  imports: [RouterLink, ButtonComponent, LoaderComponent, TabsComponent, TabComponent, BaseInfoTabComponent, PhasesTabComponent, DropsTabComponent],
+  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, RouterLink, ButtonComponent, BaseInfoTabComponent, PhasesTabComponent, DropsTabComponent],
 })
 export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements OnInit, OnDestroy {
   readonly entityLabel = 'Enemy';
@@ -77,7 +78,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

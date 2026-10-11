@@ -17,8 +17,8 @@
             <anotoki-sign-in-failure></anotoki-sign-in-failure>
         } @else {
             <div class="sign-in-required-actions">
-                <app-button [text]="'common.signIn' | translate" variant="primary" [disabled]="!available()" (buttonClick)="signIn()"></app-button>
-                <app-button [text]="'account.createAccount' | translate" variant="secondary" [outline]="true" [disabled]="!available()" (buttonClick)="createAccount()"></app-button>
+                <button anotokiButton variant="primary" [disabled]="!available()" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
+                <button anotokiButton [disabled]="!available()" (click)="createAccount()">{{ 'account.createAccount' | translate }}</button>
             </div>
         }
     </div>

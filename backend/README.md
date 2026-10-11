@@ -63,7 +63,10 @@ storage/        caches, error-log/ (the library's error log), backups/ (the libr
 tests/          php tests/run.php - the upload rules (no database); the words' migration and
                 routes, the library's data moves, admin routes, sign-in and gates, what
                 a silent sign-in brings in (the visitor's move, the browser's games'
-                carry), the command line (throwaway databases, db_lib.php); never shipped
+                carry), the command line (throwaway databases, db_lib.php); tools/
+                browser-env.php, the throwaway site frontend/scripts/screenshots.mjs
+                shows its pages on (a database with a little game content, a backend
+                copy; `down` drops it); never shipped
 vendor/         committed: the hosting has no Composer - anotoki/lib, the anotoki sites'
                 shared library, among it (updating it: ../DEV.md, The shared library)
 ```

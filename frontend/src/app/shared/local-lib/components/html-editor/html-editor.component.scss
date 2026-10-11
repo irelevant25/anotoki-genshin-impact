@@ -74,19 +74,18 @@
   flex-shrink: 0;
 }
 
+// The size and the font: a toolbar button that says what is chosen, opening the kit's menu.
+.toolbar-btn.toolbar-menu {
+  width: auto;
+  gap: var(--spacing-xxs);
+  padding: 0 var(--spacing-xs);
+  white-space: nowrap;
+  // A choice that stays, not an action: edged as the kit's fields are.
+  border-color: var(--anotoki-border-strong);
+  background: var(--anotoki-surface);
+}
+
 ::ng-deep {
-  .toolbar-dropdown-field {
-    margin: 0 !important;
-
-    .dropdown .form-control {
-      height: 28px;
-      min-height: unset;
-      font-size: var(--font-size-sm);
-      padding: 0 var(--spacing-xs);
-      padding-right: var(--spacing-lg);
-    }
-  }
-
   .color-picker-size {
     width: 1.75rem !important;
     height: 1.75rem !important;
@@ -149,7 +148,8 @@
   resize: vertical;
   background: transparent;
   color: var(--text-primary);
-  font-family: var(--font-family-mono, monospace);
+  // The family's monospace, as the kit's code boxes have.
+  font-family: var(--anotoki-font-mono);
   font-size: var(--font-size-sm);
   line-height: 1.5;
   white-space: pre;
@@ -188,7 +188,7 @@
   position: relative;
   overflow: auto;
   padding: var(--spacing-md);
-  background: var(--bg-subtle, transparent);
+  background: var(--anotoki-surface-2);
 
   // Marked, because an unlabelled second pane looks like a second editor and
   // the first thing anyone does is try to type in it.

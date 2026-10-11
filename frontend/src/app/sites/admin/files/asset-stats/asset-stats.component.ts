@@ -1,12 +1,13 @@
 import { DecimalPipe } from '@angular/common';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { AssetConversionCount, AssetConvertProgress, AssetStats, FileApiService } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { CleanupModalComponent } from '../cleanup-modal/cleanup-modal.component';
 import { MissingModalComponent } from '../missing-modal/missing-modal.component';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
 
 /**
@@ -35,11 +36,11 @@ const CONVERT_BATCH = 40;
   selector: 'app-asset-stats',
   templateUrl: './asset-stats.component.html',
   styleUrls: ['./asset-stats.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, DecimalPipe, FileSizePipe],
+  imports: [SpinnerComponent, TooltipDirective, ButtonComponent, DecimalPipe, FileSizePipe],
 })
 export class AssetStatsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
   private readonly _fileApi = inject(FileApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
 
   readonly stats = signal<AssetStats | null>(null);
 
@@ -197,7 +198,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
     this._fileApi.reconcileCatalogue({}).subscribe({
       next: (result) => {
         this.checking.set(false);
-        this._notify.showSuccess(
+        this._notify.success(
           result.adopted || result.moved_to_unfiled
             ? `${result.adopted.toLocaleString()} added to the database, ${result.moved_to_unfiled.toLocaleString()} moved to unfiled.`
             : 'Nothing on disk was missing from the database.',
@@ -206,7 +207,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
       },
       error: (error) => {
         this.checking.set(false);
-        this._notify.showError(error?.error?.error ?? 'The check could not run.');
+        this._notify.error(error?.error?.error ?? 'The check could not run.');
       },
     });
   }
@@ -226,14 +227,15 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
    * you lose a picture.
    */
   cleanUp(kind: 'image' | 'audio'): void {
-    const modal = this.openModal(CleanupModalComponent, { size: '5', scrollable: true }, () => this.load(true));
-    modal.componentInstance.kind.set(kind);
-    modal.componentInstance.start();
+    // Re-read whenever it closes: files may have gone however it was closed.
+    void this.openModal(CleanupModalComponent, { size: 'lg', data: kind, description: 'Everything here has a converted copy, and nothing in the database points at it' }).closed.then(() =>
+      this.load(true),
+    );
   }
 
   /** The rows naming files that are not there, and the chance to forget them. */
   showMissing(): void {
-    this.openModal(MissingModalComponent, { size: '5', scrollable: true }, () => this.load(true));
+    this.openModal(MissingModalComponent, { heading: 'Recorded but gone', description: 'Catalogue rows for files that are not on disk any more', size: 'lg' }, () => this.load(true));
   }
 
   ngOnInit(): void {
@@ -266,7 +268,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
       },
       error: () => {
         this.loading.set(false);
-        this._notify.showError('Could not read the asset library');
+        this._notify.error('Could not read the asset library');
       },
     });
   }
@@ -331,7 +333,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
 
         if (progress.finished) {
           this.converting.set(false);
-          this._notify.showSuccess(`Converted ${progress.converted} ${progress.converted === 1 ? 'file' : 'files'}.`);
+          this._notify.success(`Converted ${progress.converted} ${progress.converted === 1 ? 'file' : 'files'}.`);
           this.load(true);
           return;
         }
@@ -346,7 +348,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
       },
       error: (error) => {
         this.converting.set(false);
-        this._notify.showError(error?.error?.error ?? 'The conversion stopped.');
+        this._notify.error(error?.error?.error ?? 'The conversion stopped.');
       },
     });
   }

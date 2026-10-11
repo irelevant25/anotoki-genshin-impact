@@ -1,34 +1,32 @@
-<div class="page-header justify-content-between">
-    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
-    <h1 class="page-title">{{ enemy().data.name || pageTitle() }}</h1>
-</div>
+<anotoki-page-header [heading]="enemy().data.name || pageTitle()">
+    <a pageEyebrow anotokiButton variant="link" size="sm" class="back-link" [routerLink]="backLink()"><anotoki-icon name="arrowLeft" [size]="16" /> Back</a>
+</anotoki-page-header>
 
 @if (loading()) {
-    <app-loader [loading]="true"></app-loader>
+    <anotoki-spinner class="page-spinner" label />
 } @else {
-    <app-tabs>
-        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
-            <app-enemy-base-info-tab [(enemy)]="enemy" />
-        </app-tab>
-        <app-tab [title]="'Phases'" [icon]="'icon-layers'">
-            <app-enemy-phases-tab
-                [(phases)]="phases"
-                [enemyName]="enemy().data.name"
-                [enemyTypes]="enemyTypes()"
-                [enemyFamilies]="enemyFamilies()"
-                [enemyGroups]="enemyGroups()"
-                [elements]="elements()"
-            />
-        </app-tab>
-        <app-tab [title]="'Drops'" [icon]="'icon-coins'">
-            <app-enemy-drops-tab [(groups)]="dropGroups" [materials]="materials()" [artifacts]="artifacts()" [domainLevels]="domainLevels()" />
-        </app-tab>
-    </app-tabs>
+    <!-- The kit's tabs. Every panel stays in the page, hidden but for the one chosen: the
+         save checks every field, and opens the tab holding the first wrong one. -->
+    <anotoki-tabs #formTabs="anotokiTabs" label="Parts of the form" [tabs]="[{ id: 'base-info', label: 'Base Info' }, { id: 'phases', label: 'Phases' }, { id: 'drops', label: 'Drops' }]" active="base-info" />
+    <div class="form-tab-panel" role="tabpanel" data-tab="base-info" [id]="formTabs.panelId('base-info')" [attr.aria-labelledby]="formTabs.tabId('base-info')" [hidden]="formTabs.active() !== 'base-info'">
+        <app-enemy-base-info-tab [(enemy)]="enemy" />
+    </div>
+    <div class="form-tab-panel" role="tabpanel" data-tab="phases" [id]="formTabs.panelId('phases')" [attr.aria-labelledby]="formTabs.tabId('phases')" [hidden]="formTabs.active() !== 'phases'">
+        <app-enemy-phases-tab
+            [(phases)]="phases"
+            [enemyName]="enemy().data.name"
+            [enemyTypes]="enemyTypes()"
+            [enemyFamilies]="enemyFamilies()"
+            [enemyGroups]="enemyGroups()"
+            [elements]="elements()"
+        />
+    </div>
+    <div class="form-tab-panel" role="tabpanel" data-tab="drops" [id]="formTabs.panelId('drops')" [attr.aria-labelledby]="formTabs.tabId('drops')" [hidden]="formTabs.active() !== 'drops'">
+        <app-enemy-drops-tab [(groups)]="dropGroups" [materials]="materials()" [artifacts]="artifacts()" [domainLevels]="domainLevels()" />
+    </div>
 
     <div class="form-footer">
-        <a [routerLink]="backLink()">
-            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
-        </a>
-        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Enemy'" [loading]="saving()" (buttonClick)="save()"></app-button>
+        <a anotokiButton [routerLink]="backLink()">Cancel</a>
+        <button anotokiButton variant="primary" [loading]="saving()" (click)="save()">{{ isEdit() ? 'Save Changes' : 'Create Enemy' }}</button>
     </div>
 }

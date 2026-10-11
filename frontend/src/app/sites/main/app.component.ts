@@ -1,7 +1,6 @@
 import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './common/header/header.component';
-import { NotificationComponent } from '../../shared/local-lib/components/notification/notification.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { AnnouncementComponent } from './common/announcement/announcement.component';
 import { MaintenanceComponent } from './common/maintenance/maintenance.component';
@@ -10,7 +9,7 @@ import { SignInRequiredComponent } from './common/sign-in-required/sign-in-requi
 import { SiteSettingsService } from '../../shared/local-lib/services/site-settings.service';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../shared/local-lib/services/visitor-key.service';
-import { NotificationService } from '../../shared/local-lib/components/notification/notification.service';
+import { ToastHostComponent, ToastService } from '@anotoki/lib/ui/toast';
 import { TranslationService } from '@anotoki/lib/translations';
 import { QuizProgressService } from './features/quizzes/shared/quiz-progress.service';
 
@@ -18,7 +17,7 @@ import { QuizProgressService } from './features/quizzes/shared/quiz-progress.ser
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, HeaderComponent, NotificationComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
+  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
   providers: [],
 })
 export class AppComponent {
@@ -26,7 +25,7 @@ export class AppComponent {
   private readonly _security = inject(SecurityService);
   private readonly _visitorKey = inject(VisitorKey);
   private readonly _progress = inject(QuizProgressService);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
 
   /**
@@ -82,7 +81,7 @@ export class AppComponent {
     effect(() => {
       if (this._visitorKey.lost()) {
         untracked(() => {
-          this._notifications.showInfo(this._i18n.t('visitor.lost', { days: this._settings.visitorKeepDays() }));
+          this._notifications.info(this._i18n.t('visitor.lost', { days: this._settings.visitorKeepDays() }));
           this._visitorKey.lost.set(false);
         });
       }
@@ -92,7 +91,7 @@ export class AppComponent {
     effect(() => {
       const refusal = this._progress.refusal();
       if (refusal) {
-        untracked(() => this._notifications.showWarning(this._i18n.t(refusal === 'full' ? 'visitor.full' : 'visitor.busy')));
+        untracked(() => this._notifications.warning(this._i18n.t(refusal === 'full' ? 'visitor.full' : 'visitor.busy')));
       }
     });
 
@@ -104,7 +103,7 @@ export class AppComponent {
     effect(() => {
       if (this._i18n.languageNotSaved()) {
         untracked(() => {
-          this._notifications.showError(this._i18n.t('account.formats.failed'));
+          this._notifications.error(this._i18n.t('account.formats.failed'));
           this._i18n.clearLanguageNotSaved();
         });
       }
@@ -116,7 +115,7 @@ export class AppComponent {
     const words = [moved ? this._i18n.t('visitor.moved') : '', kept > 0 ? this._i18n.t('visitor.kept') : ''];
     const message = words.filter(Boolean).join(' ');
     if (message) {
-      this._notifications.showSuccess(message);
+      this._notifications.success(message);
     }
   }
 }

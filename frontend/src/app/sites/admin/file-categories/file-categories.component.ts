@@ -1,9 +1,12 @@
 import { DecimalPipe } from '@angular/common';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FileCategory, FileCategoryApiService } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
 
 /**
@@ -23,7 +26,7 @@ import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
   selector: 'app-file-categories',
   templateUrl: './file-categories.component.html',
   styleUrls: ['./file-categories.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, DecimalPipe, FileSizePipe],
+  imports: [PageHeaderComponent, TextFieldComponent, SpinnerComponent, ButtonComponent, DecimalPipe, FileSizePipe],
 })
 export class FileCategoriesComponent extends AbstractModalComponent implements OnInit {
   private readonly _api = inject(FileCategoryApiService);
@@ -41,7 +44,7 @@ export class FileCategoriesComponent extends AbstractModalComponent implements O
   readonly newCode = signal('');
   readonly newLabel = signal('');
 
-  readonly retireConfirm = signal<number | null>(null);
+  private readonly _confirm = inject(ConfirmService);
 
   readonly visible = computed(() => (this.showRetired() ? this.categories() : this.categories().filter((c) => !c.deleted)));
 
@@ -71,7 +74,7 @@ export class FileCategoriesComponent extends AbstractModalComponent implements O
       },
       error: () => {
         this.loading.set(false);
-        this.notificationService.showError('Could not read the categories.');
+        this.notificationService.error('Could not read the categories.');
       },
     });
   }
@@ -100,13 +103,13 @@ export class FileCategoriesComponent extends AbstractModalComponent implements O
         this.categories.set(categories);
         this.saving.set(false);
         this.adding.set(false);
-        this.notificationService.showSuccess('Category added.');
+        this.notificationService.success('Category added.');
       },
       error: (error) => {
         this.saving.set(false);
         // The API says which rule was broken and why, and that sentence is the
         // whole answer, so it is shown rather than replaced.
-        this.notificationService.showError(error?.error?.error ?? 'That could not be added.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be added.');
       },
     });
   }
@@ -137,38 +140,37 @@ export class FileCategoriesComponent extends AbstractModalComponent implements O
         this.categories.set(categories);
         this.saving.set(false);
         this.editing.set(null);
-        this.notificationService.showSuccess(moving ? `Moved, and ${category.files.toLocaleString()} files with it.` : 'Saved.');
+        this.notificationService.success(moving ? `Moved, and ${category.files.toLocaleString()} files with it.` : 'Saved.');
       },
       error: (error) => {
         this.saving.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'That could not be saved.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be saved.');
       },
     });
   }
 
   // ── Retiring ───────────────────────────────────────────────────────────────
 
-  askToRetire(id: number): void {
-    this.retireConfirm.set(id);
-  }
-
-  cancelRetire(): void {
-    this.retireConfirm.set(null);
+  /** Asks first - the kit's question, saying where the files go - then retires it. */
+  async askToRetire(category: FileCategory): Promise<void> {
+    const message = category.files ? `Its ${category.files.toLocaleString()} files move to unfiled first.` : null;
+    if (await this._confirm.ask({ title: `Retire ${category.code}?`, message, confirmLabel: 'Retire', tone: 'danger' })) {
+      this.retire(category);
+    }
   }
 
   retire(category: FileCategory): void {
     this.saving.set(true);
-    this.retireConfirm.set(null);
 
     this._api.retireFileCategory(category.id).subscribe({
       next: (categories) => {
         this.categories.set(categories);
         this.saving.set(false);
-        this.notificationService.showSuccess(category.files ? `Retired, and ${category.files.toLocaleString()} files moved to unfiled.` : 'Retired.');
+        this.notificationService.success(category.files ? `Retired, and ${category.files.toLocaleString()} files moved to unfiled.` : 'Retired.');
       },
       error: (error) => {
         this.saving.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'That could not be retired.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be retired.');
       },
     });
   }
@@ -180,11 +182,11 @@ export class FileCategoriesComponent extends AbstractModalComponent implements O
       next: (categories) => {
         this.categories.set(categories);
         this.saving.set(false);
-        this.notificationService.showSuccess('Back in use.');
+        this.notificationService.success('Back in use.');
       },
       error: (error) => {
         this.saving.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'That could not be brought back.');
+        this.notificationService.error(error?.error?.error ?? 'That could not be brought back.');
       },
     });
   }

@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalComponent } from '../../../../../shared/local-lib/components/modal/modal.component';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { TranslatePipe } from '@anotoki/lib/translations';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 interface IBackground {
   name: string;
@@ -16,7 +15,7 @@ interface IBackground {
   selector: 'app-site-backgrounds-modal',
   templateUrl: './site-backgrounds-modal.component.html',
   styleUrls: ['./site-backgrounds-modal.component.scss'],
-  imports: [ModalComponent, ReactiveFormsModule, TranslatePipe],
+  imports: [ReactiveFormsModule, TranslatePipe],
   providers: [],
 })
 export class SiteBackgroundsModalComponent extends AbstractModalComponent {
@@ -85,6 +84,8 @@ export class SiteBackgroundsModalComponent extends AbstractModalComponent {
 
   constructor(private _storageService: LocalStorageService) {
     super();
+    const i18n = inject(TranslationService);
+    this.dialogHeading(() => i18n.t('backgrounds.title'));
   }
 
   changeBackground(background: IBackground): void {

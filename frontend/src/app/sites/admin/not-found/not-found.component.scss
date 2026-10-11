@@ -1,4 +1,5 @@
-p {
-  font-size: var(--font-size-xl);
-  color: var(--color-nav-link);
+// The kit's empty state, with room around it.
+.not-found {
+  display: block;
+  padding: var(--spacing-2xl) 0;
 }

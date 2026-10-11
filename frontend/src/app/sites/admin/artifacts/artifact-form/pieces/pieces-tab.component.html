@@ -3,7 +3,7 @@
         <div class="sub-card">
             <div class="sub-card-header">
                 <span class="sub-card-index">{{ piece.data.type }} · {{ piece.data.name || 'Unnamed' }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removePiece(piece)">Delete</app-button>
+                <button anotokiButton variant="danger" (click)="removePiece(piece)">Delete</button>
             </div>
             <app-field-container [cols]="4">
                 <app-dropdown [label]="'Type'" [options]="typeOptionsFor(piece)" [(value)]="piece.data.type" [required]="true"></app-dropdown>
@@ -23,10 +23,8 @@
 
     @if (canAdd()) {
         <div class="pieces-actions">
-            <app-button variant="primary" [outline]="true" (buttonClick)="addPiece()">Add</app-button>
-            <app-button variant="secondary" [outline]="true" (buttonClick)="addAllMissing()">
-                Add all {{ availableTypes().length }} missing
-            </app-button>
+            <button anotokiButton (click)="addPiece()">Add</button>
+            <button anotokiButton (click)="addAllMissing()">Add all {{ availableTypes().length }} missing</button>
         </div>
     }
 </div>

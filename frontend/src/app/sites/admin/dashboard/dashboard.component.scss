@@ -1,12 +1,8 @@
-.page-header {
-  margin-bottom: var(--spacing-lg);
-}
+// The kit draws the heading, the spinner, the panels (its cards) and the
+// actions' badges; what is here is the dashboard's own: its figures.
 
-.page-title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+anotoki-page-header {
+  margin-bottom: var(--spacing-lg);
 }
 
 // ── The row that answers "is anything waiting for me" ────────────────────────
@@ -73,46 +69,6 @@
   gap: var(--spacing-lg);
   align-items: stretch;
   margin-bottom: var(--spacing-lg);
-}
-
-.panel {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-large);
-  padding: var(--spacing-md);
-}
-
-.panel-head {
-  display: flex;
-  align-items: baseline;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
-}
-
-.panel-title {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-}
-
-.panel-note {
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
-}
-
-.panel-link {
-  margin-left: auto;
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  text-decoration: none;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .panel-empty {
@@ -227,26 +183,9 @@
   white-space: nowrap;
 }
 
-.pill {
+.feed-verb {
   flex-shrink: 0;
-  font-size: var(--font-size-xs);
-  border-radius: var(--border-radius);
-  padding: 1px 7px;
-  font-weight: var(--font-weight-semibold);
   text-transform: capitalize;
-}
-
-.action-insert {
-  background: var(--color-success-light);
-  color: var(--color-success-light-text);
-}
-.action-update {
-  background: var(--color-info-light);
-  color: var(--color-info-light-text);
-}
-.action-delete {
-  background: var(--color-danger-light);
-  color: var(--color-danger-light-text);
 }
 
 // ── Content counts ───────────────────────────────────────────────────────────
@@ -362,4 +301,13 @@
 .asset-meta {
   font-size: var(--font-size-xs);
   color: var(--text-muted);
+}
+
+// On a phone a card is one to a row, the row's whole width - capped, it
+// would leave a quarter of the row empty beside every card.
+@media (max-width: 560px) {
+  .attention-card,
+  .asset-card {
+    max-width: none;
+  }
 }

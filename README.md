@@ -166,7 +166,8 @@ backend/
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile
   src/app/sites/admin/  the admin panel
-  src/app/shared/       local-lib (the UI kit, abstract bases), site-auth.ts (the shared library's
+  src/app/shared/       local-lib (what the family's UI kit has no piece for, abstract bases),
+                        site-auth.ts (the shared library's
                         sign-in, set up for this site), site-feedback.ts (its feedback form), site-status.ts
                         (its gate and Migrations page), site-translations.ts (its words)
   src/app/api/          the API client, generated from the backend (npm run api)
@@ -194,8 +195,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 - [CLAUDE.md](CLAUDE.md) is loaded by Claude Code and holds the conventions: the
   generated API client, the backend's DbQuery / DbModel / `responds()` patterns,
-  migrations, configuration, the frontend's signals and local-lib, i18n and
-  theming.
+  migrations, configuration, the frontend's signals, the family's UI kit and
+  local-lib, i18n and theming.
 - Project skills (`.claude/skills/`): `sync-api-client`, `scaffold-entity`,
   `db-migration`, `deploy`, `refresh-docs`. Project agents (`.claude/agents/`):
   `backend-engineer`, `frontend-engineer`, `code-reviewer`.

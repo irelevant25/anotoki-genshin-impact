@@ -10,10 +10,12 @@
         <!-- Cached for a day, because it is a walk over every file on disk.
              The button is for when something changed outside the API and
              waiting out the cache is the wrong answer. -->
-        <app-button text="Re-scan" icon="icon-history" variant="secondary" [outline]="true" size="small" [loading]="loading()" (buttonClick)="refresh()"></app-button>
+        <button anotokiButton size="sm" [loading]="loading()" (click)="refresh()"><span class="icon icon-history" aria-hidden="true"></span> Re-scan</button>
     </header>
 
-    <app-loader [loading]="loading() && !stats()"></app-loader>
+    @if (loading() && !stats()) {
+        <anotoki-spinner class="stats-spinner" label />
+    }
 
     @if (stats(); as data) {
         <div class="stats-columns">
@@ -21,7 +23,7 @@
             <div class="stats-panel stats-panel-formats">
                 <h3 class="panel-heading">By format</h3>
 
-                <table class="format-table">
+                <table class="table format-table">
                     <thead>
                         <tr>
                             <th scope="col">Format</th>
@@ -79,16 +81,14 @@
                         </span>
                     </div>
 
-                    <app-button
-                        text="Add strays to database"
-                        icon="icon-database"
-                        variant="secondary"
-                        [outline]="true"
-                        size="small"
+                    <button
+                        anotokiButton
+                        size="sm"
                         [loading]="checking()"
-                        tooltipText="Scans the asset folder for files that are on disk but not yet in the database, adds them so they appear here, and files anything with no category under 'unfiled'."
-                        (buttonClick)="check()"
-                    ></app-button>
+                        anotokiTooltip="Scans the asset folder for files that are on disk but not yet in the database, adds them so they appear here, and files anything with no category under 'unfiled'."
+                        (click)="check()">
+                        <span class="icon icon-database" aria-hidden="true"></span> Add strays to database
+                    </button>
                 </div>
             }
 
@@ -171,12 +171,12 @@
 
                         <div class="convert-actions">
                             @if (converting()) {
-                                <app-button text="Stop" variant="secondary" [outline]="true" size="small" (buttonClick)="stop()"></app-button>
+                                <button anotokiButton size="sm" (click)="stop()">Stop</button>
                             } @else if (!job.finished) {
-                                <app-button text="Resume" icon="icon-play" size="small" (buttonClick)="resume()"></app-button>
-                                <app-button text="Start over" variant="secondary" [outline]="true" size="small" (buttonClick)="start()"></app-button>
+                                <button anotokiButton variant="primary" size="sm" (click)="resume()"><span class="icon icon-play" aria-hidden="true"></span> Resume</button>
+                                <button anotokiButton size="sm" (click)="start()">Start over</button>
                             } @else {
-                                <app-button text="Done" variant="secondary" [outline]="true" size="small" (buttonClick)="dismiss()"></app-button>
+                                <button anotokiButton size="sm" (click)="dismiss()">Done</button>
                             }
                         </div>
                     } @else if (converting()) {
@@ -188,10 +188,12 @@
                         </div>
                         <p class="convert-note">Working out what needs converting…</p>
                     } @else if (convertible()) {
-                        <app-button
-                            [text]="'Convert ' + convertible().toLocaleString() + ' missing ' + (convertible() === 1 ? 'file' : 'files')"
-                            icon="icon-check"
-                            (buttonClick)="start()"></app-button>
+                        <button
+                            anotokiButton
+                            variant="primary"
+                            (click)="start()">
+                            <span class="icon icon-check" aria-hidden="true"></span> {{ 'Convert ' + convertible().toLocaleString() + ' missing ' + (convertible() === 1 ? 'file' : 'files') }}
+                        </button>
                         <p class="convert-note">Runs in batches so it can be watched, stopped, and picked up again.</p>
                     } @else if (missingTotal()) {
                         <p class="convert-note">{{ missingTotal() | number }} files have no converted copy, and this server cannot encode them.</p>
@@ -210,7 +212,7 @@
 
                         <div class="reclaim-actions">
                             @for (option of reclaimable(); track option.kind) {
-                                <app-button [text]="option.label + ' (' + option.count + ')'" variant="secondary" icon="icon-trash" size="small" [outline]="true" (buttonClick)="cleanUp(option.kind)"></app-button>
+                                <button anotokiButton size="sm" (click)="cleanUp(option.kind)"><span class="icon icon-trash" aria-hidden="true"></span> {{ option.label + ' (' + option.count + ')' }}</button>
                             }
                         </div>
                     </div>

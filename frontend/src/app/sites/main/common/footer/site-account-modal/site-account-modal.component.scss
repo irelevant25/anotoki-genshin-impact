@@ -110,19 +110,7 @@
   min-width: 5rem;
 }
 
-// Five date orders do not fit a phone's width in one line, so they wrap and
-// stay against the right edge rather than running off it.
+// The kit's chooser against the right edge, under the label when a phone has no room beside it.
 .theme-choices {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: var(--spacing-xs);
   margin-left: auto;
-}
-
-.account-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: var(--spacing-sm);
 }

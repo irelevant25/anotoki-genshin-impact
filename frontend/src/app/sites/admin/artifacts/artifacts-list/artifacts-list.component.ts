@@ -1,9 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArtifactApiService } from '../../../../api';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
@@ -14,7 +16,7 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-artifacts-list',
   templateUrl: './artifacts-list.component.html',
   styleUrls: ['./artifacts-list.component.scss'],
-  imports: [AppDatePipe, RouterLink, ButtonComponent, LoaderComponent, TextComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, MultiselectComponent],
 })
 export class ArtifactsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'artifacts';

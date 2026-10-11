@@ -1,10 +1,9 @@
-<div class="page-header justify-content-between">
-    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
-    <h1 class="page-title">{{ material().name || pageTitle() }}</h1>
-</div>
+<anotoki-page-header [heading]="material().name || pageTitle()">
+    <a pageEyebrow anotokiButton variant="link" size="sm" class="back-link" [routerLink]="backLink()"><anotoki-icon name="arrowLeft" [size]="16" /> Back</a>
+</anotoki-page-header>
 
 @if (loading()) {
-    <app-loader [loading]="true"></app-loader>
+    <anotoki-spinner class="page-spinner" label />
 } @else {
     <div class="form-section">
         <h3 class="section-title">Identity</h3>
@@ -72,9 +71,7 @@
     </div>
 
     <div class="form-footer">
-        <a [routerLink]="backLink()">
-            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
-        </a>
-        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Material'" [loading]="saving()" (buttonClick)="save()"></app-button>
+        <a anotokiButton [routerLink]="backLink()">Cancel</a>
+        <button anotokiButton variant="primary" [loading]="saving()" (click)="save()">{{ isEdit() ? 'Save Changes' : 'Create Material' }}</button>
     </div>
 }

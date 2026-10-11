@@ -1,21 +1,10 @@
-.page-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
+// The kit draws the heading, the fields, the buttons and the table, framed as
+// the admin lists are (their skin); what is here is this page's own: its note,
+// the row that adds one, its columns.
+@use "../shared/admin-list" as *;
+
+anotoki-page-header {
   margin-bottom: var(--spacing-sm);
-}
-
-.page-title {
-  margin: 0;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-}
-
-.header-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-left: auto;
 }
 
 .page-note {
@@ -29,7 +18,7 @@
 .add-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
 }
@@ -41,52 +30,12 @@
   font-size: var(--font-size-sm);
 }
 
-.admin-input {
-  height: var(--button-height);
-  min-width: 200px;
-  padding: 0 var(--spacing-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-primary);
-  font-size: var(--font-size-base);
-  outline: none;
-
-  &:focus {
-    border-color: var(--color-primary);
-  }
+.add-field {
+  flex: 0 1 14rem;
+  min-width: 0;
 }
 
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-large);
-}
-
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-base);
-
-  th {
-    background: var(--bg-table-header);
-    color: var(--text-secondary);
-    padding: var(--spacing-sm) var(--spacing-md);
-    text-align: left;
-    font-weight: var(--font-weight-semibold);
-    font-size: var(--font-size-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-
-  td {
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-    vertical-align: middle;
-  }
-
+.table {
   tfoot td {
     border-bottom: 0;
     border-top: 2px solid var(--border-color);
@@ -117,29 +66,16 @@
   font-variant-numeric: tabular-nums;
 }
 
-.col-path code {
-  color: var(--text-secondary);
-}
-
-.col-actions {
-  width: 1%;
-  white-space: nowrap;
-  text-align: right;
-
-  app-button + app-button {
-    margin-left: var(--spacing-xs);
+// Stacked into cards on a phone (the kit's .table-stack, up to 720 px): every
+// value under its label's edge, the numbers too.
+@media (max-width: 720px) {
+  .col-num {
+    text-align: left;
   }
 }
 
-.confirm {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.confirm-note {
-  color: var(--color-warning);
-  font-size: var(--font-size-sm);
+.col-path code {
+  color: var(--text-secondary);
 }
 
 .system-note {

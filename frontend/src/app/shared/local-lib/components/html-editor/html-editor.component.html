@@ -2,9 +2,6 @@
     <div class="form-field" [class]="class()">
         @if (label()) {
             <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
                 {{ label() }}
                 @if (required()) {
                     <span class="required-indicator">*</span>
@@ -62,29 +59,32 @@
 
                     <span class="toolbar-divider"></span>
 
-                    <app-dropdown
-                        [class]="'toolbar-dropdown-field'"
-                        [value]="fontSizeValue()"
-                        [width]="'min-content'"
-                        [options]="fontSizeOptions"
-                        [emptyOption]="false"
-                        [displayError]="false"
-                        (selectedOptionChange)="onFontSizeChange($event, true)"
-                        (hoveredOption)="onFontSizeChange($event, false)"
-                        (closed)="onFontSizeClosed(); selectingFontSize.set(false)"
-                        (opened)="selectingFontSize.set(true)"></app-dropdown>
+                    <!-- The kit's menus: an option shows on the text while it is pointed at or
+                         has the focus, and the one chosen stays (closing without one puts the
+                         last back). The trigger keeps the editor's selection to apply them to. -->
+                    <button type="button" class="toolbar-btn toolbar-menu" title="Veľkosť písma" [anotokiMenuTrigger]="sizeMenu" (mousedown)="rememberSelection()">
+                        {{ optionLabel(fontSizeOptions, fontSizeValue()) }}
+                        <i class="icon icon-chevron-down icon-size-3" aria-hidden="true"></i>
+                    </button>
+                    <anotoki-menu #sizeMenu label="Veľkosť písma" (opened)="selectingFontSize.set(true)" (closed)="onFontSizeClosed(); selectingFontSize.set(false)">
+                        @for (option of fontSizeOptions; track option.key) {
+                            <button anotokiMenuItem [radio]="fontSizeValue() === option.key" (mouseenter)="onFontSizeChange(option, false)" (focus)="onFontSizeChange(option, false)" (click)="onFontSizeChange(option, true)">
+                                {{ option.value }}
+                            </button>
+                        }
+                    </anotoki-menu>
 
-                    <app-dropdown
-                        [class]="'toolbar-dropdown-field'"
-                        [value]="fontFamilyValue()"
-                        [width]="'min-content'"
-                        [options]="fontFamilyOptions"
-                        [emptyOption]="false"
-                        [displayError]="false"
-                        (selectedOptionChange)="onFontFamilyChange($event, true)"
-                        (hoveredOption)="onFontFamilyChange($event, false)"
-                        (closed)="onFontFamilyClosed(); selectingFontFamily.set(false)"
-                        (opened)="selectingFontFamily.set(true)"></app-dropdown>
+                    <button type="button" class="toolbar-btn toolbar-menu" title="Písmo" [anotokiMenuTrigger]="familyMenu" (mousedown)="rememberSelection()">
+                        {{ optionLabel(fontFamilyOptions, fontFamilyValue()) }}
+                        <i class="icon icon-chevron-down icon-size-3" aria-hidden="true"></i>
+                    </button>
+                    <anotoki-menu #familyMenu label="Písmo" (opened)="selectingFontFamily.set(true)" (closed)="onFontFamilyClosed(); selectingFontFamily.set(false)">
+                        @for (option of fontFamilyOptions; track option.key) {
+                            <button anotokiMenuItem [radio]="fontFamilyValue() === option.key" (mouseenter)="onFontFamilyChange(option, false)" (focus)="onFontFamilyChange(option, false)" (click)="onFontFamilyChange(option, true)">
+                                {{ option.value }}
+                            </button>
+                        }
+                    </anotoki-menu>
 
                     <app-color-picker
                         [colorClass]="'color-picker-size'"

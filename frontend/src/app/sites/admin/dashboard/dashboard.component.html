@@ -1,10 +1,8 @@
-<div class="page-header">
-    <h1 class="page-title">Dashboard</h1>
-</div>
+<anotoki-page-header heading="Dashboard" />
 
-<app-loader #loader [loading]="loading()"></app-loader>
-
-@if (!loader.loadingCtrl.loading() && stats(); as data) {
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else if (stats(); as data) {
     <!-- Things waiting on a person, first. The feedback and the audit log are
          the ADMIN's alone: for an EDITOR the server sends neither. -->
     <div class="attention-row">
@@ -53,11 +51,7 @@
 
     <!-- Two panels of equal height: what is missing, and what changed. -->
     <div class="columns">
-        <section class="panel">
-            <header class="panel-head">
-                <h2 class="panel-title">Gaps in the database</h2>
-                <span class="panel-note">Records missing rows they ought to have</span>
-            </header>
+        <anotoki-card class="panel" heading="Gaps in the database" subheading="Records missing rows they ought to have">
 
             @if (!gaps().length) {
                 <p class="panel-empty">Nothing missing. Every check came back complete.</p>
@@ -79,14 +73,13 @@
                     }
                 </ul>
             }
-        </section>
+        </anotoki-card>
 
         @if (data.activity; as activity) {
-            <section class="panel">
-                <header class="panel-head">
-                    <h2 class="panel-title">Recent changes</h2>
-                    <a class="panel-link" routerLink="/admin/audit-logs">Audit log</a>
-                </header>
+            <anotoki-card class="panel" heading="Recent changes">
+                <div cardActions>
+                    <a anotokiButton variant="link" size="sm" routerLink="/admin/audit-logs">Audit log</a>
+                </div>
 
                 @if (!activity.recent.length) {
                     <p class="panel-empty">Nothing recorded yet.</p>
@@ -94,7 +87,7 @@
                     <ul class="feed">
                         @for (entry of activity.recent; track entry.id) {
                             <li class="feed-item">
-                                <span class="pill" [class]="'action-' + actionVerb(entry.action)" [title]="entry.action">{{ actionVerb(entry.action) }}</span>
+                                <anotoki-badge class="feed-verb" [tone]="actionTone(entry.action)" [title]="entry.action">{{ actionVerb(entry.action) }}</anotoki-badge>
                                 <!-- What it was about - or, for one about nothing in particular (a migration applied), the action itself. -->
                                 <span class="feed-title">{{ entry.table_name ? entry.table_name + " #" + entry.record_id : entry.action }}</span>
                                 <span class="feed-meta">{{ entry.changed_by_username || "system" }} · {{ entry.changed_at | appDate: "datetime" }}</span>
@@ -102,7 +95,7 @@
                         }
                     </ul>
                 }
-            </section>
+            </anotoki-card>
         }
     </div>
 
@@ -110,11 +103,10 @@
          is not something a landing page should do on every visit; the Files
          page is where it is re-scanned and where the gap is closed. -->
     @if (data.assets; as assets) {
-        <section class="panel panel-assets">
-            <header class="panel-head">
-                <h2 class="panel-title">Files on disk</h2>
-                <a class="panel-link" routerLink="/admin/files">Files</a>
-            </header>
+        <anotoki-card class="panel panel-assets" heading="Files on disk">
+            <div cardActions>
+                <a anotokiButton variant="link" size="sm" routerLink="/admin/files">Files</a>
+            </div>
 
             <div class="asset-row">
                 <a class="asset-card" routerLink="/admin/files">
@@ -155,13 +147,10 @@
                     </div>
                 }
             </div>
-        </section>
+        </anotoki-card>
     }
 
-    <section class="panel panel-content">
-        <header class="panel-head">
-            <h2 class="panel-title">Content</h2>
-        </header>
+    <anotoki-card class="panel panel-content" heading="Content">
 
         <div class="content-grid">
             @for (entry of data.content; track entry.table) {
@@ -172,5 +161,5 @@
                 </a>
             }
         </div>
-    </section>
+    </anotoki-card>
 }

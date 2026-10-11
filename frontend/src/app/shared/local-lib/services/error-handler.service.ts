@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationService } from '../components/notification/notification.service';
+import { ToastService } from '@anotoki/lib/ui/toast';
 
 export interface ErrorContext {
   operation: string;
@@ -10,7 +10,7 @@ export interface ErrorContext {
 
 @Injectable({ providedIn: 'root' })
 export class ErrorHandlerService {
-  constructor(private _notificationService: NotificationService) {}
+  constructor(private _notificationService: ToastService) {}
 
   handleError(error: unknown, context: ErrorContext): string {
     let message = '';
@@ -25,7 +25,7 @@ export class ErrorHandlerService {
     }
 
     if (context.showNotification !== false) {
-      this._notificationService.showError(message);
+      this._notificationService.error(message);
     }
 
     return message;

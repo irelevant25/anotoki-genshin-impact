@@ -1,16 +1,13 @@
 import { Component, computed, inject, input, model, output, QueryList, signal, ViewChildren } from '@angular/core';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { AccordionComponent } from '../../../../../shared/local-lib/components/accordion/accordion.component';
-import { AccordionItemComponent } from '../../../../../shared/local-lib/components/accordion/item/item.component';
-import { TabsComponent } from '../../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../../shared/local-lib/components/tabs/tab/tab.component';
-import { takeUntil } from 'rxjs';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { createUid, emptyVoiceOver, reorder, resequence, VOICE_OVER_TYPES, VoiceOverWrapper } from '../character-form.model';
 import { VoiceOversTabItemComponent } from './tab/tab.component';
-import { VoiceOverImportResult, VoiceOversImportComponent } from './import/voice-overs-import.component';
+import { VoiceOverImportData, VoiceOverImportResult, VoiceOversImportComponent } from './import/voice-overs-import.component';
 import { VoiceOverSetSelectorComponent } from './set-selector/set-selector.component';
 import { VoiceOverSetApiService } from '../../../../../api';
 
@@ -23,9 +20,17 @@ interface VoiceOverGroup {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, TextComponent, AccordionComponent, AccordionItemComponent, TabsComponent, TabComponent, VoiceOversTabItemComponent],
+  imports: [TooltipDirective, ButtonComponent, NumberComponent, TextComponent, TabsComponent, VoiceOversTabItemComponent],
 })
 export class VoiceOversTabComponent extends AbstractModalComponent {
+  /** The four languages a line is voiced in, as the kit's tabs take them. */
+  readonly languageTabs = [
+    { id: 'english', label: 'English' },
+    { id: 'japanese', label: 'Japanese' },
+    { id: 'chinese', label: 'Chinese' },
+    { id: 'korean', label: 'Korean' },
+  ];
+
   @ViewChildren(VoiceOversTabItemComponent) items?: QueryList<VoiceOversTabItemComponent>;
 
   voiceOvers = model<VoiceOverWrapper[]>([]);
@@ -129,13 +134,9 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
     this.stopAudio();
     this.deleteAllArmed.set(false);
 
-    const modal = this.modalService.open<VoiceOverSetSelectorComponent, number | undefined>(VoiceOverSetSelectorComponent, {
-      size: '4',
-      scrollable: true,
-    });
-    modal.componentInstance.currentSetId.set(this.voiceOverSetId() ?? null);
+    const modal = this.dialogs.open<VoiceOverSetSelectorComponent, number | undefined>(VoiceOverSetSelectorComponent, { heading: 'Choose a voice-over set', size: 'lg', data: this.voiceOverSetId() ?? null });
 
-    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((setId) => {
+    void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
         return;
       }
@@ -143,9 +144,9 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
         next: (voiceOvers) => {
           this.voiceOvers.set((voiceOvers ?? []).map((data) => ({ uid: createUid(), data, audio: {} })));
           this.voiceOverSetChosen.emit(setId);
-          this.notificationService.showSuccess(`Now using set #${setId} (${voiceOvers?.length ?? 0} lines).`);
+          this.notificationService.success(`Now using set #${setId} (${voiceOvers?.length ?? 0} lines).`);
         },
-        error: () => this.notificationService.showError('Could not load that set’s voice-overs.'),
+        error: () => this.notificationService.error('Could not load that set’s voice-overs.'),
       });
     });
   }
@@ -154,19 +155,18 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
     this.stopAudio();
     this.deleteAllArmed.set(false);
 
-    const modal = this.modalService.open<VoiceOversImportComponent, VoiceOverImportResult | undefined>(VoiceOversImportComponent, {
-      size: '5',
-      scrollable: true,
+    const modal = this.dialogs.open<VoiceOversImportComponent, VoiceOverImportResult | undefined, VoiceOverImportData>(VoiceOversImportComponent, {
+      heading: 'Import Voice Overs',
+      size: 'lg',
+      data: { characterName: this.characterName(), existingCount: this.voiceOvers().length },
     });
-    modal.componentInstance.characterName.set(this.characterName());
-    modal.componentInstance.existingCount.set(this.voiceOvers().length);
 
-    modal.closed.pipe(takeUntil(this.unsubscriber)).subscribe((result) => {
+    void modal.closed.then((result) => {
       if (!result?.wrappers?.length) {
         return;
       }
       this.voiceOvers.update((voiceOvers) => (result.replaceExisting ? result.wrappers : [...voiceOvers, ...result.wrappers]));
-      this.notificationService.showSuccess(`${result.wrappers.length} voice overs ${result.replaceExisting ? 'imported' : 'added'}.`);
+      this.notificationService.success(`${result.wrappers.length} voice overs ${result.replaceExisting ? 'imported' : 'added'}.`);
     });
   }
 
@@ -180,7 +180,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
     this.stopAudio();
     this.voiceOvers.set([]);
     this.deleteAllArmed.set(false);
-    this.notificationService.showSuccess(`${count} voice overs removed. They are deleted when you save.`);
+    this.notificationService.success(`${count} voice overs removed. They are deleted when you save.`);
   }
 
   cancelDeleteAll(): void {

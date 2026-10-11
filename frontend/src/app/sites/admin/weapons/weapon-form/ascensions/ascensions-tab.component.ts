@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
@@ -12,7 +13,7 @@ import { AscensionWrapper, emptyAscension, MAX_WEAPON_ASCENSIONS } from '../weap
   selector: 'app-weapon-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
+  imports: [TooltipDirective, ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
 })
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);

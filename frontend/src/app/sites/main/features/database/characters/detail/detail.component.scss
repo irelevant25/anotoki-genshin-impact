@@ -89,35 +89,9 @@
   }
 
   /* Tabs */
-  .tabs-navigation {
-    font-size: var(--font-size-xl);
-    display: flex;
+  .detail-tabs {
+    display: block;
     margin-bottom: var(--spacing-lg);
-    border-bottom: 2px solid var(--border-color-dark-distinct);
-  }
-
-  .tab-button {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    position: relative;
-  }
-
-  .tab-button.active {
-    color: var(--color-primary);
-  }
-
-  .tab-button.active::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-primary);
   }
 
   @media (max-width: 768px) {

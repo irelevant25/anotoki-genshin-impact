@@ -2,9 +2,6 @@
     <div class="form-field" [class]="class()">
         @if (label()) {
             <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
                 {{ label() }}
                 @if (required()) {
                     <span class="required-indicator">*</span>

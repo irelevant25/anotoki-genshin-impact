@@ -39,7 +39,6 @@ export class GuideIconComponent extends AbstractModalComponent {
     // is what keeps a tabbed-to icon visible.
     (event.currentTarget as HTMLElement | null)?.blur();
 
-    const modal = this.openModal(GuideModalComponent, { size: '3', scrollable: true, centered: true });
-    modal.componentInstance.guide.set(this.guide());
+    this.openModal(GuideModalComponent, { size: 'md', data: this.guide() });
   }
 }

@@ -6,25 +6,29 @@
             <div class="sub-card-header">
                 <span class="sub-card-index">R{{ i + 1 }}</span>
                 <div class="refinement-actions">
-                    <app-button
-                        icon="icon-chevron-up icon-size-3"
-                        variant="secondary"
-                        [outline]="true"
-                        size="very-small"
-                        tooltipText="Move up"
+                    <button
+                        anotokiButton
+                        variant="ghost"
+                        size="sm"
+                        iconOnly
                         [disabled]="first"
-                        (buttonClick)="move(refinement, -1)"
-                    ></app-button>
-                    <app-button
-                        icon="icon-chevron-down icon-size-3"
-                        variant="secondary"
-                        [outline]="true"
-                        size="very-small"
-                        tooltipText="Move down"
+                        aria-label="Move up"
+                        anotokiTooltip="Move up"
+                        (click)="move(refinement, -1)">
+                        <span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span>
+                    </button>
+                    <button
+                        anotokiButton
+                        variant="ghost"
+                        size="sm"
+                        iconOnly
                         [disabled]="last"
-                        (buttonClick)="move(refinement, 1)"
-                    ></app-button>
-                    <app-button variant="danger" [outline]="true" (buttonClick)="removeRefinement(refinement)">Delete</app-button>
+                        aria-label="Move down"
+                        anotokiTooltip="Move down"
+                        (click)="move(refinement, 1)">
+                        <span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span>
+                    </button>
+                    <button anotokiButton variant="danger" (click)="removeRefinement(refinement)">Delete</button>
                 </div>
             </div>
             <app-field-container [cols]="4">
@@ -46,9 +50,9 @@
 
     @if (canAdd()) {
         <div class="refinement-add">
-            <app-button variant="primary" [outline]="true" (buttonClick)="addRefinement()">Add</app-button>
+            <button anotokiButton (click)="addRefinement()">Add</button>
             @if (refinements().length) {
-                <app-button variant="secondary" [outline]="true" (buttonClick)="duplicateLast()">Duplicate last</app-button>
+                <button anotokiButton (click)="duplicateLast()">Duplicate last</button>
             }
         </div>
     }

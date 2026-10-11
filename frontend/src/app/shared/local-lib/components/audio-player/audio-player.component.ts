@@ -1,5 +1,6 @@
 import { Component, computed, effect, ElementRef, input, model, signal, ViewChild } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 
 /**
  * Small audio player: play/pause, a seekable progress bar and elapsed/total
@@ -10,7 +11,7 @@ import { ButtonComponent } from '../button/button.component';
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
   styleUrls: ['./audio-player.component.scss'],
-  imports: [ButtonComponent],
+  imports: [TooltipDirective, ButtonComponent],
 })
 export class AudioPlayerComponent {
   @ViewChild('audioElement') private _audio?: ElementRef<HTMLAudioElement>;

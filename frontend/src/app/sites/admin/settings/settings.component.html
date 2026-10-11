@@ -1,20 +1,17 @@
-<div class="page-header justify-content-start">
-    <h1 class="page-title">Site settings</h1>
-    <app-button text="Reload" variant="secondary" [outline]="true" icon="icon-history" (buttonClick)="load()"></app-button>
-</div>
+<anotoki-page-header
+    heading="Site settings"
+    lead="Switches that take effect the moment they are saved, for everybody reading the site. The site enforces none of them on its own — the API refuses the same things, so a closed site is closed to anything that talks to it directly too.">
+    <button anotokiButton (click)="load()">
+        <span class="icon icon-history" aria-hidden="true"></span>
+        Reload
+    </button>
+</anotoki-page-header>
 
-<p class="page-note">
-    Switches that take effect the moment they are saved, for everybody reading the site. The site enforces none of them on its own — the API refuses the same things, so a closed site is closed to
-    anything that talks to it directly too.
-</p>
-
-<app-loader #loader [loading]="busy()"></app-loader>
-
-@if (failed()) {
-    <p class="settings-problem">The settings could not be read.</p>
-}
-
-@if (!loader.loadingCtrl.loading() && !failed()) {
+@if (busy()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else if (failed()) {
+    <anotoki-error-state message="The settings could not be read." (retry)="load()" />
+} @else {
     <!-- A card per group, saying what it is doing without being opened. The
          whole form on one page was taller than a screen, which is exactly the
          length at which you can no longer tell at a glance what the site is

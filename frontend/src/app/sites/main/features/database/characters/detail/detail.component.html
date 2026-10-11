@@ -113,15 +113,10 @@
                         </div>
                     </div>
 
-                    <!-- Tabs Navigation -->
-                    <div class="tabs-navigation flex-column-mobile">
-                        @for (tab of tabs; track tab.id) {
-                            <button type="button" class="tab-button fs-20" [class.active]="activeTab() === tab.id" (click)="activeTab.set(tab.id)">{{ tab.label | translate }}</button>
-                        }
-                    </div>
+                    <!-- The kit's tabs: one Tab stop, the arrow keys move between them. -->
+                    <anotoki-tabs #detailTabs="anotokiTabs" class="detail-tabs" [label]="character.name" [tabs]="tabItems()" [active]="activeTab()" (activeChange)="activeTab.set($any($event))" />
 
-                    <!-- Tab Content -->
-                    <div class="tabs-content">
+                    <div class="tabs-content" role="tabpanel" [id]="detailTabs.panelId(activeTab())" [attr.aria-labelledby]="detailTabs.tabId(activeTab())">
                         @switch (activeTab()) {
                             @case ('ascensions') {
                                 <app-character-ascensions-tab [ascensions]="ascensions()"></app-character-ascensions-tab>

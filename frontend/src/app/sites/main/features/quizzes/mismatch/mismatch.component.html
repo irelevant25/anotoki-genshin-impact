@@ -38,7 +38,7 @@
                     </p>
 
                     @if (!isDaily()) {
-                        <app-button [text]="'quiz.next' | translate" variant="primary" size="large" (buttonClick)="next()"></app-button>
+                        <button anotokiButton variant="primary" size="lg" (click)="next()">{{ 'quiz.next' | translate }}</button>
                     }
                 }
             } @else {

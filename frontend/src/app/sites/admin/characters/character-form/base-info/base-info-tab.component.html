@@ -110,28 +110,24 @@
                 (cleared)="onCleared(image.field)"
             />
         }
-        <div class="d-flex flex-col space-between gap-2">
-            <app-entity-image
-                [label]="'In-game Icon'"
-                [required]="true"
-                [path]="imagePath('ingame_icon')"
-                [name]="imageName('ingame_icon')"
-                [pending]="pendingFor('ingame_icon')"
-                (picked)="onPicked('ingame_icon', $event)"
-                (cleared)="onCleared('ingame_icon')"
-            />
-        </div>
-        <div class="d-flex flex-col space-between gap-2">
-            <app-entity-image
-                [label]="'In-game Icon 2'"
-                [required]="false"
-                [path]="imagePath('ingame_icon_2')"
-                [name]="imageName('ingame_icon_2')"
-                [pending]="pendingFor('ingame_icon_2')"
-                (picked)="onPicked('ingame_icon_2', $event)"
-                (cleared)="onCleared('ingame_icon_2')"
-            />
-        </div>
+        <app-entity-image
+            [label]="'In-game Icon'"
+            [required]="true"
+            [path]="imagePath('ingame_icon')"
+            [name]="imageName('ingame_icon')"
+            [pending]="pendingFor('ingame_icon')"
+            (picked)="onPicked('ingame_icon', $event)"
+            (cleared)="onCleared('ingame_icon')"
+        />
+        <app-entity-image
+            [label]="'In-game Icon 2'"
+            [required]="false"
+            [path]="imagePath('ingame_icon_2')"
+            [name]="imageName('ingame_icon_2')"
+            [pending]="pendingFor('ingame_icon_2')"
+            (picked)="onPicked('ingame_icon_2', $event)"
+            (cleared)="onCleared('ingame_icon_2')"
+        />
     </app-field-container>
 </app-field-container>
 
@@ -167,7 +163,7 @@
             <div class="sub-card">
                 <div class="sub-card-header">
                     <span class="sub-card-index">{{ relationship.name || 'Relationship ' + (i + 1) }}</span>
-                    <app-button variant="danger" [outline]="true" (buttonClick)="removeRelationship(relationship)">Delete</app-button>
+                    <button anotokiButton variant="danger" (click)="removeRelationship(relationship)">Delete</button>
                 </div>
                 <div class="form-grid">
                     <app-text [label]="'Name'" [(value)]="relationship.name" [required]="true"></app-text>
@@ -183,6 +179,6 @@
                 </div>
             </div>
         }
-        <app-button variant="primary" [outline]="true" (buttonClick)="addRelationship()">Add</app-button>
+        <button anotokiButton (click)="addRelationship()">Add</button>
     </div>
 </div>

@@ -1,9 +1,14 @@
 import { Component, computed, inject, OnInit, signal, viewChild } from '@angular/core';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { PaginationComponent } from '@anotoki/lib/ui/pagination';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData } from '../../../../api';
 import { TrashModalComponent } from '../trash-modal/trash-modal.component';
@@ -15,7 +20,7 @@ import { ConfigService } from '../../../../shared/local-lib/services/config.serv
   selector: 'app-files-manager',
   templateUrl: './files-manager.component.html',
   styleUrls: ['./files-manager.component.scss'],
-  imports: [ButtonComponent, LoaderComponent, TextComponent, FileComponent, AssetStatsComponent],
+  imports: [PageHeaderComponent, PaginationComponent, TextFieldComponent, SelectComponent, SpinnerComponent, TooltipDirective, ButtonComponent, TextComponent, FileComponent, AssetStatsComponent],
 })
 export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);
@@ -31,7 +36,6 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   loadingFolders = signal(false);
   loadingFiles = signal(false);
   busy = signal<string | undefined>(undefined);
-  deleteConfirm = signal<string | undefined>(undefined);
 
 
   /** 900+ folders, so the sidebar is filtered rather than scrolled. */
@@ -59,10 +63,13 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   private readonly _fileApi = inject(FileApiService);
   private readonly _config = inject(ConfigService);
   private readonly _categoryApi = inject(FileCategoryApiService);
-  private readonly _notify = inject(NotificationService);
+  private readonly _notify = inject(ToastService);
+  private readonly _confirm = inject(ConfirmService);
 
   /** The categories a file can be moved into, for the selector on each card. */
   categories = signal<FileCategory[]>([]);
+  /** The categories as the kit's select takes them. */
+  readonly categoryChoices = computed(() => this.categories().map((category) => ({ value: String(category.id), label: category.label })));
 
   ngOnInit(): void {
     this.loadFolders();
@@ -122,12 +129,12 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       next: (result) => {
         this.busy.set(undefined);
         this.cancelRename();
-        this._notify.showSuccess(`Renamed to ${result.name}.`);
+        this._notify.success(`Renamed to ${result.name}.`);
         this.loadFiles();
       },
       error: (error) => {
         this.busy.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'That could not be renamed.');
+        this._notify.error(error?.error?.error ?? 'That could not be renamed.');
       },
     });
   }
@@ -141,7 +148,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     this._fileApi.moveFileToCategory(file.file_id, { category_id: Number(categoryId) }).subscribe({
       next: (result) => {
         this.busy.set(undefined);
-        this._notify.showSuccess(
+        this._notify.success(
           result.renamed
             ? `Moved to ${result.path}/ as ${result.name} — that folder already had a file of the same name.`
             : `Moved to ${result.path}/.`
@@ -151,7 +158,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       },
       error: (error) => {
         this.busy.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'That could not be moved.');
+        this._notify.error(error?.error?.error ?? 'That could not be moved.');
         this.loadFiles();
       },
     });
@@ -169,7 +176,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       },
       error: () => {
         this.loadingFolders.set(false);
-        this._notify.showError('Failed to load folders');
+        this._notify.error('Failed to load folders');
       },
     });
   }
@@ -195,7 +202,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       },
       error: () => {
         this.loadingFiles.set(false);
-        this._notify.showError('Failed to load files');
+        this._notify.error('Failed to load files');
       },
     });
   }
@@ -231,8 +238,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     if (!this.canPreview(file)) {
       return;
     }
-    const modal = this.modalService.open<FilePreviewComponent>(FilePreviewComponent, { size: '5', scrollable: true });
-    modal.componentInstance.file.set(file);
+    this.dialogs.open(FilePreviewComponent, { heading: file.name, size: 'lg', data: file });
   }
 
   formatSize(bytes: number): string {
@@ -275,7 +281,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
         next: () => this._finishUpload(--remaining, failed, success),
         error: (error) => {
           failed++;
-          this._notify.showError(error?.error?.error ?? `Could not upload ${file.name}`);
+          this._notify.error(error?.error?.error ?? `Could not upload ${file.name}`);
           this._finishUpload(--remaining, failed, success);
         },
       });
@@ -288,17 +294,22 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     }
     this.busy.set(undefined);
     if (!failed) {
-      this._notify.showSuccess(success);
+      this._notify.success(success);
     }
     this.loadFiles();
   }
 
-  confirmDelete(file: AssetFile): void {
-    this.deleteConfirm.set(file.name);
+  /** The category a file is filed under, as the select's value. */
+  categoryIdOf(file: AssetFile): string {
+    const category = this.categories().find((candidate) => candidate.code === file.category);
+    return category ? String(category.id) : '';
   }
 
-  cancelDelete(): void {
-    this.deleteConfirm.set(undefined);
+  /** Asks first (the kit's question, its focus on No), then moves it to the trash. */
+  async confirmDelete(file: AssetFile): Promise<void> {
+    if (await this._confirm.ask({ title: `Delete ${file.name}?`, message: 'It goes to the trash, where it can be restored.', confirmLabel: 'Delete', tone: 'danger' })) {
+      this.deleteFile(file);
+    }
   }
 
   deleteFile(file: AssetFile): void {
@@ -306,14 +317,12 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     this._fileApi.deleteAssetFile({ folder: this.selectedFolder(), name: file.name }).subscribe({
       next: () => {
         this.busy.set(undefined);
-        this.deleteConfirm.set(undefined);
-        this._notify.showSuccess(`${file.name} moved to trash`);
+        this._notify.success(`${file.name} moved to trash`);
         this.loadFiles();
       },
       error: (error) => {
         this.busy.set(undefined);
-        this.deleteConfirm.set(undefined);
-        this._notify.showError(error?.error?.error ?? 'Could not delete the file');
+        this._notify.error(error?.error?.error ?? 'Could not delete the file');
       },
     });
   }
@@ -325,7 +334,8 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
    * replace the browser, which read as a filter and left no way back.
    */
   openTrash(): void {
-    this.openModal(TrashModalComponent, { size: '4', scrollable: true }, () => {
+    // Re-read whenever it closes: files may have come back however it was closed.
+    void this.openModal(TrashModalComponent, { heading: 'Trash', description: 'Deleted files, still recoverable until they are removed for good', size: 'lg' }).closed.then(() => {
       this.loadFiles();
       this.loadFolders();
     });

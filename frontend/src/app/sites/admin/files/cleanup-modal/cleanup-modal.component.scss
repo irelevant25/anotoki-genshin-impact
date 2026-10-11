@@ -51,26 +51,6 @@
 }
 
 .cleanup-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-sm);
-
-  th,
-  td {
-    padding: var(--spacing-xxs) var(--spacing-sm);
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  thead th {
-    position: sticky;
-    top: 0;
-    background: var(--bg-table-header);
-    color: var(--bg-table-header-text);
-    font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
-  }
-
   tbody tr:last-child td {
     border-bottom: 0;
   }

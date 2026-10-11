@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ButtonComponent } from '../../../shared/local-lib/components/button/button.component';
-import { NotificationService } from '../../../shared/local-lib/components/notification/notification.service';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { SecurityService } from '../../../shared/local-lib/services/security.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
@@ -32,7 +32,7 @@ function currentPath(): string {
 export class AdminNoAccessComponent {
   readonly security = inject(SecurityService);
   readonly i18n = inject(TranslationService);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
 
   readonly user = this.security.currentUser;
 
@@ -50,6 +50,6 @@ export class AdminNoAccessComponent {
   }
 
   private _start(start: Promise<void>): void {
-    start.catch(() => this._notifications.showError(this.i18n.t('auth.startFailed')));
+    start.catch(() => this._notifications.error(this.i18n.t('auth.startFailed')));
   }
 }

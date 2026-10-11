@@ -1,27 +1,54 @@
-<div class="page-header justify-content-between">
-    <app-button [text]="'Back'" [routerLink]="backLink()" [outline]="true" [isBack]="true"></app-button>
-    <h1 class="page-title">{{ weapon().data.name || pageTitle() }}</h1>
-</div>
+<anotoki-page-header [heading]="weapon().data.name || pageTitle()">
+    <a pageEyebrow anotokiButton variant="link" size="sm" class="back-link" [routerLink]="backLink()">
+        <anotoki-icon name="arrowLeft" [size]="16" />
+        Back
+    </a>
+</anotoki-page-header>
 
 @if (loading()) {
-    <app-loader [loading]="true"></app-loader>
+    <anotoki-spinner class="page-spinner" label />
 } @else {
-    <app-tabs>
-        <app-tab [title]="'Base Info'" [icon]="'icon-info'">
-            <app-weapon-base-info-tab [(weapon)]="weapon" [weaponTypes]="weaponTypes()" [rarities]="rarities()" [stats]="stats()" />
-        </app-tab>
-        <app-tab [title]="'Refinements'" [icon]="'icon-stars'">
-            <app-weapon-refinements-tab [(refinements)]="refinements" [materials]="materials()" />
-        </app-tab>
-        <app-tab [title]="'Ascensions'" [icon]="'icon-arrow-up'">
-            <app-weapon-ascensions-tab [(ascensions)]="ascensions" [materials]="materials()" />
-        </app-tab>
-    </app-tabs>
+    <!-- The kit's tabs. Every panel stays in the page, hidden but for the one chosen: the
+         save checks every field, and opens the tab holding the first wrong one. -->
+    <anotoki-tabs
+        #formTabs="anotokiTabs"
+        label="Parts of the form"
+        [tabs]="[
+            { id: 'base-info', label: 'Base Info' },
+            { id: 'refinements', label: 'Refinements' },
+            { id: 'ascensions', label: 'Ascensions' },
+        ]"
+        active="base-info" />
+    <div
+        class="form-tab-panel"
+        role="tabpanel"
+        data-tab="base-info"
+        [id]="formTabs.panelId('base-info')"
+        [attr.aria-labelledby]="formTabs.tabId('base-info')"
+        [hidden]="formTabs.active() !== 'base-info'">
+        <app-weapon-base-info-tab [(weapon)]="weapon" [weaponTypes]="weaponTypes()" [rarities]="rarities()" [stats]="stats()" />
+    </div>
+    <div
+        class="form-tab-panel"
+        role="tabpanel"
+        data-tab="refinements"
+        [id]="formTabs.panelId('refinements')"
+        [attr.aria-labelledby]="formTabs.tabId('refinements')"
+        [hidden]="formTabs.active() !== 'refinements'">
+        <app-weapon-refinements-tab [(refinements)]="refinements" [materials]="materials()" />
+    </div>
+    <div
+        class="form-tab-panel"
+        role="tabpanel"
+        data-tab="ascensions"
+        [id]="formTabs.panelId('ascensions')"
+        [attr.aria-labelledby]="formTabs.tabId('ascensions')"
+        [hidden]="formTabs.active() !== 'ascensions'">
+        <app-weapon-ascensions-tab [(ascensions)]="ascensions" [materials]="materials()" />
+    </div>
 
     <div class="form-footer">
-        <a [routerLink]="backLink()">
-            <app-button text="Cancel" variant="secondary" [outline]="true"></app-button>
-        </a>
-        <app-button [text]="isEdit() ? 'Save Changes' : 'Create Weapon'" [loading]="saving()" (buttonClick)="save()"></app-button>
+        <a anotokiButton [routerLink]="backLink()">Cancel</a>
+        <button anotokiButton variant="primary" [loading]="saving()" (click)="save()">{{ isEdit() ? "Save Changes" : "Create Weapon" }}</button>
     </div>
 }

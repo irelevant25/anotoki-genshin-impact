@@ -3,7 +3,7 @@
         <div class="sub-card">
             <div class="sub-card-header">
                 <span class="sub-card-index">Phase {{ i + 1 }} · {{ phase.data.title || 'Untitled' }}</span>
-                <app-button variant="danger" [outline]="true" (buttonClick)="removePhase(phase)">Delete</app-button>
+                <button anotokiButton variant="danger" (click)="removePhase(phase)">Delete</button>
             </div>
 
             <app-field-container [cols]="2">
@@ -60,6 +60,6 @@
     }
 
     @if (canAdd()) {
-        <app-button variant="primary" [outline]="true" (buttonClick)="addPhase()">Add</app-button>
+        <button anotokiButton (click)="addPhase()">Add</button>
     }
 </div>

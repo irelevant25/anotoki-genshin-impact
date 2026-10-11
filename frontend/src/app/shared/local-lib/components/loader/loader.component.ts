@@ -67,16 +67,6 @@ export class Loading {
   }
 }
 
-/**
- * Which loader is drawn.
- *
- * `waypoint` is the teleport waypoint from the old site - a turning rune ring
- * with the seven elements pulsing around it. `plain` is the small spinner in a
- * card, which is what every caller used to get and what still suits a dense
- * admin table.
- */
-export type LoaderVariant = 'waypoint' | 'plain';
-
 /** One drifting mote, placed once and then left to the animation. */
 export interface LoaderParticle {
   /** Percentages, not pixels, so a mote keeps its place as the loader scales. */
@@ -87,6 +77,12 @@ export interface LoaderParticle {
   readonly drift: number;
 }
 
+/**
+ * The main site's loader: the teleport waypoint from the old site - a turning
+ * rune ring with the seven elements pulsing around it - over what is loading.
+ * It is genshin's own; anywhere a plain spinner will do (a dialog, an admin
+ * page) the kit's <anotoki-spinner> is used instead.
+ */
 @Component({
   selector: 'app-loader',
   imports: [],
@@ -107,8 +103,6 @@ export class LoaderComponent {
   minDuration = model<number>(500);
 
   loadingCtrl = new Loading(this.loading, this.minDuration, this._injector);
-  spinner = model<boolean>(true);
-  variant = model<LoaderVariant>('waypoint');
 
   /**
    * Scattered once, at construction, rather than in a computed: they are meant

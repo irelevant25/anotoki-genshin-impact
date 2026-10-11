@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { AbstractModalComponent } from '../../../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
 import { VoiceOverSet, VoiceOverSetApiService } from '../../../../../../api';
 
 /**
@@ -14,11 +14,11 @@ import { VoiceOverSet, VoiceOverSetApiService } from '../../../../../../api';
   selector: 'app-voice-over-set-selector',
   templateUrl: './set-selector.component.html',
   styleUrls: ['./set-selector.component.scss'],
-  imports: [ModalComponent, ButtonComponent, LoaderComponent],
+  imports: [ButtonComponent, DialogFooterDirective, SpinnerComponent],
 })
 export class VoiceOverSetSelectorComponent extends AbstractModalComponent implements OnInit {
-  /** The character's current set, marked in the list. Set by the opener. */
-  currentSetId = signal<number | null | undefined>(undefined);
+  /** The character's current set, marked in the list: what the opener hands over. */
+  currentSetId = signal<number | null | undefined>(inject<number | null>(ANOTOKI_DIALOG_DATA, { optional: true }));
 
   sets = signal<VoiceOverSet[]>([]);
   loadingSets = signal(false);
@@ -35,7 +35,7 @@ export class VoiceOverSetSelectorComponent extends AbstractModalComponent implem
       },
       error: () => {
         this.loadingSets.set(false);
-        this.notificationService.showError('Could not load the voice-over sets.');
+        this.notificationService.error('Could not load the voice-over sets.');
       },
     });
   }
@@ -46,11 +46,11 @@ export class VoiceOverSetSelectorComponent extends AbstractModalComponent implem
 
   choose(): void {
     if (this.selectedId() !== null) {
-      this.modalRef?.close(this.selectedId());
+      this.dialogRef?.close(this.selectedId());
     }
   }
 
   cancel(): void {
-    this.modalRef?.close(undefined);
+    this.dialogRef?.close(undefined);
   }
 }

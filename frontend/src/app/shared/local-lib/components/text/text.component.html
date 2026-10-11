@@ -1,48 +1,16 @@
 @if (!hidden()) {
-    <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                @if (tooltipText()) {
-                    <i #tooltipElement class="icon icon-info" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"></i>
-                }
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-                @if (maxLength() && maxLengthCounter()) {
-                    <span class="max-length-counter">
-                        ({{ remainsWord }}
-                        {{ remainingChars }}
-                        {{ charsWord }})
-                    </span>
-                }
-            </label>
-        }
-
-        @if (description()) {
-            <label class="form-description">
-                {{ description() }}
-            </label>
-        }
-
-        <input
-            #inputElement
-            [id]="inputId"
-            [value]="computedValue()"
-            [disabled]="disabled()"
-            [placeholder]="placeholder() ?? ''"
-            [attr.autocomplete]="autocomplete()"
-            class="form-control input-text"
-            [class.error]="hasError()"
-            [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-            (input)="onInput($event)"
-            (blur)="onBlur()"
-            (focus)="onFocus()" />
-
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
-        }
-    </div>
+    <anotoki-text-field
+        [class]="class()"
+        [label]="kitLabel()"
+        [hideLabel]="!label()"
+        [value]="text()"
+        [placeholder]="placeholder() ?? ''"
+        [hint]="kitHint()"
+        [error]="kitError()"
+        [required]="required()"
+        [disabled]="disabled()"
+        [maxlength]="maxLength() ?? null"
+        [autocomplete]="autocomplete() ?? ''"
+        (valueChange)="onKitInput($event)"
+        (blurred)="onBlur()" />
 }

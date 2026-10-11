@@ -1,26 +1,20 @@
-<div class="page-header">
-    <h1 class="page-title">Guides</h1>
-</div>
+<anotoki-page-header
+    heading="Guides"
+    lead="The pages behind the question marks, in every language that has one - a language without one reads the English. Each is markup, edited with a preview beside it. Their titles are strings, on the Translations page; a new guide comes with the migration that brings its question mark." />
 
-<p class="page-note">
-    The pages behind the question marks, in every language that has one - a language without one reads the English. Each is markup, edited with a preview beside it. Their titles are strings, on the
-    Translations page; a new guide comes with the migration that brings its question mark.
-</p>
-
-<app-loader #loader [loading]="loading()"></app-loader>
-
-@if (!loader.loadingCtrl.loading()) {
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
     @if (failed()) {
-        <p class="page-error" role="alert">{{ failed() }}</p>
-        <app-button text="Try again" variant="secondary" [outline]="true" size="small" (buttonClick)="load()"></app-button>
+        <anotoki-error-state heading="The guides could not be read" [message]="failed()!" (retry)="load()" />
     } @else {
-        <div class="table-wrap">
-            <table class="admin-table">
+        <div class="table-scroll">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Guide</th>
                         <th>Written in</th>
-                        <th class="col-actions"></th>
+                        <th class="cell-actions"><span class="visually-hidden">Actions</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,20 +25,23 @@
                                 <code class="guide-name">{{ guide.guide }}</code>
                             </td>
                             <td>
+                                <!-- Which languages have the guide: the kit's badges, coloured where it is
+                                     written; the words say the rest (a language not offered yet is marked). -->
                                 <span class="language-chips">
                                     @for (language of languages(); track language.code) {
-                                        <span
-                                            class="language-chip"
-                                            [class.is-missing]="!has(guide, language.code)"
-                                            [class.is-hidden]="!language.enabled"
+                                        <anotoki-badge
+                                            mono
+                                            [tone]="has(guide, language.code) ? 'success' : 'neutral'"
                                             [attr.title]="language.name + (has(guide, language.code) ? '' : ' - none: reads the English') + (language.enabled ? '' : ' (not offered to readers yet)')">
-                                            {{ language.code }}
-                                        </span>
+                                            {{ language.code }}{{ has(guide, language.code) ? "" : " –" }}{{ language.enabled ? "" : " (hidden)" }}
+                                        </anotoki-badge>
                                     }
                                 </span>
                             </td>
-                            <td class="col-actions">
-                                <app-button text="Edit" size="very-small" (buttonClick)="edit(guide)"></app-button>
+                            <td class="cell-actions">
+                                <div class="action-btns">
+                                    <button anotokiButton variant="primary" size="sm" (click)="edit(guide)">Edit</button>
+                                </div>
                             </td>
                         </tr>
                     } @empty {

@@ -1,20 +1,19 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
-import { asNumber, asOption, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { CharacterApiService } from '../../../../../api';
 
 @Component({
   selector: 'app-database-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss'],
-  imports: [RouterModule, ButtonComponent, DropdownComponent, TextComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseCharactersComponent {
   private readonly _characterApi = inject(CharacterApiService);
@@ -27,9 +26,9 @@ export class DatabaseCharactersComponent {
   filterWeaponType = signal<string | null>(null);
   filterRarity = signal<number | null>(null);
 
-  filterRegion = signal<string | number | boolean | null | undefined>(undefined);
-  filterVersion = signal<string | number | boolean | null | undefined>(undefined);
-  filterName = signal<string | number | null | undefined>('');
+  filterRegion = signal('');
+  filterVersion = signal('');
+  filterName = signal('');
 
   elements = computed(() => distinctValues(this.characters(), 'element').sort((a, b) => a.localeCompare(b)));
   weaponTypes = computed(() => distinctValues(this.characters(), 'weapon_type').sort((a, b) => a.localeCompare(b)));
@@ -83,8 +82,8 @@ export class DatabaseCharactersComponent {
       element: [this.filterElement, asToggle],
       weapon: [this.filterWeaponType, asToggle],
       rarity: [this.filterRarity, asNumber],
-      region: [this.filterRegion, asOption],
-      version: [this.filterVersion, asOption],
+      region: [this.filterRegion, asText],
+      version: [this.filterVersion, asText],
       name: [this.filterName, asText],
     });
 
@@ -115,8 +114,8 @@ export class DatabaseCharactersComponent {
     this.filterElement.set(null);
     this.filterWeaponType.set(null);
     this.filterRarity.set(null);
-    this.filterRegion.set(undefined);
-    this.filterVersion.set(undefined);
+    this.filterRegion.set('');
+    this.filterVersion.set('');
     this.filterName.set('');
   }
 }

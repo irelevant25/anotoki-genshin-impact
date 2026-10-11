@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
-import { ButtonComponent } from '../../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
@@ -15,7 +16,7 @@ const MAX_REFINEMENTS = 5;
   selector: 'app-weapon-refinements-tab',
   templateUrl: './refinements-tab.component.html',
   styleUrls: ['./refinements-tab.component.scss'],
-  imports: [ButtonComponent, TextareaComponent, NumberComponent, DropdownComponent, FieldContainerComponent],
+  imports: [TooltipDirective, ButtonComponent, TextareaComponent, NumberComponent, DropdownComponent, FieldContainerComponent],
 })
 export class RefinementsTabComponent {
   refinements = model<RefinementWrapper[]>([]);

@@ -1,16 +1,16 @@
 <div class="drops-toolbar">
     <span class="drops-total">{{ groups().length }} groups · {{ totalEntries() }} drops</span>
-    <app-button variant="primary" [outline]="true" (buttonClick)="addGroup()">Add group</app-button>
+    <button anotokiButton (click)="addGroup()">Add group</button>
 </div>
 
 <div class="sub-list">
     @for (group of groups(); track group.uid; let g = $index) {
-        <app-accordion [onlyOneOpen]="false">
-            <app-accordion-item [lazy]="true" [title]="groupTitle(group, g)" [gap]="false">
+        <details class="disclosure">
+            <summary class="disclosure-summary">{{ groupTitle(group, g) }}</summary>
                 <div class="group-body">
                     <div class="group-actions">
-                        <app-button icon="icon-copy icon-size-3" variant="secondary" [outline]="true" size="very-small" tooltipText="Duplicate group" (buttonClick)="duplicateGroup(group)"></app-button>
-                        <app-button variant="danger" [outline]="true" size="very-small" (buttonClick)="removeGroup(group)">Delete group</app-button>
+                        <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Duplicate group" anotokiTooltip="Duplicate group" (click)="duplicateGroup(group)"><span class="icon icon-copy icon-size-3" aria-hidden="true"></span></button>
+                        <button anotokiButton variant="danger" size="sm" (click)="removeGroup(group)">Delete group</button>
                     </div>
 
                     <!-- Conditions shared by every drop in the group -->
@@ -24,13 +24,13 @@
                     <div class="cost-section">
                         <div class="cost-header">
                             <span class="cost-label">Drops</span>
-                            <app-button variant="primary" [outline]="true" (buttonClick)="addEntry(group)">Add drop</app-button>
+                            <button anotokiButton (click)="addEntry(group)">Add drop</button>
                         </div>
 
                         <div class="drop-cards">
                             @for (entry of group.entries; track entry.uid) {
                                 <div class="drop-card">
-                                    <app-radio [options]="kindOptions" [value]="entry.kind" [orientation]="'horizontal'" (inputChange)="onKindChange(entry, $event)"></app-radio>
+                                    <anotoki-segmented label="Kind of drop" [options]="kindChoices" [value]="entry.kind" (valueChange)="onKindChange(entry, $event)" />
 
                                     @if (entry.kind === 'material') {
                                         <app-dropdown [options]="materialOptions()" [(value)]="entry.data.material_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
@@ -55,26 +55,25 @@
                                         <app-number [label]="'Average'" [(value)]="entry.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
                                     </div>
 
-                                    <app-button
+                                    <button
+                                        anotokiButton
+                                        variant="ghost"
+                                        size="sm"
+                                        iconOnly
                                         class="align-self-center"
-                                        icon="icon-delete"
-                                        variant="danger"
-                                        [outline]="true"
-                                        size="very-small"
-                                        tooltipText="Remove drop"
-                                        (buttonClick)="removeEntry(group, entry)"
-                                    ></app-button>
+                                        aria-label="Remove drop"
+                                        anotokiTooltip="Remove drop"
+                                        (click)="removeEntry(group, entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
                                 </div>
                             }
                         </div>
                     </div>
                 </div>
-            </app-accordion-item>
-        </app-accordion>
+        </details>
     }
 
     @if (!groups().length) {
         <p class="drops-empty">No drops yet.</p>
     }
-    <app-button variant="primary" [outline]="true" (buttonClick)="addGroup()">Add group</app-button>
+    <button anotokiButton (click)="addGroup()">Add group</button>
 </div>

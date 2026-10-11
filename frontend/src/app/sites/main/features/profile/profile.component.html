@@ -164,8 +164,8 @@
                          all. Neither is the answer to the other's question, so
                          only one needs to be on screen. -->
                     <section class="profile-section profile-tabs">
-                        <app-tabs>
-                            <app-tab [title]="'profile.characters.title' | translate" [icon]="'icon-user-group'">
+                        <anotoki-tabs #profileTabs="anotokiTabs" [label]="'nav.profile' | translate" [tabs]="tabItems()" [(active)]="activeTab" />
+                        <div class="profile-tab-panel" role="tabpanel" [id]="profileTabs.panelId('characters')" [attr.aria-labelledby]="profileTabs.tabId('characters')" [hidden]="activeTab() !== 'characters'">
 
                         @if (highlights(); as picks) {
                             <div class="highlights">
@@ -269,9 +269,9 @@
                                 }
                             </tbody>
                         </table>
-                            </app-tab>
+                        </div>
 
-                            <app-tab [title]="'profile.recent.title' | translate" [icon]="'icon-history'">
+                        <div class="profile-tab-panel" role="tabpanel" [id]="profileTabs.panelId('recent')" [attr.aria-labelledby]="profileTabs.tabId('recent')" [hidden]="activeTab() !== 'recent'">
 
                         @if (recent().length) {
                             <ul class="recent">
@@ -297,8 +297,7 @@
                         } @else {
                             <p class="section-empty">{{ 'profile.recent.none' | translate }}</p>
                         }
-                            </app-tab>
-                        </app-tabs>
+                        </div>
                     </section>
                 }
             } @else {
@@ -308,7 +307,7 @@
                 <div class="profile-gate">
                     <h1>{{ 'profile.title' | translate }}</h1>
                     <p>{{ 'profile.signedOut.text' | translate }}</p>
-                    <app-button [text]="'common.signIn' | translate" (buttonClick)="login()"></app-button>
+                    <button anotokiButton variant="primary" (click)="login()">{{ 'common.signIn' | translate }}</button>
                 </div>
             }
         </div>

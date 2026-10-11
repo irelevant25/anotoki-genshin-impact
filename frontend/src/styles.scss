@@ -1,33 +1,170 @@
-/* full-hd dimensions: width 1920, height 911 */
+////
+/// The site's stylesheet: the anotoki family's kit in genshin's colours, and
+/// the few element styles the whole site shares.
+///
+/// The colours are the family's tokens (@anotoki/lib/styles: the --anotoki-*
+/// custom properties the kit's buttons, fields, dialogs, tabs, toasts and
+/// pages draw with), written by anotoki.root() with genshin's own palette in
+/// them, light and dark - the family has one palette, and a site gives the
+/// colours it wants its own (the owner's decision of 2026-10-07). The site's
+/// own names for them (--bg-card, --text-secondary, --color-primary...) are
+/// those tokens again (design-tokens.scss), and its own colours - the veils
+/// over the wallpaper, the elements, the rarities, the charts - stay its own.
+///
+/// What the kit asks of a palette, and this one keeps (WCAG 2.2): text 4.5:1
+/// on every ground it is drawn on; `border-strong`, the edge of every field,
+/// select, checkbox and outlined button, and `focus`, the keyboard's ring,
+/// 3:1 against the surfaces they sit on. genshin's own borders are dividers,
+/// 2:1 at most, so the edge is its muted grey (4.0:1 or more on every light
+/// surface, 3.8:1 or more on every dark one); `subtle` (placeholders, quiet
+/// words) is a shade darker in light and lighter in dark than the grey it
+/// was, to read 4.5:1 on the page as well as on a card; the focus ring is the
+/// button blue in light and the link blue in dark, where the button blue is
+/// barely 3:1 on a hovered surface.
+///
+/// The font is the family's, Manrope (anotoki.fonts: its files come with the
+/// package, a subset at a time). The family's base (anotoki.base) gives the
+/// page its font, colours, type, links and focus ring; what follows it is
+/// where genshin differs - its links are the cards and menus they wrap, not
+/// underlined words, and its headings are the game's large titles.
+////
 
-@use "app/shared/local-lib/general" as *;
+@use "sass:meta";
+@use "@anotoki/lib/styles" as anotoki;
 
+@include anotoki.root(
+  (
+    light: (
+      bg: #f4f6f9,
+      surface: #ffffff,
+      surface-2: #f6f8fa,
+      surface-3: #eef1f6,
+      surface-raised: #ffffff,
+      border: #dde2e9,
+      border-strong: #6b7684,
+      text: #1c2430,
+      muted: #55616f,
+      subtle: #636e7b,
+      primary: #1f6feb,
+      primary-hover: #1a5cc4,
+      primary-contrast: #ffffff,
+      primary-soft: #e7f0fe,
+      primary-soft-text: #14428f,
+      accent: #1f6feb,
+      link: #1a63d8,
+      danger: #c62828,
+      danger-hover: #a31f1f,
+      danger-contrast: #ffffff,
+      danger-soft: #fdecec,
+      danger-border: #f6c6c6,
+      danger-text: #c62828,
+      success: #1a7f4b,
+      success-text: #115e37,
+      success-soft: #e4f6ec,
+      success-border: #b5e3c9,
+      warning: #a55a00,
+      warning-text: #7c4400,
+      warning-soft: #fdf1e0,
+      warning-border: #f3d5ab,
+      info: #0e7490,
+      info-soft: #e2f4f8,
+      info-border: #b3e0ec,
+      ring: rgb(31 111 235 / 25%),
+      focus: #1f6feb,
+      backdrop: rgb(23 28 35 / 45%),
+      skeleton: #e4e9f1,
+      skeleton-shine: #f4f6f9,
+      shadow-sm: 0 1px 2px rgb(23 28 35 / 8%),
+      shadow: 0 2px 8px rgb(23 28 35 / 10%),
+      shadow-lg: 0 8px 24px rgb(23 28 35 / 14%),
+    ),
+    dark: (
+      bg: #12161c,
+      surface: #1a1f27,
+      surface-2: #1f2731,
+      surface-3: #232935,
+      surface-raised: #1a1f27,
+      border: #2c343f,
+      border-strong: #78848f,
+      text: #e3e9ef,
+      muted: #a3b0bf,
+      subtle: #8a96a3,
+      primary: #2f6feb,
+      primary-hover: #2560d0,
+      primary-contrast: #ffffff,
+      primary-soft: #17263f,
+      primary-soft-text: #8cbcff,
+      accent: #6cb0ff,
+      link: #6cb0ff,
+      danger: #f2645c,
+      danger-hover: #f7827b,
+      danger-contrast: #2b0a08,
+      danger-soft: #351a19,
+      danger-border: #5c2b28,
+      danger-text: #ff9d97,
+      success: #3fbb75,
+      success-text: #85dcaa,
+      success-soft: #16301f,
+      success-border: #235338,
+      warning: #e0a13a,
+      warning-text: #f0c887,
+      warning-soft: #33270f,
+      warning-border: #574121,
+      info: #45b6d6,
+      info-soft: #142c34,
+      info-border: #22505f,
+      ring: rgb(47 111 235 / 40%),
+      focus: #6cb0ff,
+      backdrop: rgb(4 6 9 / 60%),
+      skeleton: #232935,
+      skeleton-shine: #2c3441,
+      shadow-sm: 0 1px 2px rgb(0 0 0 / 40%),
+      shadow: 0 2px 8px rgb(0 0 0 / 45%),
+      shadow-lg: 0 8px 24px rgb(0 0 0 / 55%),
+    ),
+    radius: 8px,
+  )
+);
+@include anotoki.fonts;
+@include anotoki.base;
+@include anotoki.tables;
+// After the family's base, so that where genshin's own rules differ, they win.
+@include meta.load-css("app/shared/local-lib/general");
+
+// Every element starts with nothing around it; the pages say what they want.
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
-  background-color: var(--bg-page);
-  color: var(--text-primary);
-  padding: 2rem;
   line-height: 1.6;
-  background-position-x: center;
-  background-position-y: center;
+  // The wallpaper (the footer's Backgrounds) behind the main site's veiled panels.
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  margin: 0;
-  padding: 0;
 }
 
 h1 {
-  /* text-align: center; */
   margin-bottom: 2rem;
   font-size: 2.5rem;
   letter-spacing: -0.025em;
+}
+
+// The rest keep the steps the site's pages were drawn with - the browser's own
+// - where the family's base sets the smaller ones of its panels. The kit's
+// headings (a card's, a dialog's, a page header's) set theirs on their classes.
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.17em;
+}
+
+h4 {
+  font-size: 1em;
 }
 
 .container {
@@ -247,10 +384,6 @@ div[name="quiz-difficulty-display"] {
   background: var(--bg-backdrop);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-}
-
 @keyframes noise-animation {
   100% {
     background-position:
@@ -326,7 +459,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-a:has(.icon) {
+// A link that is an icon takes the colour around it - never one of the kit's
+// buttons, whose colour is its variant's ("Add Character" is a link too). The
+// exception adds no weight (:where), so a link's own colour still wins, as the
+// footer bar's white does.
+a:has(.icon):not(:where(.anotoki-button)) {
   color: unset;
 }
 

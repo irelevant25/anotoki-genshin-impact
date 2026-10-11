@@ -22,8 +22,12 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         for the ADMIN alone, the library's /admin/migrations, People
                         (/admin/people, configured in people.ts) and admin tools - Feedback, Audit
                         Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
-                        feedback counted beside Feedback in the navigation)
-src/app/shared/         local-lib (the UI kit, abstract bases, i18n/ (dates), theme-toggle/;
+                        feedback counted beside Feedback in the navigation); app.component the
+                        frame: the navigation beside the page, in the kit's drawer on a phone
+src/app/shared/         local-lib (what the family's kit has no piece for: the field adapters over
+                        the kit's fields, the site's own fields, the waypoint loader; the abstract
+                        bases; components.scss, the own fields drawn as the kit's; design-tokens.scss,
+                        the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/;
                         services/: security.service.ts - this site's view of the library's sign-in
                         and its own record of the person (/api/me), visitor-key.service.ts (this
                         browser's visitor key and the move at sign-in), http.interceptor.ts (the
@@ -51,13 +55,22 @@ public/                 config.json (where the API is: empty - its own origin, h
                         production), changelog.json, robots.txt (crawlers kept off /auth/),
                         favicon.png
 proxy.conf.json         ng serve hands /api, /.well-known and /setup.php to the PHP server on :8000
-scripts/                prepare-deploy.mjs (the production config.json and the SPA .htaccess)
+scripts/                prepare-deploy.mjs (the production config.json and the SPA .htaccess);
+                        screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
+                        1280 and 390 px, on a throwaway site of its own)
+src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
+                        dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs
 api-spec.json           read from the backend by `npm run api:spec`
 ```
 
 A component is always three files (`.ts`, `.html`, `.scss`); ESLint refuses an
 inline template or styles.
+
+The pages are drawn with the anotoki family's UI kit (`@anotoki/lib/ui/*`, each
+piece from its own entry point, never `@anotoki/lib/ui`) in genshin's colours,
+which `styles.scss` gives the family's tokens; `local-lib` keeps only what the
+kit has no piece for. See CLAUDE.md, *The kit and the palette*.
 
 A player's saved games and results go through
 `sites/main/features/quizzes/shared/quiz-progress.service.ts`: the account's, this
@@ -77,6 +90,7 @@ npm start                 # bun ci, then ng serve on http://localhost:4200 with 
 npm run api               # regenerate the API client after a backend change (npm start does not)
 npm run lint
 npx tsc --noEmit -p tsconfig.app.json
+node scripts/screenshots.mjs  # every page, light and dark, 1280 and 390 px, on a throwaway site (PHP= a PHP 8.2+)
 npm run build:deploy      # production -> dist/angular/browser/
 ```
 
@@ -85,4 +99,4 @@ tarball (the URL in `package.json`); updating it, with its PHP half: `../DEV.md`
 *The shared library*.
 
 Setting up, checking a change, and deploying: [`../DEV.md`](../DEV.md). The
-conventions - signals, local-lib, i18n, theming: [`../CLAUDE.md`](../CLAUDE.md).
+conventions - signals, the kit and local-lib, i18n, theming: [`../CLAUDE.md`](../CLAUDE.md).

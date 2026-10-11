@@ -3,8 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { SiteLanguage } from '@anotoki/lib/translations';
 import { AdminSiteSetting, SettingApiService, SiteSettingChange } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { SelectComponent, SelectOption, SwitchComponent, TextFieldComponent, TextareaComponent } from '@anotoki/lib/ui/forms';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { optionLabel, settingWords } from '../settings-words';
 
@@ -22,19 +23,30 @@ import { optionLabel, settingWords } from '../settings-words';
  * save everything at once, but sending switches nobody has looked at is how
  * `updated_at` stops meaning "when this was last changed".
  */
+/** What the Settings page hands over when it opens a card. */
+export interface SettingsGroupData {
+  title: string;
+  note: string;
+  settings: AdminSiteSetting[];
+  languages: readonly SiteLanguage[];
+}
+
 @Component({
   selector: 'app-settings-group-modal',
   templateUrl: './settings-group-modal.component.html',
   styleUrls: ['./settings-group-modal.component.scss'],
-  imports: [FormsModule, ModalComponent, ButtonComponent, AppDatePipe],
+  imports: [SwitchComponent, TextareaComponent, TextFieldComponent, SelectComponent, FormsModule, DialogFooterDirective, ButtonComponent, AppDatePipe],
 })
 export class SettingsGroupModalComponent extends AbstractModalComponent {
   private readonly _api = inject(SettingApiService);
 
-  readonly title = signal('');
-  readonly note = signal('');
-  readonly settings = signal<AdminSiteSetting[]>([]);
-  readonly languages = signal<readonly SiteLanguage[]>([]);
+  private readonly _data = inject<SettingsGroupData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
+
+  // What the Settings page hands over: the card's title, its note, its settings and the languages.
+  readonly title = signal(this._data?.title ?? '');
+  readonly note = signal(this._data?.note ?? '');
+  readonly settings = signal<AdminSiteSetting[]>(this._data?.settings ?? []);
+  readonly languages = signal<readonly SiteLanguage[]>(this._data?.languages ?? []);
   readonly saving = signal(false);
 
   /** The form, as the values that would be sent. Text, like the column. */
@@ -45,9 +57,20 @@ export class SettingsGroupModalComponent extends AbstractModalComponent {
   readonly words = settingWords;
   readonly optionLabel = optionLabel;
 
-  /** Called by the page once it has handed over the group. */
+  constructor() {
+    super();
+    this.dialogHeading(() => this.title());
+    this.start();
+  }
+
+  /** The form, as the settings stand. */
   start(): void {
     this.draft.set(Object.fromEntries(this.settings().map((setting) => [setting.name, setting.value ?? ''])));
+  }
+
+  /** A choice's options, as the kit's select takes them, each in its words. */
+  choices(setting: AdminSiteSetting): SelectOption[] {
+    return (setting.options ?? []).map((option) => ({ value: option, label: this.optionLabel(option) }));
   }
 
   isChanged(setting: AdminSiteSetting): boolean {
@@ -70,12 +93,12 @@ export class SettingsGroupModalComponent extends AbstractModalComponent {
     this._api.saveSettings({ settings: changes }).subscribe({
       next: () => {
         this.saving.set(false);
-        this.notificationService.showSuccess('Saved.');
+        this.notificationService.success('Saved.');
         this.closeModal(true);
       },
       error: (error) => {
         this.saving.set(false);
-        this.notificationService.showError(error?.error?.error ?? 'Those could not be saved.');
+        this.notificationService.error(error?.error?.error ?? 'Those could not be saved.');
       },
     });
   }

@@ -1,10 +1,12 @@
 import { DecimalPipe } from '@angular/common';
+import { AlertComponent } from '@anotoki/lib/ui/alert';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FileApiService, MissingFile } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { ModalComponent } from '../../../../shared/local-lib/components/modal/modal.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
+import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
 
@@ -25,7 +27,7 @@ import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe'
   selector: 'app-missing-modal',
   templateUrl: './missing-modal.component.html',
   styleUrls: ['./missing-modal.component.scss'],
-  imports: [ModalComponent, ButtonComponent, LoaderComponent, DecimalPipe, FileSizePipe, AppDatePipe],
+  imports: [AlertComponent, SpinnerComponent, TooltipDirective, DialogFooterDirective, ButtonComponent, DecimalPipe, FileSizePipe, AppDatePipe],
 })
 export class MissingModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);
@@ -81,7 +83,7 @@ export class MissingModalComponent extends AbstractModalComponent {
       next: (result) => {
         this.working.set(false);
         this.confirming.set(false);
-        this.notificationService.showSuccess(`Forgot ${result.forgotten} row${result.forgotten === 1 ? '' : 's'}.`);
+        this.notificationService.success(`Forgot ${result.forgotten} row${result.forgotten === 1 ? '' : 's'}.`);
         this.closeModal(true);
       },
       error: (error) => {

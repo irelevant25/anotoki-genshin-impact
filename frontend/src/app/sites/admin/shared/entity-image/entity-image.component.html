@@ -26,16 +26,14 @@
     }
 
     <div class="entity-image-actions">
-        <app-button
-            [text]="hasImage() ? 'Replace' : 'Upload'"
-            icon="icon-upload"
-            variant="secondary"
-            [outline]="true"
-            size="very-small"
-            (buttonClick)="open()"
-        ></app-button>
+        <button
+            anotokiButton
+            size="sm"
+            (click)="open()">
+            <span class="icon icon-upload" aria-hidden="true"></span> {{ hasImage() ? 'Replace' : 'Upload' }}
+        </button>
         @if (pending()) {
-            <app-button icon="icon-close" variant="secondary" [outline]="true" size="very-small" tooltipText="Discard this pick" (buttonClick)="clear()"></app-button>
+            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Discard this pick" anotokiTooltip="Discard this pick" (click)="clear()"><span class="icon icon-close" aria-hidden="true"></span></button>
         }
     </div>
 

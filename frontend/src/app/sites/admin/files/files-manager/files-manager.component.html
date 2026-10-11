@@ -1,21 +1,13 @@
-<div class="page-header">
-    <h1 class="page-title">Files</h1>
-    <div class="header-actions">
-        <app-button text="Trash" icon="icon-trash" variant="secondary" [outline]="true" size="small" (buttonClick)="openTrash()"></app-button>
-    </div>
-</div>
-
-<p class="page-hint">
-    Files live under
-    <code>assets/</code>
-    . Deleting moves a file to a trash folder outside the site, so it can be restored.
-</p>
+<anotoki-page-header heading="Files" lead="Files live under assets/. Deleting moves a file to a trash folder outside the site, so it can be restored.">
+    <button anotokiButton size="sm" (click)="openTrash()">
+        <span class="icon icon-trash" aria-hidden="true"></span>
+        Trash
+    </button>
+</anotoki-page-header>
 
 <app-asset-stats></app-asset-stats>
 
 <div class="files-layout">
-    <app-loader #loader [loading]="loadingFolders() || loadingFiles()"></app-loader>
-
     <aside class="folder-pane">
         <app-text [placeholder]="'Filter folders…'" [(value)]="folderFilter"></app-text>
         <div class="folder-list">
@@ -39,21 +31,14 @@
             </div>
         </div>
 
-        @if (!loader.loadingCtrl.loading()) {
+        @if (loadingFolders() || loadingFiles()) {
+            <anotoki-spinner class="page-spinner" label />
+        } @else {
             <div class="file-meta">
                 <span>{{ rangeLabel() }}</span>
                 @if (totalPages() > 1) {
-                    <span class="pager">
-                        <app-button icon="icon-chevron-left" variant="secondary" [outline]="true" size="very-small" [disabled]="page() === 1" (buttonClick)="goToPage(page() - 1)"></app-button>
-                        <span class="pager-label">{{ page() }} / {{ totalPages() }}</span>
-                        <app-button
-                            icon="icon-chevron-right"
-                            variant="secondary"
-                            [outline]="true"
-                            size="very-small"
-                            [disabled]="page() === totalPages()"
-                            (buttonClick)="goToPage(page() + 1)"></app-button>
-                    </span>
+                    <!-- The kit's Previous and Next, with where this page is. -->
+                    <anotoki-pagination [page]="page()" [pageSize]="pageSize()" [total]="total()" (pageChange)="goToPage($event)" />
                 }
             </div>
 
@@ -77,28 +62,30 @@
                         </button>
                         @if (renaming() === file.name) {
                             <span class="file-rename">
-                                <input
+                                <anotoki-text-field
                                     class="file-rename-input"
-                                    type="text"
+                                    label="New name"
+                                    hideLabel
+                                    autofocus
                                     [value]="draftName()"
                                     [disabled]="busy() === file.name"
-                                    (input)="draftName.set($any($event.target).value)"
+                                    (valueChange)="draftName.set($event)"
                                     (keydown.enter)="saveRename(file)"
                                     (keydown.escape)="cancelRename()" />
-                                <app-button
-                                    icon="icon-check icon-size-3"
+                                <button
+                                    anotokiButton
                                     variant="primary"
-                                    size="very-small"
-                                    tooltipText="Save the name"
+                                    size="sm"
+                                    iconOnly
                                     [loading]="busy() === file.name"
-                                    (buttonClick)="saveRename(file)"></app-button>
-                                <app-button
-                                    icon="icon-close icon-size-3"
-                                    variant="secondary"
-                                    [outline]="true"
-                                    size="very-small"
-                                    tooltipText="Leave it as it is"
-                                    (buttonClick)="cancelRename()"></app-button>
+                                    aria-label="Save the name"
+                                    anotokiTooltip="Save the name"
+                                    (click)="saveRename(file)">
+                                    <span class="icon icon-check icon-size-3" aria-hidden="true"></span>
+                                </button>
+                                <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Leave it as it is" anotokiTooltip="Leave it as it is" (click)="cancelRename()">
+                                    <span class="icon icon-close icon-size-3" aria-hidden="true"></span>
+                                </button>
                             </span>
                         } @else {
                             <!-- The catalogue row is what gets renamed, so a file
@@ -118,26 +105,33 @@
                         <!-- Changing this moves the file: a category's path
                              is where its files are, not a label on them. -->
                         @if (file.file_id) {
-                            <select class="file-category" [title]="'Move to another category'" [disabled]="busy() === file.name" (change)="moveTo(file, $any($event.target).value)">
-                                @for (category of categories(); track category.id) {
-                                    <option [value]="category.id" [selected]="category.code === file.category">{{ category.label }}</option>
-                                }
-                            </select>
+                            <anotoki-select
+                                class="file-category"
+                                inline
+                                label="Category (moves the file)"
+                                hideLabel
+                                [options]="categoryChoices()"
+                                [value]="categoryIdOf(file)"
+                                [disabled]="busy() === file.name"
+                                (valueChange)="moveTo(file, $event)" />
                         } @else {
                             <span class="file-uncatalogued" title="Not in the catalogue yet - use Check for strays above">not catalogued</span>
                         }
 
-                        @if (deleteConfirm() === file.name) {
-                            <div class="file-actions">
-                                <app-button text="Delete" variant="danger" size="very-small" [loading]="busy() === file.name" (buttonClick)="deleteFile(file)"></app-button>
-                                <app-button text="Cancel" variant="secondary" [outline]="true" size="very-small" (buttonClick)="cancelDelete()"></app-button>
-                            </div>
-                        } @else {
-                            <div class="file-actions">
-                                <app-file [buttonText]="'Replace'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" (inputChange)="onReplace(file, $event)"></app-file>
-                                <app-button icon="icon-trash icon-size-3" variant="danger" [outline]="true" size="very-small" tooltipText="Delete" (buttonClick)="confirmDelete(file)"></app-button>
-                            </div>
-                        }
+                        <div class="file-actions">
+                            <app-file [buttonText]="'Replace'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" (inputChange)="onReplace(file, $event)"></app-file>
+                            <button
+                                anotokiButton
+                                variant="ghost"
+                                size="sm"
+                                iconOnly
+                                [attr.aria-label]="'Delete ' + file.name"
+                                anotokiTooltip="Delete"
+                                [loading]="busy() === file.name"
+                                (click)="confirmDelete(file)">
+                                <span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span>
+                            </button>
+                        </div>
                     </div>
                 } @empty {
                     <p class="pane-empty">No files here.</p>

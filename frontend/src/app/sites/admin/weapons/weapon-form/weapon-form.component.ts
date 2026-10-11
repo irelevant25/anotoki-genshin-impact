@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
-import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { Audited, Material } from '../../../../api';
 import { LookupApiService, MaterialApiService, StatApiService, WeaponApiService, WeaponFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
@@ -18,16 +19,12 @@ import { AscensionWrapper, emptyWeapon, RefinementWrapper, WEAPON_IMAGE_FIELDS, 
   selector: 'app-weapon-form',
   templateUrl: './weapon-form.component.html',
   styleUrls: ['./weapon-form.component.scss'],
-  imports: [
+  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, 
     RouterLink,
     ButtonComponent,
-    LoaderComponent,
-    TabsComponent,
-    TabComponent,
     BaseInfoTabComponent,
     RefinementsTabComponent,
-    AscensionsTabComponent,
-  ],
+    AscensionsTabComponent],
 })
 export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implements OnInit, OnDestroy {
   readonly entityLabel = 'Weapon';
@@ -76,7 +73,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       },
       error: () => {
         this.loadingLookups.set(false);
-        this.notify.showError('Failed to load form options');
+        this.notify.error('Failed to load form options');
       },
     });
   }

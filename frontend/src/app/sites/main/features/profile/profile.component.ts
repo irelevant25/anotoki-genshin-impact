@@ -3,9 +3,9 @@ import { Component, computed, effect, inject, signal, untracked } from '@angular
 import { RouterModule } from '@angular/router';
 import { Observable, catchError, forkJoin, from, of, switchMap } from 'rxjs';
 import { QuizActivityDay, QuizApiService, QuizDifficultyRow, QuizRecentResult, QuizStatsRow } from '../../../../api';
-import { ButtonComponent } from '../../../../shared/local-lib/components/button/button.component';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { NotificationService } from '../../../../shared/local-lib/components/notification/notification.service';
+import { ToastService } from '@anotoki/lib/ui/toast';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
@@ -16,8 +16,7 @@ import { MaterialIconDirective } from '../../../admin/shared/material-icon.direc
 import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';
 import { VisitorNoticeComponent } from '../../common/visitor-notice/visitor-notice.component';
-import { TabsComponent } from '../../../../shared/local-lib/components/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/local-lib/components/tabs/tab/tab.component';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import {
   ActivityCell,
   CharacterBreakdown,
@@ -75,19 +74,25 @@ const ACTIVITY_WEEKS = 52;
     ButtonComponent,
     ActivityGridComponent,
     TabsComponent,
-    TabComponent,
     VisitorNoticeComponent,
   ],
 })
 export class ProfileComponent {
   private readonly _quizApi = inject(QuizApiService);
   private readonly _security = inject(SecurityService);
-  private readonly _notifications = inject(NotificationService);
+  private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
   private readonly _progress = inject(QuizProgressService);
   private readonly _visitorKey = inject(VisitorKey);
 
   readonly loading = signal(true);
+
+  /** The two long breakdowns, one on screen at a time (see the template). */
+  readonly activeTab = signal('characters');
+  readonly tabItems = computed(() => [
+    { id: 'characters', label: this._i18n.t('profile.characters.title') },
+    { id: 'recent', label: this._i18n.t('profile.recent.title') },
+  ]);
   readonly user = this._security.currentUser;
 
   /**
@@ -204,7 +209,7 @@ export class ProfileComponent {
 
   /** Off to the IAM's sign-in, coming back to this page. */
   login(): void {
-    this._security.login().catch(() => this._notifications.showError(this._i18n.t('auth.startFailed')));
+    this._security.login().catch(() => this._notifications.error(this._i18n.t('auth.startFailed')));
   }
 
   /** The route a quiz's own page is at, or null for a name the site cannot place. */

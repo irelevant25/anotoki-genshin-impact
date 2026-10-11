@@ -23,33 +23,15 @@
                         </div>
                     </div>
 
-                    <app-dropdown
-                        [label]="'database.filters.category' | translate"
-                        [options]="categoryOptions()"
-                        [(value)]="filterCategory"
-                        [emptyOption]="true"
-                        [emptyOptionText]="'database.filters.anyCategory' | translate"
-                    ></app-dropdown>
+                    <anotoki-select class="filter" [label]="'database.filters.category' | translate" [options]="categoryOptions()" [(value)]="filterCategory" [placeholder]="'database.filters.anyCategory' | translate" />
 
-                    <app-dropdown
-                        [label]="'database.filters.region' | translate"
-                        [options]="regionOptions()"
-                        [(value)]="filterRegion"
-                        [emptyOption]="true"
-                        [emptyOptionText]="'database.filters.anyRegion' | translate"
-                    ></app-dropdown>
+                    <anotoki-select class="filter" [label]="'database.filters.region' | translate" [options]="regionOptions()" [(value)]="filterRegion" [placeholder]="'database.filters.anyRegion' | translate" />
 
-                    <app-dropdown
-                        [label]="'database.filters.version' | translate"
-                        [options]="versionOptions()"
-                        [(value)]="filterVersion"
-                        [emptyOption]="true"
-                        [emptyOptionText]="'database.filters.anyVersion' | translate"
-                    ></app-dropdown>
+                    <anotoki-select class="filter" [label]="'database.filters.version' | translate" [options]="versionOptions()" [(value)]="filterVersion" [placeholder]="'database.filters.anyVersion' | translate" />
 
-                    <app-text [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName"></app-text>
+                    <anotoki-text-field class="filter" type="search" [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName" />
 
-                    <app-button [text]="'database.filters.reset' | translate" variant="primary" [outline]="true" size="large" (buttonClick)="resetFilters()" class="mt-auto"></app-button>
+                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ 'database.filters.reset' | translate }}</button>
                 </div>
 
                 <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredMaterials().length, total: materials().length } }}</div>

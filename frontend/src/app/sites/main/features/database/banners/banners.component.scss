@@ -1,4 +1,6 @@
 @use "../shared/item-tile" as *;
+// The filter bar the other database pages have.
+@use "../shared/database-page" as *;
 
 img {
   height: fit-content;

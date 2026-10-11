@@ -2,10 +2,11 @@
 name: frontend-engineer
 description: >
   Implements and changes the Angular frontend under frontend/ — components, pages,
-  the local-lib UI kit, admin CRUD pages and public database pages. Use for "add
-  a page", "build the admin screen for X", "fix the frontend", "wire this up to
-  the API", "new component". Knows the zoneless/signals conventions, the local-lib
-  abstract bases, and the generated API client.
+  admin CRUD pages and public database pages, drawn with the anotoki family's UI
+  kit. Use for "add a page", "build the admin screen for X", "fix the frontend",
+  "wire this up to the API", "new component". Knows the zoneless/signals
+  conventions, the kit and the palette, the local-lib adapters and abstract
+  bases, and the generated API client.
 tools: Read, Write, Edit, Grep, Glob, Bash
 model: opus
 ---
@@ -31,7 +32,11 @@ first. This file adds frontend-specific detail.
   `app.component.ts`; simple lookup tables via the shared `lookup-table`
   component, one line each in `LOOKUP_PAGES` (`pages/pages.ts`) and a
   `lookupRoute(...)` in `admin.routes.ts`.
-- Shared UI kit and abstract bases: `frontend/src/app/shared/local-lib/`.
+- The UI kit is the anotoki family's (`@anotoki/lib/ui/*`, each piece from its own
+  entry point); `frontend/src/app/shared/local-lib/` keeps what it has no piece
+  for (the field adapters, the site's own fields, the waypoint loader) and the
+  abstract bases; the palette is `frontend/src/styles.scss` (CLAUDE.md, *The kit
+  and the palette*).
 - The anotoki library's modules, each set up in one file: signing in
   (`@anotoki/lib/auth`, `shared/site-auth.ts` - `AnotokiAuth`, its interceptor,
   `issuedAs()`, `SavesInFlight`, `AccountPreferences`, the callback and the
@@ -83,12 +88,22 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   typed methods, rather than raw `HttpClient`. The method names and DTO types
   come from the backend; if one is missing or wrong, the fix is on the backend +
   a regenerate (see the sync-api-client skill), not a hand-written call.
-- **Build on the abstract bases** in local-lib: extend `AbstractModalComponent`
-  for anything that opens a modal (it provides `openModal`, `closeModal`,
-  `notificationService`, `loading`), `AbstractInputComponent` for form inputs,
-  `AbstractRolesComponent` for role-gated UI. Reuse local-lib components
-  (button, dropdown, text, calendar, loader, modal, badge, table) rather than
-  new bespoke ones.
+- **Build with the kit**: `anotokiButton`, the kit's fields, dialogs
+  (`AnotokiDialog`, `ConfirmService`), toasts (`ToastService`), tabs, pagination,
+  segmented, tooltips, menus and popovers, drawer, cards, page header, empty and
+  error states, badges, alerts, icons, spinner - imported from their own entry
+  points (`@anotoki/lib/ui/button`, `ui/forms`, `ui/dialog`, ...). A piece the
+  kit lacks is built in local-lib from the kit's pieces and tokens (and noted for
+  the library), never a copy of one it has; the site keeps its look through the
+  palette in `styles.scss`, never by re-styling a kit piece. **Build on the
+  abstract bases** in local-lib: extend `AbstractModalComponent` for anything
+  that opens a dialog (`openModal()` over `AnotokiDialog` with its data in
+  `ANOTOKI_DIALOG_DATA`, `closeModal()`, `dialogHeading()`,
+  `notificationService` = the kit's `ToastService`), `AbstractInputComponent`
+  for form inputs (the admin forms' fields are local-lib's adapters `app-text`,
+  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown`,
+  `app-multiselect`, which keep the typed values and the validation the forms
+  run), `AbstractRolesComponent` for role-gated UI.
 - **i18n**: user-facing copy goes through the `translate` pipe with a key; proper
   nouns - character names, usernames, version numbers - are shown as they are,
   not through the pipe (the footer's link items mark such a title with
@@ -105,8 +120,13 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   (`GuideApiService.getGuide()`) are this site's. Import a piece of the library's
   kit from its own entry point (`@anotoki/lib/ui/config`, ...), never from
   `@anotoki/lib/ui`.
-- **Theming**: light and dark both matter. Take colours from the existing CSS
-  variables/tokens; never hard-code a colour that only reads in one theme.
+- **Theming**: light and dark both matter. Take colours from the family's
+  `--anotoki-*` tokens or the site's names for them (`design-tokens.scss`); never
+  hard-code a colour that only reads in one theme. A change to the palette keeps
+  text 4.5:1 and field edges and the focus ring 3:1 in both themes.
+- **Look at it**: `node scripts/screenshots.mjs` (frontend/) shows every page in
+  headless Edge, light and dark, 1280 and 390 px - before and after a change to
+  the pages, compared side by side (DEV.md, *Checking your work*).
 - **Accessibility & responsiveness**: keyboard focus states, and layouts that
   hold on a phone — the public site is used on mobile.
 

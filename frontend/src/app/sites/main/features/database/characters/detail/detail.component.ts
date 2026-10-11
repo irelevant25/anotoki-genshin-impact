@@ -2,7 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '@anotoki/lib/translations';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
+import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
 import { CharacterApiService, MaterialApiService } from '../../../../../../api';
@@ -20,6 +21,7 @@ type CharacterTab = 'ascensions' | 'talents' | 'constellations' | 'build' | 'voi
   styleUrls: ['./detail.component.scss'],
   imports: [
     LoaderComponent,
+    TabsComponent,
     TranslatePipe,
     MaterialIconDirective,
     CharacterAscensionsTabComponent,
@@ -33,6 +35,7 @@ export class DatabaseCharacterDetailComponent {
   private readonly _characterApi = inject(CharacterApiService);
   private readonly _materialApi = inject(MaterialApiService);
   private readonly _route = inject(ActivatedRoute);
+  private readonly _i18n = inject(TranslationService);
 
   character = signal<any | null>(null);
   talents = signal<any[]>([]);
@@ -51,6 +54,8 @@ export class DatabaseCharacterDetailComponent {
     { id: 'voiceOvers', label: 'database.detail.voiceOvers' },
   ];
   activeTab = signal<CharacterTab>('ascensions');
+  /** The tabs as the kit's row takes them, in the reader's language. */
+  readonly tabItems = computed(() => this.tabs.map((tab) => ({ id: tab.id, label: this._i18n.t(tab.label) })));
 
   versionLabel = versionLabel;
 
