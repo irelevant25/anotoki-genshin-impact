@@ -67,7 +67,7 @@ same('the entry and the message moved', [1, 1], [
 ]);
 same('the backup\'s own entry waited for the table, and went in after the run', 1, (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'backup.created' AND actor_id IS NULL")->fetchColumn());
 $run = json_decode((string) $pdo->query("SELECT details::text FROM anotoki_audit_log WHERE action = 'migrations.applied' ORDER BY id DESC LIMIT 1")->fetchColumn(), true);
-same('the run written down: what it applied, via the command line, by nobody', [9, 'command line'], [count($run['files'] ?? []), $run['via'] ?? null]);
+same('the run written down: what it applied, via the command line, by nobody', [10, 'command line'], [count($run['files'] ?? []), $run['via'] ?? null]);
 $pdo = null;
 
 echo "Again\n";

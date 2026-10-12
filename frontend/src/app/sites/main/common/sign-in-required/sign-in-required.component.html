@@ -13,8 +13,9 @@
         }
 
         @if (signInFailure()) {
-            <!-- The library's screen of a sign-in that did not work (@anotoki/lib/auth): why, Try again, Back. -->
-            <anotoki-sign-in-failure></anotoki-sign-in-failure>
+            <!-- The library's screen of a sign-in that did not work: why, Try again, Back - loaded as it is
+                 shown (@anotoki/lib/auth's SignInFailureComponent, its code out of the page's own). -->
+            <anotoki-sign-in-failure-route></anotoki-sign-in-failure-route>
         } @else {
             <div class="sign-in-required-actions">
                 <button anotokiButton variant="primary" [disabled]="!available()" (click)="signIn()">{{ 'common.signIn' | translate }}</button>

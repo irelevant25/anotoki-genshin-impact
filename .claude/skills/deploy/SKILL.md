@@ -87,12 +87,13 @@ page only until `storage/installed.lock` is there - after the first install,
 "not available right now"). A deploy never touches them, nor the lock.
 
 One optional file is put on the host by hand, never by setup.php:
-`config/visitors.local.php`, the limits on playing without signing in. Behind
-Cloudflare's proxy it is needed: list Cloudflare's ranges
-(https://www.cloudflare.com/ips/) as `['client_address' => ['trusted_proxies'
-=> [...]]]`, or every visitor counts as one address and the per-address limit
-turns new ones away. Every value is checked; a bad one keeps its default and is
-logged once.
+`config/visitors.local.php`, the limits on playing without signing in and the
+proxies whose `CF-Connecting-IP` names a request's address. The site is behind
+Cloudflare, whose published ranges are committed in `config/visitors.php`
+(anotoki-lib 0.5.0): nothing to upload for that - a host that is not behind
+Cloudflare says `['client_address' => ['trusted_proxies' => []]]` there, and a
+file listing ranges of its own replaces Cloudflare's (check it, where there is
+one). Every value is checked; a bad one keeps its default and is logged once.
 
 ## First install (empty database)
 
@@ -200,8 +201,20 @@ the owner no longer wants a way back: `users.email` and the feedback's `ip` and
 `submitter_hash` are out of the database but still in the backup the Apply made
 first (`storage/backups/*-before-migration-*.anotoki-backup`) and in the old
 pg_dump folders (`storage/backups/<stamp>-<hex>/`, `manual/`), and every
-request's IP address in the old `storage/logs/errors-*.jsonl` - nothing reads
-them; they go when the owner deletes them (DEV.md, the 0.4.1 entry).
+request's IP address in the old `storage/logs/errors-*.jsonl` (a keyed hash
+there since 0.5.0's first answer, their words scrubbed) - nothing reads them;
+they go when the owner deletes them (DEV.md, the 0.4.1 entry).
+
+anotoki-lib 0.5.0 (2026-10-12; `users/054`; the host's PHP needs `mbstring`, and
+`zlib` for the backups): upload both builds and Apply at
+once - never before the upload, and no older build on the host afterwards (054
+deletes the addresses the new visitors' count kept and lets the column take
+nothing but a keyed hash, which an older build would not write). Then, as the
+ADMIN, on the Backups page, **Back up now**: the library's plain backups are
+sealed from this release, and those made before restore offline only. Nothing
+for Cloudflare (its ranges are committed); the first answer hashes the
+addresses in the old `storage/logs/errors-*.jsonl`; the pages' own errors
+arrive in the Error log (`POST /api/client-errors`).
 
 ## Copying local data up to production
 

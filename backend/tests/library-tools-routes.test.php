@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * anotoki-lib 0.4.1 in this site, through the whole API (api/index.php) - every
+ * anotoki-lib 0.5.0 in this site, through the whole API (api/index.php) - every
  * gate, the site's checks, the library's routes behind them - run in this
  * process against a database of the test's own, on a backend copy of its own
  * (tests/db_lib.php), with a key pair standing in for the IAM:
@@ -22,13 +22,21 @@ declare(strict_types=1);
  *   - each tool doing its work here: the audit log written by the content's
  *     writes with who and from which sign-in; the visitors' feedback form and
  *     its rules; the error log in a folder of its own, the site's old log files
- *     left where they are; a backup made, downloaded once by its ticket and
- *     restored, the old pg_dump folders left where they are; the explorer over
- *     the asset tree, its rules on uploads and an old file they would refuse;
- *     the People page, its delete and the scrub of an account the IAM deleted;
- *     the dashboard's figures the ADMIN's alone;
+ *     left where they are (their addresses: tests/addresses.test.php); the
+ *     pages' own errors, scrubbed, within their caps; a backup made (by a
+ *     name the page shows, sealed), downloaded once by its ticket and restored
+ *     - what was deleted since done again inside it, the scrub after it - an
+ *     unsealed one (a plain backup of before 0.5.0) never restored, the old
+ *     pg_dump folders left where they are; the explorer over the asset tree,
+ *     its rules on uploads and an old file they would refuse, its previews
+ *     signed under the site's own secret; the People page, its delete and the
+ *     scrub of an account the IAM deleted; the dashboard's figures the
+ *     ADMIN's alone;
  *   - the gates around them: closed for maintenance, sign-in required, an
- *     update waiting - what stays open, and what does not;
+ *     update waiting - what stays open, and what does not; and what the error
+ *     log leaves out of them (a state the site is in: the library's
+ *     `expected`, this site's own among them) and what it writes (a failure,
+ *     a 503 among them);
  *   - and at the end every route of the tools once more, all 35, each by
  *     nobody, a MEMBER and an EDITOR sending what would change something
  *     (nothing does) and by the ADMIN sending what changes nothing (past the
@@ -258,7 +266,11 @@ $statuses = [];
 for ($i = 0; $i < 6; $i++) {
     $statuses[] = send('POST', '/api/feedback', null, ['kind' => 'other', 'message' => "flood $i"])->getStatusCode();
 }
-check('five an hour from one address: the sixth of the hour is 429 too_many', in_array(429, $statuses, true) && count(array_filter($statuses, fn ($s) => $s === 201)) <= 2, implode(',', $statuses));
+// From this address so far: nobody's bug and the message "without my name" -
+// counted as a visitor's, by the address (the signed-in ones by their accounts,
+// apart; the robots' field and the refusals count nothing).
+same('five an hour from one visitor\'s address: three more of the hour, then 429 too_many', [201, 201, 201, 429, 429, 429], $statuses);
+same('...a person signed in from the same address: their account\'s own five', 201, send('POST', '/api/feedback', ADMIN, ['kind' => 'other', 'message' => 'Signed in, from a busy address.'])->getStatusCode());
 
 $list = body(send('GET', '/api/admin/feedback?kind=idea', ADMIN));
 same('the Feedback page: the idea, with its sender\'s name', [1, 'person' . MEMBER], [$list['total'] ?? null, $list['items'][0]['user_name'] ?? null]);
@@ -286,6 +298,76 @@ $report = body(send('GET', '/api/admin/errors?days=1', ADMIN));
 check('the Error log page groups them', ($report['total'] ?? 0) > 0 && in_array(404, array_column($report['groups'] ?? [], 'status'), true));
 same('the site\'s own old log files stay where they are, untouched', '{"at":"2020-01-01 10:00:00","level":"error","status":500}' . "\n", (string) @file_get_contents("$backend/storage/logs/errors-2020-01-01.jsonl"));
 
+echo "The pages' own errors: POST /api/client-errors (anotoki-lib 0.5.0)\n";
+
+/** Every line of the error log, oldest first. */
+function logLines(string $backend): array
+{
+    $lines = [];
+    foreach (glob("$backend/storage/error-log/errors-*.jsonl") ?: [] as $file) {
+        foreach (file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [] as $line) {
+            $lines[] = json_decode($line, true);
+        }
+    }
+
+    return $lines;
+}
+
+/** The error log's lines the pages reported (source client), oldest first. */
+function clientLines(string $backend): array
+{
+    return array_values(array_filter(logLines($backend), fn (mixed $entry): bool => ($entry['source'] ?? null) === 'client'));
+}
+
+/** How many of the error log's lines say $code. */
+function linesSaying(string $backend, string $code): int
+{
+    return count(array_filter(logLines($backend), fn (mixed $entry): bool => ($entry['code'] ?? null) === $code));
+}
+
+$secrets = ['reader@example.test', '198.51.100.23', 'hunter22', 'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3In0.c2lnbmF0dXJlLXZhbHVl'];
+$thrown = send('POST', '/api/client-errors', null, [
+    'type' => 'TypeError',
+    'message' => "Cannot read 'name' of undefined for reader@example.test at 198.51.100.23 with Bearer {$secrets[3]} and password=hunter22",
+    'page' => '/quiz/music',
+    'stack' => ["TypeError: Cannot read 'name' of undefined", '    at play (https://genshin.example/main.js:1:2345)'],
+]);
+same('a visitor\'s page reports a thrown error: 204, nothing in the answer', [204, ''], [$thrown->getStatusCode(), (string) $thrown->getBody()]);
+$reported = clientLines($backend)[0] ?? [];
+same('...in the error log as the page\'s own: its type, its page, its frame, nobody signed in', ['client', 'TypeError', '/quiz/music', 1, null], [
+    $reported['source'] ?? null, $reported['type'] ?? null, $reported['path'] ?? null, count($reported['trace'] ?? []), array_key_exists('user_id', $reported) ? $reported['user_id'] : 'x',
+]);
+check('...scrubbed: no e-mail address, no address, no token, no password', array_filter($secrets, fn (string $secret) => str_contains(json_encode($reported), $secret)) === [], json_encode($reported));
+check('...where from: a keyed hash of the address bucket, never the address', preg_match('/^[0-9a-f]{12}$/D', (string) ($reported['client'] ?? '')) === 1, (string) ($reported['client'] ?? ''));
+same('not JSON: 415', 415, send('POST', '/api/client-errors', null, 'It broke.', ['Content-Type' => 'text/plain'])->getStatusCode());
+same('no message: 422 message_required', [422, 'message_required'], (function (): array {
+    $response = send('POST', '/api/client-errors', null, ['type' => 'Error', 'message' => '  ']);
+    return [$response->getStatusCode(), body($response)['code'] ?? null];
+})());
+same('more than 8 KB: 413', 413, send('POST', '/api/client-errors', null, ['message' => str_repeat('x', 9000)])->getStatusCode());
+$statuses = [];
+for ($i = 2; $i <= 21; $i++) {
+    $statuses[] = send('POST', '/api/client-errors', null, ['message' => "Again and again $i"])->getStatusCode();
+}
+$capped = send('POST', '/api/client-errors', null, ['message' => 'One more']);
+same('20 an hour from one visitor: the 20th of the hour is the last, then 429 too_many with its wait', [array_fill(0, 19, 204), 429, 429, 'too_many', true], [
+    array_slice($statuses, 0, 19), $statuses[19], $capped->getStatusCode(), body($capped)['code'] ?? null, (int) $capped->getHeaderLine('Retry-After') > 0,
+]);
+same('...20 lines written for them, no more', 20, count(clientLines($backend)));
+$person = send('POST', '/api/client-errors', MEMBER, ['message' => 'From somebody signed in, at the same address']);
+$written = clientLines($backend);
+same('...a person signed in from the same address: their account\'s own 20 - written, theirs', [204, 21, MEMBER], [$person->getStatusCode(), count($written), (int) (end($written)['user_id'] ?? 0)]);
+check('...and the route\'s own answers are never lines of the log (no 413, 415, 422 or 429 of it)', array_filter(
+    (function () use ($backend): array {
+        $lines = [];
+        foreach (glob("$backend/storage/error-log/errors-*.jsonl") ?: [] as $file) {
+            $lines = [...$lines, ...array_map(fn ($line) => json_decode($line, true), file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [])];
+        }
+        return $lines;
+    })(),
+    fn (array $line): bool => ($line['path'] ?? null) === '/api/client-errors',
+) === []);
+
 // ── Backups ─────────────────────────────────────────────────────────────────
 
 echo "Backups: made, downloaded by a ticket, restored\n";
@@ -296,6 +378,16 @@ same('a person signed in before the backup: this site\'s record of them', 'perso
     send('GET', '/api/me', 9);
     return $pdo->query('SELECT username FROM users WHERE id = 9')->fetchColumn();
 })());
+// And somebody with a game of their own here and a message sent, both kept by
+// the backup - and both deleted after it, on the People and Feedback pages.
+const PLAYER = 12;
+$tokens[PLAYER] = ($iam['token'])(PLAYER, ['MEMBER']);
+$played = send('PUT', '/api/quiz/progress/dish', PLAYER, ['state' => ['tries' => ['Amber'], 'isQuestionComplete' => false]]);
+$doomedSent = send('POST', '/api/feedback', PLAYER, ['kind' => 'other', 'message' => 'Deleted after the backup.']);
+$doomed = (int) $pdo->query("SELECT id FROM anotoki_feedback WHERE message = 'Deleted after the backup.'")->fetchColumn();
+$gamesOf = fn (int $sub): int => (int) $pdo->query("SELECT count(*) FROM quizzes_states WHERE user_id = $sub")->fetchColumn();
+same('a player with a saved game here and a message sent, before the backup', [200, 201, 1, true], [$played->getStatusCode(), $doomedSent->getStatusCode(), $gamesOf(PLAYER), $doomed > 0]);
+send('GET', '/api/me', ADMIN);
 same('the proof is a sign-in of the last ten minutes', 'recent_sign_in', body(send('GET', '/api/admin/backups/proof', ADMIN))['kind'] ?? null);
 $stale = send('POST', '/api/admin/backups', STALE_ADMIN, ['description' => 'stale']);
 same('an ADMIN who signed in an hour ago: 403 reauth_required', [403, 'reauth_required'], [$stale->getStatusCode(), body($stale)['code'] ?? null]);
@@ -306,6 +398,12 @@ same('...audited', 1, (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log 
 $listed = body(send('GET', '/api/admin/backups', ADMIN));
 same('the list: that backup alone - the old pg_dump folder is no backup of the library\'s', [$backup['id'] ?? null], array_column($listed['backups'] ?? [], 'id'));
 check('...and it stays where it is, untouched', is_file("$backend/storage/backups/20200101-100000-abcdef/backup.json"));
+$listedMade = array_column($listed['backups'] ?? [], null, 'id')[$backup['id']] ?? [];
+same('...made by whom, by name (the context\'s names: this site\'s record), sealed by this installation, restorable here', ['person' . ADMIN, true, true], [
+    $listedMade['created_by_name'] ?? null, $listedMade['sealed'] ?? null, $listedMade['restorable'] ?? null,
+]);
+$archive = "$backend/storage/backups/{$backup['id']}.anotoki-backup";
+check('...its files the site\'s own user\'s alone (0600) - where the system keeps such modes', PHP_OS_FAMILY === 'Windows' || ((fileperms($archive) & 0777) === 0600 && (fileperms("$archive.json") & 0777) === 0600), sprintf('%o %o', fileperms($archive) & 0777, fileperms("$archive.json") & 0777));
 $ticket = body(send('POST', '/api/admin/backups/' . $backup['id'] . '/ticket', FRESH_ADMIN));
 $url = (string) ($ticket['url'] ?? '');
 check('a download ticket: a link under the route, good for a minute', str_starts_with($url, '/api/admin/backups/' . $backup['id'] . '/file?ticket=') && ($ticket['expires_in'] ?? 0) === 60, $url);
@@ -316,16 +414,37 @@ $pdo->exec("INSERT INTO regions (name) VALUES ('Testland')");
 // The IAM deletes person 9 after the backup, and the scrub here takes their name.
 file_put_contents($anonymizedFile, json_encode(['accounts' => [['sub' => '9', 'anonymized_at' => gmdate('Y-m-d\TH:i:s\Z')]]]));
 same('the IAM deleted person 9 since the backup: Check now scrubs them', [200, 'deleted-9'], [send('POST', '/api/admin/people/sync', ADMIN)->getStatusCode(), $pdo->query('SELECT username FROM users WHERE id = 9')->fetchColumn()]);
+$deletedSince = send('DELETE', '/api/admin/people/' . PLAYER, ADMIN);
+same('the People page deletes the player\'s games since the backup: 200, gone', [200, 1, 0], [$deletedSince->getStatusCode(), body($deletedSince)['deleted']['Saved games'] ?? null, $gamesOf(PLAYER)]);
+same('...and the Feedback page their message: 200, gone', [200, 0], [send('DELETE', "/api/admin/feedback/$doomed", ADMIN)->getStatusCode(), (int) $pdo->query("SELECT count(*) FROM anotoki_feedback WHERE id = $doomed")->fetchColumn()]);
 $restored = send('POST', '/api/admin/backups/' . $backup['id'] . '/restore', FRESH_ADMIN, ['confirm' => substr((string) $backup['id'], -6)]);
 same('a restore, with the backup\'s last six characters: 200, nothing after it failed', [200, null], [$restored->getStatusCode(), body($restored)['after_restore_error'] ?? null]);
 same('...the database as it was: the region added since is gone, the audit log kept (its entry in it)', [0, 1], [
     (int) $pdo->query("SELECT count(*) FROM regions WHERE name = 'Testland'")->fetchColumn(),
     (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'backup.restored'")->fetchColumn(),
 ]);
-same('...and the scrub ran inside the restore: person 9 is not named again, with no request after it', ['deleted-9', true], [
+same('...what was deleted since done again inside it: the player\'s game and their message stay deleted, their record kept', [0, 0, 1], [
+    $gamesOf(PLAYER),
+    (int) $pdo->query("SELECT count(*) FROM anotoki_feedback WHERE id = $doomed")->fetchColumn(),
+    (int) $pdo->query('SELECT count(*) FROM users WHERE id = ' . PLAYER)->fetchColumn(),
+]);
+same('...and the scrub ran with the restore, once it committed: person 9 is not named again, with no request after it', ['deleted-9', true], [
     $pdo->query('SELECT username FROM users WHERE id = 9')->fetchColumn(),
     (bool) $pdo->query('SELECT anonymized_at IS NOT NULL FROM users WHERE id = 9')->fetchColumn(),
 ]);
+
+// A plain backup made before 0.5.0 carries no seal - nor does a copy from
+// another installation, or one changed since: listed, never restored here.
+$sidecar = (string) file_get_contents("$archive.json");
+$unsealed = json_decode($sidecar, true);
+unset($unsealed['seal']);
+file_put_contents("$archive.json", json_encode($unsealed));
+$listedUnsealed = array_column(body(send('GET', '/api/admin/backups', ADMIN))['backups'] ?? [], null, 'id')[$backup['id']] ?? [];
+$refusedUnsealed = send('POST', '/api/admin/backups/' . $backup['id'] . '/restore', FRESH_ADMIN, ['confirm' => substr((string) $backup['id'], -6)]);
+same('a backup without this installation\'s seal: listed (sealed: false, not restorable here), its restore refused 422 archive_invalid', [false, false, 422, 'archive_invalid'], [
+    $listedUnsealed['sealed'] ?? null, $listedUnsealed['restorable'] ?? null, $refusedUnsealed->getStatusCode(), body($refusedUnsealed)['code'] ?? null,
+]);
+file_put_contents("$archive.json", $sidecar);
 
 // A scrub that cannot finish (the IAM out of reach): the restore says so, and
 // the upkeep's stamp goes after the answer, so the next request checks again.
@@ -366,6 +485,20 @@ same('a picture\'s link: inline', [200, 'image/png'], (function () use ($byName)
     return [$response->getStatusCode(), $response->getHeaderLine('Content-Type')];
 })());
 same('a link that was tampered with: 404', 404, send('GET', str_replace('sig=', 'sig=0', (string) ($byName['AMBER.png']['url'] ?? '')))->getStatusCode());
+// A preview's link alone reads a file. Signed under the installation's key
+// (storage/anotoki-lib.key, the library's default), whoever can write the
+// storage folder could make that key their own and sign links; this site signs
+// them under its own secret, which lives outside storage/.
+$link = (string) ($byName['AMBER.png']['url'] ?? '');
+parse_str((string) parse_url($link, PHP_URL_QUERY), $linked);
+$signedWith = fn (string $key): string => rtrim(strtr(base64_encode(hash_hmac('sha256', $linked['root'] . "\n" . $linked['path'] . "\n" . $linked['exp'], $key, true)), '+/', '-_'), '=');
+same('a preview link is signed under this site\'s own secret (its \'file-preview\' key)', $linked['sig'] ?? null, $signedWith(\Anotoki\Lib\Support\Keys::derive((string) localSecret(), 'file-preview')));
+$forged = [];
+foreach (["$backend/storage", "$backend/storage/explorer"] as $storage) {
+    $installationKey = \Anotoki\Lib\Support\Keys::derive(\Anotoki\Lib\Support\Keys::installation($storage), 'file-preview');
+    $forged[] = send('GET', str_replace('sig=' . $linked['sig'], 'sig=' . $signedWith($installationKey), $link))->getStatusCode();
+}
+same('...one signed under the installation\'s key (in storage/, or the explorer\'s storage/explorer/) is refused: 404, nothing read', [404, 404], $forged);
 $up = body(send('POST', '/api/admin/files/assets/upload', ADMIN, null, [], [upload('Lumine 5.0.png', base64_decode(PNG)), upload('shell.php.png', base64_decode(PNG)), upload('page.png', '<html><script>x</script></html>')], ['path' => 'character/icon']));
 same('an upload of three: one kept - under one extension, every other dot a dash - two refused, each saying why', [1, 2, 'Lumine 5-0.png', 'name_runs_on_server', 'content_mismatch'], [
     $up['uploaded'] ?? null, $up['refused'] ?? null, $up['files'][0]['stored_as'] ?? null, $up['files'][1]['code'] ?? null, $up['files'][2]['code'] ?? null,
@@ -435,11 +568,13 @@ $member = array_values(array_filter($people['people'] ?? [], fn ($p) => $p['sub'
 same('...the member\'s feedback counted (the message sent without a name is nobody\'s)', 1, $member['feedback'] ?? null);
 $deleted = send('DELETE', '/api/admin/people/' . MEMBER, ADMIN);
 same('Delete: their games, results and statistics, by label - no proof of a recent sign-in asked', [200, ['Saved games' => 0, 'Quiz results' => 0, 'Statistics' => 0]], [$deleted->getStatusCode(), body($deleted)['deleted'] ?? null]);
-same('...audited person.data_deleted; their row and their message stay', [1, 1, 1], [
+same('...audited person.data_deleted, in the delete\'s own transaction (its _txid); their row and their message stay', [1, true, 1, 1], [
     (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'person.data_deleted' AND target_id = '" . MEMBER . "'")->fetchColumn(),
+    (bool) $pdo->query("SELECT details->>'_txid' ~ '^[0-9]+$' FROM anotoki_audit_log WHERE action = 'person.data_deleted' AND target_id = '" . MEMBER . "'")->fetchColumn(),
     (int) $pdo->query('SELECT count(*) FROM users WHERE id = ' . MEMBER)->fetchColumn(),
     (int) $pdo->query('SELECT count(*) FROM anotoki_feedback WHERE user_id = ' . MEMBER)->fetchColumn(),
 ]);
+same('...their message without the reply address and browser it was sent with (the library forgets them in the same transaction), its words kept', [null, null, 'More bows.'], array_values($pdo->query('SELECT contact_email, user_agent, message FROM anotoki_feedback WHERE user_id = ' . MEMBER)->fetch()));
 same('nobody with that id: 404 not_found', [404, 'not_found'], [send('DELETE', '/api/admin/people/999', ADMIN)->getStatusCode(), body(send('DELETE', '/api/admin/people/999', ADMIN))['code'] ?? null]);
 
 file_put_contents($anonymizedFile, json_encode(['accounts' => [['sub' => (string) MEMBER, 'anonymized_at' => '2026-11-06T10:00:00Z']]]));
@@ -452,6 +587,24 @@ same('...the address and browser their message kept: gone; its words: kept', [0,
     (int) $pdo->query('SELECT count(*) FROM anotoki_feedback WHERE user_id = ' . MEMBER)->fetchColumn(),
 ]);
 same('...audited people.synced', $syncedBefore + 1, (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'people.synced'")->fetchColumn());
+// The scrub's hook writes on the connection it is given - after a restore, the
+// restore's - never on the site's own: an entry about a person, with an address
+// and their name, scrubbed by the hook inside another connection's transaction.
+$pdo->exec("INSERT INTO anotoki_audit_log (action, target_type, target_id, details, ip) VALUES ('test.about_somebody', 'user', '77', '{\"username\": \"Somebody\", \"email\": \"somebody@example.test\"}', '198.51.100.1')");
+$entryNow = fn (): array => array_map(fn ($v) => $v === null ? null : (string) $v, (array) $pdo->query("SELECT ip, details->>'username' FROM anotoki_audit_log WHERE action = 'test.about_somebody'")->fetch(PDO::FETCH_NUM));
+$other = testPdo($database);
+$other->beginTransaction();
+peopleScrubCopies($other, 77, null);
+$meanwhile = $entryNow();
+$other->rollBack();
+$rolledBack = $entryNow();
+$other->beginTransaction();
+peopleScrubCopies($other, 77, null);
+$other->commit();
+$other = null;
+same('the scrub hook: every write on the connection it is given - none seen elsewhere before its commit, none after a rollback, all of it after a commit', [
+    ['198.51.100.1', 'Somebody'], ['198.51.100.1', 'Somebody'], [null, null],
+], [$meanwhile, $rolledBack, $entryNow()]);
 same('a token of theirs that is still about (it cannot be: the IAM issues none) writes no row back', 'deleted-' . MEMBER, (function () use ($pdo): string {
     send('GET', '/api/me', MEMBER);
     return (string) $pdo->query('SELECT username FROM users WHERE id = ' . MEMBER)->fetchColumn();
@@ -479,6 +632,11 @@ siteSettingsForget();
 same('closed for maintenance: the admin tools are the ADMIN\'s, an EDITOR is told it is closed', [200, 503], [send('GET', '/api/admin/errors', ADMIN)->getStatusCode(), send('GET', '/api/admin/errors', EDITOR)->getStatusCode()]);
 same('...the two links an admin\'s browser opens answer, their ticket and signature the check', [200, 200], [send('GET', (string) ($ticket['url'] ?? ''))->getStatusCode(), send('GET', $preview)->getStatusCode()]);
 same('...the feedback form does not', 503, send('POST', '/api/feedback', null, ['kind' => 'other', 'message' => 'x'])->getStatusCode());
+same('...nor the pages\' error reports, but the ADMIN\'s (the gate lets them in)', [503, 204], [
+    send('POST', '/api/client-errors', null, ['message' => 'While closed'])->getStatusCode(),
+    send('POST', '/api/client-errors', ADMIN, ['message' => 'While closed, the ADMIN'])->getStatusCode(),
+]);
+same('...and the error log writes none of those 503 maintenance answers: a state the owner put the site in, not a failure', 0, linesSaying($backend, 'maintenance'));
 $pdo->exec("UPDATE site_settings SET value = 'false' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
 siteSettingsForget();
 
@@ -491,6 +649,13 @@ same('sign-in required: the feedback form wants somebody (401 sign_in_required)'
 // From another address: the flood above used up this one's hour.
 $GLOBALS['REMOTE'] = '203.0.113.7';
 same('...somebody signed in may send it', 201, send('POST', '/api/feedback', EDITOR, ['kind' => 'other', 'message' => 'signed in'])->getStatusCode());
+same('...the pages\' error reports the same: nobody 401 sign_in_required, somebody signed in 204', [[401, 'sign_in_required'], 204], [
+    (function (): array {
+        $response = send('POST', '/api/client-errors', null, ['message' => 'Signed out, sign-in required']);
+        return [$response->getStatusCode(), body($response)['code'] ?? null];
+    })(),
+    send('POST', '/api/client-errors', EDITOR, ['message' => 'Signed in, sign-in required'])->getStatusCode(),
+]);
 unset($GLOBALS['REMOTE']);
 same('...the two links still answer', [200, 200], [send('GET', (string) ($ticket['url'] ?? ''))->getStatusCode(), send('GET', $preview)->getStatusCode()]);
 same('...the boot says so', [true, true], [body(send('GET', '/api/settings/public'))['auth']['login_required'] ?? null, body(send('GET', '/api/settings/public'))['auth']['sign_in_available'] ?? null]);
@@ -506,6 +671,39 @@ check('...after a backup of the database as it was, named in the answer', (glob(
 same('...written down: migrations.applied, by the ADMIN', ['users/999_test_waiting.sql'], json_decode((string) $pdo->query("SELECT details::text FROM anotoki_audit_log WHERE action = 'migrations.applied' AND actor_id = " . ADMIN . ' ORDER BY id DESC LIMIT 1')->fetchColumn(), true)['files'] ?? null);
 unlink("$backend/migrations/users/999_test_waiting.sql");
 same('applied: everything answers again', 200, send('GET', '/api/admin/audit', ADMIN)->getStatusCode());
+same('...and the error log wrote none of the 503 update_pending answers meanwhile: a state, not a failure', 0, linesSaying($backend, 'update_pending'));
+
+echo "What the error log leaves out (a state the site is in) and what it writes (a failure, a 503 among them)\n";
+
+// The answers of the states the site's own code says, read off the answer as
+// the error log's outer middleware reads every one - and a failure beside them.
+// Each in words of its own: one line per kind (fingerprint) a request, so two
+// answers alike would keep the second out whatever its code.
+$answered = function (int $status, string $code) use ($backend): int {
+    $response = (new \Slim\Psr7\Factory\ResponseFactory())->createResponse($status)->withHeader('Content-Type', 'application/json');
+    $response->getBody()->write(json_encode(['error' => "An answer of the test's, saying $code.", 'code' => $code]));
+    $before = linesSaying($backend, $code);
+    siteErrorLog()->recordResponse((new ServerRequestFactory())->createServerRequest('GET', 'http://localhost/api/test-' . $code, ['REMOTE_ADDR' => '127.0.0.1']), $response);
+
+    return linesSaying($backend, $code) - $before;
+};
+same('a 503 that says a state - the family\'s three, the closed sign, the guides\' and the visitors\' tables waiting: none written', [0, 0, 0, 0, 0, 0], [
+    $answered(503, 'update_pending'), $answered(503, 'feature_unavailable'), $answered(503, 'not_set_up'),
+    $answered(503, 'maintenance'), $answered(503, 'guides_unavailable'), $answered(503, 'visitors_unavailable'),
+]);
+same('...a 503 that says a failure - a move that met another request\'s work, a database out of reach: written', [1, 1], [$answered(503, 'visitor_move_retry'), $answered(503, 'database_unavailable')]);
+// A real one, through the API: the feedback's count cannot be kept (its file
+// cannot be opened), so the form answers 503 storage_unavailable - and the
+// error log writes it.
+$limits = "$backend/storage/cache/anotoki-feedback-limits.json";
+rename($limits, "$limits.away");
+mkdir($limits);
+$refusedFeedback = send('POST', '/api/feedback', MEMBER, ['kind' => 'other', 'message' => 'The count cannot be kept.']);
+rmdir($limits);
+rename("$limits.away", $limits);
+same('the feedback form when its count cannot be kept: 503 storage_unavailable - written in the error log', [503, 'storage_unavailable', 1], [
+    $refusedFeedback->getStatusCode(), body($refusedFeedback)['code'] ?? null, linesSaying($backend, 'storage_unavailable'),
+]);
 
 // ── Every route, every caller ───────────────────────────────────────────────
 

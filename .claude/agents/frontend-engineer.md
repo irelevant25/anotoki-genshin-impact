@@ -40,12 +40,18 @@ first. This file adds frontend-specific detail.
 - The anotoki library's modules, each set up in one file: signing in
   (`@anotoki/lib/auth`, `shared/site-auth.ts` - `AnotokiAuth`, its interceptor,
   `issuedAs()`, `SavesInFlight`, `AccountPreferences`, the callback and the
-  sign-in failure's screen; `SecurityService` is this site's view of it, never a
-  second client of the IAM), the visitors' feedback form
+  sign-in failure's screen - since 0.5.0 loaded as they are shown: a page that
+  shows the failure screen embeds `<anotoki-sign-in-failure-route>` (the
+  `SignInFailureComponent` of `@anotoki/lib/auth`), never the screen itself
+  from `@anotoki/lib/auth/screens`; `SecurityService` is this site's view of
+  it, never a second client of the IAM), the visitors' feedback form
   (`@anotoki/lib/feedback`, `shared/site-feedback.ts`), the admin tools and People
   (`@anotoki/lib/admin/*`, `@anotoki/lib/people/page`; `shared/site-admin-tools.ts`
   at the app's root - the library's pages read it through a root service - and
-  `sites/admin/people.ts` on the admin panel's route), the gate
+  `sites/admin/people.ts` on the admin panel's route), the browser's errors
+  (`@anotoki/lib/error-report`'s `provideAnotokiErrorReport()` with
+  `provideBrowserGlobalErrorListeners()`, `app.config.ts`: the app's
+  ErrorHandler, its reports through the app's HttpClient), the gate
   (`shared/site-status.ts`) and the words (`shared/site-translations.ts`). The
   library's pages load from their own entry points on lazy routes: nothing of
   `@anotoki/lib/admin/*` pages, `people/page` or `feedback/form` belongs in the

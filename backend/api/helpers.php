@@ -74,30 +74,6 @@ function userBool(bool $value): string
 }
 
 /**
- * The caller's address, as far as it can be known.
- *
- * REMOTE_ADDR only. X-Forwarded-For is a header the caller writes, so trusting
- * it would let anybody set their own address - and the feedback form's
- * per-address limit would be one header away from not being a limit. Behind a
- * proxy this records the proxy; the fix there is a list of trusted proxies,
- * not trusting the header.
- */
-function requestIp(\Psr\Http\Message\ServerRequestInterface $request): ?string
-{
-    $ip = $request->getServerParams()['REMOTE_ADDR'] ?? null;
-
-    return is_string($ip) && $ip !== '' ? substr($ip, 0, 45) : null;
-}
-
-/** The browser, trimmed to what a column holds. */
-function requestUserAgent(\Psr\Http\Message\ServerRequestInterface $request): ?string
-{
-    $agent = trim($request->getHeaderLine('User-Agent'));
-
-    return $agent === '' ? null : substr($agent, 0, 255);
-}
-
-/**
  * Validates $body against the constructor parameters of $class.
  * Returns an array of field => error message pairs; empty means valid.
  */

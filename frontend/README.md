@@ -57,7 +57,8 @@ public/                 config.json (where the API is: empty - its own origin, h
 proxy.conf.json         ng serve hands /api, /.well-known and /setup.php to the PHP server on :8000
 scripts/                prepare-deploy.mjs (the production config.json and the SPA .htaccess);
                         screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
-                        1280 and 390 px, on a throwaway site of its own)
+                        1280 and 390 px, on a throwaway site of its own; a refused sign-in's
+                        screens; a thrown error read back from the error log)
 src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
                         dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs
@@ -81,7 +82,13 @@ person or the visitor (`issuedAs()`, the library's) - see CLAUDE.md, *Signing in
 Signing in is the shared library's (`@anotoki/lib/auth`, set up in
 `shared/site-auth.ts`): somebody signed in at the anotoki IAM is signed in here
 without a click (the IAM's sign-in hint), and every page keeps
-`SecurityService`'s signals.
+`SecurityService`'s signals. Its screens load as they are shown - the closed
+sign and the sign-in card embed `<anotoki-sign-in-failure-route>`.
+
+The browser's errors go to the site's error log: `app.config.ts` gives the app
+the library's ErrorHandler (`@anotoki/lib/error-report`, with Angular's global
+error listeners), which reports each one, scrubbed, through the app's
+HttpClient to `POST /api/client-errors`.
 
 ## Commands
 

@@ -69,7 +69,8 @@ Do not fix it in the generated file. The mechanical rules live in
   `/api/admin/translations`, `/api/admin/languages`, and since 0.4.1 the admin
   tools, People and the feedback form: `/api/admin/errors`, `/api/admin/audit`,
   `/api/admin/feedback`, `/api/feedback`, `/api/admin/backups`, `/api/admin/files`,
-  `/api/admin/people`), whose client is the library's Angular half, and two broken
+  `/api/admin/people`, and since 0.5.0 the pages' error reports, `/api/client-errors`),
+  whose client is the library's Angular half, and two broken
   families. The guides (`/api/guides`, `/api/admin/guides`) are this site's and are
   generated.
 

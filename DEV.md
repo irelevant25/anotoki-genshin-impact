@@ -41,7 +41,7 @@ endpoint.
 
 | Tool         | Version      | Notes                                             |
 | ------------ | ------------ | ------------------------------------------------- |
-| PHP          | 8.2+         | with `pdo_pgsql`; `curl` or `allow_url_fopen` for the IAM's keys and its sign-in switch |
+| PHP          | 8.2+         | with `pdo_pgsql`, `mbstring` (the shared library needs it since 0.5.0) and `zlib` (the backups); `curl` or `allow_url_fopen` for the IAM's keys and its sign-in switch |
 | PostgreSQL   | 14+          | one database, `anotoki_genshin` (the installer creates it) |
 | Node.js      | 22           | for `ng` and the scripts (`engines` in `package.json` names 22.15.0; nothing checks it) |
 | Bun          | any recent   | `npm start` installs the frontend's packages with `bun ci`, from `bun.lock` |
@@ -230,7 +230,7 @@ same on every anotoki site: one library, `anotoki-lib`
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.4.1"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.5.0"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
@@ -262,7 +262,7 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
-Angular half alone); both are 0.4.1 now (never 0.4.0, whose admin Feedback
+Angular half alone); both are 0.5.0 now (never 0.4.0, whose admin Feedback
 search fails on PHP 8.2). A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
@@ -420,6 +420,26 @@ own error log files (`storage/logs/errors-*.jsonl`) and its pg_dump backups
 by anything; they stay where they are until you remove them (by FTP on the
 host).
 
+**And (written 2026-10-12): anotoki-lib 0.5.0** - `users/054_visitor_starts_hashed.sql`.
+The site keeps no address of anybody's (the owner's rule of 2026-10-11): the
+count of new visitors per address (`visitor_starts`) kept the address itself
+for an hour, and now keeps a keyed HMAC of it (`api/client_address.php`'s
+`clientAddressHash()`, under a key derived from the site secret) - the same for
+one address as long as the secret lasts, a stable pseudonym of it in every
+backup made meanwhile: whoever holds a backup AND `config/secret.local.php`
+can find an IPv4 address again by trying all 2^32. 054 deletes
+the addresses there (an hour's worth at most - the limits on new visitors count
+from zero for that hour) and adds a check that the column takes nothing but
+such a hash; its gate proves the check validated and no address left. Apply it
+at once after the upload. **Not a way back**: a build from before writes the
+address, which the check refuses - its first save for a new visitor would fail;
+never put an older build on the host again. The backups made before 054 hold
+their hour's addresses as they were, until you delete them. The same release,
+with nothing to apply: the old error log files' addresses (`ip` in
+`storage/logs/errors-*.jsonl`) become a keyed hash after the first answer;
+the library's backups are sealed from now on, so a plain backup made before
+the update restores offline only (make one right after it - *The admin tools*).
+
 ---
 
 ## Checking your work
@@ -430,15 +450,24 @@ the words (`translations-migration.test.php`: users/050 on a database as its
 owner left it - reworded strings and guides, blanks, a hidden language - and
 what it refuses, and users/053's strings gone with the keys still read kept; `translations-routes.test.php`: the whole API in-process - the
 bundle, who may do what, saves, the languages, the guides, the gates); and
-anotoki-lib 0.4.1 here (`library-tools-migration.test.php`: users/052 and
+anotoki-lib 0.5.0 here (`library-tools-migration.test.php`: users/052, 054 and
 genshin_impact/028-029 on a database shaped like an installed one, with rows in
 every table that moves, in a server zone that is not UTC - every row under its
 id, field for field - and what they refuse; `library-tools-routes.test.php`:
 every admin tool's route for nobody, a MEMBER, an EDITOR and the ADMIN, who a
-request is (the server's copies of the header too), the feedback form, a backup
-made, downloaded once and restored (the scrub run inside it), the file
-explorer's rules and every link to a file kept through a rename, a move, a
-refused delete and an Undo, the People page and the scrub, the gates;
+request is (the server's copies of the header too), the feedback form, the
+pages' error reports (scrubbed, their caps, the gates), a backup made - by a
+name, sealed -, downloaded once and restored (the People page's and the
+Feedback page's deletes since done again inside it, the scrub after it, an IAM
+out of reach said and retried), one without this installation's seal refused,
+the file explorer's rules and every link to a file kept through a rename, a
+move, a refused delete and an Undo, a preview link signed under the
+installation's key refused, the People page and the scrub, the gates;
+`addresses.test.php`: where a request comes from - Cloudflare's word from
+Cloudflare alone, by one rule for the site and the library - and what is kept
+of it: keyed hashes in the new visitors' count, feedback's limit and the
+error log, the old error log files' addresses hashed in place, nothing under
+`api/` reading an address itself;
 `silent-sign-in.test.php`: what a silent sign-in brings in - the visitor's
 move and the browser's own games' carry, each into an account here for the
 first time, into one with its own games (nothing comes, the visitor and the
@@ -470,11 +499,15 @@ cd frontend && npm run api && git diff --stat src/app/api api-spec.json
 
 **Every page in a real browser.** `node scripts/screenshots.mjs` (in `frontend/`)
 builds the site for production and shows every page of it - the public site as
-a visitor, its dialogs, then the admin panel as its ADMIN, and two pages signed
+a visitor, its dialogs, a sign-in the IAM refuses (the anotoki library's screen
+of it on the callback's page, and in the sign-in card while the IAM requires
+signing in), then the admin panel as its ADMIN, and two pages signed
 in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
 and `report.json`. It flags what a picture hides: a page wider than a phone, an
-error in the console, a key shown where a word should be. Take one before a
+error in the console, a key shown where a word should be - and throws an error
+in a page, which must reach the backend's error log as the page's own,
+scrubbed (`error-report` in the report). Take one before a
 change to the pages and one after, and look at them side by side. It shows
 them on a site of its own: a throwaway `genshin_test_browser_*` database with a
 little game content and a backend copy (`backend/tests/tools/browser-env.php`,
@@ -778,7 +811,7 @@ which runs `shell.php.png` as PHP where PHP is mapped by AddHandler; the
 tree's `.htaccess` guard is the second line (`api/upload_guard.php`, and
 [Looking for files that could run](#the-upload-map)).
 
-### The admin tools (anotoki-lib 0.4.1)
+### The admin tools (anotoki-lib 0.5.0)
 
 Admin panel → System: **Error log**, **Audit log**, **Feedback** (with the count
 of new messages beside it), **Backups**, **Files explorer** and **People** - the
@@ -796,11 +829,23 @@ to anybody but the ADMIN, judged from the token.
   place of this site's old "every answer of 400 and up"), every exception with
   a trace that holds no call's arguments, PHP's warnings and fatal errors - never
   a body, a query string, a header, a token or an address (a keyed hash of it
-  instead). The pages' own errors (what goes wrong in the browser) are coming:
-  every anotoki site will write them here once the library's browser half that
-  sends them is out (0.4.2) - until then the API takes none. The site's own log
-  files from before (`storage/logs/errors-*.jsonl`) are not read and not
-  touched: they stay until you remove them.
+  instead). Nor an answer that says a state the site is in: an update waiting, a
+  table waiting for one (the guides', the visitors', a tool's), the site closed
+  for maintenance or not set up - an expected refusal stays out (the owner's
+  rule), while a real failure is written, a 503 among them (the feedback's count
+  that could not be kept, a database out of reach). And the pages' own errors (anotoki-lib 0.5.0, every anotoki site's):
+  what goes wrong in the browser is reported by the library's ErrorHandler to
+  `POST /api/client-errors` - scrubbed in the browser and again on the server,
+  at most five a page load, 20 an hour from one sender (a person by their
+  account, a visitor by their address) and 500 a day from the visitors, as many
+  from the people signed in - and listed as the page's own (`source: client`).
+  The site's own log files from before (`storage/logs/errors-*.jsonl`) are not
+  read; once, after the first answer of 0.5.0, each line is scrubbed as the
+  library scrubs its own - its address (`ip`) a keyed hash, an address, an
+  e-mail address, a token or a secret in its message and trace (which kept its
+  calls' arguments) marked, a line cut short scrubbed whole - and a file it
+  could not read or write is named in the PHP log. Nothing else of them
+  changes, and they stay until you remove them.
 - **Audit log** - the library's `anotoki_audit_log`: every content write
   (`content.insert|update|delete`, filed under the entity it belongs to), the
   files catalogue's (`catalogue.*`), the words', and the tools' own (a backup
@@ -811,14 +856,17 @@ to anybody but the ADMIN, judged from the token.
   idea or other, a place, a subject (a bug's and an idea's), the message and the
   site's fields (`steps_to_reproduce`, `expected_behavior`, `actual_behavior`,
   `browser_device_info`, `why_important`, `additional_info`); five an hour and
-  twenty a day from one address, three hundred a day in all; nothing of where a
+  twenty a day from one sender - somebody signed in by their account, a visitor
+  (or a message "without my name") by their address - and three hundred a day
+  from the visitors, as many from the people signed in; nothing of where a
   message came from kept with it; no mail. The reply address is what the sender
   leaves in the form's field: signed in, the page fills it with their account's,
   and what they leave there is kept with the message - cleared, none is; "send
   without my name" keeps neither their name nor an address (the owner's
   decision of 2026-10-11: "it's their choice"; the server never takes the
   address from the token). An account the IAM deletes has it blanked by the
-  People page's scrub. `genshin_impact/029` moved the old messages in.
+  People page's scrub, and the People page's Delete blanks it too.
+  `genshin_impact/029` moved the old messages in.
 - **Backups** - of the database, by PostgreSQL's COPY through PDO: no pg_dump, so
   they work on the host too. `storage/backups/<id>.anotoki-backup`: one a day
   after the first answer of a UTC day (14 kept), one before every Apply and every
@@ -828,21 +876,34 @@ to anybody but the ADMIN, judged from the token.
   their place, the ones made on the page only when you delete them - and a
   person deleted since stays in them until then. They are not encrypted (the
   owner's decision of 2026-10-11): whoever gets a backup file reads in it the
-  people's names, the feedback's messages and reply addresses, the visitors'
-  starting IP addresses (`visitor_starts`), everybody's play history and the
-  IAM session ids the audit log keeps - so they stay in `storage/backups/`
-  (denied to the web) and leave only by the single-use download. Making,
+  people's names, the feedback's messages and reply addresses, everybody's play
+  history and the IAM session ids the audit log keeps (the new visitors' count
+  holds keyed hashes, not addresses, since `users/054` - a stable pseudonym of
+  each address, which a backup together with the site secret can turn back
+  into an IPv4 address; a backup made before it, the addresses of its hour) -
+  so they stay in `storage/backups/` (denied
+  to the web, each file the site's own user's alone, `0600`) and leave only by
+  the single-use download. The page names who made each. Making,
   downloading (a single-use link, a minute), deleting and restoring each ask for
   a sign-in at the IAM from the last ten minutes (the page offers "Sign in
-  again"), and are audited. A restore puts back everything but the bookkeeping
-  and the audit log, all or nothing, only into a database whose migrations match
-  the backup's - then runs the scrub of the IAM's deleted accounts at once, so
-  nobody the IAM deleted since the backup is named again; a scrub that cannot
-  finish (the IAM out of reach) is said with the restore's answer and in the
-  error log, and runs again with the next request. What it cannot undo yet: a person's
-  games deleted on the People page, or a message deleted on the Feedback page,
-  after the backup was made come back with it - replaying those deletes is the
-  library's work for 0.4.2. The pg_dump backups from
+  again"), and are audited. Each backup is **sealed** (anotoki-lib 0.5.0): its
+  sidecar carries an HMAC of its id and its SHA-256 under this installation's
+  key (`storage/anotoki-lib.key`), and only a sealed one is restored here - the
+  page's Restore - its bytes hashed as they are read. A plain backup made
+  before 0.5.0 has no seal: listed, downloaded, but restored offline only
+  (unpacked and loaded by hand - *Troubleshooting*), so make a backup right
+  after the update. The seal keeps out a file put into
+  `storage/backups` from elsewhere (another installation's, one changed since) -
+  not somebody who can write the whole storage folder. A restore puts back
+  everything but the bookkeeping and the audit log, all or nothing, only into a
+  database whose migrations match the backup's; inside it, before anybody sees
+  the rows, it does again every People-page and Feedback-page delete made since
+  the backup (the audit log, never restored, says which) - so a person's games
+  or a message deleted after the backup stay deleted - then runs the scrub of
+  the IAM's deleted accounts at once, so nobody the IAM deleted since the backup
+  is named again; a scrub that cannot finish (the IAM out of reach) is said with
+  the restore's answer and in the error log, and runs again with the next
+  request. The pg_dump backups from
   before (`storage/backups/<stamp>-<hex>/` and `manual/`) are no backups of the
   library's - never listed, never touched: download them by FTP, remove them when
   you like. `php db-dump.php` still makes a pg_dump of your own with the client
@@ -869,10 +930,13 @@ to anybody but the ADMIN, judged from the token.
   forgotten, and catalogued again when it comes back. Uploads arrive as they
   are: the Files page's Convert makes their AVIF or Opus. (The Files page's own
   Delete still forgets a file's row and with it every link to it, as it always
-  did.)
+  did.) A preview's link opens one file for five minutes with no sign-in, so it
+  is signed under the site secret (`config/secret.local.php`), never the key
+  the library keeps in `storage/`.
 - **People** - everybody who signed in here, by IAM id, with their saved games,
   quiz results and messages; **Delete** takes their saved games, results and
-  statistics (their row and their messages stay), asking only its question;
+  statistics (their row and their messages stay - the messages without the
+  reply address and browser they were sent with), asking only its question;
   **Check now** runs the scrub of the accounts the IAM deleted (otherwise once an
   hour, after an answer): the name becomes `deleted-{id}`, the address and
   browser their messages kept go, the data stays.
@@ -1077,13 +1141,13 @@ window: answer one quiz question - the dashboard's *visitors* card should say
 1, which proves the hosting hands `X-Visitor-Key` to PHP (Apache passes `X-*`
 headers through as `HTTP_X_VISITOR_KEY`). Behind Cloudflare's proxy, every
 request comes from a Cloudflare address, so the per-address limit would count
-the whole world as one: upload a `config/visitors.local.php` by FTP listing
-Cloudflare's ranges (https://www.cloudflare.com/ips/) -
-`['client_address' => ['trusted_proxies' => ['173.245.48.0/20', ...]]]` - and
-the visitor's own address is then read from `CF-Connecting-IP`. setup.php never
-writes that file, and build-dist leaves every `*.local.php` behind, so it
-survives uploads. To stop visitors at once, switch **Sign-in required** on in
-the IAM.
+the whole world as one - since anotoki-lib 0.5.0 Cloudflare's ranges are
+committed in `config/visitors.php`, and the visitor's own address is read from
+`CF-Connecting-IP` on a connection from them (nothing to upload; a host that is
+not behind Cloudflare says so in a `config/visitors.local.php`,
+`['client_address' => ['trusted_proxies' => []]]`, which setup.php never writes
+and build-dist leaves behind, so it survives uploads). To stop visitors at once,
+switch **Sign-in required** on in the IAM.
 
 **The account's preferences on the host** (2026-10-06): the IAM first - its
 build with `POST /api/oidc/preferences` and its migration 015 applied - then
@@ -1133,6 +1197,19 @@ with the frontend's build (the sign-in hint signs visitors in from there). The
 asset tree's new `.htaccess` (nosniff; anything but a picture a download) goes
 up with `dist/`.
 
+**anotoki-lib 0.5.0 on the host** (2026-10-12; `users/054` in *While an update
+waits*): upload both builds - `vendor/anotoki/lib` and the frontend's build go
+together - and Apply pending at once (the Apply backs the database up first).
+Never before the upload, and no older build on the host afterwards: it would
+write the visitors' addresses, which 054's check refuses. Then, signed in as the
+ADMIN, on the Backups page, **Back up now**: every backup made before is plain
+and unsealed, and restores offline only (*The admin tools*). Nothing to set for
+Cloudflare: its ranges are committed (`config/visitors.php`) - unless a
+`config/visitors.local.php` on the host lists its own, which then win; check
+that one, if it is there. The first answer after the upload hashes the
+addresses the old error log files kept (`storage/logs/errors-*.jsonl`); the
+pages' own errors start arriving in the Error log as `client`.
+
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's
 sign-in hint signs a visitor in with a silent hop to the IAM and back, and the
@@ -1146,8 +1223,9 @@ Apply made first (`storage/backups/*-before-migration-*.anotoki-backup`, the
 Backups page deletes it) and in the old pg_dump folders
 (`storage/backups/<stamp>-<hex>/`, `storage/backups/manual/`), and every
 request's IP address, as it came, in the old error log files
-(`storage/logs/errors-*.jsonl`). Remove those by FTP; nothing reads them any
-more.
+(`storage/logs/errors-*.jsonl` - since anotoki-lib 0.5.0 a keyed hash there,
+their words scrubbed, after the first answer). Remove those by FTP; nothing
+reads them any more.
 
 ### Copying local data up to production
 
@@ -1189,9 +1267,10 @@ the PostgreSQL client tools locally.
 | Signed out, the site goes straight to the IAM's sign-in or shows "Sign in to continue" (the API answers 401 `sign_in_required`) | The IAM says sign-in is required for `genshin` - or cannot say: a 404 from `{issuer}/api/public/applications/genshin` (an IAM without that route yet, or one that does not know `genshin`) counts as required, and so does an IAM never reached. `/api/settings/public` shows what the site read (`auth.login_required`); the PHP log says why (`[iam] sign-in required: ...`). |
 | Every request answers 401 though signed in | The API cannot fetch the IAM's key set from `http://localhost:4300/.well-known/jwks.json` - the IAM's frontend dev server must be running, it serves the issuer's URLs. |
 | A player's games without signing in are gone ("...are no longer kept") | Nobody played in that browser for `keep_days` (30) and the sweep deleted them, or they were moved into an account by a sign-in in that browser - look in the account. A browser that clears its storage loses its key, and with it the games. |
-| Signed-out players' games stay in the browser only ("Too many people are playing without signing in") | A visitor limit refused a new one (429 `too_many_visitors`): `max_visitors` reached (the dashboard's *visitors* card), or the per-address / hourly limits - behind Cloudflare without its ranges in `client_address.trusted_proxies`, everybody shares one address. Raise them in `config/visitors.local.php`; existing visitors are not affected. With `users/045` pending the same happens without a message. |
+| Signed-out players' games stay in the browser only ("Too many people are playing without signing in") | A visitor limit refused a new one (429 `too_many_visitors`): `max_visitors` reached (the dashboard's *visitors* card), or the per-address / hourly limits - behind a proxy whose ranges are not in `client_address.trusted_proxies` (Cloudflare's are committed; a `config/visitors.local.php` may have replaced them), everybody shares one address. Raise them in `config/visitors.local.php`; existing visitors are not affected. With `users/045` pending the same happens without a message. |
 | `php db-dump.php`: "pg_dump was not found" | The PostgreSQL client tools aren't on PATH. Point at them in `backend/config/backup.local.php`. (The admin Backups page needs no pg_dump.) |
 | Backups page: making, downloading or deleting a backup answers "Sign in again" (403 `reauth_required`) | It asks for a sign-in at the IAM from the last ten minutes - the button signs in again and comes back. |
+| Backups page: a backup's Restore is off, or answers 422 `archive_invalid` ("It carries no seal of this site's") | It was made before anotoki-lib 0.5.0 (plain backups were not sealed then), or it was not made here, or it changed since: restore it offline - download it, unpack it (`tail -n +3 <id>.anotoki-backup \| tar -xz`: its manifest, each set's migrations, each table's rows in COPY's format) and load it into a database by hand (the migrations, then `psql`'s `\copy` table by table, in the manifest's order). Loaded by hand, it does nothing the page's Restore does after the rows: whatever was deleted on the People page or the Feedback page since the backup was made is back, and nobody the IAM deleted since is scrubbed until the next hourly upkeep. So, before opening the site to anybody: on the Audit page, list the `person.data_deleted` and `feedback.deleted` entries from the backup's time (its manifest's `snapshot_at`, else `created_at`) on, and do each again - Delete that person on the People page, delete that message (the same id, sent at the time the entry names) on the Feedback page - then People → **Check now**. Back up now after the update, so there is a sealed one. |
 | A request with an old token answers 401 `invalid_token` on a public page's data | A token that does not verify is refused on every path but the boot, the words, the status and the two browser links (the anotoki library's Identify): the pages refresh it and ask again. |
 | Locked out of an account (lost password) | Accounts are the IAM's: its dev mail goes to its own `backend/storage/mail/`, and its `reset-password.php` restores access. |
 

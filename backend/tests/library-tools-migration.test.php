@@ -5,7 +5,8 @@ declare(strict_types=1);
 /**
  * anotoki-lib 0.4.1's data moves - users/052 (people: users.email dropped,
  * anonymized_at, created_at a moment), genshin_impact/028 (audit_logs into the
- * library's anotoki_audit_log) and 029 (feedback into anotoki_feedback) - on a
+ * library's anotoki_audit_log) and 029 (feedback into anotoki_feedback) - and
+ * 0.5.0's users/054 (the new visitors' count keeps no address) on a
  * database shaped like the one the owner has installed: users/ to 051,
  * genshin_impact/ to 027 and the library's anotoki_translations to 002, in a
  * database whose time zone is not UTC (as a server's own often is not), with
@@ -63,9 +64,9 @@ testPdo('postgres')->exec('ALTER DATABASE "' . $base . '" SET timezone TO \'Euro
 $pdo = testPdo($base);
 $built = testMigrate($pdo, ['users' => '051_guide_strings.sql', 'genshin_impact' => '027_visitor_history_index.sql', 'anotoki_translations' => '002_library_words.sql']);
 check('built by the site\'s engine', $built['error'] === null, (string) $built['error']);
-same('what waits: the admin set, users/052-053, genshin_impact/028-029, the words\' 003-004, the people set', [
+same('what waits: the admin set, users/052-054, genshin_impact/028-029, the words\' 003-004, the people set', [
     'anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql',
-    'users/052_people.sql', 'users/053_drop_old_feedback_and_callback_strings.sql',
+    'users/052_people.sql', 'users/053_drop_old_feedback_and_callback_strings.sql', 'users/054_visitor_starts_hashed.sql',
     'genshin_impact/028_audit_into_library.sql', 'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/003_sign_in_words.sql', 'anotoki_translations/004_feedback_words.sql',
     'anotoki_people/001_people.sql',
@@ -79,6 +80,11 @@ $pdo->exec("INSERT INTO users (id, username, email, created_at) VALUES
     (8, 'Ayaka', 'ayaka@example.test', '2026-07-01 12:30:00'),
     (9, 'NoStamp', NULL, NULL)");
 $pdo->exec("INSERT INTO users (id, username, visitor_key_hash, last_seen_at) VALUES (-1, 'visitor', repeat('a', 64), now())");
+// The new visitors of the last hour, as users/045's code counted them: by the
+// address itself (an IPv6 one by its /64, '?' where the server gave none).
+$pdo->exec("INSERT INTO visitor_starts (address, started_at) VALUES
+    ('203.0.113.9', now() - interval '10 minutes'), ('203.0.113.9', now() - interval '5 minutes'),
+    ('2001:db8:1:2::/64', now() - interval '3 minutes'), ('?', now() - interval '1 minute')");
 
 // The audit log: content (an entity's child under its root), the catalogue
 // (every verb it has), the words, nobody's, a session, details with every kind
@@ -132,7 +138,7 @@ $name = testDatabase('tools', $base);
 $pdo = testPdo($name);
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
-same('everything that waited ran, the admin set first and the people set last', 9, count($result['applied']));
+same('everything that waited ran, the admin set first and the people set last', 10, count($result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
 same('the library\'s files are recorded under their sets\' names', [['001_audit_log.sql', '002_feedback.sql'], ['001_people.sql']], [recordedMigrations($pdo)['anotoki_admin'], recordedMigrations($pdo)['anotoki_people']]);
 
@@ -151,6 +157,26 @@ same('a winter first visit, read in the server\'s zone: 10:00 in Bratislava is 0
 same('a summer one: 12:30 there is 10:30 UTC', '2026-07-01 10:30:00', $pdo->query("SELECT (created_at AT TIME ZONE 'UTC')::text FROM users WHERE id = 8")->fetchColumn());
 same('no stamp stays no stamp', null, $pdo->query('SELECT created_at FROM users WHERE id = 9')->fetchColumn());
 same('the visitors\' check still holds every row', 0, (int) $pdo->query("SELECT count(*) FROM users WHERE NOT (id <> 0 AND (id < 0) = (visitor_key_hash IS NOT NULL) AND (id > 0 OR last_seen_at IS NOT NULL))")->fetchColumn());
+
+// ── users/054 ───────────────────────────────────────────────────────────────
+
+echo "users/054: the new visitors' count keeps no address\n";
+
+same('the addresses the count kept are gone - every one of them, nothing else of the visitors\'', [0, 1], [
+    (int) $pdo->query('SELECT count(*) FROM visitor_starts')->fetchColumn(),
+    (int) $pdo->query('SELECT count(*) FROM users WHERE id < 0')->fetchColumn(),
+]);
+$check = $pdo->query("SELECT convalidated, pg_get_constraintdef(oid) AS def FROM pg_constraint WHERE conrelid = 'visitor_starts'::regclass AND conname = 'visitor_starts_address_hashed'")->fetch();
+check('...and the column takes a keyed hash alone (64 hex), its check validated', ($check['convalidated'] ?? false) === true && str_contains((string) ($check['def'] ?? ''), "address ~ '^[0-9a-f]{64}$'"), json_encode($check));
+$refused = null;
+try {
+    $pdo->exec("INSERT INTO visitor_starts (address) VALUES ('198.51.100.7')");
+} catch (PDOException $e) {
+    $refused = (string) $e->getCode();
+}
+same('an address written by a build from before: refused (23514, the check)', '23514', $refused);
+$pdo->exec("INSERT INTO visitor_starts (address) VALUES ('" . hash('sha256', 'a hash, as the code writes one') . "')");
+same('a hash, as the code writes it now: kept', 1, (int) $pdo->query('SELECT count(*) FROM visitor_starts')->fetchColumn());
 
 // ── genshin_impact/028 ──────────────────────────────────────────────────────
 

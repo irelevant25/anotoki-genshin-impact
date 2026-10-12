@@ -71,10 +71,12 @@ for any of them (`config/local.php` explains why):
 
 Optional: `backup.local.php` (pg_dump paths), `site.local.php` (a site code other
 than `genshin_impact`), `visitors.local.php` (the limits on playing without
-signing in and the proxies trusted to name a visitor's address - see
-`config/visitors.php`; never written by setup.php, put on a host by hand; every
-value is type- and range-checked, a bad one keeps its default and is logged once,
-so a typo such as `keep_days => 0` never sweeps everybody). A leftover
+signing in, and the proxies trusted to name a request's address - committed as
+Cloudflare's published ranges, the site being behind Cloudflare; `[]` on a host
+that is not - see `config/visitors.php`; never written by setup.php, put on a
+host by hand; every value is type- and range-checked, a bad one keeps its
+default and is logged once, so a typo such as `keep_days => 0` never sweeps
+everybody). A leftover
 `app.local.php` (this site's address, from when the dev frontend called the API
 cross-origin) is no longer read.
 
@@ -167,12 +169,12 @@ So, since 0.3.0, are the site's words - *The words* below.
   padding (on a phone, to its own 56 px row), so the library's sticky heads stick
   flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.4.1"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.5.0"`, from the GitHub VCS
   repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
   version may break. A release that changes one half only is taken in that half
-  (0.2.0 changed the Angular half alone); both halves are 0.4.1 now (never
+  (0.2.0 changed the Angular half alone); both halves are 0.5.0 now (never
   0.4.0, whose PHP failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -246,7 +248,10 @@ page and the admin pages for accounts all live there.
   again and Back, in the library's words `anotoki.signIn.*`; `noindex`, and
   `public/robots.txt` says `Disallow: /auth/`; the library puts a failed
   sign-in's address back where it started, so the app initializer moves it to
-  `/auth/callback` before the router starts) - and its interceptor
+  `/auth/callback` before the router starts; since 0.5.0 both screens load as
+  they are shown, from `@anotoki/lib/auth/screens` - the route's
+  `AuthCallbackComponent`, and the sign-in card's and closed sign's
+  `<anotoki-sign-in-failure-route>`, never in the first load) - and its interceptor
   (`anotokiAuthInterceptor`, after the site's own `http.interceptor.ts`) sends
   the access token as `Authorization: Bearer`. The issuer, the client id,
   `login_required` and `sign_in_available` come from `GET /api/settings/public`
@@ -262,7 +267,7 @@ page and the admin pages for accounts all live there.
   the site keeps none). A page shown to a person whose session then ended goes
   on as a visitor's page: its requests that say nobody in particular go bare
   (`http.interceptor.ts`); a player's own data is always issued as somebody.
-- **Backend**: the anotoki library's auth module (anotoki-lib 0.4.1,
+- **Backend**: the anotoki library's auth module (anotoki-lib, since 0.4.1,
   `Anotoki\Lib\Auth`, set up in `api/admin_tools.php`) - the IAM's PHP SDK this
   site kept a copy of is gone. Its `Identify` runs once for every request, in
   front of the gates (`identifyRequests()`, `meddleware/auth.php`): an
@@ -472,7 +477,9 @@ php translations.php --status        # the keys the frontend asks for against th
 php translations.php --export sk [f] # a language's own strings as flat JSON; --import sk f puts them back (no new keys)
 php tests/run.php                    # the backend's tests: the upload rules (no database); the words' migration and
                                      # routes, the library's data moves, every admin route's permissions, sign-in,
-                                     # the gates, what a silent sign-in brings in (the move, the carry),
+                                     # the gates, a restore doing again the deletes since its backup, the pages'
+                                     # error reports, where a request comes from (Cloudflare) and what is kept of
+                                     # it (keyed hashes), what a silent sign-in brings in (the move, the carry),
                                      # migration.php (genshin_test_* databases of their own on the
                                      # PostgreSQL server config/database.local.php names - never its database -
                                      # and a backend copy). On PHP 8.2 too: PHPRC=<its ini folder> <php 8.2> tests/run.php
@@ -484,7 +491,9 @@ npm run api                          # regenerate the API client (see above)
 npm run lint
 node scripts/screenshots.mjs         # every page and its dialogs in headless Edge, light and dark, 1280 and 390 px:
                                      # screenshots to compare before and after a change to the pages, and what a
-                                     # picture hides (wider than a phone, console errors, a key shown as a word).
+                                     # picture hides (wider than a phone, console errors, a key shown as a word);
+                                     # a sign-in the IAM refuses (the library's screens of it), and an error
+                                     # thrown in a page, read back from the error log, scrubbed.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
@@ -552,7 +561,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   carry a `DO $$ … $$` verification gate that fails loudly if the result is
   wrong. Never edit an applied migration — add a new one (old ones still say
   `php/` and `angular/` in their comments; leave them). Around both folders come
-  the library's own sets (anotoki-lib 0.4.1, in its README's order), each recorded
+  the library's own sets (anotoki-lib 0.5.0, in its README's order), each recorded
   with `folder = '<set>'`: `anotoki_admin` FIRST (the admin tools' tables,
   `anotoki_audit_log` and `anotoki_feedback` - `genshin_impact/028` and `029`
   moved the old `audit_logs` and `feedback` into them, every row under its id;
@@ -584,7 +593,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   per concern: `db.php`, `secret.php`, `iam.php`, `site.php`, `backup.php`,
   `visitors.php`. A value that differs per installation goes in a `.local.php`
   that setup.php writes, never in a committed default - but for the optional
-  ones, whose committed defaults are safe (`visitors.php`'s limits).
+  ones, whose committed defaults are safe (`visitors.php`'s limits, and its
+  trusted proxies - Cloudflare's ranges, the site being behind Cloudflare; a
+  host that is not says `[]` in `visitors.local.php`).
 - **Visitors** (playing without signing in) live in `api/visitors.php`, the
   only code that makes, finds, locks or sweeps one: a `users` row with a
   negative id, `username` 'visitor', the SHA-256 of a key the server made
@@ -594,8 +605,14 @@ node docs/security/build-report.mjs                            # after re-runnin
   (the quiz tables have no foreign key to `users`); `visitorSweep()` deletes the
   unseen after `keep_days`, after the answer (`api/after_response.php`). A table
   keyed by the user id goes into `VISITOR_PERSON_TABLES`. The address the limits
-  count is `clientAddressCounted()` (`api/client_address.php`: REMOTE_ADDR
-  unless a trusted proxy names it; IPv6 by /64). An answer decided deep inside
+  count is `clientAddressCounted()` (`api/client_address.php`, the one reader of
+  an address, over the library's `ClientAddress` - the owner's rule of
+  2026-10-11: REMOTE_ADDR, or `CF-Connecting-IP` on a connection from one of
+  `config/visitors.php`'s trusted proxies, committed as Cloudflare's published
+  ranges; never `X-Forwarded-For`; IPv6 by /64), and the AdminContext hands
+  the library the same rule; what `visitor_starts` keeps of it is
+  `clientAddressHash()`, a keyed HMAC (users/054) - never the address, nowhere
+  (`tests/addresses.test.php`). An answer decided deep inside
   the work is thrown as `ApiRefusal` (`api/helpers.php`) and answered by the
   default error handler as `{error, code[, params]}` - no trace, no PHP log line
   (an owner route answers its own, `apiRefusalResponse()`, with the private
@@ -639,49 +656,78 @@ node docs/security/build-report.mjs                            # after re-runnin
   never `getUri()->getPath()`, which keeps the percent-encoding: `/%61pi/characters`
   is routed to `/api/characters`. The sign-in gate has no "outside `/api/`"
   shortcut: what reaches it is the API, open by its list or behind the switch.
-- **The admin tools and People, the server's half** (anotoki-lib 0.4.1;
+- **The admin tools and People, the server's half** (anotoki-lib 0.5.0;
   `api/admin_tools.php` gives each this site's answers once - `siteAdminContext()`:
   the actor and the ADMIN check from the token, the proof a backup asks for (a
-  sign-in at the IAM of the last ten minutes, `auth_time`), the address bucket
-  of `clientAddressCounted()`, this API's `{error, code}` body). Each route group
-  guards itself and gets `RequireRole::admin()` from this site as well:
+  sign-in at the IAM of the last ten minutes, `auth_time`), people's names by id
+  (`peopleNamesById()`: a backup's maker, the audit log's and feedback's
+  people), the trusted proxies (`config/visitors.php`: Cloudflare's ranges,
+  none wider than a proxy's; their header Cloudflare's `CF-Connecting-IP`,
+  pinned - no setting, never `X-Real-IP` or `True-Client-IP` - so the library
+  reads an address by `clientAddressCounted()`'s rule, its `ClientAddress`), this API's `{error,
+  code}` body). Each route group guards itself and gets `RequireRole::admin()`
+  from this site as well:
   `/api/admin/errors` (`siteErrorLog()`: files in `storage/error-log/` - the
-  site's old `storage/logs/errors-*.jsonl` stay where they are, unread; the
-  answers the anotoki family's rule takes, the library's default - every 5xx,
-  and 404, 405, 413, 415, 429 - never a 401, 403, 409 or 422 (the owner's
-  decision of 2026-10-11, in place of this site's old "every answer of 400 and
-  up"); an `ApiRefusal` is an answer, not a failure. The pages' own errors
-  (`ErrorLogRoutes::client`) are coming to every anotoki site with the library's
-  browser half in 0.4.2 - not mounted until then), `/api/admin/audit` (`siteAudit()`, `api/audit_log.php`:
+  site's old `storage/logs/errors-*.jsonl` stay where they are, unread, but
+  for the address each line kept (`ip`, the old `requestIp()`, gone), which
+  `oldErrorLogAddressesForget()` turns into the library's keyed `client` hash
+  once, after an answer (a stamp in `storage/cache`); the answers the anotoki
+  family's rule takes, the library's default - every 5xx, and 404, 405, 413,
+  415, 429 - never a 401, 403, 409 or 422 (the owner's decision of 2026-10-11,
+  in place of this site's old "every answer of 400 and up"), nor an answer
+  that says a state the site is in (the library's `expected`,
+  `SITE_EXPECTED_ANSWERS`: the family's `update_pending`, `feature_unavailable`,
+  `not_set_up`, and this site's `maintenance`, `guides_unavailable`,
+  `visitors_unavailable` - the owner's rule: an expected refusal stays out, a
+  real failure is written, a 503 among them: `storage_unavailable`,
+  `database_unavailable`, `visitor_move_retry`); an `ApiRefusal` is an answer,
+  not a failure. The pages' own errors come in at `POST
+  /api/client-errors` (`ErrorLogRoutes::client`, the owner's decision: every
+  site's) - behind every gate as any route, scrubbed in the browser and again
+  here, at most 20 an hour from one sender (a person by their account, a
+  visitor by their address bucket) and 500 a day from the visitors, as many
+  from the people signed in), `/api/admin/audit` (`siteAudit()`, `api/audit_log.php`:
   `anotoki_audit_log` - `content.*` from DbQuery and the guides, `catalogue.*`
   from `auditFile()`, the words' and the tools' own; entries wait in
   `storage/logs/audit-pending.jsonl` until `genshin_impact/028` has run),
   `/api/admin/feedback` and the public `POST /api/feedback` (`siteFeedback()`:
   kinds bug/idea/other, `FEEDBACK_SECTIONS`, `FEEDBACK_FIELDS` - the old
-  columns' names; nothing of where a message came from kept; the reply address
-  is what the sender leaves in the form's field, which the page fills with
-  their account's - `feedbackSender()` hands the library the id alone, never
-  the token's address; "send without my name" keeps neither - the owner's
-  decision of 2026-10-11, "it's their choice"), `/api/admin/backups`
+  columns' names; nothing of where a message came from kept; five an hour and
+  twenty a day from one sender - an account, or a visitor's address bucket -
+  and three hundred a day from the visitors, as many from the people signed
+  in; the reply address is only what the sender leaves in the form's field,
+  which the page fills with their account's - `feedbackSender()` hands the
+  library the id alone, and the library takes no address from the sender;
+  "send without my name" keeps neither - the owner's decision of 2026-10-11,
+  "it's their choice"; a delete is audited inside its own transaction, with
+  the message's time), `/api/admin/backups`
   (`siteBackups()`: COPY through PDO, no pg_dump, `storage/backups/*.anotoki-backup`;
   daily, before every Apply and restore; restore on; no maximum age - the owner's
   decision of 2026-10-11: the automatic kinds go only as newer ones of their kind
   replace them (14 daily, 5 and 5), a manual one only when the owner deletes it,
   and a deleted person's data stays in them until then; not encrypted - the
   owner's decision of 2026-10-11: a backup file shows whoever gets it the
-  people's names, the feedback's messages and reply addresses, the visitors'
-  starting IPs (`visitor_starts`), play history and the IAM session ids of the
-  audit log, so it stays in the denied `storage/backups/` and leaves only by the
-  single-use download; after a restore `backupRestored()` runs the scrub of the
-  IAM's deleted accounts on the restore's connection, and one that does not
-  finish is thrown - the library's `after_restore_error` - with the upkeep's
-  stamp removed after the answer so the next request retries; People and
-  Feedback deletes made after the backup come back with it, their replay the
-  library's 0.4.2 work; the old pg_dump folders never touched),
+  people's names, the feedback's messages and reply addresses, play history
+  and the IAM session ids of the audit log (the new visitors' count, since
+  users/054, only keyed hashes), so it stays in the denied `storage/backups/`,
+  its files `0600`, and leaves only by the single-use download; sealed since
+  0.5.0 - an HMAC of its id and SHA-256 under the installation's key - and only
+  a sealed one is restored through the page: the plain backups made before
+  0.5.0 have no seal and are restored offline only (DEV.md); a restore does
+  again, inside its transaction, every People-page and Feedback-page delete
+  made since the backup (the library's `People::restoreHooks()`, by the audit
+  log: `peopleDeleteGames()` on the restore's own connection), then runs the
+  scrub of the IAM's deleted accounts - one that does not finish is the
+  library's `after_restore_error`, the upkeep's stamp removed after the answer
+  (this site's runner, `afterResponse()`) so the next request retries - and
+  forgets the Files page's figures (`then:`); the old pg_dump folders never touched),
   `/api/admin/files` (`siteFileExplorer()`: roots `assets` - the asset tree, a
   snapshot - and `uploads` - `public/uploads/`; the library's upload rules; its
   trash and snapshots in `storage/explorer/`, apart from the Files page's
-  `storage/trash/`. The catalogue's rows follow what it does and keep their ids:
+  `storage/trash/`; its previews' links signed under the site secret
+  (`siteFilePreviewKey()`, `Keys::derive(secret, 'file-preview')`), never the
+  installation's key in `storage/`, which whoever can write that folder could
+  make their own. The catalogue's rows follow what it does and keep their ids:
   every `*_file_id` is ON DELETE SET NULL, so a row deleted and made again
   strips the picture from the content - `explorerAfterWrite()` moves the same
   rows on a rename or move (`catalogueMove()`, a folder's with it), and
@@ -691,11 +737,18 @@ node docs/security/build-report.mjs                            # after re-runnin
   file; before a write it puts this site's guard `.htaccess` in a root that has
   none) and `/api/admin/people` (`sitePeople()`: `users` by `username` and
   `created_at`; the delete hook `peopleDeleteGames()` takes a person's
-  `VISITOR_PERSON_TABLES` rows; the scrub hook `peopleScrubCopies()` blanks the
-  feedback's address and browser). `BackupsRoutes::file()` and
+  `VISITOR_PERSON_TABLES` rows inside the library's transaction
+  (`People::delete()`, which forgets the person's feedback's reply address and
+  browser and writes `person.data_deleted` in the same one) - it begins no
+  transaction of its own and does all its work on the `$pdo` it is given,
+  never `usersDb()`: a restore does it again on its own connection, its request
+  null; the scrub hook `peopleScrubCopies()` blanks the feedback's address and
+  browser and the audit log's address and names about the person, every write
+  on the scrub's connection). `BackupsRoutes::file()` and
   `FilesRoutes::raw()` stand outside every admin check - a single-use ticket, a
   signed link - and are open in the maintenance and sign-in gates for that
-  reason. All of them are in api-config.mjs's `SKIP_PREFIXES`.
+  reason. All of them are in api-config.mjs's `SKIP_PREFIXES`, `/api/client-errors`
+  too.
 - **Assets**: files live under `assets/` (untracked), catalogued in the `files`
   table; every asset column across the entity tables is a foreign key into it.
   `backend/api/asset_columns.php` lists which columns are assets. The tree holds the
@@ -755,7 +808,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.4.1), each piece imported from its own entry point -
+  kit (anotoki-lib 0.5.0), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -805,7 +858,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   DB-catalogued assets, previewing through its `file-preview` modal; **Files
   Explorer** (`/admin/files-explorer`) is the library's file explorer over the
   asset tree and `public/uploads/` (below).
-- **The admin tools and People are the anotoki library's** (0.4.1): Feedback,
+- **The admin tools and People are the anotoki library's** (since 0.4.1): Feedback,
   Audit Logs, Error Log, Files Explorer and Backups (`@anotoki/lib/admin/*`) and
   People (`@anotoki/lib/people/page`), each on a lazy route of the admin panel
   at the address this site's own page had - `/admin/feedback`,
@@ -819,11 +872,22 @@ node docs/security/build-report.mjs                            # after re-runnin
   anybody else whose it is and asks nothing, and the server refuses them. Beside
   Feedback, the messages nobody has opened (`FeedbackUnread`; no mail is sent).
   People's Delete takes a person's games (saved games, quiz results, statistics)
-  and asks in the site's words - their record and their feedback stay. The
+  and asks in the site's words - their record and their feedback stay, the
+  messages without the reply address and browser they were sent with (the
+  library forgets those with the games, since 0.5.0). The
   visitors' feedback form is the library's too (`@anotoki/lib/feedback`,
   `shared/site-feedback.ts`: the server's thirteen sections, a bug's and an
   idea's own fields in the site's `feedback.*` words), in the footer's dialog
   (`site-feedback-modal`), loaded when it is opened.
+- **The browser's errors** (anotoki-lib 0.5.0, the owner's decision: every
+  site's): `app.config.ts` provides `provideBrowserGlobalErrorListeners()` and
+  the library's `provideAnotokiErrorReport()` (`@anotoki/lib/error-report`) -
+  the app's ErrorHandler tells the console as Angular's own does and reports
+  each error, scrubbed, at most five a page load, to `POST /api/client-errors`
+  through the app's HttpClient, so this site's interceptors make it the API's
+  (the base URL, the token of whoever is signed in). Its request carries
+  `ANOTOKI_ERROR_REPORT` in its context; `http.interceptor.ts` has no error
+  handling of its own to skip for it.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper

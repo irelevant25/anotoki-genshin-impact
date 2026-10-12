@@ -9,9 +9,10 @@
 // makes a throwaway site to show it - a database of its own with a little game content in it and a backend
 // copy serving it (backend/tests/tools/browser-env.php), the anotoki library's stand-in IAM to sign in at -,
 // serves the build and that API on one origin as the hosting does, and drives headless Edge (or Chrome)
-// through the pages: the public site as a visitor, then the admin panel as its ADMIN. Then it stops all of it
-// and drops the database - also when something fails. Nothing here touches your database, your settings,
-// your browser or a real IAM.
+// through the pages: the public site as a visitor, a sign-in the IAM refuses (the anotoki library's screens of
+// it), an error thrown in a page (which must reach the site's error log, scrubbed), then the admin panel as its
+// ADMIN. Then it stops all of it and drops the database - also when something fails. Nothing here touches your
+// database, your settings, your browser or a real IAM.
 //
 // The screenshots go to --out (default: a folder under the system's temporary one, named at the end), one
 // per page, width and theme: `main-home--1280-light.png`, `admin-characters-form--390-dark.png` - the whole
@@ -24,7 +25,7 @@
 // GENSHIN_SHOTS_SITE_PORT, _API_PORT, _IAM_PORT and _BROWSER_PORT name others.
 
 import { execFileSync, spawn } from 'node:child_process';
-import { createReadStream, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { createReadStream, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createServer, request } from 'node:http';
 import { createServer as createNetServer } from 'node:net';
 import { tmpdir } from 'node:os';
@@ -206,6 +207,18 @@ const ADMIN = [
   { name: 'admin-not-found', path: '/admin/no-such-page' },
 ];
 
+/**
+ * A sign-in the IAM refuses (the stand-in's `deny`), signed out: the anotoki library's screen of it - which it
+ * loads as it is shown, since anotoki-lib 0.5.0 - on the callback's page, and in the sign-in card the site draws
+ * while the IAM requires signing in (`<anotoki-sign-in-failure-route>`). `iam` is the stand-in's state for the
+ * page, put back after it.
+ */
+const failureShown = (page) => waitFor(page, "location.pathname === '/auth/callback' && !!document.querySelector('anotoki-sign-in-failure button')", 20000);
+const SIGN_IN_FAILED = [
+  { name: 'main-sign-in-failed', path: '/admin', iam: { deny: true }, then: failureShown },
+  { name: 'main-sign-in-required-failed', path: '/', iam: { deny: true, login_required: true }, then: failureShown },
+];
+
 /** After the admin panel: the public site for somebody signed in. */
 const SIGNED_IN = [
   { name: 'main-home-signed-in', path: '/' },
@@ -331,6 +344,33 @@ async function setIam(changes) {
   }
 }
 
+/** The backend copy that serves the API (browser-env.php's), once it is up. */
+let backendCopy = null;
+
+/**
+ * The stand-in IAM's state, and the backend asked afresh: it keeps the IAM's answer about this site (sign-in
+ * required or not) for a minute in its storage/cache, which a page about that answer cannot wait for.
+ */
+async function iamState(changes) {
+  await setIam(changes);
+  const cache = join(backendCopy, 'storage', 'cache');
+  for (const file of existsSync(cache) ? readdirSync(cache) : []) {
+    if (/^anotoki-iam-application-.*\.json$/.test(file)) {
+      rmSync(join(cache, file), { force: true });
+    }
+  }
+}
+
+/** The lines the error log holds (backend storage/error-log), each as written. */
+function errorLogLines() {
+  const folder = join(backendCopy, 'storage', 'error-log');
+  return (existsSync(folder) ? readdirSync(folder) : [])
+    .filter((file) => /^errors-.*\.jsonl$/.test(file))
+    .flatMap((file) => readFileSync(join(folder, file), 'utf8').split('\n'))
+    .filter((line) => line.trim() !== '')
+    .map((line) => JSON.parse(line));
+}
+
 async function viewport(width, height = width < 1000 ? 844 : 900) {
   await page.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 1000 });
 }
@@ -449,6 +489,19 @@ async function tab(times) {
 }
 
 async function visit(entry, width) {
+  if (entry.iam) {
+    await iamState(entry.iam);
+  }
+  try {
+    await visitAs(entry, width);
+  } finally {
+    if (entry.iam) {
+      await iamState({ deny: false, login_required: false });
+    }
+  }
+}
+
+async function visitAs(entry, width) {
   let facts = null;
   const problems = [];
   for (const themeName of ['light', 'dark']) {
@@ -524,6 +577,7 @@ try {
 
   const env = JSON.parse(execFileSync(php, ['tests/tools/browser-env.php', 'up', work, issuer], { cwd: backend, encoding: 'utf8' }).trim().split('\n').pop());
   database = env.database;
+  backendCopy = env.backend;
   const iamDir = join(work, 'stand-in-iam');
   execFileSync(
     php,
@@ -586,6 +640,34 @@ try {
 
   console.log(`Screenshots: ${out}\n`);
   await pass(MAIN);
+  await pass(SIGN_IN_FAILED);
+
+  // The browser's errors reach the site's error log (@anotoki/lib/error-report, app.config.ts): one thrown on
+  // a page outside Angular's own code - with an address in it, which the report must not carry - is read
+  // back from the backend's log, the page's own (source client).
+  if (!only || 'error-report'.includes(only)) {
+    await viewport(1280);
+    await boot('light', false);
+    await page.send('Page.navigate', { url: `${origin}/quizzes` });
+    await settle();
+    const thrown = `screenshots: a thrown error for the error log, from reader@example.test ${Date.now()}`;
+    await page.evaluate(`setTimeout(() => { throw new Error(${JSON.stringify(thrown)}); }, 0); true`);
+    const marker = thrown.split(' from ')[0];
+    let line = null;
+    for (let i = 0; i < 40 && line === null; i++) {
+      await sleep(250);
+      line = errorLogLines().find((entry) => entry.source === 'client' && String(entry.message).startsWith(marker)) ?? null;
+    }
+    const problems = line === null ? ['a thrown error did not reach the error log'] : [];
+    if (line !== null && JSON.stringify(line).includes('reader@example.test')) {
+      problems.push('the error log kept the address the error named');
+    }
+    if (line !== null && line.path !== '/quizzes') {
+      problems.push(`the error log names another page: ${line.path}`);
+    }
+    report.push({ page: 'error-report', width: 1280, path: '/quizzes', title: null, problems });
+    console.log(`${problems.length ? 'LOOK' : 'ok  '} error-report 1280${problems.length ? ' - ' + problems.join(' | ') : ` - ${line.type}: ${line.message}`}`);
+  }
 
   // Signing in: the admin panel sends somebody signed out to the IAM, which signs the ADMIN in at once.
   await viewport(1280);

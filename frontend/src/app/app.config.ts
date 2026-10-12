@@ -1,10 +1,11 @@
-import { ApplicationConfig, inject, InjectionToken, Injector, LOCALE_ID, provideAppInitializer, provideZonelessChangeDetection } from "@angular/core";
+import { ApplicationConfig, inject, InjectionToken, Injector, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { registerLocaleData } from "@angular/common";
 import localeEn from "@angular/common/locales/en";
 import localeSk from "@angular/common/locales/sk";
 import { provideAnotokiAdmin } from "@anotoki/lib/admin";
 import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from "@anotoki/lib/auth";
+import { provideAnotokiErrorReport } from "@anotoki/lib/error-report";
 import { provideAnotokiFeedback } from "@anotoki/lib/feedback";
 import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
 import { provideAnotokiTranslations, TranslationService } from "@anotoki/lib/translations";
@@ -151,6 +152,16 @@ export const appConfig: ApplicationConfig = {
     // sign-in's (@anotoki/lib/auth): who each request of the API is, its token
     // or its visitor key.
     provideHttpClient(withInterceptors([siteStatusInterceptor, httpInterceptor, anotokiAuthInterceptor])),
+    // The browser's errors into the site's error log (@anotoki/lib/error-report,
+    // anotoki-lib 0.5.0 - the owner's decision: every site's): the app's
+    // ErrorHandler tells the console as Angular's own does and reports each
+    // error, scrubbed, at most five a page load, to POST /api/client-errors -
+    // through this HttpClient, so the interceptors above make it the API's (the
+    // base URL; the token of whoever is signed in, a person's errors counted by
+    // their account). The global listeners bring what Angular's own code never
+    // sees: window's errors, a promise nobody caught.
+    provideBrowserGlobalErrorListeners(),
+    provideAnotokiErrorReport(),
     provideAnotokiMigrations(siteStatusConfig),
     // Signing in through the anotoki IAM (shared/site-auth.ts), and its
     // screens' words - the library's anotoki.signIn.*. Its IAM client notes

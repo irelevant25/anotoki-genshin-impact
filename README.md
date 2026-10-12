@@ -45,7 +45,7 @@ hosting; the frontend calls its own `/api`.
 
 ## Running it on your computer
 
-You need **PHP 8.2 or newer** with `pdo_pgsql`, **PostgreSQL**, **Node.js 22**
+You need **PHP 8.2 or newer** with `pdo_pgsql`, `mbstring` and `zlib`, **PostgreSQL**, **Node.js 22**
 and **Bun** (the frontend installs its packages with `bun ci`), and the **anotoki
 IAM** (`../anotoki-iam`), which holds the accounts.
 `backend/vendor/` is committed, so Composer is only needed to change PHP
@@ -318,6 +318,21 @@ not drift; [docs/README.md](docs/README.md) lists them.
   footer's feedback form is the library's, loaded when it is opened. The first
   load grows from 125.8 to 138.4 kB (transfer): the library's sign-in, with its
   two screens, in place of the site's own.
+- Since 2026-10-12 the shared library is `anotoki-lib` 0.5.0. The site keeps no
+  address of anybody's (the owner's rule): a request's address is
+  `CF-Connecting-IP` when it comes through Cloudflare - whose published ranges
+  are now committed - and the connection's own otherwise, one rule for the
+  site's limits and the library's, and what is kept of one is a keyed hash
+  (migration `users/054` for the count of new visitors; the old error log
+  files' addresses are hashed once). The pages' own errors reach the admin
+  panel's Error log, scrubbed. A restore of a backup no longer brings back a
+  person's games or a message deleted after the backup was made, and backups
+  are sealed - only one made here is restored here, a plain one from before
+  0.5.0 offline. The People page's Delete takes the reply address and browser
+  off the person's messages too, and the file explorer's previews are signed
+  under the site's own secret. The sign-in screens load as they are shown: the
+  first load is 140.3 kB (transfer), 578.8 kB in all (it was 139.5 and 585.0),
+  the browser's error reporter in it.
 
 ## More
 

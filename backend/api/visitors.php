@@ -239,9 +239,11 @@ function visitorFind(string $key): array
  * and its count goes with it - or 429 too_many_visitors when there are as
  * many visitors as max_visitors already (existing visitors keep working; only
  * new ones are refused), or new_per_hour from everywhere, or
- * new_per_hour_per_address from this address (api/client_address.php).
- * Under an advisory lock held to the end of the transaction, so two at once
- * count exactly.
+ * new_per_hour_per_address from this address - counted, and kept for the
+ * hour, as a keyed HMAC of its bucket, never the address
+ * (api/client_address.php's clientAddressHash(); users/054). Under an
+ * advisory lock held to the end of the transaction, so two at once count
+ * exactly.
  *
  * @return array{user: array, key: string}
  */
@@ -254,10 +256,10 @@ function visitorMake(Request $request): array
     visitorsMustBeReady();
 
     $pdo->prepare('SELECT pg_advisory_xact_lock(?::bigint)')->execute([VISITOR_MAKE_LOCK]);
-    // The addresses of an hour ago and more are kept no longer than needed.
+    // The counts of an hour ago and more are kept no longer than needed.
     $pdo->exec("DELETE FROM visitor_starts WHERE started_at < now() - interval '1 hour'");
 
-    $address = clientAddressCounted($request);
+    $address = clientAddressHash($request);
     $statement = $pdo->prepare(
         'SELECT (SELECT count(*) FROM users WHERE id < 0) AS visitors,
                 (SELECT count(*) FROM visitor_starts WHERE address = ?) AS here,
@@ -571,9 +573,9 @@ function personHasData(PDO $pdo, int $userId): bool
  * sweep_timeout_ms, and no new batch once sweep_budget_ms have gone. A
  * visitor another request holds (a save that is writing) is skipped, never
  * waited for: the next sweep takes it. People (positive ids) are never
- * touched, however long ago they were here. Then the counted addresses older
- * than an hour go. Nothing while users/045 waits. Returns how many visitors
- * went.
+ * touched, however long ago they were here. Then the counts of new visitors
+ * older than an hour go. Nothing while users/045 waits. Returns how many
+ * visitors went.
  */
 function visitorSweep(): int
 {

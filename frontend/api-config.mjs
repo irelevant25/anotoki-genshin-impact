@@ -226,7 +226,9 @@ export const NAMES = {
  * `admin/feedback`, `admin/backups`, `admin/files`, `admin/people` and the
  * form's `feedback` (the library's *Routes::admin() and public(), put up in
  * api/index.php): their client is @anotoki/lib/admin/*, @anotoki/lib/people/page
- * and @anotoki/lib/feedback/form. Its README says what they answer.
+ * and @anotoki/lib/feedback/form. Since 0.5.0 the pages' error reports too -
+ * `client-errors` (ErrorLogRoutes::client()), whose client is the library's
+ * ErrorHandler, @anotoki/lib/error-report. Its README says what they answer.
  */
 export const SKIP_PREFIXES = [
     "/api/affiliations",
@@ -243,6 +245,7 @@ export const SKIP_PREFIXES = [
     "/api/admin/backups",
     "/api/admin/files",
     "/api/admin/people",
+    "/api/client-errors",
 ];
 
 /**

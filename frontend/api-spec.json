@@ -13,7 +13,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Audit/Http/AuditRoutes.php",
-                "line": 68
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -34,7 +34,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Audit/Http/AuditRoutes.php",
-                "line": 80
+                "line": 83
             },
             "expanded": [],
             "payload": null,
@@ -55,7 +55,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 69
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -76,7 +76,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 91
+                "line": 92
             },
             "expanded": [],
             "payload": null,
@@ -97,7 +97,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 73
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -123,7 +123,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 120
+                "line": 121
             },
             "expanded": [],
             "payload": null,
@@ -149,7 +149,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 100
+                "line": 101
             },
             "expanded": [],
             "payload": null,
@@ -175,7 +175,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 218
+                "line": 226
             },
             "expanded": [],
             "payload": null,
@@ -201,7 +201,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 155
+                "line": 156
             },
             "expanded": [],
             "payload": null,
@@ -227,7 +227,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 183
+                "line": 184
             },
             "expanded": [],
             "payload": null,
@@ -253,7 +253,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Backups/Http/BackupsRoutes.php",
-                "line": 146
+                "line": 147
             },
             "expanded": [],
             "payload": null,
@@ -274,7 +274,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
-                "line": 79
+                "line": 82
             },
             "expanded": [],
             "payload": null,
@@ -295,7 +295,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
-                "line": 59
+                "line": 62
             },
             "expanded": [],
             "payload": null,
@@ -321,7 +321,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
-                "line": 68
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -342,7 +342,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 94
+                "line": 102
             },
             "expanded": [],
             "payload": null,
@@ -363,7 +363,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 102
+                "line": 110
             },
             "expanded": [],
             "payload": null,
@@ -384,7 +384,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 110
+                "line": 118
             },
             "expanded": [],
             "payload": null,
@@ -410,7 +410,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 164
+                "line": 190
             },
             "expanded": [],
             "payload": null,
@@ -436,7 +436,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 124
+                "line": 132
             },
             "expanded": [],
             "payload": null,
@@ -462,7 +462,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 150
+                "line": 158
             },
             "expanded": [],
             "payload": null,
@@ -975,7 +975,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
-                "line": 125
+                "line": 136
             },
             "expanded": [],
             "payload": null,
@@ -996,7 +996,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
-                "line": 147
+                "line": 178
             },
             "expanded": [],
             "payload": null,
@@ -1022,7 +1022,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/People/Http/PeopleRoutes.php",
-                "line": 138
+                "line": 169
             },
             "expanded": [],
             "payload": null,
@@ -5938,6 +5938,27 @@
             "visitor_key": false
         },
         {
+            "method": "POST",
+            "path": "/api/client-errors",
+            "args": [],
+            "file": "ErrorLogRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/php/src/ErrorLog/Http/ErrorLogRoutes.php",
+                "line": 120
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
             "method": "GET",
             "path": "/api/constellation-sets",
             "args": [],
@@ -7439,7 +7460,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/php/src/Feedback/Http/FeedbackRoutes.php",
-                "line": 64
+                "line": 69
             },
             "expanded": [],
             "payload": null,

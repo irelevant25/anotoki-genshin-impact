@@ -29,7 +29,7 @@ to backend work.
   `assetBaseName()`), `backend/api/media_convert.php` (uploads re-encoded to AVIF /
   Opus), `backend/api/asset_stats.php` (Files-page figures, DB-backed),
   `backend/api/explorer.php` (the disk snapshot the Files page's drift figures
-  read), `backend/api/admin_tools.php` (anotoki-lib 0.4.1 set up for this site:
+  read), `backend/api/admin_tools.php` (anotoki-lib 0.5.0 set up for this site:
   the IAM's tokens and switch, people, the error log, feedback, backups, the file
   explorer), `backend/api/audit_log.php` (the library's audit log; DbQuery, the
   catalogue and the words write it), `backend/api/migration_runner.php` (the migrations, on anotoki/lib's
@@ -105,7 +105,18 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   here too (`api/index.php`); this site's answers are `api/admin_tools.php`'s.
   Record an admin change with `siteAudit()->record(...)` (or `auditContent()`,
   `auditFile()`), never a table of our own. A new route of the library goes in
-  `frontend/api-config.mjs`'s `SKIP_PREFIXES`.
+  `frontend/api-config.mjs`'s `SKIP_PREFIXES`. The People page's delete hook
+  (`peopleDeleteGames()`) runs inside the library's transaction and again
+  inside a restore's: it begins, commits or rolls back nothing, does all its
+  work on the `$pdo` it is given (never `usersDb()`/`getDb()`), and takes a
+  null request.
+- Where a request comes from is `api/client_address.php`'s alone - the
+  library's `ClientAddress` over `config/visitors.php`'s trusted proxies
+  (Cloudflare's ranges, `CF-Connecting-IP`), handed to the library through
+  the AdminContext - and what is kept of an address is a keyed hash
+  (`clientAddressHash()`, the site secret's), never the address: no column, log
+  line or file holds one. Nothing else reads `REMOTE_ADDR`, a forwarding header
+  or the server params (`tests/addresses.test.php` checks).
 
 ## Migrations
 

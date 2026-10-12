@@ -51,7 +51,15 @@ subscribed, an `effect`/`computed` that misses a dependency.
   leaves the content silently) - a rename or a move keeps the row
   (`catalogueMove()`), `explorerGuard()` refuses the rest - and a sender's
   address taken from the token into feedback (`feedbackSender()` hands the id
-  alone). While the IAM requires sign-in, the
+  alone). So is an address kept anywhere (a column, a log line, a file) - only
+  a keyed hash of one, and only through `api/client_address.php`'s rule (the
+  library's `ClientAddress`: `CF-Connecting-IP` from Cloudflare's ranges alone,
+  the header pinned - never `X-Forwarded-For`, `X-Real-IP` or
+  `True-Client-IP`, no setting for it, no trusted range wider than a proxy's);
+  a file preview signed under anything but the site
+  secret (`siteFilePreviewKey()`); and a People delete hook that begins its own
+  transaction or works on another connection than the `$pdo` it is given (a
+  restore does it again on its own). While the IAM requires sign-in, the
   library's `SignInGate` (`api/meddleware/sign_in.php`)
   is what keeps the public routes from anybody signed out: a path added to
   `SIGN_IN_OPEN_PATHS` that neither the sign-in card nor a token-less browser

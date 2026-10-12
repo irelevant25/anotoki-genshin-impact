@@ -11,9 +11,12 @@ declare(strict_types=1);
  *
  * The upload rules need nothing (tests/lib.php). The rest - the words'
  * migration and routes, the anotoki library's admin tools, people and sign-in
- * (anotoki-lib 0.4.1: the data moves of users/052 and genshin_impact/028-029,
- * every admin route's permissions, the gates), what a silent sign-in brings
- * in (the visitor's move, the browser's games' carry), the command line - make
+ * (anotoki-lib 0.5.0: the data moves of users/052, 054 and genshin_impact/
+ * 028-029, every admin route's permissions, the gates, a restore doing again
+ * what was deleted since its backup, the pages' error reports), where a
+ * request comes from and what is kept of it (the Cloudflare rule, keyed
+ * hashes only), what a silent sign-in brings in (the visitor's move, the
+ * browser's games' carry), the command line - make
  * genshin_test_* databases of their own on the PostgreSQL server
  * config/database.local.php names, never its database, and run the API in a
  * backend copy of their own (tests/db_lib.php). Without that file they say

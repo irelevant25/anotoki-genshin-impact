@@ -22,8 +22,10 @@ function countOf(person: PeoplePerson, column: string): number {
  * Delete takes a person's games - their saved games, quiz results and
  * statistics (the server's delete hook) - and asks in the site's own words,
  * because the family's question would say everything goes: their record here
- * and what they sent as feedback stay. Deleting one's own, the quizzes open
- * in this tab forget the games they hold.
+ * and what they sent as feedback stay - the messages without the reply address
+ * and browser they were sent with, which the library forgets with the games
+ * (anotoki-lib 0.5.0). Deleting one's own, the quizzes open in this tab forget
+ * the games they hold.
  */
 function peopleConfig(): AnotokiPeopleConfig {
   const security = inject(SecurityService);
@@ -41,7 +43,7 @@ function peopleConfig(): AnotokiPeopleConfig {
         const you = person.sub === auth.sub() ? ' This is you.' : '';
         return {
           title: `Delete the games of ${name}?`,
-          message: `Their saved games (${countOf(person, 'games')}), quiz results (${countOf(person, 'results')}) and statistics go, and cannot be brought back. What they sent as feedback stays, and so does their anotoki account: playing again, they start afresh.${you}`,
+          message: `Their saved games (${countOf(person, 'games')}), quiz results (${countOf(person, 'results')}) and statistics go, and cannot be brought back. What they sent as feedback stays, without the reply address and browser it was sent with, and so does their anotoki account: playing again, they start afresh.${you}`,
           confirm: 'Delete their games',
         };
       },

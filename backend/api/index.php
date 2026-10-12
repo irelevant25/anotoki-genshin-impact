@@ -298,10 +298,11 @@ MigrationsRoutes::admin(
 // (from the token, through the AdminContext - 401 for nobody, 403 for anybody
 // else), and this site's own check is added to each as well, which answers
 // first. Both judge the token alone, so the error log and the backups work
-// while an update waits (SITE_OPEN_WHILE_UPDATING) - restore aside.
+// while an update waits (SITE_OPEN_WHILE_UPDATING) - restore aside. The
+// people the pages name, they read from the context (peopleNamesById()).
 ErrorLogRoutes::admin($app, '/api/admin/errors', $errorLog, siteAdminContext(), siteAudit())->add(RequireRole::admin());
-AuditRoutes::admin($app, '/api/admin/audit', siteAudit(), siteAdminContext(), peopleNamesById(...))->add(RequireRole::admin());
-FeedbackRoutes::admin($app, '/api/admin/feedback', siteFeedback(), siteAdminContext(), siteAudit(), peopleNamesById(...))->add(RequireRole::admin());
+AuditRoutes::admin($app, '/api/admin/audit', siteAudit(), siteAdminContext())->add(RequireRole::admin());
+FeedbackRoutes::admin($app, '/api/admin/feedback', siteFeedback(), siteAdminContext(), siteAudit())->add(RequireRole::admin());
 BackupsRoutes::admin($app, '/api/admin/backups', siteBackups(), siteAdminContext())->add(RequireRole::admin());
 // The explorer's writes in the asset tree keep the catalogue's rows (same ids)
 // and never take a file the site's content points at: explorerGuard() refuses
@@ -336,6 +337,16 @@ FilesRoutes::raw($app, '/api/admin/files/raw', siteFileExplorer(), siteAdminCont
 // it came from is kept (Feedback, api/admin_tools.php).
 FeedbackRoutes::public($app, '/api/feedback', siteFeedback(), siteAdminContext(), feedbackSender(...));
 
+// The pages' own errors, into the error log (anotoki-lib 0.5.0, the owner's
+// decision: every site's): what the browser's ErrorHandler reports
+// (@anotoki/lib/error-report, app.config.ts) - JSON, 8 KB at most, scrubbed
+// again here, at most 20 an hour from one sender (a person by their account,
+// a visitor by their address bucket) and 500 a day from the visitors, as many
+// from the people signed in. Behind every gate, as any route: while the site
+// is closed, waits for an update or wants a sign-in, it takes none from whom
+// those keep out.
+ErrorLogRoutes::client($app, '/api/client-errors', $errorLog, siteAdminContext());
+
 ///////////////////
 // THE GATES
 ///////////////////
@@ -350,10 +361,12 @@ FeedbackRoutes::public($app, '/api/feedback', siteFeedback(), siteAdminContext()
 // locks (route_gate.php) - each file says what it leaves open.
 //
 // Inside the SiteGate, so a site that is not set up never runs them: the
-// people's scrub (at most hourly, after an answer, while the site is ready)
-// and the day's backup (the first answer of a UTC day). And the audit log
-// holds who acts for as long as a request is answered (the person and their
-// IAM session), so every entry it writes meanwhile names them.
+// people's scrub (at most hourly, after an answer, while the site is ready),
+// the day's backup (the first answer of a UTC day) and, once, the hashing of
+// the addresses the site's old error log files kept (api/admin_tools.php).
+// And the audit log holds who acts for as long as a request is answered (the
+// person and their IAM session), so every entry it writes meanwhile names
+// them.
 $app->add(routeGate());
 $app->add(signInGate());
 $app->add(maintenanceGate());
@@ -366,6 +379,7 @@ $app->add(identifyRequests(siteIdentify($app->getResponseFactory())));
 $app->add(function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface {
     $response = $handler->handle($request);
     siteBackups()->dailyIfDue();
+    oldErrorLogAddressesForgetSoon();
 
     return $response;
 });
@@ -425,14 +439,15 @@ $errorMiddleware->setDefaultErrorHandler($errorLog->wrapHandler(function (\Psr\H
 }));
 
 // Many answers never reach the handler above, because a route returns them
-// rather than throwing - a row that is not there, a 503 while closed. The
-// error log reads those off the answer instead (the library's outer
+// rather than throwing - a row that is not there, a 503 a store could not
+// keep. The error log reads those off the answer instead (the library's outer
 // middleware: an answer its rule takes - every 5xx, and 404, 405, 413, 415,
 // 429, the family's - that no exception's line said already; its code and
 // sentence, never its body). A refused token or role, a 409 or a 422 is the
-// API doing its job, and is not written (siteErrorLog()). Outside the error
-// middleware, so it sees what that answered too; the log's own routes are
-// never written into it.
+// API doing its job, and is not written, nor an answer that says a state the
+// site is in - closed, an update or a table waiting (SITE_EXPECTED_ANSWERS,
+// siteErrorLog()). Outside the error middleware, so it sees what that
+// answered too; the log's own routes are never written into it.
 $app->add(ErrorLogMiddleware::outer($errorLog));
 
 // No CORS: the pages and the API are one origin everywhere - the web root in

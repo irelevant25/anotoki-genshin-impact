@@ -3,7 +3,7 @@
   "info": {
     "title": "Genshin Impact API",
     "version": "1.0.0",
-    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n48 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
+    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n49 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
   },
   "servers": [
     {

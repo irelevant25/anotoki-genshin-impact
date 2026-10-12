@@ -61,12 +61,13 @@ testNeedsDatabase();
 echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n";
 
 // Everything after users/049 and genshin_impact/027 came with this release or
-// the next: users/050 and 051 with the words, then anotoki-lib 0.4.1's sets,
-// users/052-053 and genshin_impact/028-029, which one Apply brings along.
+// the ones after it: users/050 and 051 with the words, then anotoki-lib
+// 0.4.1's sets, users/052-053 and genshin_impact/028-029, and 0.5.0's
+// users/054, which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql',
     'users/050_translations_into_the_library.sql', 'users/051_guide_strings.sql', 'users/052_people.sql',
-    'users/053_drop_old_feedback_and_callback_strings.sql',
+    'users/053_drop_old_feedback_and_callback_strings.sql', 'users/054_visitor_starts_hashed.sql',
     'genshin_impact/028_audit_into_library.sql', 'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql', 'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql', 'anotoki_translations/004_feedback_words.sql',
