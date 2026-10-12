@@ -239,8 +239,8 @@ development through `ng serve`'s proxy. Never print a `.local.php` file's conten
 
 ## Verifying
 
-- `php -l <file>` after every edit, and `php tests/run.php` - on PHP 8.2 too
-  (the hosts run 8.2 and up) - with a test of the attack it stops for any change
+- `php -l <file>` after every edit, and `php tests/run.php` - it must pass on PHP
+  8.5 (the hosts run 8.2 and up: use nothing 8.2 lacks) - with a test of the attack it stops for any change
   to the upload rules (`api/upload_guard.php`, `api/asset_naming.php`). The tests
   that need a database make `genshin_test_*` ones of their own and a backend copy
   (`tests/db_lib.php`); an endpoint change gets a test there - an admin route's

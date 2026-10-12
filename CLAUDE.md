@@ -482,7 +482,7 @@ php tests/run.php                    # the backend's tests: the upload rules (no
                                      # it (keyed hashes), what a silent sign-in brings in (the move, the carry),
                                      # migration.php (genshin_test_* databases of their own on the
                                      # PostgreSQL server config/database.local.php names - never its database -
-                                     # and a backend copy). On PHP 8.2 too: PHPRC=<its ini folder> <php 8.2> tests/run.php
+                                     # and a backend copy). They must pass on PHP 8.5 (the owner's rule of 2026-10-12)
 
 # Frontend (from frontend/)
 npm start                            # bun ci, then ng serve on :4200 through proxy.conf.json (/api etc. to :8000)

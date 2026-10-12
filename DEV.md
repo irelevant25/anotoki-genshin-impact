@@ -478,8 +478,9 @@ databases of their own, `genshin_test_*`, on the PostgreSQL server
 `config/database.local.php` names (never its database; the user needs CREATEDB,
 as setup.php's does) and drop them when they end, and run the API in a backend
 copy of their own with a key pair standing in for the IAM; without the config
-file they say they are skipped. Run them on PHP 8.2 as well as the newest: the
-hosts run 8.2 and up. What there is:
+file they say they are skipped. They must pass on PHP 8.5 (the owner's rule of
+2026-10-12); the hosts run 8.2 and up, so the code uses nothing 8.2 lacks. What
+there is:
 
 ```bash
 # Frontend (frontend/)
