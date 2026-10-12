@@ -174,7 +174,8 @@ So, since 0.3.0, are the site's words - *The words* below.
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
   version may break. A release that changes one half only is taken in that half
-  (0.2.0 changed the Angular half alone); both halves are 0.5.0 now (never
+  (0.2.0 changed the Angular half alone): the PHP half is 0.5.1, the Angular half
+  0.5.0 (0.5.1 changed only PHP: a restore's sequences that count down; never
   0.4.0, whose PHP failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
