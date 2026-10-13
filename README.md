@@ -143,6 +143,26 @@ its ADMIN that it is being updated.
 The IAM has to be installed first. The upload map and every step:
 [DEV.md](DEV.md) ("Deploying to the hosting").
 
+## Hosting checklist
+
+What the host and Cloudflare need for this site - check it before the first upload and after any change of
+hosting:
+
+- **PHP 8.2 or newer** with `pdo_pgsql`, `mbstring`, `openssl`, `json` and `zlib` (the backups); `curl` or `allow_url_fopen` to ask the IAM; `imagick` for converting pictures in the admin panel (optional); `upload_max_filesize` and `post_max_size` of 50M or more (the file explorer takes files up to 50 MB). `tools/host-check.php` checks all of it on the host: write a long
+  random value into its `HOST_CHECK_TOKEN`, upload it beside `index.html`, open
+  `https://<the site>/host-check.php?token=<that value>`, and delete it afterwards (the page has a button for
+  it). It is never part of a build.
+- **Cloudflare** (the zone's settings, the same for every anotoki site):
+  - SSL/TLS **Full (strict)**: the connection from Cloudflare to the host is https - the site's secure cookies
+    need it end to end (the host check says which it is).
+  - Network -> **Pseudo IPv4 not "Overwrite headers"**: that setting would put a made-up IPv4 address into
+    `CF-Connecting-IP` for IPv6 visitors.
+  - The site believes the visitor's address in `CF-Connecting-IP` only on a connection from Cloudflare's
+    published ranges (the anotoki library's list), and counts every limit by it.
+- **After an upload**: the private folders (`storage/`, `config/`) answer 403 in a browser; the host check's
+  "Who connects" says Cloudflare, not a proxy of the host's (behind one, every visitor would share one
+  address); pending database updates are applied on the admin panel's Migrations page.
+
 ## Project layout
 
 ```text
