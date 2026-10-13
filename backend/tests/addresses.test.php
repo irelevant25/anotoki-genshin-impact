@@ -135,6 +135,12 @@ $cases = [
 foreach ($cases as $what => [$request, $expected]) {
     same($what, [$expected, $expected], [clientAddressCounted($request), siteAdminContext()->clientKey($request)]);
 }
+// Without config/cloudflare.local.php there is no origin secret (tests/origin-secret.test.php has one): Cloudflare's
+// word as before, and an X-Anotoki-Origin changes nothing.
+$anything = requestFrom(EDGE, ['CF-Connecting-IP' => '198.51.100.7', 'X-Anotoki-Origin' => 'anything']);
+same('no config/cloudflare.local.php: no origin secret, Cloudflare\'s word as before - whatever X-Anotoki-Origin says', [null, '198.51.100.7', '198.51.100.7'], [
+    originSecret(), clientAddressCounted($anything), siteAdminContext()->clientKey($anything),
+]);
 $local = visitorSettingsFrom(['client_address' => ['trusted_proxies' => []]])['settings']['client_address']['trusted_proxies'];
 same('a host that is not behind Cloudflare says so in config/visitors.local.php: [] - and the connection\'s own address counts', [[], EDGE], [
     $local, ClientAddress::bucket((string) ClientAddress::of(requestFrom(EDGE, ['CF-Connecting-IP' => '198.51.100.7']), $local)),

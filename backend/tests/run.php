@@ -14,7 +14,8 @@ declare(strict_types=1);
  * (anotoki-lib 0.5.0: the data moves of users/052, 054 and genshin_impact/
  * 028-029, every admin route's permissions, the gates, a restore doing again
  * what was deleted since its backup, the pages' error reports), where a
- * request comes from and what is kept of it (the Cloudflare rule, keyed
+ * request comes from and what is kept of it (the Cloudflare rule - with the
+ * origin secret, anotoki-lib 0.5.2, only through the owner's zone -, keyed
  * hashes only), what a silent sign-in brings in (the visitor's move, the
  * browser's games' carry), the command line - make
  * genshin_test_* databases of their own on the PostgreSQL server

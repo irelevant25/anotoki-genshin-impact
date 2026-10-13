@@ -76,7 +76,9 @@ Cloudflare's published ranges, the site being behind Cloudflare; `[]` on a host
 that is not - see `config/visitors.php`; never written by setup.php, put on a
 host by hand; every value is type- and range-checked, a bad one keeps its
 default and is logged once, so a typo such as `keep_days => 0` never sweeps
-everybody). A leftover
+everybody), `cloudflare.local.php` (the origin secret, the same file in every
+anotoki site - see `config/cloudflare.php` and *Visitors* below; never written
+or read by setup.php, put on a host by hand; no secret without it). A leftover
 `app.local.php` (this site's address, from when the dev frontend called the API
 cross-origin) is no longer read.
 
@@ -174,8 +176,9 @@ So, since 0.3.0, are the site's words - *The words* below.
   release's tarball URL in `frontend/package.json`, then `bun install` and `npm
   install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
   version may break. A release that changes one half only is taken in that half
-  (0.2.0 changed the Angular half alone): the PHP half is 0.5.1, the Angular half
-  0.5.0 (0.5.1 changed only PHP: a restore's sequences that count down; never
+  (0.2.0 changed the Angular half alone): the PHP half is 0.5.2, the Angular half
+  0.5.0 (0.5.1 and 0.5.2 changed only PHP: a restore's sequences that count down,
+  then the origin secret; never
   0.4.0, whose PHP failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -479,7 +482,8 @@ php translations.php --export sk [f] # a language's own strings as flat JSON; --
 php tests/run.php                    # the backend's tests: the upload rules (no database); the words' migration and
                                      # routes, the library's data moves, every admin route's permissions, sign-in,
                                      # the gates, a restore doing again the deletes since its backup, the pages'
-                                     # error reports, where a request comes from (Cloudflare) and what is kept of
+                                     # error reports, where a request comes from (Cloudflare; with the origin
+                                     # secret, only through the owner's zone) and what is kept of
                                      # it (keyed hashes), what a silent sign-in brings in (the move, the carry),
                                      # migration.php (genshin_test_* databases of their own on the
                                      # PostgreSQL server config/database.local.php names - never its database -
@@ -592,11 +596,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   database without changing the generated client.
 - **Config** is read through `config/local.php` (`localConfig()`), one module
   per concern: `db.php`, `secret.php`, `iam.php`, `site.php`, `backup.php`,
-  `visitors.php`. A value that differs per installation goes in a `.local.php`
+  `visitors.php`, `cloudflare.php`. A value that differs per installation goes in a `.local.php`
   that setup.php writes, never in a committed default - but for the optional
   ones, whose committed defaults are safe (`visitors.php`'s limits, and its
   trusted proxies - Cloudflare's ranges, the site being behind Cloudflare; a
-  host that is not says `[]` in `visitors.local.php`).
+  host that is not says `[]` in `visitors.local.php`; `cloudflare.php`'s
+  origin secret - none without `cloudflare.local.php`, as before).
 - **Visitors** (playing without signing in) live in `api/visitors.php`, the
   only code that makes, finds, locks or sweeps one: a `users` row with a
   negative id, `username` 'visitor', the SHA-256 of a key the server made
@@ -610,8 +615,17 @@ node docs/security/build-report.mjs                            # after re-runnin
   an address, over the library's `ClientAddress` - the owner's rule of
   2026-10-11: REMOTE_ADDR, or `CF-Connecting-IP` on a connection from one of
   `config/visitors.php`'s trusted proxies, committed as Cloudflare's published
-  ranges; never `X-Forwarded-For`; IPv6 by /64), and the AdminContext hands
-  the library the same rule; what `visitor_starts` keeps of it is
+  ranges; never `X-Forwarded-For`; IPv6 by /64 - and, with the origin secret,
+  only on a request that carries it: the owner's decision of 2026-10-13,
+  anotoki-lib 0.5.2. Cloudflare's ranges are every Cloudflare customer's -
+  anybody's Worker can connect from them and write the `CF-Connecting-IP` it
+  likes - so a Transform Rule of the owner's zone adds `X-Anotoki-Origin` with
+  a secret to every request; the site keeps the same value in the optional
+  `config/cloudflare.local.php` (`originSecret()`, `config/cloudflare.php`;
+  never printed or logged) and counts any other request from Cloudflare as
+  its edge - coarser, never looser; without the file, as before;
+  `tests/origin-secret.test.php`), and the AdminContext hands
+  the library the same rule (`originSecret:`); what `visitor_starts` keeps of it is
   `clientAddressHash()`, a keyed HMAC (users/054) - never the address, nowhere
   (`tests/addresses.test.php`). An answer decided deep inside
   the work is thrown as `ApiRefusal` (`api/helpers.php`) and answered by the
@@ -664,7 +678,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`peopleNamesById()`: a backup's maker, the audit log's and feedback's
   people), the trusted proxies (`config/visitors.php`: Cloudflare's ranges,
   none wider than a proxy's; their header Cloudflare's `CF-Connecting-IP`,
-  pinned - no setting, never `X-Real-IP` or `True-Client-IP` - so the library
+  pinned - no setting, never `X-Real-IP` or `True-Client-IP` - believed with
+  the origin secret only on a request carrying it, `originSecret()` - so the library
   reads an address by `clientAddressCounted()`'s rule, its `ClientAddress`), this API's `{error,
   code}` body). Each route group guards itself and gets `RequireRole::admin()`
   from this site as well:

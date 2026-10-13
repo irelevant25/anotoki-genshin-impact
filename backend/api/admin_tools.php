@@ -26,10 +26,12 @@
  */
 
 // Whose word a request's address is taken on (api/client_address.php, over
-// config/visitors.php) - the AdminContext below hands the same rule to the
-// library. Loaded here too for the command line, which loads this file
-// without api/index.php (migration.php: the backup before an apply).
+// config/visitors.php and config/cloudflare.php) - the AdminContext below
+// hands the same rule to the library. Loaded here too for the command line,
+// which loads this file without api/index.php (migration.php: the backup
+// before an apply).
 require_once __DIR__ . '/../config/visitors.php';
+require_once __DIR__ . '/../config/cloudflare.php';
 require_once __DIR__ . '/client_address.php';
 
 use Anotoki\Lib\Admin\AdminContext;
@@ -156,10 +158,11 @@ function siteIdentify(ResponseFactoryInterface $responses): Identify
  * feedback's people), this API's error body - and whose word a request's
  * address is taken on: config/visitors.php's trusted proxies (Cloudflare's
  * ranges), their header the library's default, Cloudflare's CF-Connecting-IP
- * and no other - so the library's own limits and hashes (feedback, the error
- * log, the pages' error reports) read an address by the same rule as the
- * visitors' limits (api/client_address.php) - the library's ClientAddress, an
- * IPv6 address by its /64.
+ * and no other, believed - with the origin secret (config/cloudflare.php) -
+ * only on a request that carries it - so the library's own limits and hashes
+ * (feedback, the error log, the pages' error reports) read an address by the
+ * same rule as the visitors' limits (api/client_address.php) - the library's
+ * ClientAddress, an IPv6 address by its /64.
  */
 function siteAdminContext(): AdminContext
 {
@@ -172,6 +175,7 @@ function siteAdminContext(): AdminContext
         isAdmin: static fn (ServerRequestInterface $request): bool => Identify::person($request)?->isAdmin() ?? false,
         names: peopleNamesById(...),
         trustedProxies: siteTrustedProxies(),
+        originSecret: originSecret(),
     );
 }
 

@@ -262,7 +262,9 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
-Angular half alone); both are 0.5.0 now (never 0.4.0, whose admin Feedback
+Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
+sequences that count down, then the origin secret): the PHP half is 0.5.2,
+the Angular half 0.5.0 (never 0.4.0, whose admin Feedback
 search fails on PHP 8.2). A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
@@ -1147,7 +1149,9 @@ committed in `config/visitors.php`, and the visitor's own address is read from
 `CF-Connecting-IP` on a connection from them (nothing to upload; a host that is
 not behind Cloudflare says so in a `config/visitors.local.php`,
 `['client_address' => ['trusted_proxies' => []]]`, which setup.php never writes
-and build-dist leaves behind, so it survives uploads). To stop visitors at once,
+and build-dist leaves behind, so it survives uploads) - and, with the origin
+secret, only on a request that carries it (*The origin secret on the host*,
+below). To stop visitors at once,
 switch **Sign-in required** on in the IAM.
 
 **The account's preferences on the host** (2026-10-06): the IAM first - its
@@ -1210,6 +1214,33 @@ Cloudflare: its ranges are committed (`config/visitors.php`) - unless a
 that one, if it is there. The first answer after the upload hashes the
 addresses the old error log files kept (`storage/logs/errors-*.jsonl`); the
 pages' own errors start arriving in the Error log as `client`.
+
+**The origin secret on the host** (anotoki-lib PHP 0.5.2, the Angular half
+still 0.5.0; the owner's decision of 2026-10-13; no migration): Cloudflare's
+ranges are every Cloudflare customer's, not the owner's zone alone - anybody's
+Worker can open a connection to the host from them and write the
+`CF-Connecting-IP` it likes, a new address every time, past every limit that
+counts per address. So the owner's zone adds a secret header to every request
+through it, and the site believes `CF-Connecting-IP` only on a request that
+carries it; any other request from Cloudflare counts as the edge it came from
+(coarser - a Worker's made-up visitors share one bucket - never looser). The
+same value in two places, a long random value of 32 characters or more:
+
+1. In Cloudflare: Rules → Transform Rules → Modify Request Header → "Set
+   static" `X-Anotoki-Origin` to the secret, for every request of the zone -
+   one rule for every anotoki site; a site without the secret pays it no heed.
+2. On the host, by hand (setup.php never writes or reads it, build-dist leaves
+   it behind, so it survives uploads): `backend/config/cloudflare.local.php` -
+   `<?php return ['origin_secret' => '<the same value>'];` - the same file in
+   every anotoki site. Keep a copy off the server.
+
+Set the rule first, then the file: the other way round, every visitor counts
+as their edge until the rule is there; changing the secret, likewise. Without
+the file (or with a value that is not a string with something in it) the site
+believes `CF-Connecting-IP` from the trusted proxies alone, as before. What is
+wrong with the file is said in the PHP log once (`[cloudflare] ...`) - never
+its value, nor what PHP said of a file it could not run - and never makes the
+site "not set up" (`config/cloudflare.php`).
 
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's

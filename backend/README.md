@@ -48,14 +48,17 @@ api/            index.php - the Slim app, every request to /api lands here
                 in: make, find, lock, sweep, move into an account at sign-in; ownerWrite(),
                 the one way a player's own data is written), client_address.php (where a
                 request comes from - the library's ClientAddress: CF-Connecting-IP from
-                Cloudflare's ranges alone - for the site's limits and, through the
+                Cloudflare's ranges alone, with the origin secret only on a request
+                carrying it (X-Anotoki-Origin) - for the site's limits and, through the
                 AdminContext, the library's; and the keyed hash the limits keep, never
                 the address), after_response.php (work done after the answer - the visitors' and
                 the people's sweeps, the day's backup, feedback's pruning)
 config/         one module per concern (db, secret, iam, site, backup, visitors - its
-                committed trusted proxies Cloudflare's ranges), read
+                committed trusted proxies Cloudflare's ranges -, cloudflare - the origin
+                secret, none without its file), read
                 through local.php; *.local.php per installation, gitignored, written by
-                setup.php - but the optional visitors.local.php, written by hand if at all
+                setup.php - but the optional visitors.local.php and cloudflare.local.php,
+                written by hand if at all
 migrations/     users/ then genshin_impact/ - the one database's schema, SQL applied in order
                 (and the anotoki library's own sets around them, from vendor/: anotoki_admin
                 before, anotoki_translations and anotoki_people after)
@@ -129,7 +132,10 @@ a file kept through its renames, moves, a refused delete and an Undo, a preview
 link signed under the installation's key refused, the People page and the
 scrub, and the gates around them; `addresses` where a request comes from
 (Cloudflare's word from Cloudflare alone) and that only keyed hashes of it are
-kept; `migration-cli` runs
+kept; `origin-secret` the same with the origin secret in `cloudflare.local.php`
+(Cloudflare's word only on a request carrying it: none sent or a wrong one the
+edge, the visitors' and feedback's limits counting the edge, what the file may
+hold - never logged); `migration-cli` runs
 `migration.php` itself. All but the first make `genshin_test_*` databases on
 the PostgreSQL server `config/database.local.php` names, drop them when done,
 and are skipped where there is none. Beyond them, `php -l` every file you

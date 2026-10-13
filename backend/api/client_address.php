@@ -26,6 +26,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * none is ever read. A header that is not one address counts the connection's
  * own.
  *
+ * Nor, with the origin secret (config/cloudflare.php's originSecret(), from
+ * the optional config/cloudflare.local.php; anotoki-lib 0.5.2, the owner's
+ * decision of 2026-10-13), is CF-Connecting-IP believed from a Cloudflare
+ * address on a request that does not carry the secret in X-Anotoki-Origin:
+ * Cloudflare's ranges are every Cloudflare customer's, and anybody's Worker
+ * can open a connection from them and write the CF-Connecting-IP it likes.
+ * The owner's zone adds the secret to every request through it (a Transform
+ * Rule); a request without it counts as the edge it came from - coarser, never
+ * looser. Without the file the trusted proxies alone decide, as before.
+ *
  * One address, for counting: an IPv4 address as it is (also when written as
  * IPv6, ::ffff:198.51.100.7), an IPv6 address by its /64 - one household or
  * one server is handed a whole /64 and picks from it at will, so counting
@@ -50,7 +60,7 @@ function siteTrustedProxies(): array
 /** What the limits count for this request: its address, or for IPv6 its /64 ("2001:db8:1:2::/64"); '?' when the server gave none. */
 function clientAddressCounted(Request $request): string
 {
-    $address = ClientAddress::of($request, siteTrustedProxies(), ClientAddress::CLOUDFLARE_HEADER);
+    $address = ClientAddress::of($request, siteTrustedProxies(), ClientAddress::CLOUDFLARE_HEADER, originSecret());
 
     return $address === null ? '?' : ClientAddress::bucket($address);
 }

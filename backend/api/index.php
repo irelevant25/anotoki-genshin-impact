@@ -16,6 +16,7 @@ require_once __DIR__ . '/../config/secret.php';
 require_once __DIR__ . '/../config/site.php';
 require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/../config/visitors.php';
+require_once __DIR__ . '/../config/cloudflare.php';
 require_once __DIR__ . '/helpers.php';
 
 // Nothing here needs the config/*.local.php files to load: without them the

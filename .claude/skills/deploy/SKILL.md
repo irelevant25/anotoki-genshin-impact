@@ -95,6 +95,15 @@ Cloudflare says `['client_address' => ['trusted_proxies' => []]]` there, and a
 file listing ranges of its own replaces Cloudflare's (check it, where there is
 one). Every value is checked; a bad one keeps its default and is logged once.
 
+A second one, the same in every anotoki site (anotoki-lib PHP 0.5.2, the
+owner's decision of 2026-10-13): `config/cloudflare.local.php`, the origin
+secret - `<?php return ['origin_secret' => '<a long random value, 32+ characters>'];`,
+the same value as the Cloudflare zone's Transform Rule (Rules → Transform
+Rules → Modify Request Header → "Set static" `X-Anotoki-Origin`, every request
+of the zone). Set the rule first, then the file; from then on `CF-Connecting-IP`
+is believed only on a request carrying the secret. Never print it; without the
+file the site works as before (DEV.md, *The origin secret on the host*).
+
 ## First install (empty database)
 
 The admin "apply migrations" button needs an admin to sign in, which needs the

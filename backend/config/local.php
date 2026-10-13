@@ -16,9 +16,12 @@
 //
 // Optional: backup.local.php (the pg_dump paths for the Backups page),
 // site.local.php (which site of the family this is, when not genshin_impact),
-// and visitors.local.php (the limits on playing without signing in, and the
+// visitors.local.php (the limits on playing without signing in, and the
 // proxies trusted to name a visitor's address - config/visitors.php; setup.php
-// never writes it, and its defaults hold without it).
+// never writes it, and its defaults hold without it), and cloudflare.local.php
+// (the origin secret the owner's Cloudflare zone adds to every request -
+// config/cloudflare.php; setup.php never writes or reads it, and there is no
+// secret without it).
 // An app.local.php from before (this site's address, which the API once
 // answered cross-origin calls from) is no longer read.
 //
