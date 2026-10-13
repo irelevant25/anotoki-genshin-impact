@@ -170,6 +170,9 @@ $bare = 'secret_' . bin2hex(random_bytes(16));
 foreach ([
     'a parse error (two strings side by side: PHP\'s message quotes the second)' => "<?php return ['origin_secret' => 'x' '" . ORIGIN_SECRET . "'];\n",
     'a word without its quotes (PHP\'s error quotes it)' => "<?php return ['origin_secret' => $bare];\n",
+    // Written by hand without its first line, or saved with a BOM: PHP would print the file before every answer.
+    'no <?php line (PHP would print the whole file)' => "return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
+    'a BOM (PHP would print it before the answer)' => "\xEF\xBB\xBF<?php return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
 ] as $what => $contents) {
     $dir = testTempDir('cloudflare');
     mkdir("$dir/config");

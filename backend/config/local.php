@@ -87,10 +87,18 @@ function _localConfigRead(string $name): array
         $read[$name] = ['value' => null, 'error' => null];
 
         if (is_file($file)) {
+            // A file written by hand without its <?php line, with text after its closing tag, or with a BOM would print what it
+            // holds - a password, a secret - before the answer: what it prints is caught, and the file is no use.
+            ob_start();
             try {
                 $read[$name]['value'] = require $file;
             } catch (\Throwable $e) {
                 $read[$name]['error'] = $e->getMessage();
+            } finally {
+                $printed = (string) ob_get_clean();
+            }
+            if ($printed !== '' && $read[$name]['error'] === null) {
+                $read[$name] = ['value' => null, 'error' => 'it prints ' . strlen($printed) . ' bytes of its own (no <?php line, text after ?>, or a BOM)'];
             }
         }
     }
