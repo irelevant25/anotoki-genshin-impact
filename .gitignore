@@ -15,6 +15,9 @@ backend/storage/
 # Assembled for upload by `php build-dist.php` - the runtime-only backend slice.
 backend/dist/
 
+# The root's Prettier (package.json: the anotoki family's one formatting setup).
+/node_modules/
+
 # Written by generate-openapi.mjs while it asks the compiler about the API
 # types, and removed again on the way out. Ignored so a crashed run cannot
 # leave it behind in a commit.

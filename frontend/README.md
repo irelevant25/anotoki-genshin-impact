@@ -109,6 +109,7 @@ npm start                 # bun ci, then ng serve on http://localhost:4200 with 
 npm run api               # regenerate the API client after a backend change (npm start does not)
 npm run lint
 npx tsc --noEmit -p tsconfig.app.json
+cd .. && bun run format:check   # Prettier on every file of both halves, at the root (bun install there first)
 node scripts/screenshots.mjs  # every page, light and dark, 1280 and 390 px, on a throwaway site (PHP= a PHP 8.2+)
 npm run build:deploy      # production -> dist/angular/browser/
 ```

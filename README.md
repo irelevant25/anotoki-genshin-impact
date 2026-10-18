@@ -210,8 +210,10 @@ frontend/
 docs/                   generated reports: reference/, performance/, security/; PG-DUMP-INSTALL.md (pg_dump
                         on the hosting, for backups); images/ (the anotoki logos)
 .claude/                project skills and agents for AI-assisted work
-.gitignore, CLAUDE.md, README.md, DEV.md - and nothing else committed at the root
-                        (in development the untracked assets/ tree sits there too)
+tools/                  host-check.php - what a host's PHP has and lacks (never part of a build)
+.gitignore, CLAUDE.md, README.md, DEV.md, and the anotoki family's formatting setup - package.json and
+bun.lock (Prettier alone: bun run format:check), .prettierrc.json, .prettierignore, .editorconfig - and
+nothing else committed at the root (in development the untracked assets/ tree sits there too)
 ```
 
 ## Docs

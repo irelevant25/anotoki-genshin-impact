@@ -1,0 +1,61 @@
+**/node_modules/
+**/vendor/
+**/dist/
+**/.angular/
+coverage/
+bun.lock
+package-lock.json
+composer.lock
+*.md
+*.sql
+**/storage/
+**/config/*.local.php
+
+# The asset tree (2.7 GB of the game's art, never committed - the backend writes uploads into it) and the uploads' store: files the site serves, never code.
+/assets/
+backend/public/uploads/
+# Written whole by the API's generators at every `npm run api`: the spec, the client's models, services and barrel (frontend/src/app/api's other files are hand-written), the OpenAPI document and its page.
+frontend/api-spec.json
+frontend/src/app/api/index.ts
+frontend/src/app/api/models/
+frontend/src/app/api/services/
+backend/api/openapi.json
+backend/api/docs.html
+# The reports and the data they are made from, as their generators, the benchmark and the tools wrote them (docs/README.md).
+docs/**/*.html
+docs/performance/runs/
+docs/security/tools/
+# Prettier puts a text's start or end on a line of its own (htmlWhitespaceSensitivity ignore) and Angular keeps a space there: these templates
+# would compile differently - a space after "Add", "Back", "Save" and the other buttons' words, " . " in the file categories' note, the daily
+# badge's count between two spaces, and the space after the colon of What's new's "Added: " gone.
+frontend/src/app/sites/admin/artifacts/artifacts-list/artifacts-list.component.html
+frontend/src/app/sites/admin/backgrounds/backgrounds-list/backgrounds-list.component.html
+frontend/src/app/sites/admin/banners/banner-form/banner-form.component.html
+frontend/src/app/sites/admin/banners/banners-list/banners-list.component.html
+frontend/src/app/sites/admin/characters/character-form/character-form.component.html
+frontend/src/app/sites/admin/characters/character-form/voice-overs/import/voice-overs-import.component.html
+frontend/src/app/sites/admin/characters/character-form/voice-overs/voice-overs-tab.component.html
+frontend/src/app/sites/admin/characters/characters-list/characters-list.component.html
+frontend/src/app/sites/admin/enemies/enemies-list/enemies-list.component.html
+frontend/src/app/sites/admin/enemies/enemy-form/enemy-form.component.html
+frontend/src/app/sites/admin/file-categories/file-categories.component.html
+frontend/src/app/sites/admin/files/asset-stats/asset-stats.component.html
+frontend/src/app/sites/admin/files/missing-modal/missing-modal.component.html
+frontend/src/app/sites/admin/files/trash-modal/trash-modal.component.html
+frontend/src/app/sites/admin/foods/food-form/food-form.component.html
+frontend/src/app/sites/admin/foods/foods-list/foods-list.component.html
+frontend/src/app/sites/admin/lookup-table/lookup-table.component.html
+frontend/src/app/sites/admin/materials/material-form/material-form.component.html
+frontend/src/app/sites/admin/materials/materials-list/materials-list.component.html
+frontend/src/app/sites/admin/settings/settings-group-modal/settings-group-modal.component.html
+frontend/src/app/sites/admin/settings/settings-routes-modal/settings-routes-modal.component.html
+frontend/src/app/sites/admin/weapons/weapons-list/weapons-list.component.html
+frontend/src/app/sites/main/common/footer/site-whats-new-modal/site-whats-new-modal.component.html
+frontend/src/app/sites/main/common/header/header.component.html
+# The build copies it as it is: Prettier's layout would make the built changelog.json differ from the one before.
+frontend/public/changelog.json
+# generate-api-spec.php takes a respondJson() call's status from its last argument: the PHP plugin's trailing comma after 201 would make the
+# spec say 200 for POST /api/site-routes.
+backend/api/routes/users/endpoints/routes.php
+# Runs on PHP 5.6 and up, so an old host still gets an answer: the PHP plugin would add PHP 7.3's trailing commas.
+tools/host-check.php

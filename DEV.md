@@ -28,8 +28,10 @@ endpoint.
 > The pre-rewrite Vue codebase (`old/`) is no longer in the tree; git history keeps it.
 >
 > The repository root holds `.claude/`, `.gitignore`, `CLAUDE.md`, `README.md`,
-> `DEV.md`, `backend/`, `frontend/` and `docs/` - nothing else is committed there,
-> like every anotoki project. In development the untracked asset tree, `assets/`
+> `DEV.md`, `backend/`, `frontend/`, `docs/`, `tools/` (the host check) and the
+> anotoki family's formatting setup - `package.json` and `bun.lock` (Prettier
+> alone), `.prettierrc.json`, `.prettierignore` and `.editorconfig` - nothing else
+> is committed there, like every anotoki project. In development the untracked asset tree, `assets/`
 > (2.7 GB, never committed), sits there too: the backend files uploads into it and
 > `ng serve` serves it. The logos are in `docs/images/`, the guide to pg_dump on the
 > hosting is `docs/PG-DUMP-INSTALL.md`; the site's own favicon is
@@ -538,6 +540,9 @@ node scripts/screenshots.mjs --out <a scratch folder>   # every page in a real b
 php -l <file>                                  # every PHP file you touched
 php tests/run.php                              # the backend's tests (tests/*.test.php)
 php migration.php --dry-run                    # a new migration is picked up
+
+# Both halves (the root)
+bun run format:check                           # Prettier on every file, the anotoki family's one setup (bun install there first)
 
 # The generated client is in step with the backend
 cd frontend && npm run api && git diff --stat src/app/api api-spec.json
