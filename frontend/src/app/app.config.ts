@@ -7,6 +7,7 @@ import { provideAnotokiAdmin } from "@anotoki/lib/admin";
 import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from "@anotoki/lib/auth";
 import { provideAnotokiErrorReport } from "@anotoki/lib/error-report";
 import { provideAnotokiFeedback } from "@anotoki/lib/feedback";
+import { provideAnotokiLegal } from "@anotoki/lib/legal";
 import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
 import { provideAnotokiTranslations, TranslationService } from "@anotoki/lib/translations";
 import { provideAnotokiUi } from "@anotoki/lib/ui/config";
@@ -22,6 +23,7 @@ import { AUTH_CALLBACK_PATH } from "./shared/routing-definition";
 import { siteAdminToolsConfig } from "./shared/site-admin-tools";
 import { siteAuthConfig } from "./shared/site-auth";
 import { siteFeedbackConfig } from "./shared/site-feedback";
+import { isLegalPage, siteLegalConfig } from "./shared/site-legal";
 import { siteStatusConfig } from "./shared/site-status";
 import { siteTranslationsConfig } from "./shared/site-translations";
 import { clientNotingSilentSignIns } from "./shared/silent-sign-in";
@@ -54,7 +56,8 @@ export const BASE_PATH = new InjectionToken<string>('basePath');
  * not answering: the page that says so is all there is to see, and it has its
  * own Sign in for an administrator. Without an IAM to go to there is nothing to
  * start. Whatever is not started here meets the sign-in card in the site's
- * shell, with the button on it.
+ * shell, with the button on it. Never on a legal page (Terms, Privacy,
+ * Contact): they are anybody's, read before signing in (shared/site-legal.ts).
  */
 function mustSignInFirst(siteSettings: SiteSettingsService, security: SecurityService, siteStatus: SiteStatus): boolean {
   return (
@@ -65,7 +68,8 @@ function mustSignInFirst(siteSettings: SiteSettingsService, security: SecuritySe
     security.available() &&
     !security.holdsSession() &&
     !security.signInFailure() &&
-    !/^\/auth(\/|$)/.test(location.pathname)
+    !/^\/auth(\/|$)/.test(location.pathname) &&
+    !isLegalPage(location.pathname)
   );
 }
 
@@ -177,6 +181,12 @@ export const appConfig: ApplicationConfig = {
     // The visitors' feedback form (shared/site-feedback.ts) and its words, the
     // library's anotoki.feedback.*; the form itself loads when it is opened.
     provideAnotokiFeedback(siteFeedbackConfig),
+    // The anotoki family's legal pages - Terms, Privacy, Contact, on lazy routes
+    // open to anybody (sites/main/main.routes.ts) - and the footer's links to
+    // them, in the library's words: the page's language and the database's
+    // words (shared/site-legal.ts). The facts, which only the pages read, come
+    // with their frame (sites/main/legal/), out of the first load.
+    provideAnotokiLegal(siteLegalConfig),
     // The admin tools' configuration (shared/site-admin-tools.ts) - here, where
     // the library's pages and the navigation's feedback count read it; the
     // pages themselves load with the admin panel's routes.

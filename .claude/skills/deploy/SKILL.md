@@ -104,6 +104,14 @@ of the zone). Set the rule first, then the file; from then on `CF-Connecting-IP`
 is believed only on a request carrying the secret. Never print it; without the
 file the site works as before (DEV.md, *The origin secret on the host*).
 
+Every one of these files is read cleanly or not at all (since 2026-10-18,
+`config/local.php`): save each as UTF-8 **without a BOM**, starting with
+`<?php` on its first line. One that does not is never compiled and is passed
+over - a required one leaves the site not set up, an unreadable
+`cloudflare.local.php` fails closed (every visitor counts as their Cloudflare
+edge), an unreadable `visitors.local.php` trusts no proxy - and the PHP log says
+which file and why (`[settings] ...`), never a word of it.
+
 ## First install (empty database)
 
 The admin "apply migrations" button needs an admin to sign in, which needs the
@@ -224,6 +232,16 @@ sealed from this release, and those made before restore offline only. Nothing
 for Cloudflare (its ranges are committed); the first answer hashes the
 addresses in the old `storage/logs/errors-*.jsonl`; the pages' own errors
 arrive in the Error log (`POST /api/client-errors`).
+
+anotoki-lib 0.6.2 (2026-10-18; `users/055`, `056` and the library's
+`anotoki_translations/005`-`011`; no schema change): upload both builds and
+Apply at once. Then open `/terms`, `/privacy` and `/contact` signed out: the
+facts in English and Slovak, the footer's links and fan clause under every
+page; the Privacy page names the hosting company "to be named" until the owner
+names it (`frontend/src/app/sites/main/legal/legal-facts.ts`). For the Privacy
+page's "30 days" of the error log and its backups to be the whole truth, delete
+the old `storage/logs/errors-*.jsonl` and the old pg_dump folders
+(`storage/backups/<stamp>-<hex>/`, `manual/`) by FTP once the owner agrees.
 
 ## Copying local data up to production
 

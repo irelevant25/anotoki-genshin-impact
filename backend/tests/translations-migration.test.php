@@ -17,7 +17,8 @@ declare(strict_types=1);
  *
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
- * strings - and nothing else came in but the library's words and 051's; the
+ * strings - and nothing else came in but the library's words, 051's and
+ * 055's, nothing else went but 053's and 056's; the
  * blanks went; the tables are in the library's shape, which its own 001
  * proved; the copies keep everything as it was. And 050 refuses, naming what
  * stops it, a database it cannot move: a language code that is no code, a
@@ -60,19 +61,41 @@ testNeedsDatabase();
 
 echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n";
 
+// The library's translations set as anotoki-lib 0.6.2 brings it: 001-004 (the
+// words' shape, the kit's, the sign-in page's and the feedback form's words),
+// 005-009 (the legal pages', the top bar's, the kit's newer pieces', the tabs'
+// and the inputs' words) and 010-011 (the Privacy page's sentences made true).
+const LIBRARY_WORDS_FILES = [
+    '001_languages_and_strings.sql', '002_library_words.sql', '003_sign_in_words.sql', '004_feedback_words.sql',
+    '005_legal_words.sql', '006_top_bar_words.sql', '007_kit_piece_words.sql', '008_tab_words.sql', '009_input_words.sql',
+    '010_backups_where_words.sql', '011_privacy_words_made_true.sql',
+];
+
 // Everything after users/049 and genshin_impact/027 came with this release or
 // the ones after it: users/050 and 051 with the words, then anotoki-lib
-// 0.4.1's sets, users/052-053 and genshin_impact/028-029, and 0.5.0's
-// users/054, which one Apply brings along.
+// 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
+// and 0.6's users/055-056 (the legal pages' facts, the multiselect's old
+// summaries gone) with the library's words 005-011, which one Apply brings
+// along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql',
     'users/050_translations_into_the_library.sql', 'users/051_guide_strings.sql', 'users/052_people.sql',
     'users/053_drop_old_feedback_and_callback_strings.sql', 'users/054_visitor_starts_hashed.sql',
+    'users/055_legal_pages.sql', 'users/056_drop_multiselect_selected_strings.sql',
     'genshin_impact/028_audit_into_library.sql', 'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql', 'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql', 'anotoki_translations/004_feedback_words.sql',
+    'anotoki_translations/005_legal_words.sql', 'anotoki_translations/006_top_bar_words.sql',
+    'anotoki_translations/007_kit_piece_words.sql', 'anotoki_translations/008_tab_words.sql',
+    'anotoki_translations/009_input_words.sql', 'anotoki_translations/010_backups_where_words.sql',
+    'anotoki_translations/011_privacy_words_made_true.sql',
     'anotoki_people/001_people.sql',
 ];
+
+// What users/056 takes away: the multiselect's old summaries, which nothing reads.
+const MULTISELECT_SUMMARY_KEYS = ['multiselect.selected.few', 'multiselect.selected.none', 'multiselect.selected.one', 'multiselect.selected.other'];
+// How many keys users/055 brings: the legal pages' facts in genshin's words and the footer's fan line.
+const LEGAL_PAGE_KEYS = 44;
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -140,7 +163,7 @@ $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
 same('what was applied, in order', WORDS_AND_AFTER, array_map(fn ($file) => $file['set'] . '/' . $file['name'], $result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
-same('the library\'s files are recorded under its own name', ['001_languages_and_strings.sql', '002_library_words.sql', '003_sign_in_words.sql', '004_feedback_words.sql'], recordedMigrations($pdo)['anotoki_translations']);
+same('the library\'s files are recorded under its own name', LIBRARY_WORDS_FILES, recordedMigrations($pdo)['anotoki_translations']);
 
 echo "Every word, where it belongs\n";
 
@@ -157,8 +180,8 @@ $lost = [];
 $blank = 0;
 foreach ($before as $row) {
     $key = $row['key_name'] . '|' . $row['language_code'];
-    if (in_array($row['key_name'], OLD_FORM_KEYS, true)) {
-        // users/053's to take away - looked at below.
+    if (in_array($row['key_name'], OLD_FORM_KEYS, true) || in_array($row['key_name'], MULTISELECT_SUMMARY_KEYS, true)) {
+        // users/053's and 056's to take away - looked at below.
         continue;
     }
     if (preg_match('/\S/', $row['value']) !== 1) {
@@ -179,11 +202,28 @@ foreach ($before as $row) {
 same('every string that was not blank: word for word, with its writer and its time', [], $lost);
 same('the three blanks are gone', 3, $blank);
 
-// 002's 54, 003's nine (the sign-in page's) and 004's 31 (the feedback form's).
+// 002's 54, 003's nine (the sign-in page's), 004's 31 (the feedback form's), 005's 122 (the legal pages'), 006's
+// one (the top bar's), 007's four (the kit's newer pieces'), 008's two (the tabs') and 009's 34 (the inputs'); 010
+// and 011 reword only.
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
-same('the library\'s own keys came, 94 of them', 94, $libraryKeys);
+same('the library\'s own keys came, 257 of them', 257, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn ($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-same('and nothing else but 051\'s one key in and 053\'s out: the keys but the guides\' bodies, kept', count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + 94, (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn());
+same('and nothing else but 051\'s one key and 055\'s in, 053\'s and 056\'s out: the keys but the guides\' bodies, kept', count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + 257, (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn());
+$inList = "'" . implode("', '", MULTISELECT_SUMMARY_KEYS) . "'";
+same('056: the multiselect\'s four old summaries, all there before, gone - with every string under one', [4, 0, 0], [
+    count(array_intersect(MULTISELECT_SUMMARY_KEYS, array_keys($keysBefore))),
+    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+]);
+same('...multiselect.more.* kept, which the field still reads', 0, count(array_diff(
+    array_values(array_filter(array_keys($keysBefore), fn ($key) => str_starts_with($key, 'multiselect.more.'))),
+    $pdo->query("SELECT name FROM translation_keys WHERE name LIKE 'multiselect.more.%'")->fetchAll(PDO::FETCH_COLUMN),
+)));
+same('055: the legal pages\' facts and the footer\'s fan line, in English and Slovak', [LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS], [
+    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'legal.%' OR name = 'footer.fanDisclaimer'")->fetchColumn(),
+    (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
+    (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
+]);
 
 $inList = "'" . implode("', '", OLD_FORM_KEYS) . "'";
 same('053: the old feedback form\'s and callback page\'s keys, all there before, gone - with every string under one, in every language', [count(OLD_FORM_KEYS), 0, 0], [

@@ -230,7 +230,7 @@ same on every anotoki site: one library, `anotoki-lib`
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.5.0"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.6.0"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
@@ -249,7 +249,9 @@ language, the `translate` pipe, the admin Translations and Languages pages),
 `frontend/src/app/shared/site-auth.ts` (signing in: the IAM from the public
 settings, the sign-in hint, the interceptor, the visitor key on a player's own
 routes), `frontend/src/app/shared/site-feedback.ts` (the visitors' feedback
-form), `frontend/src/app/shared/site-admin-tools.ts` (the admin tools,
+form), `frontend/src/app/shared/site-legal.ts` and
+`frontend/src/app/sites/main/legal/` (Terms, Privacy and Contact with this
+site's facts, since 0.6.0), `frontend/src/app/shared/site-admin-tools.ts` (the admin tools,
 provided at the app's root) and `frontend/src/app/sites/admin/people.ts` (the
 People page, on the admin panel's route) - their pages on lazy routes,
 `frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
@@ -263,9 +265,10 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): the PHP half is 0.5.2,
-the Angular half 0.5.0 (never 0.4.0, whose admin Feedback
-search fails on PHP 8.2). A piece of the library's kit is
+sequences that count down, then the origin secret): both halves are 0.6.2 now
+(never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
+takes no next minor: `^0.6.0` never brings 0.7, which needs its constraint
+written. A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
 
@@ -274,9 +277,13 @@ cd backend
 composer update anotoki/lib --prefer-dist      # a new constraint in composer.json first, when the version needs one
 cd ../frontend
 # the new release's tarball URL in package.json, then:
-bun install
-npm install                                    # package-lock.json too, so both lock files agree
+bun install                                    # bun.lock, which npm start's bun ci installs from
 ```
+
+package-lock.json is kept in step by hand: its `@anotoki/lib` entry (the
+dependency's address, and `node_modules/@anotoki/lib`'s `version`, `resolved`
+and `integrity`) given bun.lock's - never `npm install`, which would rewrite
+the whole lock.
 
 Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
 (build-dist.php copies `vendor/` whole).
@@ -442,6 +449,22 @@ with nothing to apply: the old error log files' addresses (`ip` in
 the library's backups are sealed from now on, so a plain backup made before
 the update restores offline only (make one right after it - *The admin tools*).
 
+**And (written 2026-10-18): anotoki-lib 0.6.2** - Terms, Privacy and Contact.
+In the order they run: `users/055_legal_pages.sql` (this site's facts for the
+family's legal pages - 44 keys, English and informal Slovak, each string only
+where it has none - and the footer's fan clause, `footer.fanDisclaimer`),
+`users/056_drop_multiselect_selected_strings.sql` (the multiselect's four old
+summaries, which nothing reads: `multiselect.selected.*`), then the library's
+`anotoki_translations/005`-`009` (the legal pages' 122 words, the top bar's,
+the kit's newer pieces', the tabs' and the inputs') and `010`-`011` (the
+Privacy page's sentences on backups, the account's address and the sign-in's
+notes, made true - each only while nobody saved another wording). No schema
+changes; the Apply backs the database up first. Upload both builds and Apply at
+once - until then the site is being updated for everybody but its ADMIN, as for
+every update. Nothing else to set; the hosting company is "to be named" on the
+Privacy page until the owner names it (`processors` in
+`frontend/src/app/sites/main/legal/legal-facts.ts`).
+
 ---
 
 ## Checking your work
@@ -475,6 +498,16 @@ move and the browser's own games' carry, each into an account here for the
 first time, into one with its own games (nothing comes, the visitor and the
 browser's games left as they were), and a sign-in the person makes into that
 one;
+`settings-files.test.php`: every `config/*.local.php` read cleanly or not at
+all - one that does not start with `<?php` never compiled, one that prints
+caught, a parse error said by its kind and line - and the attacks it stops,
+each through the whole API in a process of its own: a database file with a
+BOM, a password and no `<?php` puts the password in no answer (the status
+page's included); a BOM or a blank line before `<?php declare(strict_types=1);`
+leaves the site not set up, never a 500; an unreadable `cloudflare.local.php`
+fails closed (a forged `CF-Connecting-IP` from Cloudflare's ranges is the
+edge, the visitors' limit counts one sender); an unreadable
+`visitors.local.php` trusts no proxy; a broken `site.local.php` is not set up;
 `migration-cli.test.php`: `php migration.php` itself). All but the first make
 databases of their own, `genshin_test_*`, on the PostgreSQL server
 `config/database.local.php` names (never its database; the user needs CREATEDB,
@@ -502,10 +535,13 @@ cd frontend && npm run api && git diff --stat src/app/api api-spec.json
 
 **Every page in a real browser.** `node scripts/screenshots.mjs` (in `frontend/`)
 builds the site for production and shows every page of it - the public site as
-a visitor, its dialogs, a sign-in the IAM refuses (the anotoki library's screen
+a visitor, its dialogs, Terms, Privacy and Contact in English and Slovak (and
+Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
 of it on the callback's page, and in the sign-in card while the IAM requires
-signing in), then the admin panel as its ADMIN, and two pages signed
-in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
+signing in), the Privacy page while the IAM requires signing in (drawn, never
+the card, no trip to the IAM), then the admin panel as its ADMIN (the Errors
+page with the page's thrown error as its row, and that row opened), and three
+pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
 and `report.json`. It flags what a picture hides: a page wider than a phone, an
 error in the console, a key shown where a word should be - and throws an error
@@ -1236,11 +1272,17 @@ same value in two places, a long random value of 32 characters or more:
 
 Set the rule first, then the file: the other way round, every visitor counts
 as their edge until the rule is there; changing the secret, likewise. Without
-the file (or with a value that is not a string with something in it) the site
-believes `CF-Connecting-IP` from the trusted proxies alone, as before. What is
-wrong with the file is said in the PHP log once (`[cloudflare] ...`) - never
-its value, nor what PHP said of a file it could not run - and never makes the
-site "not set up" (`config/cloudflare.php`).
+the file (or with one read cleanly whose value is not a string with something
+in it) the site believes `CF-Connecting-IP` from the trusted proxies alone, as
+before. A file that cannot be read cleanly - saved with a byte-order mark, a
+blank line before its `<?php`, no `<?php` line, text after a closing tag, a
+typo PHP cannot parse - **fails closed** (since 2026-10-18, the anotoki
+family's rule): its secret is one no request carries, so every request from
+Cloudflare counts as its edge until the file is mended - save it as UTF-8
+without a BOM, starting with `<?php`. What is wrong with the file is said in
+the PHP log once (`[settings] ...` and `[cloudflare] ...`) - never its value,
+nor what PHP said of it - and never makes the site "not set up"
+(`config/cloudflare.php`).
 
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's
@@ -1284,7 +1326,7 @@ the PostgreSQL client tools locally.
 
 | Symptom | Likely cause |
 | --- | --- |
-| The site shows "This site is not set up yet", or the API answers `503 not_set_up` | `backend/config/*.local.php` are missing or incomplete. Open `http://localhost:8000/setup.php` - it lists what is missing. |
+| The site shows "This site is not set up yet", or the API answers `503 not_set_up` | `backend/config/*.local.php` are missing or incomplete. Open `http://localhost:8000/setup.php` - it lists what is missing. A file that is there but "does not start with <?php", "prints N bytes of its own" or "cannot be read (ParseError on line N)" (setup.php's list, the PHP log's `[settings]` line) was saved by hand with a byte-order mark, a blank line before `<?php`, text after a closing tag or a typo: save it as UTF-8 without a BOM, starting with `<?php` - setup.php will not save over it until then. |
 | The site shows "The site is being updated" (the API answers `503 update_pending`) | A migration file is there that the database has not run - `php migration.php --status` says which. Run `php migration.php`, or as the site's ADMIN sign in on that page, **Open Migrations** and **Apply pending**. |
 | The site shows "The site is not available right now" | The database does not answer (Postgres stopped, or the connection is wrong), or - on an installed site - a `config/*.local.php` went missing. `/api/site-status` says which (`unavailable`, `not_set_up`). |
 | API cannot connect to the database | Postgres is not running, or the connection in `setup.php` is wrong - its **Test connection** says which. |

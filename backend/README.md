@@ -135,7 +135,14 @@ scrub, and the gates around them; `addresses` where a request comes from
 kept; `origin-secret` the same with the origin secret in `cloudflare.local.php`
 (Cloudflare's word only on a request carrying it: none sent or a wrong one the
 edge, the visitors' and feedback's limits counting the edge, what the file may
-hold - never logged); `migration-cli` runs
+hold - never logged; one that cannot be read cleanly fails closed);
+`settings-files` every `config/*.local.php` read cleanly or not at all - one
+that does not start with `<?php` never compiled, one that prints caught - and
+the attacks it stops, through the whole API in a process a case (a BOM'd
+database file's password in no answer; a BOM or a blank line before `<?php
+declare(strict_types=1);` not set up, never a 500; an unreadable
+`cloudflare.local.php` failing closed; an unreadable `visitors.local.php`
+trusting no proxy; a broken `site.local.php` not set up); `migration-cli` runs
 `migration.php` itself. All but the first make `genshin_test_*` databases on
 the PostgreSQL server `config/database.local.php` names, drop them when done,
 and are skipped where there is none. Beyond them, `php -l` every file you

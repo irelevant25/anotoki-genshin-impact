@@ -222,6 +222,15 @@ function routeEndpointRefusal(string $path, ?array $user): ?array
  */
 const ROUTE_PATH_RESERVED = ['/auth/callback', '/staff'];
 
+/**
+ * The legal pages (Terms, Privacy, Contact - the anotoki family's, the site's
+ * facts in them): anybody's, whatever this table says, as their routes are
+ * (sites/main/main.routes.ts gives them no page switch). What the site keeps
+ * and how to reach its operator is said to whoever asks - before signing in,
+ * and while a part of the site is off.
+ */
+const ROUTE_PATH_LEGAL = ['/terms', '/privacy', '/contact'];
+
 /** Why this page may not be added, or null when it may. */
 function routePathRefusal(string $path): ?string
 {
@@ -243,6 +252,11 @@ function routePathRefusal(string $path): ?string
     if (in_array($path, ROUTE_PATH_RESERVED, true)) {
         return "'$path' is how somebody gets into the site, and is not governable - "
              . 'switching it off would leave people signed in at the IAM and unable to arrive here';
+    }
+
+    if (in_array($path, ROUTE_PATH_LEGAL, true)) {
+        return "'$path' is one of the legal pages, which are anybody's and not governable - "
+             . 'what the site keeps, and how to reach whoever runs it, is said to whoever asks';
     }
 
     return null;

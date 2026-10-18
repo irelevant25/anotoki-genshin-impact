@@ -42,13 +42,23 @@
 
 require_once __DIR__ . '/db.php';
 
+/**
+ * config/backup.local.php's paths, or none: read cleanly or not at all, as
+ * every settings file is (config/local.php) - one passed over is said in the
+ * PHP log, and on the command line here too, and the tools look for pg_dump
+ * where they would without it.
+ */
 function backupConfig(): array
 {
     static $config = null;
 
     if ($config === null) {
-        $localFile = __DIR__ . '/backup.local.php';
-        $config = file_exists($localFile) ? (array) require $localFile : [];
+        $values = localConfig('backup');
+        $error = localConfigError('backup');
+        if ($error !== null && PHP_SAPI === 'cli') {
+            fwrite(STDERR, "config/backup.local.php {$error}: it is passed over, and pg_dump is looked for without it.\n");
+        }
+        $config = is_array($values) ? $values : [];
     }
 
     return $config;

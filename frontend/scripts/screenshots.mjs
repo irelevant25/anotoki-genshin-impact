@@ -9,10 +9,12 @@
 // makes a throwaway site to show it - a database of its own with a little game content in it and a backend
 // copy serving it (backend/tests/tools/browser-env.php), the anotoki library's stand-in IAM to sign in at -,
 // serves the build and that API on one origin as the hosting does, and drives headless Edge (or Chrome)
-// through the pages: the public site as a visitor, a sign-in the IAM refuses (the anotoki library's screens of
-// it), an error thrown in a page (which must reach the site's error log, scrubbed), then the admin panel as its
-// ADMIN. Then it stops all of it and drops the database - also when something fails. Nothing here touches your
-// database, your settings, your browser or a real IAM.
+// through the pages: the public site as a visitor - Terms, Privacy and Contact in English and Slovak among them -,
+// a sign-in the IAM refuses (the anotoki library's screens of it), a legal page while the IAM requires signing in
+// (drawn, never the sign-in card), an error thrown in a page (which must reach the site's error log, scrubbed),
+// then the admin panel as its ADMIN (the Errors page with that error as its row, and the row opened). Then it
+// stops all of it and drops the database - also when something fails. Nothing here touches your database, your
+// settings, your browser or a real IAM.
 //
 // The screenshots go to --out (default: a folder under the system's temporary one, named at the end), one
 // per page, width and theme: `main-home--1280-light.png`, `admin-characters-form--390-dark.png` - the whole
@@ -140,6 +142,33 @@ const MAIN = [
   { name: 'main-dialog-feedback', path: '/', then: click('app-footer a, app-footer button, app-footer .item', '^Feedback') },
   { name: 'main-dialog-whats-new', path: '/', fresh: true },
   { name: 'main-dialog-guide', path: '/quizzes', then: press('button.guide-icon') },
+  // The anotoki family's legal pages with genshin's facts (anotoki-lib 0.6), in English and in Slovak (`lang`: the
+  // language this browser chose), and the Contact page's feedback form opened in its dialog.
+  { name: 'main-terms', path: '/terms' },
+  { name: 'main-privacy', path: '/privacy', focus: 3 },
+  { name: 'main-contact', path: '/contact' },
+  { name: 'main-terms-sk', path: '/terms', lang: 'sk' },
+  { name: 'main-privacy-sk', path: '/privacy', lang: 'sk' },
+  { name: 'main-contact-sk', path: '/contact', lang: 'sk' },
+  {
+    name: 'main-contact-feedback',
+    path: '/contact',
+    then: steps(press('[data-open-feedback]'), (page) => waitFor(page, "!!document.querySelector('anotoki-dialog dialog[open], dialog[open]')", 10000)),
+  },
+];
+
+/**
+ * A legal page while the IAM requires signing in: drawn for somebody signed out - never the sign-in card, and
+ * never a trip to the IAM first (no tokens kept): what the site keeps is said before anybody signs in.
+ */
+const LEGAL_SIGNED_OUT = [
+  {
+    name: 'main-privacy-sign-in-required',
+    path: '/privacy',
+    iam: { login_required: true },
+    then: (page) =>
+      waitFor(page, "location.pathname === '/privacy' && !!document.querySelector('anotoki-privacy-page h1') && !document.querySelector('app-sign-in-required') && !localStorage.getItem('anotoki-auth:genshin')", 15000),
+  },
 ];
 
 const lookups = [
@@ -200,7 +229,17 @@ const ADMIN = [
   { name: 'admin-migrations', path: '/admin/migrations' },
   { name: 'admin-feedback', path: '/admin/feedback' },
   { name: 'admin-audit-logs', path: '/admin/audit-logs' },
-  { name: 'admin-errors', path: '/admin/errors' },
+  // A row: the page's own error the run threw (error-report, below) - and the row opened, its details shown.
+  { name: 'admin-errors', path: '/admin/errors', then: (page) => waitFor(page, "!!document.querySelector('anotoki-error-log-page [data-groups] [data-fingerprint]')", 15000) },
+  {
+    name: 'admin-errors-row',
+    path: '/admin/errors',
+    then: steps(
+      (page) => waitFor(page, "!!document.querySelector('anotoki-error-log-page [data-groups] [data-fingerprint] button[data-toggle]')", 15000),
+      press('anotoki-error-log-page [data-groups] [data-fingerprint] button[data-toggle]'),
+      (page) => waitFor(page, "!!document.querySelector('anotoki-error-log-page [data-groups] button[data-toggle][aria-expanded=true]')", 10000),
+    ),
+  },
   { name: 'admin-files-explorer', path: '/admin/files-explorer' },
   { name: 'admin-backups', path: '/admin/backups' },
   { name: 'admin-people', path: '/admin/people' },
@@ -223,6 +262,7 @@ const SIGN_IN_FAILED = [
 const SIGNED_IN = [
   { name: 'main-home-signed-in', path: '/' },
   { name: 'main-profile-signed-in', path: '/profile' },
+  { name: 'main-privacy-signed-in', path: '/privacy' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -463,18 +503,20 @@ async function measure(data) {
 
 /**
  * What the page finds in this browser's storage before it starts: the theme (the site keeps the device's in
- * `anotoki-genshin-impact-theme` while nobody signed in has one) and, but for the page that shows it, the
- * version last seen - or "What's new" would open over every page.
+ * `anotoki-genshin-impact-theme` while nobody signed in has one), the language chosen (English, or the entry's
+ * `lang`) and, but for the page that shows it, the version last seen - or "What's new" would open over every page.
  */
 let bootScript = null;
-async function boot(themeName, fresh) {
+async function boot(themeName, fresh, lang = 'en') {
   if (bootScript) {
     await page.send('Page.removeScriptToEvaluateOnNewDocument', { identifier: bootScript });
   }
-  const keys = { 'anotoki-genshin-impact-theme': themeName, ...(fresh ? {} : { 'anotoki-genshin-impact-version': version }) };
+  // The language this browser chose (`lang`, English unless the page asks for Slovak) - and no `?lang=` held for the
+  // tab from an earlier page, which would outrank it.
+  const keys = { 'anotoki-genshin-impact-theme': themeName, 'anotoki-genshin-impact-language': lang, ...(fresh ? {} : { 'anotoki-genshin-impact-version': version }) };
   const source = `try { ${Object.entries(keys)
     .map(([key, value]) => `localStorage.setItem(${JSON.stringify(key)}, ${JSON.stringify(value)});`)
-    .join(' ')} ${fresh ? "localStorage.removeItem('anotoki-genshin-impact-version');" : ''} } catch {}`;
+    .join(' ')} sessionStorage.removeItem('anotoki-genshin-impact-language'); ${fresh ? "localStorage.removeItem('anotoki-genshin-impact-version');" : ''} } catch {}`;
   ({ identifier: bootScript } = await page.send('Page.addScriptToEvaluateOnNewDocument', { source }));
   await page.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: themeName }] });
 }
@@ -506,7 +548,7 @@ async function visitAs(entry, width) {
   const problems = [];
   for (const themeName of ['light', 'dark']) {
     heard = [];
-    await boot(themeName, entry.fresh);
+    await boot(themeName, entry.fresh, entry.lang);
     await page.send('Page.navigate', { url: origin + entry.path });
     await settle();
     if (entry.then) {
@@ -641,11 +683,13 @@ try {
   console.log(`Screenshots: ${out}\n`);
   await pass(MAIN);
   await pass(SIGN_IN_FAILED);
+  await pass(LEGAL_SIGNED_OUT);
 
   // The browser's errors reach the site's error log (@anotoki/lib/error-report, app.config.ts): one thrown on
   // a page outside Angular's own code - with an address in it, which the report must not carry - is read
-  // back from the backend's log, the page's own (source client).
-  if (!only || 'error-report'.includes(only)) {
+  // back from the backend's log, the page's own (source client). Also run for the Errors page's shots, whose
+  // row it is.
+  if (!only || 'error-report'.includes(only) || 'admin-errors-row'.includes(only)) {
     await viewport(1280);
     await boot('light', false);
     await page.send('Page.navigate', { url: `${origin}/quizzes` });

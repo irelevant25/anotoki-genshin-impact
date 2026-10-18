@@ -1,0 +1,7 @@
+// The family's page lays itself out - a measure a person reads comfortably (46rem), its sections apart - inside the
+// site's veiled column (.container, styles.scss), which stays as wide as the measure and its padding: a page of
+// text, never a wide veil with the words down its left side.
+.legal-frame {
+  max-width: calc(46rem + 50px);
+  margin-inline: auto;
+}

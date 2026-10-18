@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.2.0",
+    "date": "2026-10-18",
+    "changes": {
+      "added": [
+        "Terms of use, a privacy policy and a contact page — what the site keeps about you, why and for how long, and how to reach us — linked at the bottom of every page, with a note that this is a fan-made site"
+      ]
+    }
+  },
+  {
     "version": "1.1.0",
     "date": "2026-10-07",
     "changes": {

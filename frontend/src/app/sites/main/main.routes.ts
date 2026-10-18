@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AuthCallbackComponent } from '@anotoki/lib/auth';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -26,6 +27,9 @@ import { DatabaseWeaponDetailComponent } from './features/database/weapons/detai
 import { ProfileComponent } from './features/profile/profile.component';
 import { StaffSignInPageComponent } from './features/account/staff/staff.component';
 import { routeAccessGuard } from './route-access.guard';
+
+/** The legal pages' frame, loaded with the first of them that is opened (and the site's facts with it, out of the first load). */
+const legalFrame = (): Promise<Type<unknown>> => import('./legal/legal-frame.component').then((m) => m.LegalFrameComponent);
 
 export const routes: Routes = [
   {
@@ -147,6 +151,35 @@ export const routes: Routes = [
       // Never switchable: it is where the sign-in button goes when there is
       // no sign-in button.
       { path: ROUTE_MAP.map['staff'].path, component: StaffSignInPageComponent },
+
+      // The legal pages - Terms, Privacy, Contact: the anotoki family's
+      // (@anotoki/lib/legal/pages) with genshin's facts, which their frame
+      // gives them (legal/), each loaded when it is opened. Anybody's: no page
+      // switch (no routeAccessGuard - the API refuses a row for them), and the
+      // shell draws them in place of its closed sign and sign-in card. Each is
+      // a path of its own with the frame as its parent - never one parent with
+      // an empty path holding the three: the router takes an address it has
+      // read whole for such a parent when none of its children match, and
+      // would draw the empty frame where the home page should be (the survey's
+      // lesson, 2026-10-17). Before "**", which would take them. Their paths
+      // are the library's (DEFAULT_LEGAL_PATHS: shared/site-legal.ts, the
+      // footer's links go there).
+      {
+        path: 'terms',
+        loadComponent: legalFrame,
+        children: [{ path: '', loadComponent: () => import('@anotoki/lib/legal/pages').then((m) => m.TermsPageComponent) }],
+      },
+      {
+        path: 'privacy',
+        loadComponent: legalFrame,
+        children: [{ path: '', loadComponent: () => import('@anotoki/lib/legal/pages').then((m) => m.PrivacyPageComponent) }],
+      },
+      {
+        path: 'contact',
+        loadComponent: legalFrame,
+        children: [{ path: '', loadComponent: () => import('@anotoki/lib/legal/pages').then((m) => m.ContactPageComponent) }],
+      },
+
       { path: '**', component: NotFoundComponent },
     ],
   },

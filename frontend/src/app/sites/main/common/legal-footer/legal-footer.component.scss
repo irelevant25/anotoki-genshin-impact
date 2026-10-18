@@ -1,0 +1,35 @@
+// A small veiled box of its own, centred under the page's panels: the wallpaper behind it is any picture, so the
+// words stand on the strong veil (88 % of the page's ground), where the muted ink keeps 4.5:1 over the darkest and
+// the lightest wallpaper alike. Its bottom margin keeps it clear of the footer's fixed bar on a wide screen; on a
+// phone that bar follows it in the flow.
+:host {
+  display: block;
+}
+
+.legal-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin: 0 auto 72px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 16px;
+  background-color: var(--bg-veil-strong);
+  color: var(--anotoki-muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.legal-footer-fan {
+  margin: 0;
+  line-height: 1.4;
+}
+
+// Where the footer's bar leaves the window's corner for the flow (styles.scss, 992 px).
+@media only screen and (max-width: 992px) {
+  .legal-footer {
+    margin-bottom: 1rem;
+  }
+}

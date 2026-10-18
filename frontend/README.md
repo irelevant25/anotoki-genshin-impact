@@ -14,8 +14,12 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         drawn instead of the site; the visitor notice (visitor-notice: how long a
                         visitor's games are kept, and Sign in) on the Profile, the quizzes hub and
                         the Daily page; the footer's Feedback (site-feedback-modal: the library's
-                        form, loaded when opened); the shell (app.component) says once what
-                        happened to a visitor's games, in toasts
+                        form, loaded when opened); legal-footer (Terms · Privacy · Contact, the
+                        library's links, and the fan clause, under every page); the shell
+                        (app.component) says once what happened to a visitor's games, in toasts;
+                        legal/ - /terms, /privacy, /contact: the library's pages
+                        (@anotoki/lib/legal/pages) in their frame, with this site's facts
+                        (legal-facts.ts), anybody's, each loaded when opened
 src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words, settings;
                         /admin/translations and /admin/languages are the shared library's pages
                         (@anotoki/lib/translations/admin), localization/guides/ the guides' pages;
@@ -39,7 +43,8 @@ src/app/shared/         local-lib (what the family's kit has no piece for: the f
                         browser's games' carry at sign-in say so, and the server then brings them
                         only into an account with nothing here yet); site-feedback.ts
                         (@anotoki/lib/feedback: the visitors' form's
-                        sections and extra fields); site-admin-tools.ts (@anotoki/lib/admin: the
+                        sections and extra fields); site-legal.ts (@anotoki/lib/legal: the legal
+                        pages' language and words, their paths); site-admin-tools.ts (@anotoki/lib/admin: the
                         admin tools' configuration, at the app's root, where the library's pages
                         and the feedback count read it); site-status.ts (@anotoki/lib/migrations set up
                         for this site: the gate the root component puts around both sites, its

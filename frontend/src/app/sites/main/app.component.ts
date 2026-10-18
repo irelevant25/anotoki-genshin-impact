@@ -1,14 +1,18 @@
 import { Component, computed, effect, inject, untracked } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { AnnouncementComponent } from './common/announcement/announcement.component';
+import { LegalFooterComponent } from './common/legal-footer/legal-footer.component';
 import { MaintenanceComponent } from './common/maintenance/maintenance.component';
 import { RouteNoticeComponent } from './common/route-notice/route-notice.component';
 import { SignInRequiredComponent } from './common/sign-in-required/sign-in-required.component';
 import { SiteSettingsService } from '../../shared/local-lib/services/site-settings.service';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../shared/local-lib/services/visitor-key.service';
+import { isLegalPage } from '../../shared/site-legal';
 import { ToastHostComponent, ToastService } from '@anotoki/lib/ui/toast';
 import { TranslationService } from '@anotoki/lib/translations';
 import { QuizProgressService } from './features/quizzes/shared/quiz-progress.service';
@@ -17,7 +21,7 @@ import { QuizProgressService } from './features/quizzes/shared/quiz-progress.ser
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
+  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, LegalFooterComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
   providers: [],
 })
 export class AppComponent {
@@ -28,15 +32,32 @@ export class AppComponent {
   private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
 
+  /** The address the page is at, after each navigation - the browser's own until the first one ends. */
+  private readonly _path = toSignal(
+    inject(Router).events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects),
+    ),
+    { initialValue: location.pathname },
+  );
+
+  /**
+   * Whether the page is one of the legal pages (Terms, Privacy, Contact):
+   * anybody's - drawn in place of the closed sign and the sign-in card, as
+   * what the site keeps is said before anybody signs in (legal/legal-frame).
+   */
+  readonly legalPage = computed(() => isLegalPage(this._path()));
+
   /**
    * Whether to draw the closed sign instead of the site.
    *
    * Admins are exempt, which is what makes maintenance mode usable: whoever
    * closed the site has to be able to look at it while it is closed, and to
    * open it again. It follows the session rather than reading it once, so the
-   * sign goes up again the moment an admin signs out in another tab.
+   * sign goes up again the moment an admin signs out in another tab. The legal
+   * pages are exempt too: they need nothing the closed API keeps back.
    */
-  readonly closed = computed(() => this._settings.maintenance() && !this._settings.isAdmin());
+  readonly closed = computed(() => this._settings.maintenance() && !this._settings.isAdmin() && !this.legalPage());
 
   /**
    * Whether to draw the sign-in card instead of the site: the IAM wants
@@ -48,8 +69,10 @@ export class AppComponent {
    * a browser that would not start it. Followed
    * rather than read once, so a sign-out in another tab puts the card up here
    * too. The closed sign comes first: maintenance outranks it, as on the API.
+   * Never on a legal page: the API keeps open all a legal page asks for (its
+   * words, the public settings).
    */
-  readonly signInFirst = computed(() => this._settings.loginRequired() && !this._security.isLoggedIn());
+  readonly signInFirst = computed(() => this._settings.loginRequired() && !this._security.isLoggedIn() && !this.legalPage());
 
   constructor() {
     document.body.style.backgroundImage = `url('assets/backgrounds/Fontaine.avif')`;

@@ -453,7 +453,13 @@ $stamp = siteIam()->cacheDirectory() . '/' . \Anotoki\Lib\People\Http\PeopleUpke
 file_put_contents($stamp, (string) time());
 rename($anonymizedFile, "$anonymizedFile.away");
 $unchecked = send('POST', '/api/admin/backups/' . $backup['id'] . '/restore', FRESH_ADMIN, ['confirm' => substr((string) $backup['id'], -6)]);
-same('a restore whose scrub could not run: 200, and after_restore_error says so', [200, true], [$unchecked->getStatusCode(), str_contains((string) (body($unchecked)['after_restore_error'] ?? ''), 'were not checked again')]);
+// Since anotoki-lib 0.6.0 no answer carries a failure's own words (a path, a host): the library's fixed sentence,
+// and what failed goes to the site's error log (the Backups' onError).
+$afterError = (string) (body($unchecked)['after_restore_error'] ?? '');
+same('a restore whose scrub could not run: 200, and after_restore_error says so - in the library\'s fixed sentence, never the failure\'s own words', [200, true, false], [
+    $unchecked->getStatusCode(), str_contains($afterError, 'The error log says what'), str_contains($afterError, 'were not checked again'),
+]);
+check('...and the error log says why: the accounts the IAM deleted were not checked again', str_contains(implode("\n", array_map(fn ($file) => (string) file_get_contents($file), glob("$backend/storage/error-log/errors-*.jsonl") ?: [])), 'were not checked again'));
 check('...the upkeep\'s stamp is still there until the answer is out', is_file($stamp));
 afterResponseRun();
 check('...and gone after it, so the next request runs the scrub again', !is_file($stamp));
@@ -672,6 +678,11 @@ same('...written down: migrations.applied, by the ADMIN', ['users/999_test_waiti
 unlink("$backend/migrations/users/999_test_waiting.sql");
 same('applied: everything answers again', 200, send('GET', '/api/admin/audit', ADMIN)->getStatusCode());
 same('...and the error log wrote none of the 503 update_pending answers meanwhile: a state, not a failure', 0, linesSaying($backend, 'update_pending'));
+
+// The legal pages are anybody's: the page switches never govern them (anotoki-lib 0.6's Terms, Privacy, Contact).
+$governed = array_map(fn (string $path) => [send('POST', '/api/site-routes', ADMIN, ['path' => $path, 'visibility' => 'ADMIN'])->getStatusCode(), (int) $pdo->query('SELECT count(*) FROM site_routes WHERE path = ' . $pdo->quote($path))->fetchColumn()], ['/terms', '/privacy', '/contact']);
+same('the page switches refuse the legal pages - 422, no row: they are anybody\'s', [[422, 0], [422, 0], [422, 0]], $governed);
+check('...saying why', str_contains((string) (body(send('POST', '/api/site-routes', ADMIN, ['path' => '/privacy/']))['error'] ?? ''), 'legal pages'));
 
 echo "What the error log leaves out (a state the site is in) and what it writes (a failure, a 503 among them)\n";
 

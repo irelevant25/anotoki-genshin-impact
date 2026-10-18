@@ -14,8 +14,9 @@ const THEMES: Theme[] = ['light', 'dark', 'auto'];
 /** What a device that has never chosen shows: the site reads better light (users/003). */
 const DEFAULT_THEME: Theme = 'light';
 
-/** This device's theme: the last one shown, the account's or a visitor's own. */
-const STORAGE_KEY = 'theme';
+/** This device's theme: the last one shown, the account's or a visitor's own (under LocalStorageService's prefix - the Privacy page names it). */
+export const THEME_STORAGE_KEY = 'theme';
+const STORAGE_KEY = THEME_STORAGE_KEY;
 
 /**
  * Where the theme was kept while the site and the admin panel had one each.

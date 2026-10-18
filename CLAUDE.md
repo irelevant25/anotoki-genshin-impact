@@ -82,6 +82,34 @@ or read by setup.php, put on a host by hand; no secret without it). A leftover
 `app.local.php` (this site's address, from when the dev frontend called the API
 cross-origin) is no longer read.
 
+**Every one of them is read cleanly or not at all** (`localConfigFileRead()`,
+`config/local.php` - the anotoki family's rule; Japanese Academy's review of
+2026-10-18 added the first five bytes): a file whose first five bytes are not
+`<?php` (any case) - a byte-order mark, a blank line or a space before it, no
+`<?php` line - is never compiled (with `declare(strict_types=1)` after such a
+start PHP could not compile it: a fatal error no handler catches, every request
+a 500); one that prints all the same (text after a closing tag, an echo) is
+caught and never sent; one PHP cannot parse is said by the kind of its error and
+its line - never `$e->getMessage()`, which can quote the file. Such a file is
+passed over and said once in the PHP log (`[settings] ...`, by its fault or byte
+count, never its text), and is no file - and never in a way that makes the site
+looser: a required one leaves the site not set up (never a 500, nothing of it in
+any answer - `/api/site-status` included); `cloudflare.local.php` **fails
+closed** (a secret no request carries - `originSecretUnmatchable()` - so every
+request from Cloudflare's ranges counts as its edge until it is mended; one read
+cleanly that names no secret is no secret, as before); `visitors.local.php` keeps
+the limits' defaults and trusts **no proxy** (it may be the file that said `[]`;
+a `client_address` or `trusted_proxies` that is no list trusts none either);
+`site.local.php` leaves the site not set up (never `genshin_impact`'s switches
+read in another site's database); `backup.local.php` is no paths. setup.php
+reads its own token file through the same guard, and never saves over a
+database, secret, jwt or iam file it could not read (a secret with a BOM is
+still the secret). `tests/settings-files.test.php` holds the attacks: a
+database file with a BOM, a password and no `<?php` puts the password in no
+answer; a BOM or a blank line before `<?php declare(strict_types=1);` leaves the
+site not set up, never a 500; an unreadable `cloudflare.local.php` never makes a
+forged `CF-Connecting-IP` from Cloudflare's ranges believed.
+
 **No CORS.** The pages and the API are one origin everywhere: the web root in
 production, and in development `ng serve`'s proxy (`frontend/proxy.conf.json`:
 `/api`, `/.well-known`, `/setup.php` to :8000), with `frontend/public/config.json`'s
@@ -171,15 +199,16 @@ So, since 0.3.0, are the site's words - *The words* below.
   padding (on a phone, to its own 56 px row), so the library's sticky heads stick
   flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.5.0"`, from the GitHub VCS
-  repository) and `composer update anotoki/lib --prefer-dist` in `backend/`; the
-  release's tarball URL in `frontend/package.json`, then `bun install` and `npm
-  install` (both lock files). Read its CHANGELOG.md first: while it is 0.x a minor
-  version may break. A release that changes one half only is taken in that half
-  (0.2.0 changed the Angular half alone): the PHP half is 0.5.2, the Angular half
-  0.5.0 (0.5.1 and 0.5.2 changed only PHP: a restore's sequences that count down,
-  then the origin secret; never
-  0.4.0, whose PHP failed a search on 8.2). Import a
+  in `backend/composer.json` (`"anotoki/lib": "^0.6.0"`, from the GitHub VCS
+  repository; on 0.x a caret takes no next minor) and `composer update anotoki/lib
+  --prefer-dist` in `backend/`; the release's tarball URL in
+  `frontend/package.json`, then `bun install` (bun.lock), and package-lock.json's
+  `@anotoki/lib` entry given bun.lock's version, address and integrity by hand -
+  never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
+  first: while it is 0.x a minor version may break. A release that changes one
+  half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
+  0.5.2 the PHP half alone): both halves are 0.6.2 now (never 0.4.0, whose PHP
+  failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
   every piece into the first load.
@@ -211,9 +240,11 @@ ADMIN or EDITOR, languages too.
   code, no scopes, flags or stamps; the library's own set `anotoki_translations`
   (`vendor/anotoki/lib/php/migrations/translations`) runs after both folders
   (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
-  its 002-004 add the library's words under `anotoki.*` (94 keys: the kit's, the
-  status page's, the sign-in page's, the feedback form's), which the owner may
-  reword like any string. `anotoki.` is the
+  its 002-009 add the library's words under `anotoki.*` (257 keys since 0.6.0: the
+  kit's, the status page's, the sign-in page's, the feedback form's, the legal
+  pages' 122, the top bar's, the kit's newer pieces', the tabs' and the inputs'),
+  and 010-011 reword the Privacy page's sentences where nobody saved them, which
+  the owner may reword like any string. `anotoki.` is the
   library's namespace: never a key of this site's. `translation_keys_before_library`
   and `translations_before_library` are 050's full copies, kept for one release.
 - **The guides** (`api/guides.php`, `routes/users/endpoints/guides.php`,
@@ -485,6 +516,7 @@ php tests/run.php                    # the backend's tests: the upload rules (no
                                      # error reports, where a request comes from (Cloudflare; with the origin
                                      # secret, only through the owner's zone) and what is kept of
                                      # it (keyed hashes), what a silent sign-in brings in (the move, the carry),
+                                     # every settings file read cleanly or not at all (the attacks it stops),
                                      # migration.php (genshin_test_* databases of their own on the
                                      # PostgreSQL server config/database.local.php names - never its database -
                                      # and a backend copy). They must pass on PHP 8.5 (the owner's rule of 2026-10-12)
@@ -497,8 +529,10 @@ npm run lint
 node scripts/screenshots.mjs         # every page and its dialogs in headless Edge, light and dark, 1280 and 390 px:
                                      # screenshots to compare before and after a change to the pages, and what a
                                      # picture hides (wider than a phone, console errors, a key shown as a word);
-                                     # a sign-in the IAM refuses (the library's screens of it), and an error
-                                     # thrown in a page, read back from the error log, scrubbed.
+                                     # a sign-in the IAM refuses (the library's screens of it), the legal pages in
+                                     # English and Slovak (and one while sign-in is required), and an error
+                                     # thrown in a page, read back from the error log, scrubbed - the Errors
+                                     # page's row, and that row opened.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
@@ -623,8 +657,10 @@ node docs/security/build-report.mjs                            # after re-runnin
   a secret to every request; the site keeps the same value in the optional
   `config/cloudflare.local.php` (`originSecret()`, `config/cloudflare.php`;
   never printed or logged) and counts any other request from Cloudflare as
-  its edge - coarser, never looser; without the file, as before;
-  `tests/origin-secret.test.php`), and the AdminContext hands
+  its edge - coarser, never looser; without the file, as before; with one
+  that cannot be read cleanly, a secret no request carries - fails closed,
+  never "no secret" (*Configuration* above; `tests/origin-secret.test.php`,
+  `tests/settings-files.test.php`), and the AdminContext hands
   the library the same rule (`originSecret:`); what `visitor_starts` keeps of it is
   `clientAddressHash()`, a keyed HMAC (users/054) - never the address, nowhere
   (`tests/addresses.test.php`). An answer decided deep inside
@@ -824,7 +860,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.5.0), each piece imported from its own entry point -
+  kit (anotoki-lib 0.6.2), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -904,6 +940,33 @@ node docs/security/build-report.mjs                            # after re-runnin
   (the base URL, the token of whoever is signed in). Its request carries
   `ANOTOKI_ERROR_REPORT` in its context; `http.interceptor.ts` has no error
   handling of its own to skip for it.
+- **Terms, Privacy and Contact** (anotoki-lib 0.6, the owner's decisions of
+  2026-10-13): the family's pages (`@anotoki/lib/legal/pages`) on `/terms`,
+  `/privacy` and `/contact` - each a lazy route of its own in
+  `sites/main/main.routes.ts` whose parent is their frame
+  (`sites/main/legal/legal-frame`, the site's veiled column), never one
+  empty-path parent holding the three (the router would take an address read
+  whole for it - the survey's lesson), and before `**`. Anybody's: no
+  `routeAccessGuard` (the API refuses a site_routes row for them,
+  `ROUTE_PATH_LEGAL`), the public shell draws them in place of its closed sign
+  and sign-in card (`legalPage()`), and the app initializer never sends somebody
+  opening one to the IAM (`mustSignInFirst()`). `provideAnotokiLegal()`
+  (`shared/site-legal.ts`: the page's language, the database's words; the
+  operator the library's default, Code Hero s.r.o.) is in the first load; the
+  facts are the frame's (`sites/main/legal/legal-facts.ts`), out of it - each
+  fact TRUE of the code, what it rests on written beside it: a change to what the
+  site keeps, or for how long, changes its `legal.*` strings (a `users/`
+  migration: 055 brought them) and `SITE_LEGAL_UPDATED`. Every address the
+  pages link to (the IAM's Privacy and account pages from the issuer, the
+  operator's, the processors') is the code's, never a string an administrator
+  can reword. Contact opens the footer's feedback form (the library's) in the
+  kit's dialog; the Terms and Contact pages carry the fan clause
+  (`fanDisclaimer: 'hoyoverse'`). Under every public page - the closed sign and
+  the sign-in card too - `sites/main/common/legal-footer`: the family's
+  `<anotoki-legal-links>` (Terms · Privacy · Contact) and the fan clause in the
+  site's words (`footer.fanDisclaimer`: "This site is a fan-made project and is
+  not affiliated with or endorsed by HoYoverse."), on a strong veil of its own,
+  clear of the footer's fixed bar. The admin panel has no footer.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper

@@ -298,12 +298,18 @@ function deleteSetupArtifacts(): bool
     return @unlink(__FILE__);
 }
 
+/**
+ * The token in config/setup.local.php, or null. Read as every settings file
+ * is, cleanly or not at all (localConfigFileRead(), config/local.php): one
+ * saved back by hand with a byte-order mark would print the token ahead of
+ * this page. One passed over is no token, and the page writes a new one.
+ */
 function setupToken(): ?string
 {
     if (!is_file(SETUP_TOKEN_FILE)) {
         return null;
     }
-    $config = require SETUP_TOKEN_FILE;
+    $config = localConfigFileRead(SETUP_TOKEN_FILE)['value'];
     $token = is_array($config) ? ($config['token'] ?? null) : null;
 
     return is_string($token) && $token !== '' ? $token : null;
@@ -906,6 +912,15 @@ if ($posted && $action === 'install') {
     }
     if ($twoDatabases) {
         $errors[] = databaseTwoDatabasesMessage() . ' Then open this page again.';
+    }
+    // A settings file that is there but could not be read cleanly is never saved over (the anotoki family's rule):
+    // a secret.local.php saved with a byte-order mark still holds the site secret, which a new one in its place would
+    // lose - and with it every keyed hash and signed link made under it.
+    foreach (['database', 'secret', 'jwt', 'iam'] as $name) {
+        if (localConfigError($name) !== null) {
+            $errors[] = "config/{$name}.local.php " . localConfigError($name) . ': it is not saved over. Mend it - it must'
+                . ' start with <?php and print nothing - or remove it, then open this page again.';
+        }
     }
 
     [$settings, $formErrors] = setupReadForm($old, $onThisComputer, $savedPassword);

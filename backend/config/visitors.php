@@ -57,14 +57,20 @@
 //
 // Every value is checked, because a hand-written file is where a typo lands
 // and some typos are costly - keep_days 0 would delete every visitor at the
-// next sweep. A whole number out of its range, a number written as a string,
-// a list that is not a list: that value keeps its default, and the PHP log
-// says so (once, not on every request). A proxy entry that is not an address
+// next sweep. A whole number out of its range, a number written as a string:
+// that value keeps its default, and the PHP log says so (once, not on every
+// request). A client_address or a trusted_proxies that is no list trusts no
+// proxy until it is mended - never Cloudflare's ranges by default. A proxy entry that is not an address
 // or a CIDR range is dropped, and so is one that takes in nearly everybody (an
 // IPv4 range wider than a /8, an IPv6 one wider than a /16: 0.0.0.0/0 would
 // let anybody name their own address). A key nobody reads is reported too. A
-// file that cannot be read at all leaves every default standing - it never
-// makes the site "not set up".
+// file that cannot be read cleanly (config/local.php: it does not start with
+// <?php, it prints, PHP cannot read it) leaves the visitors' limits at their
+// defaults and TRUSTS NO PROXY - every request counts as the address it came
+// from - until it is mended: it may be the very file that said [] for a host
+// that is not behind Cloudflare, and Cloudflare's ranges believed then would
+// be looser than its owner meant (coarser, never looser; the anotoki family's
+// rule of 2026-10-18). It never makes the site "not set up".
 // ---------------------------------------------------------------------------
 
 require_once __DIR__ . '/local.php';
@@ -159,16 +165,19 @@ function visitorSettings(): array
     static $settings = null;
 
     if ($settings === null) {
-        $problems = [];
         $error = localConfigError('visitors');
         if ($error !== null) {
-            $problems[] = 'config/visitors.local.php cannot be read, so every default holds: ' . $error;
-            $result = ['settings' => VISITOR_SETTING_DEFAULTS, 'problems' => []];
+            // Passed over: the limits' defaults, and no proxy believed - never Cloudflare's ranges by default, which a
+            // host not behind Cloudflare would have said [] to in this very file.
+            $result = ['settings' => VISITOR_SETTING_DEFAULTS, 'problems' => [
+                "config/visitors.local.php cannot be read cleanly ({$error}): the visitors' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended",
+            ]];
+            $result['settings']['client_address']['trusted_proxies'] = [];
         } else {
             $result = visitorSettingsFrom(localConfig('visitors'));
         }
         $settings = $result['settings'];
-        visitorSettingsReport(array_merge($problems, $result['problems']));
+        visitorSettingsReport($result['problems']);
     }
 
     return $settings;
@@ -221,9 +230,12 @@ function visitorSettingsFrom(mixed $values): array
         $settings['visitors'][$name] = $value;
     }
 
+    // A section or a list that is no list meant to say something about the proxies: none is trusted until it is
+    // mended - never Cloudflare's ranges by default (coarser, never looser).
     $address = $values['client_address'] ?? [];
     if (!is_array($address)) {
-        $problems[] = "'client_address' is " . get_debug_type($address) . ', not an array: the committed trusted proxies (Cloudflare\'s ranges) hold';
+        $problems[] = "'client_address' is " . get_debug_type($address) . ', not an array: no proxy is trusted until it is mended';
+        $settings['client_address']['trusted_proxies'] = [];
         $address = [];
     }
     foreach (array_keys($address) as $name) {
@@ -238,7 +250,8 @@ function visitorSettingsFrom(mixed $values): array
         $proxies = $address['trusted_proxies'];
         if (!is_array($proxies)) {
             $problems[] = 'client_address.trusted_proxies must be a list of addresses or CIDR ranges, not '
-                . visitorSettingShown($proxies) . ': the committed ones (Cloudflare\'s ranges) hold - [] trusts none';
+                . visitorSettingShown($proxies) . ': no proxy is trusted until it is mended';
+            $settings['client_address']['trusted_proxies'] = [];
         } else {
             $kept = [];
             foreach ($proxies as $range) {

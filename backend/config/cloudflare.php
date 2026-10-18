@@ -23,13 +23,22 @@
 //
 //   <?php return ['origin_secret' => '<a long random value, 32 characters or more>'];
 //
-// Without it - or with a value that is not a string with something in it -
-// there is no secret, and CF-Connecting-IP is believed from the trusted
-// proxies alone, as before. A file PHP cannot run is no secret either, and
-// never makes the site "not set up". What was wrong goes to the PHP log, once
-// (not on every request) - never the value, nor what PHP said of a file it
-// could not run, which can quote it, nor a key of the file's, which a slip
-// could have made the secret.
+// Without it - or with a file read cleanly whose value is not a string with
+// something in it (blank, a misspelt key, a forgotten return) - there is no
+// secret, and CF-Connecting-IP is believed from the trusted proxies alone, as
+// before. A file that is there but cannot be read cleanly - one that does not
+// start with <?php (a byte-order mark, a blank line, no <?php line: never
+// compiled), one that prints (text after a closing tag), or one PHP cannot
+// read (config/local.php) - FAILS CLOSED: its secret is one no request
+// carries, so every request from Cloudflare's ranges counts as the edge it
+// came from until the file is mended. Its owner meant a secret; believing
+// CF-Connecting-IP from Cloudflare's ranges alone - every Cloudflare
+// customer's - would be the looser reading (the IAM's rule of 2026-10-13, the
+// anotoki family's). Either way the site keeps running: the file never makes
+// it "not set up". What was wrong goes to the PHP log, once (not on every
+// request) - never the value, nor what PHP said of a file it could not run,
+// which can quote it, nor a key of the file's, which a slip could have made
+// the secret.
 // ---------------------------------------------------------------------------
 
 require_once __DIR__ . '/local.php';
@@ -38,6 +47,10 @@ require_once __DIR__ . '/local.php';
  * The origin secret this request runs on, or null when there is none. Worked
  * out once a request; what was wrong with the file goes to the PHP log
  * (originSecretReport()).
+ *
+ * A file that is there but was passed over (localConfigError(): it does not
+ * start with <?php, it prints, or PHP cannot read it) is a secret no request
+ * carries (originSecretUnmatchable()) - fails closed, never "no secret".
  */
 function originSecret(): ?string
 {
@@ -46,14 +59,30 @@ function originSecret(): ?string
 
     if (!$done) {
         $done = true;
-        $result = localConfigError('cloudflare') !== null
-            ? ['secret' => null, 'problems' => ['config/cloudflare.local.php cannot be read (PHP cannot run it), so there is no origin secret']]
-            : originSecretFrom(localConfig('cloudflare'));
-        $secret = $result['secret'];
-        originSecretReport($result['problems']);
+        $error = localConfigError('cloudflare');
+        if ($error !== null) {
+            $secret = originSecretUnmatchable();
+            originSecretReport(["config/cloudflare.local.php cannot be read cleanly ({$error}): no request carries its secret, so every request from Cloudflare's ranges counts as the edge it came from until the file is mended"]);
+        } else {
+            $result = originSecretFrom(localConfig('cloudflare'));
+            $secret = $result['secret'];
+            originSecretReport($result['problems']);
+        }
     }
 
     return $secret;
+}
+
+/**
+ * A secret no request can carry: 256 random bits, made once a process and
+ * never printed, logged or stored anywhere, so no X-Anotoki-Origin matches it
+ * (the library compares in constant time).
+ */
+function originSecretUnmatchable(): string
+{
+    static $secret = null;
+
+    return $secret ??= bin2hex(random_bytes(32));
 }
 
 /**

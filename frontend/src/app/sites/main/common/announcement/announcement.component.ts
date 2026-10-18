@@ -5,8 +5,9 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AlertComponent, AlertTone } from '@anotoki/lib/ui/alert';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 
-/** Where the dismissed announcement is remembered, per browser. */
-const DISMISSED_KEY = 'announcement-dismissed';
+/** Where the dismissed announcement is remembered, per browser (under LocalStorageService's prefix - the Privacy page names it). */
+export const ANNOUNCEMENT_DISMISSED_KEY = 'announcement-dismissed';
+const DISMISSED_KEY = ANNOUNCEMENT_DISMISSED_KEY;
 
 /**
  * A line across the top of every page, when there is something to say.

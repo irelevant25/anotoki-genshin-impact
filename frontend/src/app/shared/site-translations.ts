@@ -15,6 +15,19 @@ function guidesWord(count: number): string {
 }
 
 /**
+ * Where the module keeps the reader's choice and the cached words (this
+ * device's localStorage; the language a `?lang=` asked for under the same key
+ * in this tab's sessionStorage) and the admin Translations page's unsaved
+ * words (this tab's sessionStorage) - the names this device has always kept
+ * them under, which the Privacy page names (sites/main/legal/legal-facts.ts).
+ */
+export const LANGUAGE_STORAGE_KEYS = {
+  language: 'anotoki-genshin-impact-language',
+  cache: 'anotoki-genshin-impact-language-cache',
+  drafts: 'anotoki-genshin-impact-localization-drafts',
+} as const;
+
+/**
  * What the site tells @anotoki/lib/translations - the anotoki sites' one
  * implementation of their words (anotoki-lib 0.3.0): which language the pages
  * are read in and the strings for it, from GET /api/translations/{code}
@@ -52,11 +65,7 @@ export function siteTranslationsConfig(): AnotokiTranslationsConfig {
   const siteStatus = inject(SiteStatus);
 
   return {
-    storageKeys: {
-      language: 'anotoki-genshin-impact-language',
-      cache: 'anotoki-genshin-impact-language-cache',
-      drafts: 'anotoki-genshin-impact-localization-drafts',
-    },
+    storageKeys: { ...LANGUAGE_STORAGE_KEYS },
     account: {
       // Null while the account's choices do not apply - a visitor, or an IAM
       // that keeps none: then this device's choice is the reader's, and the

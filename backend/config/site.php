@@ -14,16 +14,31 @@
 //
 // To override per deployment, create config/site.local.php returning the code:
 //   <?php return 'star_rail';
-// site.local.php is gitignored, like the other .local.php files.
+// site.local.php is gitignored, like the other .local.php files, and read
+// cleanly or not at all (config/local.php): one that cannot be read cleanly,
+// or names no site, leaves the site not set up (localConfigProblems()) -
+// never genshin_impact's switches read in another site's database, which
+// would find none of them (no maintenance, no page locked).
 // ---------------------------------------------------------------------------
+
+require_once __DIR__ . '/local.php';
 
 function currentSite(): string
 {
     static $site = null;
 
     if ($site === null) {
-        $localFile = __DIR__ . '/site.local.php';
-        $site = file_exists($localFile) ? (string) require $localFile : 'genshin_impact';
+        if (!is_file(localConfigPath('site'))) {
+            $site = 'genshin_impact';
+        } else {
+            $named = localConfig('site');
+            if (localConfigError('site') !== null || !is_string($named) || trim($named) === '') {
+                // The SiteGate answers not_set_up before any route asks (localConfigProblems()); a command-line
+                // script that asks meets this.
+                notSetUp('site.local.php', 'which site this is');
+            }
+            $site = trim($named);
+        }
     }
 
     return $site;

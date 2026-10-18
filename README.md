@@ -21,6 +21,10 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
   record of - the last seven the anotoki library's pages, for the ADMIN alone.
 - **What's new**: the version at the bottom of the site opens the changelog
   (`frontend/public/changelog.json`).
+- **Terms, Privacy and Contact**: the anotoki sites' shared pages with this
+  site's own facts - what it keeps, why and for how long, what it stores in a
+  browser - linked under every page beside the fan clause: "This site is a
+  fan-made project and is not affiliated with or endorsed by HoYoverse."
 
 Everything on the public site is open without an account - unless the IAM's
 "Sign-in required" switch is on for this site (it is off by default); then the site
@@ -164,7 +168,9 @@ hosting:
     (`return ['origin_secret' => '...'];`, put there by hand; a long random value, 32+ characters). With it the
     site believes `CF-Connecting-IP` only on a request that carries the secret - anybody's Cloudflare Worker
     can connect from Cloudflare's ranges; without the file it believes `CF-Connecting-IP` from Cloudflare's
-    ranges alone. Set the rule first, then the file.
+    ranges alone; with one it cannot read cleanly (a byte-order mark, a line before `<?php`) it believes it
+    from nobody - every visitor counts as their edge until the file is mended. Set the rule first, then the
+    file, saved as UTF-8 without a BOM and starting with `<?php` - every `config/*.local.php` likewise.
 - **After an upload**: the private folders (`storage/`, `config/`) answer 403 in a browser; the host check's
   "Who connects" says Cloudflare, not a proxy of the host's (behind one, every visitor would share one
   address); pending database updates are applied on the admin panel's Migrations page.
@@ -185,17 +191,19 @@ backend/
                         (the shared library's own sets around them, from vendor/)
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
   tests/                php tests/run.php - the upload rules; the words' migration and routes, the library's
-                        data moves and admin tools, what a silent sign-in brings in, migration.php (on
-                        throwaway databases)
+                        data moves and admin tools, what a silent sign-in brings in, every settings file read
+                        cleanly, migration.php (on throwaway databases)
   setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
-  src/app/sites/main/   the public site: database, quizzes, daily, games, profile
+  src/app/sites/main/   the public site: database, quizzes, daily, games, profile; legal/ (Terms, Privacy and
+                        Contact: their frame and this site's facts)
   src/app/sites/admin/  the admin panel
   src/app/shared/       local-lib (what the family's UI kit has no piece for, abstract bases),
                         site-auth.ts (the shared library's
-                        sign-in, set up for this site), site-feedback.ts (its feedback form), site-status.ts
-                        (its gate and Migrations page), site-translations.ts (its words)
+                        sign-in, set up for this site), site-feedback.ts (its feedback form), site-legal.ts (its
+                        legal pages), site-status.ts (its gate and Migrations page), site-translations.ts (its
+                        words)
   src/app/api/          the API client, generated from the backend (npm run api)
   public/               config.json (where the API is), changelog.json
 docs/                   generated reports: reference/, performance/, security/; PG-DUMP-INSTALL.md (pg_dump
@@ -229,7 +237,7 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 ## Current state
 
-- Version 1.1.0 (the changelog has what each version brought). Since 1.1.0 a
+- Version 1.2.0 (the changelog has what each version brought). Since 1.1.0 a
   version has three numbers, MAJOR.MINOR.PATCH - big changes, new features, bug
   fixes - and `frontend/package.json` carries the same one.
 - Public database pages for characters, weapons, materials and banners. The admin
@@ -366,6 +374,24 @@ not drift; [docs/README.md](docs/README.md) lists them.
   on a request that carries it: anybody's Cloudflare Worker can connect from
   Cloudflare's ranges, and any other request from them counts as the edge it
   came from. Nothing a player notices; no migration.
+- Since 2026-10-18 the shared library is `anotoki-lib` 0.6.2 in both halves.
+  The site has **Terms, Privacy and Contact** - the anotoki sites' shared pages
+  (`/terms`, `/privacy`, `/contact`) with this site's own facts, each true of
+  the code: the record of a person, their games, who changed what, the limits'
+  counts, the old tables kept from the move into the library's, what a visitor
+  without an account leaves, the feedback form, the logs, the plain backups and
+  every item kept in a browser, by name; the hosting company "to be named"
+  until the owner names it. Anybody may read them - signed in or not, while
+  the IAM requires signing in, while the site is closed - and Contact opens
+  the feedback form. Under every page: Terms · Privacy · Contact and the fan
+  clause (migration `users/055`; `users/056` drops four words nothing reads).
+  Every `config/*.local.php` is read cleanly or not at all: one saved with a
+  byte-order mark or a line before its `<?php` is never compiled (before, with
+  `declare(strict_types=1)` after it, every request was a 500) and never
+  printed; a required one leaves the site not set up, an unreadable
+  `cloudflare.local.php` fails closed, an unreadable `visitors.local.php`
+  trusts no proxy. The first load is 587.1 kB, 144.1 kB sent (it was 578.8 and
+  140.3): the library's footer links and its 0.6 pieces.
 
 ## More
 
