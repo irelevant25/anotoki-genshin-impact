@@ -57,8 +57,9 @@ subscribed, an `effect`/`computed` that misses a dependency.
   the header pinned - never `X-Forwarded-For`, `X-Real-IP` or
   `True-Client-IP`, no setting for it, no trusted range wider than a proxy's;
   with the origin secret, `originSecret()`, only on a request carrying it -
-  a reading of an address not given it, or the secret printed or logged, is
-  a finding too);
+  a reading of an address not given it, the secret printed or logged, or a
+  `cloudflare.local.php` that is there read as "no secret" (only its absence
+  is; anything else fails closed), is a finding too);
   a file preview signed under anything but the site
   secret (`siteFilePreviewKey()`); and a People delete hook that begins its own
   transaction or works on another connection than the `$pdo` it is given (a

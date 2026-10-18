@@ -29,7 +29,9 @@ first. This file adds frontend-specific detail.
   failed sign-in, not while `holdsSession()` - see `admin-access.guard.ts`).
 - Admin: `frontend/src/app/sites/admin/` — one folder per entity with
   `<entity>-list/` and `<entity>-form/`; routes in `admin.routes.ts`; nav in
-  `app.component.ts`; simple lookup tables via the shared `lookup-table`
+  `app.component.ts`, the family's footer under every page in
+  `app.component.html` (`@anotoki/lib/footer` - the public site keeps its own
+  `common/footer`); simple lookup tables via the shared `lookup-table`
   component, one line each in `LOOKUP_PAGES` (`pages/pages.ts`) and a
   `lookupRoute(...)` in `admin.routes.ts`.
 - The UI kit is the anotoki family's (`@anotoki/lib/ui/*`, each piece from its own

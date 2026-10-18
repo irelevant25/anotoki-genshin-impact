@@ -244,6 +244,14 @@ page's "30 days" of the error log and its backups to be the whole truth, delete
 the old `storage/logs/errors-*.jsonl` and the old pg_dump folders
 (`storage/backups/<stamp>-<hex>/`, `manual/`) by FTP once the owner agrees.
 
+anotoki-lib 0.6.3 (2026-10-18; the library's `anotoki_translations/012`, the
+footer's four words; no schema change): upload both builds and Apply at once.
+Then the admin panel's pages have the family's footer - Version, What's new,
+Feedback, Terms · Privacy · Contact, the fan clause - and the public site's
+footer is as it was. A `config/cloudflare.local.php` on the host that names no
+usable secret (blank, another key) fails closed from this release: make sure it
+holds the zone's value, or delete it.
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against

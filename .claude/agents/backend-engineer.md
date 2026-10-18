@@ -114,7 +114,9 @@ Before writing anything, read a close exemplar and match it. Good exemplars:
   library's `ClientAddress` over `config/visitors.php`'s trusted proxies
   (Cloudflare's ranges, `CF-Connecting-IP`) and `config/cloudflare.php`'s
   origin secret (`originSecret()`: with one, the header only on a request
-  carrying it in `X-Anotoki-Origin`; never printed or logged), handed to the
+  carrying it in `X-Anotoki-Origin`; a file there that gives none - unreadable,
+  blank, another key, a folder - is a secret no request carries, and only no
+  file is no secret; never printed or logged), handed to the
   library through the AdminContext (`originSecret:`) - and what is kept of an address is a keyed hash
   (`clientAddressHash()`, the site secret's), never the address: no column, log
   line or file holds one. Nothing else reads `REMOTE_ADDR`, a forwarding header

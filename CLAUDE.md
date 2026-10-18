@@ -96,8 +96,12 @@ count, never its text), and is no file - and never in a way that makes the site
 looser: a required one leaves the site not set up (never a 500, nothing of it in
 any answer - `/api/site-status` included); `cloudflare.local.php` **fails
 closed** (a secret no request carries - `originSecretUnmatchable()` - so every
-request from Cloudflare's ranges counts as its edge until it is mended; one read
-cleanly that names no secret is no secret, as before); `visitors.local.php` keeps
+request from Cloudflare's ranges counts as its edge until it is mended), and so,
+since the owner's "do as you think is the best" of 2026-10-18, does one read
+cleanly that names no usable secret (blank, no array, a misspelt or another key,
+a value that is not a string) and anything else in its place, a folder too
+(`file_exists()`, never `is_file()`): only deleting the file switches the secret
+off; `visitors.local.php` keeps
 the limits' defaults and trusts **no proxy** (it may be the file that said `[]`;
 a `client_address` or `trusted_proxies` that is no list trusts none either);
 `site.local.php` leaves the site not set up (never `genshin_impact`'s switches
@@ -188,7 +192,12 @@ So, since 0.3.0, are the site's words - *The words* below.
   "The site is being updated" (English or Slovak, with a quiet Sign in while nobody
   is signed in) for everybody but this site's ADMIN, who reads "A database update
   is waiting" and "Open Migrations"; both reload by themselves once the site is
-  back. `/admin/migrations` is `<anotoki-migrations-page>`, from its own entry
+  back. That page stands alone (the owner's rule of 2026-10-18; anotoki-lib
+  0.6.3 draws it in a `<main>` of its own): no header, navigation or footer
+  round it - the public site's header, footers and notes and the admin panel's
+  navigation and footer are inside the routed sites, never beside the gate;
+  `scripts/screenshots.mjs`'s STATUS holds it in all three states, and the
+  frame back once the site is ready. `/admin/migrations` is `<anotoki-migrations-page>`, from its own entry
   point `@anotoki/lib/migrations/page` (so it rides in the admin panel's lazy
   chunk, never the first load), inside the admin layout, the one page that works
   while an update waits. Never installed: "This site is not set up yet" and the
@@ -207,7 +216,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.6.2 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.6.3 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -240,9 +249,10 @@ ADMIN or EDITOR, languages too.
   code, no scopes, flags or stamps; the library's own set `anotoki_translations`
   (`vendor/anotoki/lib/php/migrations/translations`) runs after both folders
   (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
-  its 002-009 add the library's words under `anotoki.*` (257 keys since 0.6.0: the
-  kit's, the status page's, the sign-in page's, the feedback form's, the legal
-  pages' 122, the top bar's, the kit's newer pieces', the tabs' and the inputs'),
+  its 002-009 and 012 add the library's words under `anotoki.*` (the kit's, the
+  status page's, the sign-in page's, the feedback form's, the legal pages' 122,
+  the top bar's, the kit's newer pieces', the tabs', the inputs' and - 012,
+  0.6.3 - the family's footer's four),
   and 010-011 reword the Privacy page's sentences where nobody saved them, which
   the owner may reword like any string. `anotoki.` is the
   library's namespace: never a key of this site's. `translation_keys_before_library`
@@ -536,7 +546,9 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # a sign-in the IAM refuses (the library's screens of it), the legal pages in
                                      # English and Slovak (and one while sign-in is required), and an error
                                      # thrown in a page, read back from the error log, scrubbed - the Errors
-                                     # page's row, and that row opened.
+                                     # page's row, and that row opened; the status page alone in its three
+                                     # states (light English, dark Slovak) and the frame back after; the admin
+                                     # panel's footer, its two dialogs, and Migrations while an update waits.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
@@ -661,9 +673,11 @@ node docs/security/build-report.mjs                            # after re-runnin
   a secret to every request; the site keeps the same value in the optional
   `config/cloudflare.local.php` (`originSecret()`, `config/cloudflare.php`;
   never printed or logged) and counts any other request from Cloudflare as
-  its edge - coarser, never looser; without the file, as before; with one
-  that cannot be read cleanly, a secret no request carries - fails closed,
-  never "no secret" (*Configuration* above; `tests/origin-secret.test.php`,
+  its edge - coarser, never looser; without the file, as before - deleting it
+  is the one way to switch the secret off; with one that cannot be read
+  cleanly, or names no usable secret, or anything else in its place, a secret
+  no request carries - fails closed, never "no secret" (*Configuration* above;
+  `tests/origin-secret.test.php`,
   `tests/settings-files.test.php`), and the AdminContext hands
   the library the same rule (`originSecret:`); what `visitor_starts` keeps of it is
   `clientAddressHash()`, a keyed HMAC (users/054) - never the address, nowhere
@@ -864,7 +878,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.6.2), each piece imported from its own entry point -
+  kit (anotoki-lib 0.6.3), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -936,7 +950,18 @@ node docs/security/build-report.mjs                            # after re-runnin
   theme and a Menu button (`[anotokiSideNavTrigger]`) that opens the same
   navigation in the kit's drawer - the column is `display: contents` there,
   never `display: none`, for the drawer opens from it
-  (`sites/admin/app.component.*`). Every page works at 390 px.
+  (`sites/admin/app.component.*`). Under every page, the anotoki family's footer
+  (`<anotoki-site-footer>`, `@anotoki/lib/footer`, anotoki-lib 0.6.3 - the
+  owner's choice of 2026-10-18 for every admin panel; the public site keeps its
+  own, which he calls "completely different"): the version (`public/changelog.json`'s
+  newest, the public footer's one source), What's new (the public footer's
+  dialog, `site-whats-new-modal`, loaded with the press), Feedback (the
+  library's form in its own dialog, sent as the person signed in; never while
+  an update waits - `SiteStatus.blocked()` - when the server would refuse it),
+  Terms · Privacy · Contact and the fan clause (`fan="hoyoverse"`). A landmark
+  of its own beside the panel's `<main>` (`.admin-page`), both in the column
+  that scrolls (`.admin-main`, its padding and sticky offsets as they were), at
+  its foot on a short page. Every page works at 390 px.
 - **Admin CRUD** for an entity lives in `sites/admin/<entity>/<entity>-list/`
   and `<entity>-form/`, wired in `sites/admin/admin.routes.ts` with a nav entry
   in `sites/admin/app.component.ts`. Simple lookup tables use the shared
@@ -966,8 +991,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   library forgets those with the games, since 0.5.0). The
   visitors' feedback form is the library's too (`@anotoki/lib/feedback`,
   `shared/site-feedback.ts`: the server's thirteen sections, a bug's and an
-  idea's own fields in the site's `feedback.*` words), in the footer's dialog
-  (`site-feedback-modal`), loaded when it is opened.
+  idea's own fields in the site's `feedback.*` words), in the public footer's
+  dialog (`site-feedback-modal`) and the admin panel's footer's own, loaded
+  when it is opened.
 - **The browser's errors** (anotoki-lib 0.5.0, the owner's decision: every
   site's): `app.config.ts` provides `provideBrowserGlobalErrorListeners()` and
   the library's `provideAnotokiErrorReport()` (`@anotoki/lib/error-report`) -
@@ -1003,7 +1029,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   `<anotoki-legal-links>` (Terms · Privacy · Contact) and the fan clause in the
   site's words (`footer.fanDisclaimer`: "This site is a fan-made project and is
   not affiliated with or endorsed by HoYoverse."), on a strong veil of its own,
-  clear of the footer's fixed bar. The admin panel has no footer.
+  clear of the footer's fixed bar. The admin panel has the family's footer
+  instead (*The admin frame*).
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper
@@ -1059,8 +1086,8 @@ skill covers this workflow.
 
 - **Regenerate, don't hand-edit generated code** — see the pipeline above.
 - **Versions and What's new**: `frontend/public/changelog.json`, newest first, is
-  the site's version (the footer shows its newest entry) and what What's new
-  says. A version is MAJOR.MINOR.PATCH - big changes, new features, bug fixes -
+  the site's version (both footers show its newest entry, the public site's and
+  the admin panel's - one source) and what What's new says. A version is MAJOR.MINOR.PATCH - big changes, new features, bug fixes -
   and `frontend/package.json` carries the same one. An entry holds only what a
   regular player notices, in their words: nothing technical, nothing for
   developers. The version a browser last saw is compared with `sameVersion()`

@@ -39,8 +39,8 @@ Around both folders the engine runs the anotoki library's own sets
 `genshin_impact/` migration may build on them, as 028 and 029 moved the old
 rows in), and after the folders `anotoki_translations` - its 001 proves the
 words' tables are in the shape the library works with (users/050 moved them
-into it), its 002-009 add the library's words under `anotoki.*` (257 keys since
-0.6.0) and 010-011 reword a few where nobody saved them - and
+into it), its 002-009 and 012 add the library's words under `anotoki.*` and
+010-011 reword a few where nobody saved them - and
 `anotoki_people` (the scrub's tables; users/052 added `users.anonymized_at`
 for it). So a `users/` migration never depends on a library file - on
 a fresh install it runs before them - and writes only the words' base columns
