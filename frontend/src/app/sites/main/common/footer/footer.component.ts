@@ -1,141 +1,87 @@
-import { Component, effect, inject, signal, Type, untracked, WritableSignal } from '@angular/core';
-import { KeyValuePipe, NgTemplateOutlet } from '@angular/common';
-import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
-import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
-import { AnotokiDialogOptions } from '@anotoki/lib/ui/dialog';
-import { firstValueFrom } from 'rxjs';
+import { Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SiteBackgroundsModalComponent } from './site-backgrounds/site-backgrounds-modal.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { DEFAULT_LEGAL_PATHS } from '@anotoki/lib/legal';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
+import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { LocalStorageService } from '../../../../shared/local-lib/services/local-storage.service';
-import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
-import { ToastService } from '@anotoki/lib/ui/toast';
+import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
+import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
 import { SiteWhatsNewModalComponent, WhatsNewData } from './site-whats-new-modal/site-whats-new-modal.component';
 import { sameVersion } from './versions';
 
-export interface ButtomMenuItem {
-  id: string;
-  /** A translation key, unless `titleLiteral` says otherwise. */
-  title: string;
-  /**
-   * Text to show as-is. Proper nouns and the version number are not
-   * translatable, and running them through the pipe would only report them
-   * as missing strings.
-   */
-  titleLiteral?: string;
-  icon?: string;
-  url?: string;
-  hidden?: boolean;
-  modal?: {
-    compoponent: Type<unknown>;
-    config?: AnotokiDialogOptions;
-  };
-  /** A dialog whose code is loaded only when it is opened - what no page needs before then. */
-  lazyModal?: {
-    load: () => Promise<Type<unknown>>;
-    config?: AnotokiDialogOptions;
-  };
-}
-
+/**
+ * The public site's footer - its own: the admin panel has the anotoki
+ * family's (@anotoki/lib/footer), and the owner wants this one different.
+ *
+ * On the right, in this order (the owner's of 2026-10-18): the version (the
+ * changelog), What's new, Feedback and the account - each a button that opens
+ * its dialog - then Terms · Privacy · Contact, links to the legal pages in the
+ * anotoki library's words (anotoki.legalLinks.*). On the left, alone, the fan
+ * clause (footer.fanDisclaimer). Under every page: the closed sign and the
+ * sign-in card keep the clause and the three links (`legalOnly`), as what the
+ * site keeps is said before anybody signs in.
+ *
+ * It also puts this browser's wallpaper behind the page as the site starts
+ * (chosen in the account panel), and opens What's new once after a release.
+ */
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  imports: [NgTemplateOutlet, KeyValuePipe, TranslatePipe],
-  providers: [],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe],
 })
 export class FooterComponent extends AbstractModalComponent {
-  menuItems: Record<string, WritableSignal<ButtomMenuItem>> = {
-    // difficulties: signal<ButtomMenuItem>({
-    //   id: 'site-difficulties',
-    //   title: 'Difficulties',
-    // }),
-    backgrounds: signal<ButtomMenuItem>({
-      id: 'site-backgrounds',
-      title: 'footer.backgrounds',
-      modal: {
-        compoponent: SiteBackgroundsModalComponent,
-        // The kit's widest (64rem): a wallpaper is chosen by its picture.
-        config: { size: 'xl' }
-      }
-    }),
-    // The anotoki library's feedback form, which brings the kit's fields:
-    // loaded when somebody opens it.
-    feedback: signal<ButtomMenuItem>({
-      id: 'site-feedback-contact',
-      title: 'footer.feedback',
-      lazyModal: {
-        load: () => import('./site-feedback-modal/site-feedback-modal.component').then((m) => m.SiteFeedbackModalComponent),
-        config: { size: 'md' },
-      },
-    }),
-    github: signal<ButtomMenuItem>({
-      id: 'site-github',
-      title: 'footer.github',
-      titleLiteral: 'GitHub',
-      icon: 'icon-github fs-18 d-block', // Changed from icon path to CSS class
-      url: 'https://github.com/irelevant25/anotoki-genshin-impact',
-    }),
-    versions: signal<ButtomMenuItem>({
-      id: 'site-versions',
-      title: 'footer.versions',
-      modal: {
-        compoponent: SiteVersionModalComponent,
-        config: { size: 'md' }
-      }
-    }),
-    account: signal<ButtomMenuItem>({
-      id: 'site-account',
-      title: 'footer.account',
-      modal: {
-        compoponent: SiteAccountModalComponent,
-        config: { size: 'md' }
-      }
-    })
-    // logout: signal<ButtomMenuItem>({
-    //   id: 'site-logout',
-    //   title: 'Logout',
-    //   hidden: true
-    // })
-  };
-  changelog: ChangelogEntry[] = [];
+  /**
+   * The fan clause and Terms · Privacy · Contact alone: under the closed sign
+   * and the sign-in card, which stand in for the site - its own dialogs would
+   * ask an API that refuses them, and a release note has no place over either.
+   */
+  readonly legalOnly = input(false);
 
+  /** The legal pages' addresses: the library's own, where sites/main/main.routes.ts puts the pages (shared/site-legal.ts). */
+  readonly legalPaths = DEFAULT_LEGAL_PATHS;
+
+  /** The changelog, newest first: the version's label and dialog, and What's new, read it. */
+  readonly changelog = signal<ChangelogEntry[]>([]);
+
+  /** "v1.2.0" once the changelog has come - a version number is shown as it is, never translated. Null: the word Versions. */
+  readonly version = computed(() => {
+    const newest = this.changelog()[0];
+    return newest ? `v${newest.version}` : null;
+  });
+
+  private readonly _http = inject(HttpClient);
+  private readonly _storage = inject(LocalStorageService);
+  private readonly _security = inject(SecurityService);
   private readonly _i18n = inject(TranslationService);
+
+  /**
+   * The account button says who is signed in: the name this site knows them
+   * by, a proper noun - running it through the pipe would only report it as a
+   * missing string. Null - nobody signed in - is the translated word.
+   */
+  readonly username = computed(() => this._security.currentUser()?.username || null);
+
   /** "What's new" once a new version is noticed, until it opens. */
   private readonly _whatsNew = signal<{ latest: ChangelogEntry; hasEarlier: boolean } | null>(null);
 
-  constructor(private _http: HttpClient, private _storageService: LocalStorageService, private readonly _securityService: SecurityService, private readonly _notificationService: ToastService) {
+  constructor() {
     super();
-    this.loadVersion();
+    void this.loadVersion();
     this.initializeBackground();
-    this.watchAccount();
     this.watchWhatsNew();
   }
 
-  /**
-   * The account button says who is signed in.
-   *
-   * `titleLiteral` rather than a translation, because a username is a proper
-   * noun - running it through the pipe would only report it as a missing
-   * string. Signed out it goes back to the translated word.
-   */
-  private watchAccount(): void {
-    effect(() => {
-      const username = this._securityService.currentUser()?.username;
-      untracked(() => this.menuItems['account'].update((item) => ({ ...item, titleLiteral: username || undefined })));
-    });
-  }
-
   async loadVersion(): Promise<void> {
-    this.changelog = await firstValueFrom(this._http.get<ChangelogEntry[]>('./changelog.json'));
-    if (!this.changelog.length) {
-      return;
+    const changelog = await firstValueFrom(this._http.get<ChangelogEntry[]>('./changelog.json'));
+    this.changelog.set(changelog);
+    if (changelog.length) {
+      this.noticeNewVersion(changelog[0].version);
     }
-    const current = this.changelog[0].version;
-    this.menuItems['versions'].update(item => ({ ...item, titleLiteral: `v${current}` }));
-    this.noticeNewVersion(current);
   }
 
   /**
@@ -155,7 +101,7 @@ export class FooterComponent extends AbstractModalComponent {
    * as versions (sameVersion), never as text.
    */
   private noticeNewVersion(current: string): void {
-    const lastSeen = this._storageService.read(StorageKeys.VERSION);
+    const lastSeen = this._storage.read(StorageKeys.VERSION);
     if (sameVersion(lastSeen, current)) {
       return;
     }
@@ -164,9 +110,10 @@ export class FooterComponent extends AbstractModalComponent {
     // is unseen, and more than one of those means earlier releases were missed
     // too. A first visit — nothing stored, so not found — has nothing earlier
     // to catch up on: a newcomer is shown what is new, not the history.
-    const seenIndex = this.changelog.findIndex((entry) => sameVersion(entry.version, lastSeen));
+    const changelog = this.changelog();
+    const seenIndex = changelog.findIndex((entry) => sameVersion(entry.version, lastSeen));
 
-    this._whatsNew.set({ latest: this.changelog[0], hasEarlier: seenIndex > 1 });
+    this._whatsNew.set({ latest: changelog[0], hasEarlier: seenIndex > 1 });
   }
 
   /**
@@ -175,67 +122,69 @@ export class FooterComponent extends AbstractModalComponent {
    * them until the fresh ones arrive behind the page (TranslationService.init),
    * and a note of raw keys is worse than a note a moment late. Should they
    * never arrive - the release's migration not applied yet - there is no note,
-   * and the version stays unseen until there is one.
+   * and the version stays unseen until there is one. Nor over the closed sign
+   * or the sign-in card (`legalOnly`): it waits for the site.
    *
    * The effect only notices the moment; the modal is made a microtask later,
    * outside the effect's own run. It has to be: the note's constructor makes an
    * effect of its own, and Angular refuses to create an effect inside another
    * one's run (NG0602). By then the wait may have let the version be seen
-   * another way - the footer's version button, or the note in another tab -
-   * and a note on what was just read is only in the way.
+   * another way - the footer's version or What's new button, or the note in
+   * another tab - and a note on what was just read is only in the way.
    */
   private watchWhatsNew(): void {
     effect(() => {
       const note = this._whatsNew();
-      if (!note || !this._i18n.has('whatsNew.title')) {
+      if (!note || this.legalOnly() || !this._i18n.has('whatsNew.title')) {
         return;
       }
       untracked(() => this._whatsNew.set(null));
       queueMicrotask(() => {
-        if (sameVersion(this._storageService.read(StorageKeys.VERSION), note.latest.version)) {
+        if (sameVersion(this._storage.read(StorageKeys.VERSION), note.latest.version)) {
           return;
         }
-        this.openModal(SiteWhatsNewModalComponent, { size: 'md', data: { latest: note.latest, hasEarlier: note.hasEarlier, changelog: this.changelog } satisfies WhatsNewData });
+        this.openModal(SiteWhatsNewModalComponent, { size: 'md', data: { latest: note.latest, hasEarlier: note.hasEarlier, changelog: this.changelog() } satisfies WhatsNewData });
       });
     });
   }
 
   initializeBackground(): void {
-    const savedBackground = this._storageService.read(StorageKeys.BACKGROUND);
+    const savedBackground = this._storage.read(StorageKeys.BACKGROUND);
     const defaultBackground = 'assets/backgrounds/Fontaine.avif';
     document.body.style.backgroundImage = `url("${savedBackground || defaultBackground}")`;
   }
 
-  preserveOrder = (): number => 0;
-
-  /**
-   * Whether a menu link is safe to render as an anchor.
-   *
-   * The URLs are configured by an admin, not typed by a visitor, and Angular's
-   * own sanitiser already neutralises a `javascript:` href — but a link is only
-   * ever meant to be an ordinary web address, so anything that is not http(s)
-   * is dropped rather than trusted to the framework's default.
-   */
-  isSafeUrl(url: string | undefined): boolean {
-    return !!url && /^https?:\/\//i.test(url.trim());
+  /** Every version: the changelog this footer has read. Opening it marks the newest one seen. */
+  openVersions(): void {
+    this.openModal(SiteVersionModalComponent, { size: 'md', data: this.changelog() });
   }
 
-  onMenuItemClick(menuItem: ButtomMenuItem): void {
-    const lazy = menuItem.lazyModal;
-    if (lazy) {
-      lazy
-        .load()
-        .then((component) => this.openModal(component, lazy.config ?? { size: 'sm' }))
-        // A part of the site that could not be loaded - the network gone, a
-        // newer build uploaded since this page loaded: nothing opens, and the
-        // button is there to press again.
-        .catch((error: unknown) => console.error('This part of the site could not be loaded', error));
-      return;
+  /**
+   * What's new whenever somebody wants it: the note that opens by itself once
+   * after a release, on the newest version alone ("See all changes" has the
+   * rest). Nothing to open before the changelog has come.
+   */
+  openWhatsNew(): void {
+    const changelog = this.changelog();
+    if (changelog.length) {
+      this.openModal(SiteWhatsNewModalComponent, { size: 'md', data: { latest: changelog[0], hasEarlier: false, changelog } satisfies WhatsNewData });
     }
-    if (!menuItem.modal) {
-      return;
-    }
-    // The version list reads the changelog this footer already has; the rest ignore it.
-    this.openModal(menuItem.modal.compoponent, { size: 'sm', ...menuItem.modal.config, data: this.changelog });
+  }
+
+  /**
+   * The anotoki library's feedback form, which brings the kit's fields: its
+   * code is loaded when somebody opens it. A part of the site that could not
+   * be loaded - the network gone, a newer build uploaded since this page
+   * loaded: nothing opens, and the button is there to press again.
+   */
+  openFeedback(): void {
+    import('./site-feedback-modal/site-feedback-modal.component')
+      .then((m) => this.openModal(m.SiteFeedbackModalComponent, { size: 'md' }))
+      .catch((error: unknown) => console.error('This part of the site could not be loaded', error));
+  }
+
+  /** Who is signed in, how they like the site, and the wallpaper behind it. */
+  openAccount(): void {
+    this.openModal(SiteAccountModalComponent, { size: 'md' });
   }
 }

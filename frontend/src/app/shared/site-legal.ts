@@ -14,7 +14,7 @@ export function isLegalPage(path: string): boolean {
  * How genshin plugs into the anotoki family's legal pages (@anotoki/lib/legal,
  * anotoki-lib 0.6: Terms, Privacy and Contact on the lazy routes /terms,
  * /privacy and /contact - sites/main/main.routes.ts - and the footer's links
- * to them, sites/main/common/legal-footer). provideAnotokiLegal() runs it in an
+ * to them, sites/main/common/footer). provideAnotokiLegal() runs it in an
  * injection context (app.config.ts).
  *
  * - The language: the one on the page (`effectiveLanguage()`: the public site

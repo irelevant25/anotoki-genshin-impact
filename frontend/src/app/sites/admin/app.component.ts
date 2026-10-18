@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { SiteFooterComponent } from '@anotoki/lib/footer';
 import { SiteStatus } from '@anotoki/lib/migrations';
@@ -173,6 +173,9 @@ export class AppComponent {
     ];
   });
 
+  /** The kit's side navigation, while the panel is drawn: it knows when the frame is a phone's (up to 860 px). */
+  private readonly _nav = viewChild(SideNavComponent);
+
   constructor() {
     // The panel's icons (its navigation's, its forms' tabs'), before they are first drawn: lazy with it.
     inject(AnotokiIcons).register(ADMIN_ICONS);
@@ -188,6 +191,23 @@ export class AppComponent {
     firstValueFrom(inject(HttpClient).get<ChangelogEntry[]>('./changelog.json'))
       .then((entries) => this._changelog.set(Array.isArray(entries) ? entries : []))
       .catch(() => undefined);
+
+    // On a computer only the panel's two columns scroll, each on its own - the navigation and the page (.admin-main) -
+    // never the window: allowed to scroll too, it sometimes drew a second scrollbar beside the page's. On a phone (the
+    // side navigation's phone(): app.component.scss's 860 px) the panel scrolls as a page, in the window; and so does
+    // the page that tells somebody the panel is not theirs, drawn without the navigation.
+    effect(() => {
+      const nav = this._nav();
+      document.body.style.overflow = nav && !nav.phone() ? 'hidden' : '';
+    });
+  }
+
+  /**
+   * The window's scrolling, given back as the panel goes: <body> is the whole site's and outlives the panel, so
+   * whatever is drawn after it - the public site - would otherwise be left with a window that does not scroll.
+   */
+  ngOnDestroy(): void {
+    document.body.style.overflow = '';
   }
 
   /**

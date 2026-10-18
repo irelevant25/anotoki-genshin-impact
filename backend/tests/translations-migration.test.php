@@ -17,8 +17,10 @@ declare(strict_types=1);
  *
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
- * strings - and nothing else came in but the library's words, 051's and
- * 055's, nothing else went but 053's and 056's; the
+ * strings - and nothing else came in but the library's words, 051's, 055's
+ * and 057's, nothing else went but 053's, 056's and 057's, and nothing else
+ * was reworded but the footer's Feedback where it was still users/004's (057:
+ * an owner's rewording of it stands); the
  * blanks went; the tables are in the library's shape, which its own 001
  * proved; the copies keep everything as it was. And 050 refuses, naming what
  * stops it, a database it cannot move: a language code that is no code, a
@@ -75,14 +77,14 @@ const LIBRARY_WORDS_FILES = [
 // Everything after users/049 and genshin_impact/027 came with this release or
 // the ones after it: users/050 and 051 with the words, then anotoki-lib
 // 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
-// and 0.6's users/055-056 (the legal pages' facts, the multiselect's old
-// summaries gone) with the library's words 005-012, which one Apply brings
-// along.
+// 0.6's users/055-056 (the legal pages' facts, the multiselect's old
+// summaries gone) with the library's words 005-012, and users/057 (the
+// public footer's words), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql',
     'users/050_translations_into_the_library.sql', 'users/051_guide_strings.sql', 'users/052_people.sql',
     'users/053_drop_old_feedback_and_callback_strings.sql', 'users/054_visitor_starts_hashed.sql',
-    'users/055_legal_pages.sql', 'users/056_drop_multiselect_selected_strings.sql',
+    'users/055_legal_pages.sql', 'users/056_drop_multiselect_selected_strings.sql', 'users/057_public_footer_strings.sql',
     'genshin_impact/028_audit_into_library.sql', 'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql', 'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql', 'anotoki_translations/004_feedback_words.sql',
@@ -97,6 +99,10 @@ const WORDS_AND_AFTER = [
 const MULTISELECT_SUMMARY_KEYS = ['multiselect.selected.few', 'multiselect.selected.none', 'multiselect.selected.one', 'multiselect.selected.other'];
 // How many keys users/055 brings: the legal pages' facts in genshin's words and the footer's fan line.
 const LEGAL_PAGE_KEYS = 44;
+// What users/057 brings - the public footer's What's new, the account panel's Background row - and takes away: the
+// footer's old GitHub and Backgrounds items, which nothing reads.
+const FOOTER_NEW_KEYS = ['account.background', 'footer.whatsNew'];
+const FOOTER_GONE_KEYS = ['footer.backgrounds', 'footer.github'];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -192,6 +198,10 @@ foreach ($before as $row) {
         }
         continue;
     }
+    if (in_array($row['key_name'], FOOTER_GONE_KEYS, true) || $key === 'footer.feedback|en') {
+        // users/057's to take away, and the one string it rewords - looked at below.
+        continue;
+    }
     $guide = $guides[$key] ?? null;
     $now = preg_match('/^guide\.[^.]+\.content$/', $row['key_name']) === 1
         ? ($guide === null ? null : ['value' => $guide['html']] + $guide)
@@ -209,7 +219,7 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 261 of them', 261, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn ($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-same('and nothing else but 051\'s one key and 055\'s in, 053\'s and 056\'s out: the keys but the guides\' bodies, kept', count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + 261, (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn());
+same('and nothing else but 051\'s one key, 055\'s and 057\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept', count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 261, (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn());
 $inList = "'" . implode("', '", MULTISELECT_SUMMARY_KEYS) . "'";
 same('056: the multiselect\'s four old summaries, all there before, gone - with every string under one', [4, 0, 0], [
     count(array_intersect(MULTISELECT_SUMMARY_KEYS, array_keys($keysBefore))),
@@ -225,6 +235,19 @@ same('055: the legal pages\' facts and the footer\'s fan line, in English and Sl
     (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
     (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
 ]);
+$inList = "'" . implode("', '", FOOTER_GONE_KEYS) . "'";
+same('057: the footer\'s GitHub and Backgrounds items, both there before, gone - with every string under them', [count(FOOTER_GONE_KEYS), 0, 0], [
+    count(array_intersect(FOOTER_GONE_KEYS, array_keys($keysBefore))),
+    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+]);
+same('...the footer\'s What\'s new and the account panel\'s Background, in English and Slovak', ["What's new", 'Čo je nové', 'Background', 'Pozadie'], [
+    $strings['footer.whatsNew|en']['value'] ?? null,
+    $strings['footer.whatsNew|sk']['value'] ?? null,
+    $strings['account.background|en']['value'] ?? null,
+    $strings['account.background|sk']['value'] ?? null,
+]);
+same('...and the footer\'s Feedback alone, where users/004\'s "Feedback/Contact" stood', 'Feedback', $strings['footer.feedback|en']['value'] ?? null);
 
 $inList = "'" . implode("', '", OLD_FORM_KEYS) . "'";
 same('053: the old feedback form\'s and callback page\'s keys, all there before, gone - with every string under one, in every language', [count(OLD_FORM_KEYS), 0, 0], [
@@ -286,6 +309,19 @@ echo "The copies, for one release\n";
 same('translations_before_library: every string as it was, blanks and guides included', count($before), (int) $pdo->query('SELECT count(*) FROM translations_before_library')->fetchColumn());
 same('translation_keys_before_library: every key, with its scope and flag', count($keysBefore), (int) $pdo->query('SELECT count(*) FROM translation_keys_before_library')->fetchColumn());
 same('...the Star Rail scope and the mistaken flag among them', ['star_rail', 'flagged'], array_values($pdo->query("SELECT (SELECT site FROM translation_keys_before_library WHERE name = 'nav.starRail'), (SELECT CASE WHEN is_html THEN 'flagged' END FROM translation_keys_before_library WHERE name = 'notFound.text')")->fetch()));
+$pdo = null;
+
+// ── The footer's Feedback, reworded by its owner ────────────────────────────
+
+echo "users/057 rewords the footer's Feedback only where it is still users/004's\n";
+
+$reworded = testDatabase('words_feedback', $base);
+$pdo = testPdo($reworded);
+$pdo->exec("UPDATE translations SET value = 'Write to us', updated_by = 7 WHERE key_name = 'footer.feedback' AND language_code = 'en'");
+$result = siteMigrator($pdo)->apply();
+check('applied without an error', $result['error'] === null, (string) $result['error']);
+$feedback = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'footer.feedback' AND language_code = 'en'")->fetch();
+same('the owner\'s English rewording stands, with who made it', ['Write to us', 7], [$feedback['value'] ?? null, (int) ($feedback['updated_by'] ?? 0)]);
 $pdo = null;
 
 // ── What 050 will not move ──────────────────────────────────────────────────

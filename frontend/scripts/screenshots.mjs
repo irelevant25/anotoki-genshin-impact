@@ -152,6 +152,46 @@ const storedMarkupInert = async (page) => {
   return page.evaluate("document.documentElement.dataset.storedScript !== 'ran'");
 };
 
+/**
+ * The public site's own footer (sites/main/common/footer): the site's dialogs in their order - the version (the
+ * changelog's newest), What's new, Feedback, the account - then Terms · Privacy · Contact as links, and the fan clause;
+ * under the closed sign and the sign-in card (`legalOnly`) the links and the clause alone. The two sides side by side
+ * on a wide window and stacked on a narrow one - never over each other, nor past the window's edge. Anything missing,
+ * extra, out of order or overlapping is said.
+ */
+const publicFooter =
+  ({ legalOnly }) =>
+  async (page) => {
+    if (!(await waitFor(page, "!!document.querySelector('app-footer .site-footer-fan')", 15000))) {
+      heard.push('the public site has no footer');
+      return true;
+    }
+    const facts = await page.evaluate(`(() => {
+      const footer = document.querySelector('app-footer footer');
+      const items = footer.querySelector('.site-footer-items');
+      const fan = footer.querySelector('.site-footer-fan');
+      const a = items.getBoundingClientRect();
+      const b = fan.getBoundingClientRect();
+      return {
+        lang: document.documentElement.lang,
+        buttons: [...items.querySelectorAll(':scope > button')].map((button) => button.textContent.trim()),
+        links: [...footer.querySelectorAll('nav a')].map((link) => link.getAttribute('href')),
+        fan: fan.textContent.trim() !== '',
+        overlap: a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1,
+        outside: Math.min(a.left, b.left) < 0 || Math.max(a.right, b.right) > window.innerWidth + 1,
+      };
+    })()`);
+    const words = { en: ["What's new", 'Feedback', 'Account'], sk: ['Čo je nové', 'Spätná väzba', 'Účet'] }[facts.lang] ?? [];
+    const expected = { lang: facts.lang, buttons: legalOnly ? [] : [`v${version}`, ...words], links: ['/terms', '/privacy', '/contact'], fan: true, overlap: false, outside: false };
+    if (JSON.stringify(facts) !== JSON.stringify(expected)) {
+      heard.push(`the public footer: ${JSON.stringify(facts)}, not ${JSON.stringify(expected)}`);
+    }
+    return true;
+  };
+
+/** The account panel open from the footer - its Background row's button, which opens the wallpapers' window, drawn. */
+const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (page) => waitFor(page, "!!document.querySelector('dialog[open] button[aria-haspopup=dialog]')", 15000));
+
 const MAIN = [
   { name: 'main-home', path: '/', focus: 4 },
   { name: 'main-daily', path: '/daily' },
@@ -181,11 +221,16 @@ const MAIN = [
   { name: 'main-profile', path: '/profile' },
   { name: 'main-staff', path: '/staff' },
   { name: 'main-not-found', path: '/no-such-page' },
-  { name: 'main-dialog-account', path: '/', then: click('app-footer a, app-footer button, app-footer .item', '^Account$') },
-  { name: 'main-dialog-versions', path: '/', then: click('app-footer a, app-footer button, app-footer .item', '^v\\d') },
-  { name: 'main-dialog-backgrounds', path: '/', then: click('app-footer a, app-footer button, app-footer .item', '^Backgrounds$') },
-  { name: 'main-dialog-feedback', path: '/', then: click('app-footer a, app-footer button, app-footer .item', '^Feedback') },
+  // The footer, light in English and dark in Slovak, and what it opens: the version, What's new (by itself on a first
+  // visit, and from the footer), Feedback, the account - and from the account panel, the wallpapers.
+  { name: 'main-footer', path: '/', pairings: true, then: publicFooter({ legalOnly: false }) },
+  { name: 'main-footer-account', path: '/', pairings: true, widths: [1280], then: accountOpen },
+  { name: 'main-dialog-account', path: '/', then: click('app-footer button', '^Account$') },
+  { name: 'main-dialog-versions', path: '/', then: click('app-footer button', '^v\\d') },
+  { name: 'main-dialog-backgrounds', path: '/', then: steps(accountOpen, press('dialog[open] button[aria-haspopup=dialog]')) },
+  { name: 'main-dialog-feedback', path: '/', then: click('app-footer button', '^Feedback$') },
   { name: 'main-dialog-whats-new', path: '/', fresh: true },
+  { name: 'main-dialog-whats-new-footer', path: '/', then: click('app-footer button', "^What's new$") },
   { name: 'main-dialog-guide', path: '/quizzes', then: press('button.guide-icon') },
   // The anotoki family's legal pages with genshin's facts (anotoki-lib 0.6), in English and in Slovak (`lang`: the
   // language this browser chose), and the Contact page's feedback form opened in its dialog. The Privacy page must
@@ -315,14 +360,15 @@ const ADMIN = [
 const failureShown = (page) => waitFor(page, "location.pathname === '/auth/callback' && !!document.querySelector('anotoki-sign-in-failure button')", 20000);
 const SIGN_IN_FAILED = [
   { name: 'main-sign-in-failed', path: '/admin', iam: { deny: true }, then: failureShown },
-  { name: 'main-sign-in-required-failed', path: '/', iam: { deny: true, login_required: true }, then: failureShown },
+  // The sign-in card keeps the footer's fan clause and Terms · Privacy · Contact alone.
+  { name: 'main-sign-in-required-failed', path: '/', iam: { deny: true, login_required: true }, then: steps(failureShown, publicFooter({ legalOnly: true })) },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // The site while it is not ready: the family's status page alone (anotoki-lib
 // 0.6.3, the owner's rule of 2026-10-18). An update waiting, the database out
 // of reach, not set up: the gate draws its page in a <main> of its own, and
-// both sites' frames - the public site's header, footers and notes, the admin
+// both sites' frames - the public site's header, footer and notes, the admin
 // panel's navigation and the family's footer - are inside the pages it does
 // not make. `closed` is the state a page is shown in (closeSite()), `reopened`
 // what must be there once the site is ready again; `pairings` the two the
@@ -339,7 +385,6 @@ const FRAME = [
   '[role=contentinfo]',
   'app-header',
   'app-footer',
-  'app-legal-footer',
   'app-announcement',
   'app-route-notice',
   'app-admin-root',
@@ -366,13 +411,8 @@ const statusAlone = async (page) => {
   return true;
 };
 
-/** The public site back once it is ready: its header and its footers, and no status page. */
-const publicFrameBack = (page) =>
-  waitFor(
-    page,
-    "!!document.querySelector('app-header') && !!document.querySelector('app-footer') && !!document.querySelector('app-legal-footer') && !document.querySelector('anotoki-site-status')",
-    45000,
-  );
+/** The public site back once it is ready: its header and its footer, and no status page. */
+const publicFrameBack = (page) => waitFor(page, "!!document.querySelector('app-header') && !!document.querySelector('app-footer') && !document.querySelector('anotoki-site-status')", 45000);
 
 /** The admin panel back once the site is ready: its navigation and the family's footer, Feedback in it, and no status page. */
 const adminFrameBack = (page) =>

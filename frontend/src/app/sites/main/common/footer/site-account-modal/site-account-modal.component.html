@@ -111,6 +111,19 @@
     <p class="account-note">{{ 'account.preferencesNote' | translate }}</p>
 }
 
+<!-- The wallpaper behind the site: this browser's own, never the anotoki
+     account's - so it comes after the line that says the choices above
+     are the account's. The button names the one shown now and opens the
+     wallpapers' window over this one. -->
+<div class="theme-row">
+    <span class="icon icon-layers icon-size-4" aria-hidden="true"></span>
+    <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.background" | translate }}</span>
+    <button anotokiButton class="theme-choices" aria-haspopup="dialog" (click)="chooseBackground()">
+        <span class="visually-hidden">{{ "account.background" | translate }}:</span>
+        {{ wallpaper() }}
+    </button>
+</div>
+
 <!-- Signing out is the IAM's too, and it is everywhere at once. Said
      before the button is pressed rather than discovered on the next
      site. -->

@@ -1,0 +1,137 @@
+// The public site's footer: the site's items on the right and the fan clause alone on the left, each on the bar's black,
+// which fades into the wallpaper towards the middle - the left side's fade the mirror of the right side's. White on
+// 80 % black, the bar's own colours: they stand over any wallpaper, in either theme.
+//
+// On a wide window the bar is fixed to its bottom edge, and the clear middle lets the clicks through to the page under
+// it. Narrower than 1200 px, the seven items and the sentence would not fit side by side: the footer is in the page's
+// flow under it, the items over the clause on one dark band, wrapping as a phone needs.
+
+:host {
+  display: block;
+}
+
+.site-footer {
+  // How far each side's black fades out, between its innermost word and the middle.
+  --site-footer-fade: 5rem;
+
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  // The items come first in the page; drawn on the right.
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.site-footer-items,
+.site-footer-fan {
+  pointer-events: auto;
+}
+
+.site-footer-items {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 15px 8px var(--site-footer-fade);
+  border-top-left-radius: 8px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) var(--site-footer-fade));
+}
+
+.site-footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.site-footer-item {
+  padding: var(--spacing-xxs) 8px;
+  border: 0;
+  border-radius: var(--border-radius);
+  background: none;
+  color: rgba(255, 255, 255, 0.9);
+  font: inherit;
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+
+  // The page's focus ring is a blue the bar's black would swallow: white here, as the words are.
+  &:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 1px;
+  }
+
+  // The legal page that is open.
+  &[aria-current="page"] {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+// A long name is cut short here; the account panel shows it whole.
+.site-footer-account {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-footer-fan {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 8px var(--site-footer-fade) 8px 15px;
+  border-top-right-radius: 8px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) var(--site-footer-fade));
+  color: rgba(255, 255, 255, 0.85);
+  // Small enough to stay two lines beside the Slovak items from 1200 px; the lines balanced, never one word left alone.
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+@media only screen and (max-width: 1199px) {
+  .site-footer {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
+  }
+
+  .site-footer-items,
+  .site-footer-fan {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .site-footer-items,
+  .site-footer-legal {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--spacing-xxs);
+  }
+
+  .site-footer-fan {
+    display: block;
+    text-align: center;
+  }
+}

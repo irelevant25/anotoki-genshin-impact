@@ -13,9 +13,10 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         sign-in card (sign-in-required, while the IAM requires signing in), each
                         drawn instead of the site; the visitor notice (visitor-notice: how long a
                         visitor's games are kept, and Sign in) on the Profile, the quizzes hub and
-                        the Daily page; the footer's Feedback (site-feedback-modal: the library's
-                        form, loaded when opened); legal-footer (Terms · Privacy · Contact, the
-                        library's links, and the fan clause, under every page); the shell
+                        the Daily page; the footer under every page (footer/: the version, What's
+                        new, Feedback - the library's form, loaded when opened -, the account with
+                        its wallpapers, Terms · Privacy · Contact, and the fan clause on its left;
+                        the links and the clause alone under the closed sign and the card); the shell
                         (app.component) says once what happened to a visitor's games, in toasts;
                         legal/ - /terms, /privacy, /contact: the library's pages
                         (@anotoki/lib/legal/pages) in their frame, with this site's facts

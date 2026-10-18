@@ -1,24 +1,20 @@
-<div class="bottom-container">
-    @for (menuItemSignal of menuItems | keyvalue: preserveOrder; track menuItemSignal.value().id) {
-        @let menuItem = menuItemSignal.value();
-        <!-- Real links and buttons, so the keyboard reaches each one: an address
-             outside opens in a new tab, everything else opens its dialog. -->
-        @if (isSafeUrl(menuItem.url)) {
-            <a class="item" [class.hidden]="menuItem.hidden" [href]="menuItem.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="menuItem.icon ? menuItem.titleLiteral : null">
-                <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
-            </a>
-        } @else {
-            <button type="button" class="item" [class.hidden]="menuItem.hidden" (click)="onMenuItemClick(menuItem)">
-                <ng-container *ngTemplateOutlet="menuContent; context: { $implicit: menuItem }" />
-            </button>
+<!-- Real buttons and links, so the keyboard reaches each one: a button opens its dialog, which gives the focus back to it
+     as it closes; a link opens its page as the top menu's links do. The items come first in the page and the fan clause
+     last, as they are read; a wide window draws the clause on the left (footer.component.scss). -->
+<footer class="site-footer">
+    <div class="site-footer-items">
+        @if (!legalOnly()) {
+            <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openVersions()">{{ version() ?? ("footer.versions" | translate) }}</button>
+            <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openWhatsNew()">{{ "footer.whatsNew" | translate }}</button>
+            <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openFeedback()">{{ "footer.feedback" | translate }}</button>
+            <button type="button" class="site-footer-item site-footer-account" aria-haspopup="dialog" (click)="openAccount()">{{ username() ?? ("footer.account" | translate) }}</button>
         }
-    }
-</div>
-
-<ng-template #menuContent let-item>
-    @if (item.icon) {
-        <span class="icon {{ item.icon }}" aria-hidden="true"></span>
-    } @else {
-        <span>{{ item.titleLiteral || (item.title | translate) }}</span>
-    }
-</ng-template>
+        <!-- The legal pages, named in the anotoki library's words (an owner's rewording first); the open one is marked. -->
+        <nav class="site-footer-legal" [attr.aria-label]="'anotoki.legalLinks.label' | translate">
+            <a class="site-footer-item" [routerLink]="legalPaths.terms" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.terms" | translate }}</a>
+            <a class="site-footer-item" [routerLink]="legalPaths.privacy" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.privacy" | translate }}</a>
+            <a class="site-footer-item" [routerLink]="legalPaths.contact" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.contact" | translate }}</a>
+        </nav>
+    </div>
+    <p class="site-footer-fan">{{ "footer.fanDisclaimer" | translate }}</p>
+</footer>

@@ -1,6 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
+import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
+import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { AccountPreferences, type PreferenceSave } from '@anotoki/lib/auth';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
@@ -11,6 +13,8 @@ import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../../../shared/local-lib/i18n/date-format.service';
+import { SiteBackgroundsModalComponent } from '../site-backgrounds/site-backgrounds-modal.component';
+import { wallpaperName } from '../site-backgrounds/wallpapers';
 
 /**
  * Who is signed in, and how they like the site.
@@ -21,7 +25,8 @@ import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../
  * account's too (AccountPreferences): chosen here, they are saved to it, and
  * every anotoki site follows them. Signed out, the appearance and the language
  * are this device's. What is this site's own is the name and role it knows the
- * reader by.
+ * reader by - and the wallpaper behind the site, this browser's alone, chosen
+ * in a window of its own opened from here.
  */
 @Component({
   selector: 'app-site-account-modal',
@@ -47,8 +52,13 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
 
   private readonly _settings = inject(SiteSettingsService);
 
+  private readonly _storage = inject(LocalStorageService);
+
   /** Null when signed out, which is a state this modal renders. */
   readonly user = this.security.currentUser;
+
+  /** The wallpaper behind the site now, by its name (a place or a character, shown as it is). */
+  readonly wallpaper = signal(wallpaperName(this._storage.read(StorageKeys.BACKGROUND)));
 
   /** The role as a word rather than a code: ADMIN is "Administrator". */
   constructor() {
@@ -159,6 +169,16 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
         this._notSaved();
       }
     });
+  }
+
+  /**
+   * The wallpapers' window, over this one - the kit's widest (64rem): a
+   * wallpaper is chosen by its picture. One chosen there is shown at once and
+   * kept in this browser; once the window closes, the focus is back on the
+   * button here, which names it.
+   */
+  chooseBackground(): void {
+    void this.openModal(SiteBackgroundsModalComponent, { size: 'xl' }).closed.then(() => this.wallpaper.set(wallpaperName(this._storage.read(StorageKeys.BACKGROUND))));
   }
 
   toAdmin(): void {

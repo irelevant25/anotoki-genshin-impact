@@ -17,13 +17,11 @@
     <app-route-notice></app-route-notice>
 
     <router-outlet></router-outlet>
-
-    <app-footer></app-footer>
 }
 
-<!-- Under every page - the closed sign and the sign-in card too, which the legal pages stand in place of:
-     Terms · Privacy · Contact and the fan clause. -->
-<app-legal-footer />
+<!-- Under every page. The closed sign and the sign-in card - which the legal pages stand in place of - keep the fan
+     clause and Terms · Privacy · Contact alone: the site's own dialogs would ask an API that refuses them. -->
+<app-footer [legalOnly]="closed() || signInFirst()" />
 
 <!-- Outside both, because a toast is about what just happened rather than about
      which page it happened on: the kit's, in a polite live region. -->

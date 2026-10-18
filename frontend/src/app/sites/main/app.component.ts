@@ -5,7 +5,6 @@ import { filter, map } from 'rxjs';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { AnnouncementComponent } from './common/announcement/announcement.component';
-import { LegalFooterComponent } from './common/legal-footer/legal-footer.component';
 import { MaintenanceComponent } from './common/maintenance/maintenance.component';
 import { RouteNoticeComponent } from './common/route-notice/route-notice.component';
 import { SignInRequiredComponent } from './common/sign-in-required/sign-in-required.component';
@@ -21,7 +20,7 @@ import { QuizProgressService } from './features/quizzes/shared/quiz-progress.ser
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, LegalFooterComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
+  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
   providers: [],
 })
 export class AppComponent {
