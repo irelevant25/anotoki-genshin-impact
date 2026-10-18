@@ -23,34 +23,41 @@
 //
 //   <?php return ['origin_secret' => '<a long random value, 32 characters or more>'];
 //
-// Without it - or with a file read cleanly whose value is not a string with
-// something in it (blank, a misspelt key, a forgotten return) - there is no
-// secret, and CF-Connecting-IP is believed from the trusted proxies alone, as
-// before. A file that is there but cannot be read cleanly - one that does not
-// start with <?php (a byte-order mark, a blank line, no <?php line: never
-// compiled), one that prints (text after a closing tag), or one PHP cannot
-// read (config/local.php) - FAILS CLOSED: its secret is one no request
-// carries, so every request from Cloudflare's ranges counts as the edge it
-// came from until the file is mended. Its owner meant a secret; believing
+// Without it there is no secret, and CF-Connecting-IP is believed from the
+// trusted proxies alone, as before: deleting the file is the one way to switch
+// the secret off. A file that is there but gives no usable secret FAILS
+// CLOSED: its secret is one no request carries, so every request from
+// Cloudflare's ranges counts as the edge it came from until the file is
+// mended. That is one that cannot be read cleanly - it does not start with
+// <?php (a byte-order mark, a blank line, no <?php line: never compiled), it
+// prints (text after a closing tag), or PHP cannot read it (config/local.php)
+// - and, since 2026-10-18, one read cleanly whose origin_secret is not a
+// string with something in it (blank, not an array, a misspelt or another key
+// in its place, a number, a forgotten return), and anything else in the
+// file's place, a folder too. Its owner meant a secret; believing
 // CF-Connecting-IP from Cloudflare's ranges alone - every Cloudflare
 // customer's - would be the looser reading (the IAM's rule of 2026-10-13, the
-// anotoki family's). Either way the site keeps running: the file never makes
-// it "not set up". What was wrong goes to the PHP log, once (not on every
-// request) - never the value, nor what PHP said of a file it could not run,
-// which can quote it, nor a key of the file's, which a slip could have made
-// the secret.
+// anotoki family's; for a file read cleanly, the owner's "do as you think is
+// the best" of 2026-10-18). Either way the site keeps running: the file never
+// makes it "not set up". What was wrong goes to the PHP log, once (not on
+// every request) - never the value, nor what PHP said of a file it could not
+// run, which can quote it, nor a key of the file's, which a slip could have
+// made the secret.
 // ---------------------------------------------------------------------------
 
 require_once __DIR__ . '/local.php';
 
 /**
- * The origin secret this request runs on, or null when there is none. Worked
- * out once a request; what was wrong with the file goes to the PHP log
- * (originSecretReport()).
+ * The origin secret this request runs on, or null when there is none - when
+ * there is no config/cloudflare.local.php at all. Worked out once a request;
+ * what was wrong with the file goes to the PHP log (originSecretReport()).
  *
- * A file that is there but was passed over (localConfigError(): it does not
- * start with <?php, it prints, or PHP cannot read it) is a secret no request
- * carries (originSecretUnmatchable()) - fails closed, never "no secret".
+ * Anything at the file's path counts as the file, a folder too (file_exists(),
+ * where the settings reader asks is_file()), and a file that gives no usable
+ * secret is a secret no request carries (originSecretUnmatchable()) - fails
+ * closed, never "no secret": one passed over (localConfigError(): it does not
+ * start with <?php, it prints, or PHP cannot read it), and one read cleanly
+ * that names no secret (originSecretFrom()'s null).
  */
 function originSecret(): ?string
 {
@@ -59,14 +66,19 @@ function originSecret(): ?string
 
     if (!$done) {
         $done = true;
-        $error = localConfigError('cloudflare');
-        if ($error !== null) {
-            $secret = originSecretUnmatchable();
-            originSecretReport(["config/cloudflare.local.php cannot be read cleanly ({$error}): no request carries its secret, so every request from Cloudflare's ranges counts as the edge it came from until the file is mended"]);
+        $file = localConfigPath('cloudflare');
+        if (!file_exists($file)) {
+            originSecretReport([]);
         } else {
-            $result = originSecretFrom(localConfig('cloudflare'));
-            $secret = $result['secret'];
-            originSecretReport($result['problems']);
+            $error = is_file($file) ? localConfigError('cloudflare') : 'is not a file (a folder, or something else, in its place)';
+            if ($error !== null) {
+                $secret = originSecretUnmatchable();
+                originSecretReport(["config/cloudflare.local.php cannot be read cleanly ({$error}): no request carries its secret, so every request from Cloudflare's ranges counts as the edge it came from until the file is mended"]);
+            } else {
+                $result = originSecretFrom(localConfig('cloudflare'));
+                $secret = $result['secret'] ?? originSecretUnmatchable();
+                originSecretReport($result['problems']);
+            }
         }
     }
 
@@ -85,23 +97,25 @@ function originSecretUnmatchable(): string
     return $secret ??= bin2hex(random_bytes(32));
 }
 
+/** What the log is told of a file read cleanly that names no usable secret: it fails closed, and how to switch it off. */
+const ORIGIN_SECRET_NONE = 'no request carries its secret, so every request from Cloudflare\'s ranges counts as the edge it came from until the file names one - deleting the file switches the secret off';
+
 /**
- * The secret from what config/cloudflare.local.php returned ($values: null
- * when there is no such file), and a sentence for what was not used - never
- * the value itself. A pure function: the checks are tried by handing it
- * values.
+ * The secret from what a config/cloudflare.local.php that is there, read
+ * cleanly, returned ($values - null too, for a file that says `return null;`),
+ * and a sentence for what was not used - never the value itself. Null for the
+ * secret: the file names no usable one, and originSecret() fails closed on it
+ * (a secret no request carries) - never "no secret", which is the file's
+ * absence alone. A pure function: the checks are tried by handing it values.
  *
  * @return array{secret: ?string, problems: string[]}
  */
 function originSecretFrom(mixed $values): array
 {
-    if ($values === null) {
-        return ['secret' => null, 'problems' => []];
-    }
     if (!is_array($values)) {
         return [
             'secret' => null,
-            'problems' => ['config/cloudflare.local.php returns ' . get_debug_type($values) . ', not an array, so there is no origin secret'],
+            'problems' => ['config/cloudflare.local.php returns ' . get_debug_type($values) . ', not an array: ' . ORIGIN_SECRET_NONE],
         ];
     }
 
@@ -112,7 +126,7 @@ function originSecretFrom(mixed $values): array
     $secret = $values['origin_secret'] ?? null;
     if (!is_string($secret) || trim($secret) === '') {
         $problems[] = 'origin_secret must be a string with something in it, not '
-            . (is_string($secret) ? 'an empty one' : get_debug_type($secret)) . ', so there is no origin secret';
+            . (is_string($secret) ? 'an empty one' : get_debug_type($secret)) . ': ' . ORIGIN_SECRET_NONE;
 
         return ['secret' => null, 'problems' => $problems];
     }

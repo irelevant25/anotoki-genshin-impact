@@ -25,9 +25,15 @@
             <anotoki-side-nav #nav="anotokiSideNav" class="sidebar-nav" label="Admin panel" heading="Genshin Admin" [groups]="navGroups()" [phoneMax]="860" />
         </aside>
 
-        <main class="admin-main" id="main">
-            <router-outlet></router-outlet>
-        </main>
+        <!-- The page and, under it, the family's footer, in one column that scrolls (on a phone, the page does):
+             the footer after the page, at the column's foot on a short one - a landmark of its own, beside the
+             <main>, never inside it. Version, What's new and Feedback, Terms · Privacy · Contact, the fan clause. -->
+        <div class="admin-main">
+            <main class="admin-page" id="main">
+                <router-outlet></router-outlet>
+            </main>
+            <anotoki-site-footer class="admin-footer" [version]="version()" [whatsNew]="!!version()" (whatsNew)="openWhatsNew()" [feedback]="feedbackOffered()" fan="hoyoverse" />
+        </div>
     </div>
 } @else {
     <app-admin-no-access></app-admin-no-access>

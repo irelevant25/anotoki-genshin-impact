@@ -142,10 +142,12 @@ same('...through the zone, a visitor of their own may still write', 201, send('P
 
 // ── What the file may hold ───────────────────────────────────────────────────
 
-echo "What config/cloudflare.local.php may hold: a string with something in it, or no secret\n";
+echo "What config/cloudflare.local.php may hold: a string with something in it - anything else fails closed\n";
 
+// originSecretFrom()'s null is a file there that names no usable secret: originSecret() makes it one no request
+// carries (below, through the real reading). Only a file that is not there is no secret.
 foreach ([
-    'no file' => [null, null, 0],
+    'return null;' => [null, null, 1],
     'the secret' => [['origin_secret' => 'a-secret'], 'a-secret', 0],
     'the secret with spaces around it' => [['origin_secret' => " \ta-secret\n"], 'a-secret', 0],
     'an empty one' => [['origin_secret' => ''], null, 1],
@@ -157,7 +159,10 @@ foreach ([
     'another key beside the secret' => [['origin_secret' => 'a-secret', 'secret' => 'x'], 'a-secret', 1],
 ] as $what => [$values, $secret, $problems]) {
     $result = originSecretFrom($values);
-    same("$what: " . ($secret === null ? 'no secret' : 'the secret') . ", $problems sentence(s) for the log", [$secret, $problems], [$result['secret'], count($result['problems'])]);
+    same("$what: " . ($secret === null ? 'names no usable secret' : 'the secret') . ", $problems sentence(s) for the log", [$secret, $problems], [$result['secret'], count($result['problems'])]);
+    if ($secret === null) {
+        check('...the log is told it fails closed, and that deleting the file switches the secret off', str_contains(implode("\n", $result['problems']), 'no request carries its secret') && str_contains(implode("\n", $result['problems']), 'deleting the file switches the secret off'), implode("\n", $result['problems']));
+    }
 }
 $sentences = implode("\n", array_merge(
     originSecretFrom([ORIGIN_SECRET => 'origin_secret'])['problems'],
@@ -166,33 +171,61 @@ $sentences = implode("\n", array_merge(
 ));
 check('...and what the log is told never holds the value - nor a key, which a slip may have made the secret', $sentences !== '' && !str_contains($sentences, ORIGIN_SECRET), $sentences);
 
-// A file that cannot be read cleanly, through the real reading - in a process of its own: this one has read its
-// file already (once a request). It FAILS CLOSED (the anotoki family's rule, the IAM's of 2026-10-13): its secret
-// is one no request carries, never "no secret" - which would believe CF-Connecting-IP from every Cloudflare
-// customer's Worker. PHP's own message would quote the file: the log has the site's sentences alone.
-// (tests/settings-files.test.php runs the same through the whole API, the limits too.)
-$bare = 'secret_' . bin2hex(random_bytes(16));
-foreach ([
-    'a parse error (two strings side by side: PHP\'s message quotes the second)' => "<?php return ['origin_secret' => 'x' '" . ORIGIN_SECRET . "'];\n",
-    'a word without its quotes (PHP\'s error quotes it)' => "<?php return ['origin_secret' => $bare];\n",
-    // Written by hand without its first line, or saved with a BOM: PHP would print the file before every answer -
-    // and with declare(strict_types=1) after a BOM or a blank line it could not compile it at all.
-    'no <?php line (PHP would print the whole file)' => "return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
-    'a BOM (PHP would print it before the answer)' => "\xEF\xBB\xBF<?php return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
-    'a BOM before <?php declare(strict_types=1); (compiled, a fatal error)' => "\xEF\xBB\xBF<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
-    'a blank line before <?php declare(strict_types=1); (compiled, a fatal error)' => "\n<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
-] as $what => $contents) {
+// The real reading, in a process of its own - this one has read its file already (once a request): config/ and
+// storage/cache/ of their own, config/cloudflare.local.php holding $contents (FOLDER: a folder in its place; null:
+// no file at all). What originSecret() gave, as var_export() writes it, PHP's log and what the process printed.
+const FOLDER = "\0a folder";
+function originSecretRead(string $backend, ?string $contents): array
+{
     $dir = testTempDir('cloudflare');
     mkdir("$dir/config");
     mkdir("$dir/storage/cache", 0777, true);
     copy("$backend/config/local.php", "$dir/config/local.php");
     copy("$backend/config/cloudflare.php", "$dir/config/cloudflare.php");
-    file_put_contents("$dir/config/cloudflare.local.php", $contents);
+    if ($contents === FOLDER) {
+        mkdir("$dir/config/cloudflare.local.php");
+    } elseif ($contents !== null) {
+        file_put_contents("$dir/config/cloudflare.local.php", $contents);
+    }
     file_put_contents("$dir/read.php", "<?php\nrequire " . var_export("$dir/config/cloudflare.php", true) . ";\nfile_put_contents(" . var_export("$dir/secret.txt", true) . ", var_export(originSecret(), true));\n");
+    $output = [];
     exec(escapeshellarg(PHP_BINARY) . ' -d ' . escapeshellarg("error_log=$dir/php.log") . ' ' . escapeshellarg("$dir/read.php") . ' 2>&1', $output, $code);
-    $said = (string) @file_get_contents("$dir/php.log");
-    $read = (string) @file_get_contents("$dir/secret.txt");
-    check("$what: fails closed - a secret no request carries (64 random hex characters, not the file's), and the site goes on", $code === 0 && preg_match("/^'[0-9a-f]{64}'$/D", $read) === 1 && !str_contains($read, ORIGIN_SECRET), "exit $code");
-    check('...said in the PHP log, with the site\'s sentences alone', str_contains($said, '[cloudflare] config/cloudflare.local.php cannot be read cleanly (') && str_contains($said, 'no request carries its secret'), $said);
-    check('...never with the value', !str_contains($said . implode("\n", $output), ORIGIN_SECRET) && !str_contains($said . implode("\n", $output), $bare));
+
+    return ['code' => $code, 'read' => (string) @file_get_contents("$dir/secret.txt"), 'said' => (string) @file_get_contents("$dir/php.log"), 'printed' => implode("\n", $output)];
 }
+
+// A file that is there but gives no usable secret FAILS CLOSED (the anotoki family's rule, the IAM's of 2026-10-13;
+// for a file read cleanly, the owner's "do as you think is the best" of 2026-10-18): its secret is one no request
+// carries, never "no secret" - which would believe CF-Connecting-IP from every Cloudflare customer's Worker. PHP's own
+// message would quote the file: the log has the site's sentences alone. (tests/settings-files.test.php runs the same
+// through the whole API, the limits too.)
+$bare = 'secret_' . bin2hex(random_bytes(16));
+$unreadable = '[cloudflare] config/cloudflare.local.php cannot be read cleanly (';
+foreach ([
+    'a parse error (two strings side by side: PHP\'s message quotes the second)' => ["<?php return ['origin_secret' => 'x' '" . ORIGIN_SECRET . "'];\n", $unreadable],
+    'a word without its quotes (PHP\'s error quotes it)' => ["<?php return ['origin_secret' => $bare];\n", $unreadable],
+    // Written by hand without its first line, or saved with a BOM: PHP would print the file before every answer -
+    // and with declare(strict_types=1) after a BOM or a blank line it could not compile it at all.
+    'no <?php line (PHP would print the whole file)' => ["return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+    'a BOM (PHP would print it before the answer)' => ["\xEF\xBB\xBF<?php return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+    'a BOM before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\xEF\xBB\xBF<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+    'a blank line before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\n<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+    // Read cleanly, naming no usable secret (2026-10-18): each a slip in a file its owner meant to hold one.
+    'read cleanly, the secret blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
+    'read cleanly, only spaces' => ["<?php\n\nreturn ['origin_secret' => \"  \\n\"];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
+    'read cleanly, no array (the secret alone, returned)' => ["<?php\n\nreturn '" . ORIGIN_SECRET . "';\n", '[cloudflare] config/cloudflare.local.php returns string, not an array'],
+    'read cleanly, a forgotten return (require gives 1)' => ["<?php\n\n\$secret = ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] config/cloudflare.local.php returns int, not an array'],
+    'read cleanly, return null;' => ["<?php\n\nreturn null;\n", '[cloudflare] config/cloudflare.local.php returns null, not an array'],
+    'read cleanly, a misspelt key' => ["<?php\n\nreturn ['orgin_secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
+    'read cleanly, another key in its place' => ["<?php\n\nreturn ['secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
+    'read cleanly, a number' => ["<?php\n\nreturn ['origin_secret' => 123456789012345678];\n", '[cloudflare] origin_secret must be a string with something in it, not int'],
+    'read cleanly, the secret in a list' => ["<?php\n\nreturn ['origin_secret' => ['" . ORIGIN_SECRET . "']];\n", '[cloudflare] origin_secret must be a string with something in it, not array'],
+    'a folder in the file\'s place' => [FOLDER, $unreadable . 'is not a file'],
+] as $what => [$contents, $sentence]) {
+    $run = originSecretRead($backend, $contents);
+    check("$what: fails closed - a secret no request carries (64 random hex characters, not the file's), and the site goes on", $run['code'] === 0 && preg_match("/^'[0-9a-f]{64}'$/D", $run['read']) === 1 && !str_contains($run['read'], ORIGIN_SECRET), "exit {$run['code']}: {$run['printed']}");
+    check('...said in the PHP log, with the site\'s sentences alone: the fault, and that no request carries its secret', str_contains($run['said'], $sentence) && str_contains($run['said'], 'no request carries its secret'), $run['said']);
+    check('...never with the value', !str_contains($run['said'] . $run['printed'], ORIGIN_SECRET) && !str_contains($run['said'] . $run['printed'], $bare));
+}
+$run = originSecretRead($backend, null);
+same('no file at all - the one way to switch the secret off: no secret, nothing said', [0, 'NULL', ''], [$run['code'], $run['read'], $run['said']]);

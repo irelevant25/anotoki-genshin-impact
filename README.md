@@ -168,8 +168,9 @@ hosting:
     (`return ['origin_secret' => '...'];`, put there by hand; a long random value, 32+ characters). With it the
     site believes `CF-Connecting-IP` only on a request that carries the secret - anybody's Cloudflare Worker
     can connect from Cloudflare's ranges; without the file it believes `CF-Connecting-IP` from Cloudflare's
-    ranges alone; with one it cannot read cleanly (a byte-order mark, a line before `<?php`) it believes it
-    from nobody - every visitor counts as their edge until the file is mended. Set the rule first, then the
+    ranges alone - deleting it is the one way to switch the secret off; with one it cannot read cleanly (a
+    byte-order mark, a line before `<?php`) or that names no usable secret (blank, a misspelt key) it believes
+    it from nobody - every visitor counts as their edge until the file is mended. Set the rule first, then the
     file, saved as UTF-8 without a BOM and starting with `<?php` - every `config/*.local.php` likewise.
 - **After an upload**: the private folders (`storage/`, `config/`) answer 403 in a browser; the host check's
   "Who connects" says Cloudflare, not a proxy of the host's (behind one, every visitor would share one
@@ -394,6 +395,22 @@ not drift; [docs/README.md](docs/README.md) lists them.
   `cloudflare.local.php` fails closed, an unreadable `visitors.local.php`
   trusts no proxy. The first load is 587.1 kB, 144.1 kB sent (it was 578.8 and
   140.3): the library's footer links and its 0.6 pieces.
+- Later on 2026-10-18 the shared library is `anotoki-lib` 0.6.3 in both halves.
+  The admin panel has the anotoki family's footer under its pages - the build
+  analyzer's, the owner's choice for every admin panel: "Version 1.2.0 · What's
+  new · Feedback" (What's new the site's own note; Feedback not offered while an
+  update waits, when the server would refuse it), Terms · Privacy · Contact and
+  the fan clause. The public site keeps its own footer, which the owner wants
+  different. The status page - an update waiting, the database out of reach, not
+  set up - stands alone, with no header, navigation or footer round it, as it
+  did; the screenshot run holds it now, and the frame coming back with the site.
+  A `cloudflare.local.php` that is there but names no usable secret (blank, no
+  array, a misspelt or another key, a value that is not a string) or a folder in
+  its place fails closed, as an unreadable one does - the owner's "do as you
+  think is the best" of 2026-10-18: only deleting the file switches the secret
+  off. The library's `anotoki_translations/012` brings the footer's four words.
+  The first load is 541.9 kB, 142.2 kB sent (it was 537.6 and 140.3): Angular's
+  own code for the binding the footer opens its feedback form with.
 
 ## More
 

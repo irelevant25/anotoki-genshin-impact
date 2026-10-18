@@ -1,16 +1,31 @@
-import { Component, computed, effect, inject, untracked } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { SiteFooterComponent } from '@anotoki/lib/footer';
+import { SiteStatus } from '@anotoki/lib/migrations';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AnotokiIcons, IconComponent } from '@anotoki/lib/ui/icon';
 import { SideNavComponent, SideNavGroup, SideNavLink, SideNavTriggerDirective } from '@anotoki/lib/ui/side-nav';
 import { FeedbackUnread } from '@anotoki/lib/admin';
-import { ConfirmHostComponent } from '@anotoki/lib/ui/dialog';
+import { AnotokiDialog, ConfirmHostComponent } from '@anotoki/lib/ui/dialog';
 import { ToastHostComponent } from '@anotoki/lib/ui/toast';
+import { firstValueFrom } from 'rxjs';
 import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
+import type { ChangelogEntry } from '../main/common/footer/site-version-modal/site-version-modal.component';
+import type { WhatsNewData } from '../main/common/footer/site-whats-new-modal/site-whats-new-modal.component';
 import { AdminNoAccessComponent } from './no-access/no-access.component';
 import { ADMIN_ICONS } from './admin-icons';
 
+/**
+ * The admin panel's frame: the kit's side navigation beside the page (a phone's
+ * row and drawer up to 860 px), and under every page the anotoki family's
+ * footer (<anotoki-site-footer>, @anotoki/lib/footer, anotoki-lib 0.6.3 - the
+ * owner's choice of 2026-10-18: one footer in every admin panel; the public
+ * site keeps its own, which is "completely different"). The footer's parts
+ * here: the version, What's new and Feedback, then Terms · Privacy · Contact
+ * and the fan clause, in English as the panel is.
+ */
 @Component({
   selector: 'app-admin-root',
   templateUrl: './app.component.html',
@@ -22,6 +37,7 @@ import { ADMIN_ICONS } from './admin-icons';
     IconComponent,
     SideNavComponent,
     SideNavTriggerDirective,
+    SiteFooterComponent,
     ToastHostComponent,
     ConfirmHostComponent,
     ThemeToggleComponent,
@@ -30,6 +46,28 @@ import { ADMIN_ICONS } from './admin-icons';
 })
 export class AppComponent {
   private readonly _security = inject(SecurityService);
+  private readonly _site = inject(SiteStatus);
+  private readonly _dialogs = inject(AnotokiDialog);
+
+  /**
+   * The site's versions, newest first: public/changelog.json, the one source of
+   * the version - the public footer shows its newest entry too. Empty until it
+   * has come, and if it never does (the footer then shows neither the version
+   * nor What's new).
+   */
+  private readonly _changelog = signal<ChangelogEntry[]>([]);
+
+  /** The footer's version: the changelog's newest. */
+  readonly version = computed(() => this._changelog()[0]?.version ?? null);
+
+  /**
+   * The footer's Feedback - the library's form in the kit's dialog, its code
+   * loaded with the press (shared/site-feedback.ts). Everybody in the panel is
+   * signed in, so it is sent as them; but not offered while the site waits for
+   * an update (only its ADMIN, on the Migrations page, has the panel then): the
+   * server would refuse the message, 503.
+   */
+  readonly feedbackOffered = computed(() => !this._site.blocked());
 
   /**
    * The feedback nobody has opened yet, beside "Feedback": no mail is sent for
@@ -144,5 +182,32 @@ export class AppComponent {
         untracked(() => void this._unread.refresh());
       }
     });
+
+    // The footer's version and What's new: a file of the build, never the API - asked whatever the site's state,
+    // and nothing waits for it. One that does not come leaves the row to Feedback.
+    firstValueFrom(inject(HttpClient).get<ChangelogEntry[]>('./changelog.json'))
+      .then((entries) => this._changelog.set(Array.isArray(entries) ? entries : []))
+      .catch(() => undefined);
+  }
+
+  /**
+   * The footer's What's new, pressed: the site's own note on its newest version -
+   * the public footer's dialog (sites/main/common/footer/site-whats-new-modal),
+   * its code loaded with the press, "See all changes" to the whole changelog.
+   * Shown, it marks the version seen in this browser, as on the site.
+   */
+  async openWhatsNew(): Promise<void> {
+    const changelog = this._changelog();
+    if (!changelog.length) {
+      return;
+    }
+    try {
+      const { SiteWhatsNewModalComponent } = await import('../main/common/footer/site-whats-new-modal/site-whats-new-modal.component');
+      this._dialogs.open(SiteWhatsNewModalComponent, { size: 'md', data: { latest: changelog[0], hasEarlier: false, changelog } satisfies WhatsNewData });
+    } catch (error) {
+      // The network gone, or a newer build uploaded since this page loaded: nothing opens, and the button is there
+      // to press again.
+      console.error('This part of the site could not be loaded', error);
+    }
   }
 }

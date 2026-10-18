@@ -265,7 +265,7 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.6.2 now
+sequences that count down, then the origin secret): both halves are 0.6.3 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.6.0` never brings 0.7, which needs its constraint
 written. A piece of the library's kit is
@@ -465,6 +465,14 @@ every update. Nothing else to set; the Privacy page names the hosting company,
 WebSupport s.r.o., as the owner named it on 2026-10-18 (`GENSHIN_HOSTING` in
 `frontend/src/app/sites/main/legal/legal-facts.ts`).
 
+**And (written 2026-10-18): anotoki-lib 0.6.3** - the family's footer under the
+admin panel's pages. One file waits: the library's
+`anotoki_translations/012_footer_words.sql` (the footer's four words, English and
+Slovak, each only where it has none - until it runs the footer says the library's
+own). Upload both builds and Apply at once. A `cloudflare.local.php` on the host
+that names no usable secret fails closed from this release (*The origin secret on
+the host*, below): make sure it holds the zone's value, or delete it.
+
 ---
 
 ## Checking your work
@@ -505,9 +513,10 @@ caught, a parse error said by its kind and line - and the attacks it stops,
 each through the whole API in a process of its own: a database file with a
 BOM, a password and no `<?php` puts the password in no answer (the status
 page's included); a BOM or a blank line before `<?php declare(strict_types=1);`
-leaves the site not set up, never a 500; an unreadable `cloudflare.local.php`
-fails closed (a forged `CF-Connecting-IP` from Cloudflare's ranges is the
-edge, the visitors' limit counts one sender); an unreadable
+leaves the site not set up, never a 500; an unreadable `cloudflare.local.php`,
+one naming no usable secret or a folder in its place, fails closed (a forged
+`CF-Connecting-IP` from Cloudflare's ranges is the edge, the visitors' limit
+counts one sender); an unreadable
 `visitors.local.php` trusts no proxy; a broken `site.local.php` is not set up;
 `migration-cli.test.php`: `php migration.php` itself). All but the first make
 databases of their own, `genshin_test_*`, on the PostgreSQL server
@@ -541,10 +550,16 @@ Contact in English and Slovak (the Privacy page flagged unless it names the
 hosting company, and Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
 of it on the callback's page, and in the sign-in card while the IAM requires
 signing in), the Privacy page while the IAM requires signing in (drawn, never
-the card, no trip to the IAM), then the admin panel as its ADMIN (the Errors
-page with the page's thrown error as its row, and that row opened; the kit's
-pieces opened - what folds, a birthday's calendar, the editor's link dialog and
-colour panel, the voice-over import), and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
+the card, no trip to the IAM), the status page while an update waits, the
+database is out of reach and the site is not set up (alone - flagged with any
+header, navigation or footer round it - in light English and dark Slovak, and
+flagged unless the site's frame comes back once it is ready), then the admin
+panel as its ADMIN (the Errors page with the page's thrown error as its row,
+and that row opened; the kit's pieces opened - what folds, a birthday's
+calendar, the editor's link dialog and colour panel, the voice-over import; the
+family's footer and the two dialogs it opens, the status page while an update
+waits, and Migrations then in the panel's frame, its footer without Feedback),
+and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
 and `report.json`. It flags what a picture hides: a page wider than a phone, an
 error in the console, a key shown where a word should be, stored markup that
@@ -1277,14 +1292,16 @@ same value in two places, a long random value of 32 characters or more:
 
 Set the rule first, then the file: the other way round, every visitor counts
 as their edge until the rule is there; changing the secret, likewise. Without
-the file (or with one read cleanly whose value is not a string with something
-in it) the site believes `CF-Connecting-IP` from the trusted proxies alone, as
-before. A file that cannot be read cleanly - saved with a byte-order mark, a
+the file the site believes `CF-Connecting-IP` from the trusted proxies alone, as
+before - deleting it is the one way to switch the secret off. A file that is
+there but gives no usable secret **fails closed** (since 2026-10-18, the anotoki
+family's rule): one that cannot be read cleanly - saved with a byte-order mark, a
 blank line before its `<?php`, no `<?php` line, text after a closing tag, a
-typo PHP cannot parse - **fails closed** (since 2026-10-18, the anotoki
-family's rule): its secret is one no request carries, so every request from
-Cloudflare counts as its edge until the file is mended - save it as UTF-8
-without a BOM, starting with `<?php`. What is wrong with the file is said in
+typo PHP cannot parse - and one read cleanly whose `origin_secret` is not a
+string with something in it (blank, no array, a misspelt or another key, a
+number), or a folder in its place: its secret is one no request carries, so
+every request from Cloudflare counts as its edge until the file is mended - save
+it as UTF-8 without a BOM, starting with `<?php`. What is wrong with the file is said in
 the PHP log once (`[settings] ...` and `[cloudflare] ...`) - never its value,
 nor what PHP said of it - and never makes the site "not set up"
 (`config/cloudflare.php`).

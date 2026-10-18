@@ -21,7 +21,9 @@ declare(strict_types=1);
  *     answer, the status page's included; cloudflare.local.php: FAILS CLOSED,
  *     a secret no request carries, so a CF-Connecting-IP forged from
  *     Cloudflare's ranges counts as the edge it came from (never "no secret",
- *     which would believe every Cloudflare customer's Worker); visitors.local.php:
+ *     which would believe every Cloudflare customer's Worker) - and so does one
+ *     read cleanly that names no usable secret, or a folder in its place, since
+ *     2026-10-18: only deleting the file switches the secret off; visitors.local.php:
  *     the limits' defaults and no proxy trusted; site.local.php: not set up.
  *
  * The API runs in a PHP process of its own for each case - the settings are
@@ -301,6 +303,41 @@ foreach ([
     check('...never the secret, nor what PHP said of the file', !str_contains(settingsCaseText($case), $origin) && !str_contains($case['log'], 'strict_types'));
 }
 
+// Read cleanly but naming no usable secret, and a folder in the file's place: each fails closed too (2026-10-18, the
+// owner's "do as you think is the best"), a secret no request carries - never "no secret", which would believe
+// CF-Connecting-IP from every Cloudflare customer's Worker. Only deleting the file switches the secret off (no file,
+// above). A forged request may carry the file's own value, or an empty X-Anotoki-Origin to match a blank secret: the
+// edge either way.
+const FOLDER = "\0a folder";
+$withEmpty = [...$addresses, ['from' => EDGE, 'headers' => $forged + ['X-Anotoki-Origin' => '']]];
+foreach ([
+    'blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", 'origin_secret must be a string with something in it, not an empty one'],
+    'no array (the secret alone, returned)' => ["<?php\n\nreturn " . var_export($origin, true) . ";\n", 'config/cloudflare.local.php returns string, not an array'],
+    'a misspelt key' => ["<?php\n\nreturn " . var_export(['orgin_secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
+    'another key in its place' => ["<?php\n\nreturn " . var_export(['secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
+    'a value that is not a string' => ["<?php\n\nreturn ['origin_secret' => 4242424242];\n", 'origin_secret must be a string with something in it, not int'],
+    'a forgotten return (require gives 1)' => ["<?php\n\n\$cloudflare = {$secretFile};\n", 'config/cloudflare.local.php returns int, not an array'],
+    'a folder in its place' => [FOLDER, 'config/cloudflare.local.php cannot be read cleanly (is not a file'],
+] as $what => [$contents, $fault]) {
+    $file = "$backend/config/cloudflare.local.php";
+    if ($contents === FOLDER) {
+        mkdir($file);
+    }
+    try {
+        $case = settingsCase($backend, 'cloudflare', $contents === FOLDER ? null : $contents, ['addresses' => $withEmpty, 'requests' => [['path' => '/api/site-status']]]);
+    } finally {
+        if (is_dir($file)) {
+            rmdir($file);
+        }
+    }
+    $run = $case['run'];
+    check("read cleanly, $what: the site keeps running, set up - the file is optional", $case['code'] === 0 && ($run['problems'] ?? null) === [] && (json_decode($run['answers'][0]['body'] ?? '{}', true)['state'] ?? null) === 'ready', "exit {$case['code']}: " . substr($case['output'], 0, 300));
+    check('...the secret it runs on is one no request carries - never none', ($run['secret']['unmatchable'] ?? false) === true && ($run['secret']['sha256'] ?? '') !== hash('sha256', $origin));
+    same('...fails closed: a CF-Connecting-IP forged from Cloudflare\'s ranges is the edge - with the file\'s value or an empty X-Anotoki-Origin beside it too, for the site and the library alike; from elsewhere the connection', [[EDGE, EDGE], [EDGE, EDGE], [STRANGER, STRANGER], [EDGE, EDGE]], $run['addresses'] ?? null);
+    check('...said in PHP\'s log: the fault, that it fails closed', str_contains($case['log'], "[cloudflare] $fault") && str_contains($case['log'], 'no request carries its secret'), $case['log']);
+    check('...never the value', !str_contains(settingsCaseText($case), $origin));
+}
+
 // The limits, through the whole API: eleven new visitors from one edge, each with an address of its own and the
 // file's own secret beside it - a Worker of anybody's could send exactly this - are one sender.
 $played = ['state' => ['tries' => ['Amber'], 'isQuestionComplete' => false]];
@@ -310,6 +347,17 @@ for ($i = 1; $i <= 11; $i++) {
 }
 $case = settingsCase($backend, 'cloudflare', BOM . "<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", ['requests' => $requests]);
 same('the attack it stops: with the file unreadable, eleven made-up visitors from one Cloudflare edge are one sender - the eleventh refused, never eleven of their own', [array_fill(0, 10, 200), 429], [
+    array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null,
+]);
+// ...and with a blank secret: a Worker's eleven made-up visitors, each with an empty X-Anotoki-Origin - which "no
+// secret" would never have asked for - one sender too. From another edge (172.64.0.0/13): the one above has had its
+// ten this hour.
+$requests = [];
+for ($i = 1; $i <= 11; $i++) {
+    $requests[] = ['method' => 'PUT', 'path' => '/api/quiz/progress/dish', 'from' => '172.68.10.21', 'headers' => ['CF-Connecting-IP' => "198.51.100.$i", 'X-Anotoki-Origin' => ''], 'json' => $played];
+}
+$case = settingsCase($backend, 'cloudflare', "<?php\n\nreturn ['origin_secret' => ''];\n", ['requests' => $requests]);
+same('...with the file read cleanly but its secret blank, the same: the eleventh refused', [array_fill(0, 10, 200), 429], [
     array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null,
 ]);
 

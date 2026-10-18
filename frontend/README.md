@@ -28,7 +28,9 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
                         feedback counted beside Feedback in the navigation); app.component the
                         frame: the kit's side navigation beside the page, in the kit's drawer on a
-                        phone (admin-icons.ts: its icons and the forms' tabs')
+                        phone (admin-icons.ts: its icons and the forms' tabs'), and the family's
+                        footer under every page (@anotoki/lib/footer: the version, What's new - the
+                        public footer's dialog -, Feedback, Terms · Privacy · Contact, the fan clause)
 src/app/shared/         local-lib (what the family's kit has no piece for: the field adapters over
                         the kit's fields - a birthday mapped to the kit's date field in
                         stored-dates.ts -, the site's own fields (the folder chooser, the HTML editor
@@ -66,7 +68,8 @@ proxy.conf.json         ng serve hands /api, /.well-known and /setup.php to the 
 scripts/                prepare-deploy.mjs (the production config.json and the SPA .htaccess);
                         screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
                         1280 and 390 px, on a throwaway site of its own; a refused sign-in's
-                        screens; a thrown error read back from the error log)
+                        screens; a thrown error read back from the error log; the status page
+                        alone while the site is not ready, and the frame back once it is)
 src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
                         dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs

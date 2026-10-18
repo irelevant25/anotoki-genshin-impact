@@ -81,12 +81,27 @@
   overflow-y: auto;
   padding: var(--spacing-lg);
   min-width: 0;
+  // The page, then the footer: the page takes what the footer leaves, so on a
+  // short page the footer stands at the column's foot.
+  display: flex;
+  flex-direction: column;
   // What the library's pages keep in view while this scrolls - the Translations
   // page's column heads - sticks under the anotoki top bar, which this panel
   // does not have: without this they would stop the bar's 60 px down, with
   // rows passing above them. A sticky box stops inside its scroller's padding,
   // so the padding comes off: flush with the top, as under the family's bar.
   --anotoki-topbar-height: calc(-1 * var(--spacing-lg));
+}
+
+.admin-page {
+  flex: 1 0 auto;
+  min-width: 0;
+}
+
+// The family's footer across the whole column: out over the scroller's padding
+// to its edges and its foot, its top border from one side to the other.
+.admin-footer {
+  margin: var(--spacing-lg) calc(-1 * var(--spacing-lg)) calc(-1 * var(--spacing-lg));
 }
 
 // ── A phone ──────────────────────────────────────────────────────────────────
@@ -115,7 +130,13 @@
   .admin-main {
     overflow: visible;
     padding: var(--spacing-md);
+    // At least the window under the row, so a short page's footer is at its foot.
+    min-height: calc(100vh - 56px);
     // The library's sticky heads stop under the row, which stays in view.
     --anotoki-topbar-height: 56px;
+  }
+
+  .admin-footer {
+    margin: var(--spacing-md) calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md));
   }
 }

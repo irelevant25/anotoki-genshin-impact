@@ -12,14 +12,17 @@
 // through the pages: the public site as a visitor - Terms, Privacy and Contact in English and Slovak among them -,
 // a sign-in the IAM refuses (the anotoki library's screens of it), a legal page while the IAM requires signing in
 // (drawn, never the sign-in card), an error thrown in a page (which must reach the site's error log, scrubbed),
-// then the admin panel as its ADMIN (the Errors page with that error as its row, and the row opened). Then it
-// stops all of it and drops the database - also when something fails. Nothing here touches your database, your
-// settings, your browser or a real IAM.
+// the status page while the site is not ready (STATUS: alone, with nothing of either site's frame round it, and
+// the frame back once the site is), then the admin panel as its ADMIN (the Errors page with that error as its
+// row, and the row opened; the family's footer under its pages and what it opens). Then it stops all of it and
+// drops the database - also when something fails. Nothing here touches your database, your settings, your
+// browser or a real IAM.
 //
 // The screenshots go to --out (default: a folder under the system's temporary one, named at the end), one
 // per page, width and theme: `main-home--1280-light.png`, `admin-characters-form--390-dark.png` - the whole
 // page, as tall as it is - with `focus-*` ones of the keyboard's focus, and `report.json`, what each page
-// said and measured. --only keeps the pages whose name holds the text (`--only admin-`).
+// said and measured. A page taken in the two pairings (light in English, dark in Slovak) says its language
+// too: `status-update-waiting--390-dark-sk.png`. --only keeps the pages whose name holds the text (`--only admin-`).
 //
 // Needs: PHP 8.2 or later (PHP=<its command>, where `php` is an older one), config/database.local.php in
 // backend/ (setup.php writes it: its PostgreSQL server and user are borrowed, never its database), and Edge
@@ -315,6 +318,136 @@ const SIGN_IN_FAILED = [
   { name: 'main-sign-in-required-failed', path: '/', iam: { deny: true, login_required: true }, then: failureShown },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// The site while it is not ready: the family's status page alone (anotoki-lib
+// 0.6.3, the owner's rule of 2026-10-18). An update waiting, the database out
+// of reach, not set up: the gate draws its page in a <main> of its own, and
+// both sites' frames - the public site's header, footers and notes, the admin
+// panel's navigation and the family's footer - are inside the pages it does
+// not make. `closed` is the state a page is shown in (closeSite()), `reopened`
+// what must be there once the site is ready again; `pairings` the two the
+// owner looks at: light in English, dark in Slovak.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Whatever of a site's frame could stand round the status page: landmarks, and both sites' parts. */
+const FRAME = [
+  'header',
+  'nav',
+  'footer',
+  '[role=banner]',
+  '[role=navigation]',
+  '[role=contentinfo]',
+  'app-header',
+  'app-footer',
+  'app-legal-footer',
+  'app-announcement',
+  'app-route-notice',
+  'app-admin-root',
+  'anotoki-side-nav',
+  'anotoki-site-footer',
+].join(', ');
+
+/** The status page drawn alone: its heading in the gate's <main>, the page's one <main>, nothing of FRAME anywhere. */
+const statusAlone = async (page) => {
+  if (!(await waitFor(page, "!!document.querySelector('main.anotoki-site-gate__status anotoki-site-status h1')", 20000))) {
+    heard.push('the status page was not drawn');
+    return true;
+  }
+  const facts = await page.evaluate(`(() => ({
+    frame: [...new Set([...document.querySelectorAll(${JSON.stringify(FRAME)})].map((element) => element.tagName.toLowerCase()))],
+    mains: document.querySelectorAll('main').length,
+  }))()`);
+  if (facts.frame.length) {
+    heard.push(`the status page has the site's frame round it: ${facts.frame.join(', ')}`);
+  }
+  if (facts.mains !== 1) {
+    heard.push(`the status page is one of ${facts.mains} <main> elements`);
+  }
+  return true;
+};
+
+/** The public site back once it is ready: its header and its footers, and no status page. */
+const publicFrameBack = (page) =>
+  waitFor(
+    page,
+    "!!document.querySelector('app-header') && !!document.querySelector('app-footer') && !!document.querySelector('app-legal-footer') && !document.querySelector('anotoki-site-status')",
+    45000,
+  );
+
+/** The admin panel back once the site is ready: its navigation and the family's footer, Feedback in it, and no status page. */
+const adminFrameBack = (page) =>
+  waitFor(
+    page,
+    "!!document.querySelector('app-admin-root anotoki-side-nav') && !!document.querySelector('app-admin-root anotoki-site-footer [data-open-feedback]') && !document.querySelector('anotoki-site-status')",
+    45000,
+  );
+
+/**
+ * "Try again" on the status page (the database out of reach, not set up): it asks again at once, and loads afresh
+ * once the site is ready. While an update waits there is no button: the page asks again by itself every 30
+ * seconds, which the frame's wait outlasts.
+ */
+const triesAgain = (back) => steps(press('anotoki-site-status button'), back);
+
+/**
+ * The admin panel's footer (the family's, anotoki-lib 0.6.3) with the parts it shows: "Version" and the
+ * changelog's newest, What's new and - while the site can take a message - Feedback; Terms · Privacy · Contact;
+ * the fan clause. Anything missing or extra is said.
+ */
+const adminFooter =
+  ({ feedback }) =>
+  async (page) => {
+    if (!(await waitFor(page, "!!document.querySelector('app-admin-root anotoki-site-footer [data-version]')", 15000))) {
+      heard.push('the admin panel has no footer with its version');
+      return true;
+    }
+    const parts = await page.evaluate(`(() => {
+      const footer = document.querySelector('app-admin-root anotoki-site-footer');
+      return {
+        version: footer.querySelector('[data-version]')?.textContent.trim() ?? null,
+        whatsNew: !!footer.querySelector('[data-whats-new]'),
+        feedback: !!footer.querySelector('[data-open-feedback]'),
+        links: [...footer.querySelectorAll('anotoki-legal-links a')].map((a) => a.getAttribute('href')),
+        fan: !!footer.querySelector('[data-fan]'),
+        inMain: !!footer.closest('main'),
+      };
+    })()`);
+    const expected = { version: `Version ${version}`, whatsNew: true, feedback, links: ['/terms', '/privacy', '/contact'], fan: true, inMain: false };
+    if (JSON.stringify(parts) !== JSON.stringify(expected)) {
+      heard.push(`the admin footer: ${JSON.stringify(parts)}, not ${JSON.stringify(expected)}`);
+    }
+    return true;
+  };
+
+/** A dialog the footer opened, drawn. */
+const dialogOpen = (page) => waitFor(page, "!!document.querySelector('dialog[open]')", 15000);
+
+/** Signed out: the public site's pages, and a legal page, while the site is not ready. */
+const STATUS = [
+  { name: 'status-update-waiting', path: '/', closed: 'update_pending', pairings: true, then: statusAlone, reopened: publicFrameBack },
+  { name: 'status-update-waiting-privacy', path: '/privacy', closed: 'update_pending', pairings: true, then: statusAlone },
+  { name: 'status-unavailable', path: '/', closed: 'unavailable', pairings: true, then: statusAlone, reopened: triesAgain(publicFrameBack) },
+  { name: 'status-not-set-up', path: '/', closed: 'not_set_up', pairings: true, then: statusAlone, reopened: triesAgain(publicFrameBack) },
+];
+
+/** The site's ADMIN while an update waits: the status page alone anywhere but on Migrations, which keeps the panel's frame - its footer without Feedback. */
+const ADMIN_STATUS = [
+  { name: 'status-admin-update-waiting', path: '/admin/dashboard', data: '.feed-title', closed: 'update_pending', then: statusAlone, reopened: adminFrameBack },
+  {
+    name: 'admin-migrations-update-waiting',
+    path: '/admin/migrations',
+    closed: 'update_pending',
+    then: steps((page) => waitFor(page, "!!document.querySelector('anotoki-migrations-page')", 15000), adminFooter({ feedback: false })),
+  },
+];
+
+/** The admin panel's footer, and the two dialogs it opens: the site's What's new, the library's feedback form. */
+const ADMIN_FOOTER = [
+  { name: 'admin-footer', path: '/admin/settings', then: adminFooter({ feedback: true }) },
+  { name: 'admin-footer-whats-new', path: '/admin/settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-whats-new]'), dialogOpen) },
+  { name: 'admin-footer-feedback', path: '/admin/settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-open-feedback]'), dialogOpen) },
+];
+
 /** After the admin panel: the public site for somebody signed in. */
 const SIGNED_IN = [
   { name: 'main-home-signed-in', path: '/' },
@@ -468,6 +601,70 @@ function errorLogLines() {
     .map((line) => JSON.parse(line));
 }
 
+/**
+ * The API as it answers while the database is out of reach or the site is not set up - the status path with the
+ * state, every other path what the API says then (backend/api/site_state.php, the library's SiteGate) - answered by
+ * the browser itself (the DevTools protocol's Fetch, on for these pages alone): the throwaway site could not be
+ * made so without touching its settings or its database. Null: the API answers.
+ */
+let siteAnswers = null;
+const ANSWERS = {
+  // The gate lets every request through to a database that does not answer: a 500 of the error handler's.
+  unavailable: { state: { state: 'unavailable', installed: true }, status: 500, body: { error: 'Internal Server Error' } },
+  not_set_up: {
+    state: { state: 'not_set_up', installed: false },
+    status: 503,
+    body: { code: 'not_set_up', installed: false, message: 'This site is not set up yet. Its setup page connects it to its database.', setup: '/setup.php' },
+  },
+};
+
+/** A paused API request (Fetch.requestPaused): answered as the site's state says, or passed on to the API. */
+async function answerPaused(event) {
+  const answers = siteAnswers === null ? null : ANSWERS[siteAnswers];
+  if (answers === null) {
+    await page.send('Fetch.continueRequest', { requestId: event.requestId }).catch(() => undefined);
+    return;
+  }
+  const [status, body] = new URL(event.request.url).pathname === '/api/site-status' ? [200, answers.state] : [answers.status, answers.body];
+  await page
+    .send('Fetch.fulfillRequest', {
+      requestId: event.requestId,
+      responseCode: status,
+      responseHeaders: [
+        { name: 'Content-Type', value: 'application/json' },
+        { name: 'Cache-Control', value: 'no-store' },
+      ],
+      body: Buffer.from(JSON.stringify(body)).toString('base64'),
+    })
+    .catch(() => undefined);
+}
+
+/** The migration file a waiting update is: in the backend copy alone, never applied, gone with the copy. */
+const waitingMigration = () => join(backendCopy, 'migrations', 'genshin_impact', '999_screenshots_update_waiting.sql');
+
+/**
+ * The site made not ready: 'update_pending' by a migration file the throwaway database has not run - the real
+ * thing, the API's gate and the Migrations page as they are -, 'unavailable' and 'not_set_up' by the browser
+ * answering for the API (siteAnswers).
+ */
+async function closeSite(state) {
+  if (state === 'update_pending') {
+    writeFileSync(waitingMigration(), '-- screenshots.mjs: an update that waits, so the site shows it (never applied)\nSELECT 1;\n');
+    return;
+  }
+  siteAnswers = state;
+  await page.send('Fetch.enable', { patterns: [{ urlPattern: `${origin}/api/*`, requestStage: 'Request' }] });
+}
+
+/** The site ready again. */
+async function openSite() {
+  rmSync(waitingMigration(), { force: true });
+  if (siteAnswers !== null) {
+    siteAnswers = null;
+    await page.send('Fetch.disable').catch(() => undefined);
+  }
+}
+
 async function viewport(width, height = width < 1000 ? 844 : 900) {
   await page.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 1000 });
 }
@@ -602,34 +799,64 @@ async function visit(entry, width) {
 
 async function visitAs(entry, width) {
   let facts = null;
+  const keys = [];
   const problems = [];
-  for (const themeName of ['light', 'dark']) {
+  // Light and dark in the page's language - or the two pairings the owner looks at, light in English and dark in
+  // Slovak, each file saying its language.
+  const rounds = entry.pairings
+    ? [
+        ['light', 'en'],
+        ['dark', 'sk'],
+      ]
+    : [
+        ['light', entry.lang],
+        ['dark', entry.lang],
+      ];
+  for (const [themeName, lang] of rounds) {
     heard = [];
-    await boot(themeName, entry.fresh, entry.lang);
-    await page.send('Page.navigate', { url: origin + entry.path });
-    await settle();
-    if (entry.then) {
-      const done = await entry.then(page);
-      if (!done) {
-        heard.push(`could not open what ${entry.name} shows`);
-      }
-      await settle();
+    await boot(themeName, entry.fresh, lang);
+    if (entry.closed) {
+      await closeSite(entry.closed);
     }
-    facts ??= await measure(entry.data);
-    await capture(join(out, `${entry.name}--${width}-${themeName}.png`), width);
-    if (entry.focus && width === 1280) {
-      await page.evaluate('document.activeElement?.blur?.(); window.scrollTo(0, 0); true');
-      await tab(entry.focus);
-      const { data } = await page.send('Page.captureScreenshot', { format: 'png' });
-      writeFileSync(join(out, `focus-${entry.name}--${width}-${themeName}.png`), Buffer.from(data, 'base64'));
+    try {
+      await page.send('Page.navigate', { url: origin + entry.path });
+      await settle();
+      if (entry.then) {
+        const done = await entry.then(page);
+        if (!done) {
+          heard.push(`could not open what ${entry.name} shows`);
+        }
+        await settle();
+      }
+      const measured = await measure(entry.data);
+      facts ??= measured;
+      keys.push(...measured.keys.filter((key) => !keys.includes(key)));
+      await capture(join(out, `${entry.name}--${width}-${themeName}${entry.pairings ? `-${lang}` : ''}.png`), width);
+      if (entry.focus && width === 1280) {
+        await page.evaluate('document.activeElement?.blur?.(); window.scrollTo(0, 0); true');
+        await tab(entry.focus);
+        const { data } = await page.send('Page.captureScreenshot', { format: 'png' });
+        writeFileSync(join(out, `focus-${entry.name}--${width}-${themeName}.png`), Buffer.from(data, 'base64'));
+      }
+      // The site ready again: the page that stood in for it must give way to the site's own, frame and all.
+      if (entry.closed) {
+        await openSite();
+        if (entry.reopened && !(await entry.reopened(page))) {
+          heard.push('the site did not come back, frame and all, once it was ready');
+        }
+      }
+    } finally {
+      if (entry.closed) {
+        await openSite();
+      }
     }
     problems.push(...heard.filter((line) => !problems.includes(line)));
   }
   if (facts.scrollWidth > facts.width + 1) {
     problems.push(`wider than the window: ${facts.scrollWidth} of ${facts.width} (${facts.wide.join(', ')})`);
   }
-  if (facts.keys.length) {
-    problems.push(`keys where words should be: ${facts.keys.join(', ')}`);
+  if (keys.length) {
+    problems.push(`keys where words should be: ${keys.join(', ')}`);
   }
   report.push({ page: entry.name, width, path: facts.path, title: facts.title, problems });
   console.log(`${problems.length ? 'LOOK' : 'ok  '} ${entry.name} ${width}${problems.length ? ' - ' + problems.join(' | ') : ''}`);
@@ -734,6 +961,8 @@ try {
   page.on('Network.loadingFinished', (e) => inFlight.delete(e.requestId));
   page.on('Network.loadingFailed', (e) => inFlight.delete(e.requestId));
   page.on('Page.javascriptDialogOpening', () => void page.send('Page.handleJavaScriptDialog', { accept: true }));
+  // The API's answers while the site is not ready (STATUS): heard only while closeSite() has Fetch on.
+  page.on('Fetch.requestPaused', (event) => void answerPaused(event));
   // Nothing leaves this computer: the family's visitor counter (index.html) would count every page drawn here.
   await page.send('Network.setBlockedURLs', { urls: ['https://*', 'http://umami.anotoki.eu/*'] });
 
@@ -741,6 +970,7 @@ try {
   await pass(MAIN);
   await pass(SIGN_IN_FAILED);
   await pass(LEGAL_SIGNED_OUT);
+  await pass(STATUS);
 
   // The browser's errors reach the site's error log (@anotoki/lib/error-report, app.config.ts): one thrown on
   // a page outside Angular's own code - with an address in it, which the report must not carry - is read
@@ -779,6 +1009,8 @@ try {
   }
   await settle();
   await pass(ADMIN);
+  await pass(ADMIN_FOOTER);
+  await pass(ADMIN_STATUS);
   await pass(SIGNED_IN);
 
   writeFileSync(join(out, 'report.json'), JSON.stringify(report, null, 2));
