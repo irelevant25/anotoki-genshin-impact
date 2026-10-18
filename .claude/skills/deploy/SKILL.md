@@ -252,6 +252,14 @@ footer is as it was. A `config/cloudflare.local.php` on the host that names no
 usable secret (blank, another key) fails closed from this release: make sure it
 holds the zone's value, or delete it.
 
+The public site's footer (2026-10-18; `users/057`, words only - What's new and
+the account panel's Background added, Feedback without "/Contact" where nobody
+reworded it, the GitHub and Backgrounds items' words gone): upload both builds
+and Apply at once - before it, the new footer shows two keys bare; after it, an
+older build would show `footer.backgrounds` bare. Then the public footer reads
+v1.2.0 · What's new · Feedback · Account · Terms · Privacy · Contact, the fan
+clause on its left, and the wallpapers open from the Account panel.
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against

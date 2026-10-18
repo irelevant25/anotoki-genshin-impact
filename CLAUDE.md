@@ -194,7 +194,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   is waiting" and "Open Migrations"; both reload by themselves once the site is
   back. That page stands alone (the owner's rule of 2026-10-18; anotoki-lib
   0.6.3 draws it in a `<main>` of its own): no header, navigation or footer
-  round it - the public site's header, footers and notes and the admin panel's
+  round it - the public site's header, footer and notes and the admin panel's
   navigation and footer are inside the routed sites, never beside the gate;
   `scripts/screenshots.mjs`'s STATUS holds it in all three states, and the
   frame back once the site is ready. `/admin/migrations` is `<anotoki-migrations-page>`, from its own entry
@@ -547,8 +547,9 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # English and Slovak (and one while sign-in is required), and an error
                                      # thrown in a page, read back from the error log, scrubbed - the Errors
                                      # page's row, and that row opened; the status page alone in its three
-                                     # states (light English, dark Slovak) and the frame back after; the admin
-                                     # panel's footer, its two dialogs, and Migrations while an update waits.
+                                     # states (light English, dark Slovak) and the frame back after; the public
+                                     # footer (light English, dark Slovak) and the account panel's wallpapers; the
+                                     # admin panel's footer, its two dialogs, and Migrations while an update waits.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
@@ -1024,13 +1025,19 @@ node docs/security/build-report.mjs                            # after re-runnin
   operator's, the processors') is the code's, never a string an administrator
   can reword. Contact opens the footer's feedback form (the library's) in the
   kit's dialog; the Terms and Contact pages carry the fan clause
-  (`fanDisclaimer: 'hoyoverse'`). Under every public page - the closed sign and
-  the sign-in card too - `sites/main/common/legal-footer`: the family's
-  `<anotoki-legal-links>` (Terms · Privacy · Contact) and the fan clause in the
-  site's words (`footer.fanDisclaimer`: "This site is a fan-made project and is
-  not affiliated with or endorsed by HoYoverse."), on a strong veil of its own,
-  clear of the footer's fixed bar. The admin panel has the family's footer
-  instead (*The admin frame*).
+  (`fanDisclaimer: 'hoyoverse'`). Under every public page, the site's own
+  footer (`sites/main/common/footer`, the owner's order of 2026-10-18): on the
+  right the version, What's new (`site-whats-new-modal`), Feedback and the
+  account - buttons, each opening its dialog; the wallpapers' window opens from
+  the account panel, never the footer - then Terms · Privacy · Contact, router
+  links in the library's words (`anotoki.legalLinks.*`, the open one
+  `aria-current`); on the left, alone, the fan clause in the site's words
+  (`footer.fanDisclaimer`: "This site is a fan-made project and is not
+  affiliated with or endorsed by HoYoverse."), its black fading towards the
+  middle as the right side's does. Fixed to the window's bottom from 1200 px,
+  stacked in the page's flow under it; the closed sign and the sign-in card
+  keep the links and the clause alone (`legalOnly`). The admin panel has the
+  family's footer instead (*The admin frame*).
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper

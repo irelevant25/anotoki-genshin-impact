@@ -116,8 +116,8 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   run), `AbstractRolesComponent` for role-gated UI.
 - **i18n**: user-facing copy goes through the `translate` pipe with a key; proper
   nouns - character names, usernames, version numbers - are shown as they are,
-  not through the pipe (the footer's link items mark such a title with
-  `titleLiteral`). Dates render through `AppDatePipe`. The pipe and
+  not through the pipe (the footer's version number and username, the
+  wallpapers' names). Dates render through `AppDatePipe`. The pipe and
   `TranslationService` are the anotoki library's (`@anotoki/lib/translations`,
   configured in `shared/site-translations.ts`): `t()`, `has()`, `language()`,
   `languages()`, `effectiveLanguage()` (English in the admin panel for its
