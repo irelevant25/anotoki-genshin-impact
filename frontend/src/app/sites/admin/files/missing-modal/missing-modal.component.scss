@@ -14,29 +14,9 @@
   margin: 0 0 var(--spacing-md);
 }
 
+// The categories, close together as they were.
 .missing-groups {
-  display: flex;
-  flex-direction: column;
   gap: var(--spacing-xs);
-}
-
-.missing-group {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-
-  summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    cursor: pointer;
-  }
-
-  .group-count {
-    color: var(--text-muted);
-    font-size: var(--font-size-sm);
-  }
 }
 
 .missing-table {

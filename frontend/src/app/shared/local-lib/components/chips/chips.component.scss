@@ -1,25 +1,4 @@
-.chip {
-  padding: 5px var(--spacing-sm);
-  background: var(--bg-card);
-  // A control's edge: 3:1 against the page, as the kit's fields have.
-  border: 1px solid var(--anotoki-border-strong);
-  border-radius: 20px;
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
-
-  &:hover {
-    border-color: var(--color-primary);
-    color: var(--text-primary);
-  }
-
-  &.selected {
-    background: var(--color-primary-light);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
+// The kit's choice chips draw themselves (@anotoki/lib/ui/chips); nothing of this adapter's own to style.
+:host {
+  display: block;
 }

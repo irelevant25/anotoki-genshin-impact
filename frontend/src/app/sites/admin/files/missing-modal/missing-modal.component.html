@@ -24,16 +24,13 @@
             </anotoki-alert>
         }
 
-        <div class="missing-groups">
+        <!-- The kit's accordion: a category's button a heading under the dialog's, its rows' count in its words;
+             Up, Down, Home and End move between them. -->
+        <anotoki-accordion multiple class="missing-groups">
             @for (group of byCategory(); track group.category) {
-                <details class="missing-group">
-                    <summary>
-                        <code>{{ group.category }}</code>
-                        <span class="group-count">{{ group.files.length | number }}</span>
-                    </summary>
-
+                <anotoki-disclosure [heading]="group.category + ' · ' + (group.files.length | number)" [headingLevel]="3">
                     <div class="table-scroll">
-                    <table class="table missing-table">
+                    <table class="table table-middle missing-table">
                         <thead>
                             <tr>
                                 <th>File</th>
@@ -53,14 +50,14 @@
                                     <td class="col-actions">
                                         <button
                                             anotokiButton
-                                            variant="ghost"
+                                            variant="danger-ghost"
                                             size="sm"
                                             iconOnly
                                             [disabled]="working()"
                                             aria-label="Forget this row"
                                             anotokiTooltip="Forget this row"
                                             (click)="forget(file)">
-                                            <span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span>
+                                            <span class="icon icon-trash icon-size-4" aria-hidden="true"></span>
                                         </button>
                                     </td>
                                 </tr>
@@ -68,9 +65,9 @@
                         </tbody>
                     </table>
                     </div>
-                </details>
+                </anotoki-disclosure>
             }
-        </div>
+        </anotoki-accordion>
     }
 }
 

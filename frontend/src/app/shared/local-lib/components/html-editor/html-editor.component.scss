@@ -1,8 +1,16 @@
+// The kit's toolbar in its own look on top, the colour panel under it when open, then the text's box - the field's
+// edge and its states (focused, wrong, valid, off) are the box's, as on every field of the panel.
 .html-editor-wrapper {
-  height: auto;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-xxs);
+  // Step used by the indent / outdent buttons on plain blocks; lists fall back to the browser's own indent command.
+  --html-editor-indent: 20px;
+}
+
+.html-editor-panes {
+  height: auto;
+  padding: 0;
   overflow: hidden;
 
   &.focused {
@@ -16,6 +24,7 @@
   }
 }
 
+// While a menu shows an option on the text, the selection's highlight would hide it.
 .selecting {
   &::-moz-selection {
     color: inherit;
@@ -28,69 +37,121 @@
   }
 }
 
-.html-editor-toolbar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: var(--spacing-xxs) var(--spacing-xs);
-  border-bottom: 1px solid var(--border-color);
-  background-color: var(--bg-sidebar);
-}
-
-.toolbar-btn {
+// ── The editor's own items in the kit's toolbar ──────────────────────────────
+//
+// The size and the font say what is chosen (a choice that stays, edged as the kit's fields are); the colours and the
+// toggles are the size of the kit's buttons, 44 px where the pointer is a finger, as the kit's own are.
+.toolbar-menu,
+.toolbar-item {
+  box-sizing: border-box;
   display: inline-flex;
+  flex: none;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: var(--border-radius);
-  background: transparent;
-  color: var(--text-primary);
+  height: 2.25rem;
+  margin: 0;
+  border-radius: var(--anotoki-radius-sm);
+  color: var(--anotoki-text);
+  font: inherit;
   cursor: pointer;
-  font-size: var(--font-size-sm);
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease;
 
-  &:hover {
-    background-color: var(--color-secondary-hover);
-    border-color: var(--border-color);
+  &:focus-visible {
+    outline: 2px solid var(--anotoki-focus);
+    outline-offset: 1px;
   }
 
-  &:active {
-    background-color: var(--color-secondary);
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  @media (pointer: coarse) {
+    height: var(--anotoki-control-height, 44px);
   }
 }
 
-.toolbar-divider {
-  display: inline-block;
-  width: 1px;
-  height: 20px;
-  background-color: var(--border-color);
-  margin: 0 var(--spacing-xxs);
-  flex-shrink: 0;
-}
-
-// The size and the font: a toolbar button that says what is chosen, opening the kit's menu.
-.toolbar-btn.toolbar-menu {
-  width: auto;
+.toolbar-menu {
   gap: var(--spacing-xxs);
   padding: 0 var(--spacing-xs);
-  white-space: nowrap;
-  // A choice that stays, not an action: edged as the kit's fields are.
-  border-color: var(--anotoki-border-strong);
+  border: 1px solid var(--anotoki-border-strong);
   background: var(--anotoki-surface);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
 }
 
-::ng-deep {
-  .color-picker-size {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
+.toolbar-item {
+  width: 2.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--anotoki-muted);
+
+  &:hover {
+    background: var(--anotoki-surface-3);
+    color: var(--anotoki-text);
+  }
+
+  // A toggle that is on (the source, the preview) and a panel that is open: drawn on, a ring - not a colour alone.
+  &[aria-pressed="true"],
+  &[aria-expanded="true"] {
+    background: var(--anotoki-primary-soft);
+    color: var(--anotoki-primary-soft-text);
+    box-shadow: inset 0 0 0 1.5px var(--anotoki-primary);
+  }
+
+  @media (pointer: coarse) {
+    width: var(--anotoki-control-height, 44px);
   }
 }
+
+// The colour buttons: a letter - on a ground of its own for the highlight - and the colour last given under it.
+.toolbar-colour {
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toolbar-colour-letter {
+  font-weight: 700;
+  line-height: 1;
+
+  &--ground {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--anotoki-surface-3);
+  }
+}
+
+.toolbar-colour-mark {
+  width: 1rem;
+  height: 4px;
+  border: 1px solid var(--anotoki-border-strong);
+  border-radius: 2px;
+}
+
+// ── The colour panel ─────────────────────────────────────────────────────────
+
+.html-editor-colours {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--anotoki-border);
+  border-radius: var(--anotoki-radius);
+  background: var(--anotoki-surface-2);
+}
+
+.html-editor-colour-field {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.html-editor-colour-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+// ── The text ────────────────────────────────────────────────────────────────
 
 .html-editor-content {
   flex: 1;
@@ -125,19 +186,8 @@
   }
 }
 
-// Step used by the indent / outdent buttons on plain blocks; lists fall back to
-// the browser's own indent command.
-.html-editor-wrapper {
-  --html-editor-indent: 20px;
-}
-
-.toolbar-btn.active {
-  background-color: var(--color-secondary);
-  border-color: var(--border-color);
-}
-
-// The raw HTML behind the [icon-code] toggle. Sits where the editable area
-// would, so switching back and forth does not move the surrounding layout.
+// The raw HTML behind the source toggle. Sits where the editable area would, so switching back and forth does not
+// move the surrounding layout.
 .html-editor-source {
   display: block;
   width: 100%;
@@ -161,9 +211,8 @@
 
 // ── The editor and its preview, side by side ─────────────────────────────────
 //
-// One column until asked for two, so an editor without a preview is exactly
-// what it was. The split stacks below 900px, where two columns would leave
-// neither wide enough to read.
+// One column until asked for two, so an editor without a preview is exactly what it was. The split stacks below
+// 900px, where two columns would leave neither wide enough to read.
 .html-editor-panes {
   display: flex;
   flex-direction: column;
@@ -190,8 +239,8 @@
   padding: var(--spacing-md);
   background: var(--anotoki-surface-2);
 
-  // Marked, because an unlabelled second pane looks like a second editor and
-  // the first thing anyone does is try to type in it.
+  // Marked, because an unlabelled second pane looks like a second editor and the first thing anyone does is try to
+  // type in it.
   &-label {
     position: absolute;
     top: var(--spacing-xxs);

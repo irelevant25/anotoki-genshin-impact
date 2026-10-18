@@ -57,7 +57,8 @@ export class FooterComponent extends AbstractModalComponent {
       title: 'footer.backgrounds',
       modal: {
         compoponent: SiteBackgroundsModalComponent,
-        config: { size: 'lg' }
+        // The kit's widest (64rem): a wallpaper is chosen by its picture.
+        config: { size: 'xl' }
       }
     }),
     // The anotoki library's feedback form, which brings the kit's fields:

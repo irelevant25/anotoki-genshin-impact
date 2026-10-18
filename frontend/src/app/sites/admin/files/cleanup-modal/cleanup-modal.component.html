@@ -20,8 +20,7 @@
         }
 
         @if (job.failures.length) {
-            <details class="run-failures">
-                <summary>{{ job.failed | number }} would not move</summary>
+            <anotoki-disclosure plain class="run-failures" [heading]="(job.failed | number) + ' would not move'">
                 <ul>
                     @for (failure of job.failures; track failure) {
                         <li>
@@ -29,7 +28,7 @@
                         </li>
                     }
                 </ul>
-            </details>
+            </anotoki-disclosure>
         }
 
         @if (job.finished) {
@@ -70,7 +69,7 @@
         </div>
 
         <div class="table-scroll cleanup-wrap">
-            <table class="table cleanup-table">
+            <table class="table table-middle cleanup-table">
                 <thead>
                     <tr>
                         <th scope="col" class="col-tick">Delete</th>

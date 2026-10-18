@@ -1,88 +1,45 @@
 @if (!hidden()) {
     <div class="form-field" [class]="class()">
         @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
+            <!-- Names the button with it (aria-labelledby): "Audio file, Choose a file". -->
+            <span class="form-label" [id]="inputId + '-label'" [class.required]="required()">
                 {{ label() }}
                 @if (required()) {
                     <span class="required-indicator">*</span>
                 }
-            </label>
+            </span>
         }
 
         @if (description()) {
-            <label class="form-description">
-                {{ description() }}
-            </label>
+            <span class="form-description" [id]="inputId + '-hint'">{{ description() }}</span>
         }
 
-        <!-- Hidden file input -->
+        <!-- The device's chooser, opened by the button below; nothing here to tab to. -->
         <input
             #inputElement
-            [id]="inputId"
             type="file"
+            class="file-input"
+            tabindex="-1"
+            aria-hidden="true"
             [multiple]="multiple() || directory()"
             [attr.webkitdirectory]="directory() ? '' : null"
             [accept]="acceptAttribute"
             [disabled]="disabled()"
-            style="display: none"
-            (change)="onFileChange($event)"
+            (change)="onFileChange($event)" />
+
+        <button
+            anotokiButton
+            [id]="inputId"
+            [variant]="kitVariant()"
+            [disabled]="disabled()"
+            [attr.aria-labelledby]="label() ? inputId + '-label ' + inputId : null"
+            [attr.aria-describedby]="displayError() && hasError() ? inputId + '-error' : description() ? inputId + '-hint' : null"
+            (click)="onButtonClick()"
             (blur)="onBlur()"
-            (focus)="onFocus()" />
+            (focus)="onFocus()">
+            {{ buttonWords() }}
+        </button>
 
-        <!-- Drag & drop area -->
-        @if (showDragAndDropArea()) {
-            <div
-                class="drag-drop-area"
-                [class.is-dragging]="isDragging()"
-                [class.is-disabled]="disabled()"
-                role="button"
-                tabindex="0"
-                (click)="onButtonClick()"
-                (keydown.enter)="onButtonClick()"
-                (keydown.space)="onButtonClick(); $event.preventDefault()"
-                (dragover)="onDragOver($event)"
-                (dragleave)="onDragLeave($event)"
-                (drop)="onDrop($event)">
-                <i class="icon icon-upload icon-size-8"></i>
-                <div class="drag-drop-title">Pretiahnite súbory sem alebo kliknite pre výber</div>
-                <div class="drag-drop-subtitle">Podporované sú všetky typy súborov</div>
-            </div>
-        }
-
-        <div class="d-flex gap-3" [class.flex-col]="fileNamePosition() === 'bottom'" [class.flex-row]="fileNamePosition() === 'right'">
-            <!-- File selection button -->
-            @if (!hideButton()) {
-                <button
-                    anotokiButton
-                    [variant]="kitVariant()"
-                    [class]="buttonClass()"
-                    [disabled]="disabled()"
-                    (click)="onButtonClick($event)">
-                    {{ buttonText() ?? (directory() ? 'Vybrat priečinok' : multiple() ? 'Vybrat súbory' : 'Vybrat súbor') }}
-                </button>
-            }
-
-            <!-- Selected files display -->
-            @if (showFileNames() && (value() ?? '').length > 0) {
-                <div class="selected-files">
-                    @for (item of value(); track item; let i = $index) {
-                        <div class="selected-file">
-                            <span class="file-name">{{ item.file?.name ?? item.nazov }}</span>
-                            <!-- TODO: prerobit na app-button -->
-                            @if (!disabled()) {
-                                <button type="button" class="remove-btn" [class]="buttonClass()" (click)="removeFile(i)">✕</button>
-                            }
-                        </div>
-                    }
-                    <!-- Clear all files button (for multiple files) -->
-                    @if (multiple() && !disabled() && (value() ?? '').length > 1) {
-                        <button anotokiButton variant="danger" type="button" [class]="buttonClass()" (click)="clearFiles()">Vymazať všetky súbory</button>
-                    }
-                </div>
-            }
-        </div>
-
-        <!-- Error message -->
         @if (displayError() && hasError()) {
             <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
                 {{ errorMessage() }}

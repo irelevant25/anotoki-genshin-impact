@@ -4,14 +4,15 @@
 
     @if (mode() === 'upload') {
         <div class="upload-body">
-            <app-file
-                [label]="'File'"
-                [buttonText]="kind() === 'audio' ? 'Choose audio' : 'Choose image'"
-                [buttonOutline]="true"
-                [acceptedExtensions]="extensions()"
-                [fileNamePosition]="'right'"
-                (inputChange)="onFileSelect($event)"
-            ></app-file>
+            <!-- The kit's file picker: its button (the device's chooser) or a drop on the area round it, the kinds the
+                 slot takes and the size checked here as a convenience - the server checks both again. -->
+            <anotoki-file-picker
+                class="upload-picker"
+                [label]="kind() === 'audio' ? 'Sound file' : 'Picture file'"
+                [accept]="accept()"
+                [maxSize]="maxBytes"
+                [files]="chosen()"
+                (filesChange)="onFilesChosen($event)" />
 
             @if (uploadPreview(); as src) {
                 <div class="upload-preview">

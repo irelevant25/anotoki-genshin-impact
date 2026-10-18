@@ -8,10 +8,10 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
-import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
+import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
 import { AssetFile, FileApiService } from '../../../../api';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
-import { AUDIO_EXTENSIONS, IMAGE_EXTENSIONS } from '../admin-full-resource.model';
+import { AUDIO_EXTENSIONS, IMAGE_EXTENSIONS, UPLOAD_MAX_BYTES } from '../admin-full-resource.model';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 
 /**
@@ -64,7 +64,7 @@ export interface ImageUploadData {
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss'],
-  imports: [SegmentedComponent, PaginationComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, TextComponent, DropdownComponent, FileComponent],
+  imports: [SegmentedComponent, PaginationComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, TextComponent, DropdownComponent, FilePickerComponent],
 })
 export class ImageUploadComponent extends AbstractModalComponent {
   /** What the slot hands over (ImageUploadData). */
@@ -89,6 +89,18 @@ export class ImageUploadComponent extends AbstractModalComponent {
   file = signal<File | undefined>(undefined);
   uploadPreview = signal<string | undefined>(undefined);
   extensions = computed(() => (this.kind() === 'audio' ? AUDIO_EXTENSIONS : IMAGE_EXTENSIONS));
+  /**
+   * The kit's file picker's checks (@anotoki/lib/ui/file-picker): the kinds the slot takes, by their extensions, and
+   * the server's size limit - a convenience; the server checks both again, the kind by the file's bytes
+   * (backend api/upload_guard.php).
+   */
+  readonly accept = computed(() => this.extensions().join(','));
+  readonly maxBytes = UPLOAD_MAX_BYTES;
+  /** What the picker lists: the file chosen, or none. */
+  readonly chosen = computed<File[]>(() => {
+    const file = this.file();
+    return file ? [file] : [];
+  });
 
   // ── Choose existing ───────────────────────────────────────────────────────────
   private readonly _files = inject(FileApiService);
@@ -157,8 +169,9 @@ export class ImageUploadComponent extends AbstractModalComponent {
   }
 
   // ── Upload half ──────────────────────────────────────────────────────────────
-  onFileSelect(items: FileItemType[] | undefined | null): void {
-    const picked = items?.[0]?.file;
+  /** A file chosen in the picker (or taken away from it): what will be uploaded, and its preview. */
+  onFilesChosen(files: readonly File[]): void {
+    const picked = files[0];
     this._revokeUpload();
     this.file.set(picked);
     this.uploadPreview.set(picked ? URL.createObjectURL(picked) : undefined);

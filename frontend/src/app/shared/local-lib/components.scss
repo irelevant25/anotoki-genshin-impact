@@ -1,11 +1,12 @@
 ////
-/// The site's own fields - the ones the anotoki kit has no piece for: the
-/// multiselect, the date picker, the chips, the file picker, the slider, the
-/// quiz's search with pictures, the guides' editor - drawn the way the kit
-/// draws its fields (@anotoki/lib/ui/forms), from the family's tokens: the
-/// label over the control, the control's 3:1 edge (`border-strong`), the ring
-/// on the edge while it has the focus, the hint and the error under it. The
-/// text, number, textarea, checkbox and select fields are the kit's own.
+/// The site's own fields - the ones it keeps beside the anotoki kit's: the
+/// filters' multiselect, the button that chooses a folder or files, the
+/// guides' HTML editor - drawn the way the kit draws its fields
+/// (@anotoki/lib/ui/forms), from the family's tokens: the label over the
+/// control, the control's 3:1 edge (`border-strong`), the ring on the edge
+/// while it has the focus, the hint and the error under it. The text, number,
+/// textarea, checkbox, select, date, chips, slider, file picker, colour and
+/// search-with-pictures fields are the kit's own.
 ////
 
 .form-field {
@@ -84,18 +85,6 @@
   }
 }
 
-textarea.form-control {
-  padding-block: 0.6rem;
-
-  // The quizzes' search with pictures is a textarea that grows when a name is
-  // long (autoResize): one line high and without a grip, as a text field is.
-  &.input-text {
-    height: var(--anotoki-control-height);
-    overflow: hidden;
-    resize: none;
-  }
-}
-
 .error-message {
   margin: 0;
   color: var(--anotoki-danger-text);
@@ -109,24 +98,6 @@ textarea.form-control {
 
   &.small {
     font-size: var(--font-size-sm);
-  }
-}
-
-// The cross on a chosen file or chip.
-.remove-btn {
-  width: auto !important;
-  margin-left: 0.5rem;
-  padding: 0.25rem;
-  border: none;
-  border-radius: var(--anotoki-radius-sm);
-  background: none;
-  color: var(--anotoki-danger-text);
-  font-size: 0.875rem;
-  line-height: 1;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--anotoki-danger-soft);
   }
 }
 

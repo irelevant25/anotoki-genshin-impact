@@ -1,4 +1,9 @@
 <anotoki-page-header heading="File categories">
+    <!-- The lead, with the folder names in it as code: the kit's lead with markup of its own. -->
+    <span pageLead>
+        A category is a kind of asset and the folder that kind lives in. It is not a label: every file's path is built from it, so changing a folder moves what is in it, and retiring a category empties it
+        into <code>unfiled</code> first. The code is dotted the way the site already names asset folders — <code>character.icon</code> means <code>character/icon</code>.
+    </span>
     @if (retiredCount()) {
         <button anotokiButton size="sm" (click)="showRetired.set(!showRetired())">
             {{ showRetired() ? "Hide retired" : "Show retired (" + retiredCount() + ")" }}
@@ -9,17 +14,6 @@
         Add a category
     </button>
 </anotoki-page-header>
-
-<p class="page-note">
-    A category is a kind of asset and the folder that kind lives in. It is not a label: every file's path is built from it, so changing a folder moves what is in it, and retiring a category empties it
-    into
-    <code>unfiled</code>
-    first. The code is dotted the way the site already names asset folders —
-    <code>character.icon</code>
-    means
-    <code>character/icon</code>
-    .
-</p>
 
 @if (adding()) {
     <div class="add-row">
@@ -45,7 +39,7 @@
     <!-- The kit's stacked table: on a phone each category is a card, its values
          labelled and its buttons in view, rather than a table to scroll sideways. -->
     <div class="table-scroll">
-        <table class="table table-stack">
+        <table class="table table-stack table-middle">
             <thead>
                 <tr>
                     <th scope="col">Code</th>

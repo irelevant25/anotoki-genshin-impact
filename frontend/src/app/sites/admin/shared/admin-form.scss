@@ -140,86 +140,11 @@
 // ── Disclosures ──────────────────────────────────────────────────────────────
 
 // What folds away - a voice-over set's groups and lines, an enemy's drop
-// groups: native <details>, which the browser opens from the keyboard too,
-// drawn as the kit's cards are. The kit has no accordion of its own.
+// groups - is the kit's accordion of disclosures (@anotoki/lib/ui/disclosure);
+// a voice-over group and the Add under it stand together.
 .disclosure-group {
   display: flex;
   flex-direction: column;
-}
-
-.disclosure {
-  border: 1px solid var(--anotoki-border);
-  border-radius: var(--anotoki-radius);
-  background: var(--anotoki-surface);
-
-  &[open] > .disclosure-summary {
-    border-bottom: 1px solid var(--anotoki-border);
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
-  }
-
-  &[open] > .disclosure-summary::before {
-    transform: rotate(45deg);
-  }
-}
-
-.disclosure-summary {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  min-height: var(--anotoki-control-height);
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--anotoki-radius);
-  color: var(--anotoki-text);
-  font-weight: 650;
-  list-style: none;
-  cursor: pointer;
-
-  &::-webkit-details-marker {
-    display: none;
-  }
-
-  // The arrow: to the right while folded, down while open.
-  &::before {
-    content: "";
-    flex-shrink: 0;
-    width: 0.45rem;
-    height: 0.45rem;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(-45deg);
-    transition: transform var(--anotoki-duration) var(--anotoki-ease);
-  }
-
-  &:hover {
-    background: var(--anotoki-surface-2);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--anotoki-focus);
-    outline-offset: 2px;
-  }
-}
-
-.disclosure-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm);
-}
-
-// A line inside a group: a shade off the group's ground, so the two read apart.
-.disclosure-inner {
-  background: var(--anotoki-surface-2);
-
-  > .disclosure-summary {
-    font-weight: 600;
-  }
-
-  .sub-card {
-    border: none;
-    border-radius: 0 0 var(--anotoki-radius) var(--anotoki-radius);
-  }
 }
 
 // One language's editor under the kit's tabs.

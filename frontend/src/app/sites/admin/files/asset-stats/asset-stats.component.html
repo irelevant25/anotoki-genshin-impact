@@ -157,8 +157,7 @@
                         }
 
                         @if (job.failures.length) {
-                            <details class="convert-failures">
-                                <summary>{{ job.failed | number }} would not convert</summary>
+                            <anotoki-disclosure plain class="convert-failures" [heading]="(job.failed | number) + ' would not convert'">
                                 <ul>
                                     @for (failure of job.failures; track failure) {
                                         <li>
@@ -166,7 +165,7 @@
                                         </li>
                                     }
                                 </ul>
-                            </details>
+                            </anotoki-disclosure>
                         }
 
                         <div class="convert-actions">

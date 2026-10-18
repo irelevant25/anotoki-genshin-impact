@@ -60,14 +60,10 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
     if (!in_array($ext, UPLOAD_ALLOWED_EXTENSIONS, true)) {
         return null;
     }
-    // A file claiming to be an image must decode as one.
-    if (in_array($ext, UPLOAD_IMAGE_EXTENSIONS, true) && $ext !== 'avif') {
-        $stream = $file->getStream();
-        $stream->rewind();
-        if (@getimagesizefromstring($stream->getContents()) === false) {
-            return null;
-        }
-        $stream->rewind();
+    // A file is what its extension says by its bytes - a picture that decodes, an AVIF's brand, a sound's signature -
+    // and no larger than the limit (api/upload_guard.php).
+    if (!uploadFileAcceptable($file, $ext)) {
+        return null;
     }
 
     $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $baseName);

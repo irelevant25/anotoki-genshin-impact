@@ -177,30 +177,10 @@
 
 // ── JSON example ──────────────────────────────────────────────────────────────
 
+// In the kit's disclosure, which draws the box and pads it.
 .import-example {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background: var(--bg-card);
-
-  summary {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    cursor: pointer;
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    user-select: none;
-
-    &:hover {
-      color: var(--text-primary);
-    }
-  }
-
-  &[open] summary {
-    border-bottom: 1px solid var(--border-color);
-  }
-
   pre {
     margin: 0;
-    padding: var(--spacing-sm);
     overflow-x: auto;
     font-size: var(--font-size-sm);
     line-height: 1.45;
@@ -209,6 +189,6 @@
   }
 
   .import-hint {
-    padding: 0 var(--spacing-sm) var(--spacing-sm);
+    margin: var(--spacing-sm) 0 0;
   }
 }

@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="background-actions">
-                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" [loading]="busy() === entry.id" (click)="confirmDelete(entry)"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" [loading]="busy() === entry.id" (click)="confirmDelete(entry)"><span class="icon icon-trash icon-size-4" aria-hidden="true"></span></button>
                 </div>
             </div>
         } @empty {

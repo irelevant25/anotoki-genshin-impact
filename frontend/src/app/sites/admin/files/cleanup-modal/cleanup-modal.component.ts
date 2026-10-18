@@ -6,6 +6,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { AssetCleanupFile, AssetCleanupProgress, FileApiService } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
 
@@ -29,7 +30,7 @@ const CLEANUP_BATCH = 400;
   selector: 'app-cleanup-modal',
   templateUrl: './cleanup-modal.component.html',
   styleUrls: ['./cleanup-modal.component.scss'],
-  imports: [PaginationComponent, CheckboxComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, DecimalPipe, FileSizePipe],
+  imports: [PaginationComponent, CheckboxComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, DisclosureComponent, DecimalPipe, FileSizePipe],
 })
 export class CleanupModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);

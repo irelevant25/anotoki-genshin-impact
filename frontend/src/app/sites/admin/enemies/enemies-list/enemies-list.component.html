@@ -18,7 +18,7 @@
     </div>
 
     <div class="table-scroll">
-        <table class="table">
+        <table class="table table-middle">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -67,13 +67,13 @@
                                 <a anotokiButton variant="ghost" size="sm" iconOnly aria-label="Edit" anotokiTooltip="Edit" [routerLink]="[enemy.id, 'edit']"><span class="icon icon-pen icon-size-4" aria-hidden="true"></span></a>
                                 <button
                                     anotokiButton
-                                    variant="ghost"
+                                    variant="danger-ghost"
                                     size="sm"
                                     iconOnly
                                     aria-label="Delete"
                                     anotokiTooltip="Delete"
                                     (click)="confirmDelete(enemy.id, enemy.name)">
-                                    <span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span>
+                                    <span class="icon icon-trash icon-size-4" aria-hidden="true"></span>
                                 </button>
                             </div>
                         </td>

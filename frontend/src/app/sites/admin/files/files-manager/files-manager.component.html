@@ -27,7 +27,7 @@
             <h2 class="pane-title">{{ selectedFolder() || "Pick a folder" }}</h2>
             <div class="toolbar-right">
                 <app-text [placeholder]="'Search files…'" [value]="search()" (inputChange)="onSearchChange($event)"></app-text>
-                <app-file #uploader [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [showFileNames]="false" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
+                <app-file #uploader [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
             </div>
         </div>
 
@@ -119,17 +119,17 @@
                         }
 
                         <div class="file-actions">
-                            <app-file [buttonText]="'Replace'" [buttonOutline]="true" [buttonVariant]="'secondary'" [showFileNames]="false" (inputChange)="onReplace(file, $event)"></app-file>
+                            <app-file [buttonText]="'Replace'" [buttonOutline]="true" [buttonVariant]="'secondary'" (inputChange)="onReplace(file, $event)"></app-file>
                             <button
                                 anotokiButton
-                                variant="ghost"
+                                variant="danger-ghost"
                                 size="sm"
                                 iconOnly
                                 [attr.aria-label]="'Delete ' + file.name"
                                 anotokiTooltip="Delete"
                                 [loading]="busy() === file.name"
                                 (click)="confirmDelete(file)">
-                                <span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span>
+                                <span class="icon icon-trash icon-size-4" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>

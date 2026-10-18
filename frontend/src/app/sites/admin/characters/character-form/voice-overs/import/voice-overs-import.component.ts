@@ -8,6 +8,8 @@ import { TextareaComponent } from '../../../../../../shared/local-lib/components
 import { CheckboxComponent } from '../../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { DropdownComponent } from '../../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
+import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
+import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
 import { VOICE_OVER_LANGUAGES, VOICE_OVER_TYPES, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
 import {
@@ -36,7 +38,7 @@ export interface VoiceOverImportData {
   selector: 'app-voice-overs-import',
   templateUrl: './voice-overs-import.component.html',
   styleUrls: ['./voice-overs-import.component.scss'],
-  imports: [TooltipDirective, KitButtonComponent, DialogFooterDirective, ButtonComponent, TextareaComponent, CheckboxComponent, DropdownComponent, FileComponent],
+  imports: [TooltipDirective, KitButtonComponent, DialogFooterDirective, ButtonComponent, TextareaComponent, CheckboxComponent, DropdownComponent, FileComponent, FilePickerComponent, DisclosureComponent],
 })
 export class VoiceOversImportComponent extends AbstractModalComponent {
   private readonly _data = inject<VoiceOverImportData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
@@ -127,8 +129,12 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
 
   // ── Step 1: voice over data ─────────────────────────────────────────────────
 
-  onJsonFileSelect(files: FileItemType[] | undefined | null): void {
-    const file = files?.[0]?.file;
+  /** The JSON file chosen in the kit's picker - one at a time - read here, its words into the box below. */
+  readonly jsonFiles = signal<readonly File[]>([]);
+
+  onJsonFilesChosen(files: readonly File[]): void {
+    this.jsonFiles.set(files);
+    const file = files[0];
     if (!file) {
       return;
     }

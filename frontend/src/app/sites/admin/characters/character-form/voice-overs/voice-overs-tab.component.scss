@@ -21,3 +21,8 @@
   display: flex;
   gap: var(--spacing-sm);
 }
+
+// The groups, a group's Add under it: the space the page had between them.
+.vo-groups {
+  gap: 1.25rem;
+}

@@ -461,8 +461,8 @@ Privacy page's sentences on backups, the account's address and the sign-in's
 notes, made true - each only while nobody saved another wording). No schema
 changes; the Apply backs the database up first. Upload both builds and Apply at
 once - until then the site is being updated for everybody but its ADMIN, as for
-every update. Nothing else to set; the hosting company is "to be named" on the
-Privacy page until the owner names it (`processors` in
+every update. Nothing else to set; the Privacy page names the hosting company,
+WebSupport s.r.o., as the owner named it on 2026-10-18 (`GENSHIN_HOSTING` in
 `frontend/src/app/sites/main/legal/legal-facts.ts`).
 
 ---
@@ -470,7 +470,8 @@ Privacy page until the owner names it (`processors` in
 ## Checking your work
 
 `backend/tests/` - the upload rules (what an upload may be called, where it may
-be written, the folders' `.htaccess` guard), run without a database or a server;
+be written, the folders' `.htaccess` guard, an upload's bytes and size), run
+without a database or a server;
 the words (`translations-migration.test.php`: users/050 on a database as its
 owner left it - reworded strings and guides, blanks, a hidden language - and
 what it refuses, and users/053's strings gone with the keys still read kept; `translations-routes.test.php`: the whole API in-process - the
@@ -535,13 +536,15 @@ cd frontend && npm run api && git diff --stat src/app/api api-spec.json
 
 **Every page in a real browser.** `node scripts/screenshots.mjs` (in `frontend/`)
 builds the site for production and shows every page of it - the public site as
-a visitor, its dialogs, Terms, Privacy and Contact in English and Slovak (and
-Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
+a visitor, its dialogs, a quiz's search with a name begun, Terms, Privacy and
+Contact in English and Slovak (the Privacy page flagged unless it names the
+hosting company, and Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
 of it on the callback's page, and in the sign-in card while the IAM requires
 signing in), the Privacy page while the IAM requires signing in (drawn, never
 the card, no trip to the IAM), then the admin panel as its ADMIN (the Errors
-page with the page's thrown error as its row, and that row opened), and three
-pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
+page with the page's thrown error as its row, and that row opened; the kit's
+pieces opened - what folds, a birthday's calendar, the editor's link dialog and
+colour panel, the voice-over import), and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
 and `report.json`. It flags what a picture hides: a page wider than a phone, an
 error in the console, a key shown where a word should be - and throws an error

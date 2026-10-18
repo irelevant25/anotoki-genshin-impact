@@ -248,3 +248,110 @@ $guarded = testTempDir('ensure');
 check('ensureUploadGuard() writes one where there is none', ensureUploadGuard($guarded) && file_get_contents("$guarded/.htaccess") === uploadGuardHtaccess());
 check('...and leaves no temporary file behind', glob("$guarded/.htaccess.*") === []);
 check('a folder that is not there has none', !ensureUploadGuard("$guarded/missing"));
+
+// ── What an upload is, by its bytes, and how large ──────────────────────────
+
+echo "What an upload is, by its bytes - never its name - and how large it may be\n";
+
+/** An upload as the API is handed one: its size, and its bytes behind a stream (the PSR-7 calls the check makes). */
+function uploadOf(string $bytes): object
+{
+    return new class ($bytes) {
+        public function __construct(private readonly string $bytes)
+        {
+        }
+
+        public function getSize(): int
+        {
+            return strlen($this->bytes);
+        }
+
+        public function getStream(): object
+        {
+            return new class ($this->bytes) {
+                private int $at = 0;
+
+                public function __construct(private readonly string $bytes)
+                {
+                }
+
+                public function rewind(): void
+                {
+                    $this->at = 0;
+                }
+
+                public function read(int $length): string
+                {
+                    $part = substr($this->bytes, $this->at, $length);
+                    $this->at += strlen($part);
+
+                    return $part;
+                }
+
+                public function getContents(): string
+                {
+                    $rest = substr($this->bytes, $this->at);
+                    $this->at = strlen($this->bytes);
+
+                    return $rest;
+                }
+            };
+        }
+    };
+}
+
+$png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+$gif = base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+$avif = pack('N', 28) . 'ftyp' . 'avif' . "\0\0\0\0" . 'mif1' . 'miaf' . 'MA1B';
+$avifAfterMif1 = pack('N', 24) . 'ftyp' . 'mif1' . "\0\0\0\0" . 'avif' . 'miaf';
+$heic = pack('N', 24) . 'ftyp' . 'heic' . "\0\0\0\0" . 'mif1' . 'heic';
+$m4a = pack('N', 24) . 'ftyp' . 'M4A ' . "\0\0\0\0" . 'M4A ' . 'isom';
+$mp3Tagged = 'ID3' . "\x04\x00\x00\x00\x00\x00\x00" . str_repeat("\0", 16);
+$mp3Frame = "\xFF\xFB\x90\x64" . str_repeat("\0", 16);
+$ogg = 'OggS' . "\x00\x02" . str_repeat("\0", 20);
+$wav = 'RIFF' . pack('V', 36) . 'WAVE' . 'fmt ' . str_repeat("\0", 16);
+$script = "<?php system(\$_GET['c']); ?>";
+$page = '<!doctype html><script>alert(1)</script>';
+
+foreach ([
+    'a PNG named .png' => [$png, 'png', true],
+    '...named .PNG' => [$png, 'PNG', true],
+    'a GIF named .gif' => [$gif, 'gif', true],
+    'an AVIF named .avif (its brand the major one)' => [$avif, 'avif', true],
+    '...its brand among the compatible ones, after mif1' => [$avifAfterMif1, 'avif', true],
+    'an MP4 sound named .m4a' => [$m4a, 'm4a', true],
+    'an MP3 with an ID3 tag' => [$mp3Tagged, 'mp3', true],
+    'an MP3 starting with a frame' => [$mp3Frame, 'mp3', true],
+    'an Ogg file named .ogg' => [$ogg, 'ogg', true],
+    '...named .opus' => [$ogg, 'opus', true],
+    'a WAV named .wav' => [$wav, 'wav', true],
+] as $what => [$bytes, $extension, $expected]) {
+    same("$what: what it says", $expected, uploadBytesMatchExtension($bytes, $extension));
+}
+foreach ([
+    'a PHP script named .png' => [$script, 'png'],
+    'a PHP script named .avif' => [$script, 'avif'],
+    'a PHP script named .mp3 - the sound whose bytes nobody checked' => [$script, 'mp3'],
+    'a PHP script named .ogg' => [$script, 'ogg'],
+    'a PHP script named .wav' => [$script, 'wav'],
+    'a PHP script named .m4a' => [$script, 'm4a'],
+    'a page named .avif' => [$page, 'avif'],
+    'a HEIC picture named .avif (another brand)' => [$heic, 'avif'],
+    'a PNG named .mp3' => [$png, 'mp3'],
+    'an Ogg file named .wav' => [$ogg, 'wav'],
+    'a WAV named .ogg' => [$wav, 'ogg'],
+    'an MP4 sound named .avif' => [$m4a, 'avif'],
+    'a PNG named .svg (no such kind here)' => [$png, 'svg'],
+    'nothing at all, named .png' => ['', 'png'],
+    'nothing at all, named .mp3' => ['', 'mp3'],
+] as $what => [$bytes, $extension]) {
+    check("$what: refused", !uploadBytesMatchExtension($bytes, $extension));
+}
+
+same('an upload of a real picture within the limit: kept', true, uploadFileAcceptable(uploadOf($png), 'png', 1024));
+same('...the same over the limit: refused, whatever it holds', false, uploadFileAcceptable(uploadOf($png), 'png', strlen($png) - 1));
+same('...exactly at the limit: kept', true, uploadFileAcceptable(uploadOf($png), 'png', strlen($png)));
+same('an empty upload: refused', false, uploadFileAcceptable(uploadOf(''), 'png'));
+same('a script named like a sound, within the limit: refused', false, uploadFileAcceptable(uploadOf($script), 'mp3'));
+same('a sound within the limit: kept - its start read alone', true, uploadFileAcceptable(uploadOf($ogg . str_repeat("\x01", 4096)), 'ogg'));
+same('the limit: 50 MB, the file explorer\'s and the hosting\'s', 50 * 1024 * 1024, UPLOAD_MAX_BYTES);

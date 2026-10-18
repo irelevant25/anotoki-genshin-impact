@@ -4,75 +4,78 @@
 </div>
 
 <div class="sub-list">
-    @for (group of groups(); track group.uid; let g = $index) {
-        <details class="disclosure">
-            <summary class="disclosure-summary">{{ groupTitle(group, g) }}</summary>
-                <div class="group-body">
-                    <div class="group-actions">
-                        <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Duplicate group" anotokiTooltip="Duplicate group" (click)="duplicateGroup(group)"><span class="icon icon-copy icon-size-3" aria-hidden="true"></span></button>
-                        <button anotokiButton variant="danger" size="sm" (click)="removeGroup(group)">Delete group</button>
-                    </div>
-
-                    <!-- Conditions shared by every drop in the group -->
-                    <div class="group-conditions">
-                        <app-number [label]="'Level from'" [(value)]="group.level_from" [min]="1"></app-number>
-                        <app-number [label]="'Level to'" [(value)]="group.level_to" [min]="1"></app-number>
-                        <app-number [label]="'World level'" [(value)]="group.world_level" [min]="0"></app-number>
-                        <app-dropdown [label]="'Domain level'" [options]="domainLevels()" [(value)]="group.domain_level" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-                    </div>
-
-                    <div class="cost-section">
-                        <div class="cost-header">
-                            <span class="cost-label">Drops</span>
-                            <button anotokiButton (click)="addEntry(group)">Add drop</button>
+    <!-- The kit's accordion: each group's button a heading of the tab; Up, Down, Home and End move between them.
+         A group's fields are made at once and hidden while it is closed, so the form checks every one of them. -->
+    @if (groups().length) {
+        <anotoki-accordion multiple class="drop-groups">
+            @for (group of groups(); track group.uid; let g = $index) {
+                <anotoki-disclosure [heading]="groupTitle(group, g)" [headingLevel]="2">
+                    <div class="group-body">
+                        <div class="group-actions">
+                            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Duplicate group" anotokiTooltip="Duplicate group" (click)="duplicateGroup(group)"><span class="icon icon-copy icon-size-3" aria-hidden="true"></span></button>
+                            <button anotokiButton variant="danger" size="sm" (click)="removeGroup(group)">Delete group</button>
                         </div>
 
-                        <div class="drop-cards">
-                            @for (entry of group.entries; track entry.uid) {
-                                <div class="drop-card">
-                                    <anotoki-segmented label="Kind of drop" [options]="kindChoices" [value]="entry.kind" (valueChange)="onKindChange(entry, $event)" />
+                        <!-- Conditions shared by every drop in the group -->
+                        <div class="group-conditions">
+                            <app-number [label]="'Level from'" [(value)]="group.level_from" [min]="1"></app-number>
+                            <app-number [label]="'Level to'" [(value)]="group.level_to" [min]="1"></app-number>
+                            <app-number [label]="'World level'" [(value)]="group.world_level" [min]="0"></app-number>
+                            <app-dropdown [label]="'Domain level'" [options]="domainLevels()" [(value)]="group.domain_level" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+                        </div>
 
-                                    @if (entry.kind === 'material') {
-                                        <app-dropdown [options]="materialOptions()" [(value)]="entry.data.material_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
-                                        <div class="drop-card-img">
-                                            @if (materialName(entry); as name) {
-                                                <img [appMaterialIcon]="name" [alt]="name" />
-                                            }
-                                        </div>
-                                    } @else {
-                                        <app-dropdown [options]="artifactOptions()" [(value)]="entry.data.artifact_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— artifact —'"></app-dropdown>
-                                        <div class="drop-card-img">
-                                            @if (artifactIcon(entry); as src) {
-                                                <img [src]="src" alt="" />
-                                            }
-                                        </div>
-                                    }
+                        <div class="cost-section">
+                            <div class="cost-header">
+                                <span class="cost-label">Drops</span>
+                                <button anotokiButton (click)="addEntry(group)">Add drop</button>
+                            </div>
 
-                                    <div class="drop-card-fields">
-                                        <app-number [label]="'Qty from'" [(value)]="entry.data.quantity_from" [min]="0"></app-number>
-                                        <app-number [label]="'Qty to'" [(value)]="entry.data.quantity_to" [min]="0"></app-number>
-                                        <app-number [label]="'Drop rate'" [(value)]="entry.data.drop_rate" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
-                                        <app-number [label]="'Average'" [(value)]="entry.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
+                            <div class="drop-cards">
+                                @for (entry of group.entries; track entry.uid) {
+                                    <div class="drop-card">
+                                        <anotoki-segmented label="Kind of drop" [options]="kindChoices" [value]="entry.kind" (valueChange)="onKindChange(entry, $event)" />
+
+                                        @if (entry.kind === 'material') {
+                                            <app-dropdown [options]="materialOptions()" [(value)]="entry.data.material_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
+                                            <div class="drop-card-img">
+                                                @if (materialName(entry); as name) {
+                                                    <img [appMaterialIcon]="name" [alt]="name" />
+                                                }
+                                            </div>
+                                        } @else {
+                                            <app-dropdown [options]="artifactOptions()" [(value)]="entry.data.artifact_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— artifact —'"></app-dropdown>
+                                            <div class="drop-card-img">
+                                                @if (artifactIcon(entry); as src) {
+                                                    <img [src]="src" alt="" />
+                                                }
+                                            </div>
+                                        }
+
+                                        <div class="drop-card-fields">
+                                            <app-number [label]="'Qty from'" [(value)]="entry.data.quantity_from" [min]="0"></app-number>
+                                            <app-number [label]="'Qty to'" [(value)]="entry.data.quantity_to" [min]="0"></app-number>
+                                            <app-number [label]="'Drop rate'" [(value)]="entry.data.drop_rate" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
+                                            <app-number [label]="'Average'" [(value)]="entry.data.average" [allowDecimal]="true" [decimalPlaces]="4"></app-number>
+                                        </div>
+
+                                        <button
+                                            anotokiButton
+                                            variant="danger-ghost"
+                                            size="sm"
+                                            iconOnly
+                                            class="align-self-center"
+                                            aria-label="Remove drop"
+                                            anotokiTooltip="Remove drop"
+                                            (click)="removeEntry(group, entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
                                     </div>
-
-                                    <button
-                                        anotokiButton
-                                        variant="ghost"
-                                        size="sm"
-                                        iconOnly
-                                        class="align-self-center"
-                                        aria-label="Remove drop"
-                                        anotokiTooltip="Remove drop"
-                                        (click)="removeEntry(group, entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-        </details>
-    }
-
-    @if (!groups().length) {
+                </anotoki-disclosure>
+            }
+        </anotoki-accordion>
+    } @else {
         <p class="drops-empty">No drops yet.</p>
     }
     <button anotokiButton (click)="addGroup()">Add group</button>

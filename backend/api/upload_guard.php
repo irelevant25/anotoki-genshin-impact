@@ -76,6 +76,104 @@ function uploadNameRunsOnServer(string $name): bool
 }
 
 /**
+ * The largest file an editor may upload into the asset tree or
+ * public/uploads/: the file explorer's own limit (its roots,
+ * api/admin_tools.php) and what the hosting's PHP is set to take (README's
+ * Hosting checklist). The admin pages' file pickers say so first, in the
+ * browser; this is what decides.
+ */
+const UPLOAD_MAX_BYTES = 50 * 1024 * 1024;
+
+/** The raster pictures a browser's image decoder - and PHP's - reads: checked by decoding them. */
+const UPLOAD_DECODED_IMAGES = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+/**
+ * Whether an upload may be kept: something in it, no larger than
+ * UPLOAD_MAX_BYTES, and bytes that are what its extension says
+ * (uploadBytesMatchExtension()) - read from the file itself, never from its
+ * name or the browser's word for its type. The admin pages check the kind and
+ * the size in the browser too (@anotoki/lib/ui/file-picker); that is a
+ * convenience, and this is the check (anotoki-lib 0.6.0's review).
+ *
+ * @param Psr\Http\Message\UploadedFileInterface $file
+ */
+function uploadFileAcceptable(object $file, string $extension, int $maxBytes = UPLOAD_MAX_BYTES): bool
+{
+    $size = $file->getSize();
+    if (!is_int($size) || $size <= 0 || $size > $maxBytes) {
+        return false;
+    }
+    $stream = $file->getStream();
+    $stream->rewind();
+    // A picture is decoded whole (its size can sit far into the file, past EXIF); anything else is known by its start.
+    $bytes = in_array(strtolower($extension), UPLOAD_DECODED_IMAGES, true) ? $stream->getContents() : $stream->read(64);
+    $stream->rewind();
+
+    return uploadBytesMatchExtension($bytes, $extension);
+}
+
+/**
+ * Whether bytes are what an extension says, by what is in them:
+ *
+ *   jpg, jpeg, png, webp, gif   decode as a picture (getimagesizefromstring)
+ *   avif                        an ISO media file whose ftyp box names the
+ *                               AVIF brand (avif, avis) - PHP 8.2 cannot
+ *                               decode one everywhere, so its box is read
+ *   mp3                         an ID3 tag, or an MPEG audio frame's sync
+ *   ogg, opus                   an Ogg page (OggS)
+ *   wav                         RIFF ... WAVE
+ *   m4a                         an ISO media file (an ftyp box at its start)
+ *
+ * Anything else - another extension, a script or a page named like a
+ * picture or a sound - is not. Enough of a check to keep out what is not what
+ * it says; the folders' guard keeps anything from running whatever it is
+ * (uploadGuardRules()).
+ */
+function uploadBytesMatchExtension(string $bytes, string $extension): bool
+{
+    $extension = strtolower($extension);
+    if (in_array($extension, UPLOAD_DECODED_IMAGES, true)) {
+        return @getimagesizefromstring($bytes) !== false;
+    }
+
+    return match ($extension) {
+        'avif' => uploadIsoBrands($bytes, ['avif', 'avis']),
+        'm4a' => uploadIsoBrands($bytes, null),
+        'mp3' => str_starts_with($bytes, 'ID3') || (strlen($bytes) >= 2 && ord($bytes[0]) === 0xFF && (ord($bytes[1]) & 0xE0) === 0xE0),
+        'ogg', 'opus' => str_starts_with($bytes, 'OggS'),
+        'wav' => str_starts_with($bytes, 'RIFF') && substr($bytes, 8, 4) === 'WAVE',
+        default => false,
+    };
+}
+
+/**
+ * Whether bytes start with an ISO base media file's ftyp box - and, given
+ * brands, whether its major brand or one of its compatible brands is among
+ * them (an AVIF names avif or avis, often after mif1). Only the box's first
+ * 64 bytes are read.
+ *
+ * @param list<string>|null $brands
+ */
+function uploadIsoBrands(string $bytes, ?array $brands): bool
+{
+    if (strlen($bytes) < 16 || substr($bytes, 4, 4) !== 'ftyp') {
+        return false;
+    }
+    if ($brands === null) {
+        return true;
+    }
+    $boxSize = unpack('N', substr($bytes, 0, 4))[1];
+    $end = min(strlen($bytes), max(16, $boxSize), 64);
+    // The major brand at 8; then the minor version (12-15), never a brand; then the compatible brands, 4 bytes each.
+    $found = [substr($bytes, 8, 4)];
+    for ($at = 16; $at + 4 <= $end; $at += 4) {
+        $found[] = substr($bytes, $at, 4);
+    }
+
+    return array_intersect($found, $brands) !== [];
+}
+
+/**
  * The directives that keep a folder from running anything, the same in every
  * upload folder (public/uploads/.htaccess carries them word for word, beside
  * its own rules about how files are served).

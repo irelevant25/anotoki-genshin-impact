@@ -98,6 +98,23 @@ const press = (selector) => async (page) =>
     return true;
   })()`);
 
+/**
+ * Types into the first field `selector` matches, as a person would: the field focused, then the words given
+ * (Input.insertText) - a search that shows what matches as it is typed.
+ */
+const typeInto = (selector, words) => async (page) => {
+  const focused = await page.evaluate(`(() => {
+    const field = document.querySelector(${JSON.stringify(selector)});
+    if (!field) return false;
+    field.scrollIntoView({ block: 'center' });
+    field.focus();
+    return document.activeElement === field;
+  })()`);
+  if (!focused) return false;
+  await page.send('Input.insertText', { text: words });
+  return true;
+};
+
 /** One action after another - a tab, then what folds in it - each given a moment to be drawn. */
 const steps =
   (...actions) =>
@@ -109,6 +126,17 @@ const steps =
     return true;
   };
 
+/**
+ * The Privacy page names the hosting company the owner named (GENSHIN_HOSTING in sites/main/legal/legal-facts.ts):
+ * WebSupport s.r.o., linked to its own address - the code's, never a string's. A page without it is one to look at.
+ */
+const hostingNamed = (page) =>
+  waitFor(
+    page,
+    `[...document.querySelectorAll('anotoki-privacy-page [data-recipient] a[href="https://www.websupport.sk"]')].some((a) => a.textContent.trim() === 'WebSupport s.r.o.')`,
+    15000,
+  );
+
 const MAIN = [
   { name: 'main-home', path: '/', focus: 4 },
   { name: 'main-daily', path: '/daily' },
@@ -118,6 +146,8 @@ const MAIN = [
   { name: 'main-quiz-mismatch', path: '/quizzes/mismatch' },
   { name: 'main-quiz-music', path: '/quizzes/music' },
   { name: 'main-quiz-pixelate', path: '/quizzes/pixelate' },
+  // The kit's combobox with the characters' pictures, a name begun.
+  { name: 'main-quiz-pixelate-search', path: '/quizzes/pixelate', then: typeInto('anotoki-combobox input', 'a') },
   { name: 'main-quiz-voice', path: '/quizzes/voice' },
   { name: 'main-daily-banners', path: '/daily/banners' },
   { name: 'main-games', path: '/games' },
@@ -143,12 +173,13 @@ const MAIN = [
   { name: 'main-dialog-whats-new', path: '/', fresh: true },
   { name: 'main-dialog-guide', path: '/quizzes', then: press('button.guide-icon') },
   // The anotoki family's legal pages with genshin's facts (anotoki-lib 0.6), in English and in Slovak (`lang`: the
-  // language this browser chose), and the Contact page's feedback form opened in its dialog.
+  // language this browser chose), and the Contact page's feedback form opened in its dialog. The Privacy page must
+  // name the hosting company (hostingNamed).
   { name: 'main-terms', path: '/terms' },
-  { name: 'main-privacy', path: '/privacy', focus: 3 },
+  { name: 'main-privacy', path: '/privacy', focus: 3, then: hostingNamed },
   { name: 'main-contact', path: '/contact' },
   { name: 'main-terms-sk', path: '/terms', lang: 'sk' },
-  { name: 'main-privacy-sk', path: '/privacy', lang: 'sk' },
+  { name: 'main-privacy-sk', path: '/privacy', lang: 'sk', then: hostingNamed },
   { name: 'main-contact-sk', path: '/contact', lang: 'sk' },
   {
     name: 'main-contact-feedback',
@@ -201,25 +232,37 @@ const ADMIN = [
     { name: `admin-${entity}-edit`, path: `/admin/${entity}/1/edit` },
   ]),
   { name: 'admin-characters-edit-talents', path: '/admin/characters/1/edit', then: click('[role=tab], .tab, app-tab, button', '^Talents$') },
-  // The parts that fold, opened: a voice-over group and its first line; an enemy's drop group.
+  // The parts that fold (the kit's accordion of disclosures), opened: a voice-over group and its first line; an
+  // enemy's drop group.
   {
     name: 'admin-characters-edit-voice-overs',
     path: '/admin/characters/1/edit',
-    then: steps(click('[role=tab]', '^Voice Overs$'), press('details.disclosure > summary'), press('details.disclosure-inner > summary')),
+    then: steps(
+      click('[role=tab]', '^Voice Overs$'),
+      press('anotoki-disclosure .anotoki-disclosure__button'),
+      press('anotoki-disclosure anotoki-disclosure .anotoki-disclosure__button'),
+    ),
   },
-  { name: 'admin-enemies-edit-drops', path: '/admin/enemies/1/edit', then: steps(click('[role=tab]', '^Drops$'), press('details.disclosure > summary')) },
+  { name: 'admin-enemies-edit-drops', path: '/admin/enemies/1/edit', then: steps(click('[role=tab]', '^Drops$'), press('anotoki-disclosure .anotoki-disclosure__button')) },
   // The overlays the panel's pages open: a list's filter of several choices, the question before a delete
   // (answered by nobody - the shot is taken with it open), and on a phone the navigation's drawer.
   { name: 'admin-characters-filter', path: '/admin/characters', then: press('.multiselect-trigger') },
   { name: 'admin-characters-delete', path: '/admin/characters', then: press('button[aria-label="Delete"]') },
   { name: 'admin-menu', path: '/admin/dashboard', data: '.feed-title', widths: [390], then: click('button', '^Menu$') },
   { name: 'admin-image-upload', path: '/admin/characters/1/edit', then: click('button', '^(Upload|Replace)$') },
+  // The kit's date field: a birthday's calendar, a day and a month without a year.
+  { name: 'admin-characters-edit-birthday', path: '/admin/characters/1/edit', then: press('app-calendar .anotoki-date-field__toggle') },
+  // The voice-over import: the kit's file picker for its JSON, and the example under the kit's disclosure.
+  { name: 'admin-voice-overs-import', path: '/admin/characters/1/edit', then: steps(click('[role=tab]', '^Voice Overs$'), click('button', 'Import from files')) },
   ...lookups.map((lookup) => ({ name: `admin-lookup-${lookup}`, path: `/admin/${lookup}` })),
   { name: 'admin-backgrounds', path: '/admin/backgrounds' },
   { name: 'admin-files', path: '/admin/files' },
   { name: 'admin-file-categories', path: '/admin/file-categories' },
   { name: 'admin-guides', path: '/admin/guides' },
   { name: 'admin-guides-editor', path: '/admin/guides', then: click('button, a', '^Edit') },
+  // The editor's own parts beside the kit's toolbar: the link asked in its dialog, the colour panel (the kit's field).
+  { name: 'admin-guides-editor-link', path: '/admin/guides', then: steps(click('button, a', '^Edit'), press('anotoki-rich-text-toolbar button[aria-label="Link"]')) },
+  { name: 'admin-guides-editor-colour', path: '/admin/guides', then: steps(click('button, a', '^Edit'), press('button[aria-label="Text colour"]')) },
   { name: 'admin-settings', path: '/admin/settings' },
   { name: 'admin-settings-group', path: '/admin/settings', then: press('button.card') },
   { name: 'admin-settings-routes', path: '/admin/settings', then: click('button.card', '^Parts of the site') },

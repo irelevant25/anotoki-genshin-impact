@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { SliderComponent } from '../../../../../shared/local-lib/components/slider/slider.component';
+import { SliderComponent, SliderTick } from '@anotoki/lib/ui/slider';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /** The seven elements a cell can hold. */
@@ -115,32 +115,34 @@ export class GamesMinesweeperComponent implements OnDestroy {
 
   // ── The setup screen ───────────────────────────────────────────────────────
   //
-  // Widened past `number` because that is what a two-way binding to the
-  // slider's own `value` model demands; everything downstream reads them back
-  // through Number().
+  // Two of the kit's sliders (@anotoki/lib/ui/slider): the native range input
+  // in the kit's look, its stops' words under it - and heard, so the three
+  // difficulties read "Easy, Medium, Hard", never "0, 1, 2".
 
-  readonly difficultyIndex = signal<number | undefined | null>(0);
-  readonly size = signal<number | undefined | null>(DEFAULT_SIZE);
+  readonly difficultyIndex = signal<number>(0);
+  readonly size = signal<number>(DEFAULT_SIZE);
 
-  readonly chosenDifficulty = computed<Difficulty>(() => DIFFICULTIES[Number(this.difficultyIndex() ?? 0)] ?? 'easy');
-  readonly chosenSize = computed(() => Math.min(MAX_SIZE, Math.max(MIN_SIZE, Number(this.size() ?? DEFAULT_SIZE))));
+  readonly chosenDifficulty = computed<Difficulty>(() => DIFFICULTIES[this.difficultyIndex()] ?? 'easy');
+  readonly chosenSize = computed(() => Math.min(MAX_SIZE, Math.max(MIN_SIZE, this.size())));
 
   readonly minSize = MIN_SIZE;
   readonly maxSize = MAX_SIZE;
 
   /**
-   * Translated here rather than in the template: the slider takes plain strings
+   * Translated here rather than in the template: the slider takes plain words
    * for its ticks, so the pipe has nothing to attach to. A computed because `t`
    * reads a signal, which is what makes them follow a change of language.
    */
-  readonly difficultyTicks = computed(() => DIFFICULTIES.map((difficulty) => this._i18n.t(`game.minesweeper.difficulty.${difficulty}`)));
+  readonly difficultyTicks = computed<SliderTick[]>(() =>
+    DIFFICULTIES.map((difficulty, index) => ({ value: index, label: this._i18n.t(`game.minesweeper.difficulty.${difficulty}`) })),
+  );
 
-  readonly sizeTicks = Array.from({ length: MAX_SIZE - MIN_SIZE + 1 }, (_, index) => String(MIN_SIZE + index));
+  readonly sizeTicks: SliderTick[] = Array.from({ length: MAX_SIZE - MIN_SIZE + 1 }, (_, index) => ({ value: MIN_SIZE + index, label: String(MIN_SIZE + index) }));
 
   /**
-   * The board as it reads, not as it is stored. Shown beside the label because
-   * eight numbered ticks say which stop the thumb is on but not what a stop
-   * means - and 9 is a board of eighty-one cells, not of nine.
+   * The board as it reads, not as it is stored. Shown beside the label (and
+   * heard) because eight numbered ticks say which stop the thumb is on but not
+   * what a stop means - and 9 is a board of eighty-one cells, not of nine.
    */
   readonly chosenSizeName = computed(() => `${this.chosenSize()} × ${this.chosenSize()}`);
   readonly difficultyHint = computed(() => `game.minesweeper.difficultyHint.${this.chosenDifficulty()}`);

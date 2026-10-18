@@ -1,19 +1,7 @@
-// The kit draws the heading, the fields, the buttons and the table, framed as
-// the admin lists are (their skin); what is here is this page's own: its note,
-// the row that adds one, its columns.
+// The kit draws the heading and its lead, the fields, the buttons and the
+// table, framed as the admin lists are (their skin); what is here is this
+// page's own: the row that adds one, its columns.
 @use "../shared/admin-list" as *;
-
-anotoki-page-header {
-  margin-bottom: var(--spacing-sm);
-}
-
-.page-note {
-  margin: 0 0 var(--spacing-lg);
-  max-width: 90ch;
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  line-height: 1.6;
-}
 
 .add-row {
   display: flex;

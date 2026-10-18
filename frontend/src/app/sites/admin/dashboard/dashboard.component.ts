@@ -4,6 +4,7 @@ import { CardComponent } from '@anotoki/lib/ui/card';
 import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { BadgeComponent, BadgeTone } from '@anotoki/lib/ui/badge';
+import { IconComponent } from '@anotoki/lib/ui/icon';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardApiService, DashboardStats } from '../../../api';
@@ -26,7 +27,7 @@ const DASHBOARD_FORMAT_CARDS = 5;
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [PageHeaderComponent, CardComponent, BadgeComponent, SpinnerComponent, ButtonComponent, AppDatePipe, DecimalPipe, FileSizePipe, RouterLink],
+  imports: [PageHeaderComponent, CardComponent, BadgeComponent, SpinnerComponent, ButtonComponent, IconComponent, AppDatePipe, DecimalPipe, FileSizePipe, RouterLink],
 })
 export class DashboardComponent implements OnInit {
   private readonly _dashboardApi = inject(DashboardApiService);
@@ -129,6 +130,15 @@ export class DashboardComponent implements OnInit {
 
   actionVerb(action: string): string {
     return action.slice(action.lastIndexOf('.') + 1).toLowerCase();
+  }
+
+  /**
+   * A content tile's icon. The API names it as the site's old masks were named
+   * ('icon-swords'); the panel draws it with the kit's icon, from its own
+   * drawings (admin-icons.ts, 'admin-swords'), registered as the panel loads.
+   */
+  tileIcon(name: string | null | undefined): string {
+    return name ? name.replace(/^icon-/, 'admin-') : '';
   }
 
   ngOnInit(): void {

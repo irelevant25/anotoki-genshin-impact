@@ -2,14 +2,8 @@
     <!-- Step 1 -->
     <section class="import-step">
         <h4 class="import-step-title"><span class="import-step-number">1</span> Voice over data</h4>
-        <app-file
-            [label]="'JSON file'"
-            [buttonText]="'Choose JSON'"
-            [buttonOutline]="true"
-            [acceptedExtensions]="['.json']"
-            [fileNamePosition]="'right'"
-            (inputChange)="onJsonFileSelect($event)"
-        ></app-file>
+        <!-- The kit's file picker: read here, in the browser - nothing of it is uploaded. -->
+        <anotoki-file-picker label="JSON file" accept=".json,application/json" [files]="jsonFiles()" (filesChange)="onJsonFilesChosen($event)" />
         <app-textarea
             [label]="'…or paste it here'"
             [description]="'A flat array, an object keyed by type, or a voice_overs wrapper. Order is filled per type when absent.'"
@@ -19,13 +13,12 @@
             [resize]="true"
         ></app-textarea>
 
-        <details class="import-example">
-            <summary>Expected structure</summary>
+        <anotoki-disclosure class="import-example" heading="Expected structure">
             <pre>{{ jsonExample }}</pre>
             <p class="import-hint">
                 Only <code>type</code> and <code>title_english</code> are required; every other field is optional. Titles must match the audio file names — that is what the matching is based on.
             </p>
-        </details>
+        </anotoki-disclosure>
 
         @if (jsonError()) {
             <p class="import-message error">{{ jsonError() }}</p>
@@ -50,7 +43,6 @@
             [buttonText]="'Choose folder'"
             [buttonOutline]="true"
             [directory]="true"
-            [showFileNames]="false"
             [disabled]="!!folderBlockedReason()"
             (inputChange)="onAudioFolderSelect($event)"
         ></app-file>
@@ -118,12 +110,12 @@
                             ></app-dropdown>
                             <button
                                 anotokiButton
-                                variant="ghost"
+                                variant="danger-ghost"
                                 size="sm"
                                 iconOnly
                                 aria-label="Remove this file from the list"
                                 anotokiTooltip="Remove this file from the list"
-                                (click)="removeUnmatched(match)"><span class="icon icon-trash icon-danger" aria-hidden="true"></span></button>
+                                (click)="removeUnmatched(match)"><span class="icon icon-trash" aria-hidden="true"></span></button>
                         </div>
                     }
                 </div>

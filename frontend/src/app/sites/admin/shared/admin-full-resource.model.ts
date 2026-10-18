@@ -13,6 +13,12 @@ import type { PickedImage } from './image-upload/image-upload.component';
 export const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.avif', '.webp'];
 export const AUDIO_EXTENSIONS = ['.mp3', '.ogg', '.wav', '.opus'];
 
+/**
+ * The largest file an upload may be: the server's limit (backend api/upload_guard.php's UPLOAD_MAX_BYTES), said
+ * in the browser by the kit's file picker before anything is sent - a convenience; the server decides.
+ */
+export const UPLOAD_MAX_BYTES = 50 * 1024 * 1024;
+
 export function buildFullFormData(payload: unknown): FormData {
   const form = new FormData();
   form.append('data', JSON.stringify(payload));

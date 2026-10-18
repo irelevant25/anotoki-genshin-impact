@@ -1,0 +1,22 @@
+<!-- The link's address: Enter adds it, as the button does. -->
+<anotoki-text-field
+    class="link-address"
+    label="Address"
+    type="url"
+    inputmode="url"
+    autocomplete="off"
+    spellcheck="false"
+    hint="A web address (https://…), a mail address (mailto:…) or one of this site's own (/database/…)."
+    [error]="error()"
+    autofocus
+    [value]="address()"
+    (valueChange)="address.set($event)"
+    (keydown.enter)="add()" />
+
+<ng-template anotokiDialogFooter>
+    @if (data.inLink) {
+        <button anotokiButton variant="danger-ghost" (click)="remove()">Remove the link</button>
+    }
+    <button anotokiButton (click)="cancel()">Cancel</button>
+    <button anotokiButton variant="primary" (click)="add()">{{ data.inLink ? "Change the link" : "Add the link" }}</button>
+</ng-template>

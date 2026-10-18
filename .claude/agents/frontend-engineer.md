@@ -97,7 +97,9 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - **Build with the kit**: `anotokiButton`, the kit's fields, dialogs
   (`AnotokiDialog`, `ConfirmService`), toasts (`ToastService`), tabs, pagination,
   segmented, tooltips, menus and popovers, drawer, cards, page header, empty and
-  error states, badges, alerts, icons, spinner - imported from their own entry
+  error states, badges, alerts, icons, spinner, and 0.6's side navigation,
+  disclosure and accordion, combobox, date field, slider, chips, file picker,
+  colour field and rich-text toolbar - imported from their own entry
   points (`@anotoki/lib/ui/button`, `ui/forms`, `ui/dialog`, ...). A piece the
   kit lacks is built in local-lib from the kit's pieces and tokens (and noted for
   the library), never a copy of one it has; the site keeps its look through the

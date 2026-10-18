@@ -71,7 +71,7 @@
                                 ></app-dropdown>
                                 <div class="cost-card-footer">
                                     <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
-                                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove this material" anotokiTooltip="Remove this material" (click)="removeCost(item.wrapper, cost)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
+                                    <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove this material" anotokiTooltip="Remove this material" (click)="removeCost(item.wrapper, cost)"><span class="icon icon-delete" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         }

@@ -6,6 +6,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { CleanupModalComponent } from '../cleanup-modal/cleanup-modal.component';
 import { MissingModalComponent } from '../missing-modal/missing-modal.component';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
@@ -36,7 +37,7 @@ const CONVERT_BATCH = 40;
   selector: 'app-asset-stats',
   templateUrl: './asset-stats.component.html',
   styleUrls: ['./asset-stats.component.scss'],
-  imports: [SpinnerComponent, TooltipDirective, ButtonComponent, DecimalPipe, FileSizePipe],
+  imports: [SpinnerComponent, TooltipDirective, ButtonComponent, DisclosureComponent, DecimalPipe, FileSizePipe],
 })
 export class AssetStatsComponent extends AbstractModalComponent implements OnInit, OnDestroy {
   private readonly _fileApi = inject(FileApiService);

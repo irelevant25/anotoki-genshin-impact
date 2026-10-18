@@ -7,7 +7,7 @@
 } @else {
     <!-- The kit's tabs. Every panel stays in the page, hidden but for the one chosen: the
          save checks every field, and opens the tab holding the first wrong one. -->
-    <anotoki-tabs #formTabs="anotokiTabs" label="Parts of the form" [tabs]="[{ id: 'base-info', label: 'Base Info' }, { id: 'phases', label: 'Phases' }, { id: 'drops', label: 'Drops' }]" active="base-info" />
+    <anotoki-tabs #formTabs="anotokiTabs" label="Parts of the form" [tabs]="[{ id: 'base-info', label: 'Base Info', icon: 'info' }, { id: 'phases', label: 'Phases', icon: 'admin-layers' }, { id: 'drops', label: 'Drops', icon: 'admin-coins' }]" active="base-info" />
     <div class="form-tab-panel" role="tabpanel" data-tab="base-info" [id]="formTabs.panelId('base-info')" [attr.aria-labelledby]="formTabs.tabId('base-info')" [hidden]="formTabs.active() !== 'base-info'">
         <app-enemy-base-info-tab [(enemy)]="enemy" />
     </div>

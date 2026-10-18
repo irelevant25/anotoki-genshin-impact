@@ -1,87 +1,37 @@
 @if (allowed()) {
     <div class="admin-layout">
-        <!-- A phone's row: the brand, the theme and the way to the navigation, which
-             opens in the kit's drawer. A desktop has the navigation beside the page. -->
-        <header class="admin-phone-bar">
-            <a routerLink="." class="sidebar-logo">Genshin Admin</a>
-            <app-theme-toggle></app-theme-toggle>
-            <button anotokiButton size="sm" class="admin-menu-button" aria-haspopup="dialog" [attr.aria-expanded]="menuOpen()" (click)="menuOpen.set(true)">
-                <anotoki-icon name="menu" [size]="18" />
-                Menu
-            </button>
-        </header>
-
-        <aside class="admin-sidebar">
-            <div class="sidebar-header">
-                <app-theme-toggle></app-theme-toggle>
+        <!-- A phone's row (the side navigation's phone width, up to 860 px): the brand, the theme and the button
+             that opens the navigation in the kit's drawer. A desktop has the navigation beside the page. -->
+        @if (nav.phone()) {
+            <header class="admin-phone-bar">
                 <a routerLink="." class="sidebar-logo">Genshin Admin</a>
-            </div>
+                <app-theme-toggle></app-theme-toggle>
+                <button anotokiButton size="sm" [anotokiSideNavTrigger]="nav">
+                    <anotoki-icon name="menu" [size]="18" />
+                    Menu
+                </button>
+            </header>
+        }
 
-            <nav class="sidebar-nav" aria-label="Admin panel">
-                <ng-container *ngTemplateOutlet="navigation" />
-            </nav>
+        <!-- On a phone the column is gone but its navigation stays in the page (never display: none): its drawer
+             opens from it. -->
+        <aside class="admin-sidebar">
+            @if (!nav.phone()) {
+                <div class="sidebar-header">
+                    <app-theme-toggle></app-theme-toggle>
+                    <a routerLink="." class="sidebar-logo">Genshin Admin</a>
+                </div>
+            }
+            <anotoki-side-nav #nav="anotokiSideNav" class="sidebar-nav" label="Admin panel" heading="Genshin Admin" [groups]="navGroups()" [phoneMax]="860" />
         </aside>
 
         <main class="admin-main" id="main">
             <router-outlet></router-outlet>
         </main>
     </div>
-
-    @if (menuOpen()) {
-        <anotoki-drawer heading="Genshin Admin" (dismiss)="menuOpen.set(false)">
-            <nav class="sidebar-nav drawer-nav" aria-label="Admin panel">
-                <ng-container *ngTemplateOutlet="navigation" />
-            </nav>
-        </anotoki-drawer>
-    }
 } @else {
     <app-admin-no-access></app-admin-no-access>
 }
-
-<!-- The navigation, in the sidebar and in the phone's drawer alike. -->
-<ng-template #navigation>
-    <a routerLink="dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-item nav-dashboard">
-        <i class="icon icon-gauge" aria-hidden="true"></i>
-        <span>Dashboard</span>
-    </a>
-
-    @for (group of navGroups(); track group.label) {
-        <div class="nav-group">
-            <div class="nav-group-label">{{ group.label }}</div>
-            @for (item of group.items; track item.label) {
-                @if (item.href) {
-                    <!-- Somewhere else entirely, so a new tab, and a mark
-                         saying so before it is clicked. -->
-                    <a [href]="item.href" target="_blank" rel="noopener" class="nav-item">
-                        @if (item.icon) {
-                            <i [class]="item.icon" aria-hidden="true"></i>
-                        }
-                        <span>{{ item.label }}</span>
-                        <i class="icon icon-link nav-external" aria-hidden="true"></i>
-                    </a>
-                } @else {
-                    <a [routerLink]="item.path" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-item" [class.read-only]="item.readOnly">
-                        @if (item.icon) {
-                            <i [class]="item.icon" aria-hidden="true"></i>
-                        }
-                        <span>{{ item.label }}</span>
-                        <!-- The feedback nobody has opened yet: the number, and in
-                             words for a screen reader ("Feedback 3 new"). -->
-                        @if (item.badge) {
-                            <span class="nav-badge">
-                                {{ item.badge }}
-                                <span class="visually-hidden">{{ " new" }}</span>
-                            </span>
-                        }
-                        @if (item.readOnly) {
-                            <span class="badge-readonly" title="Read only">R</span>
-                        }
-                    </a>
-                }
-            }
-        </div>
-    }
-</ng-template>
 
 <!-- The kit's toasts and its questions ("Delete this character?"), for every page of the panel. -->
 <anotoki-toast-host />

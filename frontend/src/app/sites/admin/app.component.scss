@@ -11,9 +11,22 @@
   font-size: var(--font-size-base);
 }
 
-// Only a phone has it (below).
+// A phone's row, drawn while the side navigation is a phone's (its phoneMax).
 .admin-phone-bar {
-  display: none;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  height: 56px;
+  padding: 0 var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-sidebar);
+
+  .sidebar-logo {
+    margin-right: auto;
+  }
 }
 
 // ── Sidebar ──────────────────────────────────────────────────────────────────
@@ -55,128 +68,10 @@
   }
 }
 
+// The kit's side navigation: the rest of the column, scrolling inside it.
 .sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: var(--spacing-sm) 0 var(--spacing-lg);
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: var(--border-color-dark);
-    border-radius: 2px;
-  }
-}
-
-.nav-dashboard {
-  margin: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-medium);
-}
-
-.nav-group {
-  margin-top: var(--spacing-md);
-}
-
-.nav-group-label {
-  padding: 0 var(--spacing-md);
-  margin-bottom: var(--spacing-xs);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: 7px var(--spacing-md);
-  margin: 1px var(--spacing-xs);
-  border-radius: var(--border-radius-medium);
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: var(--font-size-sm);
-  transition: background 0.15s, color 0.15s;
-  cursor: pointer;
-  position: relative;
-
-  // Masked icons are sized by box, not by font-size.
-  i {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
-  span {
-    // flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-
-    i {
-      opacity: 1;
-    }
-  }
-
-  &.active {
-    background: var(--color-primary-light);
-    color: var(--color-primary);
-
-    i {
-      opacity: 1;
-      color: var(--color-primary);
-    }
-  }
-
-  &.read-only {
-    opacity: 0.75;
-  }
-}
-
-// The mark on a link that leaves the panel, at the far end of its row.
-.nav-item i.nav-external {
-  width: 12px;
-  height: 12px;
-  margin-left: auto;
-}
-
-// The feedback nobody has opened yet, at the far end of "Feedback"
-// (FeedbackUnread): white on the site's blue, 4.5:1 in both themes.
-.nav-item .nav-badge {
-  margin-left: auto;
-  min-width: 18px;
-  padding: 0 5px;
-  border-radius: 9px;
-  background: var(--color-primary);
-  color: var(--color-primary-text);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  line-height: 18px;
-  text-align: center;
-  flex-shrink: 0;
-  overflow: visible;
-}
-
-.badge-readonly {
-  font-size: 9px;
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-  border-radius: 3px;
-  padding: 1px var(--spacing-xxs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 // ── Main content ─────────────────────────────────────────────────────────────
@@ -194,22 +89,12 @@
   --anotoki-topbar-height: calc(-1 * var(--spacing-lg));
 }
 
-// In the phone's drawer: the same navigation, the drawer's own padding around it.
-.drawer-nav {
-  padding: 0;
-  overflow: visible;
-
-  .nav-item {
-    padding-block: 10px;
-    font-size: var(--font-size-base);
-  }
-}
-
 // ── A phone ──────────────────────────────────────────────────────────────────
 //
-// A fixed 220 px column leaves a phone's page 170 px; so up to 860 px the page
-// has the whole width and scrolls as a page, under a row with the brand, the
-// theme and the Menu button that opens the navigation in the kit's drawer.
+// A fixed 220 px column leaves a phone's page 170 px; so up to 860 px (the side
+// navigation's phoneMax) the page has the whole width and scrolls as a page,
+// under a row with the brand, the theme and the Menu button that opens the
+// navigation in the kit's drawer.
 @media (max-width: 860px) {
   :host {
     height: auto;
@@ -221,25 +106,10 @@
     min-height: 100vh;
   }
 
+  // No column: the side navigation inside it draws nothing but its drawer, which
+  // must stay in the page (never display: none) to open.
   .admin-sidebar {
-    display: none;
-  }
-
-  .admin-phone-bar {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    height: 56px;
-    padding: 0 var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-    background: var(--bg-sidebar);
-
-    .sidebar-logo {
-      margin-right: auto;
-    }
+    display: contents;
   }
 
   .admin-main {

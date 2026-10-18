@@ -144,7 +144,8 @@ export class SettingsComponent extends AbstractModalComponent implements OnInit 
     void this.openModal<boolean, SettingsRoutesData>(SettingsRoutesModalComponent, {
       heading: 'Parts of the site',
       description: 'Which pages exist, and who they exist for',
-      size: 'lg',
+      // The kit's widest (64rem): a row of controls for every page.
+      size: 'xl',
       data: { routes: this.routes(), levels: this.levels() },
     }).closed.then(() => this.load());
   }

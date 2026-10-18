@@ -31,6 +31,14 @@
   padding: var(--spacing-lg) 0;
 }
 
+// On a phone the column is the screen's width: the sliders' ends - Easy, 8 -
+// keep a finger's room from its edges, where a swipe goes back a page.
+@media (max-width: 480px) {
+  .setup {
+    padding-inline: var(--spacing-md);
+  }
+}
+
 // Start at its own width in the middle, as Tournament's is, not stretched
 // across the column like the sliders above it.
 .setup-start {

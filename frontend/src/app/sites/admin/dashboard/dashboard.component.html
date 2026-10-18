@@ -155,7 +155,7 @@
         <div class="content-grid">
             @for (entry of data.content; track entry.table) {
                 <a class="content-card" [routerLink]="['/admin', entry.route]">
-                    <span class="icon {{ entry.icon }}"></span>
+                    <anotoki-icon class="content-icon" [name]="tileIcon(entry.icon)" [size]="18" />
                     <span class="content-value">{{ entry.total }}</span>
                     <span class="content-label">{{ entry.label }}</span>
                 </a>

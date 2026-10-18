@@ -16,7 +16,7 @@
         </p>
 
         <div class="table-scroll">
-        <table class="table trash-table">
+        <table class="table table-middle trash-table">
             <thead>
                 <tr>
                     <th>File</th>
@@ -41,14 +41,14 @@
                                 (click)="restore(file)">Restore</button>
                             <button
                                 anotokiButton
-                                variant="ghost"
+                                variant="danger-ghost"
                                 size="sm"
                                 iconOnly
                                 [disabled]="busy() === file.trashed"
                                 aria-label="Remove for good"
                                 anotokiTooltip="Remove for good"
                                 (click)="remove(file)">
-                                <span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span>
+                                <span class="icon icon-trash icon-size-4" aria-hidden="true"></span>
                             </button>
                         </td>
                     </tr>

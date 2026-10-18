@@ -147,14 +147,10 @@
   line-height: 1.6;
 }
 
+// The kit's quiet disclosure: its line in the link's ink, the list under it.
 .run-failures {
   margin-top: var(--spacing-sm);
   font-size: var(--font-size-sm);
-
-  summary {
-    cursor: pointer;
-    color: var(--color-danger);
-  }
 
   ul {
     margin: var(--spacing-xs) 0 0;

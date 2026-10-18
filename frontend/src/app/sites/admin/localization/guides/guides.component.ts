@@ -83,7 +83,8 @@ export class GuidesComponent extends AbstractModalComponent implements OnInit {
 
   edit(entry: GuideEditorEntry): void {
     const modal = this.openModal<GuideEditorEntry | null, GuideEditorData>(GuideEditorModalComponent, {
-      size: 'lg',
+      // The kit's widest (64rem): the markup and its preview side by side.
+      size: 'xl',
       description: 'The guide behind its question mark, in every language. Empty: the language reads the English.',
       data: { guide: entry.guide, heading: this.title(entry), languages: this.languages(), initial: { ...entry.values } },
     });

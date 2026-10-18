@@ -237,8 +237,9 @@ anotoki-lib 0.6.2 (2026-10-18; `users/055`, `056` and the library's
 `anotoki_translations/005`-`011`; no schema change): upload both builds and
 Apply at once. Then open `/terms`, `/privacy` and `/contact` signed out: the
 facts in English and Slovak, the footer's links and fan clause under every
-page; the Privacy page names the hosting company "to be named" until the owner
-names it (`frontend/src/app/sites/main/legal/legal-facts.ts`). For the Privacy
+page; the Privacy page names the hosting company, WebSupport s.r.o., as the
+owner named it on 2026-10-18 (`GENSHIN_HOSTING` in
+`frontend/src/app/sites/main/legal/legal-facts.ts`). For the Privacy
 page's "30 days" of the error log and its backups to be the whole truth, delete
 the old `storage/logs/errors-*.jsonl` and the old pg_dump folders
 (`storage/backups/<stamp>-<hex>/`, `manual/`) by FTP once the owner agrees.

@@ -865,7 +865,19 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
   `ui/card`, `ui/page-header`, `ui/empty-state`, `ui/error-state`, `ui/badge`,
-  `ui/alert`, `ui/icon`, `ui/spinner` - never `@anotoki/lib/ui`. The toasts'
+  `ui/alert`, `ui/icon`, `ui/spinner`, and 0.6's pieces in place of the site's
+  own: `ui/side-nav` (the admin panel's navigation), `ui/disclosure` (what
+  folds: an accordion of disclosures), `ui/combobox` (the quizzes' search with
+  pictures), `ui/date-field`, `ui/slider`, `ui/chips`, `ui/file-picker`,
+  `ui/color-field`, `ui/rich-text` (the HTML editor's toolbar) and `ui/icons`
+  (the family's drawings) - never `@anotoki/lib/ui`. Beside them: a dialog as
+  wide as `xl` (64rem: the guides' editor, the parts of the site, the
+  wallpapers), `variant="danger-ghost"` for a row's quiet Delete, a page
+  header's lead with markup in `[pageLead]`, `.table-middle` on the admin
+  tables of pictures and buttons, a tab's `icon` (the panel's from
+  `sites/admin/admin-icons.ts` - its navigation's, its tabs', the dashboard's
+  tiles' -, registered with the kit's `AnotokiIcons` as the panel loads; a
+  lazy page registers its own). The toasts'
   host is in each site's root component, the confirm host in the admin panel's.
   A kit slot (`alertActions`, `cardActions`, `drawerActions`...) goes on a
   wrapper around the buttons, never on a button: the kit draws the slot's
@@ -884,21 +896,38 @@ node docs/security/build-report.mjs                            # after re-runnin
   custom properties (*Theming*).
 - **local-lib** (`src/app/shared/local-lib/`) holds what the kit has no piece
   for and the bases the pages build on: the field adapters `app-text`,
-  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown` (the kit's
-  fields, keeping the typed values and the validation the admin forms run
-  through `AbstractInputComponent`) and `app-multiselect` (the kit's popover of
-  its checkboxes); the site's own fields, drawn as the kit draws its fields
-  (`components.scss`): the date picker, chips, file picker, slider, colour
-  picker, the quiz's search with pictures, the HTML editor, rich text; the
-  waypoint loader, the audio players, the theme toggle. The bases:
+  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown`, `app-calendar`
+  (the kit's date field; a birthday, kept as a DATE in year 4, is mapped at
+  the boundary to the field's day and month, `stored-dates.ts`; its order is
+  the one the site writes dates in for the reader - the account's
+  `date_format`, else the device's, DateFormatService) and `app-chips` (the kit's choice
+  chips) - the kit's fields, keeping the typed values and the validation the
+  admin forms run through `AbstractInputComponent` - and `app-multiselect` (the
+  kit's popover of its checkboxes: a filter's compact trigger, kept beside the
+  kit's combobox); the site's own fields, drawn as the kit draws its fields
+  (`components.scss`): `app-file` (a button that chooses a folder or files -
+  the kit's file picker, which the pages that choose one file to look at
+  first use, has no folder) and the HTML editor (the kit's rich-text toolbar
+  over its contenteditable; its own size and font menus, colours in a panel
+  of the kit's colour field, a link asked in its own dialog and set through
+  the kit's `link()`; a paste comes in as plain text); rich text (the
+  allow-list's renderer, `rich-html.ts`); the waypoint loader, the audio
+  players, the theme toggle. Every file an editor uploads is checked again on
+  the server by its bytes and its size (`uploadFileAcceptable()`,
+  `api/upload_guard.php`): the browser's check is a convenience. The bases:
   `AbstractInputComponent`, `AbstractModalComponent` (`openModal()` over the
   kit's `AnotokiDialog`, data through `ANOTOKI_DIALOG_DATA`, `closeModal()`,
   `dialogHeading()`, `notificationService` = the kit's `ToastService`),
   `AbstractRolesComponent`. A piece the kit lacks is built here from the kit's
   pieces and tokens, and goes to the library when another site wants it.
-- **The admin frame**: the navigation is a 220 px column beside the page; up to
-  860 px the page has the whole width under a row with the brand, the theme and
-  a Menu button that opens the same navigation in the kit's drawer
+- **The admin frame**: the kit's side navigation (`<anotoki-side-nav>`,
+  `@anotoki/lib/ui/side-nav`): the dashboard, then Database, Lookup Tables,
+  Localization and System under their headings, the feedback nobody has opened
+  beside Feedback, in a 220 px column beside the page; up to 860 px (its
+  `phoneMax`) the page has the whole width under a row with the brand, the
+  theme and a Menu button (`[anotokiSideNavTrigger]`) that opens the same
+  navigation in the kit's drawer - the column is `display: contents` there,
+  never `display: none`, for the drawer opens from it
   (`sites/admin/app.component.*`). Every page works at 390 px.
 - **Admin CRUD** for an entity lives in `sites/admin/<entity>/<entity>-list/`
   and `<entity>-form/`, wired in `sites/admin/admin.routes.ts` with a nav entry

@@ -15,7 +15,7 @@
     }
 
     <div class="table-scroll">
-        <table class="table">
+        <table class="table table-middle">
             <thead>
                 <tr>
                     @for (col of getColumns(); track col) {
@@ -40,7 +40,7 @@
                         @if (!config().readOnly && _deleteFn) {
                             <td class="cell-actions">
                                 <div class="action-btns">
-                                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(getPk(item))"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
+                                    <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(getPk(item))"><span class="icon icon-trash icon-size-4" aria-hidden="true"></span></button>
                                 </div>
                             </td>
                         }

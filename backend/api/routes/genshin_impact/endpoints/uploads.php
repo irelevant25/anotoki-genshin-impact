@@ -203,13 +203,10 @@ function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio 
 
     $isAudio = in_array($ext, $audioExtensions, true);
 
-    if (!$isAudio && $ext !== 'avif') {
-        $stream = $file->getStream();
-        $stream->rewind();
-        if (@getimagesizefromstring($stream->getContents()) === false) {
-            return null;
-        }
-        $stream->rewind();
+    // What it is by its bytes - a picture that decodes, an AVIF's brand, a sound's signature - and no larger than the
+    // limit (api/upload_guard.php): the admin pages' file pickers check the same in the browser, as a convenience.
+    if (!uploadFileAcceptable($file, $ext)) {
+        return null;
     }
 
     // A name that cannot be one is refused before any folder is made for it.

@@ -380,8 +380,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
   the code: the record of a person, their games, who changed what, the limits'
   counts, the old tables kept from the move into the library's, what a visitor
   without an account leaves, the feedback form, the logs, the plain backups and
-  every item kept in a browser, by name; the hosting company "to be named"
-  until the owner names it. Anybody may read them - signed in or not, while
+  every item kept in a browser, by name; the hosting company, WebSupport
+  s.r.o., and Cloudflare in front. Anybody may read them - signed in or not, while
   the IAM requires signing in, while the site is closed - and Contact opens
   the feedback form. Under every page: Terms · Privacy · Contact and the fan
   clause (migration `users/055`; `users/056` drops four words nothing reads).

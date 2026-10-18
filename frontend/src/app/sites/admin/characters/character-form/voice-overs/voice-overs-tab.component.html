@@ -12,22 +12,21 @@
     </div>
 </div>
 
-<div class="d-flex flex-column gap-5">
+<!-- The kit's accordion: each group's button a heading of the tab (its lines' headings under it); Up, Down, Home
+     and End move between the groups' buttons, and between a group's lines' inside it. Many open at once. -->
+<anotoki-accordion multiple class="vo-groups">
     @for (group of groups(); track group.type) {
-        <!-- Native disclosures: the browser draws them, the keyboard opens them. The
-             (toggle) re-reads this view, so `open` is asked again. -->
         <div class="disclosure-group">
-            <details #groupItem class="disclosure" (toggle)="(0)">
-                <summary class="disclosure-summary">{{ group.type }} ({{ group.entries.length }})</summary>
+            <anotoki-disclosure [heading]="group.type + ' (' + group.entries.length + ')'" [headingLevel]="2">
                 <!-- Only build a group's lines once it is opened; a set can hold hundreds. -->
-                @if (groupItem.open) {
-                    <div class="disclosure-list">
+                <ng-template anotokiDisclosurePanel>
+                    <anotoki-accordion multiple>
                         @for (entry of group.entries; track entry.wrapper.uid) {
-                            <details #lineItem class="disclosure disclosure-inner" (toggle)="(0)">
-                                <summary class="disclosure-summary">{{ entry.title }}</summary>
+                            <anotoki-disclosure [heading]="entry.title" [headingLevel]="3">
                                 <!-- And a line's four language editors only once that line is opened. -->
-                                @if (lineItem.open) {
-                                    <div class="sub-card">
+                                <ng-template anotokiDisclosurePanel>
+                                    <!-- The disclosure draws the card around a line's editor. -->
+                                    <div>
                                         <div class="sub-card-header">
                                             <app-number
                                                 [label]="'Order'"
@@ -46,15 +45,15 @@
                                             <app-voice-overs-tab-item [entry]="entry.wrapper" [language]="$any(langTabs.active())" [(audio)]="audio" [(playingKey)]="playingKey" />
                                         </div>
                                     </div>
-                                }
-                            </details>
+                                </ng-template>
+                            </anotoki-disclosure>
                         }
-                    </div>
-                }
-            </details>
+                    </anotoki-accordion>
+                </ng-template>
+            </anotoki-disclosure>
             <div class="mt-2">
                 <button anotokiButton (click)="addVoiceOver(group.type)">Add {{ group.type }}</button>
             </div>
         </div>
     }
-</div>
+</anotoki-accordion>

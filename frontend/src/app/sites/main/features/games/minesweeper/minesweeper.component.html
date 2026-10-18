@@ -1,19 +1,27 @@
 <div class="container game-container">
     @if (inSetup()) {
         <div class="setup">
-            <app-slider
+            <anotoki-slider
+                class="setup-slider"
                 [label]="'game.minesweeper.difficultyLabel' | translate"
                 [min]="0"
                 [max]="2"
                 [step]="1"
                 [ticks]="difficultyTicks()"
                 [showValue]="false"
-                [(value)]="difficultyIndex"
-            ></app-slider>
+                [(value)]="difficultyIndex" />
 
             <p class="setup-hint">{{ difficultyHint() | translate }}</p>
 
-            <app-slider [label]="'game.minesweeper.sizeLabel' | translate" [min]="minSize" [max]="maxSize" [step]="1" [ticks]="sizeTicks" [valueLabel]="chosenSizeName()" [(value)]="size"></app-slider>
+            <anotoki-slider
+                class="setup-slider"
+                [label]="'game.minesweeper.sizeLabel' | translate"
+                [min]="minSize"
+                [max]="maxSize"
+                [step]="1"
+                [ticks]="sizeTicks"
+                [valueText]="chosenSizeName()"
+                [(value)]="size" />
 
             <!-- A ceiling rather than a target, and said so: it is what the
                  board would pay if it were cleared the instant it opened, and

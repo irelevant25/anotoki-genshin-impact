@@ -1,37 +1,16 @@
 @if (!hidden()) {
-    <div class="form-field" [class]="class()">
-        @if (label()) {
-            <label #labelElement [for]="inputId" class="form-label" [class.required]="required()">
-                {{ label() }}
-                @if (required()) {
-                    <span class="required-indicator">*</span>
-                }
-            </label>
-        }
-
-        <div class="relative" (click)="toggleCalendar($event)">
-            <input
-                #inputElement
-                [id]="inputId"
-                [disabled]="disabled()"
-                type="text"
-                [placeholder]="disabled() ? defaultPlaceHolder() : (placeholder() ?? defaultPlaceHolder())"
-                [(ngModel)]="displayValue"
-                class="form-control date-input pe-12"
-                [class.error]="hasError()"
-                [class.valid]="(validators().length || required()) && (!isNullOrEmpty() || isTouched()) && !hasError()"
-                (input)="onInput($event)"
-                (blur)="onBlur()"
-                (focus)="onFocus()" />
-            @if (!disabled()) {
-                <i class="icon icon-calendar icon-size-4 m-3 align-self-center absolute right me-5 cursor-pointer"></i>
-            }
-        </div>
-
-        @if (displayError() && hasError()) {
-            <div class="error-message" [id]="inputId + '-error'" role="alert" aria-live="polite">
-                {{ errorMessage() }}
-            </div>
-        }
-    </div>
+    <anotoki-date-field
+        [class]="class()"
+        [label]="kitLabel()"
+        [hideLabel]="!label()"
+        [value]="fieldValue()"
+        [format]="format()"
+        [dayMonth]="hideYear()"
+        [placeholder]="placeholder() ?? ''"
+        [hint]="kitHint()"
+        [error]="kitError()"
+        [required]="required()"
+        [disabled]="disabled()"
+        (valueChange)="onKitValue($event)"
+        (blurred)="onBlur()" />
 }

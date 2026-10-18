@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { AnotokiAuth } from '@anotoki/lib/auth';
-import { ANOTOKI_LEGAL_CONFIG, AnotokiLegalConfig, LegalFacts } from '@anotoki/lib/legal';
+import { ANOTOKI_LEGAL_CONFIG, AnotokiLegalConfig, LegalFacts, LegalProcessor } from '@anotoki/lib/legal';
 import { TranslationService } from '@anotoki/lib/translations';
 import { LOCAL_STORAGE_PREFIX } from '../../../shared/local-lib/services/local-storage.service';
 import { SiteSettingsService } from '../../../shared/local-lib/services/site-settings.service';
@@ -26,6 +26,15 @@ export const SITE_LEGAL_UPDATED = '2026-10-18';
  * (shared/site-auth.ts, the library's hint).
  */
 export const SIGN_IN_HINT_COOKIE = 'anotoki_signed_in';
+
+/**
+ * The hosting company, as the owner named it on 2026-10-18: WebSupport s.r.o.
+ * (Slovakia) holds the servers, the databases and the mail. Its name and
+ * address are the code's, never a string's (an administrator rewording the
+ * Privacy page must not be able to change where its link goes); the
+ * screenshot run checks the Privacy page names it (frontend/scripts/screenshots.mjs).
+ */
+export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSupport s.r.o.', url: 'https://www.websupport.sk' };
 
 /**
  * genshin's facts, in the page's language - read as a page is drawn, so a
@@ -103,8 +112,9 @@ export const SIGN_IN_HINT_COOKIE = 'anotoki_signed_in';
  *   page's unsaved words (sessionStorage);
  * - counting visits: the family's Umami (src/index.html: umami.anotoki.eu, the
  *   query and the fragment left out) - the library's words;
- * - who else handles data: the hosting company ("to be named" until the owner
- *   names it) and Cloudflare;
+ * - who else handles data: the hosting company, WebSupport s.r.o. (the owner
+ *   named it on 2026-10-18: the servers, the databases and the mail;
+ *   GENSHIN_HOSTING), and Cloudflare;
  * - the fan clause: Terms and Contact (`fanDisclaimer: 'hoyoverse'`), and the
  *   footer under every page (footer.fanDisclaimer).
  *
@@ -157,8 +167,7 @@ export function siteLegalFacts(i18n: TranslationService, auth: AnotokiAuth, sett
       { name: local(ANNOUNCEMENT_DISMISSED_KEY), kind: 'local', purpose: i18n.t('legal.storage.announcement.purpose'), kept: i18n.t('legal.storage.announcement.kept') },
       { name: LANGUAGE_STORAGE_KEYS.drafts, kind: 'session', purpose: i18n.t('legal.storage.drafts.purpose'), kept: i18n.t('legal.storage.drafts.kept') },
     ],
-    // "To be named" until the owner names the hosting company.
-    processors: [{ preset: 'hosting' }, { preset: 'cloudflare' }],
+    processors: [GENSHIN_HOSTING, { preset: 'cloudflare' }],
     fanDisclaimer: 'hoyoverse',
   };
 }

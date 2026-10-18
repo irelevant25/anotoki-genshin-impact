@@ -5,14 +5,10 @@
   line-height: 1.6;
 }
 
-// The kit's table, framed; its rows a little tighter, being controls.
+// The kit's table, framed; its rows of controls on their middle (.table-middle).
 .routes-wrap {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-}
-
-.routes-table td {
-  vertical-align: middle;
 }
 
 .route-path {

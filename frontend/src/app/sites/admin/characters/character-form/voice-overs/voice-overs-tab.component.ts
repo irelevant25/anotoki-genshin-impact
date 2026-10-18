@@ -5,6 +5,7 @@ import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { AccordionComponent, DisclosureComponent, DisclosurePanelDirective } from '@anotoki/lib/ui/disclosure';
 import { createUid, emptyVoiceOver, reorder, resequence, VOICE_OVER_TYPES, VoiceOverWrapper } from '../character-form.model';
 import { VoiceOversTabItemComponent } from './tab/tab.component';
 import { VoiceOverImportData, VoiceOverImportResult, VoiceOversImportComponent } from './import/voice-overs-import.component';
@@ -20,7 +21,7 @@ interface VoiceOverGroup {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, NumberComponent, TextComponent, TabsComponent, VoiceOversTabItemComponent],
+  imports: [TooltipDirective, ButtonComponent, NumberComponent, TextComponent, TabsComponent, AccordionComponent, DisclosureComponent, DisclosurePanelDirective, VoiceOversTabItemComponent],
 })
 export class VoiceOversTabComponent extends AbstractModalComponent {
   /** The four languages a line is voiced in, as the kit's tabs take them. */

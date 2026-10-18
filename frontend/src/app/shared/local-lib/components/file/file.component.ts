@@ -1,8 +1,7 @@
-import { Component, computed, model, signal } from '@angular/core';
-import { FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
-
-import { AbstractInputComponent } from '../../abstract-input.class';
+import { Component, computed, model } from '@angular/core';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { ButtonComponent, ButtonVariant } from '@anotoki/lib/ui/button';
+import { AbstractInputComponent } from '../../abstract-input.class';
 
 export interface FileItemType {
   id?: number;
@@ -12,9 +11,20 @@ export interface FileItemType {
 
 type Type<T extends FileItemType = FileItemType> = T[];
 
+/**
+ * A button that opens the device's chooser - one file, several, or a whole
+ * folder - and hands what was chosen to the page at once: the Files page's
+ * Upload and Replace, a voice-over line's sound, the voice-over import's
+ * folder. What the kit's file picker (@anotoki/lib/ui/file-picker) does not
+ * do: a folder, and a chooser with no list or drop area of its own. Where a
+ * person chooses a file to look at before anything happens with it (an
+ * entity's picture, the import's JSON) the page draws the kit's picker
+ * instead. The kinds offered (`acceptedExtensions`) are a convenience: the
+ * server checks every file again, by its bytes (backend api/upload_guard.php).
+ */
 @Component({
   selector: 'app-file',
-  imports: [FormsModule, ButtonComponent],
+  imports: [ButtonComponent],
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.scss'],
   providers: [
@@ -28,25 +38,16 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   multiple = model<boolean>(false);
   /** Pick a whole folder; each File then carries its `webkitRelativePath`. */
   directory = model<boolean>(false);
-  maxFiles = model<number | undefined>(undefined);
-  minFiles = model<number | undefined>(undefined);
   acceptedExtensions = model<string[] | undefined>(undefined);
-  minSizeBytes = model<number | undefined>(undefined);
-  maxSizeBytes = model<number | undefined>(undefined);
   buttonText = model<string | undefined>(undefined);
   buttonOutline = model<boolean>(false);
   buttonVariant = model<ButtonVariant>('primary');
   /** The kit's button: an outlined one is its quiet (secondary) button. */
   readonly kitVariant = computed<ButtonVariant>(() => (this.buttonOutline() ? 'secondary' : this.buttonVariant()));
-  showFileNames = model<boolean>(true);
-  fileNamePosition = model<'bottom' | 'right'>('bottom');
-  buttonClass = model<string>('');
-  hideButton = model<boolean>(false);
-  showDragAndDropArea = model<boolean>(false);
+  /** The button's words: the page's, or what it chooses. */
+  readonly buttonWords = computed(() => this.buttonText() ?? (this.directory() ? 'Choose a folder' : this.multiple() ? 'Choose files' : 'Choose a file'));
 
-  isDragging = signal(false);
-
-  onButtonClick(event?: Event): void {
+  onButtonClick(): void {
     if (!this.disabled()) {
       this.inputElement?.nativeElement.click();
     }
@@ -54,45 +55,10 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
 
   onFileChange(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.addFiles(target.files);
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    if (this.disabled()) {
-      return;
-    }
-    this.isDragging.set(true);
-  }
-
-  onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragging.set(false);
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragging.set(false);
-    if (this.disabled()) {
-      return;
-    }
-    this.addFiles(event.dataTransfer?.files ?? null);
-  }
-
-  private addFiles(files: FileList | null): void {
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files).map((x) => ({ file: x })) as T[];
-      if (this.multiple()) {
-        this.value.set([...(this.value() ?? []), ...newFiles]);
-      } else {
-        this.value.set([...newFiles]);
-      }
-    } else {
-      this.value.set([]);
-    }
+    const files = target.files ? Array.from(target.files) : [];
+    this.value.set(files.map((file) => ({ file })) as T[]);
+    // Emptied, so the same file chosen again is a change again.
+    target.value = '';
 
     this.isTouched.set(true);
     this.touchChange.emit(this.isTouched());
@@ -101,112 +67,39 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
     this.emitValidationState();
   }
 
-  // Validator implementation
   override validate(control: AbstractControl): ValidationErrors | null {
     const errors: ValidationErrors = {};
+    const items = this.value() ?? [];
 
-    // Required validation
-    if (this.required() && (this.value() === undefined || this.value() === null || (this.value() ?? '').length === 0)) {
+    if (this.required() && items.length === 0) {
       errors['required'] = true;
     }
 
-    if ((this.value() ?? '').length > 0) {
-      // File count validation
-      const maxFiles = this.maxFiles();
-      if (maxFiles && (this.value() ?? '').length > maxFiles) {
-        errors['maxFiles'] = { max: maxFiles, actual: (this.value() ?? '').length };
-      }
-
-      const minFiles = this.minFiles();
-      if (minFiles && (this.value() ?? '').length < minFiles) {
-        errors['minFiles'] = { min: minFiles, actual: this.value()?.length };
-      }
-
-      // File validation for each file
-      this.value()?.forEach((item, index) => {
-        // Size validation
-        const maxSizeBytes = this.maxSizeBytes();
-        if (maxSizeBytes && item.file && item.file.size > maxSizeBytes) {
-          errors[`maxSize_${index}`] = {
-            fileName: item.file.name,
-            maxSize: maxSizeBytes,
-            actualSize: item.file.size,
-          };
-        }
-
-        const minSizeBytes = this.minSizeBytes();
-        if (minSizeBytes && item.file && item.file.size < minSizeBytes) {
-          errors[`minSize_${index}`] = {
-            fileName: item.file?.name,
-            minSize: minSizeBytes,
-            actualSize: item.file?.size,
-          };
-        }
-
-        // Extension validation
-        const acceptedExtensions = this.acceptedExtensions();
-        if (acceptedExtensions && acceptedExtensions.length > 0) {
-          const fileExtension = this.getFileExtension(item.file?.name ?? item.nazov);
-          if (!acceptedExtensions.includes(fileExtension)) {
-            errors[`invalidExtension`] = acceptedExtensions;
-          }
-        }
-      });
+    const acceptedExtensions = this.acceptedExtensions();
+    if (acceptedExtensions?.length && items.some((item) => !acceptedExtensions.includes(this.getFileExtension(item.file?.name ?? item.nazov)))) {
+      errors['invalidExtension'] = acceptedExtensions;
     }
 
-    // Run custom validators
-    if (this.validators && this.validators.length > 0) {
-      this.validators().forEach((validator) => {
-        const validationResult = validator(control);
-        if (validationResult) {
-          Object.assign(errors, validationResult);
-        }
-      });
+    for (const validator of this.validators()) {
+      Object.assign(errors, validator(control) ?? {});
     }
 
     return Object.keys(errors).length > 0 ? errors : null;
   }
 
   private getFileExtension(fileName?: string): string {
-    if (!fileName) {
-      return '';
-    }
-    const lastDotIndex = fileName.lastIndexOf('.');
-    return lastDotIndex !== -1 ? fileName.substring(lastDotIndex) : '';
+    const lastDotIndex = fileName?.lastIndexOf('.') ?? -1;
+    return fileName && lastDotIndex !== -1 ? fileName.substring(lastDotIndex).toLowerCase() : '';
   }
 
-  removeFile(index: number): void {
-    if (this.disabled()) {
-      return;
-    }
-
-    const array = this.value() ?? [];
-    array.splice(index, 1);
-    this.value.set([...array]);
-
-    // Clear the hidden input
-    if (this.inputElement) {
-      this.inputElement.nativeElement.value = '';
-    }
-
-    this.inputChange.emit(this.value());
-    this.updateErrorMessageInternal();
-    this.emitValidationState();
-  }
-
+  /** Forgets what was chosen (the Files page, once an upload is done). */
   clearFiles(): void {
-    if (this.disabled()) {
-      return;
-    }
-
     if (this.inputElement) {
       this.inputElement.nativeElement.value = '';
     }
-
-    if (this.value()?.length === 0) {
+    if ((this.value() ?? []).length === 0) {
       return;
     }
-
     this.value.set([]);
     this.inputChange.emit(this.value());
     this.updateErrorMessageInternal();
@@ -214,7 +107,6 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   }
 
   get acceptAttribute(): string {
-    const acceptedExtensions = this.acceptedExtensions();
-    return acceptedExtensions ? acceptedExtensions.join(',') : '';
+    return this.acceptedExtensions()?.join(',') ?? '';
   }
 }

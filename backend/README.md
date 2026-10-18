@@ -40,7 +40,9 @@ api/            index.php - the Slim app, every request to /api lands here
                 media_convert.php (the asset tree; explorer.php its snapshot for the Files
                 page's figures), upload_guard.php (nothing uploaded
                 may run: the names, the folders' .htaccess - no script, nosniff,
-                anything but a picture as a download), site_user.php (this site's
+                anything but a picture as a download; and an upload is kept only when
+                its bytes are what its name says, 50 MB at most -
+                uploadFileAcceptable()), site_user.php (this site's
                 record of a person, from the token), site_settings.php; translations.php
                 (the words: anotoki/lib's Translations set up for this site - the released
                 languages, the guides counted per language, the audit log) and guides.php
@@ -115,7 +117,8 @@ php build-dist.php           # the upload -> dist/
 
 `php tests/run.php` runs `tests/*.test.php`, each in a PHP process of its own -
 on PHP 8.2 too, as the hosts run 8.2 and up: the upload rules (names,
-containment, the `.htaccess` guards) with no database, server or config; the
+containment, the `.htaccess` guards, an upload's bytes and size) with no
+database, server or config; the
 words: `translations-migration` builds a database from this site's own
 migrations, words it as an owner would and proves `users/050` keeps every
 string (and `users/053` takes only the old feedback form's and callback

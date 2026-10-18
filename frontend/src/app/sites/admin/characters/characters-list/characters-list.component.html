@@ -22,7 +22,7 @@
     </div>
 
     <div class="table-scroll">
-        <table class="table">
+        <table class="table table-middle">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -88,7 +88,7 @@
                         <td class="col-actions">
                             <div class="action-btns">
                                 <a anotokiButton variant="ghost" size="sm" iconOnly aria-label="Edit" anotokiTooltip="Edit" [routerLink]="[char.id, 'edit']"><span class="icon icon-pen icon-size-4" aria-hidden="true"></span></a>
-                                <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(char.id, char.name)"><span class="icon icon-trash icon-size-4 icon-danger" aria-hidden="true"></span></button>
+                                <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Delete" anotokiTooltip="Delete" (click)="confirmDelete(char.id, char.name)"><span class="icon icon-trash icon-size-4" aria-hidden="true"></span></button>
                             </div>
                         </td>
                     </tr>

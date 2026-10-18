@@ -1,17 +1,58 @@
-import { Component, ElementRef, computed, model, signal, viewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AbstractInputComponent } from '../../abstract-input.class';
+import { Component, ElementRef, computed, inject, model, signal, viewChild } from '@angular/core';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { ColorFieldComponent, ColorSwatch } from '@anotoki/lib/ui/color-field';
+import { AnotokiDialog } from '@anotoki/lib/ui/dialog';
 import { MenuComponent, MenuItemComponent, MenuTriggerDirective } from '@anotoki/lib/ui/menu';
+import { RichTextEditableDirective, RichTextToolbarComponent, TextCommand, ToolbarItemDirective, ToolbarTool } from '@anotoki/lib/ui/rich-text';
+import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
+import { AbstractInputComponent } from '../../abstract-input.class';
 import { DropdownOption } from '../../services/options-helper.service';
-import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { RichTextComponent } from '../rich-text/rich-text.component';
 import { normalizeHtml } from '../../helper.class';
+import { HtmlEditorLinkData, HtmlEditorLinkDialogComponent, HtmlEditorLinkResult } from './link-dialog/html-editor-link-dialog.component';
 
 type Type = string;
 
+/** Which colour the panel under the toolbar is choosing: the words' own, or the ground behind them. */
+type ColourMode = 'fore' | 'back';
+
+/**
+ * The admin panel's editor of markup - a voice-over's line, a guide's page.
+ *
+ * Its buttons are the anotoki kit's (@anotoki/lib/ui/rich-text, anotoki-lib
+ * 0.6): `<anotoki-rich-text-toolbar>` (the ARIA toolbar pattern: one Tab stop,
+ * the arrow keys between its items, a format that is on said and drawn) over
+ * a contenteditable carrying the kit's `[anotokiRichTextEditable]`, which does
+ * the browser's own editing with the focus and the selection put back first.
+ * What the kit has no button for is this editor's, in the toolbar's row as
+ * its items (`anotokiToolbarItem`): the size and the font (the kit's menus,
+ * shown on the text while pointed at), the colours (the kit's colour field in
+ * a panel under the toolbar), the HTML source and the preview. A link's
+ * address is asked in a dialog of its own (never prompt()) and set through the
+ * kit's `link()`, which takes a web, mail or this site's own address and
+ * nothing else.
+ *
+ * The kit lets no markup in from outside: a paste or a drop that brings HTML
+ * (a web page's, a word processor's) comes in as its plain text, and the
+ * formatting is the toolbar's to give. What the editor holds is still
+ * markup a person made, so nothing here is a defence: the preview and the
+ * site show it through the same allow-list (`sanitizeRichHtml`, rich-html.ts),
+ * and the server cleans every text it keeps.
+ */
 @Component({
   selector: 'app-html-editor',
-  imports: [MenuComponent, MenuItemComponent, MenuTriggerDirective, ColorPickerComponent, FormsModule, RichTextComponent],
+  imports: [
+    ButtonComponent,
+    ColorFieldComponent,
+    MenuComponent,
+    MenuItemComponent,
+    MenuTriggerDirective,
+    RichTextComponent,
+    RichTextEditableDirective,
+    RichTextToolbarComponent,
+    ToolbarItemDirective,
+    TooltipDirective,
+  ],
   templateUrl: './html-editor.component.html',
   styleUrls: ['./html-editor.component.scss'],
   providers: [
@@ -23,6 +64,13 @@ type Type = string;
 })
 export class HtmlEditorComponent extends AbstractInputComponent<Type> {
   editorElement = viewChild<ElementRef<HTMLDivElement>>('editorElement');
+  /** The kit's editing on the contenteditable: its commands, its formats on where the caret is. */
+  readonly editable = viewChild(RichTextEditableDirective);
+
+  private readonly _dialogs = inject(AnotokiDialog);
+
+  /** The kit's buttons, in this editor's order: the formats, the lists and the indent, the link, clearing. */
+  readonly tools: readonly ToolbarTool[] = ['bold', 'italic', 'underline', '|', 'bulletList', 'orderedList', 'indent', 'outdent', '|', 'link', 'clear'];
 
   minHeight = model<string>('200px');
   selectingFontSize = model<boolean>(false);
@@ -31,8 +79,6 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
   charsWord: string = '';
 
   selectingFontFamily = model<boolean>(false);
-  selectingForeColor = model<boolean>(false);
-  selectingBackColor = model<boolean>(false);
 
   maxLength = model<number | undefined>(undefined);
   maxLengthCounter = model<boolean>(true);
@@ -66,26 +112,51 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
   isFocusedEditor = signal<boolean>(false);
   fontSizeValue = signal<string>('3');
   fontFamilyValue = signal<string>('Arial');
+  /** The colours last given, drawn on their toolbar buttons. */
   foreColor = signal<string>('#000000');
   backColor = signal<string>('#ffffff');
 
-  readonly foreColorDefault = '#000000';
-  readonly backColorDefault = '#ffffff';
+  /** The panel under the toolbar, and the colour chosen in it and not applied yet. */
+  readonly colorPanel = signal<ColourMode | null>(null);
+  readonly pendingColor = signal<string>('');
+
+  /** Suggested colours, each with its name (never a colour alone): the palette the editor always offered. */
+  readonly swatches: readonly ColorSwatch[] = [
+    { value: '#f44336', name: 'Red' },
+    { value: '#e91e63', name: 'Pink' },
+    { value: '#9c27b0', name: 'Purple' },
+    { value: '#673ab7', name: 'Deep purple' },
+    { value: '#3f51b5', name: 'Indigo' },
+    { value: '#2196f3', name: 'Blue' },
+    { value: '#03a9f4', name: 'Light blue' },
+    { value: '#00bcd4', name: 'Cyan' },
+    { value: '#009688', name: 'Teal' },
+    { value: '#4caf50', name: 'Green' },
+    { value: '#8bc34a', name: 'Light green' },
+    { value: '#cddc39', name: 'Lime' },
+    { value: '#ffeb3b', name: 'Yellow' },
+    { value: '#ffc107', name: 'Amber' },
+    { value: '#ff9800', name: 'Orange' },
+    { value: '#ff5722', name: 'Deep orange' },
+    { value: '#795548', name: 'Brown' },
+    { value: '#9e9e9e', name: 'Grey' },
+    { value: '#607d8b', name: 'Blue grey' },
+    { value: '#000000', name: 'Black' },
+    { value: '#ffffff', name: 'White' },
+  ];
 
   private _savedRange: Range | null = null;
   private _fontSizeValueDefault: string = '3';
   private _fontFamilyValueDefault: string = 'Arial';
-  private _foreColorValueDefault: string | null = '#000000';
-  private _backColorValueDefault: string | null = '#ffffff';
 
   readonly fontSizeOptions: DropdownOption[] = [
-    { key: '1', value: 'Veľmi malý' },
-    { key: '2', value: 'Malý' },
-    { key: '3', value: 'Normálny' },
-    { key: '4', value: 'Veľký' },
-    { key: '5', value: 'Veľmi veľký' },
-    { key: '6', value: 'Obrovský' },
-    { key: '7', value: 'Maximálny' },
+    { key: '1', value: 'Very small' },
+    { key: '2', value: 'Small' },
+    { key: '3', value: 'Normal' },
+    { key: '4', value: 'Large' },
+    { key: '5', value: 'Very large' },
+    { key: '6', value: 'Huge' },
+    { key: '7', value: 'Largest' },
   ];
 
   readonly fontFamilyOptions: DropdownOption[] = [
@@ -94,10 +165,25 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     { key: 'Courier New', value: 'Courier New' },
   ];
 
-  execCommand(event: Event | undefined, command: string, value?: string): void {
-    event?.preventDefault();
-    document.execCommand(command, false, value);
-    this.editorElement()?.nativeElement.focus();
+  /**
+   * A press of the kit's toolbar. The formats, the lists and clearing are the
+   * kit's editing (`run()`); the indent is this editor's own (a list's level,
+   * else a step of margin on the blocks); a link asks for its address first.
+   */
+  onCommand(command: TextCommand): void {
+    switch (command) {
+      case 'link':
+        this.askForLink();
+        return;
+      case 'indent':
+      case 'outdent':
+        this.restoreSelection();
+        this.applyIndent(command === 'indent' ? 1 : -1, false);
+        return;
+      default:
+        this.editable()?.run(command);
+        this.commitEditorContent();
+    }
   }
 
   /** The words an option of the toolbar's menus shows. */
@@ -105,39 +191,102 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     return String(options.find((option) => option.key === key)?.value ?? key);
   }
 
-  /** Before a toolbar menu takes the focus: what it will apply to. */
+  /** The label pressed: the text takes the focus (a contenteditable is no control a label can focus by itself). */
+  focusEditor(): void {
+    this.editorElement()?.nativeElement.focus();
+  }
+
+  /** Before a toolbar item takes the focus: what it will apply to. */
   rememberSelection(): void {
     this.saveSelection();
   }
 
   private saveSelection(): void {
+    const editor = this.editorElement()?.nativeElement;
     const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
+    if (editor && selection && selection.rangeCount > 0 && editor.contains(selection.getRangeAt(0).commonAncestorContainer)) {
       this._savedRange = selection.getRangeAt(0).cloneRange();
     }
   }
 
+  /**
+   * The focus back in the text, and the selection where it was left - unless
+   * it is still there (a press with a pointer leaves it), which a stale copy
+   * must not replace.
+   */
   private restoreSelection(): void {
     const el = this.editorElement()?.nativeElement;
     if (!el) {
       return;
     }
-    el.focus();
     const selection = window.getSelection();
-    if (selection && this._savedRange) {
+    const inside = !!selection && selection.rangeCount > 0 && el.contains(selection.getRangeAt(0).commonAncestorContainer);
+    if (document.activeElement !== el) {
+      el.focus();
+    }
+    if (!inside && selection && this._savedRange) {
       selection.removeAllRanges();
       selection.addRange(this._savedRange);
     }
   }
 
-  onInsertLink(event: Event): void {
-    event.preventDefault();
-    this.restoreSelection();
-    const url = prompt('Zadajte URL:');
-    if (url) {
-      document.execCommand('createLink', false, url);
+  /**
+   * The link's address, asked in this editor's own dialog; then the kit's
+   * `link()` (an address it lets in, or nothing done), or - the caret in a
+   * link already - that link's address changed or the link taken away.
+   */
+  private askForLink(): void {
+    this.saveSelection();
+    const anchor = this.linkAtSelection();
+    const ref = this._dialogs.open<HtmlEditorLinkDialogComponent, HtmlEditorLinkResult, HtmlEditorLinkData>(HtmlEditorLinkDialogComponent, {
+      heading: anchor ? 'Change the link' : 'Add a link',
+      size: 'sm',
+      data: { inLink: !!anchor, address: anchor?.getAttribute('href') ?? '' },
+    });
+    void ref.closed.then((result) => {
+      const editable = this.editable();
+      if (!result || !editable) {
+        this.restoreSelection();
+        return;
+      }
+      if ('remove' in result) {
+        this.restoreSelection();
+        if (anchor && this.editorElement()?.nativeElement.contains(anchor)) {
+          this.selectNode(anchor);
+        }
+        editable.unlink();
+      } else if (anchor && this._savedRange?.collapsed && this.editorElement()?.nativeElement.contains(anchor)) {
+        // The caret in a link, nothing selected: that link's address changes (createLink needs selected words).
+        this.restoreSelection();
+        this.selectNode(anchor);
+        editable.link(result.address);
+      } else {
+        editable.link(result.address);
+      }
+      this.commitEditorContent();
+    });
+  }
+
+  /** The link the saved selection is in, inside this editor - or null. */
+  private linkAtSelection(): HTMLAnchorElement | null {
+    const editor = this.editorElement()?.nativeElement;
+    const node = this._savedRange?.commonAncestorContainer ?? null;
+    const element = node instanceof Element ? node : (node?.parentElement ?? null);
+    const anchor = element?.closest('a') ?? null;
+    return anchor && editor?.contains(anchor) ? anchor : null;
+  }
+
+  /** Selects the whole of a node of the text (a link, to change or to take away). */
+  private selectNode(node: Node): void {
+    const selection = window.getSelection();
+    if (!selection) {
+      return;
     }
-    this.editorElement()?.nativeElement.focus();
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    this._savedRange = range.cloneRange();
   }
 
   onFontSizeChange(option?: DropdownOption, override?: boolean): void {
@@ -158,6 +307,7 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     this.fontSizeValue.set(this._fontSizeValueDefault);
     document.execCommand('fontSize', false, this._fontSizeValueDefault);
     this.saveSelection();
+    this.commitEditorContent();
   }
 
   onFontFamilyChange(option?: DropdownOption, override?: boolean): void {
@@ -178,62 +328,57 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     this.fontFamilyValue.set(this._fontFamilyValueDefault);
     document.execCommand('fontName', false, this._fontFamilyValueDefault);
     this.saveSelection();
+    this.commitEditorContent();
   }
 
-  onForeColorChange(value?: string | null, override?: boolean): void {
-    this.foreColor.set(value ?? this.foreColorDefault);
-    this.restoreSelection();
-    if (value) {
-      document.execCommand('foreColor', false, value);
-    } else {
-      this.removeStyleFromSelection(['color'], ['color']);
-      this.commitEditorContent();
+  /** Opens the colour panel for the words' colour or their ground, starting from the one last given - or closes it. */
+  toggleColors(mode: ColourMode): void {
+    if (this.colorPanel() === mode) {
+      this.closeColors(false);
+      return;
     }
     this.saveSelection();
-    if (override) {
-      this._foreColorValueDefault = value ?? null;
-    }
+    this.pendingColor.set(mode === 'fore' ? this.foreColor() : this.backColor());
+    this.colorPanel.set(mode);
   }
 
-  onForeColorClosed(): void {
-    this.restoreSelection();
-    if (this._foreColorValueDefault) {
-      this.foreColor.set(this._foreColorValueDefault);
-      document.execCommand('foreColor', false, this._foreColorValueDefault);
-    } else {
-      this.foreColor.set(this.foreColorDefault);
-      this.removeStyleFromSelection(['color'], ['color']);
-      this.commitEditorContent();
+  /** The colour chosen in the panel, on the words selected; the panel closes and the text has the focus. */
+  applyColor(mode: ColourMode): void {
+    const colour = this.pendingColor();
+    if (!colour) {
+      return;
     }
+    this.restoreSelection();
+    document.execCommand(mode === 'fore' ? 'foreColor' : 'backColor', false, colour);
+    (mode === 'fore' ? this.foreColor : this.backColor).set(colour);
     this.saveSelection();
+    this.commitEditorContent();
+    this.colorPanel.set(null);
   }
 
-  onBackColorChange(value?: string | null, override?: boolean): void {
-    this.backColor.set(value ?? this.backColorDefault);
+  /** No colour: the words' own (or their ground) taken off the selection. */
+  clearColor(mode: ColourMode): void {
     this.restoreSelection();
-    if (value) {
-      document.execCommand('backColor', false, value);
+    if (mode === 'fore') {
+      this.removeStyleFromSelection(['color'], ['color']);
+      this.foreColor.set('#000000');
     } else {
       this.removeStyleFromSelection(['background-color', 'background'], ['bgcolor']);
-      this.commitEditorContent();
+      this.backColor.set('#ffffff');
     }
     this.saveSelection();
-    if (override) {
-      this._backColorValueDefault = value ?? null;
-    }
+    this.commitEditorContent();
+    this.colorPanel.set(null);
   }
 
-  onBackColorClosed(): void {
-    this.restoreSelection();
-    if (this._backColorValueDefault) {
-      this.backColor.set(this._backColorValueDefault);
-      document.execCommand('backColor', false, this._backColorValueDefault);
-    } else {
-      this.backColor.set(this.backColorDefault);
-      this.removeStyleFromSelection(['background-color', 'background'], ['bgcolor']);
-      this.commitEditorContent();
+  /** The panel closed - by Escape or Close the focus back on the button that opened it. */
+  closeColors(returnFocus: boolean): void {
+    const mode = this.colorPanel();
+    this.colorPanel.set(null);
+    if (returnFocus && mode) {
+      const button = this.elementRef.nativeElement.querySelector(`.toolbar-colour[aria-label="${mode === 'fore' ? 'Text colour' : 'Highlight colour'}"]`) as HTMLElement | null;
+      button?.focus();
     }
-    this.saveSelection();
   }
 
   onEditorInput(event: Event): void {
@@ -257,19 +402,11 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
 
   onEditorKeyDown(event: KeyboardEvent): void {
     if (event.ctrlKey || event.metaKey) {
-      switch (event.key) {
-        case 'b':
-          event.preventDefault();
-          this.execCommand(event, 'bold');
-          break;
-        case 'i':
-          event.preventDefault();
-          this.execCommand(event, 'italic');
-          break;
-        case 'u':
-          event.preventDefault();
-          this.execCommand(event, 'underline');
-          break;
+      const shortcut = ({ b: 'bold', i: 'italic', u: 'underline' } as const)[event.key.toLowerCase() as 'b' | 'i' | 'u'];
+      if (shortcut && !event.shiftKey && !event.altKey) {
+        event.preventDefault();
+        this.editable()?.run(shortcut);
+        this.commitEditorContent();
       }
       return;
     }
@@ -277,18 +414,6 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
       event.preventDefault();
       this.applyIndent(event.shiftKey ? -1 : 1, !event.shiftKey && !this.isInList());
     }
-  }
-
-  onIndent(event: Event): void {
-    event.preventDefault();
-    this.applyIndent(1, false);
-    this.editorElement()?.nativeElement.focus();
-  }
-
-  onOutdent(event: Event): void {
-    event.preventDefault();
-    this.applyIndent(-1, false);
-    this.editorElement()?.nativeElement.focus();
   }
 
   private applyIndent(direction: 1 | -1, tabAsCharacter: boolean): void {
@@ -418,18 +543,17 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
     this.recalculateRemainingLength();
   }
 
-  toggleSource(event: Event): void {
-    event.preventDefault();
+  toggleSource(): void {
     if (this.showSource()) {
       this.showSource.set(false);
     } else {
+      this.colorPanel.set(null);
       this.sourceValue.set(this.value() ?? '');
       this.showSource.set(true);
     }
   }
 
-  togglePreview(event: Event): void {
-    event.preventDefault();
+  togglePreview(): void {
     this.showPreview.set(!this.showPreview());
   }
 

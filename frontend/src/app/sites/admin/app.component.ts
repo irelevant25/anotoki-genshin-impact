@@ -1,34 +1,15 @@
-import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, computed, effect, inject, untracked } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { DrawerComponent } from '@anotoki/lib/ui/drawer';
-import { IconComponent } from '@anotoki/lib/ui/icon';
-import { filter } from 'rxjs';
+import { AnotokiIcons, IconComponent } from '@anotoki/lib/ui/icon';
+import { SideNavComponent, SideNavGroup, SideNavLink, SideNavTriggerDirective } from '@anotoki/lib/ui/side-nav';
 import { FeedbackUnread } from '@anotoki/lib/admin';
-import { NgTemplateOutlet } from '@angular/common';
 import { ConfirmHostComponent } from '@anotoki/lib/ui/dialog';
 import { ToastHostComponent } from '@anotoki/lib/ui/toast';
 import { ThemeToggleComponent } from '../../shared/local-lib/theme-toggle/theme-toggle.component';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { AdminNoAccessComponent } from './no-access/no-access.component';
-
-interface NavGroup {
-  label: string;
-  items: NavItem[];
-}
-
-interface NavItem {
-  label: string;
-  /** A route inside the admin panel. */
-  path?: string;
-  /** Or a page somewhere else, opened in a new tab. */
-  href?: string;
-  icon?: string;
-  readOnly?: boolean;
-  /** How many wait for somebody to look: the feedback nobody has opened yet. */
-  badge?: number | null;
-}
+import { ADMIN_ICONS } from './admin-icons';
 
 @Component({
   selector: 'app-admin-root',
@@ -37,11 +18,10 @@ interface NavItem {
   imports: [
     RouterOutlet,
     RouterLink,
-    RouterLinkActive,
-    NgTemplateOutlet,
     ButtonComponent,
-    DrawerComponent,
     IconComponent,
+    SideNavComponent,
+    SideNavTriggerDirective,
     ToastHostComponent,
     ConfirmHostComponent,
     ThemeToggleComponent,
@@ -70,93 +50,94 @@ export class AppComponent {
    */
   readonly allowed = this._security.isStaff;
 
-  /** The navigation's drawer, on a phone: open until a page is chosen or it is put away. */
-  readonly menuOpen = signal(false);
-
-  readonly navGroups = computed<NavGroup[]>(() => {
+  /**
+   * The panel's pages for the kit's side navigation (@anotoki/lib/ui/side-nav):
+   * the dashboard alone, then the groups under their headings. A read-only page
+   * says so in its own header (the lookup tables' "Read-only" badge), so the
+   * navigation marks only what waits for somebody: the feedback nobody has
+   * opened, heard "Feedback, 3 new".
+   */
+  readonly navGroups = computed<SideNavGroup[]>(() => {
     // Accounts, who may do what here, and where everybody is signed in are the
     // anotoki IAM's now, managed in its console for every anotoki site at once.
     // Left out if the site could not learn where that is.
     const adminUrl = this._security.adminUrl();
-    const accounts: NavItem[] = adminUrl ? [{ label: 'Accounts & access', href: adminUrl, icon: 'icon icon-user-group' }] : [];
+    const accounts: SideNavLink[] = adminUrl ? [{ label: 'Accounts & access', href: adminUrl, newTab: true, icon: 'admin-user-group' }] : [];
     // The anotoki library's pages are the ADMIN's alone, and so are their APIs:
     // the Migrations page (@anotoki/lib/migrations), the admin tools
     // (shared/site-admin-tools.ts) and the People page (people.ts) - the
     // owner's decision: EDITORs see none
     // of them.
     const admin = this._security.role() === 'ADMIN';
-    const people: NavItem[] = admin ? [{ label: 'People', path: 'people', icon: 'icon icon-user-check' }] : [];
-    const tools: NavItem[] = admin
+    const people: SideNavLink[] = admin ? [{ label: 'People', path: 'people', icon: 'admin-user-check' }] : [];
+    const tools: SideNavLink[] = admin
       ? [
-          { label: 'Feedback', path: 'feedback', icon: 'icon icon-mail', badge: this._unread.count() || null },
-          { label: 'Audit Logs', path: 'audit-logs', icon: 'icon icon-history', readOnly: true },
-          { label: 'Error Log', path: 'errors', icon: 'icon icon-triangle-alert', readOnly: true },
-          { label: 'Files Explorer', path: 'files-explorer', icon: 'icon icon-computer' },
-          { label: 'Migrations', path: 'migrations', icon: 'icon icon-database', readOnly: true },
-          { label: 'Backups', path: 'backups', icon: 'icon icon-download' },
+          { label: 'Feedback', path: 'feedback', icon: 'admin-mail', badge: this._unread.count() || null },
+          { label: 'Audit Logs', path: 'audit-logs', icon: 'admin-history' },
+          { label: 'Error Log', path: 'errors', icon: 'admin-triangle-alert' },
+          { label: 'Files Explorer', path: 'files-explorer', icon: 'admin-computer' },
+          { label: 'Migrations', path: 'migrations', icon: 'admin-database' },
+          { label: 'Backups', path: 'backups', icon: 'admin-download' },
         ]
       : [];
 
     return [
+      { id: 'home', links: [{ label: 'Dashboard', path: 'dashboard', icon: 'admin-gauge' }] },
       {
         label: 'Database',
-        items: [
-          { label: 'Characters', path: 'characters', icon: 'icon icon-swords' },
-          { label: 'Enemies', path: 'enemies', icon: 'icon icon-skull' },
-          { label: 'Materials', path: 'materials', icon: 'icon icon-boxes' },
-          { label: 'Artifacts', path: 'artifacts', icon: 'icon icon-ring' },
-          { label: 'Weapons', path: 'weapons', icon: 'icon icon-sword' },
-          { label: 'Foods', path: 'foods', icon: 'icon icon-utensils' },
-          { label: 'Banners', path: 'banners', icon: 'icon icon-scroll' },
-          { label: 'Backgrounds', path: 'backgrounds', icon: 'icon icon-image' },
-          { label: 'Files', path: 'files', icon: 'icon icon-folder' },
-          { label: 'File Categories', path: 'file-categories', icon: 'icon icon-layers' },
+        links: [
+          { label: 'Characters', path: 'characters', icon: 'admin-swords' },
+          { label: 'Enemies', path: 'enemies', icon: 'admin-skull' },
+          { label: 'Materials', path: 'materials', icon: 'admin-boxes' },
+          { label: 'Artifacts', path: 'artifacts', icon: 'admin-ring' },
+          { label: 'Weapons', path: 'weapons', icon: 'admin-sword' },
+          { label: 'Foods', path: 'foods', icon: 'admin-utensils' },
+          { label: 'Banners', path: 'banners', icon: 'admin-scroll' },
+          { label: 'Backgrounds', path: 'backgrounds', icon: 'admin-image' },
+          { label: 'Files', path: 'files', icon: 'admin-folder' },
+          { label: 'File Categories', path: 'file-categories', icon: 'admin-layers' },
         ],
       },
       {
         label: 'Lookup Tables',
-        items: [
-          { label: 'Relationship Types', path: 'relationship-types', icon: 'icon icon-heart' },
-          { label: 'Talent Types', path: 'talent-types', icon: 'icon icon-star' },
-          { label: 'Food Types', path: 'food-types', icon: 'icon icon-utensils' },
-          { label: 'Material Types', path: 'material-types', icon: 'icon icon-boxes' },
-          { label: 'Material Groups', path: 'material-groups', icon: 'icon icon-layers' },
-          { label: 'Regions', path: 'regions', icon: 'icon icon-globe' },
-          { label: 'Roles', path: 'roles', icon: 'icon icon-tag' },
-          { label: 'Enemy Types', path: 'enemy-types', icon: 'icon icon-skull' },
-          { label: 'Domain Levels', path: 'domain-levels', icon: 'icon icon-dungeon' },
-          { label: 'Enemy Families', path: 'enemy-families', icon: 'icon icon-flame' },
-          { label: 'Enemy Groups', path: 'enemy-groups', icon: 'icon icon-user-group' },
-          { label: 'Stats', path: 'stats', icon: 'icon icon-chart' },
-          { label: 'Elements', path: 'elements', icon: 'icon icon-wind', readOnly: true },
-          { label: 'Weapon Types', path: 'weapon-types', icon: 'icon icon-shield', readOnly: true },
-          { label: 'Character States', path: 'character-states', icon: 'icon icon-circle-dot', readOnly: true },
-          { label: 'Rarities', path: 'rarities', icon: 'icon icon-gem', readOnly: true },
-          { label: 'Artifact Piece Types', path: 'artifact-piece-types', icon: 'icon icon-puzzle', readOnly: true },
+        links: [
+          { label: 'Relationship Types', path: 'relationship-types', icon: 'admin-heart' },
+          { label: 'Talent Types', path: 'talent-types', icon: 'admin-star' },
+          { label: 'Food Types', path: 'food-types', icon: 'admin-utensils' },
+          { label: 'Material Types', path: 'material-types', icon: 'admin-boxes' },
+          { label: 'Material Groups', path: 'material-groups', icon: 'admin-layers' },
+          { label: 'Regions', path: 'regions', icon: 'admin-globe' },
+          { label: 'Roles', path: 'roles', icon: 'admin-tag' },
+          { label: 'Enemy Types', path: 'enemy-types', icon: 'admin-skull' },
+          { label: 'Domain Levels', path: 'domain-levels', icon: 'admin-dungeon' },
+          { label: 'Enemy Families', path: 'enemy-families', icon: 'admin-flame' },
+          { label: 'Enemy Groups', path: 'enemy-groups', icon: 'admin-user-group' },
+          { label: 'Stats', path: 'stats', icon: 'admin-chart' },
+          { label: 'Elements', path: 'elements', icon: 'admin-wind' },
+          { label: 'Weapon Types', path: 'weapon-types', icon: 'admin-shield' },
+          { label: 'Character States', path: 'character-states', icon: 'admin-circle-dot' },
+          { label: 'Rarities', path: 'rarities', icon: 'admin-gem' },
+          { label: 'Artifact Piece Types', path: 'artifact-piece-types', icon: 'admin-puzzle' },
         ],
       },
       {
         label: 'Localization',
-        items: [
-          { label: 'Languages', path: 'languages', icon: 'icon icon-globe' },
-          { label: 'Translations', path: 'translations', icon: 'icon icon-list' },
-          { label: 'Guides', path: 'guides', icon: 'icon icon-book' },
+        links: [
+          { label: 'Languages', path: 'languages', icon: 'admin-globe' },
+          { label: 'Translations', path: 'translations', icon: 'admin-list' },
+          { label: 'Guides', path: 'guides', icon: 'admin-book' },
         ],
       },
       {
         label: 'System',
-        items: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'icon icon-settings' }, ...tools],
+        links: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'admin-settings' }, ...tools],
       },
     ];
   });
 
   constructor() {
-    inject(Router)
-      .events.pipe(
-        filter((event) => event instanceof NavigationEnd),
-        takeUntilDestroyed(),
-      )
-      .subscribe(() => this.menuOpen.set(false));
+    // The panel's icons (its navigation's, its forms' tabs'), before they are first drawn: lazy with it.
+    inject(AnotokiIcons).register(ADMIN_ICONS);
 
     effect(() => {
       if (this._security.role() === 'ADMIN') {

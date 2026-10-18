@@ -27,9 +27,12 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         (/admin/people, configured in people.ts) and admin tools - Feedback, Audit
                         Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
                         feedback counted beside Feedback in the navigation); app.component the
-                        frame: the navigation beside the page, in the kit's drawer on a phone
+                        frame: the kit's side navigation beside the page, in the kit's drawer on a
+                        phone (admin-icons.ts: its icons and the forms' tabs')
 src/app/shared/         local-lib (what the family's kit has no piece for: the field adapters over
-                        the kit's fields, the site's own fields, the waypoint loader; the abstract
+                        the kit's fields - a birthday mapped to the kit's date field in
+                        stored-dates.ts -, the site's own fields (the folder chooser, the HTML editor
+                        on the kit's rich-text toolbar), the waypoint loader; the abstract
                         bases; components.scss, the own fields drawn as the kit's; design-tokens.scss,
                         the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/;
                         services/: security.service.ts - this site's view of the library's sign-in

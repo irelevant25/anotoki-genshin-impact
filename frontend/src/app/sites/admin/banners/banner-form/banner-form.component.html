@@ -38,7 +38,7 @@
                     <app-dropdown class="featured-picker" [options]="characterOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— character —'"></app-dropdown>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('characters', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('characters', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
-                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('characters', entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('characters', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
                 </div>
             }
             <button anotokiButton (click)="add('characters')">Add character</button>
@@ -54,7 +54,7 @@
                     <app-dropdown class="featured-picker" [options]="weaponOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— weapon —'"></app-dropdown>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('weapons', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('weapons', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
-                    <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('weapons', entry)"><span class="icon icon-delete icon-danger" aria-hidden="true"></span></button>
+                    <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('weapons', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
                 </div>
             }
             <button anotokiButton (click)="add('weapons')">Add weapon</button>

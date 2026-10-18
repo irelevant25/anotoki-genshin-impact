@@ -17,6 +17,8 @@ import { difficultyName } from '../quizzes/shared/quiz.types';
 import { ActivityGridComponent } from './activity-grid/activity-grid.component';
 import { VisitorNoticeComponent } from '../../common/visitor-notice/visitor-notice.component';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
+import { AnotokiIcons } from '@anotoki/lib/ui/icon';
+import { iconHistory, iconUsers } from '@anotoki/lib/ui/icons';
 import {
   ActivityCell,
   CharacterBreakdown,
@@ -90,8 +92,8 @@ export class ProfileComponent {
   /** The two long breakdowns, one on screen at a time (see the template). */
   readonly activeTab = signal('characters');
   readonly tabItems = computed(() => [
-    { id: 'characters', label: this._i18n.t('profile.characters.title') },
-    { id: 'recent', label: this._i18n.t('profile.recent.title') },
+    { id: 'characters', label: this._i18n.t('profile.characters.title'), icon: 'users' },
+    { id: 'recent', label: this._i18n.t('profile.recent.title'), icon: 'history' },
   ]);
   readonly user = this._security.currentUser;
 
@@ -170,6 +172,10 @@ export class ProfileComponent {
   });
 
   constructor() {
+    // The tabs' icons (the family's drawings), registered with the kit's icons before they are drawn: this lazy
+    // page's own.
+    inject(AnotokiIcons).register({ users: iconUsers, history: iconHistory });
+
     // Keyed on whose figures they are rather than on the whole record, which
     // is replaced for more than a change of account - a date format saved, a
     // role changed at the IAM - and refetching four reads for that would be
