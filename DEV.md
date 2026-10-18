@@ -230,7 +230,7 @@ same on every anotoki site: one library, `anotoki-lib`
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.6.0"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.7.0"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
@@ -265,9 +265,9 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.6.3 now
+sequences that count down, then the origin secret): both halves are 0.7.0 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
-takes no next minor: `^0.6.0` never brings 0.7, which needs its constraint
+takes no next minor: `^0.7.0` never brings 0.8, which needs its constraint
 written. A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
@@ -295,7 +295,7 @@ Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
 **The migrations are the schema.** There is no separate schema file; a database
 is what you get by replaying `backend/migrations/{users,genshin_impact}/NNN_name.sql`
 in order, with the anotoki library's own sets around them (in
-`vendor/anotoki/lib/php/migrations/`): `anotoki_admin` first (the admin tools'
+`vendor/anotoki/lib/backend/migrations/`): `anotoki_admin` first (the admin tools'
 tables, `anotoki_audit_log` and `anotoki_feedback`, which `genshin_impact/028`
 and `029` move the old rows into), then the two folders, then
 `anotoki_translations` (the words' tables proved, the library's own words added)

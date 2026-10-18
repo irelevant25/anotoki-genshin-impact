@@ -411,6 +411,10 @@ not drift; [docs/README.md](docs/README.md) lists them.
   off. The library's `anotoki_translations/012` brings the footer's four words.
   The first load is 541.9 kB, 142.2 kB sent (it was 537.6 and 140.3): Angular's
   own code for the binding the footer opens its feedback form with.
+- Later still on 2026-10-18 the shared library is `anotoki-lib` 0.7.0 in both
+  halves: its folders are named as in every anotoki project - its PHP half's
+  files are under `backend/vendor/anotoki/lib/backend/` now, no longer `php/`.
+  Nothing a player notices, nothing to apply; the first load is as it was.
 
 ## More
 

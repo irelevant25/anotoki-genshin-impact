@@ -951,7 +951,7 @@ try {
     { stdio: 'inherit' },
   );
 
-  start(php, ['-S', `127.0.0.1:${IAM}`, join(env.backend, 'vendor/anotoki/lib/php/testing/stand-in-iam.php')], {
+  start(php, ['-S', `127.0.0.1:${IAM}`, join(env.backend, 'vendor/anotoki/lib/backend/testing/stand-in-iam.php')], {
     cwd: iamDir,
     env: { ...process.env, STAND_IN_DIR: iamDir, STAND_IN_ISSUER: issuer },
   });

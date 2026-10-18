@@ -14,7 +14,7 @@
  * (migrationsOrderRefusal(), its `beforeApply`).
  *
  * Around the site's two folders come three sets that are the library's own
- * (vendor/anotoki/lib/php/migrations), in the order its README gives:
+ * (vendor/anotoki/lib/backend/migrations), in the order its README gives:
  *
  *   anotoki_admin         FIRST: the admin tools' tables - anotoki_audit_log and
  *                         anotoki_feedback (anotoki-lib 0.4.1). The site's own

@@ -63,7 +63,7 @@ testNeedsDatabase();
 
 echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n";
 
-// The library's translations set as anotoki-lib 0.6.3 brings it: 001-004 (the
+// The library's translations set as anotoki-lib 0.7.0 brings it: 001-004 (the
 // words' shape, the kit's, the sign-in page's and the feedback form's words),
 // 005-009 (the legal pages', the top bar's, the kit's newer pieces', the tabs'
 // and the inputs' words), 010-011 (the Privacy page's sentences made true) and
