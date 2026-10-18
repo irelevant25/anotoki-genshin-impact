@@ -57,7 +57,10 @@ $app->get('/api/admin/guides', function (Request $request, Response $response) {
     $grid = guidesGrid(usersDb());
 
     return $grid instanceof Refusal ? guideRefused($response, $grid) : JsonResponse::write($response, 200, $grid);
-})->add(responds(GuideEditorView::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(GuideEditorView::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->put('/api/admin/guides/{guide}', function (Request $request, Response $response, array $args) {
     // Read from the raw body, as the library reads a save of the strings: JSON
@@ -81,4 +84,7 @@ $app->put('/api/admin/guides/{guide}', function (Request $request, Response $res
     }
 
     return JsonResponse::write($response, 200, guideEntry($pdo, $guide));
-})->add(responds(GuideEditorEntry::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(GuideEditorEntry::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

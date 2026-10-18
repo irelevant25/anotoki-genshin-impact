@@ -14,13 +14,7 @@
         <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().data.version" [required]="true"></app-text>
         <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
         <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
-        <app-dropdown
-            [label]="'Special Dish'"
-            [options]="foodOptions()"
-            [(value)]="character().data.special_dish"
-            [emptyOption]="true"
-            [emptyOptionText]="'— none —'"
-        ></app-dropdown>
+        <app-dropdown [label]="'Special Dish'" [options]="foodOptions()" [(value)]="character().data.special_dish" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
         <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().data.is_traveler"></app-checkbox>
     </div>
     <app-field-container [class]="'mt-3'" [cols]="2">
@@ -30,15 +24,8 @@
             [placeholder]="'e.g. Wanderlust Invocation'"
             [value]="howToObtainText()"
             (inputChange)="onHowToObtainChange($event)"
-            [rows]="3"
-        ></app-textarea>
-        <app-textarea
-            [label]="'Affiliations'"
-            [description]="'One affiliation per line.'"
-            [value]="affiliationsText()"
-            (inputChange)="onAffiliationsChange($event)"
-            [rows]="3"
-        ></app-textarea>
+            [rows]="3"></app-textarea>
+        <app-textarea [label]="'Affiliations'" [description]="'One affiliation per line.'" [value]="affiliationsText()" (inputChange)="onAffiliationsChange($event)" [rows]="3"></app-textarea>
     </app-field-container>
 </div>
 
@@ -57,13 +44,7 @@
     <app-field-container [cols]="1">
         <app-text [label]="'Namecard Name'" [placeholder]="'e.g. Furina: Banquet'" [(value)]="character().data.namecard_name"></app-text>
         <app-textarea [label]="'Namecard Description'" [(value)]="character().data.namecard_description" [rows]="2" [required]="true"></app-textarea>
-        <app-textarea
-            [label]="'Namecard Sources'"
-            [description]="'One source per line.'"
-            [value]="namecardSourcesText()"
-            (inputChange)="onNamecardSourcesChange($event)"
-            [rows]="2"
-        ></app-textarea>
+        <app-textarea [label]="'Namecard Sources'" [description]="'One source per line.'" [value]="namecardSourcesText()" (inputChange)="onNamecardSourcesChange($event)" [rows]="2"></app-textarea>
     </app-field-container>
     <app-field-container [class]="'gap-5'" [cols]="5">
         @for (image of namecardImages; track image.field) {
@@ -74,8 +55,7 @@
                 [name]="imageName(image.field)"
                 [pending]="pendingFor(image.field)"
                 (picked)="onPicked(image.field, $event)"
-                (cleared)="onCleared(image.field)"
-            />
+                (cleared)="onCleared(image.field)" />
         }
     </app-field-container>
 </app-field-container>
@@ -91,8 +71,7 @@
             [name]="imageName('constellation')"
             [pending]="pendingFor('constellation')"
             (picked)="onPicked('constellation', $event)"
-            (cleared)="onCleared('constellation')"
-        />
+            (cleared)="onCleared('constellation')" />
     </app-field-container>
 </app-field-container>
 
@@ -107,8 +86,7 @@
                 [name]="imageName(image.field)"
                 [pending]="pendingFor(image.field)"
                 (picked)="onPicked(image.field, $event)"
-                (cleared)="onCleared(image.field)"
-            />
+                (cleared)="onCleared(image.field)" />
         }
         <app-entity-image
             [label]="'In-game Icon'"
@@ -117,8 +95,7 @@
             [name]="imageName('ingame_icon')"
             [pending]="pendingFor('ingame_icon')"
             (picked)="onPicked('ingame_icon', $event)"
-            (cleared)="onCleared('ingame_icon')"
-        />
+            (cleared)="onCleared('ingame_icon')" />
         <app-entity-image
             [label]="'In-game Icon 2'"
             [required]="false"
@@ -126,8 +103,7 @@
             [name]="imageName('ingame_icon_2')"
             [pending]="pendingFor('ingame_icon_2')"
             (picked)="onPicked('ingame_icon_2', $event)"
-            (cleared)="onCleared('ingame_icon_2')"
-        />
+            (cleared)="onCleared('ingame_icon_2')" />
     </app-field-container>
 </app-field-container>
 
@@ -146,8 +122,7 @@
             [name]="imageName('demo_music')"
             [pending]="pendingFor('demo_music')"
             (picked)="onPicked('demo_music', $event)"
-            (cleared)="onCleared('demo_music')"
-        />
+            (cleared)="onCleared('demo_music')" />
     </app-field-container>
 </app-field-container>
 
@@ -162,19 +137,13 @@
         @for (relationship of relationships(); track relationship; let i = $index) {
             <div class="sub-card">
                 <div class="sub-card-header">
-                    <span class="sub-card-index">{{ relationship.name || 'Relationship ' + (i + 1) }}</span>
+                    <span class="sub-card-index">{{ relationship.name || "Relationship " + (i + 1) }}</span>
                     <button anotokiButton variant="danger" (click)="removeRelationship(relationship)">Delete</button>
                 </div>
                 <div class="form-grid">
                     <app-text [label]="'Name'" [(value)]="relationship.name" [required]="true"></app-text>
                     <app-dropdown [label]="'Type'" [options]="relationshipTypes()" [(value)]="relationship.type" [required]="true"></app-dropdown>
-                    <app-dropdown
-                        [label]="'State'"
-                        [options]="characterStates()"
-                        [(value)]="relationship.state"
-                        [emptyOption]="true"
-                        [emptyOptionText]="'— none —'"
-                    ></app-dropdown>
+                    <app-dropdown [label]="'State'" [options]="characterStates()" [(value)]="relationship.state" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
                     <app-checkbox [label]="'Biological'" [inline]="false" [(value)]="relationship.is_biological"></app-checkbox>
                 </div>
             </div>

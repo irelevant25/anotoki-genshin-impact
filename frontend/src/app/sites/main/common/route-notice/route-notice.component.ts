@@ -52,6 +52,9 @@ export class RouteNoticeComponent {
   }
 
   private _clean(url: string): string {
-    return url.split('?')[0].split('#')[0].replace(/(.)\/+$/, '$1');
+    return url
+      .split('?')[0]
+      .split('#')[0]
+      .replace(/(.)\/+$/, '$1');
   }
 }

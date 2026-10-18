@@ -23,11 +23,50 @@
 
 /** Elements that may appear. Everything else is unwrapped or dropped. */
 const ALLOWED_TAGS = new Set([
-  'a', 'b', 'blockquote', 'br', 'caption', 'code', 'dd', 'div', 'dl', 'dt', 'em',
-  'figcaption', 'figure', 'font', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i',
-  'img', 'li', 'ol', 'p', 'pre', 's', 'section', 'small', 'span', 'strike',
-  'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
-  'u', 'ul',
+  'a',
+  'b',
+  'blockquote',
+  'br',
+  'caption',
+  'code',
+  'dd',
+  'div',
+  'dl',
+  'dt',
+  'em',
+  'figcaption',
+  'figure',
+  'font',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'hr',
+  'i',
+  'img',
+  'li',
+  'ol',
+  'p',
+  'pre',
+  's',
+  'section',
+  'small',
+  'span',
+  'strike',
+  'strong',
+  'sub',
+  'sup',
+  'table',
+  'tbody',
+  'td',
+  'tfoot',
+  'th',
+  'thead',
+  'tr',
+  'u',
+  'ul',
 ]);
 
 /**
@@ -39,9 +78,27 @@ const ALLOWED_TAGS = new Set([
  * whose contents are the danger.
  */
 const DROP_ENTIRELY = new Set([
-  'base', 'button', 'embed', 'form', 'frame', 'frameset', 'iframe', 'input',
-  'link', 'math', 'meta', 'noscript', 'object', 'option', 'script', 'select',
-  'style', 'svg', 'template', 'textarea', 'title',
+  'base',
+  'button',
+  'embed',
+  'form',
+  'frame',
+  'frameset',
+  'iframe',
+  'input',
+  'link',
+  'math',
+  'meta',
+  'noscript',
+  'object',
+  'option',
+  'script',
+  'select',
+  'style',
+  'svg',
+  'template',
+  'textarea',
+  'title',
 ]);
 
 /** Attributes any element may carry. */
@@ -66,12 +123,31 @@ const TAG_ATTRIBUTES: Readonly<Record<string, readonly string[]>> = {
  * load a resource or move an element out of its container.
  */
 const ALLOWED_STYLES = new Set([
-  'background-color', 'border', 'border-radius', 'color', 'font-family',
-  'font-size', 'font-style', 'font-weight', 'line-height', 'margin',
-  'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'padding',
-  'padding-bottom', 'padding-left', 'padding-right', 'padding-top',
-  'text-align', 'text-decoration', 'text-transform', 'vertical-align',
-  'white-space', 'width',
+  'background-color',
+  'border',
+  'border-radius',
+  'color',
+  'font-family',
+  'font-size',
+  'font-style',
+  'font-weight',
+  'line-height',
+  'margin',
+  'margin-bottom',
+  'margin-left',
+  'margin-right',
+  'margin-top',
+  'padding',
+  'padding-bottom',
+  'padding-left',
+  'padding-right',
+  'padding-top',
+  'text-align',
+  'text-decoration',
+  'text-transform',
+  'vertical-align',
+  'white-space',
+  'width',
 ]);
 
 /**
@@ -119,7 +195,10 @@ export function richHtmlIsEmpty(html: string | null | undefined): boolean {
   if (!clean) {
     return true;
   }
-  return !clean.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+  return !clean
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .trim();
 }
 
 function cleanChildren(parent: Element): void {

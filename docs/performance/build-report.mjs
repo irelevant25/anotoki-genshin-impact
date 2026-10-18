@@ -99,9 +99,7 @@ const size = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : b >= 102
 // is depends on the run: a floor that moved is the story when it moved, and the
 // slowest endpoint is the story when nothing else did.
 const floorMoved = data.previous && Math.abs(data.floor - data.previous.floor) > Math.max(5, data.previous.floor * 0.1);
-const headline = floorMoved
-  ? `The floor moved from ${ms(data.previous.floor)} to ${ms(data.floor)}`
-  : `The cheapest thing this API can do takes ${ms(data.floor)}`;
+const headline = floorMoved ? `The floor moved from ${ms(data.previous.floor)} to ${ms(data.floor)}` : `The cheapest thing this API can do takes ${ms(data.floor)}`;
 
 const standfirst = floorMoved
   ? `Every GET route timed against the running API. The number underneath them all is the one worth knowing, and it changed:

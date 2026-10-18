@@ -1,32 +1,32 @@
-import { ApplicationConfig, inject, InjectionToken, Injector, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from "@angular/core";
-import { provideRouter } from "@angular/router";
-import { registerLocaleData } from "@angular/common";
-import localeEn from "@angular/common/locales/en";
-import localeSk from "@angular/common/locales/sk";
-import { provideAnotokiAdmin } from "@anotoki/lib/admin";
-import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from "@anotoki/lib/auth";
-import { provideAnotokiErrorReport } from "@anotoki/lib/error-report";
-import { provideAnotokiFeedback } from "@anotoki/lib/feedback";
-import { provideAnotokiLegal } from "@anotoki/lib/legal";
-import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from "@anotoki/lib/migrations";
-import { provideAnotokiTranslations, TranslationService } from "@anotoki/lib/translations";
-import { provideAnotokiUi } from "@anotoki/lib/ui/config";
+import { ApplicationConfig, inject, InjectionToken, Injector, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
+import localeEn from '@angular/common/locales/en';
+import localeSk from '@angular/common/locales/sk';
+import { provideAnotokiAdmin } from '@anotoki/lib/admin';
+import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from '@anotoki/lib/auth';
+import { provideAnotokiErrorReport } from '@anotoki/lib/error-report';
+import { provideAnotokiFeedback } from '@anotoki/lib/feedback';
+import { provideAnotokiLegal } from '@anotoki/lib/legal';
+import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from '@anotoki/lib/migrations';
+import { provideAnotokiTranslations, TranslationService } from '@anotoki/lib/translations';
+import { provideAnotokiUi } from '@anotoki/lib/ui/config';
 
-import { routes } from "./app.routes";
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { ConfigService } from "./shared/local-lib/services/config.service";
-import { SecurityService } from "./shared/local-lib/services/security.service";
-import { SiteSettingsService } from "./shared/local-lib/services/site-settings.service";
-import { httpInterceptor } from "./shared/local-lib/services/http.interceptor";
-import { ThemeToggleService } from "./shared/local-lib/theme-toggle/theme-toggle.service";
-import { AUTH_CALLBACK_PATH } from "./shared/routing-definition";
-import { siteAdminToolsConfig } from "./shared/site-admin-tools";
-import { siteAuthConfig } from "./shared/site-auth";
-import { siteFeedbackConfig } from "./shared/site-feedback";
-import { isLegalPage, siteLegalConfig } from "./shared/site-legal";
-import { siteStatusConfig } from "./shared/site-status";
-import { siteTranslationsConfig } from "./shared/site-translations";
-import { clientNotingSilentSignIns } from "./shared/silent-sign-in";
+import { routes } from './app.routes';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { ConfigService } from './shared/local-lib/services/config.service';
+import { SecurityService } from './shared/local-lib/services/security.service';
+import { SiteSettingsService } from './shared/local-lib/services/site-settings.service';
+import { httpInterceptor } from './shared/local-lib/services/http.interceptor';
+import { ThemeToggleService } from './shared/local-lib/theme-toggle/theme-toggle.service';
+import { AUTH_CALLBACK_PATH } from './shared/routing-definition';
+import { siteAdminToolsConfig } from './shared/site-admin-tools';
+import { siteAuthConfig } from './shared/site-auth';
+import { siteFeedbackConfig } from './shared/site-feedback';
+import { isLegalPage, siteLegalConfig } from './shared/site-legal';
+import { siteStatusConfig } from './shared/site-status';
+import { siteTranslationsConfig } from './shared/site-translations';
+import { clientNotingSilentSignIns } from './shared/silent-sign-in';
 
 // export const appConfig: ApplicationConfig = {
 // providers: [provideRouter(routes, withHashLocation()), provideHttpClient()],
@@ -195,6 +195,6 @@ export const appConfig: ApplicationConfig = {
       provide: BASE_PATH,
       useFactory: () => inject(ConfigService).backendUrl,
     },
-    { provide: LOCALE_ID, useValue: "sk-SK" },
+    { provide: LOCALE_ID, useValue: 'sk-SK' },
   ],
 };

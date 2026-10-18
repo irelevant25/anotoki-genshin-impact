@@ -19,24 +19,23 @@ $app->get('/api/characters-builds-talents/{id:[0-9]+}', function (Request $reque
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('characters_builds_talents'));
 
 // POST create
 $app->post('/api/characters-builds-talents', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
-    $id = DbQuery::insert($pdo, 'characters_builds_talents', [
-        ...CharacterBuildTalent::fromBody($request->getParsedBody())->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'characters_builds_talents', [...CharacterBuildTalent::fromBody($request->getParsedBody())->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'characters_builds_talents')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('characters_builds_talents'))->add(validateRequest(CharacterBuildTalent::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_builds_talents'))
+    ->add(validateRequest(CharacterBuildTalent::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/characters-builds-talents/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,16 +44,17 @@ $app->put('/api/characters-builds-talents/{id:[0-9]+}', function (Request $reque
     if (!DbQuery::from($pdo, 'characters_builds_talents')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
-    DbQuery::update($pdo, 'characters_builds_talents', [
-        ...CharacterBuildTalent::partialToDbArray($request->getParsedBody()),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'characters_builds_talents', [...CharacterBuildTalent::partialToDbArray($request->getParsedBody()), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'characters_builds_talents')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('characters_builds_talents'))->add(validateRequest(CharacterBuildTalent::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_builds_talents'))
+    ->add(validateRequest(CharacterBuildTalent::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/characters-builds-talents/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,7 @@ $app->delete('/api/characters-builds-talents/{id:[0-9]+}', function (Request $re
     }
     DbQuery::update($pdo, 'characters_builds_talents', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('characters_builds_talents'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_builds_talents'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

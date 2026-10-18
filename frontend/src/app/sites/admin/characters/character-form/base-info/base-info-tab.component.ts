@@ -50,17 +50,7 @@ function emptyRelationship(): RelationshipFormData {
   selector: 'app-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [
-    ButtonComponent,
-    TextComponent,
-    DropdownComponent,
-    CalendarComponent,
-    CheckboxComponent,
-    TextareaComponent,
-    FieldContainerComponent,
-    EntityImageComponent,
-    ChipsComponent,
-  ],
+  imports: [ButtonComponent, TextComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FieldContainerComponent, EntityImageComponent, ChipsComponent],
 })
 export class BaseInfoTabComponent {
   character = model<CharacterWrapper>(emptyCharacter());

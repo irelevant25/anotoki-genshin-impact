@@ -144,7 +144,14 @@ function testBackendCopy(string $database, array $iam): string
     }
     mkdir("$dir/storage/cache", 0777, true);
 
-    file_put_contents("$dir/config/database.local.php", "<?php\n\n\$borrowed = require " . var_export(TEST_DATABASE_CONFIG, true) . ";\nunset(\$borrowed['databases']);\n\nreturn array_replace(\$borrowed, " . var_export(['database' => $database, 'persistent' => false], true) . ");\n");
+    file_put_contents(
+        "$dir/config/database.local.php",
+        "<?php\n\n\$borrowed = require " .
+            var_export(TEST_DATABASE_CONFIG, true) .
+            ";\nunset(\$borrowed['databases']);\n\nreturn array_replace(\$borrowed, " .
+            var_export(['database' => $database, 'persistent' => false], true) .
+            ");\n",
+    );
     file_put_contents("$dir/config/secret.local.php", "<?php\n\nreturn " . var_export(bin2hex(random_bytes(32)), true) . ";\n");
     file_put_contents("$dir/config/iam.local.php", "<?php\n\nreturn " . var_export(['issuer' => TEST_ISSUER, 'client_id' => 'genshin', 'cache_dir' => "$dir/storage/cache"] + $iam, true) . ";\n");
 
@@ -185,17 +192,29 @@ function testIam(string $dir): array
         throw new RuntimeException('could not make a key pair: ' . openssl_error_string());
     }
     $public = openssl_pkey_get_details($key)['rsa'];
-    $b64 = static fn (string $bytes): string => rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
+    $b64 = static fn(string $bytes): string => rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
     $kid = 'test-' . bin2hex(random_bytes(4));
     file_put_contents("$dir/jwks.json", json_encode(['keys' => [['kty' => 'RSA', 'kid' => $kid, 'use' => 'sig', 'alg' => 'RS256', 'n' => $b64($public['n']), 'e' => $b64($public['e'])]]]));
 
     $token = static function (int $sub, array $roles, array $claims = []) use ($key, $kid, $b64): string {
         $now = time();
         $head = $b64(json_encode(['alg' => 'RS256', 'typ' => 'at+jwt', 'kid' => $kid]));
-        $body = $b64(json_encode($claims + [
-            'iss' => TEST_ISSUER, 'aud' => 'genshin', 'sub' => (string) $sub, 'client_id' => 'genshin', 'iat' => $now, 'exp' => $now + 600,
-            'sid' => "sid-$sub", 'roles' => $roles, 'preferred_username' => "person$sub", 'email' => "person$sub@example.test",
-        ]));
+        $body = $b64(
+            json_encode(
+                $claims + [
+                    'iss' => TEST_ISSUER,
+                    'aud' => 'genshin',
+                    'sub' => (string) $sub,
+                    'client_id' => 'genshin',
+                    'iat' => $now,
+                    'exp' => $now + 600,
+                    'sid' => "sid-$sub",
+                    'roles' => $roles,
+                    'preferred_username' => "person$sub",
+                    'email' => "person$sub@example.test",
+                ],
+            ),
+        );
         openssl_sign("$head.$body", $signature, $key, OPENSSL_ALGO_SHA256);
 
         return "$head.$body." . $b64($signature);

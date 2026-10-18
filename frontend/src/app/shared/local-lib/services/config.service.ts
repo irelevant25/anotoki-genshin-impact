@@ -15,7 +15,7 @@ export class ConfigService {
   public configLoaded$ = this._configLoadedSubject.asObservable();
   config?: AppConfig;
 
-  constructor(private readonly _http: HttpClient) { }
+  constructor(private readonly _http: HttpClient) {}
 
   async init(): Promise<void> {
     try {

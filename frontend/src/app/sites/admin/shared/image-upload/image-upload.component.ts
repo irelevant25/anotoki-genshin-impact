@@ -83,7 +83,8 @@ export class ImageUploadComponent extends AbstractModalComponent {
   mode = signal<'upload' | 'existing'>('upload');
   readonly modes = [
     { value: 'upload', label: 'Upload a file' },
-    { value: 'existing', label: 'Choose from files' }];
+    { value: 'existing', label: 'Choose from files' },
+  ];
 
   // ── Upload ──────────────────────────────────────────────────────────────────
   file = signal<File | undefined>(undefined);
@@ -129,11 +130,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
   }
 
   /** Upload needs a file and a name; choosing needs a catalogued file selected. */
-  canSubmit = computed(() =>
-    this.mode() === 'upload'
-      ? !!this.file() && this.name().length > 0
-      : !!this.selected() && this.selected()!.file_id !== null
-  );
+  canSubmit = computed(() => (this.mode() === 'upload' ? !!this.file() && this.name().length > 0 : !!this.selected() && this.selected()!.file_id !== null));
 
   ngOnInit(): void {
     // The browser is loaded lazily the first time it is shown, but the folder

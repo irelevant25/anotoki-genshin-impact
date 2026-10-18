@@ -9,6 +9,6 @@ import { EmptyStateComponent } from '@anotoki/lib/ui/empty-state';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
   imports: [RouterLink, ButtonComponent, EmptyStateComponent],
-  providers: []
+  providers: [],
 })
-export class NotFoundComponent { }
+export class NotFoundComponent {}

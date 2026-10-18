@@ -13,16 +13,15 @@
                 class="activity-cell"
                 [class.activity-future]="cell.future"
                 [class]="'activity-level-' + cell.level"
-                [title]="(cell.day | appDate) + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"
-            ></span>
+                [title]="(cell.day | appDate) + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"></span>
         }
     </div>
 </div>
 
 <p class="activity-legend">
-    <span>{{ 'profile.activity.less' | translate }}</span>
+    <span>{{ "profile.activity.less" | translate }}</span>
     @for (level of levels; track level) {
         <span class="activity-swatch" [class]="'activity-level-' + level"></span>
     }
-    <span>{{ 'profile.activity.more' | translate }}</span>
+    <span>{{ "profile.activity.more" | translate }}</span>
 </p>

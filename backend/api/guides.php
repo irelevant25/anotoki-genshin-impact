@@ -98,13 +98,13 @@ function guidesGrid(PDO $pdo): array|Refusal
     }
 
     $languages = array_map(
-        static fn (array $row): array => [
+        static fn(array $row): array => [
             'code' => (string) $row['code'],
             'name' => (string) $row['name'],
             'native_name' => (string) $row['native_name'],
             'enabled' => $row['enabled'] === true || $row['enabled'] === 't' || $row['enabled'] === 1 || $row['enabled'] === '1',
         ],
-        $pdo->query('SELECT code, name, native_name, enabled FROM languages ORDER BY sort_order, name, code')->fetchAll(PDO::FETCH_ASSOC)
+        $pdo->query('SELECT code, name, native_name, enabled FROM languages ORDER BY sort_order, name, code')->fetchAll(PDO::FETCH_ASSOC),
     );
 
     $guides = [];
@@ -114,11 +114,7 @@ function guidesGrid(PDO $pdo): array|Refusal
 
     return [
         'languages' => $languages,
-        'guides' => array_map(
-            static fn (string $guide, array $values): array => ['guide' => $guide, 'values' => (object) $values],
-            array_keys($guides),
-            array_values($guides)
-        ),
+        'guides' => array_map(static fn(string $guide, array $values): array => ['guide' => $guide, 'values' => (object) $values], array_keys($guides), array_values($guides)),
     ];
 }
 
@@ -194,7 +190,7 @@ function guideSave(PDO $pdo, string $guide, mixed $values, ?int $userId): array|
             'INSERT INTO guide_contents (guide, language_code, html, updated_by) VALUES (?, ?, ?, ?)
              ON CONFLICT (guide, language_code) DO UPDATE
                 SET html = EXCLUDED.html, updated_at = CURRENT_TIMESTAMP, updated_by = EXCLUDED.updated_by
-              WHERE guide_contents.html IS DISTINCT FROM EXCLUDED.html'
+              WHERE guide_contents.html IS DISTINCT FROM EXCLUDED.html',
         );
         // One order for every save, so two at once never wait on each other's rows.
         ksort($writes, SORT_STRING);

@@ -12,8 +12,7 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()"
-        >
+            (next)="next()">
             @if (questionEntity(); as character) {
                 <img
                     class="quiz-question-image"
@@ -21,8 +20,7 @@
                     [appMaterialIcon]="character.namecard_banner_name ?? character.name"
                     [appAssetFolder]="'character.namecard_banner'"
                     alt=""
-                    loading="eager"
-                />
+                    loading="eager" />
             }
         </app-quiz-frame>
     }

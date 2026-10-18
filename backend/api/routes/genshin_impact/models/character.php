@@ -52,8 +52,7 @@ class Character extends DbModel
         public readonly ?string $namecard_name = null,
         /** Pneuma, Ousia, or Pneuma & Ousia. */
         public readonly ?string $arkhe = null,
-    ) {
-    }
+    ) {}
 
     protected static function jsonFields(): array
     {

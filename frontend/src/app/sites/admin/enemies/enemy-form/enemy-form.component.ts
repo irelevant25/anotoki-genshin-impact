@@ -103,7 +103,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
         data: { ...phase, has_weakpoint: toBoolean(phase.has_weakpoint) },
         pending: {},
         elements: [...(phase.damage_type_elements ?? [])].sort((a, b) => a.order - b.order).map((entry) => entry.damage_type_element),
-      }))
+      })),
     );
     this.dropGroups.set(groupDrops(data.drops ?? []));
   }
@@ -191,9 +191,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
   protected override extraValidation(): string | undefined {
     const groups = this.dropGroups();
     for (let g = 0; g < groups.length; g++) {
-      const index = groups[g].entries.findIndex((entry) =>
-        entry.kind === 'material' ? !toNumber(entry.data.material_id) : !toNumber(entry.data.artifact_id)
-      );
+      const index = groups[g].entries.findIndex((entry) => (entry.kind === 'material' ? !toNumber(entry.data.material_id) : !toNumber(entry.data.artifact_id)));
       if (index >= 0) {
         return `Group ${g + 1}, drop ${index + 1} has no ${groups[g].entries[index].kind} selected.`;
       }

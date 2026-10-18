@@ -57,8 +57,7 @@ export const SETTING_GROUPS: Record<string, { title: string; note: string; icon:
 export const settingWords = (name: string): SettingWords => SETTING_WORDS[name] ?? { label: name, help: '' };
 
 /** info, warning, danger — as words rather than as the value stored. */
-export const optionLabel = (option: string): string =>
-  ({ info: 'Information', warning: 'Warning', danger: 'Something is wrong' })[option] ?? option;
+export const optionLabel = (option: string): string => ({ info: 'Information', warning: 'Warning', danger: 'Something is wrong' })[option] ?? option;
 
 /** Who a page is drawn for, in words. Mirrors ROUTE_VISIBILITY in the API. */
 export const VISIBILITY_LABELS: Record<string, string> = {

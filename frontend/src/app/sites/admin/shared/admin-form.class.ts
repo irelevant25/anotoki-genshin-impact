@@ -19,10 +19,10 @@ export interface PendingImage {
    */
   name: string;
   /**
-    * Writes what the upload answered back onto the form's model. The id is what
-    * the row actually stores; the path and name are what the form shows until
-    * it is saved and reloaded.
-    */
+   * Writes what the upload answered back onto the form's model. The id is what
+   * the row actually stores; the path and name are what the form shows until
+   * it is saved and reloaded.
+   */
   apply: (path: string, name: string, fileId: number | null) => void;
 }
 
@@ -124,7 +124,7 @@ export abstract class AdminFormComponent<TFull> {
           const payload = this.buildFormData();
           const id = this.entityId();
           return this.isEdit() && id !== null ? this.update(id, payload) : this.create(payload);
-        })
+        }),
       )
       .subscribe({
         next: (result) => {
@@ -158,15 +158,13 @@ export abstract class AdminFormComponent<TFull> {
           entry.apply(existing.path, existing.name, existing.fileId);
           return of(null);
         }
-        return this._fileApi
-          .uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file!, name: entry.name }))
-          .pipe(
-            switchMap((result) => {
-              entry.apply(result.path, result.name, result.fileId);
-              return of(result);
-            })
-          );
-      })
+        return this._fileApi.uploadEntityFile(entry.entity, entry.field, toFormData({ file: entry.picked.file!, name: entry.name })).pipe(
+          switchMap((result) => {
+            entry.apply(result.path, result.name, result.fileId);
+            return of(result);
+          }),
+        );
+      }),
     );
   }
 

@@ -33,11 +33,7 @@ export class AscensionsTabComponent extends AbstractModalComponent {
 
   readonly maxPhase = MAX_ASCENSIONS - 1;
 
-  sorted = computed(() =>
-    [...this.ascensions()]
-      .sort((a, b) => a.ascension.phase - b.ascension.phase)
-      .map((wrapper) => ({ wrapper, cost: [...wrapper.cost].sort((a, b) => a.order - b.order) }))
-  );
+  sorted = computed(() => [...this.ascensions()].sort((a, b) => a.ascension.phase - b.ascension.phase).map((wrapper) => ({ wrapper, cost: [...wrapper.cost].sort((a, b) => a.order - b.order) })));
   canAdd = computed(() => this.ascensions().length < MAX_ASCENSIONS);
   materialOptions = computed<DropdownOption[]>(() => this.materials().map((material) => ({ key: material.id ?? -1, value: material.name, data: material })));
 
@@ -47,7 +43,11 @@ export class AscensionsTabComponent extends AbstractModalComponent {
    * set on the character. Mirrors the voice-over "Choose set".
    */
   chooseSet(): void {
-    const modal = this.dialogs.open<AscensionSetSelectorComponent, number | undefined>(AscensionSetSelectorComponent, { heading: 'Choose an ascension set', size: 'lg', data: this.ascensionSetId() ?? null });
+    const modal = this.dialogs.open<AscensionSetSelectorComponent, number | undefined>(AscensionSetSelectorComponent, {
+      heading: 'Choose an ascension set',
+      size: 'lg',
+      data: this.ascensionSetId() ?? null,
+    });
 
     void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
@@ -61,7 +61,7 @@ export class AscensionsTabComponent extends AbstractModalComponent {
               uid: createUid(),
               ascension: ascension as unknown as AscensionWrapper['ascension'],
               cost: costs.filter((cost) => cost.character_ascension_id === ascension.id) as unknown as AscensionWrapper['cost'],
-            }))
+            })),
           );
           this.ascensionSetChosen.emit(setId);
           this.notificationService.success(`Now using set #${setId} (${detail?.ascensions?.length ?? 0} ascensions).`);
@@ -113,7 +113,7 @@ export class AscensionsTabComponent extends AbstractModalComponent {
       resequence(
         wrapper.cost,
         (current) => current.order,
-        (current, order) => (current.order = order)
+        (current, order) => (current.order = order),
       );
       return [...ascensions];
     });
@@ -126,7 +126,7 @@ export class AscensionsTabComponent extends AbstractModalComponent {
         cost,
         newOrder,
         (current) => current.order,
-        (current, order) => (current.order = order)
+        (current, order) => (current.order = order),
       );
       return changed ? [...ascensions] : ascensions;
     });

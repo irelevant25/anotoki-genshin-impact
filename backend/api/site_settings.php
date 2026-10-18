@@ -48,7 +48,7 @@ function siteSettingsAll(bool $reload = false): array
             'SELECT name, group_name, type, options, value, sort_order, updated_at, updated_by
                FROM site_settings
               WHERE site = ?
-              ORDER BY sort_order ASC, name ASC'
+              ORDER BY sort_order ASC, name ASC',
         );
         $statement->execute([currentSite()]);
 
@@ -185,10 +185,13 @@ function publicSiteSettings(): array
         // Null rather than a disabled announcement: the banner either has
         // something to say or is not there, and the front end should not have
         // to hold a message it must not draw.
-        'announcement' => $announcementOn && $announcement !== [] ? [
-            'level' => (string) siteSettingValue('announcement_level', 'info'),
-            'message' => $announcement,
-        ] : null,
+        'announcement' =>
+            $announcementOn && $announcement !== []
+                ? [
+                    'level' => (string) siteSettingValue('announcement_level', 'info'),
+                    'message' => $announcement,
+                ]
+                : null,
         // Which pages exist and who they are drawn for. Here rather than in a
         // read of its own because the menu needs it at the same moment as
         // everything else above, and two requests to draw one page is one

@@ -11,21 +11,9 @@
                     [name]="iconName(entry.quality)"
                     [pending]="pendingFor(entry.quality)"
                     (picked)="onPicked(entry.quality, $event)"
-                    (cleared)="onCleared(entry.quality)"
-                />
-                <app-textarea
-                    class="col-span-2"
-                    [label]="'Description'"
-                    [value]="description(entry.quality)"
-                    (inputChange)="onDescriptionChange(entry.quality, $event)"
-                    [rows]="4"
-                ></app-textarea>
-                <app-textarea
-                    [label]="'Effect'"
-                    [value]="effect(entry.quality)"
-                    (inputChange)="onEffectChange(entry.quality, $event)"
-                    [rows]="4"
-                ></app-textarea>
+                    (cleared)="onCleared(entry.quality)" />
+                <app-textarea class="col-span-2" [label]="'Description'" [value]="description(entry.quality)" (inputChange)="onDescriptionChange(entry.quality, $event)" [rows]="4"></app-textarea>
+                <app-textarea [label]="'Effect'" [value]="effect(entry.quality)" (inputChange)="onEffectChange(entry.quality, $event)" [rows]="4"></app-textarea>
             </app-field-container>
         </div>
     }

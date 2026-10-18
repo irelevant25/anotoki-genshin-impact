@@ -2,14 +2,14 @@
     <div class="sign-in-required">
         <span class="sign-in-required-mark icon icon-user" aria-hidden="true"></span>
 
-        <h1>{{ 'site.signInRequired.title' | translate }}</h1>
+        <h1>{{ "site.signInRequired.title" | translate }}</h1>
 
-        <p class="sign-in-required-text">{{ 'site.signInRequired.text' | translate }}</p>
+        <p class="sign-in-required-text">{{ "site.signInRequired.text" | translate }}</p>
 
         <!-- This browser played here as a visitor before sign-in became
              required: the key is kept, and signing in moves what it holds. -->
         @if (visitorKeyHeld()) {
-            <p class="sign-in-required-text">{{ 'visitor.comesWith' | translate }}</p>
+            <p class="sign-in-required-text">{{ "visitor.comesWith" | translate }}</p>
         }
 
         @if (signInFailure()) {
@@ -18,8 +18,8 @@
             <anotoki-sign-in-failure-route></anotoki-sign-in-failure-route>
         } @else {
             <div class="sign-in-required-actions">
-                <button anotokiButton variant="primary" [disabled]="!available()" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
-                <button anotokiButton [disabled]="!available()" (click)="createAccount()">{{ 'account.createAccount' | translate }}</button>
+                <button anotokiButton variant="primary" [disabled]="!available()" (click)="signIn()">{{ "common.signIn" | translate }}</button>
+                <button anotokiButton [disabled]="!available()" (click)="createAccount()">{{ "account.createAccount" | translate }}</button>
             </div>
         }
     </div>

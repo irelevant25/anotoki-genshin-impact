@@ -18,10 +18,7 @@ $app->get('/api/characters', function (Request $request, Response $response) {
 
 // GET all characters - minimal
 $app->get('/api/characters/minimal', function (Request $request, Response $response) use ($excludeCols) {
-    $characters = DbQuery::from(genshinDb(), 'characters')
-        ->excludeCols($excludeCols)
-        ->orderBy('name')
-        ->fetchAll();
+    $characters = DbQuery::from(genshinDb(), 'characters')->excludeCols($excludeCols)->orderBy('name')->fetchAll();
 
     return respondJson($response, $characters);
 })->add(responds('characters', list: true));
@@ -33,22 +30,14 @@ $app->get('/api/characters/{id:[0-9]+}', function (Request $request, Response $r
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
 
-    return $character
-        ? respondJson($response, $character)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $character ? respondJson($response, $character) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('characters'));
 
 // GET single random character
 $app->get('/api/character/random', function (Request $request, Response $response) use ($excludeCols) {
-    $characters = DbQuery::from(genshinDb(), 'characters')
-        ->excludeCols($excludeCols)
-        ->orderByRandom()
-        ->limit(1)
-        ->fetchAll();
+    $characters = DbQuery::from(genshinDb(), 'characters')->excludeCols($excludeCols)->orderByRandom()->limit(1)->fetchAll();
 
-    return isset($characters[0])
-        ? respondJson($response, $characters[0])
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return isset($characters[0]) ? respondJson($response, $characters[0]) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('characters', list: true));
 
 // POST create character
@@ -58,17 +47,18 @@ $app->post('/api/characters', function (Request $request, Response $response) us
 
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'characters', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'characters', [
-        ...Character::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'characters', [...Character::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
 
     $result = DbQuery::from($pdo, 'characters')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
 
     return respondJson($response, $result, 201);
-})->add(responds('characters'))->add(validateRequest(Character::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters'))
+    ->add(validateRequest(Character::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update character
 $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -81,10 +71,7 @@ $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $r
 
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'characters', $body, $user['id']);
-    DbQuery::update($pdo, 'characters', [
-        ...Character::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'characters', [...Character::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
 
     $character = DbQuery::from($pdo, 'characters')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
@@ -92,7 +79,11 @@ $app->put('/api/characters/{id:[0-9]+}', function (Request $request, Response $r
         ->find(['id' => $args['id']]);
 
     return respondJson($response, $character);
-})->add(responds('characters'))->add(validateRequest(Character::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters'))
+    ->add(validateRequest(Character::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE character
 $app->delete('/api/characters/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -104,4 +95,7 @@ $app->delete('/api/characters/{id:[0-9]+}', function (Request $request, Response
 
     DbQuery::update($pdo, 'characters', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('characters'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

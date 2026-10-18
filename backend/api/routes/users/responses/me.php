@@ -26,6 +26,5 @@ class SiteUser extends ResponseShape
         public readonly ?string $version,
         /** When they first arrived on this site: ISO 8601 in UTC. */
         public readonly ?string $created_at,
-    ) {
-    }
+    ) {}
 }

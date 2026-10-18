@@ -8,6 +8,5 @@ class CharacterBuildTeamCharacter extends DbModel
         public readonly ?int $character_id = null,
         public readonly ?string $element = null,
         public readonly bool $flex = false,
-    ) {
-    }
+    ) {}
 }

@@ -3,27 +3,27 @@
         <span class="icon icon-lock icon-size-6 no-access-mark" aria-hidden="true"></span>
 
         @if (user(); as user) {
-            <h1>{{ 'admin.noAccess.title' | translate }}</h1>
+            <h1>{{ "admin.noAccess.title" | translate }}</h1>
             <!-- The username is filled in rather than translated: it is a name. -->
-            <p>{{ 'admin.noAccess.text' | translate: { username: user.username } }}</p>
+            <p>{{ "admin.noAccess.text" | translate: { username: user.username } }}</p>
 
             <div class="no-access-actions">
-                <button anotokiButton (click)="switchAccount()">{{ 'admin.noAccess.switch' | translate }}</button>
+                <button anotokiButton (click)="switchAccount()">{{ "admin.noAccess.switch" | translate }}</button>
             </div>
         } @else {
-            <h1>{{ 'admin.noAccess.signInTitle' | translate }}</h1>
+            <h1>{{ "admin.noAccess.signInTitle" | translate }}</h1>
 
             @if (security.available()) {
-                <p>{{ 'admin.noAccess.signInText' | translate }}</p>
+                <p>{{ "admin.noAccess.signInText" | translate }}</p>
 
                 <div class="no-access-actions">
-                    <button anotokiButton variant="primary" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
+                    <button anotokiButton variant="primary" (click)="signIn()">{{ "common.signIn" | translate }}</button>
                 </div>
             } @else {
-                <p>{{ 'auth.unavailable' | translate }}</p>
+                <p>{{ "auth.unavailable" | translate }}</p>
             }
         }
 
-        <a class="link" routerLink="/">{{ 'admin.noAccess.back' | translate }}</a>
+        <a class="link" routerLink="/">{{ "admin.noAccess.back" | translate }}</a>
     </div>
 </main>

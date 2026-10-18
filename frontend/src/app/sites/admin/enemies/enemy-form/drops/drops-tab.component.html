@@ -12,7 +12,9 @@
                 <anotoki-disclosure [heading]="groupTitle(group, g)" [headingLevel]="2">
                     <div class="group-body">
                         <div class="group-actions">
-                            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Duplicate group" anotokiTooltip="Duplicate group" (click)="duplicateGroup(group)"><span class="icon icon-copy icon-size-3" aria-hidden="true"></span></button>
+                            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Duplicate group" anotokiTooltip="Duplicate group" (click)="duplicateGroup(group)">
+                                <span class="icon icon-copy icon-size-3" aria-hidden="true"></span>
+                            </button>
                             <button anotokiButton variant="danger" size="sm" (click)="removeGroup(group)">Delete group</button>
                         </div>
 
@@ -35,15 +37,25 @@
                                     <div class="drop-card">
                                         <anotoki-segmented label="Kind of drop" [options]="kindChoices" [value]="entry.kind" (valueChange)="onKindChange(entry, $event)" />
 
-                                        @if (entry.kind === 'material') {
-                                            <app-dropdown [options]="materialOptions()" [(value)]="entry.data.material_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— material —'"></app-dropdown>
+                                        @if (entry.kind === "material") {
+                                            <app-dropdown
+                                                [options]="materialOptions()"
+                                                [(value)]="entry.data.material_id"
+                                                [required]="true"
+                                                [emptyOption]="true"
+                                                [emptyOptionText]="'— material —'"></app-dropdown>
                                             <div class="drop-card-img">
                                                 @if (materialName(entry); as name) {
                                                     <img [appMaterialIcon]="name" [alt]="name" />
                                                 }
                                             </div>
                                         } @else {
-                                            <app-dropdown [options]="artifactOptions()" [(value)]="entry.data.artifact_id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— artifact —'"></app-dropdown>
+                                            <app-dropdown
+                                                [options]="artifactOptions()"
+                                                [(value)]="entry.data.artifact_id"
+                                                [required]="true"
+                                                [emptyOption]="true"
+                                                [emptyOptionText]="'— artifact —'"></app-dropdown>
                                             <div class="drop-card-img">
                                                 @if (artifactIcon(entry); as src) {
                                                     <img [src]="src" alt="" />
@@ -66,7 +78,9 @@
                                             class="align-self-center"
                                             aria-label="Remove drop"
                                             anotokiTooltip="Remove drop"
-                                            (click)="removeEntry(group, entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
+                                            (click)="removeEntry(group, entry)">
+                                            <span class="icon icon-delete" aria-hidden="true"></span>
+                                        </button>
                                     </div>
                                 }
                             </div>

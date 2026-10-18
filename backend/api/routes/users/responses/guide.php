@@ -20,8 +20,7 @@ class GuideResponse extends ResponseShape
         public readonly string $language,
         /** Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through. */
         public readonly string $html,
-    ) {
-    }
+    ) {}
 }
 
 /** A language the guides may be written in, offered to readers or not yet. */
@@ -35,8 +34,7 @@ class GuideEditorLanguage extends ResponseShape
         public readonly string $native_name,
         /** Offered to readers. A guide in a hidden language is written ahead and read once it is offered. */
         public readonly bool $enabled,
-    ) {
-    }
+    ) {}
 }
 
 /** One guide on the admin Guides page: its markup in every language that has some. */
@@ -46,8 +44,7 @@ class GuideEditorEntry extends ResponseShape
         public readonly string $guide,
         /** @var array<string, string> Language code to markup; a language without one reads the English. */
         public readonly array $values,
-    ) {
-    }
+    ) {}
 }
 
 /** `GET /api/admin/guides` - every guide, and every language, the hidden ones too. */
@@ -58,6 +55,5 @@ class GuideEditorView extends ResponseShape
         public readonly array $languages,
         /** @var GuideEditorEntry[] */
         public readonly array $guides,
-    ) {
-    }
+    ) {}
 }

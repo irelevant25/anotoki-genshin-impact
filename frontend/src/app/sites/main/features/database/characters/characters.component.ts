@@ -46,33 +46,35 @@ export class DatabaseCharactersComponent {
       .trim()
       .toLowerCase();
 
-    return this.characters().filter((character) => {
-      if (element && character.element !== element) {
-        return false;
-      }
-      if (weaponType && character.weapon_type !== weaponType) {
-        return false;
-      }
-      if (rarity !== null && Number(character.rarity) !== rarity) {
-        return false;
-      }
-      if (isChosen(region) && character.region !== region) {
-        return false;
-      }
-      if (isChosen(version) && character.version !== version) {
-        return false;
-      }
-      return !name || matchesTerm(character.name, name);
-    }).sort((a, b) => {
-      const releasedA = a.release_date ?? '';
-      const releasedB = b.release_date ?? '';
-      if (releasedA !== releasedB) {
-        if (!releasedA) return 1;
-        if (!releasedB) return -1;
-        return releasedB.localeCompare(releasedA);
-      }
-      return String(a.name).localeCompare(String(b.name));
-    });
+    return this.characters()
+      .filter((character) => {
+        if (element && character.element !== element) {
+          return false;
+        }
+        if (weaponType && character.weapon_type !== weaponType) {
+          return false;
+        }
+        if (rarity !== null && Number(character.rarity) !== rarity) {
+          return false;
+        }
+        if (isChosen(region) && character.region !== region) {
+          return false;
+        }
+        if (isChosen(version) && character.version !== version) {
+          return false;
+        }
+        return !name || matchesTerm(character.name, name);
+      })
+      .sort((a, b) => {
+        const releasedA = a.release_date ?? '';
+        const releasedB = b.release_date ?? '';
+        if (releasedA !== releasedB) {
+          if (!releasedA) return 1;
+          if (!releasedB) return -1;
+          return releasedB.localeCompare(releasedA);
+        }
+        return String(a.name).localeCompare(String(b.name));
+      });
   });
 
   constructor() {
@@ -93,7 +95,7 @@ export class DatabaseCharactersComponent {
         this.loading.set(false);
       },
       error: () => {
-        this.loading.set(false)
+        this.loading.set(false);
       },
     });
   }

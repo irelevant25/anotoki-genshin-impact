@@ -12,8 +12,7 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()"
-        >
+            (next)="next()">
             <div class="voice-question">
                 @if (voiceOver(); as line) {
                     @if (isQuestionComplete()) {

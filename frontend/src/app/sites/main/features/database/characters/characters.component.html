@@ -6,7 +6,7 @@
             <div class="px-5 py-2">
                 <div class="filters">
                     <div class="chip-block">
-                        <span class="chip-label">{{ 'database.filters.element' | translate }}</span>
+                        <span class="chip-label">{{ "database.filters.element" | translate }}</span>
                         <div class="chip-group">
                             @for (element of elements(); track element) {
                                 <button
@@ -15,8 +15,7 @@
                                     [class.selected]="filterElement() === element"
                                     [title]="element"
                                     [attr.aria-pressed]="filterElement() === element"
-                                    (click)="toggleElement(element)"
-                                >
+                                    (click)="toggleElement(element)">
                                     <img [appMaterialIcon]="element" [appAssetFolder]="'elements'" [alt]="element" loading="lazy" />
                                 </button>
                             }
@@ -24,7 +23,7 @@
                     </div>
 
                     <div class="chip-block">
-                        <span class="chip-label">{{ 'database.filters.weaponType' | translate }}</span>
+                        <span class="chip-label">{{ "database.filters.weaponType" | translate }}</span>
                         <div class="chip-group">
                             @for (weaponType of weaponTypes(); track weaponType) {
                                 <button
@@ -33,8 +32,7 @@
                                     [class.selected]="filterWeaponType() === weaponType"
                                     [title]="weaponType"
                                     [attr.aria-pressed]="filterWeaponType() === weaponType"
-                                    (click)="toggleWeaponType(weaponType)"
-                                >
+                                    (click)="toggleWeaponType(weaponType)">
                                     <img [appMaterialIcon]="weaponType" [appAssetFolder]="'weapon_types'" [alt]="weaponType" loading="lazy" />
                                 </button>
                             }
@@ -42,7 +40,7 @@
                     </div>
 
                     <div class="chip-block">
-                        <span class="chip-label">{{ 'database.filters.rarity' | translate }}</span>
+                        <span class="chip-label">{{ "database.filters.rarity" | translate }}</span>
                         <div class="chip-group">
                             @for (rarity of rarities(); track rarity) {
                                 <button
@@ -51,24 +49,33 @@
                                     [class]="'quality-' + rarity"
                                     [class.selected]="filterRarity() === rarity"
                                     [attr.aria-pressed]="filterRarity() === rarity"
-                                    (click)="toggleRarity(rarity)"
-                                >
+                                    (click)="toggleRarity(rarity)">
                                     {{ rarity }}&#9733;
                                 </button>
                             }
                         </div>
                     </div>
 
-                    <anotoki-select class="filter" [label]="'database.filters.region' | translate" [options]="regionOptions()" [(value)]="filterRegion" [placeholder]="'database.filters.anyRegion' | translate" />
+                    <anotoki-select
+                        class="filter"
+                        [label]="'database.filters.region' | translate"
+                        [options]="regionOptions()"
+                        [(value)]="filterRegion"
+                        [placeholder]="'database.filters.anyRegion' | translate" />
 
-                    <anotoki-select class="filter" [label]="'database.filters.version' | translate" [options]="versionOptions()" [(value)]="filterVersion" [placeholder]="'database.filters.anyVersion' | translate" />
+                    <anotoki-select
+                        class="filter"
+                        [label]="'database.filters.version' | translate"
+                        [options]="versionOptions()"
+                        [(value)]="filterVersion"
+                        [placeholder]="'database.filters.anyVersion' | translate" />
 
                     <anotoki-text-field class="filter" type="search" [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName" />
 
-                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ 'database.filters.reset' | translate }}</button>
+                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
                 </div>
 
-                <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredCharacters().length, total: characters().length } }}</div>
+                <div class="result-count">{{ "database.results.count" | translate: { shown: filteredCharacters().length, total: characters().length } }}</div>
 
                 <div class="card-grid">
                     @for (character of filteredCharacters(); track character.id) {
@@ -80,8 +87,7 @@
                                     [appAssetFolder]="'elements'"
                                     [alt]="character.element"
                                     [title]="character.element"
-                                    loading="lazy"
-                                />
+                                    loading="lazy" />
                             }
                             @if (character.weapon_type) {
                                 <img
@@ -90,20 +96,13 @@
                                     [appAssetFolder]="'weapon_types'"
                                     [alt]="character.weapon_type"
                                     [title]="character.weapon_type"
-                                    loading="lazy"
-                                />
+                                    loading="lazy" />
                             }
-                            <img
-                                [appMaterialIcon]="character.icon_name ?? character.name"
-                                [appAssetFolder]="'character.icon'"
-                                [alt]="character.name"
-                                [title]="character.name"
-                                loading="lazy"
-                            />
+                            <img [appMaterialIcon]="character.icon_name ?? character.name" [appAssetFolder]="'character.icon'" [alt]="character.name" [title]="character.name" loading="lazy" />
                             <div class="name">{{ character.name }}</div>
                         </a>
                     } @empty {
-                        <div class="no-results">{{ 'database.results.none' | translate }}</div>
+                        <div class="no-results">{{ "database.results.none" | translate }}</div>
                     }
                 </div>
             </div>

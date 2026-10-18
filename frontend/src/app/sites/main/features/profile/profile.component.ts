@@ -66,18 +66,7 @@ const ACTIVITY_WEEKS = 52;
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  imports: [
-    RouterModule,
-    DecimalPipe,
-    LoaderComponent,
-    TranslatePipe,
-    AppDatePipe,
-    MaterialIconDirective,
-    ButtonComponent,
-    ActivityGridComponent,
-    TabsComponent,
-    VisitorNoticeComponent,
-  ],
+  imports: [RouterModule, DecimalPipe, LoaderComponent, TranslatePipe, AppDatePipe, MaterialIconDirective, ButtonComponent, ActivityGridComponent, TabsComponent, VisitorNoticeComponent],
 })
 export class ProfileComponent {
   private readonly _quizApi = inject(QuizApiService);

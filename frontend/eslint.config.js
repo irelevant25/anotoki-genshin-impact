@@ -20,16 +20,13 @@ export default tseslint.config(
       'src/app/generated/',
       // The anotoki IAM's browser SDK, vendored as the IAM ships it. It is
       // updated by copying a new version over it, never by editing it here.
-      'src/app/shared/local-lib/iam/'
-    ]
+      'src/app/shared/local-lib/iam/',
+    ],
   },
   // TypeScript files configuration
   {
     files: ['**/*.ts', '**/*.tsx'],
-    extends: [
-      ...tseslint.configs.recommended,
-      eslintConfigPrettier,
-    ],
+    extends: [...tseslint.configs.recommended, eslintConfigPrettier],
     plugins: {
       '@angular-eslint': angular,
     },
@@ -51,7 +48,7 @@ export default tseslint.config(
       'prefer-const': 'error',
       'prefer-template': 'error',
       'object-shorthand': 'error',
-      'curly': ['error', 'all'],
+      curly: ['error', 'all'],
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/naming-convention': [
         'error',
@@ -59,16 +56,16 @@ export default tseslint.config(
           selector: 'classProperty',
           modifiers: ['private'],
           format: ['camelCase'],
-          leadingUnderscore: 'require'
+          leadingUnderscore: 'require',
         },
         {
           selector: 'parameterProperty',
           modifiers: ['private'],
           format: ['camelCase'],
-          leadingUnderscore: 'require'
-        }
-      ]
-    }
+          leadingUnderscore: 'require',
+        },
+      ],
+    },
   },
   // HTML template files configuration - SEPARATE from TypeScript
   {
@@ -78,7 +75,7 @@ export default tseslint.config(
     },
     plugins: {
       '@angular-eslint/template': angularTemplate,
-      'local': {
+      local: {
         rules: localRules,
       },
     },

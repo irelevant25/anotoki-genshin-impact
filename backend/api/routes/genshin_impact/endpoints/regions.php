@@ -12,9 +12,7 @@ $app->get('/api/regions/{name}', function (Request $request, Response $response,
     $stmt = genshinDb()->prepare('SELECT * FROM regions WHERE name = ?');
     $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('regions'));
 
 $app->post('/api/regions', function (Request $request, Response $response) {
@@ -24,7 +22,11 @@ $app->post('/api/regions', function (Request $request, Response $response) {
     $stmt = $pdo->prepare('SELECT * FROM regions WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('regions'))->add(validateRequest(Region::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('regions'))
+    ->add(validateRequest(Region::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/regions/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +37,7 @@ $app->delete('/api/regions/{name}', function (Request $request, Response $respon
     }
     $pdo->prepare('DELETE FROM regions WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('regions'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('regions'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

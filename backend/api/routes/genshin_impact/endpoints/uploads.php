@@ -55,7 +55,7 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     $folder = $fieldSpec['folder'] ?? null;
     $suggested = null;
     if (isset($spec['resolver'])) {
-        $resolved = ($spec['resolver'])($pdo, $row, $field);
+        $resolved = $spec['resolver']($pdo, $row, $field);
         if (!$resolved) {
             return respondJson($response, ['error' => 'Row is missing the data needed to place this file'], 409);
         }
@@ -71,7 +71,7 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     // used, so an upload without one still lands where the site expects.
     $body = $request->getParsedBody() ?? [];
     $requested = trim((string) ($body['name'] ?? ''));
-    $baseName = $requested !== '' ? _assetPathSegment($requested) : ($suggested ?? _defaultUploadName($pdo, $spec, $fieldSpec, $row));
+    $baseName = $requested !== '' ? _assetPathSegment($requested) : $suggested ?? _defaultUploadName($pdo, $spec, $fieldSpec, $row);
 
     if ($baseName === null || $baseName === '') {
         return respondJson($response, ['error' => 'A file name is required'], 422);
@@ -91,10 +91,15 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
     resolveAssetBody($pdo, $spec['table'], $toResolve, (int) $user['id']);
     $fileId = $toResolve["{$field}_file_id"] ?? null;
 
-    DbQuery::update($pdo, $spec['table'], [
-        "{$field}_file_id" => $fileId,
-        'updated_by' => $user['id'],
-    ], $id);
+    DbQuery::update(
+        $pdo,
+        $spec['table'],
+        [
+            "{$field}_file_id" => $fileId,
+            'updated_by' => $user['id'],
+        ],
+        $id,
+    );
 
     $nameColumn = array_key_exists('name_column', $fieldSpec) ? $fieldSpec['name_column'] : $field . '_name';
 
@@ -109,7 +114,10 @@ $app->post('/api/uploads/{entity}/{id}/{field}', function (Request $request, Res
         'path' => $path,
         'fileId' => $fileId,
     ]);
-})->add(responds(RecordUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(RecordUploadResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── POST /api/uploads/{entity}/{field} ────────────────────────────────────────
 //
@@ -168,8 +176,10 @@ $app->post('/api/uploads/{entity}/{field}', function (Request $request, Response
         'path' => $path,
         'fileId' => $toResolve["{$field}_file_id"] ?? null,
     ]);
-})->add(responds(EntityUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
-
+})
+    ->add(responds(EntityUploadResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /**
  * Writes into the served asset tree rather than public/uploads, so the file is
@@ -258,12 +268,8 @@ function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio 
 function _convertAssetUpload(string $stored, string $targetStem, string $ext, bool $audio): ?string
 {
     if ($audio) {
-        return in_array($ext, UPLOAD_CONVERT_TO_OPUS, true) && mediaToOpus($stored, $targetStem . '.opus')
-            ? 'opus'
-            : null;
+        return in_array($ext, UPLOAD_CONVERT_TO_OPUS, true) && mediaToOpus($stored, $targetStem . '.opus') ? 'opus' : null;
     }
 
-    return in_array($ext, UPLOAD_CONVERT_TO_AVIF, true) && mediaToAvif($stored, $targetStem . '.avif')
-        ? 'avif'
-        : null;
+    return in_array($ext, UPLOAD_CONVERT_TO_AVIF, true) && mediaToAvif($stored, $targetStem . '.avif') ? 'avif' : null;
 }

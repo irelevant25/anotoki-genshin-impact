@@ -131,9 +131,7 @@ function migrationSets(?string $only = null): array
     $sets = [];
     foreach (migrationSetNames() as $name) {
         if ($only === null || $only === $name) {
-            $sets[] = in_array($name, MIGRATION_FOLDERS, true)
-                ? new MigrationSet($name, migrationsRoot() . '/' . $name)
-                : libraryMigrationSet($name);
+            $sets[] = in_array($name, MIGRATION_FOLDERS, true) ? new MigrationSet($name, migrationsRoot() . '/' . $name) : libraryMigrationSet($name);
         }
     }
 
@@ -242,16 +240,9 @@ function ensureDatabase(array $config, string $name): bool
     $driver = $config['driver'];
 
     if ($driver === 'pgsql') {
-        $server = new PDO(
-            "pgsql:host={$config['host']};port={$config['port']};dbname=postgres",
-            $config['username'],
-            $config['password'],
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-        );
+        $server = new PDO("pgsql:host={$config['host']};port={$config['port']};dbname=postgres", $config['username'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-        $exists = (int) $server
-            ->query('SELECT count(*) FROM pg_catalog.pg_database WHERE datname = ' . $server->quote($name))
-            ->fetchColumn();
+        $exists = (int) $server->query('SELECT count(*) FROM pg_catalog.pg_database WHERE datname = ' . $server->quote($name))->fetchColumn();
 
         if ($exists > 0) {
             return false;
@@ -267,8 +258,7 @@ function ensureDatabase(array $config, string $name): bool
     }
 
     throw new RuntimeException(
-        "Unsupported driver '{$driver}'. This installation is PostgreSQL: the migrations use "
-        . "ADD COLUMN IF NOT EXISTS, FILTER, and dollar-quoted trigger functions, none of which MySQL has."
+        "Unsupported driver '{$driver}'. This installation is PostgreSQL: the migrations use " . 'ADD COLUMN IF NOT EXISTS, FILTER, and dollar-quoted trigger functions, none of which MySQL has.',
     );
 }
 
@@ -293,13 +283,15 @@ function ensureMigrationsTable(PDO $pdo): void
             filename   VARCHAR(255)    NOT NULL,
             applied_at TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
             UNIQUE (folder, filename)
-        )'
+        )',
     );
 
-    $hasFolder = (bool) $pdo->query(
-        "SELECT 1 FROM information_schema.columns
-          WHERE table_schema = current_schema() AND table_name = 'migrations' AND column_name = 'folder'"
-    )->fetchColumn();
+    $hasFolder = (bool) $pdo
+        ->query(
+            "SELECT 1 FROM information_schema.columns
+          WHERE table_schema = current_schema() AND table_name = 'migrations' AND column_name = 'folder'",
+        )
+        ->fetchColumn();
 
     if (!$hasFolder) {
         migrationsTableAddFolder($pdo);
@@ -333,7 +325,7 @@ function migrationsTableAddFolder(PDO $pdo): void
                                 WHERE conrelid = 'migrations'::regclass AND conname = 'migrations_folder_filename_key') THEN
                     ALTER TABLE migrations ADD CONSTRAINT migrations_folder_filename_key UNIQUE (folder, filename);
                 END IF;
-            END \$\$"
+            END \$\$",
         );
 
         if ($ownTransaction) {
@@ -411,14 +403,14 @@ function recordedMigrationRows(PDO $pdo): array
         return [];
     }
 
-    $hasFolder = (bool) $pdo->query(
-        "SELECT 1 FROM information_schema.columns
-          WHERE table_schema = current_schema() AND table_name = 'migrations' AND column_name = 'folder'"
-    )->fetchColumn();
+    $hasFolder = (bool) $pdo
+        ->query(
+            "SELECT 1 FROM information_schema.columns
+          WHERE table_schema = current_schema() AND table_name = 'migrations' AND column_name = 'folder'",
+        )
+        ->fetchColumn();
 
-    $rows = $pdo->query(
-        'SELECT id, ' . ($hasFolder ? 'folder' : 'NULL AS folder') . ', filename, applied_at FROM migrations ORDER BY applied_at ASC, id ASC'
-    )->fetchAll(PDO::FETCH_ASSOC);
+    $rows = $pdo->query('SELECT id, ' . ($hasFolder ? 'folder' : 'NULL AS folder') . ', filename, applied_at FROM migrations ORDER BY applied_at ASC, id ASC')->fetchAll(PDO::FETCH_ASSOC);
 
     if (!$hasFolder) {
         $folder = migrationsFolderOf(array_column($rows, 'filename'), $pdo);
@@ -471,20 +463,22 @@ function migrationsOrderRefusal(array $recorded, ?string $only = null): ?string
                 continue;
             }
             if (in_array($next, MIGRATION_FOLDERS, true)) {
-                return "This database has run migrations/{$next}/ but not migrations/{$set}/, which comes first - it is"
-                    . ' the content half of a site that still has two databases, or a folder was applied on its own.'
-                    . " Applying migrations/{$set}/ over it would build the site's half on top of the content's tables."
-                    . ' Merge the other half in with `php merge-databases.php`, or install into an empty database.';
+                return "This database has run migrations/{$next}/ but not migrations/{$set}/, which comes first - it is" .
+                    ' the content half of a site that still has two databases, or a folder was applied on its own.' .
+                    " Applying migrations/{$set}/ over it would build the site's half on top of the content's tables." .
+                    ' Merge the other half in with `php merge-databases.php`, or install into an empty database.';
             }
 
-            return 'This database has run ' . migrationSetLabel($next) . ' but not ' . migrationSetLabel($set)
-                . ', which comes before it - a set was applied on its own. What comes first would now build on what came'
-                . ' after it, so nothing more is applied here: install into an empty database.';
+            return 'This database has run ' .
+                migrationSetLabel($next) .
+                ' but not ' .
+                migrationSetLabel($set) .
+                ', which comes before it - a set was applied on its own. What comes first would now build on what came' .
+                ' after it, so nothing more is applied here: install into an empty database.';
         }
 
         if ($only !== null && in_array($only, $later, true)) {
-            return migrationSetLabel($set) . ' comes before ' . migrationSetLabel($only)
-                . ' and has not run here: apply it first, or apply everything.';
+            return migrationSetLabel($set) . ' comes before ' . migrationSetLabel($only) . ' and has not run here: apply it first, or apply everything.';
         }
     }
 

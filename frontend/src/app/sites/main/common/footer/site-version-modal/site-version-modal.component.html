@@ -5,7 +5,7 @@
                 <div class="version-number">
                     v{{ entry.version }}
                     @if (index === 0) {
-                        <span>{{ 'changelog.latest' | translate }}</span>
+                        <span>{{ "changelog.latest" | translate }}</span>
                     }
                 </div>
                 <div class="version-date">{{ formatDate(entry.date) }}</div>
@@ -15,14 +15,14 @@
                 <div class="changes-section">
                     <div class="section-title added">
                         <span class="icon icon-add"></span>
-                        {{ 'changelog.added' | translate }}
+                        {{ "changelog.added" | translate }}
                     </div>
                     <ul class="changes-list added">
                         @for (item of entry.changes.added; track item) {
                             <li>
                                 {{ item }}
                                 @if (index === 0) {
-                                    <anotoki-badge tone="success">{{ 'changelog.new' | translate }}</anotoki-badge>
+                                    <anotoki-badge tone="success">{{ "changelog.new" | translate }}</anotoki-badge>
                                 }
                             </li>
                         }
@@ -34,7 +34,7 @@
                 <div class="changes-section">
                     <div class="section-title fixed">
                         <span class="icon icon-chevron-down"></span>
-                        {{ 'changelog.fixed' | translate }}
+                        {{ "changelog.fixed" | translate }}
                     </div>
                     @if (entry.changes.fixed && entry.changes.fixed.length > 0) {
                         <ul class="changes-list fixed">
@@ -43,7 +43,7 @@
                             }
                         </ul>
                     } @else {
-                        <div class="empty-notice">{{ 'changelog.noFixes' | translate }}</div>
+                        <div class="empty-notice">{{ "changelog.noFixes" | translate }}</div>
                     }
                 </div>
             }
@@ -52,7 +52,7 @@
                 <div class="changes-section">
                     <div class="section-title updated">
                         <span class="icon icon-clock"></span>
-                        {{ 'changelog.updated' | translate }}
+                        {{ "changelog.updated" | translate }}
                     </div>
                     <ul class="changes-list updated">
                         @for (item of entry.changes.updated; track item) {

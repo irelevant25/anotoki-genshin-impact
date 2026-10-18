@@ -7,20 +7,10 @@
         <app-html-editor [label]="'Text'" [value]="text()" (valueChange)="onTextChange($event)" [minHeight]="'120px'" [displayError]="false"></app-html-editor>
     </app-field-container>
     <div class="audio-row">
-        <app-file
-            [label]="'Audio File'"
-            [buttonOutline]="true"
-            [acceptedExtensions]="audioExtensions"
-            (inputChange)="onAudioSelect($event)"
-        ></app-file>
+        <app-file [label]="'Audio File'" [buttonOutline]="true" [acceptedExtensions]="audioExtensions" (inputChange)="onAudioSelect($event)"></app-file>
         @if (audioLabel(); as label) {
             <div class="audio-preview">
-                <button
-                    anotokiButton
-                    size="sm"
-                    iconOnly
-                    [attr.aria-label]="isPlaying() ? 'Stop' : 'Play'"
-                    (click)="togglePlay()">
+                <button anotokiButton size="sm" iconOnly [attr.aria-label]="isPlaying() ? 'Stop' : 'Play'" (click)="togglePlay()">
                     <span [class]="'icon ' + (isPlaying() ? 'icon-stop' : 'icon-play')" aria-hidden="true"></span>
                 </button>
                 <span class="audio-filename">{{ label }}</span>

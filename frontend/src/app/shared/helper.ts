@@ -28,26 +28,26 @@ export const HELPER = {
   },
 
   /**
- * Shuffles array elements randomly
- *
- * @param {Array} array - Array to shuffle
- * @returns {Array} Shuffled array
- */
+   * Shuffles array elements randomly
+   *
+   * @param {Array} array - Array to shuffle
+   * @returns {Array} Shuffled array
+   */
   shuffleArray(array: any[]): any[] {
     return [...array].sort(() => Math.random() - 0.5);
   },
 
   /**
- * Gets a random character from the given array or from the full list of characters
- * if no filter is provided.
- *
- * @param {Function} [filterFn] - Optional filter function to filter the characters
- * @returns {Object} A random character object from the filtered array
- * @throws {Error} If no characters match the filter criteria
- */
+   * Gets a random character from the given array or from the full list of characters
+   * if no filter is provided.
+   *
+   * @param {Function} [filterFn] - Optional filter function to filter the characters
+   * @returns {Object} A random character object from the filtered array
+   * @throws {Error} If no characters match the filter criteria
+   */
   getRandomCharacter(filterFn?: any): any {
     // Determine which array to choose from
-    const pool = typeof filterFn === 'function' ? (CHARACTERS).filter(filterFn) : CHARACTERS;
+    const pool = typeof filterFn === 'function' ? CHARACTERS.filter(filterFn) : CHARACTERS;
 
     // Handle the case where no items match the filter
     if (pool.length === 0) {
@@ -69,10 +69,10 @@ export const HELPER = {
   },
 
   /**
- * Returns today's date as a string in the format 'YYYY-MM-DD'.
- *
- * @returns {string} Today's date as a string in the format 'YYYY-MM-DD'.
- */
+   * Returns today's date as a string in the format 'YYYY-MM-DD'.
+   *
+   * @returns {string} Today's date as a string in the format 'YYYY-MM-DD'.
+   */
   getTodayString(): string {
     return new Date().toJSON().slice(0, 10);
   },
@@ -247,5 +247,5 @@ export const HELPER = {
     };
 
     return api;
-  }
-}
+  },
+};

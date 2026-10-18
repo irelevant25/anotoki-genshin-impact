@@ -67,9 +67,13 @@ function cleanupReferencedPaths(PDO $pdo): array
         $paths[$relative] = true;
     }
 
-    $columns = $pdo->query("
+    $columns = $pdo
+        ->query(
+            "
         SELECT table_name, column_name FROM information_schema.columns
-        WHERE table_schema = 'public' AND data_type IN ('character varying', 'text')")->fetchAll(PDO::FETCH_ASSOC);
+        WHERE table_schema = 'public' AND data_type IN ('character varying', 'text')",
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($columns as $column) {
         [$table, $name] = [$column['table_name'], $column['column_name']];
@@ -310,12 +314,18 @@ function cleanupStep(PDO $pdo, int $limit, ?int $by): ?array
     if ($queue['finished']) {
         // One entry for the run rather than forty thousand for the files, and
         // this one does carry a name: somebody chose it, unlike a reconcile.
-        auditFile($pdo, 0, 'DELETE', [
-            'what' => 'cleanup of ' . $queue['kind'] . ' originals',
-            'trashed' => $queue['trashed'],
-            'kept' => $queue['kept'],
-            'failed' => $queue['failed'],
-        ], $by);
+        auditFile(
+            $pdo,
+            0,
+            'DELETE',
+            [
+                'what' => 'cleanup of ' . $queue['kind'] . ' originals',
+                'trashed' => $queue['trashed'],
+                'kept' => $queue['kept'],
+                'failed' => $queue['failed'],
+            ],
+            $by,
+        );
 
         assetStatsForget();
         _assetFolderCacheClear();

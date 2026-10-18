@@ -86,10 +86,7 @@ function assetsByFolder(): array
     $root = realpath(ASSETS_ROOT);
     $byFolder = [];
 
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         if ($info->isDir()) {
@@ -112,10 +109,14 @@ function assetsByFolder(): array
  */
 function assetPathColumns(PDO $pdo): array
 {
-    $columns = $pdo->query("
+    $columns = $pdo
+        ->query(
+            "
         SELECT table_name, column_name FROM information_schema.columns
         WHERE table_schema = 'public' AND data_type IN ('character varying', 'text')
-        ORDER BY table_name, column_name")->fetchAll(PDO::FETCH_ASSOC);
+        ORDER BY table_name, column_name",
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     $found = [];
     foreach ($columns as $column) {
@@ -208,13 +209,13 @@ function status(PDO $pdo): void
         }
     }
 
-    echo "files on disk                       : ", number_format($files), "\n";
-    echo "distinct files the database names   : ", number_format(count($referenced)), "\n";
-    echo "  pointing at nothing on disk       : ", number_format($missing), "\n";
-    echo "  still pointing at a source format : ", number_format($servingSource), "\n";
-    echo "    with a converted file ready     : ", number_format($couldServeConverted), "   <- what --repoint would switch\n";
-    echo "    with none                       : ", number_format($noTwin), "\n";
-    echo "files nothing in the database names : ", number_format($unreferenced), "\n";
+    echo 'files on disk                       : ', number_format($files), "\n";
+    echo 'distinct files the database names   : ', number_format(count($referenced)), "\n";
+    echo '  pointing at nothing on disk       : ', number_format($missing), "\n";
+    echo '  still pointing at a source format : ', number_format($servingSource), "\n";
+    echo '    with a converted file ready     : ', number_format($couldServeConverted), "   <- what --repoint would switch\n";
+    echo '    with none                       : ', number_format($noTwin), "\n";
+    echo 'files nothing in the database names : ', number_format($unreferenced), "\n";
 }
 
 // ── Align ────────────────────────────────────────────────────────────────────
@@ -369,16 +370,14 @@ function repoint(PDO $pdo, bool $apply): void
 
     try {
         foreach ($changes as $change) {
-            $statement = $pdo->prepare(
-                "UPDATE \"{$change['table']}\" SET \"{$change['column']}\" = :to WHERE \"{$change['column']}\" = :from"
-            );
+            $statement = $pdo->prepare("UPDATE \"{$change['table']}\" SET \"{$change['column']}\" = :to WHERE \"{$change['column']}\" = :from");
             $statement->execute(['to' => $change['to'], 'from' => $change['from']]);
             $written += $statement->rowCount();
         }
         $pdo->commit();
     } catch (Throwable $e) {
         $pdo->rollBack();
-        echo "rolled back: ", $e->getMessage(), "\n";
+        echo 'rolled back: ', $e->getMessage(), "\n";
         exit(1);
     }
 
@@ -397,17 +396,29 @@ function reconcile(PDO $pdo, bool $apply): void
 {
     $compare = catalogueCompare($pdo);
 
-    echo 'files on disk        : ', number_format($compare['on_disk']), "
+    echo 'files on disk        : ',
+        number_format($compare['on_disk']),
+        "
 ";
-    echo 'already catalogued   : ', number_format($compare['catalogued']), "
+    echo 'already catalogued   : ',
+        number_format($compare['catalogued']),
+        "
 ";
-    echo 'to adopt             : ', number_format(count($compare['adopt'])), "
+    echo 'to adopt             : ',
+        number_format(count($compare['adopt'])),
+        "
 ";
-    echo 'size changed         : ', number_format(count($compare['resized'])), "
+    echo 'size changed         : ',
+        number_format(count($compare['resized'])),
+        "
 ";
-    echo 'in no category       : ', number_format(count($compare['strays'])), "   (would move to unfiled/)
+    echo 'in no category       : ',
+        number_format(count($compare['strays'])),
+        "   (would move to unfiled/)
 ";
-    echo 'catalogued but gone  : ', number_format(count($compare['vanished'])), "
+    echo 'catalogued but gone  : ',
+        number_format(count($compare['vanished'])),
+        "
 ";
     foreach (array_slice($compare['vanished'], 0, 5) as $gone) {
         echo "    $gone
@@ -423,16 +434,23 @@ function reconcile(PDO $pdo, bool $apply): void
     $result = catalogueReconcile($pdo);
 
     if (isset($result['error'])) {
-        echo $result['error'], "
+        echo $result['error'],
+            "
 ";
         exit(1);
     }
 
-    echo 'adopted           : ', number_format($result['adopted']), "
+    echo 'adopted           : ',
+        number_format($result['adopted']),
+        "
 ";
-    echo 'moved to unfiled  : ', number_format($result['moved_to_unfiled']), "
+    echo 'moved to unfiled  : ',
+        number_format($result['moved_to_unfiled']),
+        "
 ";
-    echo 'resized           : ', number_format($result['resized']), "
+    echo 'resized           : ',
+        number_format($result['resized']),
+        "
 ";
 }
 
@@ -476,9 +494,7 @@ function revertLog(PDO $pdo, string $file): void
         $pdo->beginTransaction();
         $back = 0;
         foreach (array_reverse($log['changes']) as $change) {
-            $statement = $pdo->prepare(
-                "UPDATE \"{$change['table']}\" SET \"{$change['column']}\" = :from WHERE \"{$change['column']}\" = :to"
-            );
+            $statement = $pdo->prepare("UPDATE \"{$change['table']}\" SET \"{$change['column']}\" = :from WHERE \"{$change['column']}\" = :to");
             $statement->execute(['from' => $change['from'], 'to' => $change['to']]);
             $back += $statement->rowCount();
         }

@@ -28,7 +28,7 @@ declare(strict_types=1);
 
 if (PHP_SAPI !== 'cli') {
     http_response_code(404);
-    exit;
+    exit();
 }
 
 const BACKEND = __DIR__ . '/../..';
@@ -50,11 +50,7 @@ function serverPdo(string $database): PDO
     if (!is_array($config) || !isset($config['host'], $config['username'])) {
         fail('config/database.local.php does not name a server');
     }
-    $pdo = new PDO(
-        "pgsql:host={$config['host']};port=" . ($config['port'] ?? 5432) . ";dbname=$database",
-        (string) $config['username'],
-        (string) ($config['password'] ?? ''),
-    );
+    $pdo = new PDO("pgsql:host={$config['host']};port=" . ($config['port'] ?? 5432) . ";dbname=$database", (string) $config['username'], (string) ($config['password'] ?? ''));
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
@@ -94,7 +90,9 @@ function copyTree(string $from, string $to): void
 /** @return array<string, array{type: string, nullable: bool, default: bool}> */
 function columnsOf(PDO $pdo, string $table): array
 {
-    $statement = $pdo->prepare('SELECT column_name, data_type, is_nullable, column_default FROM information_schema.columns WHERE table_schema = current_schema() AND table_name = ? ORDER BY ordinal_position');
+    $statement = $pdo->prepare(
+        'SELECT column_name, data_type, is_nullable, column_default FROM information_schema.columns WHERE table_schema = current_schema() AND table_name = ? ORDER BY ordinal_position',
+    );
     $statement->execute([$table]);
     $columns = [];
     foreach ($statement as $row) {
@@ -107,13 +105,16 @@ function columnsOf(PDO $pdo, string $table): array
 /** @return array<string, array{table: string, column: string}> what each column of $table points at */
 function foreignKeysOf(PDO $pdo, string $table): array
 {
-    $statement = $pdo->prepare(<<<'SQL'
+    $statement = $pdo->prepare(
+        <<<'SQL'
         SELECT kcu.column_name, ccu.table_name AS ref_table, ccu.column_name AS ref_column
         FROM information_schema.table_constraints tc
         JOIN information_schema.key_column_usage kcu ON kcu.constraint_name = tc.constraint_name AND kcu.table_schema = tc.table_schema
         JOIN information_schema.constraint_column_usage ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema
         WHERE tc.constraint_type = 'FOREIGN KEY' AND tc.table_schema = current_schema() AND tc.table_name = ?
-        SQL);
+        SQL
+        ,
+    );
     $statement->execute([$table]);
     $keys = [];
     foreach ($statement as $row) {
@@ -167,7 +168,12 @@ function seed(PDO $pdo, string $table, array $values): ?int
     $names = array_keys($values);
     $returning = isset($columns['id']) ? ' RETURNING id' : '';
     // A row of nothing but defaults (a set that is only an id) has no column to name.
-    $statement = $pdo->prepare('INSERT INTO ' . quoteName($table) . ($names === [] ? ' DEFAULT VALUES' : ' (' . implode(', ', array_map('quoteName', $names)) . ') VALUES (' . implode(', ', array_fill(0, count($names), '?')) . ')') . $returning);
+    $statement = $pdo->prepare(
+        'INSERT INTO ' .
+            quoteName($table) .
+            ($names === [] ? ' DEFAULT VALUES' : ' (' . implode(', ', array_map('quoteName', $names)) . ') VALUES (' . implode(', ', array_fill(0, count($names), '?')) . ')') .
+            $returning,
+    );
     $statement->execute(array_values($values));
 
     return $returning ? (int) $statement->fetchColumn() : null;
@@ -178,53 +184,84 @@ function seedContent(PDO $pdo): void
     $by = ['created_by' => 1];
 
     $foods = [];
-    foreach ([
-        ['Sweet Madame', 'Mondstadt', 2, 'Recovery Dish'],
-        ['Jade Parcels', 'Liyue', 4, 'ATK-Boosting Dish'],
-        ['Fontainian Onion Soup', 'Fontaine', 3, 'Recovery Dish'],
-    ] as [$name, $region, $rarity, $type]) {
-        $foods[$name] = seed($pdo, 'foods', $by + [
-            'name' => $name, 'region' => $region, 'rarity' => $rarity, 'type' => typeOr($pdo, 'food_types', $type),
-            'description_normal' => 'A dish that restores the spirits of whoever eats it.', 'version' => '1.0',
-        ]);
+    foreach (
+        [['Sweet Madame', 'Mondstadt', 2, 'Recovery Dish'], ['Jade Parcels', 'Liyue', 4, 'ATK-Boosting Dish'], ['Fontainian Onion Soup', 'Fontaine', 3, 'Recovery Dish']]
+        as [$name, $region, $rarity, $type]
+    ) {
+        $foods[$name] = seed(
+            $pdo,
+            'foods',
+            $by + [
+                'name' => $name,
+                'region' => $region,
+                'rarity' => $rarity,
+                'type' => typeOr($pdo, 'food_types', $type),
+                'description_normal' => 'A dish that restores the spirits of whoever eats it.',
+                'version' => '1.0',
+            ],
+        );
     }
 
     $characters = [];
-    foreach ([
-        ['Hu Tao', 'Pyro', 'Polearm', 5, 'Liyue', 'Short Female', 'Fragrance in Thaw', '1.3'],
-        ['Xiangling', 'Pyro', 'Polearm', 4, 'Liyue', 'Short Female', 'Exquisite Delicacy', '1.0'],
-        ['Furina', 'Hydro', 'Sword', 5, 'Fontaine', 'Medium Female', 'Endless Solo of Solitude', '4.2'],
-        ['Bennett', 'Pyro', 'Sword', 4, 'Mondstadt', 'Medium Male', 'Trial by Fire', '1.0'],
-        ['Nahida', 'Dendro', 'Catalyst', 5, 'Sumeru', 'Short Female', 'Physic of Purity', '3.2'],
-        ['Kaeya', 'Cryo', 'Sword', 4, 'Mondstadt', 'Tall Male', 'Frostwind Swordsman', '1.0'],
-    ] as [$name, $element, $weapon, $rarity, $region, $model, $title, $version]) {
-        $characters[$name] = seed($pdo, 'characters', $by + [
-            'name' => $name, 'element' => $element, 'weapon_type' => $weapon, 'rarity' => $rarity, 'region' => $region,
-            'model' => $model, 'title' => $title, 'version' => $version, 'release_date' => '2024-01-01', 'birthday' => '2000-07-15',
-            'namecard_description' => "$name's namecard.", 'voice_actor_english' => 'Sample', 'voice_actor_japanese' => 'Sample',
-            'voice_actor_korean' => 'Sample', 'voice_actor_chinese' => 'Sample',
-            'affiliations' => ['Wangsheng Funeral Parlor'], 'how_to_obtain' => ['Wish'],
-        ]);
+    foreach (
+        [
+            ['Hu Tao', 'Pyro', 'Polearm', 5, 'Liyue', 'Short Female', 'Fragrance in Thaw', '1.3'],
+            ['Xiangling', 'Pyro', 'Polearm', 4, 'Liyue', 'Short Female', 'Exquisite Delicacy', '1.0'],
+            ['Furina', 'Hydro', 'Sword', 5, 'Fontaine', 'Medium Female', 'Endless Solo of Solitude', '4.2'],
+            ['Bennett', 'Pyro', 'Sword', 4, 'Mondstadt', 'Medium Male', 'Trial by Fire', '1.0'],
+            ['Nahida', 'Dendro', 'Catalyst', 5, 'Sumeru', 'Short Female', 'Physic of Purity', '3.2'],
+            ['Kaeya', 'Cryo', 'Sword', 4, 'Mondstadt', 'Tall Male', 'Frostwind Swordsman', '1.0'],
+        ]
+        as [$name, $element, $weapon, $rarity, $region, $model, $title, $version]
+    ) {
+        $characters[$name] = seed(
+            $pdo,
+            'characters',
+            $by + [
+                'name' => $name,
+                'element' => $element,
+                'weapon_type' => $weapon,
+                'rarity' => $rarity,
+                'region' => $region,
+                'model' => $model,
+                'title' => $title,
+                'version' => $version,
+                'release_date' => '2024-01-01',
+                'birthday' => '2000-07-15',
+                'namecard_description' => "$name's namecard.",
+                'voice_actor_english' => 'Sample',
+                'voice_actor_japanese' => 'Sample',
+                'voice_actor_korean' => 'Sample',
+                'voice_actor_chinese' => 'Sample',
+                'affiliations' => ['Wangsheng Funeral Parlor'],
+                'how_to_obtain' => ['Wish'],
+            ],
+        );
     }
 
     $weapons = [];
-    foreach ([
-        ['Staff of Homa', 'Polearm', 5, '1.3'],
-        ['The Catch', 'Polearm', 4, '2.1'],
-        ['Mistsplitter Reforged', 'Sword', 5, '2.0'],
-        ['Favonius Sword', 'Sword', 4, '1.0'],
-    ] as [$name, $type, $rarity, $version]) {
+    foreach (
+        [['Staff of Homa', 'Polearm', 5, '1.3'], ['The Catch', 'Polearm', 4, '2.1'], ['Mistsplitter Reforged', 'Sword', 5, '2.0'], ['Favonius Sword', 'Sword', 4, '1.0']]
+        as [$name, $type, $rarity, $version]
+    ) {
         $weapons[$name] = seed($pdo, 'weapons', $by + ['name' => $name, 'type' => $type, 'rarity' => $rarity, 'version' => $version, 'release_date' => '2024-01-01']);
     }
 
     $materials = [];
-    foreach ([
-        ['Mora', 'Currency', 3, 'Mondstadt'],
-        ["Hero's Wit", 'Character EXP Material', 4, 'Mondstadt'],
-        ['Silk Flower', 'Local Specialty', 1, 'Liyue'],
-        ['Mystic Enhancement Ore', 'Weapon Enhancement Material', 3, 'Liyue'],
-    ] as [$name, $type, $rarity, $region]) {
-        $materials[$name] = seed($pdo, 'materials', $by + ['name' => $name, 'type' => $type, 'rarity' => $rarity, 'region' => $region, 'description' => "$name, as the game describes it.", 'version' => '1.0']);
+    foreach (
+        [
+            ['Mora', 'Currency', 3, 'Mondstadt'],
+            ["Hero's Wit", 'Character EXP Material', 4, 'Mondstadt'],
+            ['Silk Flower', 'Local Specialty', 1, 'Liyue'],
+            ['Mystic Enhancement Ore', 'Weapon Enhancement Material', 3, 'Liyue'],
+        ]
+        as [$name, $type, $rarity, $region]
+    ) {
+        $materials[$name] = seed(
+            $pdo,
+            'materials',
+            $by + ['name' => $name, 'type' => $type, 'rarity' => $rarity, 'region' => $region, 'description' => "$name, as the game describes it.", 'version' => '1.0'],
+        );
     }
 
     $artifacts = [];
@@ -252,7 +289,12 @@ function seedContent(PDO $pdo): void
         seed($pdo, 'characters_voice_overs', $by + ['voice_over_set_id' => $set, 'type' => $type, 'order' => $order, 'name' => $name, 'text_english' => "$name, as Hu Tao says it.$hostile"]);
     }
     foreach ([['material_id' => $materials['Mora']], ['artifact_id' => $artifacts["Gladiator's Finale"]]] as $what) {
-        seed($pdo, 'enemies_drops', $by + $what + ['enemy_id' => $enemies['Hilichurl'], 'level_from' => 1, 'level_to' => 40, 'world_level' => 0, 'quantity_from' => 1, 'quantity_to' => 2, 'drop_rate' => 0.5, 'average' => 0.75]);
+        seed(
+            $pdo,
+            'enemies_drops',
+            $by +
+                $what + ['enemy_id' => $enemies['Hilichurl'], 'level_from' => 1, 'level_to' => 40, 'world_level' => 0, 'quantity_from' => 1, 'quantity_to' => 2, 'drop_rate' => 0.5, 'average' => 0.75],
+        );
     }
 
     $banner = seed($pdo, 'banners', $by + ['name' => 'Moment of Bloom', 'version' => '1.3', 'duration_from' => '2024-01-01 00:00:00', 'duration_to' => '2024-01-22 00:00:00']);
@@ -313,7 +355,14 @@ foreach (['router.php', 'migration.php'] as $file) {
 @mkdir("$backend/storage/cache", 0777, true);
 
 $borrowed = (string) realpath(DATABASE_CONFIG);
-file_put_contents("$backend/config/database.local.php", "<?php\n\n\$borrowed = require " . var_export($borrowed, true) . ";\nunset(\$borrowed['databases']);\n\nreturn array_replace(\$borrowed, " . var_export(['database' => $database, 'persistent' => false], true) . ");\n");
+file_put_contents(
+    "$backend/config/database.local.php",
+    "<?php\n\n\$borrowed = require " .
+        var_export($borrowed, true) .
+        ";\nunset(\$borrowed['databases']);\n\nreturn array_replace(\$borrowed, " .
+        var_export(['database' => $database, 'persistent' => false], true) .
+        ");\n",
+);
 file_put_contents("$backend/config/secret.local.php", "<?php\n\nreturn " . var_export(bin2hex(random_bytes(32)), true) . ";\n");
 file_put_contents("$backend/config/iam.local.php", "<?php\n\nreturn " . var_export(['issuer' => $issuer, 'client_id' => 'genshin', 'cache_dir' => "$backend/storage/cache"], true) . ";\n");
 touch("$backend/storage/installed.lock");

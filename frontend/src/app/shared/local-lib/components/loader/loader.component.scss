@@ -39,13 +39,41 @@
 // Where each element's mark sits, and when it pulses. Positions are percentages
 // of the square, so they hold as it scales.
 $element-marks: (
-  anemo: (delay: 0s, top: 10%, left: 20%),
-  geo: (delay: 0.5s, top: 70%, left: 15%),
-  electro: (delay: 1s, top: 20%, right: 15%),
-  hydro: (delay: 1.5s, top: 65%, right: 20%),
-  pyro: (delay: 2s, top: 40%, left: 10%),
-  cryo: (delay: 2.5s, bottom: 15%, left: 50%),
-  dendro: (delay: 3s, top: 15%, left: 50%),
+  anemo: (
+    delay: 0s,
+    top: 10%,
+    left: 20%,
+  ),
+  geo: (
+    delay: 0.5s,
+    top: 70%,
+    left: 15%,
+  ),
+  electro: (
+    delay: 1s,
+    top: 20%,
+    right: 15%,
+  ),
+  hydro: (
+    delay: 1.5s,
+    top: 65%,
+    right: 20%,
+  ),
+  pyro: (
+    delay: 2s,
+    top: 40%,
+    left: 10%,
+  ),
+  cryo: (
+    delay: 2.5s,
+    bottom: 15%,
+    left: 50%,
+  ),
+  dendro: (
+    delay: 3s,
+    top: 15%,
+    left: 50%,
+  ),
 );
 
 .waypoint-loader {

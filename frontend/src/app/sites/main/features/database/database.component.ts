@@ -8,7 +8,7 @@ import { TranslatePipe } from '@anotoki/lib/translations';
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
   imports: [RouterModule, TranslatePipe],
-  providers: []
+  providers: [],
 })
 export class DatabaseComponent {
   readonly DATABASE = [

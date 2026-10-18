@@ -272,21 +272,29 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recom
 // is first (the library's Backups); after one, the audit entries that waited
 // for their table go in, and the Apply is written down itself.
 MigrationsRoutes::status($app, siteState());
-MigrationsRoutes::admin(
-    $app,
-    '/api/admin/migrations',
-    fn (): Migrator => siteMigrator(getDb(), backups: siteBackups()),
-    function (\Psr\Http\Message\ServerRequestInterface $request, array $result): void {
-        siteAudit()->flushPending();
-        $applied = array_map(static fn (array $file): string => $file['set'] . '/' . $file['name'], $result['applied'] ?? []);
-        if ($applied !== [] || ($result['failed'] ?? null) !== null) {
-            siteAudit()->record($request, Identify::person($request)?->sub, 'migrations.applied', null, null, array_filter([
-                'files' => $applied,
-                'failed' => isset($result['failed']) ? $result['failed']['set'] . '/' . $result['failed']['name'] : null,
-            ], static fn (mixed $value): bool => $value !== null));
-        }
-    },
-)->add(RequireRole::admin());
+MigrationsRoutes::admin($app, '/api/admin/migrations', fn(): Migrator => siteMigrator(getDb(), backups: siteBackups()), function (
+    \Psr\Http\Message\ServerRequestInterface $request,
+    array $result,
+): void {
+    siteAudit()->flushPending();
+    $applied = array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $result['applied'] ?? []);
+    if ($applied !== [] || ($result['failed'] ?? null) !== null) {
+        siteAudit()->record(
+            $request,
+            Identify::person($request)?->sub,
+            'migrations.applied',
+            null,
+            null,
+            array_filter(
+                [
+                    'files' => $applied,
+                    'failed' => isset($result['failed']) ? $result['failed']['set'] . '/' . $result['failed']['name'] : null,
+                ],
+                static fn(mixed $value): bool => $value !== null,
+            ),
+        );
+    }
+})->add(RequireRole::admin());
 
 ///////////////////
 // THE ADMIN TOOLS (anotoki/lib)
@@ -309,9 +317,7 @@ BackupsRoutes::admin($app, '/api/admin/backups', siteBackups(), siteAdminContext
 // and never take a file the site's content points at: explorerGuard() refuses
 // that before the library acts, after the ADMIN check (added first, so it runs
 // second); explorerAfterWrite() takes the rows along.
-FilesRoutes::admin($app, '/api/admin/files', siteFileExplorer(), siteAdminContext(), siteAudit())
-    ->add(explorerGuard($app->getResponseFactory()))
-    ->add(RequireRole::admin());
+FilesRoutes::admin($app, '/api/admin/files', siteFileExplorer(), siteAdminContext(), siteAudit())->add(explorerGuard($app->getResponseFactory()))->add(RequireRole::admin());
 PeopleRoutes::admin(
     $app,
     '/api/admin/people',
@@ -371,11 +377,13 @@ ErrorLogRoutes::client($app, '/api/client-errors', $errorLog, siteAdminContext()
 $app->add(routeGate());
 $app->add(signInGate());
 $app->add(maintenanceGate());
-$app->add(AuditContextMiddleware::fromRequest(siteAudit(), static function (\Psr\Http\Message\ServerRequestInterface $request): array {
-    $person = Identify::person($request);
+$app->add(
+    AuditContextMiddleware::fromRequest(siteAudit(), static function (\Psr\Http\Message\ServerRequestInterface $request): array {
+        $person = Identify::person($request);
 
-    return $person === null ? [] : ['actor' => $person->sub, 'session' => $person->sid];
-}));
+        return $person === null ? [] : ['actor' => $person->sub, 'session' => $person->sid];
+    }),
+);
 $app->add(identifyRequests(siteIdentify($app->getResponseFactory())));
 $app->add(function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface {
     $response = $handler->handle($request);
@@ -384,60 +392,62 @@ $app->add(function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http
 
     return $response;
 });
-$app->add(new PeopleUpkeep(sitePeople(), static fn (): bool => siteState()->state() === SiteState::READY, afterResponse(...)));
+$app->add(new PeopleUpkeep(sitePeople(), static fn(): bool => siteState()->state() === SiteState::READY, afterResponse(...)));
 $app->add(new SiteGate(siteState(), $app->getResponseFactory(), SITE_OPEN_WHILE_UPDATING, setupPath: SETUP_PATH));
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
 // The site's answer to what was thrown, and the line in the error log for it
 // (the library's wrapHandler: with the status and code of this answer, and a
 // trace without any call's arguments).
-$errorMiddleware->setDefaultErrorHandler($errorLog->wrapHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {
-    $statusCode = 500;
-    $message = 'Internal server error';
+$errorMiddleware->setDefaultErrorHandler(
+    $errorLog->wrapHandler(function (\Psr\Http\Message\ServerRequestInterface $request, \Throwable $exception, bool $displayErrorDetails) use ($app) {
+        $statusCode = 500;
+        $message = 'Internal server error';
 
-    // Slim signals unknown routes and methods as exceptions; without this they
-    // all surface as an opaque 500.
-    if ($exception instanceof \Slim\Exception\HttpNotFoundException) {
-        $statusCode = 404;
-        $message = 'Not found';
-    } elseif ($exception instanceof \Slim\Exception\HttpMethodNotAllowedException) {
-        $statusCode = 405;
-        $message = 'Method not allowed';
-    } elseif ($exception instanceof \Slim\Exception\HttpUnauthorizedException) {
-        $statusCode = 401;
-        $message = 'Unauthorized';
-    } elseif ($exception instanceof NotSetUpException) {
-        // A config file that went missing after the SiteGate let the request
-        // in. The same answer as the gate's, rather than a bare 500.
-        return siteNotSetUpResponse($request, $app->getResponseFactory());
-    } elseif ($exception instanceof ApiRefusal) {
-        // An answer the work decided on (helpers.php), not a failure: no PHP
-        // log line, no trace in the error log (siteErrorLog()'s
-        // ignoreExceptions) - the answer's own line below records it as it
-        // would any answer a route returns, when the error log's rule takes
-        // its status. (The owner routes answer their own, in requireOwner(),
-        // with ownerPrivate()'s headers.)
-        return apiRefusalResponse($exception);
-    } elseif ($exception instanceof \PDOException) {
-        $sqlState = $exception->getCode();
-        // Data errors (22xxx) → 400 Bad Request
-        if (is_string($sqlState) && str_starts_with($sqlState, '22')) {
-            $statusCode = 400;
-            $message = 'Invalid data: ' . $exception->getMessage();
-        } elseif (is_string($sqlState) && str_starts_with($sqlState, '23')) {
-            // Integrity constraint violations → 409 Conflict
-            $statusCode = 409;
-            $message = 'Conflict: ' . $exception->getMessage();
+        // Slim signals unknown routes and methods as exceptions; without this they
+        // all surface as an opaque 500.
+        if ($exception instanceof \Slim\Exception\HttpNotFoundException) {
+            $statusCode = 404;
+            $message = 'Not found';
+        } elseif ($exception instanceof \Slim\Exception\HttpMethodNotAllowedException) {
+            $statusCode = 405;
+            $message = 'Method not allowed';
+        } elseif ($exception instanceof \Slim\Exception\HttpUnauthorizedException) {
+            $statusCode = 401;
+            $message = 'Unauthorized';
+        } elseif ($exception instanceof NotSetUpException) {
+            // A config file that went missing after the SiteGate let the request
+            // in. The same answer as the gate's, rather than a bare 500.
+            return siteNotSetUpResponse($request, $app->getResponseFactory());
+        } elseif ($exception instanceof ApiRefusal) {
+            // An answer the work decided on (helpers.php), not a failure: no PHP
+            // log line, no trace in the error log (siteErrorLog()'s
+            // ignoreExceptions) - the answer's own line below records it as it
+            // would any answer a route returns, when the error log's rule takes
+            // its status. (The owner routes answer their own, in requireOwner(),
+            // with ownerPrivate()'s headers.)
+            return apiRefusalResponse($exception);
+        } elseif ($exception instanceof \PDOException) {
+            $sqlState = $exception->getCode();
+            // Data errors (22xxx) → 400 Bad Request
+            if (is_string($sqlState) && str_starts_with($sqlState, '22')) {
+                $statusCode = 400;
+                $message = 'Invalid data: ' . $exception->getMessage();
+            } elseif (is_string($sqlState) && str_starts_with($sqlState, '23')) {
+                // Integrity constraint violations → 409 Conflict
+                $statusCode = 409;
+                $message = 'Conflict: ' . $exception->getMessage();
+            }
         }
-    }
 
-    error_log('[' . get_class($exception) . '] ' . $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine());
+        error_log('[' . get_class($exception) . '] ' . $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine());
 
-    $response = $app->getResponseFactory()->createResponse($statusCode);
-    $response->getBody()->write(json_encode(['error' => $message]));
+        $response = $app->getResponseFactory()->createResponse($statusCode);
+        $response->getBody()->write(json_encode(['error' => $message]));
 
-    return $response->withHeader('Content-Type', 'application/json');
-}));
+        return $response->withHeader('Content-Type', 'application/json');
+    }),
+);
 
 // Many answers never reach the handler above, because a route returns them
 // rather than throwing - a row that is not there, a 503 a store could not

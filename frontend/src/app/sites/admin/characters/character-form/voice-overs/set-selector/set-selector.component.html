@@ -1,7 +1,7 @@
 <div class="set-body">
     <p class="set-hint">
-        Point this character at another set's voice-overs — used to give the Traveler's variants one shared set. It only changes which set
-        this character uses; the lines themselves are left as they are.
+        Point this character at another set's voice-overs — used to give the Traveler's variants one shared set. It only changes which set this character uses; the lines themselves are left as they
+        are.
     </p>
 
     @if (loadingSets()) {
@@ -11,12 +11,7 @@
     @if (!loadingSets()) {
         <div class="set-list">
             @for (set of sets(); track set.id) {
-                <button
-                    type="button"
-                    class="set-row"
-                    [class.selected]="selectedId() === set.id"
-                    [class.current]="currentSetId() === set.id"
-                    (click)="selectedId.set(set.id)">
+                <button type="button" class="set-row" [class.selected]="selectedId() === set.id" [class.current]="currentSetId() === set.id" (click)="selectedId.set(set.id)">
                     <span class="set-members">{{ members(set) }}</span>
                     <span class="set-meta">{{ set.voice_over_count }} lines · set #{{ set.id }}{{ currentSetId() === set.id ? " · current" : "" }}</span>
                 </button>

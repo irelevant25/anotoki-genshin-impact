@@ -56,11 +56,9 @@ function identifyRequests(Identify $identify): callable
             // signing in asked afresh for this request, and who it is.
             siteSignInRule()->reset();
 
-            return $handler->handle($request
-                ->withAttribute(Identify::SELF, $identify)
-                ->withAttribute(Identify::PERSON, null)
-                ->withAttribute(Identify::VISITOR, null)
-                ->withAttribute(Identify::CALLER, 'nobody'));
+            return $handler->handle(
+                $request->withAttribute(Identify::SELF, $identify)->withAttribute(Identify::PERSON, null)->withAttribute(Identify::VISITOR, null)->withAttribute(Identify::CALLER, 'nobody'),
+            );
         }
 
         return $identify->process($request, $handler);
@@ -92,9 +90,7 @@ function requireAuth(): callable
             return Identify::of($request)->signInRequiredRefusal();
         }
 
-        return $handler->handle(
-            $request->withAttribute('user', siteUserOf($person))->withAttribute('session', ['id' => $person->sid]),
-        );
+        return $handler->handle($request->withAttribute('user', siteUserOf($person))->withAttribute('session', ['id' => $person->sid]));
     };
 }
 

@@ -8,6 +8,5 @@ class CharacterBuildArtifact extends DbModel
         public readonly int $order,
         public readonly bool $pc_2 = false,
         public readonly bool $pc_4 = true,
-    ) {
-    }
+    ) {}
 }

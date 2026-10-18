@@ -57,7 +57,7 @@ function quizProgressRows(PDO $pdo, int $userId): array
            FROM quizzes_states s
            JOIN quizzes q ON q.id = s.quiz_id AND q.deleted = FALSE
           WHERE s.user_id = ?
-          ORDER BY q.name'
+          ORDER BY q.name',
     );
     $statement->execute([$userId]);
 
@@ -107,7 +107,9 @@ $app->get('/api/quiz/progress', function (Request $request, Response $response) 
     }
 
     return respondJson($response, quizProgressRows(genshinDb(), (int) $user['id']));
-})->add(responds(QuizProgress::class, list: true))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizProgress::class, list: true))
+    ->add(requireOwner('empty'));
 
 // PUT my saved game for one quiz. Upsert: a quiz is saved after every guess, and
 // whether that is the first one is not something the caller should have to know.
@@ -145,12 +147,14 @@ $app->put('/api/quiz/progress/{quiz}', function (Request $request, Response $res
             'INSERT INTO quizzes_states (user_id, quiz_id, is_daily, state)
                   VALUES (?, ?, ?, ?)
              ON CONFLICT (user_id, quiz_id, is_daily)
-             DO UPDATE SET state = EXCLUDED.state'
+             DO UPDATE SET state = EXCLUDED.state',
         )->execute([$userId, $quizId, (int) $isDaily, json_encode($state)]);
     });
 
     return withVisitorMade(respondJson($response, ['quiz' => $args['quiz'], 'is_daily' => $isDaily]), $written['key']);
-})->add(responds(QuizProgressSaved::class))->add(requireOwner('make'));
+})
+    ->add(responds(QuizProgressSaved::class))
+    ->add(requireOwner('make'));
 
 // DELETE my saved game, for when a quiz is finished with and started afresh.
 $app->delete('/api/quiz/progress/{quiz}', function (Request $request, Response $response, array $args) {
@@ -173,7 +177,9 @@ $app->delete('/api/quiz/progress/{quiz}', function (Request $request, Response $
     });
 
     return respondJson($response, ['deleted' => $written['result']]);
-})->add(responds(QuizProgressDeleted::class))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizProgressDeleted::class))
+    ->add(requireOwner('empty'));
 
 // POST the games this browser kept for itself, into whoever the request is -
 // once: the browser forgets every game it sent after a 200.
@@ -235,7 +241,7 @@ $app->post('/api/quiz/progress/carry', function (Request $request, Response $res
              ON CONFLICT (user_id, quiz_id, is_daily)
              DO UPDATE SET state = EXCLUDED.state
                      WHERE quizzes_states.is_daily
-                       AND (quizzes_states.state ->> 'date') IS DISTINCT FROM ?"
+                       AND (quizzes_states.state ->> 'date') IS DISTINCT FROM ?",
         );
         foreach ($games as $game) {
             $quizId = quizIdByName($pdo, $game['quiz']);
@@ -260,7 +266,9 @@ $app->post('/api/quiz/progress/carry', function (Request $request, Response $res
     });
 
     return withVisitorMade(respondJson($response, $written['result']), $written['key']);
-})->add(responds(QuizCarryResult::class))->add(requireOwner('make'));
+})
+    ->add(responds(QuizCarryResult::class))
+    ->add(requireOwner('make'));
 
 // POST a finished question.
 //
@@ -313,7 +321,7 @@ $app->post('/api/quiz/result', function (Request $request, Response $response) {
 
         $pdo->prepare(
             'INSERT INTO user_quiz_history (user_id, character_id, quiz_id, win, attempts, difficulty)
-                  VALUES (?, ?, ?, ?, ?, ?)'
+                  VALUES (?, ?, ?, ?, ?, ?)',
         )->execute([$userId, $characterId, $quizId, (int) $win, $attempts, $difficulty]);
 
         // Totals are added to rather than recounted: the log can grow to
@@ -324,12 +332,14 @@ $app->post('/api/quiz/result', function (Request $request, Response $response) {
              ON CONFLICT (user_id, character_id, quiz_id)
              DO UPDATE SET wins   = quiz_stats_history.wins   + EXCLUDED.wins,
                            losses = quiz_stats_history.losses + EXCLUDED.losses,
-                           attempts = quiz_stats_history.attempts + EXCLUDED.attempts'
+                           attempts = quiz_stats_history.attempts + EXCLUDED.attempts',
         )->execute([$userId, $characterId, $quizId, $win ? 1 : 0, $win ? 0 : 1, $attempts]);
     });
 
     return withVisitorMade(respondJson($response, ['recorded' => true], 201), $written['key']);
-})->add(responds(QuizResultAck::class))->add(requireOwner('make'));
+})
+    ->add(responds(QuizResultAck::class))
+    ->add(requireOwner('make'));
 
 // GET my totals, so a profile page has something to draw.
 $app->get('/api/quiz/stats', function (Request $request, Response $response) {
@@ -345,7 +355,7 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
            JOIN quizzes q ON q.id = s.quiz_id
            JOIN characters c ON c.id = s.character_id
           WHERE s.user_id = ?
-          ORDER BY q.name, c.name'
+          ORDER BY q.name, c.name',
     );
     $statement->execute([$user['id']]);
 
@@ -353,7 +363,9 @@ $app->get('/api/quiz/stats', function (Request $request, Response $response) {
     resolveAssetRows(genshinDb(), 'characters', $rows);
 
     return respondJson($response, $rows);
-})->add(responds(QuizStatsRow::class, list: true))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizStatsRow::class, list: true))
+    ->add(requireOwner('empty'));
 
 // ── The reads behind the profile page ────────────────────────────────────────
 //
@@ -386,12 +398,14 @@ $app->get('/api/quiz/stats/difficulty', function (Request $request, Response $re
            JOIN quizzes q ON q.id = h.quiz_id
           WHERE h.user_id = ?
           GROUP BY q.name, h.difficulty
-          ORDER BY q.name, h.difficulty'
+          ORDER BY q.name, h.difficulty',
     );
     $statement->execute([$user['id']]);
 
     return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
-})->add(responds(QuizDifficultyRow::class, list: true))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizDifficultyRow::class, list: true))
+    ->add(requireOwner('empty'));
 
 // GET the days I played on, over the past year.
 //
@@ -412,12 +426,14 @@ $app->get('/api/quiz/activity', function (Request $request, Response $response) 
           WHERE h.user_id = ?
             AND h.created_at >= CURRENT_DATE - INTERVAL '1 year'
           GROUP BY 1
-          ORDER BY 1"
+          ORDER BY 1",
     );
     $statement->execute([$user['id']]);
 
     return respondJson($response, $statement->fetchAll(PDO::FETCH_ASSOC));
-})->add(responds(QuizActivityDay::class, list: true))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizActivityDay::class, list: true))
+    ->add(requireOwner('empty'));
 
 // GET my last twenty finished questions, newest first.
 //
@@ -437,7 +453,7 @@ $app->get('/api/quiz/results', function (Request $request, Response $response) {
            JOIN characters c ON c.id = h.character_id
           WHERE h.user_id = ?
           ORDER BY h.created_at DESC, h.id DESC
-          LIMIT 20'
+          LIMIT 20',
     );
     $statement->execute([$user['id']]);
 
@@ -445,4 +461,6 @@ $app->get('/api/quiz/results', function (Request $request, Response $response) {
     resolveAssetRows(genshinDb(), 'characters', $rows);
 
     return respondJson($response, $rows);
-})->add(responds(QuizRecentResult::class, list: true))->add(requireOwner('empty'));
+})
+    ->add(responds(QuizRecentResult::class, list: true))
+    ->add(requireOwner('empty'));

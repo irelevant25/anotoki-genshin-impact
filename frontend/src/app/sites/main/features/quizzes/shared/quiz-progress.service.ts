@@ -267,14 +267,7 @@ export class QuizProgressService {
    * the visitor - the result waits for it and is then posted as the visitor's.
    * While the browser keeps the games, it is kept nowhere, as before.
    */
-  recordResult(
-    quizId: QuizId,
-    characterId: number | undefined,
-    win: boolean,
-    attempts: number,
-    difficulty: number,
-    ticket: number,
-  ): void {
+  recordResult(quizId: QuizId, characterId: number | undefined, win: boolean, attempts: number, difficulty: number, ticket: number): void {
     if (!characterId || ticket !== this.ticket()) {
       return;
     }

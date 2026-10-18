@@ -44,8 +44,11 @@ use Anotoki\Lib\Translations\Cli\TranslationsCommand;
 
 $command = $argv[1] ?? '--status';
 if (in_array($command, ['--add-missing', '--seed-sql'], true)) {
-    fwrite(STDERR, "$command is gone: keys come from migrations only now (backend/migrations/users/050_translations_into_the_library.sql)."
-        . " Write a users/ migration with the key, its description, its English and its Slovak - the db-migration skill says how.\n");
+    fwrite(
+        STDERR,
+        "$command is gone: keys come from migrations only now (backend/migrations/users/050_translations_into_the_library.sql)." .
+            " Write a users/ migration with the key, its description, its English and its Slovak - the db-migration skill says how.\n",
+    );
     exit(1);
 }
 
@@ -57,15 +60,14 @@ $scanner = new KeyScanner(
     dynamicKeys: 'shared/dynamic-keys.ts',
 );
 
-exit((new TranslationsCommand(
-    translations: siteTranslations(...),
-    scanner: $scanner,
-    // The library's names for it (translations.imported), by nobody - the
-    // audit log is the anotoki library's (api/audit_log.php).
-    audit: static fn (string $action, ?string $type, ?string $id, array $details) => siteAudit()->record(null, null, $action, $type, $id, $details),
-    pending: static fn (): array => array_map(
-        static fn (array $file): string => $file['set'] . '/' . $file['name'],
-        siteMigrator(getDb())->applicable()
-    ),
-    title: 'genshin: the site\'s own strings',
-))->run($argv));
+exit(
+    (new TranslationsCommand(
+        translations: siteTranslations(...),
+        scanner: $scanner,
+        // The library's names for it (translations.imported), by nobody - the
+        // audit log is the anotoki library's (api/audit_log.php).
+        audit: static fn(string $action, ?string $type, ?string $id, array $details) => siteAudit()->record(null, null, $action, $type, $id, $details),
+        pending: static fn(): array => array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], siteMigrator(getDb())->applicable()),
+        title: 'genshin: the site\'s own strings',
+    ))->run($argv)
+);

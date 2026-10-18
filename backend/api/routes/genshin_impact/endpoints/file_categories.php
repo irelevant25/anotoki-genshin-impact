@@ -72,26 +72,31 @@ function _categoryPathFromCode(string $code): string
 
 function _categoryRows(PDO $pdo): array
 {
-    $rows = $pdo->query(
-        'SELECT c.id, c.code, c.label, c.path, c.deleted, c.is_system, c.sort_order,
+    $rows = $pdo
+        ->query(
+            'SELECT c.id, c.code, c.label, c.path, c.deleted, c.is_system, c.sort_order,
                 count(f.id) AS files, coalesce(sum(f.size), 0) AS bytes
          FROM file_categories c
          LEFT JOIN files f ON f.category_id = c.id
          GROUP BY c.id
-         ORDER BY c.sort_order, c.code'
-    )->fetchAll(PDO::FETCH_ASSOC);
+         ORDER BY c.sort_order, c.code',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
-    return array_map(fn(array $row) => [
-        'id' => (int) $row['id'],
-        'code' => $row['code'],
-        'label' => $row['label'],
-        'path' => $row['path'],
-        'deleted' => (bool) $row['deleted'],
-        'is_system' => (bool) $row['is_system'],
-        'sort_order' => (int) $row['sort_order'],
-        'files' => (int) $row['files'],
-        'bytes' => (int) $row['bytes'],
-    ], $rows);
+    return array_map(
+        fn(array $row) => [
+            'id' => (int) $row['id'],
+            'code' => $row['code'],
+            'label' => $row['label'],
+            'path' => $row['path'],
+            'deleted' => (bool) $row['deleted'],
+            'is_system' => (bool) $row['is_system'],
+            'sort_order' => (int) $row['sort_order'],
+            'files' => (int) $row['files'],
+            'bytes' => (int) $row['bytes'],
+        ],
+        $rows,
+    );
 }
 
 /**
@@ -136,8 +141,11 @@ function _categoryMoveOneFile(PDO $pdo, array $file, string $fromPath, array $to
         return false;
     }
 
-    $pdo->prepare('UPDATE files SET category_id = :category_id, name = :name, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-        ->execute(['category_id' => $to['id'], 'name' => $name, 'id' => $file['id']]);
+    $pdo->prepare('UPDATE files SET category_id = :category_id, name = :name, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute([
+        'category_id' => $to['id'],
+        'name' => $name,
+        'id' => $file['id'],
+    ]);
 
     return true;
 }
@@ -162,7 +170,10 @@ function _categoryMoveFiles(PDO $pdo, array $from, array $to): int
 
 $app->get('/api/file-categories', function (Request $request, Response $response) {
     return respondJson($response, _categoryRows(genshinDb()));
-})->add(responds(FileCategory::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileCategory::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->post('/api/file-categories', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
@@ -190,8 +201,7 @@ $app->post('/api/file-categories', function (Request $request, Response $respons
         // A retired category coming back keeps its id, and with it whatever the
         // audit log has to say about it.
         if ($row['deleted']) {
-            $pdo->prepare('UPDATE file_categories SET deleted = FALSE, label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-                ->execute(['label' => $label, 'id' => $row['id']]);
+            $pdo->prepare('UPDATE file_categories SET deleted = FALSE, label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute(['label' => $label, 'id' => $row['id']]);
 
             return respondJson($response, _categoryRows($pdo), 200);
         }
@@ -200,8 +210,12 @@ $app->post('/api/file-categories', function (Request $request, Response $respons
     }
 
     $next = (int) $pdo->query('SELECT coalesce(max(sort_order), 0) + 10 FROM file_categories')->fetchColumn();
-    $pdo->prepare('INSERT INTO file_categories (code, label, path, sort_order) VALUES (:code, :label, :path, :sort_order)')
-        ->execute(['code' => $code, 'label' => $label, 'path' => $path, 'sort_order' => $next]);
+    $pdo->prepare('INSERT INTO file_categories (code, label, path, sort_order) VALUES (:code, :label, :path, :sort_order)')->execute([
+        'code' => $code,
+        'label' => $label,
+        'path' => $path,
+        'sort_order' => $next,
+    ]);
 
     // The folder is made now rather than on the first upload, so that a new
     // category is somewhere you can actually put something.
@@ -211,7 +225,10 @@ $app->post('/api/file-categories', function (Request $request, Response $respons
     }
 
     return respondJson($response, _categoryRows($pdo), 201);
-})->add(responds(FileCategory::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileCategory::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->put('/api/file-categories/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -248,15 +265,20 @@ $app->put('/api/file-categories/{id:[0-9]+}', function (Request $request, Respon
         // The row and the files move together, or the table describes a tree
         // that is not there.
         $pdo->beginTransaction();
-        $pdo->prepare('UPDATE file_categories SET path = :path, label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-            ->execute(['path' => $path, 'label' => $label, 'id' => $category['id']]);
+        $pdo->prepare('UPDATE file_categories SET path = :path, label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute(['path' => $path, 'label' => $label, 'id' => $category['id']]);
         $moved = _categoryMoveFiles($pdo, $category, ['id' => $category['id'], 'path' => $path]);
-        auditFile($pdo, 0, 'MOVE', [
-            'category' => $category['code'],
-            'from' => $category['path'],
-            'to' => $path,
-            'files' => $moved,
-        ], _categoryActor($request));
+        auditFile(
+            $pdo,
+            0,
+            'MOVE',
+            [
+                'category' => $category['code'],
+                'from' => $category['path'],
+                'to' => $path,
+                'files' => $moved,
+            ],
+            _categoryActor($request),
+        );
         $pdo->commit();
 
         assetStatsForget();
@@ -265,11 +287,13 @@ $app->put('/api/file-categories/{id:[0-9]+}', function (Request $request, Respon
         return respondJson($response, _categoryRows($pdo));
     }
 
-    $pdo->prepare('UPDATE file_categories SET label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-        ->execute(['label' => $label, 'id' => $category['id']]);
+    $pdo->prepare('UPDATE file_categories SET label = :label, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute(['label' => $label, 'id' => $category['id']]);
 
     return respondJson($response, _categoryRows($pdo));
-})->add(responds(FileCategory::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileCategory::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/file-categories/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -295,19 +319,27 @@ $app->delete('/api/file-categories/{id:[0-9]+}', function (Request $request, Res
     // get forgotten.
     $pdo->beginTransaction();
     $moved = _categoryMoveFiles($pdo, $category, $unfiled);
-    $pdo->prepare('UPDATE file_categories SET deleted = TRUE, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-        ->execute(['id' => $category['id']]);
-    auditFile($pdo, 0, 'DELETE', [
-        'category' => $category['code'],
-        'moved_to_unfiled' => $moved,
-    ], _categoryActor($request));
+    $pdo->prepare('UPDATE file_categories SET deleted = TRUE, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute(['id' => $category['id']]);
+    auditFile(
+        $pdo,
+        0,
+        'DELETE',
+        [
+            'category' => $category['code'],
+            'moved_to_unfiled' => $moved,
+        ],
+        _categoryActor($request),
+    );
     $pdo->commit();
 
     assetStatsForget();
     _assetFolderCacheClear();
 
     return respondJson($response, _categoryRows($pdo));
-})->add(responds(FileCategory::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileCategory::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── One file at a time ───────────────────────────────────────────────────────
 
@@ -326,7 +358,7 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
 
     $statement = $pdo->prepare(
         'SELECT f.*, c.id AS cat_id, c.path AS category_path, c.code AS category_code
-           FROM files f JOIN file_categories c ON c.id = f.category_id WHERE f.id = :id'
+           FROM files f JOIN file_categories c ON c.id = f.category_id WHERE f.id = :id',
     );
     $statement->execute(['id' => (int) $args['id']]);
     $file = $statement->fetch(PDO::FETCH_ASSOC);
@@ -392,13 +424,18 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
     }
 
     $pdo->beginTransaction();
-    $pdo->prepare('UPDATE files SET name = :name, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-        ->execute(['name' => $name, 'id' => $file['id']]);
+    $pdo->prepare('UPDATE files SET name = :name, updated_at = CURRENT_TIMESTAMP WHERE id = :id')->execute(['name' => $name, 'id' => $file['id']]);
 
-    auditFile($pdo, (int) $file['id'], 'UPDATE', [
-        'renamed' => ['old' => $file['name'], 'new' => $name],
-        'category' => $file['category_code'],
-    ], _categoryActor($request));
+    auditFile(
+        $pdo,
+        (int) $file['id'],
+        'UPDATE',
+        [
+            'renamed' => ['old' => $file['name'], 'new' => $name],
+            'category' => $file['category_code'],
+        ],
+        _categoryActor($request),
+    );
     $pdo->commit();
 
     _assetFolderCacheClear();
@@ -409,7 +446,10 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
         'name' => $name,
         'path' => $file['category_path'] . '/' . $name . $suffix,
     ]);
-})->add(responds(FileRenamed::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileRenamed::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -417,7 +457,7 @@ $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Respons
 
     $statement = $pdo->prepare(
         'SELECT f.*, c.path AS category_path, c.code AS category_code
-         FROM files f JOIN file_categories c ON c.id = f.category_id WHERE f.id = :id'
+         FROM files f JOIN file_categories c ON c.id = f.category_id WHERE f.id = :id',
     );
     $statement->execute(['id' => (int) $args['id']]);
     $file = $statement->fetch(PDO::FETCH_ASSOC);
@@ -428,9 +468,7 @@ $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Respons
 
     $categories = catalogueCategories($pdo);
     // No category chosen means unfiled, which is the whole reason it exists.
-    $wanted = $body['category_id'] === null || ($body['category_id'] ?? '') === ''
-        ? catalogueUnfiled($categories)
-        : null;
+    $wanted = $body['category_id'] === null || ($body['category_id'] ?? '') === '' ? catalogueUnfiled($categories) : null;
 
     if ($wanted === null) {
         foreach ($categories as $category) {
@@ -455,11 +493,17 @@ $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Respons
         return respondJson($response, ['error' => 'The file could not be moved'], 500);
     }
 
-    auditFile($pdo, (int) $file['id'], 'MOVE', [
-        'from' => $file['category_code'],
-        'to' => $wanted['code'],
-        'file' => $file['name'] . '.' . $file['extension'],
-    ], _categoryActor($request));
+    auditFile(
+        $pdo,
+        (int) $file['id'],
+        'MOVE',
+        [
+            'from' => $file['category_code'],
+            'to' => $wanted['code'],
+            'file' => $file['name'] . '.' . $file['extension'],
+        ],
+        _categoryActor($request),
+    );
     $pdo->commit();
 
     assetStatsForget();
@@ -479,7 +523,10 @@ $app->put('/api/files/{id:[0-9]+}/category', function (Request $request, Respons
         'name' => $name,
         'renamed' => $name !== $file['name'],
     ]);
-})->add(responds(FileCategoryMove::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(FileCategoryMove::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /** Whoever pressed the button, for the entries that are somebody's doing. */
 function _categoryActor(Request $request): ?int

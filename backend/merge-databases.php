@@ -126,9 +126,7 @@ function mergeTable(string $table): string
  */
 function mergeCopyOut(PDO $pdo, string $table, string $columns): array
 {
-    $rows = $pdo instanceof \Pdo\Pgsql
-        ? $pdo->copyToArray(mergeTable($table), fields: $columns)
-        : $pdo->pgsqlCopyToArray(mergeTable($table), fields: $columns);
+    $rows = $pdo instanceof \Pdo\Pgsql ? $pdo->copyToArray(mergeTable($table), fields: $columns) : $pdo->pgsqlCopyToArray(mergeTable($table), fields: $columns);
 
     if ($rows === false) {
         throw new RuntimeException("Could not read {$table} from the old database.");
@@ -143,9 +141,7 @@ function mergeCopyIn(PDO $pdo, string $table, array $rows, string $columns): voi
         return;
     }
 
-    $ok = $pdo instanceof \Pdo\Pgsql
-        ? $pdo->copyFromArray(mergeTable($table), $rows, fields: $columns)
-        : $pdo->pgsqlCopyFromArray(mergeTable($table), $rows, fields: $columns);
+    $ok = $pdo instanceof \Pdo\Pgsql ? $pdo->copyFromArray(mergeTable($table), $rows, fields: $columns) : $pdo->pgsqlCopyFromArray(mergeTable($table), $rows, fields: $columns);
 
     if (!$ok) {
         throw new RuntimeException("Could not write {$table} into the merged database.");
@@ -155,11 +151,13 @@ function mergeCopyIn(PDO $pdo, string $table, array $rows, string $columns): voi
 /** The base tables of the public schema, but the migrations record. */
 function mergeTables(PDO $pdo): array
 {
-    return $pdo->query(
-        "SELECT table_name FROM information_schema.tables
+    return $pdo
+        ->query(
+            "SELECT table_name FROM information_schema.tables
           WHERE table_schema = 'public' AND table_type = 'BASE TABLE' AND table_name <> 'migrations'
-          ORDER BY table_name"
-    )->fetchAll(PDO::FETCH_COLUMN);
+          ORDER BY table_name",
+        )
+        ->fetchAll(PDO::FETCH_COLUMN);
 }
 
 /** A table's columns as name => type, in order, generated ones left out (COPY cannot write them). */
@@ -170,7 +168,7 @@ function mergeColumns(PDO $pdo, string $table): array
            FROM information_schema.columns c
            JOIN pg_attribute a ON a.attrelid = ('public.' || quote_ident(c.table_name))::regclass AND a.attname = c.column_name
           WHERE c.table_schema = 'public' AND c.table_name = ? AND c.is_generated = 'NEVER'
-          ORDER BY c.ordinal_position"
+          ORDER BY c.ordinal_position",
     );
     $query->execute([$table]);
 
@@ -180,10 +178,14 @@ function mergeColumns(PDO $pdo, string $table): array
 /** The rows' count, and a checksum of their contents - the same on both sides only when every value is. */
 function mergeFingerprint(PDO $pdo, string $table): array
 {
-    return $pdo->query(
-        'SELECT count(*) AS rows, md5(coalesce(string_agg(h, \'\' ORDER BY h), \'\')) AS sum
-           FROM (SELECT md5(t::text) AS h FROM ' . mergeTable($table) . ' t) s'
-    )->fetch();
+    return $pdo
+        ->query(
+            'SELECT count(*) AS rows, md5(coalesce(string_agg(h, \'\' ORDER BY h), \'\')) AS sum
+           FROM (SELECT md5(t::text) AS h FROM ' .
+                mergeTable($table) .
+                ' t) s',
+        )
+        ->fetch();
 }
 
 /** $tables ordered so every table comes after the tables it refers to. */
@@ -195,7 +197,7 @@ function mergeParentsFirst(PDO $pdo, array $tables): array
            FROM pg_constraint c
            JOIN pg_class cl ON cl.oid = c.conrelid
            JOIN pg_class pl ON pl.oid = c.confrelid
-          WHERE c.contype = 'f' AND c.connamespace = 'public'::regnamespace"
+          WHERE c.contype = 'f' AND c.connamespace = 'public'::regnamespace",
     );
     foreach ($query->fetchAll() as $edge) {
         if (isset($parents[$edge['child']]) && isset($parents[$edge['parent']]) && $edge['child'] !== $edge['parent']) {
@@ -250,13 +252,27 @@ function mergeSchemaSql(array $config, string $database): string
     $environment['PGPASSWORD'] = (string) ($config['password'] ?? '');
 
     $process = proc_open(
-        [backupBinary('pg_dump'), '-h', (string) $config['host'], '-p', (string) $config['port'], '-U', (string) $config['username'],
-            '--schema-only', '--no-owner', '--no-privileges',
-            '-T', 'public.migrations', '-T', 'public.migrations_id_seq', $database],
+        [
+            backupBinary('pg_dump'),
+            '-h',
+            (string) $config['host'],
+            '-p',
+            (string) $config['port'],
+            '-U',
+            (string) $config['username'],
+            '--schema-only',
+            '--no-owner',
+            '--no-privileges',
+            '-T',
+            'public.migrations',
+            '-T',
+            'public.migrations_id_seq',
+            $database,
+        ],
         [1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
         $pipes,
         null,
-        $environment
+        $environment,
     );
     if (!is_resource($process)) {
         throw new RuntimeException('Could not start pg_dump.');
@@ -301,19 +317,19 @@ $sourcePending = array_values(array_diff($files['users'], $sourceRecorded));
 $targetPending = array_values(array_diff($files['genshin_impact'], $targetRecorded['genshin_impact']));
 
 if ($targetRecorded['users'] !== []) {
-    stop("{$targetName} already records migrations of the site's half - it looks merged already, or half-merged."
-        . ' Check it before going on; nothing was changed.');
+    stop("{$targetName} already records migrations of the site's half - it looks merged already, or half-merged." . ' Check it before going on; nothing was changed.');
 }
 
-line("  {$sourceName}: " . count(mergeTables($source)) . ' tables, ' . count($sourceRecorded) . ' migrations recorded'
-    . ($sourcePending ? ', ' . count($sourcePending) . ' pending' : ''));
-line("  {$targetName}: " . count($targetRecorded['genshin_impact']) . ' migrations recorded'
-    . ($targetPending ? ', ' . count($targetPending) . ' pending' : ''));
+line("  {$sourceName}: " . count(mergeTables($source)) . ' tables, ' . count($sourceRecorded) . ' migrations recorded' . ($sourcePending ? ', ' . count($sourcePending) . ' pending' : ''));
+line("  {$targetName}: " . count($targetRecorded['genshin_impact']) . ' migrations recorded' . ($targetPending ? ', ' . count($targetPending) . ' pending' : ''));
 
 if ($checkOnly) {
     line();
-    line('--check: nothing was changed. Without it, this ' . ($sourcePending || $targetPending ? 'first applies the pending migrations, then ' : '')
-        . "moves every row of the site's half into {$targetName}, and rewrites config/database.local.php.");
+    line(
+        '--check: nothing was changed. Without it, this ' .
+            ($sourcePending || $targetPending ? 'first applies the pending migrations, then ' : '') .
+            "moves every row of the site's half into {$targetName}, and rewrites config/database.local.php.",
+    );
     exit(0);
 }
 
@@ -331,17 +347,17 @@ foreach ([[$source, 'users', $sourceName, $sourcePending], [$target, 'genshin_im
     }
     $result = siteMigrator($pdo, $folder, orderGuard: false)->apply();
     if ($result['busy']) {
-        stop("{$name}: another apply is running on it (`php migration.php`, or a site still pointed at it). Nothing was merged"
-            . ($applied ? '; the migrations listed above stay applied.' : '.'));
+        stop("{$name}: another apply is running on it (`php migration.php`, or a site still pointed at it). Nothing was merged" . ($applied ? '; the migrations listed above stay applied.' : '.'));
     }
-    $names = array_map(fn (array $file): string => $file['name'], $result['applied']);
+    $names = array_map(fn(array $file): string => $file['name'], $result['applied']);
     if ($names) {
         $applied[$name] = $names;
         line("  {$name}: applied " . implode(', ', $names));
     }
     if ($result['error'] !== null) {
-        stop("{$name}: migration {$folder}/" . ($result['failed']['name'] ?? '') . " failed - {$result['error']}\nNothing was merged"
-            . ($applied ? '; the migrations listed above stay applied.' : '.'));
+        stop(
+            "{$name}: migration {$folder}/" . ($result['failed']['name'] ?? '') . " failed - {$result['error']}\nNothing was merged" . ($applied ? '; the migrations listed above stay applied.' : '.'),
+        );
     }
 }
 
@@ -350,8 +366,7 @@ foreach ([[$source, 'users', $sourceName, $sourcePending], [$target, 'genshin_im
 $sourceTables = mergeTables($source);
 $clashes = array_values(array_intersect($sourceTables, mergeTables($target)));
 if ($clashes) {
-    stop("{$targetName} already has tables of the site's half (" . implode(', ', $clashes) . ').'
-        . ($applied ? ' Only the migrations listed above were applied.' : ' Nothing was changed.'));
+    stop("{$targetName} already has tables of the site's half (" . implode(', ', $clashes) . ').' . ($applied ? ' Only the migrations listed above were applied.' : ' Nothing was changed.'));
 }
 
 try {
@@ -398,8 +413,7 @@ try {
         $want = mergeFingerprint($source, $table);
         $got = mergeFingerprint($target, $table);
         if ($want !== $got) {
-            throw new RuntimeException("{$table}: {$want['rows']} rows in the old database, {$got['rows']} arrived"
-                . ($want['rows'] === $got['rows'] ? ', and their contents differ.' : '.'));
+            throw new RuntimeException("{$table}: {$want['rows']} rows in the old database, {$got['rows']} arrived" . ($want['rows'] === $got['rows'] ? ', and their contents differ.' : '.'));
         }
         line(sprintf('  %-24s %6d rows, contents identical', $table, $got['rows']));
     }
@@ -430,8 +444,7 @@ try {
 } catch (\Throwable $e) {
     $target->rollBack();
     $source->exec('ROLLBACK');
-    stop('Rolled back - ' . $targetName . ' is as it was' . (isset($applied[$targetName]) ? ' after step 1' : '')
-        . ', and so is the config. ' . $e->getMessage());
+    stop('Rolled back - ' . $targetName . ' is as it was' . (isset($applied[$targetName]) ? ' after step 1' : '') . ', and so is the config. ' . $e->getMessage());
 }
 
 // ── 3. The config ─────────────────────────────────────────────────────────────
@@ -450,8 +463,7 @@ $written = file_put_contents($temporary, "<?php\n\nreturn " . var_export($merged
 umask($umask);
 if ($written === false || !rename($temporary, $path)) {
     @unlink($temporary);
-    stop("The rows are in {$targetName}, but config/database.local.php could not be rewritten. Replace its 'databases'"
-        . " entry with 'database' => '{$targetName}' by hand.");
+    stop("The rows are in {$targetName}, but config/database.local.php could not be rewritten. Replace its 'databases'" . " entry with 'database' => '{$targetName}' by hand.");
 }
 if (DIRECTORY_SEPARATOR === '/') {
     @chmod($path, 0600);
@@ -467,6 +479,5 @@ line('Then `php migration.php`: the anotoki library\'s sets (anotoki_admin, anot
 // config with the rest of the list, and its database stays where it is.
 $others = array_diff(array_keys($config['databases']), ['users', 'genshin_impact']);
 foreach ($others as $alias) {
-    line("'{$alias}' ({$config['databases'][$alias]}) was named too, with no migrations and nothing reading it; it is"
-        . ' no longer in the config, and the database is left as it is.');
+    line("'{$alias}' ({$config['databases'][$alias]}) was named too, with no migrations and nothing reading it; it is" . ' no longer in the config, and the database is left as it is.');
 }

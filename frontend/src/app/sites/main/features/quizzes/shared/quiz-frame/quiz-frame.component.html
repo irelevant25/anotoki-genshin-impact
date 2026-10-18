@@ -2,7 +2,7 @@
     <!-- The daily run sets the difficulty for you, so there is nothing to report. -->
     @if (!isDaily()) {
         <div class="quiz-difficulty" [class]="'level-' + difficulty()">
-            <span class="recommended-ar">{{ 'quiz.difficulty.' + difficulty() | translate }}</span>
+            <span class="recommended-ar">{{ "quiz.difficulty." + difficulty() | translate }}</span>
         </div>
     }
 
@@ -28,12 +28,12 @@
 
         <!-- The daily run gives one question a day, so there is no next. -->
         @if (!isDaily() && isQuestionComplete()) {
-            <button anotokiButton variant="primary" size="lg" (click)="next.emit()">{{ 'quiz.next' | translate }}</button>
+            <button anotokiButton variant="primary" size="lg" (click)="next.emit()">{{ "quiz.next" | translate }}</button>
         }
     </div>
 
     <div class="quiz-tries-score">
-        <span>{{ 'quiz.tries' | translate }}</span>
+        <span>{{ "quiz.tries" | translate }}</span>
         <span>{{ triesCount() }} / {{ triesMax() }}</span>
     </div>
 
@@ -54,7 +54,6 @@
             [appAssetFolder]="'character.wish_icon'"
             [alt]="character.name"
             [title]="character.name"
-            loading="lazy"
-        />
+            loading="lazy" />
     }
 </div>

@@ -5,8 +5,12 @@ import { ToastService } from '@anotoki/lib/ui/toast';
 
 /** Sorts version strings numerically ("1.10" after "1.9"), newest first. */
 export function compareVersionsDesc(a: string | undefined, b: string | undefined): number {
-  const left = String(a ?? '').split('.').map(Number);
-  const right = String(b ?? '').split('.').map(Number);
+  const left = String(a ?? '')
+    .split('.')
+    .map(Number);
+  const right = String(b ?? '')
+    .split('.')
+    .map(Number);
   for (let i = 0; i < Math.max(left.length, right.length); i++) {
     const diff = (right[i] || 0) - (left[i] || 0);
     if (diff) {
@@ -18,8 +22,15 @@ export function compareVersionsDesc(a: string | undefined, b: string | undefined
 
 /** Value read from a filter input, normalised for a case-insensitive "contains". */
 export function contains(haystack: unknown, needle: unknown): boolean {
-  const text = String(needle ?? '').trim().toLowerCase();
-  return !text || String(haystack ?? '').toLowerCase().includes(text);
+  const text = String(needle ?? '')
+    .trim()
+    .toLowerCase();
+  return (
+    !text ||
+    String(haystack ?? '')
+      .toLowerCase()
+      .includes(text)
+  );
 }
 
 /** Multiselect values arrive as mixed primitives; compare them as strings. */

@@ -61,7 +61,7 @@ export class BaseInfoTabComponent {
   }
 
   obtainText(rarity: number): string {
-    return toStringArray((this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined)).join('\n');
+    return toStringArray(this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined).join('\n');
   }
 
   onObtainChange(rarity: number, value: string | number | undefined | null): void {

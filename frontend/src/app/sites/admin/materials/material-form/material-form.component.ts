@@ -22,7 +22,10 @@ import { toAssetLiteralName } from '../../shared/asset-name';
   selector: 'app-material-form',
   templateUrl: './material-form.component.html',
   styleUrls: ['./material-form.component.scss'],
-  imports: [PageHeaderComponent, IconComponent, SpinnerComponent, 
+  imports: [
+    PageHeaderComponent,
+    IconComponent,
+    SpinnerComponent,
     RouterLink,
     ButtonComponent,
     TextComponent,
@@ -30,7 +33,8 @@ import { toAssetLiteralName } from '../../shared/asset-name';
     DropdownComponent,
     MultiselectComponent,
     FieldContainerComponent,
-    EntityImageComponent],
+    EntityImageComponent,
+  ],
 })
 export class MaterialFormComponent extends AdminFormComponent<MaterialFull> implements OnInit {
   readonly entityLabel = 'Material';
@@ -140,8 +144,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
         name: this.iconName(),
         // Written through the signal: editing a field replaces the object, so a
         // reference taken here would not be the one that gets sent.
-        apply: (path: string, name: string, fileId: number | null) =>
-          this.material.update((material) => ({ ...material, icon: path, icon_name: name, icon_file_id: fileId })),
+        apply: (path: string, name: string, fileId: number | null) => this.material.update((material) => ({ ...material, icon: path, icon_name: name, icon_file_id: fileId })),
       },
     ];
   }

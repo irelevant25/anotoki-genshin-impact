@@ -45,7 +45,7 @@ function siteAudit(): AuditLog
 {
     static $audit = null;
 
-    return $audit ??= new AuditLog(fn (): PDO => getDb(), [
+    return $audit ??= new AuditLog(fn(): PDO => getDb(), [
         'pendingFile' => dirname(__DIR__) . '/storage/logs/audit-pending.jsonl',
         'ready' => auditMovedToLibrary(...),
         'actorIds' => auditActorIds(...),
@@ -91,7 +91,7 @@ function auditActorIds(string $name): array
  */
 function peopleNamesById(array $ids): array
 {
-    $ids = array_values(array_filter(array_map('intval', $ids), static fn (int $id): bool => $id > 0));
+    $ids = array_values(array_filter(array_map('intval', $ids), static fn(int $id): bool => $id > 0));
     if ($ids === []) {
         return [];
     }

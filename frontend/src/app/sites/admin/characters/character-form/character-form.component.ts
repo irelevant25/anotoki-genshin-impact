@@ -188,7 +188,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
             uid: createUid(),
             ascension,
             cost: (data.ascension_cost ?? []).filter((cost) => cost.character_ascension_id === ascension.id),
-          }))
+          })),
         );
         this.talents.set((data.talents ?? []).map((talent) => ({ uid: createUid(), data: talent })));
         this.talentCost.set(data.talent_cost ?? []);
@@ -220,7 +220,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           const payload = this._buildFormData();
           const id = this.characterId();
           return this.isEdit() && id !== null ? this._characterApi.updateCharacterFull(id, payload) : this._characterApi.createCharacterFull(payload);
-        })
+        }),
       )
       .subscribe({
         next: (result) => {
@@ -257,9 +257,9 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
           switchMap((result) => {
             entry.apply(result.path, result.name, result.fileId);
             return of(result);
-          })
+          }),
         );
-      })
+      }),
     );
   }
 

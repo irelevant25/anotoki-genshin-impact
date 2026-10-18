@@ -81,13 +81,7 @@ export function normalizeTitle(value: string | undefined | null): string {
   if (!value) {
     return '';
   }
-  return value
-    .normalize('NFC')
-    .replace(/:/g, ' - ')
-    .replace(ILLEGAL_FILENAME_CHARS, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
+  return value.normalize('NFC').replace(/:/g, ' - ').replace(ILLEGAL_FILENAME_CHARS, '').replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
 function stripExtension(fileName: string): string {
@@ -233,17 +227,7 @@ export function applyMatch(match: AudioMatch): void {
 // ── Parsing the pasted JSON ───────────────────────────────────────────────────
 
 /** Fields copied straight across when they appear in the source object. */
-const TEXT_FIELDS: (keyof VoiceOverFormData)[] = [
-  'name',
-  'title_english',
-  'title_japanese',
-  'title_chinese',
-  'title_korean',
-  'text_english',
-  'text_japanese',
-  'text_chinese',
-  'text_korean',
-];
+const TEXT_FIELDS: (keyof VoiceOverFormData)[] = ['name', 'title_english', 'title_japanese', 'title_chinese', 'title_korean', 'text_english', 'text_japanese', 'text_chinese', 'text_korean'];
 
 export interface ParsedVoiceOvers {
   wrappers: VoiceOverWrapper[];

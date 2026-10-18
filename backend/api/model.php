@@ -21,10 +21,7 @@ abstract class DbModel
 
     public static function partialToDbArray(array $body): array
     {
-        $knownKeys = array_map(
-            fn($p) => $p->getName(),
-            (new ReflectionClass(static::class))->getConstructor()->getParameters()
-        );
+        $knownKeys = array_map(fn($p) => $p->getName(), (new ReflectionClass(static::class))->getConstructor()->getParameters());
         $data = array_intersect_key($body, array_flip($knownKeys));
         foreach (static::jsonFields() as $field) {
             if (array_key_exists($field, $data)) {
@@ -32,7 +29,9 @@ abstract class DbModel
             }
         }
         foreach ($data as $key => $value) {
-            if (is_bool($value)) $data[$key] = (int) $value;
+            if (is_bool($value)) {
+                $data[$key] = (int) $value;
+            }
         }
         return $data;
     }
@@ -49,7 +48,9 @@ abstract class DbModel
             }
         }
         foreach ($data as $key => $value) {
-            if (is_bool($value)) $data[$key] = (int) $value;
+            if (is_bool($value)) {
+                $data[$key] = (int) $value;
+            }
         }
         return $data;
     }

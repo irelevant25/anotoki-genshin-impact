@@ -1,11 +1,11 @@
 @if (notice(); as notice) {
-    @if (notice.kind === 'blocked') {
+    @if (notice.kind === "blocked") {
         <anotoki-alert class="route-notice" tone="warning" [heading]="'route.blockedTitle' | translate" announce="polite">
-            {{ 'route.blockedText' | translate }}
+            {{ "route.blockedText" | translate }}
         </anotoki-alert>
     } @else {
         <anotoki-alert class="route-notice" tone="info" [heading]="'route.restrictedTitle' | translate" announce="polite">
-            {{ 'route.restrictedText' | translate: { audience: audience() } }}
+            {{ "route.restrictedText" | translate: { audience: audience() } }}
         </anotoki-alert>
     }
 }

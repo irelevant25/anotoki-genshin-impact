@@ -19,9 +19,7 @@ $app->get('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $re
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('artifacts'));
 
 // POST create
@@ -30,15 +28,16 @@ $app->post('/api/artifacts', function (Request $request, Response $response) {
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'artifacts', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'artifacts', [
-        ...Artifact::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'artifacts', [...Artifact::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'artifacts')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('artifacts'))->add(validateRequest(Artifact::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('artifacts'))
+    ->add(validateRequest(Artifact::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -49,16 +48,17 @@ $app->put('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $re
     }
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'artifacts', $body, $user['id']);
-    DbQuery::update($pdo, 'artifacts', [
-        ...Artifact::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'artifacts', [...Artifact::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'artifacts')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('artifacts'))->add(validateRequest(Artifact::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('artifacts'))
+    ->add(validateRequest(Artifact::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/artifacts/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -68,4 +68,7 @@ $app->delete('/api/artifacts/{id:[0-9]+}', function (Request $request, Response 
     }
     DbQuery::update($pdo, 'artifacts', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('artifacts'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('artifacts'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

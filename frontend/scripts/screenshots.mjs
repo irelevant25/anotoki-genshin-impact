@@ -134,11 +134,7 @@ const steps =
  * WebSupport s.r.o., linked to its own address - the code's, never a string's. A page without it is one to look at.
  */
 const hostingNamed = (page) =>
-  waitFor(
-    page,
-    `[...document.querySelectorAll('anotoki-privacy-page [data-recipient] a[href="https://www.websupport.sk"]')].some((a) => a.textContent.trim() === 'WebSupport s.r.o.')`,
-    15000,
-  );
+  waitFor(page, `[...document.querySelectorAll('anotoki-privacy-page [data-recipient] a[href="https://www.websupport.sk"]')].some((a) => a.textContent.trim() === 'WebSupport s.r.o.')`, 15000);
 
 /**
  * A stored text's markup never runs where it is drawn: Hu Tao's voice-over lines are seeded with an image whose
@@ -258,7 +254,11 @@ const LEGAL_SIGNED_OUT = [
     path: '/privacy',
     iam: { login_required: true },
     then: (page) =>
-      waitFor(page, "location.pathname === '/privacy' && !!document.querySelector('anotoki-privacy-page h1') && !document.querySelector('app-sign-in-required') && !localStorage.getItem('anotoki-auth:genshin')", 15000),
+      waitFor(
+        page,
+        "location.pathname === '/privacy' && !!document.querySelector('anotoki-privacy-page h1') && !document.querySelector('app-sign-in-required') && !localStorage.getItem('anotoki-auth:genshin')",
+        15000,
+      ),
   },
 ];
 

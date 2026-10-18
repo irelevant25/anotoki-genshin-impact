@@ -56,7 +56,10 @@ AddType audio/ogg .opus
 `;
 writeFileSync(join(dist, '.htaccess'), htaccess);
 
-const shown = dist.replace(process.cwd() + '\\', '').replace(process.cwd() + '/', '').replace(/\\/g, '/');
+const shown = dist
+  .replace(process.cwd() + '\\', '')
+  .replace(process.cwd() + '/', '')
+  .replace(/\\/g, '/');
 console.log(`Prepared ${shown}/ for production (upload its contents to the web root):`);
 console.log('  config.json  -> { url: "", configuration: "prod" }  (same-origin API)');
 console.log('  .htaccess    -> SPA fallback, /api and /uploads passed through, AVIF/Opus types');

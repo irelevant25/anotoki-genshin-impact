@@ -50,9 +50,6 @@ export class RefinementsTabComponent {
   /** Copies the previous row, which usually only differs by the mora cost. */
   duplicateLast(): void {
     const last = this.refinements().at(-1);
-    this.refinements.update((refinements) => [
-      ...refinements,
-      last ? { ...emptyRefinement(), data: { ...last.data, id: undefined } } : emptyRefinement(),
-    ]);
+    this.refinements.update((refinements) => [...refinements, last ? { ...emptyRefinement(), data: { ...last.data, id: undefined } } : emptyRefinement()]);
   }
 }

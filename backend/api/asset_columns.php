@@ -211,7 +211,7 @@ function resolveAssetRows(PDO $pdo, string $table, array &$rows): void
             }
 
             $id = $row[$fkColumn];
-            $file = $id !== null ? ($lookup[(int) $id] ?? null) : null;
+            $file = $id !== null ? $lookup[(int) $id] ?? null : null;
             $prefix = $spec['audio'] ? 'assets/' : '../assets/';
 
             $row[$dbColumn] = $file ? $prefix . $file['relative'] : null;
@@ -279,14 +279,11 @@ function upsertCatalogueFile(PDO $pdo, string $categoryCode, string $name, strin
     $modified = date('Y-m-d H:i:s', filemtime($real));
 
     if ($id !== false) {
-        $pdo->prepare('UPDATE files SET size = ?, modified_at = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
-            ->execute([$size, $modified, $id]);
+        $pdo->prepare('UPDATE files SET size = ?, modified_at = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')->execute([$size, $modified, $id]);
         return (int) $id;
     }
 
-    $insert = $pdo->prepare(
-        'INSERT INTO files (category_id, name, extension, size, modified_at, created_by) VALUES (?, ?, ?, ?, ?, ?) RETURNING id'
-    );
+    $insert = $pdo->prepare('INSERT INTO files (category_id, name, extension, size, modified_at, created_by) VALUES (?, ?, ?, ?, ?, ?) RETURNING id');
     $insert->execute([$categoryRow['id'], $name, $extension, $size, $modified, $by]);
     $newId = (int) $insert->fetchColumn();
 

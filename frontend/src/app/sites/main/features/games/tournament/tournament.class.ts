@@ -248,9 +248,7 @@ export class Tournament<T extends { name: string }> {
   private _finishRoundRobin(): void {
     // Everyone is ranked, but only the top three are shown; someone who never
     // won still needs a row in the count so the ranking is complete.
-    const ranked = this.entrants
-      .map((entrant) => ({ entrant, wins: this._wins.get(entrant.name) ?? 0 }))
-      .sort((a, b) => b.wins - a.wins);
+    const ranked = this.entrants.map((entrant) => ({ entrant, wins: this._wins.get(entrant.name) ?? 0 })).sort((a, b) => b.wins - a.wins);
 
     this._placings = ranked.slice(0, 3);
   }

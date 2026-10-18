@@ -43,9 +43,28 @@
  * configuration - in any part of a name, not only the last.
  */
 const UPLOAD_SCRIPT_EXTENSIONS = [
-    'php', 'phtml', 'phar', 'pht', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'phps',
-    'cgi', 'pl', 'py', 'sh', 'asp', 'aspx', 'jsp', 'shtml',
-    'htaccess', 'htpasswd', 'ini',
+    'php',
+    'phtml',
+    'phar',
+    'pht',
+    'php3',
+    'php4',
+    'php5',
+    'php6',
+    'php7',
+    'php8',
+    'phps',
+    'cgi',
+    'pl',
+    'py',
+    'sh',
+    'asp',
+    'aspx',
+    'jsp',
+    'shtml',
+    'htaccess',
+    'htpasswd',
+    'ini',
 ];
 
 /** The ones that are configuration rather than a handler: no RemoveHandler for these. */
@@ -164,15 +183,18 @@ function uploadGuardHtaccess(): string
         '# answer 500 for every file in the folder on a host whose AllowOverride does',
         '# not allow it.',
         '',
-    ]) . uploadGuardRules() . implode("\n", [
-        '',
-        '# Where Apache has mod_headers (which needs the same FileInfo): no file is',
-        '# sniffed into markup, and anything that is not a raster picture - audio,',
-        '# SVG (a picture that can carry script), whatever else is here - goes out as',
-        '# a download, never shown on the site\'s origin. An <img> or an <audio> reads',
-        '# its file whatever the download header says.',
-        '',
-    ]) . uploadGuardHeaders();
+    ]) .
+        uploadGuardRules() .
+        implode("\n", [
+            '',
+            '# Where Apache has mod_headers (which needs the same FileInfo): no file is',
+            '# sniffed into markup, and anything that is not a raster picture - audio,',
+            '# SVG (a picture that can carry script), whatever else is here - goes out as',
+            '# a download, never shown on the site\'s origin. An <img> or an <audio> reads',
+            '# its file whatever the download header says.',
+            '',
+        ]) .
+        uploadGuardHeaders();
 }
 
 /**

@@ -12,8 +12,7 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()"
-        >
+            (next)="next()">
             @if (questionEntity()?.dish; as dish) {
                 <div class="dish">
                     <!-- The food art is filed under the dish's own name, not the

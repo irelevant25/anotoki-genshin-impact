@@ -11,14 +11,14 @@ export interface IStateBottomMenu {
 
 export interface IStateTopMenu {
   daily: IStateDailyMenu;
-  banners: { dailyState?: QuizState; state?: QuizState; };
-  pixelate: { dailyState?: any; state?: any; };
-  mismatch: { dailyState?: any; state?: any; };
-  music: { dailyState?: any; state?: any; };
-  dish: { dailyState?: any; state?: any; };
-  voice: { dailyState?: any; state?: any; };
-  tournament: { state?: any; };
-  minesweeper: { state?: any; };
+  banners: { dailyState?: QuizState; state?: QuizState };
+  pixelate: { dailyState?: any; state?: any };
+  mismatch: { dailyState?: any; state?: any };
+  music: { dailyState?: any; state?: any };
+  dish: { dailyState?: any; state?: any };
+  voice: { dailyState?: any; state?: any };
+  tournament: { state?: any };
+  minesweeper: { state?: any };
 }
 
 export interface IStateDailyMenu {
@@ -44,7 +44,7 @@ export interface IStateStatsCharacter {
 
 export interface IStateStatsDaily {
   date: string;
-  quizzes: { quiz: string; difficulty: number; completed: boolean; }[];
+  quizzes: { quiz: string; difficulty: number; completed: boolean }[];
 }
 
 export interface IStateStats {
@@ -63,7 +63,7 @@ export const StorageKeys = {
   VERSION: 'version',
   BACKGROUND: 'background',
   STORAGE_KEY: 'app_data',
-}
+};
 
 @Injectable({
   providedIn: 'root',
@@ -109,25 +109,23 @@ export class StateService {
         id: 'site-banners',
         1: {
           triesMax: 5,
-          triesEffects: [
-            { try: 0, class: 'difficulty-3' }
-          ]
+          triesEffects: [{ try: 0, class: 'difficulty-3' }],
         },
         2: {
           triesMax: 4,
           triesEffects: [
             { try: 0, class: 'difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-2' }
-          ]
+            { try: 1, class: 'difficulty-2' },
+          ],
         },
         3: {
           triesMax: 3,
           triesEffects: [
             { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
             { try: 1, class: 'difficulty-1 difficulty-2' },
-            { try: 2, class: 'difficulty-1' }
-          ]
-        }
+            { try: 2, class: 'difficulty-1' },
+          ],
+        },
       },
       pixelate: {
         id: 'site-pixelate',
@@ -139,7 +137,7 @@ export class StateService {
             { try: 2, data: 17 },
             { try: 3, data: 22 },
             { try: 4, data: 27 },
-          ]
+          ],
         },
         2: {
           triesMax: 4,
@@ -148,7 +146,7 @@ export class StateService {
             { try: 1, data: 11 },
             { try: 2, data: 16 },
             { try: 3, data: 21 },
-          ]
+          ],
         },
         3: {
           triesMax: 3,
@@ -156,8 +154,8 @@ export class StateService {
             { try: 0, data: 5 },
             { try: 1, data: 10 },
             { try: 2, data: 15 },
-          ]
-        }
+          ],
+        },
       },
       mismatch: {
         id: 'site-mismatch',
@@ -169,7 +167,7 @@ export class StateService {
         },
         3: {
           choicesAmount: 5,
-        }
+        },
       },
       music: {
         id: 'site-music',
@@ -180,7 +178,7 @@ export class StateService {
             { try: 1, data: 10 },
             { try: 2, data: 15 },
             { try: 3, data: 20 },
-          ]
+          ],
         },
         2: {
           triesMax: 4,
@@ -189,7 +187,7 @@ export class StateService {
             { try: 1, data: 10 },
             { try: 2, data: 15 },
             { try: 3, data: 20 },
-          ]
+          ],
         },
         3: {
           triesMax: 3,
@@ -197,53 +195,40 @@ export class StateService {
             { try: 0, data: 5 },
             { try: 1, data: 10 },
             { try: 2, data: 15 },
-          ]
-        }
+          ],
+        },
       },
       dish: {
         id: 'site-dish',
         1: {
           triesMax: 5,
-          triesEffects: [
-            { try: 0, class: 'difficulty-3' }
-          ]
+          triesEffects: [{ try: 0, class: 'difficulty-3' }],
         },
         2: {
           triesMax: 4,
           triesEffects: [
             { try: 0, class: 'difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-2' }
-          ]
+            { try: 1, class: 'difficulty-2' },
+          ],
         },
         3: {
           triesMax: 3,
           triesEffects: [
             { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
             { try: 1, class: 'difficulty-1 difficulty-2' },
-            { try: 2, class: 'difficulty-1' }
-          ]
-        }
+            { try: 2, class: 'difficulty-1' },
+          ],
+        },
       },
       voice: {
         id: 'site-voice',
         1: {
           triesMax: 5,
-          triesEffects: [
-            { try: 0, class: 'half-text hidden-audio' },
-            { try: 1, class: 'hidden-audio' },
-            { try: 2, data: 0.5 },
-            { try: 3 },
-            { try: 4 },
-          ]
+          triesEffects: [{ try: 0, class: 'half-text hidden-audio' }, { try: 1, class: 'hidden-audio' }, { try: 2, data: 0.5 }, { try: 3 }, { try: 4 }],
         },
         2: {
           triesMax: 4,
-          triesEffects: [
-            { try: 0, class: 'half-text hidden-audio' },
-            { try: 1, class: 'hidden-audio' },
-            { try: 2, data: 0.5 },
-            { try: 3 },
-          ]
+          triesEffects: [{ try: 0, class: 'half-text hidden-audio' }, { try: 1, class: 'hidden-audio' }, { try: 2, data: 0.5 }, { try: 3 }],
         },
         3: {
           triesMax: 3,
@@ -251,19 +236,19 @@ export class StateService {
             { try: 0, class: 'half-text hidden-audio' },
             { try: 1, class: 'hidden-audio' },
             { try: 2, data: 0.5 },
-          ]
-        }
+          ],
+        },
       },
       tournament: {
         id: 'site-tournament',
-      }
+      },
     },
 
     tooltips: {
       placement: 'top',
       customClass: 'custom-tooltip',
-      container: 'body'
-    }
+      container: 'body',
+    },
   };
 
   constructor(private readonly _storageService: LocalStorageService) {
@@ -409,7 +394,7 @@ export class StateService {
         quizStats.difficulty = difficulty;
       }
       if (!this.data.topMenu.daily.done.includes(quizName)) {
-        this.data.topMenu.daily.done.push(quizName)
+        this.data.topMenu.daily.done.push(quizName);
       }
     }
     return this.saveData(this.data);

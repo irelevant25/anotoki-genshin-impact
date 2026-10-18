@@ -10,15 +10,7 @@
 <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Icon</h3>
     <app-field-container [class]="'gap-5'" [cols]="5">
-        <app-entity-image
-            [label]="'Icon'"
-            [required]="true"
-            [path]="iconPath()"
-            [name]="iconName()"
-            [pending]="enemy().pending.icon"
-            (picked)="onPicked($event)"
-            (cleared)="onCleared()"
-        />
+        <app-entity-image [label]="'Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="enemy().pending.icon" (picked)="onPicked($event)" (cleared)="onCleared()" />
     </app-field-container>
 </app-field-container>
 

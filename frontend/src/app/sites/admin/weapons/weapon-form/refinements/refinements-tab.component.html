@@ -6,26 +6,10 @@
             <div class="sub-card-header">
                 <span class="sub-card-index">R{{ i + 1 }}</span>
                 <div class="refinement-actions">
-                    <button
-                        anotokiButton
-                        variant="ghost"
-                        size="sm"
-                        iconOnly
-                        [disabled]="first"
-                        aria-label="Move up"
-                        anotokiTooltip="Move up"
-                        (click)="move(refinement, -1)">
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move(refinement, -1)">
                         <span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span>
                     </button>
-                    <button
-                        anotokiButton
-                        variant="ghost"
-                        size="sm"
-                        iconOnly
-                        [disabled]="last"
-                        aria-label="Move down"
-                        anotokiTooltip="Move down"
-                        (click)="move(refinement, 1)">
+                    <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move(refinement, 1)">
                         <span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span>
                     </button>
                     <button anotokiButton variant="danger" (click)="removeRefinement(refinement)">Delete</button>
@@ -38,8 +22,7 @@
                     [(value)]="refinement.data.material_id"
                     [required]="true"
                     [emptyOption]="true"
-                    [emptyOptionText]="'— material —'"
-                ></app-dropdown>
+                    [emptyOptionText]="'— material —'"></app-dropdown>
                 <app-number [label]="'Quantity'" [(value)]="refinement.data.quantity" [min]="0"></app-number>
             </app-field-container>
             <app-field-container [cols]="1">

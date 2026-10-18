@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 export enum Roles {
   ADMIN,
   EDITOR,
-  USER
+  USER,
 }
 
 export interface DropdownOption {
@@ -17,7 +17,7 @@ export interface DropdownOption {
   providedIn: 'root',
 })
 export class OptionsHelperService {
-  constructor() { }
+  constructor() {}
 
   /////////////////////////////
   // STATIC DROPDOWN OPTIONS //

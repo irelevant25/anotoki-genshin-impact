@@ -1,7 +1,7 @@
 <!-- Information, not a warning - nothing is wrong yet: the kit's callout, with the way in under the words. -->
 <anotoki-alert class="visitor-notice" tone="info">
-    {{ 'visitor.notice' | translate: { days: keepDays() } }}
+    {{ "visitor.notice" | translate: { days: keepDays() } }}
     <div alertActions>
-        <button anotokiButton variant="primary" size="sm" [disabled]="!available()" (click)="signIn()">{{ 'common.signIn' | translate }}</button>
+        <button anotokiButton variant="primary" size="sm" [disabled]="!available()" (click)="signIn()">{{ "common.signIn" | translate }}</button>
     </div>
 </anotoki-alert>

@@ -16,13 +16,13 @@
 
     @if (levels().length) {
         <div class="cost-table talent-level-table">
-            <h3>{{ 'database.detail.talentLevelUpMaterials' | translate }}</h3>
+            <h3>{{ "database.detail.talentLevelUpMaterials" | translate }}</h3>
             <table class="table-striped table-hover border-collapse">
                 <thead>
                     <tr>
                         <th class="checkbox-column"></th>
-                        <th>{{ 'database.detail.level' | translate }}</th>
-                        <th>{{ 'database.detail.materials' | translate }}</th>
+                        <th>{{ "database.detail.level" | translate }}</th>
+                        <th>{{ "database.detail.materials" | translate }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                             <td class="checkbox-column">
                                 <input type="checkbox" [checked]="selectedLevels().has(row.level)" (change)="toggleLevel(row.level)" />
                             </td>
-                            <td>{{ 'database.detail.level' | translate }} {{ row.level }}</td>
+                            <td>{{ "database.detail.level" | translate }} {{ row.level }}</td>
                             <td>
                                 <div class="d-flex flex-row flex-nowrap gap-2">
                                     @for (cost of row.costs; track cost.id) {
@@ -53,12 +53,12 @@
                 </tbody>
             </table>
             <p>
-                <em>{{ 'database.detail.talentNote' | translate }}</em>
+                <em>{{ "database.detail.talentNote" | translate }}</em>
             </p>
         </div>
 
         <div class="total-materials">
-            <h3>{{ 'database.detail.totalTalentMaterials' | translate }}</h3>
+            <h3>{{ "database.detail.totalTalentMaterials" | translate }}</h3>
             <div class="d-flex flex-wrap gap-3">
                 @for (total of totals(); track total.material.id) {
                     <a class="total-material-item hover" [routerLink]="['../../', 'materials', total.material.id]" [title]="total.material.name">

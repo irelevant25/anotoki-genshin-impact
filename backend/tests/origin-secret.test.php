@@ -107,7 +107,10 @@ $cases = [
     '...empty' => [requestFrom(EDGE, $visitor + ['X-Anotoki-Origin' => '']), EDGE],
     'with the zone\'s secret: the visitor Cloudflare names' => [requestFrom(EDGE, $visitor + ['X-Anotoki-Origin' => ORIGIN_SECRET]), '198.51.100.7'],
     '...over IPv6 too: the visitor\'s /64' => [requestFrom(EDGE6, ['CF-Connecting-IP' => '2001:db8:aa:bb:1:2:3:4', 'X-Anotoki-Origin' => ORIGIN_SECRET]), '2001:db8:aa:bb::/64'],
-    'the zone\'s secret from outside Cloudflare\'s ranges: the connection\'s own - the secret alone opens nothing' => [requestFrom(STRANGER, $visitor + ['X-Anotoki-Origin' => ORIGIN_SECRET]), STRANGER],
+    'the zone\'s secret from outside Cloudflare\'s ranges: the connection\'s own - the secret alone opens nothing' => [
+        requestFrom(STRANGER, $visitor + ['X-Anotoki-Origin' => ORIGIN_SECRET]),
+        STRANGER,
+    ],
 ];
 foreach ($cases as $what => [$request, $expected]) {
     same($what, [$expected, $expected], [clientAddressCounted($request), siteAdminContext()->clientKey($request)]);
@@ -122,23 +125,47 @@ $made = [];
 for ($i = 1; $i <= 11; $i++) {
     $made[] = send('PUT', '/api/quiz/progress/dish', EDGE, ['CF-Connecting-IP' => "198.51.100.$i"], PLAYED)->getStatusCode();
 }
-same('ten new visitors an hour from one address: a new CF-Connecting-IP every time without X-Anotoki-Origin is the edge - the eleventh refused', [array_fill(0, 10, 200), 429], [array_slice($made, 0, 10), $made[10]]);
-same('...with a wrong secret, refused too', 429, send('PUT', '/api/quiz/progress/dish', EDGE, ['CF-Connecting-IP' => '198.51.100.12', 'X-Anotoki-Origin' => 'not the secret'], PLAYED)->getStatusCode());
-same('...through the owner\'s zone - the secret beside it - the visitor is themselves: made', 200, send('PUT', '/api/quiz/progress/dish', EDGE, ['CF-Connecting-IP' => '198.51.100.13', 'X-Anotoki-Origin' => ORIGIN_SECRET], PLAYED)->getStatusCode());
+same(
+    'ten new visitors an hour from one address: a new CF-Connecting-IP every time without X-Anotoki-Origin is the edge - the eleventh refused',
+    [array_fill(0, 10, 200), 429],
+    [array_slice($made, 0, 10), $made[10]],
+);
+same(
+    '...with a wrong secret, refused too',
+    429,
+    send('PUT', '/api/quiz/progress/dish', EDGE, ['CF-Connecting-IP' => '198.51.100.12', 'X-Anotoki-Origin' => 'not the secret'], PLAYED)->getStatusCode(),
+);
+same(
+    '...through the owner\'s zone - the secret beside it - the visitor is themselves: made',
+    200,
+    send('PUT', '/api/quiz/progress/dish', EDGE, ['CF-Connecting-IP' => '198.51.100.13', 'X-Anotoki-Origin' => ORIGIN_SECRET], PLAYED)->getStatusCode(),
+);
 $kept = $pdo->query('SELECT address FROM visitor_starts ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
-same('visitor_starts: ten rows of the edge\'s, one of the visitor through the zone, none of the addresses made up', [11, 10, 1, 0], [
-    count($kept),
-    count(array_keys($kept, clientAddressHash(requestFrom(EDGE)), true)),
-    count(array_keys($kept, clientAddressHash(requestFrom('198.51.100.13')), true)),
-    count(array_intersect($kept, array_map(fn (int $i): string => clientAddressHash(requestFrom("198.51.100.$i")), range(1, 12)))),
-]);
+same(
+    'visitor_starts: ten rows of the edge\'s, one of the visitor through the zone, none of the addresses made up',
+    [11, 10, 1, 0],
+    [
+        count($kept),
+        count(array_keys($kept, clientAddressHash(requestFrom(EDGE)), true)),
+        count(array_keys($kept, clientAddressHash(requestFrom('198.51.100.13')), true)),
+        count(array_intersect($kept, array_map(fn(int $i): string => clientAddressHash(requestFrom("198.51.100.$i")), range(1, 12)))),
+    ],
+);
 
 $feedback = [];
 for ($i = 1; $i <= 6; $i++) {
     $feedback[] = send('POST', '/api/feedback', EDGE, ['CF-Connecting-IP' => "198.51.100.3$i"], ['kind' => 'other', 'message' => "A Worker's message $i"])->getStatusCode();
 }
-same('feedback (the library\'s limit, by the AdminContext): five an hour from one sender - a new CF-Connecting-IP every time without the secret is the edge, the sixth 429', [array_fill(0, 5, 201), 429], [array_slice($feedback, 0, 5), $feedback[5]]);
-same('...through the zone, a visitor of their own may still write', 201, send('POST', '/api/feedback', EDGE, ['CF-Connecting-IP' => '198.51.100.40', 'X-Anotoki-Origin' => ORIGIN_SECRET], ['kind' => 'other', 'message' => 'Through the zone'])->getStatusCode());
+same(
+    'feedback (the library\'s limit, by the AdminContext): five an hour from one sender - a new CF-Connecting-IP every time without the secret is the edge, the sixth 429',
+    [array_fill(0, 5, 201), 429],
+    [array_slice($feedback, 0, 5), $feedback[5]],
+);
+same(
+    '...through the zone, a visitor of their own may still write',
+    201,
+    send('POST', '/api/feedback', EDGE, ['CF-Connecting-IP' => '198.51.100.40', 'X-Anotoki-Origin' => ORIGIN_SECRET], ['kind' => 'other', 'message' => 'Through the zone'])->getStatusCode(),
+);
 
 // ── What the file may hold ───────────────────────────────────────────────────
 
@@ -146,29 +173,35 @@ echo "What config/cloudflare.local.php may hold: a string with something in it -
 
 // originSecretFrom()'s null is a file there that names no usable secret: originSecret() makes it one no request
 // carries (below, through the real reading). Only a file that is not there is no secret.
-foreach ([
-    'return null;' => [null, null, 1],
-    'the secret' => [['origin_secret' => 'a-secret'], 'a-secret', 0],
-    'the secret with spaces around it' => [['origin_secret' => " \ta-secret\n"], 'a-secret', 0],
-    'an empty one' => [['origin_secret' => ''], null, 1],
-    'only spaces' => [['origin_secret' => '   '], null, 1],
-    'a number' => [['origin_secret' => 123456789012345678], null, 1],
-    'a list' => [['origin_secret' => ['a-secret']], null, 1],
-    'no origin_secret at all' => [[], null, 1],
-    'a string, not an array' => ['a-secret', null, 1],
-    'another key beside the secret' => [['origin_secret' => 'a-secret', 'secret' => 'x'], 'a-secret', 1],
-] as $what => [$values, $secret, $problems]) {
+foreach (
+    [
+        'return null;' => [null, null, 1],
+        'the secret' => [['origin_secret' => 'a-secret'], 'a-secret', 0],
+        'the secret with spaces around it' => [['origin_secret' => " \ta-secret\n"], 'a-secret', 0],
+        'an empty one' => [['origin_secret' => ''], null, 1],
+        'only spaces' => [['origin_secret' => '   '], null, 1],
+        'a number' => [['origin_secret' => 123456789012345678], null, 1],
+        'a list' => [['origin_secret' => ['a-secret']], null, 1],
+        'no origin_secret at all' => [[], null, 1],
+        'a string, not an array' => ['a-secret', null, 1],
+        'another key beside the secret' => [['origin_secret' => 'a-secret', 'secret' => 'x'], 'a-secret', 1],
+    ]
+    as $what => [$values, $secret, $problems]
+) {
     $result = originSecretFrom($values);
     same("$what: " . ($secret === null ? 'names no usable secret' : 'the secret') . ", $problems sentence(s) for the log", [$secret, $problems], [$result['secret'], count($result['problems'])]);
     if ($secret === null) {
-        check('...the log is told it fails closed, and that deleting the file switches the secret off', str_contains(implode("\n", $result['problems']), 'no request carries its secret') && str_contains(implode("\n", $result['problems']), 'deleting the file switches the secret off'), implode("\n", $result['problems']));
+        check(
+            '...the log is told it fails closed, and that deleting the file switches the secret off',
+            str_contains(implode("\n", $result['problems']), 'no request carries its secret') && str_contains(implode("\n", $result['problems']), 'deleting the file switches the secret off'),
+            implode("\n", $result['problems']),
+        );
     }
 }
-$sentences = implode("\n", array_merge(
-    originSecretFrom([ORIGIN_SECRET => 'origin_secret'])['problems'],
-    originSecretFrom(['origin_secret' => [ORIGIN_SECRET]])['problems'],
-    originSecretFrom(ORIGIN_SECRET)['problems'],
-));
+$sentences = implode(
+    "\n",
+    array_merge(originSecretFrom([ORIGIN_SECRET => 'origin_secret'])['problems'], originSecretFrom(['origin_secret' => [ORIGIN_SECRET]])['problems'], originSecretFrom(ORIGIN_SECRET)['problems']),
+);
 check('...and what the log is told never holds the value - nor a key, which a slip may have made the secret', $sentences !== '' && !str_contains($sentences, ORIGIN_SECRET), $sentences);
 
 // The real reading, in a process of its own - this one has read its file already (once a request): config/ and
@@ -187,7 +220,10 @@ function originSecretRead(string $backend, ?string $contents): array
     } elseif ($contents !== null) {
         file_put_contents("$dir/config/cloudflare.local.php", $contents);
     }
-    file_put_contents("$dir/read.php", "<?php\nrequire " . var_export("$dir/config/cloudflare.php", true) . ";\nfile_put_contents(" . var_export("$dir/secret.txt", true) . ", var_export(originSecret(), true));\n");
+    file_put_contents(
+        "$dir/read.php",
+        "<?php\nrequire " . var_export("$dir/config/cloudflare.php", true) . ";\nfile_put_contents(" . var_export("$dir/secret.txt", true) . ", var_export(originSecret(), true));\n",
+    );
     $output = [];
     exec(escapeshellarg(PHP_BINARY) . ' -d ' . escapeshellarg("error_log=$dir/php.log") . ' ' . escapeshellarg("$dir/read.php") . ' 2>&1', $output, $code);
 
@@ -201,30 +237,44 @@ function originSecretRead(string $backend, ?string $contents): array
 // through the whole API, the limits too.)
 $bare = 'secret_' . bin2hex(random_bytes(16));
 $unreadable = '[cloudflare] config/cloudflare.local.php cannot be read cleanly (';
-foreach ([
-    'a parse error (two strings side by side: PHP\'s message quotes the second)' => ["<?php return ['origin_secret' => 'x' '" . ORIGIN_SECRET . "'];\n", $unreadable],
-    'a word without its quotes (PHP\'s error quotes it)' => ["<?php return ['origin_secret' => $bare];\n", $unreadable],
-    // Written by hand without its first line, or saved with a BOM: PHP would print the file before every answer -
-    // and with declare(strict_types=1) after a BOM or a blank line it could not compile it at all.
-    'no <?php line (PHP would print the whole file)' => ["return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
-    'a BOM (PHP would print it before the answer)' => ["\xEF\xBB\xBF<?php return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
-    'a BOM before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\xEF\xBB\xBF<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
-    'a blank line before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\n<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
-    // Read cleanly, naming no usable secret (2026-10-18): each a slip in a file its owner meant to hold one.
-    'read cleanly, the secret blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
-    'read cleanly, only spaces' => ["<?php\n\nreturn ['origin_secret' => \"  \\n\"];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
-    'read cleanly, no array (the secret alone, returned)' => ["<?php\n\nreturn '" . ORIGIN_SECRET . "';\n", '[cloudflare] config/cloudflare.local.php returns string, not an array'],
-    'read cleanly, a forgotten return (require gives 1)' => ["<?php\n\n\$secret = ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] config/cloudflare.local.php returns int, not an array'],
-    'read cleanly, return null;' => ["<?php\n\nreturn null;\n", '[cloudflare] config/cloudflare.local.php returns null, not an array'],
-    'read cleanly, a misspelt key' => ["<?php\n\nreturn ['orgin_secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
-    'read cleanly, another key in its place' => ["<?php\n\nreturn ['secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
-    'read cleanly, a number' => ["<?php\n\nreturn ['origin_secret' => 123456789012345678];\n", '[cloudflare] origin_secret must be a string with something in it, not int'],
-    'read cleanly, the secret in a list' => ["<?php\n\nreturn ['origin_secret' => ['" . ORIGIN_SECRET . "']];\n", '[cloudflare] origin_secret must be a string with something in it, not array'],
-    'a folder in the file\'s place' => [FOLDER, $unreadable . 'is not a file'],
-] as $what => [$contents, $sentence]) {
+foreach (
+    [
+        'a parse error (two strings side by side: PHP\'s message quotes the second)' => ["<?php return ['origin_secret' => 'x' '" . ORIGIN_SECRET . "'];\n", $unreadable],
+        'a word without its quotes (PHP\'s error quotes it)' => ["<?php return ['origin_secret' => $bare];\n", $unreadable],
+        // Written by hand without its first line, or saved with a BOM: PHP would print the file before every answer -
+        // and with declare(strict_types=1) after a BOM or a blank line it could not compile it at all.
+        'no <?php line (PHP would print the whole file)' => ["return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+        'a BOM (PHP would print it before the answer)' => ["\xEF\xBB\xBF<?php return ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+        'a BOM before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\xEF\xBB\xBF<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+        'a blank line before <?php declare(strict_types=1); (compiled, a fatal error)' => ["\n<?php declare(strict_types=1);\nreturn ['origin_secret' => '" . ORIGIN_SECRET . "'];\n", $unreadable],
+        // Read cleanly, naming no usable secret (2026-10-18): each a slip in a file its owner meant to hold one.
+        'read cleanly, the secret blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
+        'read cleanly, only spaces' => ["<?php\n\nreturn ['origin_secret' => \"  \\n\"];\n", '[cloudflare] origin_secret must be a string with something in it, not an empty one'],
+        'read cleanly, no array (the secret alone, returned)' => ["<?php\n\nreturn '" . ORIGIN_SECRET . "';\n", '[cloudflare] config/cloudflare.local.php returns string, not an array'],
+        'read cleanly, a forgotten return (require gives 1)' => [
+            "<?php\n\n\$secret = ['origin_secret' => '" . ORIGIN_SECRET . "'];\n",
+            '[cloudflare] config/cloudflare.local.php returns int, not an array',
+        ],
+        'read cleanly, return null;' => ["<?php\n\nreturn null;\n", '[cloudflare] config/cloudflare.local.php returns null, not an array'],
+        'read cleanly, a misspelt key' => ["<?php\n\nreturn ['orgin_secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
+        'read cleanly, another key in its place' => ["<?php\n\nreturn ['secret' => '" . ORIGIN_SECRET . "'];\n", '[cloudflare] origin_secret must be a string with something in it, not null'],
+        'read cleanly, a number' => ["<?php\n\nreturn ['origin_secret' => 123456789012345678];\n", '[cloudflare] origin_secret must be a string with something in it, not int'],
+        'read cleanly, the secret in a list' => ["<?php\n\nreturn ['origin_secret' => ['" . ORIGIN_SECRET . "']];\n", '[cloudflare] origin_secret must be a string with something in it, not array'],
+        'a folder in the file\'s place' => [FOLDER, $unreadable . 'is not a file'],
+    ]
+    as $what => [$contents, $sentence]
+) {
     $run = originSecretRead($backend, $contents);
-    check("$what: fails closed - a secret no request carries (64 random hex characters, not the file's), and the site goes on", $run['code'] === 0 && preg_match("/^'[0-9a-f]{64}'$/D", $run['read']) === 1 && !str_contains($run['read'], ORIGIN_SECRET), "exit {$run['code']}: {$run['printed']}");
-    check('...said in the PHP log, with the site\'s sentences alone: the fault, and that no request carries its secret', str_contains($run['said'], $sentence) && str_contains($run['said'], 'no request carries its secret'), $run['said']);
+    check(
+        "$what: fails closed - a secret no request carries (64 random hex characters, not the file's), and the site goes on",
+        $run['code'] === 0 && preg_match("/^'[0-9a-f]{64}'$/D", $run['read']) === 1 && !str_contains($run['read'], ORIGIN_SECRET),
+        "exit {$run['code']}: {$run['printed']}",
+    );
+    check(
+        '...said in the PHP log, with the site\'s sentences alone: the fault, and that no request carries its secret',
+        str_contains($run['said'], $sentence) && str_contains($run['said'], 'no request carries its secret'),
+        $run['said'],
+    );
     check('...never with the value', !str_contains($run['said'] . $run['printed'], ORIGIN_SECRET) && !str_contains($run['said'] . $run['printed'], $bare));
 }
 $run = originSecretRead($backend, null);

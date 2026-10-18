@@ -49,9 +49,7 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
  * columns rather than nesting them under a key, so `@merges WeaponAscension`
  * plus a `costs` field describes what actually arrives.
  */
-abstract class ResponseShape
-{
-}
+abstract class ResponseShape {}
 
 /**
  * Declares the shape of a successful response.

@@ -31,7 +31,8 @@ const MAX_COST_LEVEL = 10;
   selector: 'app-talents-tab',
   templateUrl: './talents-tab.component.html',
   styleUrls: ['./talents-tab.component.scss'],
-  imports: [TooltipDirective, 
+  imports: [
+    TooltipDirective,
     EntityImageComponent,
     ButtonComponent,
     TextComponent,
@@ -96,9 +97,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
         groups.set(cost.level, [cost]);
       }
     }
-    return [...groups.entries()]
-      .map(([level, cost]) => ({ level, cost: cost.sort((a, b) => a.order - b.order) }))
-      .sort((a, b) => a.level - b.level);
+    return [...groups.entries()].map(([level, cost]) => ({ level, cost: cost.sort((a, b) => a.order - b.order) })).sort((a, b) => a.level - b.level);
   });
 
   canAddCostLevel = computed(() => this.costGroups().length < MAX_COST_LEVEL - MIN_COST_LEVEL + 1);
@@ -135,7 +134,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
       resequence(
         remaining,
         (talent) => talent.data.order,
-        (talent, order) => (talent.data.order = order)
+        (talent, order) => (talent.data.order = order),
       );
       return remaining;
     });
@@ -168,7 +167,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
         wrapper,
         newOrder,
         (talent) => talent.data.order,
-        (talent, order) => (talent.data.order = order)
+        (talent, order) => (talent.data.order = order),
       );
       return changed ? [...talents] : talents;
     });
@@ -199,7 +198,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
       resequence(
         remaining.filter((current) => current.level === group.level),
         (current) => current.order,
-        (current, order) => (current.order = order)
+        (current, order) => (current.order = order),
       );
       return remaining;
     });
@@ -233,7 +232,7 @@ export class TalentsTabComponent extends AbstractModalComponent {
         cost,
         newOrder,
         (current) => current.order,
-        (current, order) => (current.order = order)
+        (current, order) => (current.order = order),
       );
       return changed ? [...costs] : costs;
     });

@@ -19,24 +19,23 @@ $app->get('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response 
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('foods_recipe'));
 
 // POST create
 $app->post('/api/foods-recipe', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
-    $id = DbQuery::insert($pdo, 'foods_recipe', [
-        ...FoodRecipe::fromBody($request->getParsedBody())->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'foods_recipe', [...FoodRecipe::fromBody($request->getParsedBody())->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'foods_recipe')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('foods_recipe'))->add(validateRequest(FoodRecipe::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('foods_recipe'))
+    ->add(validateRequest(FoodRecipe::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,16 +44,17 @@ $app->put('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response 
     if (!DbQuery::from($pdo, 'foods_recipe')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
-    DbQuery::update($pdo, 'foods_recipe', [
-        ...FoodRecipe::partialToDbArray($request->getParsedBody()),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'foods_recipe', [...FoodRecipe::partialToDbArray($request->getParsedBody()), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'foods_recipe')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('foods_recipe'))->add(validateRequest(FoodRecipe::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('foods_recipe'))
+    ->add(validateRequest(FoodRecipe::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,7 @@ $app->delete('/api/foods-recipe/{id:[0-9]+}', function (Request $request, Respon
     }
     DbQuery::update($pdo, 'foods_recipe', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('foods_recipe'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('foods_recipe'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

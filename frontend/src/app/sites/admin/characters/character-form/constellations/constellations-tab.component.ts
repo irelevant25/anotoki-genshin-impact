@@ -38,7 +38,11 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
    * character. Mirrors the ascension "Choose set".
    */
   chooseSet(): void {
-    const modal = this.dialogs.open<ConstellationSetSelectorComponent, number | undefined>(ConstellationSetSelectorComponent, { heading: 'Choose a constellation set', size: 'lg', data: this.constellationSetId() ?? null });
+    const modal = this.dialogs.open<ConstellationSetSelectorComponent, number | undefined>(ConstellationSetSelectorComponent, {
+      heading: 'Choose a constellation set',
+      size: 'lg',
+      data: this.constellationSetId() ?? null,
+    });
 
     void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {
@@ -87,7 +91,7 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
       resequence(
         remaining,
         (constellation) => constellation.data.level,
-        (constellation, level) => (constellation.data.level = level)
+        (constellation, level) => (constellation.data.level = level),
       );
       return remaining;
     });
@@ -120,7 +124,7 @@ export class ConstellationsTabComponent extends AbstractModalComponent {
         wrapper,
         newLevel,
         (constellation) => constellation.data.level,
-        (constellation, level) => (constellation.data.level = level)
+        (constellation, level) => (constellation.data.level = level),
       );
       return changed ? [...constellations] : constellations;
     });

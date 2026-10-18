@@ -9,6 +9,5 @@ class CharacterTalentCost extends DbModel
         public readonly int $level,
         public readonly int $material_id,
         public readonly int $quantity,
-    ) {
-    }
+    ) {}
 }

@@ -19,9 +19,7 @@ $app->get('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Respons
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('enemies_phases'));
 
 // POST create
@@ -30,15 +28,16 @@ $app->post('/api/enemies-phases', function (Request $request, Response $response
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'enemies_phases', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'enemies_phases', [
-        ...EnemyPhase::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'enemies_phases', [...EnemyPhase::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'enemies_phases')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('enemies_phases'))->add(validateRequest(EnemyPhase::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_phases'))
+    ->add(validateRequest(EnemyPhase::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -49,16 +48,17 @@ $app->put('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Respons
     }
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'enemies_phases', $body, $user['id']);
-    DbQuery::update($pdo, 'enemies_phases', [
-        ...EnemyPhase::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'enemies_phases', [...EnemyPhase::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'enemies_phases')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('enemies_phases'))->add(validateRequest(EnemyPhase::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_phases'))
+    ->add(validateRequest(EnemyPhase::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -68,4 +68,7 @@ $app->delete('/api/enemies-phases/{id:[0-9]+}', function (Request $request, Resp
     }
     DbQuery::update($pdo, 'enemies_phases', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('enemies_phases'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_phases'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

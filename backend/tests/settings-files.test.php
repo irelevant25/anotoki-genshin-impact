@@ -58,31 +58,47 @@ $value = var_export(['secret' => $secret], true);
 
 same('a file that starts with <?php: what it returns', ['value' => ['secret' => $secret], 'error' => null], localConfigFileRead($write('plain.php', "<?php\n\nreturn {$value};\n")));
 same('...<?PHP too, as PHP reads it', ['value' => ['a' => 1], 'error' => null], localConfigFileRead($write('upper.php', "<?PHP return ['a' => 1];\n")));
-same('...<?php declare(strict_types=1); on its first line', ['value' => ['a' => 1], 'error' => null], localConfigFileRead($write('strict.php', "<?php declare(strict_types=1);\n\nreturn ['a' => 1];\n")));
-foreach ([
-    'no <?php line' => "return {$value};\n",
-    'a byte-order mark before <?php' => BOM . "<?php\n\nreturn {$value};\n",
-    'a blank line before <?php' => "\n<?php\n\nreturn {$value};\n",
-    'a space before <?php' => " <?php\n\nreturn {$value};\n",
-    // Compiled, these two would end this very process: "strict_types declaration must be the very first statement".
-    'a byte-order mark before <?php declare(strict_types=1);' => BOM . "<?php declare(strict_types=1);\n\nreturn {$value};\n",
-    'a blank line before <?php declare(strict_types=1);' => "\n<?php declare(strict_types=1);\n\nreturn {$value};\n",
-    'an empty file' => '',
-    'four bytes' => '<?ph',
-] as $what => $contents) {
+same(
+    '...<?php declare(strict_types=1); on its first line',
+    ['value' => ['a' => 1], 'error' => null],
+    localConfigFileRead($write('strict.php', "<?php declare(strict_types=1);\n\nreturn ['a' => 1];\n")),
+);
+foreach (
+    [
+        'no <?php line' => "return {$value};\n",
+        'a byte-order mark before <?php' => BOM . "<?php\n\nreturn {$value};\n",
+        'a blank line before <?php' => "\n<?php\n\nreturn {$value};\n",
+        'a space before <?php' => " <?php\n\nreturn {$value};\n",
+        // Compiled, these two would end this very process: "strict_types declaration must be the very first statement".
+        'a byte-order mark before <?php declare(strict_types=1);' => BOM . "<?php declare(strict_types=1);\n\nreturn {$value};\n",
+        'a blank line before <?php declare(strict_types=1);' => "\n<?php declare(strict_types=1);\n\nreturn {$value};\n",
+        'an empty file' => '',
+        'four bytes' => '<?ph',
+    ]
+    as $what => $contents
+) {
     $level = ob_get_level();
     ob_start();
     $read = localConfigFileRead($write('start.php', $contents));
     $printed = (string) ob_get_clean();
     same("$what: never compiled, nothing printed, passed over by its start", [null, BAD_START, '', $level], [$read['value'], $read['error'], $printed, ob_get_level()]);
 }
-foreach ([
-    'text after a closing tag' => ["<?php \$kept = 1; ?>\n{$secret}\n<?php return {$value};\n", 'prints ' . (strlen($secret) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)'],
-    'an echo' => ["<?php echo " . var_export($secret, true) . "; return {$value};\n", 'prints ' . strlen($secret) . ' bytes of its own (text after a closing tag, or something it echoes)'],
-    'a buffer of its own left open' => ["<?php ob_start(); echo " . var_export($secret, true) . "; return {$value};\n", 'prints ' . strlen($secret) . ' bytes of its own (text after a closing tag, or something it echoes)'],
-    'two strings side by side (PHP\'s message would quote the second)' => ["<?php\n\nreturn ['secret' => 'x' '{$secret}'];\n", 'cannot be read (ParseError on line 3)'],
-    'a function nobody wrote' => ["<?php\n\nreturn ['secret' => " . var_export($secret, true) . " . no_such_settings_function()];\n", 'cannot be read (Error on line 3)'],
-] as $what => [$contents, $error]) {
+foreach (
+    [
+        'text after a closing tag' => [
+            "<?php \$kept = 1; ?>\n{$secret}\n<?php return {$value};\n",
+            'prints ' . (strlen($secret) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)',
+        ],
+        'an echo' => ['<?php echo ' . var_export($secret, true) . "; return {$value};\n", 'prints ' . strlen($secret) . ' bytes of its own (text after a closing tag, or something it echoes)'],
+        'a buffer of its own left open' => [
+            '<?php ob_start(); echo ' . var_export($secret, true) . "; return {$value};\n",
+            'prints ' . strlen($secret) . ' bytes of its own (text after a closing tag, or something it echoes)',
+        ],
+        'two strings side by side (PHP\'s message would quote the second)' => ["<?php\n\nreturn ['secret' => 'x' '{$secret}'];\n", 'cannot be read (ParseError on line 3)'],
+        'a function nobody wrote' => ["<?php\n\nreturn ['secret' => " . var_export($secret, true) . " . no_such_settings_function()];\n", 'cannot be read (Error on line 3)'],
+    ]
+    as $what => [$contents, $error]
+) {
     $level = ob_get_level();
     ob_start();
     $read = localConfigFileRead($write('prints.php', $contents));
@@ -107,47 +123,51 @@ check('a database built by every migration', $built['error'] === null, (string) 
 
 // One case: this backend copy's API in a process of its own, asked what the case asks - each answer with whatever
 // was printed beside it - and the address rule's verdicts; the secret it runs on by its hash and its shape alone.
-file_put_contents("$backend/settings-case.php", <<<'PHP'
-<?php
+file_put_contents(
+    "$backend/settings-case.php",
+    <<<'PHP'
+    <?php
 
-declare(strict_types=1);
+    declare(strict_types=1);
 
-use Slim\Psr7\Factory\ServerRequestFactory;
-use Slim\Psr7\Factory\StreamFactory;
+    use Slim\Psr7\Factory\ServerRequestFactory;
+    use Slim\Psr7\Factory\StreamFactory;
 
-define('ANOTOKI_ROUTES_ONLY', true);
-ob_start();
-require __DIR__ . '/api/index.php';
-$out = ['boot' => (string) ob_get_clean(), 'answers' => [], 'addresses' => []];
-$asks = json_decode((string) file_get_contents($argv[1]), true);
-$request = static function (array $ask): Psr\Http\Message\ServerRequestInterface {
-    $request = (new ServerRequestFactory())->createServerRequest($ask['method'] ?? 'GET', 'http://localhost' . ($ask['path'] ?? '/api/regions'), ['REMOTE_ADDR' => $ask['from'] ?? '127.0.0.1']);
-    foreach ($ask['headers'] ?? [] as $name => $value) {
-        $request = $request->withHeader($name, $value);
-    }
-    if (isset($ask['json'])) {
-        $request = $request->withHeader('Content-Type', 'application/json')->withBody((new StreamFactory())->createStream(json_encode($ask['json'])));
-    }
-
-    return $request;
-};
-foreach ($asks['requests'] ?? [] as $ask) {
+    define('ANOTOKI_ROUTES_ONLY', true);
     ob_start();
-    $response = $app->handle($request($ask));
-    $out['answers'][] = ['status' => $response->getStatusCode(), 'body' => (string) $response->getBody(), 'printed' => (string) ob_get_clean()];
-}
-ob_start();
-foreach ($asks['addresses'] ?? [] as $ask) {
-    $out['addresses'][] = [clientAddressCounted($request($ask)), siteAdminContext()->clientKey($request($ask))];
-}
-$secret = originSecret();
-$out['secret'] = $secret === null ? null : ['sha256' => hash('sha256', $secret), 'unmatchable' => preg_match('/^[0-9a-f]{64}$/D', $secret) === 1];
-$out['proxies'] = siteTrustedProxies();
-$out['keepDays'] = visitorSettings()['visitors']['keep_days'];
-$out['problems'] = localConfigProblems();
-$out['late'] = (string) ob_get_clean();
-echo "\n##case " . json_encode($out) . "\n";
-PHP);
+    require __DIR__ . '/api/index.php';
+    $out = ['boot' => (string) ob_get_clean(), 'answers' => [], 'addresses' => []];
+    $asks = json_decode((string) file_get_contents($argv[1]), true);
+    $request = static function (array $ask): Psr\Http\Message\ServerRequestInterface {
+        $request = (new ServerRequestFactory())->createServerRequest($ask['method'] ?? 'GET', 'http://localhost' . ($ask['path'] ?? '/api/regions'), ['REMOTE_ADDR' => $ask['from'] ?? '127.0.0.1']);
+        foreach ($ask['headers'] ?? [] as $name => $value) {
+            $request = $request->withHeader($name, $value);
+        }
+        if (isset($ask['json'])) {
+            $request = $request->withHeader('Content-Type', 'application/json')->withBody((new StreamFactory())->createStream(json_encode($ask['json'])));
+        }
+
+        return $request;
+    };
+    foreach ($asks['requests'] ?? [] as $ask) {
+        ob_start();
+        $response = $app->handle($request($ask));
+        $out['answers'][] = ['status' => $response->getStatusCode(), 'body' => (string) $response->getBody(), 'printed' => (string) ob_get_clean()];
+    }
+    ob_start();
+    foreach ($asks['addresses'] ?? [] as $ask) {
+        $out['addresses'][] = [clientAddressCounted($request($ask)), siteAdminContext()->clientKey($request($ask))];
+    }
+    $secret = originSecret();
+    $out['secret'] = $secret === null ? null : ['sha256' => hash('sha256', $secret), 'unmatchable' => preg_match('/^[0-9a-f]{64}$/D', $secret) === 1];
+    $out['proxies'] = siteTrustedProxies();
+    $out['keepDays'] = visitorSettings()['visitors']['keep_days'];
+    $out['problems'] = localConfigProblems();
+    $out['late'] = (string) ob_get_clean();
+    echo "\n##case " . json_encode($out) . "\n";
+    PHP
+    ,
+);
 
 /**
  * Runs one case with config/{name}.local.php holding $contents (the copy's own put back after it): what the case
@@ -169,7 +189,18 @@ function settingsCase(string $backend, string $name, ?string $contents, array $a
     try {
         $output = [];
         // PHP's own warnings to its log, as on a host: what the process prints is the files' and the app's alone.
-        exec(escapeshellarg(PHP_BINARY) . ' -d display_errors=0 -d log_errors=1 -d ' . escapeshellarg("error_log=$dir/php.log") . ' ' . escapeshellarg("$backend/settings-case.php") . ' ' . escapeshellarg("$dir/asks.json") . ' 2>&1', $output, $code);
+        exec(
+            escapeshellarg(PHP_BINARY) .
+                ' -d display_errors=0 -d log_errors=1 -d ' .
+                escapeshellarg("error_log=$dir/php.log") .
+                ' ' .
+                escapeshellarg("$backend/settings-case.php") .
+                ' ' .
+                escapeshellarg("$dir/asks.json") .
+                ' 2>&1',
+            $output,
+            $code,
+        );
     } finally {
         if ($kept === null) {
             @unlink($file);
@@ -197,7 +228,10 @@ $databaseCases = [
     'a byte-order mark and no <?php line' => [BOM . "return {$connection};\n", BAD_START],
     'a byte-order mark before <?php declare(strict_types=1);' => [BOM . "<?php declare(strict_types=1);\n\nreturn {$connection};\n", BAD_START],
     'a blank line before <?php declare(strict_types=1);' => ["\n<?php declare(strict_types=1);\n\nreturn {$connection};\n", BAD_START],
-    'text after a closing tag' => ["<?php ?>\n{$password}\n<?php return {$connection};\n", 'prints ' . (strlen($password) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)'],
+    'text after a closing tag' => [
+        "<?php ?>\n{$password}\n<?php return {$connection};\n",
+        'prints ' . (strlen($password) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)',
+    ],
 ];
 $paths = [
     ['path' => '/api/site-status'],
@@ -215,24 +249,35 @@ check('the attack: a plain require of a file with a byte-order mark and no <?php
 file_put_contents("$probe/database.local.php", $databaseCases['a blank line before <?php declare(strict_types=1);'][0]);
 $plain = [];
 exec(escapeshellarg(PHP_BINARY) . ' -d display_errors=1 -r ' . escapeshellarg('require ' . var_export("$probe/database.local.php", true) . ';') . ' 2>&1', $plain, $plainCode);
-check('...and one with a blank line before <?php declare(strict_types=1); is a fatal error a plain require never gets past (exit 255)', $plainCode === 255 && str_contains(implode("\n", $plain), 'strict_types declaration must be the very first statement'), "exit $plainCode");
+check(
+    '...and one with a blank line before <?php declare(strict_types=1); is a fatal error a plain require never gets past (exit 255)',
+    $plainCode === 255 && str_contains(implode("\n", $plain), 'strict_types declaration must be the very first statement'),
+    "exit $plainCode",
+);
 
 foreach ($databaseCases as $what => [$contents, $fault]) {
     $case = settingsCase($backend, 'database', $contents, ['requests' => $paths]);
     $run = $case['run'];
-    check("database.local.php, $what: the process runs to its end - no fatal error, never a 500 for every request", $case['code'] === 0 && $run !== null, "exit {$case['code']}: " . substr($case['output'], 0, 300));
+    check(
+        "database.local.php, $what: the process runs to its end - no fatal error, never a 500 for every request",
+        $case['code'] === 0 && $run !== null,
+        "exit {$case['code']}: " . substr($case['output'], 0, 300),
+    );
     if ($run === null) {
         continue;
     }
-    same('...nothing printed, ahead of an answer or anywhere else', ['', '', [''], ''], [
-        $run['boot'], $run['late'], array_values(array_unique(array_column($run['answers'], 'printed'))), trim((string) strstr($case['output'], "\n##case", true)),
-    ]);
+    same(
+        '...nothing printed, ahead of an answer or anywhere else',
+        ['', '', [''], ''],
+        [$run['boot'], $run['late'], array_values(array_unique(array_column($run['answers'], 'printed'))), trim((string) strstr($case['output'], "\n##case", true))],
+    );
     $status = json_decode($run['answers'][0]['body'], true);
     same('...the status page says not set up', [200, 'not_set_up'], [$run['answers'][0]['status'], $status['state'] ?? null]);
-    same('...every other address answers 503 not_set_up', [[503, 'not_set_up'], [503, 'not_set_up'], [503, 'not_set_up'], [503, 'not_set_up']], array_map(
-        static fn (array $answer): array => [$answer['status'], json_decode($answer['body'], true)['code'] ?? null],
-        array_slice($run['answers'], 1),
-    ));
+    same(
+        '...every other address answers 503 not_set_up',
+        [[503, 'not_set_up'], [503, 'not_set_up'], [503, 'not_set_up'], [503, 'not_set_up']],
+        array_map(static fn(array $answer): array => [$answer['status'], json_decode($answer['body'], true)['code'] ?? null], array_slice($run['answers'], 1)),
+    );
     check('...no answer carries the password, the status page\'s included', !str_contains(implode("\n", array_column($run['answers'], 'body')), $password));
     same('...the set-up check names the file and its fault, never a word of it', ["config/database.local.php $fault: it is passed over, nothing in it read."], array_slice($run['problems'], 0, 1));
     check('...said in PHP\'s log by its fault', str_contains($case['log'], "[settings] config/database.local.php $fault"), $case['log']);
@@ -241,22 +286,31 @@ foreach ($databaseCases as $what => [$contents, $fault]) {
 
 // The site secret with a byte-order mark: not set up, the key in no answer.
 $key = bin2hex(random_bytes(32));
-$case = settingsCase($backend, 'secret', BOM . "<?php declare(strict_types=1);\n\nreturn " . var_export($key, true) . ";\n", ['requests' => [['path' => '/api/site-status'], ['path' => '/api/characters']]]);
-same('secret.local.php with a byte-order mark before <?php declare(strict_types=1);: not set up, never a 500', [0, 'not_set_up', 503], [
-    $case['code'], json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null, $case['run']['answers'][1]['status'] ?? null,
+$case = settingsCase($backend, 'secret', BOM . "<?php declare(strict_types=1);\n\nreturn " . var_export($key, true) . ";\n", [
+    'requests' => [['path' => '/api/site-status'], ['path' => '/api/characters']],
 ]);
+same(
+    'secret.local.php with a byte-order mark before <?php declare(strict_types=1);: not set up, never a 500',
+    [0, 'not_set_up', 503],
+    [$case['code'], json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null, $case['run']['answers'][1]['status'] ?? null],
+);
 same('...the set-up check names it', ['config/secret.local.php ' . BAD_START . ': it is passed over, nothing in it read.'], array_slice($case['run']['problems'] ?? [], 0, 1));
 check('...the key nowhere', !str_contains(settingsCaseText($case), $key));
 
 // site.local.php: which site this is, never guessed.
-foreach ([
-    'with a byte-order mark' => [BOM . "<?php return 'genshin_impact';\n", 'config/site.local.php ' . BAD_START . ': which site this is cannot be told.'],
-    'that names no site (no return)' => ["<?php\n\n\$site = 'genshin_impact';\n", 'config/site.local.php names no site: it returns int, not a site\'s code.'],
-] as $what => [$contents, $problem]) {
+foreach (
+    [
+        'with a byte-order mark' => [BOM . "<?php return 'genshin_impact';\n", 'config/site.local.php ' . BAD_START . ': which site this is cannot be told.'],
+        'that names no site (no return)' => ["<?php\n\n\$site = 'genshin_impact';\n", 'config/site.local.php names no site: it returns int, not a site\'s code.'],
+    ]
+    as $what => [$contents, $problem]
+) {
     $case = settingsCase($backend, 'site', $contents, ['requests' => [['path' => '/api/site-status'], ['path' => '/api/settings/public']]]);
-    same("site.local.php $what: not set up - never genshin_impact's switches guessed in another site's database", [0, 'not_set_up', 503, [$problem]], [
-        $case['code'], json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null, $case['run']['answers'][1]['status'] ?? null, $case['run']['problems'] ?? null,
-    ]);
+    same(
+        "site.local.php $what: not set up - never genshin_impact's switches guessed in another site's database",
+        [0, 'not_set_up', 503, [$problem]],
+        [$case['code'], json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null, $case['run']['answers'][1]['status'] ?? null, $case['run']['problems'] ?? null],
+    );
 }
 $case = settingsCase($backend, 'site', "<?php\n\nreturn 'genshin_impact';\n", ['requests' => [['path' => '/api/site-status']]]);
 same('...one that names the site: set up', [[], 'ready'], [$case['run']['problems'] ?? null, json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null]);
@@ -272,34 +326,52 @@ const STRANGER = '203.0.113.5';
 $origin = 'origin-' . bin2hex(random_bytes(20));
 $secretFile = var_export(['origin_secret' => $origin], true);
 $forged = ['CF-Connecting-IP' => '198.51.100.7'];
-$addresses = [
-    ['from' => EDGE, 'headers' => $forged],
-    ['from' => EDGE, 'headers' => $forged + ['X-Anotoki-Origin' => $origin]],
-    ['from' => STRANGER, 'headers' => $forged],
-];
+$addresses = [['from' => EDGE, 'headers' => $forged], ['from' => EDGE, 'headers' => $forged + ['X-Anotoki-Origin' => $origin]], ['from' => STRANGER, 'headers' => $forged]];
 $case = settingsCase($backend, 'cloudflare', "<?php\n\nreturn {$secretFile};\n", ['addresses' => $addresses]);
-same('read cleanly: the secret is the file\'s, and a request carrying it is the visitor Cloudflare names', [false, hash('sha256', $origin), [[EDGE, EDGE], ['198.51.100.7', '198.51.100.7'], [STRANGER, STRANGER]]], [
-    $case['run']['secret']['unmatchable'] ?? null, $case['run']['secret']['sha256'] ?? null, $case['run']['addresses'] ?? null,
-]);
+same(
+    'read cleanly: the secret is the file\'s, and a request carrying it is the visitor Cloudflare names',
+    [false, hash('sha256', $origin), [[EDGE, EDGE], ['198.51.100.7', '198.51.100.7'], [STRANGER, STRANGER]]],
+    [$case['run']['secret']['unmatchable'] ?? null, $case['run']['secret']['sha256'] ?? null, $case['run']['addresses'] ?? null],
+);
 $case = settingsCase($backend, 'cloudflare', null, ['addresses' => $addresses]);
-same('no file: no secret - CF-Connecting-IP believed from Cloudflare\'s ranges alone, as before', [null, [['198.51.100.7', '198.51.100.7'], ['198.51.100.7', '198.51.100.7'], [STRANGER, STRANGER]]], [
-    array_key_exists('secret', $case['run'] ?? []) ? $case['run']['secret'] : 'missing', $case['run']['addresses'] ?? null,
-]);
+same(
+    'no file: no secret - CF-Connecting-IP believed from Cloudflare\'s ranges alone, as before',
+    [null, [['198.51.100.7', '198.51.100.7'], ['198.51.100.7', '198.51.100.7'], [STRANGER, STRANGER]]],
+    [array_key_exists('secret', $case['run'] ?? []) ? $case['run']['secret'] : 'missing', $case['run']['addresses'] ?? null],
+);
 
-foreach ([
-    'a byte-order mark before <?php declare(strict_types=1);' => [BOM . "<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", BAD_START],
-    'a blank line before <?php declare(strict_types=1);' => ["\n<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", BAD_START],
-    'no <?php line' => ["return {$secretFile};\n", BAD_START],
-    'a byte-order mark before <?php' => [BOM . "<?php\n\nreturn {$secretFile};\n", BAD_START],
-    'text after a closing tag' => ["<?php ?>\n{$origin}\n<?php return {$secretFile};\n", 'prints ' . (strlen($origin) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)'],
-    'two strings side by side' => ["<?php\n\nreturn ['origin_secret' => 'x' '{$origin}'];\n", 'cannot be read (ParseError on line 3)'],
-] as $what => [$contents, $fault]) {
+foreach (
+    [
+        'a byte-order mark before <?php declare(strict_types=1);' => [BOM . "<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", BAD_START],
+        'a blank line before <?php declare(strict_types=1);' => ["\n<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", BAD_START],
+        'no <?php line' => ["return {$secretFile};\n", BAD_START],
+        'a byte-order mark before <?php' => [BOM . "<?php\n\nreturn {$secretFile};\n", BAD_START],
+        'text after a closing tag' => [
+            "<?php ?>\n{$origin}\n<?php return {$secretFile};\n",
+            'prints ' . (strlen($origin) + 1) . ' bytes of its own (text after a closing tag, or something it echoes)',
+        ],
+        'two strings side by side' => ["<?php\n\nreturn ['origin_secret' => 'x' '{$origin}'];\n", 'cannot be read (ParseError on line 3)'],
+    ]
+    as $what => [$contents, $fault]
+) {
     $case = settingsCase($backend, 'cloudflare', $contents, ['addresses' => $addresses, 'requests' => [['path' => '/api/site-status']]]);
     $run = $case['run'];
-    check("$what: the site keeps running, set up - the file is optional", $case['code'] === 0 && ($run['problems'] ?? null) === [] && (json_decode($run['answers'][0]['body'] ?? '{}', true)['state'] ?? null) === 'ready', "exit {$case['code']}: " . substr($case['output'], 0, 300));
+    check(
+        "$what: the site keeps running, set up - the file is optional",
+        $case['code'] === 0 && ($run['problems'] ?? null) === [] && (json_decode($run['answers'][0]['body'] ?? '{}', true)['state'] ?? null) === 'ready',
+        "exit {$case['code']}: " . substr($case['output'], 0, 300),
+    );
     check('...the secret it runs on is one no request carries - not the file\'s', ($run['secret']['unmatchable'] ?? false) === true && ($run['secret']['sha256'] ?? '') !== hash('sha256', $origin));
-    same('...fails closed: a CF-Connecting-IP forged from Cloudflare\'s ranges is the edge - with the file\'s own value beside it too, for the site and the library alike; from elsewhere the connection', [[EDGE, EDGE], [EDGE, EDGE], [STRANGER, STRANGER]], $run['addresses'] ?? null);
-    check('...said in PHP\'s log: the fault, and that it fails closed', str_contains($case['log'], "config/cloudflare.local.php $fault") && str_contains($case['log'], 'no request carries its secret'), $case['log']);
+    same(
+        '...fails closed: a CF-Connecting-IP forged from Cloudflare\'s ranges is the edge - with the file\'s own value beside it too, for the site and the library alike; from elsewhere the connection',
+        [[EDGE, EDGE], [EDGE, EDGE], [STRANGER, STRANGER]],
+        $run['addresses'] ?? null,
+    );
+    check(
+        '...said in PHP\'s log: the fault, and that it fails closed',
+        str_contains($case['log'], "config/cloudflare.local.php $fault") && str_contains($case['log'], 'no request carries its secret'),
+        $case['log'],
+    );
     check('...never the secret, nor what PHP said of the file', !str_contains(settingsCaseText($case), $origin) && !str_contains($case['log'], 'strict_types'));
 }
 
@@ -310,15 +382,18 @@ foreach ([
 // edge either way.
 const FOLDER = "\0a folder";
 $withEmpty = [...$addresses, ['from' => EDGE, 'headers' => $forged + ['X-Anotoki-Origin' => '']]];
-foreach ([
-    'blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", 'origin_secret must be a string with something in it, not an empty one'],
-    'no array (the secret alone, returned)' => ["<?php\n\nreturn " . var_export($origin, true) . ";\n", 'config/cloudflare.local.php returns string, not an array'],
-    'a misspelt key' => ["<?php\n\nreturn " . var_export(['orgin_secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
-    'another key in its place' => ["<?php\n\nreturn " . var_export(['secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
-    'a value that is not a string' => ["<?php\n\nreturn ['origin_secret' => 4242424242];\n", 'origin_secret must be a string with something in it, not int'],
-    'a forgotten return (require gives 1)' => ["<?php\n\n\$cloudflare = {$secretFile};\n", 'config/cloudflare.local.php returns int, not an array'],
-    'a folder in its place' => [FOLDER, 'config/cloudflare.local.php cannot be read cleanly (is not a file'],
-] as $what => [$contents, $fault]) {
+foreach (
+    [
+        'blank' => ["<?php\n\nreturn ['origin_secret' => ''];\n", 'origin_secret must be a string with something in it, not an empty one'],
+        'no array (the secret alone, returned)' => ["<?php\n\nreturn " . var_export($origin, true) . ";\n", 'config/cloudflare.local.php returns string, not an array'],
+        'a misspelt key' => ["<?php\n\nreturn " . var_export(['orgin_secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
+        'another key in its place' => ["<?php\n\nreturn " . var_export(['secret' => $origin], true) . ";\n", 'origin_secret must be a string with something in it, not null'],
+        'a value that is not a string' => ["<?php\n\nreturn ['origin_secret' => 4242424242];\n", 'origin_secret must be a string with something in it, not int'],
+        'a forgotten return (require gives 1)' => ["<?php\n\n\$cloudflare = {$secretFile};\n", 'config/cloudflare.local.php returns int, not an array'],
+        'a folder in its place' => [FOLDER, 'config/cloudflare.local.php cannot be read cleanly (is not a file'],
+    ]
+    as $what => [$contents, $fault]
+) {
     $file = "$backend/config/cloudflare.local.php";
     if ($contents === FOLDER) {
         mkdir($file);
@@ -331,9 +406,17 @@ foreach ([
         }
     }
     $run = $case['run'];
-    check("read cleanly, $what: the site keeps running, set up - the file is optional", $case['code'] === 0 && ($run['problems'] ?? null) === [] && (json_decode($run['answers'][0]['body'] ?? '{}', true)['state'] ?? null) === 'ready', "exit {$case['code']}: " . substr($case['output'], 0, 300));
+    check(
+        "read cleanly, $what: the site keeps running, set up - the file is optional",
+        $case['code'] === 0 && ($run['problems'] ?? null) === [] && (json_decode($run['answers'][0]['body'] ?? '{}', true)['state'] ?? null) === 'ready',
+        "exit {$case['code']}: " . substr($case['output'], 0, 300),
+    );
     check('...the secret it runs on is one no request carries - never none', ($run['secret']['unmatchable'] ?? false) === true && ($run['secret']['sha256'] ?? '') !== hash('sha256', $origin));
-    same('...fails closed: a CF-Connecting-IP forged from Cloudflare\'s ranges is the edge - with the file\'s value or an empty X-Anotoki-Origin beside it too, for the site and the library alike; from elsewhere the connection', [[EDGE, EDGE], [EDGE, EDGE], [STRANGER, STRANGER], [EDGE, EDGE]], $run['addresses'] ?? null);
+    same(
+        '...fails closed: a CF-Connecting-IP forged from Cloudflare\'s ranges is the edge - with the file\'s value or an empty X-Anotoki-Origin beside it too, for the site and the library alike; from elsewhere the connection',
+        [[EDGE, EDGE], [EDGE, EDGE], [STRANGER, STRANGER], [EDGE, EDGE]],
+        $run['addresses'] ?? null,
+    );
     check('...said in PHP\'s log: the fault, that it fails closed', str_contains($case['log'], "[cloudflare] $fault") && str_contains($case['log'], 'no request carries its secret'), $case['log']);
     check('...never the value', !str_contains(settingsCaseText($case), $origin));
 }
@@ -346,9 +429,11 @@ for ($i = 1; $i <= 11; $i++) {
     $requests[] = ['method' => 'PUT', 'path' => '/api/quiz/progress/dish', 'from' => EDGE, 'headers' => ['CF-Connecting-IP' => "198.51.100.$i", 'X-Anotoki-Origin' => $origin], 'json' => $played];
 }
 $case = settingsCase($backend, 'cloudflare', BOM . "<?php declare(strict_types=1);\n\nreturn {$secretFile};\n", ['requests' => $requests]);
-same('the attack it stops: with the file unreadable, eleven made-up visitors from one Cloudflare edge are one sender - the eleventh refused, never eleven of their own', [array_fill(0, 10, 200), 429], [
-    array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null,
-]);
+same(
+    'the attack it stops: with the file unreadable, eleven made-up visitors from one Cloudflare edge are one sender - the eleventh refused, never eleven of their own',
+    [array_fill(0, 10, 200), 429],
+    [array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null],
+);
 // ...and with a blank secret: a Worker's eleven made-up visitors, each with an empty X-Anotoki-Origin - which "no
 // secret" would never have asked for - one sender too. From another edge (172.64.0.0/13): the one above has had its
 // ten this hour.
@@ -357,30 +442,46 @@ for ($i = 1; $i <= 11; $i++) {
     $requests[] = ['method' => 'PUT', 'path' => '/api/quiz/progress/dish', 'from' => '172.68.10.21', 'headers' => ['CF-Connecting-IP' => "198.51.100.$i", 'X-Anotoki-Origin' => ''], 'json' => $played];
 }
 $case = settingsCase($backend, 'cloudflare', "<?php\n\nreturn ['origin_secret' => ''];\n", ['requests' => $requests]);
-same('...with the file read cleanly but its secret blank, the same: the eleventh refused', [array_fill(0, 10, 200), 429], [
-    array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null,
-]);
+same(
+    '...with the file read cleanly but its secret blank, the same: the eleventh refused',
+    [array_fill(0, 10, 200), 429],
+    [array_slice(array_column($case['run']['answers'] ?? [], 'status'), 0, 10), $case['run']['answers'][10]['status'] ?? null],
+);
 
 // ── visitors.local.php: passed over, no proxy is trusted ─────────────────────
 
 echo "visitors.local.php: passed over, the limits' defaults and no proxy trusted\n";
 
-$case = settingsCase($backend, 'visitors', BOM . "<?php declare(strict_types=1);\n\nreturn ['visitors' => ['keep_days' => 60], 'client_address' => ['trusted_proxies' => []]];\n", ['addresses' => [
-    ['from' => EDGE, 'headers' => $forged],
-    ['from' => STRANGER, 'headers' => $forged],
-], 'requests' => [['path' => '/api/site-status']]]);
-same('a byte-order mark before <?php declare(strict_types=1);: the site runs, the limits at their defaults, no proxy trusted - a request from Cloudflare\'s ranges is its connection, never Cloudflare\'s ranges believed by default', [0, [], 30, [], [[EDGE, EDGE], [STRANGER, STRANGER]]], [
-    $case['code'], $case['run']['problems'] ?? null, $case['run']['keepDays'] ?? null, $case['run']['proxies'] ?? null, $case['run']['addresses'] ?? null,
+$case = settingsCase($backend, 'visitors', BOM . "<?php declare(strict_types=1);\n\nreturn ['visitors' => ['keep_days' => 60], 'client_address' => ['trusted_proxies' => []]];\n", [
+    'addresses' => [['from' => EDGE, 'headers' => $forged], ['from' => STRANGER, 'headers' => $forged]],
+    'requests' => [['path' => '/api/site-status']],
 ]);
+same(
+    'a byte-order mark before <?php declare(strict_types=1);: the site runs, the limits at their defaults, no proxy trusted - a request from Cloudflare\'s ranges is its connection, never Cloudflare\'s ranges believed by default',
+    [0, [], 30, [], [[EDGE, EDGE], [STRANGER, STRANGER]]],
+    [$case['code'], $case['run']['problems'] ?? null, $case['run']['keepDays'] ?? null, $case['run']['proxies'] ?? null, $case['run']['addresses'] ?? null],
+);
 check('...said in PHP\'s log', str_contains($case['log'], '[visitors] config/visitors.local.php cannot be read cleanly (' . BAD_START . ')'), $case['log']);
 
 $returnsOne = visitorSettingsFrom(1);
 same('read cleanly but no array - a forgotten return, require giving 1: no proxy trusted, never Cloudflare\'s ranges by default', [], $returnsOne['settings']['client_address']['trusted_proxies']);
 same('...the limits at their defaults', VISITOR_SETTING_DEFAULTS['visitors'], $returnsOne['settings']['visitors']);
-check('...and said so', str_contains($returnsOne['problems'][0] ?? '', 'returns int, not an array') && str_contains($returnsOne['problems'][0] ?? '', 'no proxy is trusted'), $returnsOne['problems'][0] ?? '');
+check(
+    '...and said so',
+    str_contains($returnsOne['problems'][0] ?? '', 'returns int, not an array') && str_contains($returnsOne['problems'][0] ?? '', 'no proxy is trusted'),
+    $returnsOne['problems'][0] ?? '',
+);
 same('read cleanly, a client_address that is no list: no proxy trusted', [], visitorSettingsFrom(['client_address' => 'cloudflare'])['settings']['client_address']['trusted_proxies']);
-same('...a trusted_proxies that is no list: none either - never the committed ranges by default', [], visitorSettingsFrom(['client_address' => ['trusted_proxies' => '173.245.48.0/20']])['settings']['client_address']['trusted_proxies']);
-same('...a file that says nothing of them: Cloudflare\'s committed ranges, as without the file', VISITOR_SETTING_DEFAULTS['client_address']['trusted_proxies'], visitorSettingsFrom(['visitors' => ['keep_days' => 60]])['settings']['client_address']['trusted_proxies']);
+same(
+    '...a trusted_proxies that is no list: none either - never the committed ranges by default',
+    [],
+    visitorSettingsFrom(['client_address' => ['trusted_proxies' => '173.245.48.0/20']])['settings']['client_address']['trusted_proxies'],
+);
+same(
+    '...a file that says nothing of them: Cloudflare\'s committed ranges, as without the file',
+    VISITOR_SETTING_DEFAULTS['client_address']['trusted_proxies'],
+    visitorSettingsFrom(['visitors' => ['keep_days' => 60]])['settings']['client_address']['trusted_proxies'],
+);
 
 // ── setup.php on a host: a token it cannot read back accepts no proof ───────
 
@@ -420,13 +521,15 @@ function setupOnHost(string $backend, bool $staleCache, array $asks): array
         foreach ($asks as $ask) {
             $nonce = $ask['nonce'] ?? bin2hex(random_bytes(24));
             $post = ($ask['method'] ?? 'GET') === 'POST';
-            $context = stream_context_create(['http' => [
-                'method' => $post ? 'POST' : 'GET',
-                'header' => "Host: genshin.example\r\nCookie: genshin_setup_nonce=$nonce\r\n" . ($post ? "Content-Type: application/x-www-form-urlencoded\r\n" : ''),
-                'content' => $post ? http_build_query(['nonce' => $nonce] + ($ask['fields'] ?? [])) : '',
-                'ignore_errors' => true,
-                'timeout' => 30,
-            ]]);
+            $context = stream_context_create([
+                'http' => [
+                    'method' => $post ? 'POST' : 'GET',
+                    'header' => "Host: genshin.example\r\nCookie: genshin_setup_nonce=$nonce\r\n" . ($post ? "Content-Type: application/x-www-form-urlencoded\r\n" : ''),
+                    'content' => $post ? http_build_query(['nonce' => $nonce] + ($ask['fields'] ?? [])) : '',
+                    'ignore_errors' => true,
+                    'timeout' => 30,
+                ],
+            ]);
             $bodies[] = (string) @file_get_contents("http://127.0.0.1:$port/setup.php", false, $context);
         }
     } finally {
@@ -444,7 +547,11 @@ $tokenFile = "$backend/config/setup.local.php";
 file_put_contents($tokenFile, "<?php\n\nreturn 1;\n");
 touch($tokenFile, time() - 60);
 [$shown, $posted] = setupOnHost($backend, false, [[], ['method' => 'POST', 'fields' => ['action' => 'install']]]);
-check('a token file with no token in it: a new one written and read back - the page asks for it', str_contains($shown, 'name="token"') && !str_contains($shown, 'Cannot read config/setup.local.php'), substr(strip_tags($shown), 0, 300));
+check(
+    'a token file with no token in it: a new one written and read back - the page asks for it',
+    str_contains($shown, 'name="token"') && !str_contains($shown, 'Cannot read config/setup.local.php'),
+    substr(strip_tags($shown), 0, 300),
+);
 check('...and a post without it is refused', str_contains($posted, 'That is not the setup token from config/setup.local.php.'), substr(strip_tags($posted), 0, 300));
 
 // The same file, served by a cache that keeps it as it was: the new token is never read back. Before the fix this was
@@ -452,7 +559,15 @@ check('...and a post without it is refused', str_contains($posted, 'That is not 
 file_put_contents($tokenFile, "<?php\n\nreturn 1;\n");
 touch($tokenFile, time() - 60);
 [$shown, $posted] = setupOnHost($backend, true, [[], ['method' => 'POST', 'fields' => ['action' => 'install']]]);
-check('the attack it stops: a token written but never read back - the page says so and asks for no token', str_contains($shown, 'Cannot read config/setup.local.php') && !str_contains($shown, 'name="token"'), substr(strip_tags($shown), 0, 300));
-check('...and a post carrying no token is never taken: the same page, nothing saved', str_contains($posted, 'Cannot read config/setup.local.php') && !is_file("$backend/storage/installed.lock"), substr(strip_tags($posted), 0, 300));
+check(
+    'the attack it stops: a token written but never read back - the page says so and asks for no token',
+    str_contains($shown, 'Cannot read config/setup.local.php') && !str_contains($shown, 'name="token"'),
+    substr(strip_tags($shown), 0, 300),
+);
+check(
+    '...and a post carrying no token is never taken: the same page, nothing saved',
+    str_contains($posted, 'Cannot read config/setup.local.php') && !is_file("$backend/storage/installed.lock"),
+    substr(strip_tags($posted), 0, 300),
+);
 @unlink($tokenFile);
 @unlink("$backend/setup.php");

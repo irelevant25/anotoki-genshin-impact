@@ -9,15 +9,7 @@
 <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
     <h3 class="section-title mb-0">Icon</h3>
     <app-field-container [class]="'gap-5'" [cols]="5">
-        <app-entity-image
-            [label]="'Set Icon'"
-            [required]="true"
-            [path]="iconPath()"
-            [name]="iconName()"
-            [pending]="artifact().pending"
-            (picked)="onPicked($event)"
-            (cleared)="onCleared()"
-        />
+        <app-entity-image [label]="'Set Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="artifact().pending" (picked)="onPicked($event)" (cleared)="onCleared()" />
     </app-field-container>
 </app-field-container>
 
@@ -28,13 +20,7 @@
         <app-textarea [label]="'4-Piece'" [(value)]="artifact().data.four_piece" [rows]="3"></app-textarea>
     </app-field-container>
     <app-field-container [class]="'mt-3'" [cols]="2">
-        <app-textarea
-            [label]="'Effects'"
-            [description]="'One tag per line, e.g. Healing.'"
-            [value]="effectsText()"
-            (inputChange)="onEffectsChange($event)"
-            [rows]="3"
-        ></app-textarea>
+        <app-textarea [label]="'Effects'" [description]="'One tag per line, e.g. Healing.'" [value]="effectsText()" (inputChange)="onEffectsChange($event)" [rows]="3"></app-textarea>
     </app-field-container>
 </div>
 
@@ -43,20 +29,14 @@
     <div class="rarity-grid">
         @for (rarity of rarities; track rarity) {
             <div class="rarity-block" [class.enabled]="hasRarity(rarity)">
-                <app-checkbox
-                    [label]="rarity + '★'"
-                    [inline]="true"
-                    [value]="hasRarity(rarity)"
-                    (inputChange)="setRarity(rarity, $event)"
-                ></app-checkbox>
+                <app-checkbox [label]="rarity + '★'" [inline]="true" [value]="hasRarity(rarity)" (inputChange)="setRarity(rarity, $event)"></app-checkbox>
                 @if (hasRarity(rarity)) {
                     <app-textarea
                         [label]="'How to obtain'"
                         [description]="'One source per line.'"
                         [value]="obtainText(rarity)"
                         (inputChange)="onObtainChange(rarity, $event)"
-                        [rows]="3"
-                    ></app-textarea>
+                        [rows]="3"></app-textarea>
                 }
             </div>
         }

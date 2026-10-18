@@ -18,8 +18,7 @@ class SiteAnnouncement extends ResponseShape
         public readonly string $level,
         /** @var array<string, string> One message per language code. */
         public readonly array $message,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -45,8 +44,7 @@ class PublicSiteSettings extends ResponseShape
         public readonly array $routes,
         /** @var PublicVisitorSettings Playing without signing in: whether it can, and for how long a browser's games are kept. */
         public readonly object $visitors,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -67,8 +65,7 @@ class PublicVisitorSettings extends ResponseShape
         public readonly bool $available,
         /** Days a visitor's games are kept after their last visit (config/visitors.php's keep_days). */
         public readonly int $keep_days,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -102,8 +99,7 @@ class SiteAuthConfig extends ResponseShape
          * (the anotoki library's AuthRoutes::configBody()).
          */
         public readonly bool $sign_in_available,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -122,8 +118,7 @@ class PublicSiteRoute extends ResponseShape
         public readonly string $visibility,
         /** Off for everybody who is not an admin. */
         public readonly bool $blocked,
-    ) {
-    }
+    ) {}
 }
 
 /** One page, as the admin form sees it - the row plus what it claims. */
@@ -138,8 +133,7 @@ class AdminSiteRoute extends ResponseShape
         public readonly array $endpoints,
         public readonly ?string $updated_at,
         public readonly ?string $updated_by,
-    ) {
-    }
+    ) {}
 }
 
 /** Every page, in the order the form draws them. */
@@ -150,8 +144,7 @@ class SiteRouteList extends ResponseShape
         public readonly array $routes,
         /** @var string[] The visibility levels, most open first. */
         public readonly array $levels,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -177,8 +170,7 @@ class AdminSiteSetting extends ResponseShape
         public readonly ?string $updated_at,
         /** Who threw the switch last, or null if nobody has since it was seeded. */
         public readonly ?string $updated_by,
-    ) {
-    }
+    ) {}
 }
 
 /** Every switch, in the order the form draws them. */
@@ -187,6 +179,5 @@ class SiteSettingList extends ResponseShape
     public function __construct(
         /** @var AdminSiteSetting[] */
         public readonly array $settings,
-    ) {
-    }
+    ) {}
 }

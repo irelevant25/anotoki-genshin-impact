@@ -24,11 +24,18 @@ const local = (rel) => fileURLToPath(new URL(rel, import.meta.url));
 const ROOT = local('../../');
 const spec = JSON.parse(readFileSync(join(ROOT, 'frontend/api-spec.json'), 'utf8'));
 
-const esc = (s) =>
-  String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const slug = (s) =>
+  String(s)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 const titleCase = (s) =>
-  String(s).replace(/[-_]/g, ' ').replace(/\.php$/, '').replace(/\b\w/g, (c) => c.toUpperCase()).trim();
+  String(s)
+    .replace(/[-_]/g, ' ')
+    .replace(/\.php$/, '')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Backend: endpoints, from the spec's route table
@@ -187,7 +194,6 @@ const callsIn = (full, mentioned) => {
   return calls;
 };
 
-
 // Calls made on an injected shared service. shared/ is not followed wholesale -
 // SecurityService alone would hang every auth endpoint on every page that reads
 // the current user from it. What counts is narrower: the page calls a method on
@@ -213,10 +219,9 @@ const sharedServiceCalls = (full) => {
 
     // The members the page holds the service in: `x = inject(Service)` and the
     // constructor-parameter form.
-    const members = [
-      ...src.matchAll(new RegExp('(\\w+)\\s*=\\s*inject\\(\\s*' + className + '\\s*\\)', 'g')),
-      ...src.matchAll(new RegExp('(\\w+)\\s*:\\s*' + className + '\\b', 'g')),
-    ].map((m) => m[1]);
+    const members = [...src.matchAll(new RegExp('(\\w+)\\s*=\\s*inject\\(\\s*' + className + '\\s*\\)', 'g')), ...src.matchAll(new RegExp('(\\w+)\\s*:\\s*' + className + '\\b', 'g'))].map(
+      (m) => m[1],
+    );
 
     for (const member of new Set(members)) {
       for (const call of src.matchAll(new RegExp('\\b' + member + '\\.(\\w+)\\s*\\(', 'g'))) {
@@ -255,7 +260,12 @@ function pagesUnder(baseRel, site) {
         const rel = full.slice(base.length + 1).replace(/\\/g, '/');
         const parts = rel.split('/').slice(0, -1); // drop the filename
         const section = parts[0] ? titleCase(parts[0]) : 'Top level';
-        const pageName = titleCase(name.replace('.component.ts', '').replace(/-list$/, '').replace(/-/g, ' '));
+        const pageName = titleCase(
+          name
+            .replace('.component.ts', '')
+            .replace(/-list$/, '')
+            .replace(/-/g, ' '),
+        );
         const resolve = (keys) => [...keys].map((k) => endpointByKey.get(k)).filter(Boolean);
         pages.push({
           site,
@@ -290,14 +300,11 @@ for (const p of fePages) {
 // ─────────────────────────────────────────────────────────────────────────────
 const methodPill = (m) => `<span class="verb verb-${m.toLowerCase()}">${m}</span>`;
 
-const endpointRef = (e) =>
-  `<a class="ref ref-be" href="#${e.anchor}">${methodPill(e.method)}<code>${esc(e.path)}</code></a>`;
+const endpointRef = (e) => `<a class="ref ref-be" href="#${e.anchor}">${methodPill(e.method)}<code>${esc(e.path)}</code></a>`;
 
 const tableRef = (t) => {
   const tbl = tableByName.get(t);
-  return tbl
-    ? `<a class="ref ref-db" href="#${tbl.anchor}"><code>${esc(t)}</code></a>`
-    : `<span class="ref ref-db is-dead"><code>${esc(t)}</code></span>`;
+  return tbl ? `<a class="ref ref-db" href="#${tbl.anchor}"><code>${esc(t)}</code></a>` : `<span class="ref ref-db is-dead"><code>${esc(t)}</code></span>`;
 };
 
 // ── Frontend section ──────────────────────────────────────────────────────────
@@ -350,9 +357,7 @@ const renderBackend = () => {
         </div>
         <div class="endpoint-body">`;
       if (e.args.length) {
-        out += `<div class="ep-row"><span class="ep-label">Path args</span><span>${e.args
-          .map((a) => `<code>${esc(a.name)}</code>`)
-          .join(' ')}</span></div>`;
+        out += `<div class="ep-row"><span class="ep-label">Path args</span><span>${e.args.map((a) => `<code>${esc(a.name)}</code>`).join(' ')}</span></div>`;
       }
       if (e.payload) {
         out += `<div class="ep-row"><span class="ep-label">Body</span><code>${esc(e.payload)}</code></div>`;
@@ -493,5 +498,7 @@ const out = outArg !== -1 ? resolve(process.argv[outArg + 1]) : local(`./referen
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, page);
 console.log(`reference written to ${out}`);
-console.log(`  ${totals.pages} pages (${totals.pagesWired} call the API, ${totals.pagesIndirect} of them only through a base class or site service), ${totals.endpoints} endpoints, ${totals.tables} tables`);
+console.log(
+  `  ${totals.pages} pages (${totals.pagesWired} call the API, ${totals.pagesIndirect} of them only through a base class or site service), ${totals.endpoints} endpoints, ${totals.tables} tables`,
+);
 console.log(`  service methods mapped: ${methodToEndpoint.size}`);

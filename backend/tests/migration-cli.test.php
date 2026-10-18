@@ -49,7 +49,11 @@ function cli(string $backend, string $arguments = ''): array
 echo "--status\n";
 
 [$code, $out] = cli($backend, '--status');
-same('answers, and says the library\'s sets are among what waits', [0, true, true, true], [$code, str_contains($out, "the anotoki library's anotoki_admin"), str_contains($out, '001_audit_log.sql   pending'), str_contains($out, '028_audit_into_library.sql   pending')]);
+same(
+    'answers, and says the library\'s sets are among what waits',
+    [0, true, true, true],
+    [$code, str_contains($out, "the anotoki library's anotoki_admin"), str_contains($out, '001_audit_log.sql   pending'), str_contains($out, '028_audit_into_library.sql   pending')],
+);
 same('...and changes nothing: no backup made', [], glob("$backend/storage/backups/*.anotoki-backup") ?: []);
 
 echo "A run\n";
@@ -61,11 +65,19 @@ same('a backup of the database as it was, made before anything ran', 1, count($b
 check('...and named in what it says', $backups !== [] && str_contains($out, basename($backups[0], '.anotoki-backup')), $out);
 $pdo = testPdo($database);
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
-same('the entry and the message moved', [1, 1], [
-    (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'content.update' AND target_type = 'regions'")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM anotoki_feedback WHERE message = 'A message to move'")->fetchColumn(),
-]);
-same('the backup\'s own entry waited for the table, and went in after the run', 1, (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'backup.created' AND actor_id IS NULL")->fetchColumn());
+same(
+    'the entry and the message moved',
+    [1, 1],
+    [
+        (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'content.update' AND target_type = 'regions'")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM anotoki_feedback WHERE message = 'A message to move'")->fetchColumn(),
+    ],
+);
+same(
+    'the backup\'s own entry waited for the table, and went in after the run',
+    1,
+    (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'backup.created' AND actor_id IS NULL")->fetchColumn(),
+);
 $run = json_decode((string) $pdo->query("SELECT details::text FROM anotoki_audit_log WHERE action = 'migrations.applied' ORDER BY id DESC LIMIT 1")->fetchColumn(), true);
 // The admin set's two, users/052-057, genshin_impact/028-029, the library's words 003-012 and the people set's one.
 same('the run written down: what it applied, via the command line, by nobody', [21, 'command line'], [count($run['files'] ?? []), $run['via'] ?? null]);
@@ -87,8 +99,5 @@ copy(TEST_BACKEND . '/migration.php', "$emptyBackend/migration.php");
 check('builds it whole, every set, without an error', $code === 0 && str_contains($out, 'Done.'), $out);
 same('...and makes no backup: there was nothing to keep', [], glob("$emptyBackend/storage/backups/*.anotoki-backup") ?: []);
 $pdo = testPdo($empty);
-same('nothing waits, the library\'s sets included', [[], 5], [
-    siteMigrator($pdo)->applicable(),
-    (int) $pdo->query("SELECT count(DISTINCT folder) FROM migrations")->fetchColumn(),
-]);
+same('nothing waits, the library\'s sets included', [[], 5], [siteMigrator($pdo)->applicable(), (int) $pdo->query('SELECT count(DISTINCT folder) FROM migrations')->fetchColumn()]);
 $pdo = null;

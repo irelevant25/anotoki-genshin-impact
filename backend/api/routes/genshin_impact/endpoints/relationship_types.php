@@ -12,9 +12,7 @@ $app->get('/api/relationship-types/{name}', function (Request $request, Response
     $stmt = genshinDb()->prepare('SELECT * FROM relationship_types WHERE name = ?');
     $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('relationship_types'));
 
 $app->post('/api/relationship-types', function (Request $request, Response $response) {
@@ -24,7 +22,11 @@ $app->post('/api/relationship-types', function (Request $request, Response $resp
     $stmt = $pdo->prepare('SELECT * FROM relationship_types WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('relationship_types'))->add(validateRequest(RelationshipType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('relationship_types'))
+    ->add(validateRequest(RelationshipType::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/relationship-types/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +37,7 @@ $app->delete('/api/relationship-types/{name}', function (Request $request, Respo
     }
     $pdo->prepare('DELETE FROM relationship_types WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('relationship_types'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('relationship_types'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

@@ -12,9 +12,7 @@ $app->get('/api/domain-levels/{name}', function (Request $request, Response $res
     $stmt = genshinDb()->prepare('SELECT * FROM domain_levels WHERE name = ?');
     $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('domain_levels'));
 
 $app->post('/api/domain-levels', function (Request $request, Response $response) {
@@ -24,7 +22,11 @@ $app->post('/api/domain-levels', function (Request $request, Response $response)
     $stmt = $pdo->prepare('SELECT * FROM domain_levels WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('domain_levels'))->add(validateRequest(DomainLevel::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('domain_levels'))
+    ->add(validateRequest(DomainLevel::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/domain-levels/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +37,7 @@ $app->delete('/api/domain-levels/{name}', function (Request $request, Response $
     }
     $pdo->prepare('DELETE FROM domain_levels WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('domain_levels'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('domain_levels'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

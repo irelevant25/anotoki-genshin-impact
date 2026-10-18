@@ -28,15 +28,9 @@ export class EnemiesListComponent extends AdminListComponent<any> implements OnI
 
   sorted = computed(() => [...this.rows()].sort((a, b) => compareVersionsDesc(a.version, b.version) || String(a.name).localeCompare(String(b.name))));
 
-  filtered = computed(() =>
-    this.sorted().filter(
-      (row) => contains(row.id, this.filterId()) && contains(row.name, this.filterName()) && includedIn(row.version, this.filterVersions())
-    )
-  );
+  filtered = computed(() => this.sorted().filter((row) => contains(row.id, this.filterId()) && contains(row.name, this.filterName()) && includedIn(row.version, this.filterVersions())));
 
-  hasActiveFilter = computed(
-    () => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0
-  );
+  hasActiveFilter = computed(() => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0);
 
   private readonly _enemyApi = inject(EnemyApiService);
 

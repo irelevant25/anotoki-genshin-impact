@@ -2,15 +2,15 @@
     <div class="voiceover-header">
         <div class="voiceover-filters">
             <div class="filter-group">
-                <span class="filter-group-label">{{ 'database.detail.language' | translate }}:</span>
+                <span class="filter-group-label">{{ "database.detail.language" | translate }}:</span>
                 @for (entry of languages; track entry.code) {
                     <button type="button" class="filter-btn" [class.active]="language() === entry.code" (click)="language.set(entry.code)">{{ entry.code.toUpperCase() }}</button>
                 }
             </div>
             <div class="filter-group">
-                <span class="filter-group-label">{{ 'database.detail.type' | translate }}:</span>
-                <button type="button" class="filter-btn story" [class.active]="type() === 'story'" (click)="type.set('story')">{{ 'database.detail.story' | translate }}</button>
-                <button type="button" class="filter-btn combat" [class.active]="type() === 'combat'" (click)="type.set('combat')">{{ 'database.detail.combat' | translate }}</button>
+                <span class="filter-group-label">{{ "database.detail.type" | translate }}:</span>
+                <button type="button" class="filter-btn story" [class.active]="type() === 'story'" (click)="type.set('story')">{{ "database.detail.story" | translate }}</button>
+                <button type="button" class="filter-btn combat" [class.active]="type() === 'combat'" (click)="type.set('combat')">{{ "database.detail.combat" | translate }}</button>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <div class="voiceline-card">
                 <div class="voiceline-header">
                     <div class="voiceline-title">{{ line.title }}</div>
-                    <div [class]="type() + '-badge'">{{ 'database.detail.' + type() | translate }}</div>
+                    <div [class]="type() + '-badge'">{{ "database.detail." + type() | translate }}</div>
                 </div>
                 <div class="voiceline-content">
                     <!-- A dialogue's text carries its speakers in <b>; rendered through the sanitising component. -->
@@ -33,7 +33,7 @@
                 </div>
             </div>
         } @empty {
-            <div class="empty-state">{{ 'database.detail.noVoiceLines' | translate }}</div>
+            <div class="empty-state">{{ "database.detail.noVoiceLines" | translate }}</div>
         }
     </div>
 </div>

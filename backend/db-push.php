@@ -95,8 +95,11 @@ $file = $dir . '/genshin.dump';
 
 // 1. Dump local.
 echo "\n  dumping local {$localName} ... ";
-$r = pgRun($pgDump, ['-h', (string) ($local['host'] ?? '127.0.0.1'), '-p', (string) ($local['port'] ?? '5432'),
-    '-U', (string) ($local['username'] ?? ''), '-Fc', '-f', $file, $localName], (string) ($local['password'] ?? ''));
+$r = pgRun(
+    $pgDump,
+    ['-h', (string) ($local['host'] ?? '127.0.0.1'), '-p', (string) ($local['port'] ?? '5432'), '-U', (string) ($local['username'] ?? ''), '-Fc', '-f', $file, $localName],
+    (string) ($local['password'] ?? ''),
+);
 if (!$r['ok']) {
     echo "FAILED\n" . indentLines($r['stderr']) . "\n";
     exit(1);
@@ -106,12 +109,7 @@ echo 'done (' . number_format(filesize($file) / 1048576, 1) . " MB)\n";
 // 2. Clear the target, so a restore never collides with what is there.
 echo "  clearing target {$targetName} ... ";
 try {
-    $pdo = new PDO(
-        "pgsql:host={$target['host']};port={$target['port']};dbname={$targetName}",
-        $target['user'],
-        $target['pass'],
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    $pdo = new PDO("pgsql:host={$target['host']};port={$target['port']};dbname={$targetName}", $target['user'], $target['pass'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     clearPublicSchema($pdo);
 } catch (\Throwable $e) {
     echo "FAILED\n  Cannot reach or clear {$targetName}: {$e->getMessage()}\n";
@@ -123,8 +121,7 @@ echo "done\n";
 //    the comment on the public schema needs to own it, which a managed host's
 //    database user often does not - a harmless line to skip.
 echo "  restoring into {$targetName} ... ";
-$r = pgRun($pgRestore, ['-h', $target['host'], '-p', $target['port'], '-U', $target['user'],
-    '-d', $targetName, '--no-owner', '--no-privileges', '--no-comments', $file], $target['pass']);
+$r = pgRun($pgRestore, ['-h', $target['host'], '-p', $target['port'], '-U', $target['user'], '-d', $targetName, '--no-owner', '--no-privileges', '--no-comments', $file], $target['pass']);
 if ($r['ok']) {
     echo "done\n";
 } elseif (stripos($r['stderr'], 'errors ignored on restore') !== false) {
@@ -142,7 +139,9 @@ try {
     $tpdo = new PDO("pgsql:host={$target['host']};port={$target['port']};dbname={$targetName}", $target['user'], $target['pass'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     foreach (PUSH_SENTINELS as $sentinel) {
         $got = (int) $tpdo->query("SELECT count(*) FROM {$sentinel}")->fetchColumn();
-        $want = (int) getDb()->query("SELECT count(*) FROM {$sentinel}")->fetchColumn();
+        $want = (int) getDb()
+            ->query("SELECT count(*) FROM {$sentinel}")
+            ->fetchColumn();
         echo "  verify: {$targetName}.{$sentinel} = {$got} rows (local has {$want})" . ($got === $want ? " ✓\n" : " — DIFFERS, check the skipped lines above\n");
     }
 } catch (\Throwable $e) {
@@ -170,7 +169,8 @@ function clearPublicSchema(PDO $pdo): void
         // Not the schema's owner; clear it object by object below.
     }
 
-    $pdo->exec(<<<'SQL'
+    $pdo->exec(
+        <<<'SQL'
         DO $$
         DECLARE item record;
         BEGIN
@@ -199,7 +199,9 @@ function clearPublicSchema(PDO $pdo): void
                 EXECUTE format('DROP TYPE IF EXISTS public.%I CASCADE', item.typname);
             END LOOP;
         END $$
-        SQL);
+        SQL
+        ,
+    );
 }
 
 /** Indents multi-line tool output so it reads as a block under its step. */

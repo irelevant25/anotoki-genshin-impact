@@ -2,7 +2,7 @@
     <!-- The two ways to fill the slot: the kit's segmented control. -->
     <anotoki-segmented class="picker-modes" label="Where the file comes from" [options]="modes" [value]="mode()" (valueChange)="show($any($event))" />
 
-    @if (mode() === 'upload') {
+    @if (mode() === "upload") {
         <div class="upload-body">
             <!-- The kit's file picker: its button (the device's chooser) or a drop on the area round it, the kinds the
                  slot takes and the size checked here as a convenience - the server checks both again. -->
@@ -16,7 +16,7 @@
 
             @if (uploadPreview(); as src) {
                 <div class="upload-preview">
-                    @if (kind() === 'audio') {
+                    @if (kind() === "audio") {
                         <audio controls [src]="src"></audio>
                     } @else {
                         <img [src]="src" [alt]="name()" />
@@ -39,12 +39,7 @@
             <p class="browse-hint">Pick a file already in the library. The same file can sit on many entities — nothing is copied.</p>
 
             <div class="browse-controls">
-                <app-dropdown
-                    [label]="'Folder'"
-                    [options]="folders()"
-                    [(value)]="folder"
-                    (inputChange)="onFolderChange()"
-                ></app-dropdown>
+                <app-dropdown [label]="'Folder'" [options]="folders()" [(value)]="folder" (inputChange)="onFolderChange()"></app-dropdown>
                 <app-text [label]="'Search'" [placeholder]="'file name'" [(value)]="search" (inputChange)="onSearchInput()"></app-text>
             </div>
 
@@ -60,9 +55,8 @@
                                 [class.is-selected]="isSelected(file)"
                                 [class.is-uncatalogued]="file.file_id === null"
                                 [title]="file.file_id === null ? file.name + ' — not in the catalogue yet, cannot be linked' : file.name"
-                                (click)="select(file)"
-                            >
-                                @if (kind() === 'audio') {
+                                (click)="select(file)">
+                                @if (kind() === "audio") {
                                     <span class="browse-sound"><i class="icon icon-music icon-size-4"></i></span>
                                 } @else {
                                     <img [src]="thumbUrl(file)" [alt]="file.name" loading="lazy" />
@@ -76,7 +70,7 @@
                     </div>
 
                     <!-- A sound has no thumbnail to tell it by, so the chosen one can be heard first. -->
-                    @if (kind() === 'audio' && selected(); as chosen) {
+                    @if (kind() === "audio" && selected(); as chosen) {
                         <audio class="browse-player" controls [src]="thumbUrl(chosen)"></audio>
                     }
 
@@ -86,7 +80,7 @@
                         </div>
                     }
                 } @else {
-                    <p class="browse-empty">No {{ kind() === 'audio' ? 'audio files' : 'images' }} in this folder{{ search() ? ' match that search' : '' }}.</p>
+                    <p class="browse-empty">No {{ kind() === "audio" ? "audio files" : "images" }} in this folder{{ search() ? " match that search" : "" }}.</p>
                 }
             }
         </div>
@@ -95,11 +89,7 @@
 
 <ng-template anotokiDialogFooter>
     <button anotokiButton (click)="cancel()">Cancel</button>
-    <button
-        anotokiButton
-        variant="primary"
-        [disabled]="!canSubmit()"
-        (click)="submit()">
-        {{ mode() === 'upload' ? (kind() === 'audio' ? 'Use this file' : 'Use this image') : 'Use selected file' }}
+    <button anotokiButton variant="primary" [disabled]="!canSubmit()" (click)="submit()">
+        {{ mode() === "upload" ? (kind() === "audio" ? "Use this file" : "Use this image") : "Use selected file" }}
     </button>
 </ng-template>

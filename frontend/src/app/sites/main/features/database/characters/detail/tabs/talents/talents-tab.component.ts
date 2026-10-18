@@ -20,7 +20,13 @@ export class CharacterTalentsTabComponent {
     computation: (levels) => new Set(levels.map((level) => level.level)),
   });
 
-  totals = computed(() => sumMaterials(this.levels().filter((level) => this.selectedLevels().has(level.level)).flatMap((level) => level.costs)));
+  totals = computed(() =>
+    sumMaterials(
+      this.levels()
+        .filter((level) => this.selectedLevels().has(level.level))
+        .flatMap((level) => level.costs),
+    ),
+  );
 
   toggleLevel(level: number): void {
     this.selectedLevels.update((current) => toggleIn(current, level));

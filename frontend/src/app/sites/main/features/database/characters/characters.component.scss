@@ -27,11 +27,7 @@
   // The portrait itself; its background is the rarity gradient.
   > img:not(.corner-icon) {
     height: 140px;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--rarity-color, var(--one-star)) 70%, white) 0%,
-      var(--rarity-color, var(--one-star)) 100%
-    );
+    background: linear-gradient(180deg, color-mix(in srgb, var(--rarity-color, var(--one-star)) 70%, white) 0%, var(--rarity-color, var(--one-star)) 100%);
   }
 
   // Element top-left, weapon top-right - small dark discs that read over the

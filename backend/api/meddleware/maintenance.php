@@ -77,9 +77,7 @@ define('MAINTENANCE_OPEN_PREFIXES', [
 function gatePathOpen(string $path, array $open): bool
 {
     foreach ($open as $entry) {
-        if (str_starts_with($entry, '~')
-            ? preg_match($entry, $path) === 1
-            : ($path === $entry || str_starts_with($path, rtrim($entry, '/') . '/'))) {
+        if (str_starts_with($entry, '~') ? preg_match($entry, $path) === 1 : $path === $entry || str_starts_with($path, rtrim($entry, '/') . '/')) {
             return true;
         }
     }
@@ -121,7 +119,7 @@ function gatePath(Request $request): string
 {
     $path = rawurldecode($request->getUri()->getPath());
 
-    return ($path === '' || $path[0] !== '/') ? '/' . $path : $path;
+    return $path === '' || $path[0] !== '/' ? '/' . $path : $path;
 }
 
 function maintenanceGate(): callable
@@ -139,10 +137,6 @@ function maintenanceGate(): callable
             return $handler->handle($request);
         }
 
-        return respondJson(
-            new \Slim\Psr7\Response(),
-            ['error' => 'The site is closed for maintenance', 'code' => 'maintenance'],
-            503,
-        );
+        return respondJson(new \Slim\Psr7\Response(), ['error' => 'The site is closed for maintenance', 'code' => 'maintenance'], 503);
     };
 }

@@ -50,9 +50,7 @@ export class MissingModalComponent extends AbstractModalComponent {
       list.push(file);
       groups.set(file.category, list);
     }
-    return [...groups]
-      .map(([category, files]) => ({ category, files }))
-      .sort((a, b) => b.files.length - a.files.length);
+    return [...groups].map(([category, files]) => ({ category, files })).sort((a, b) => b.files.length - a.files.length);
   });
 
   /** Nothing is deleted from disk here: the files are already gone. */

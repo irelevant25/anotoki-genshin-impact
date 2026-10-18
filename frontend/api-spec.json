@@ -762,7 +762,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/guides.php",
-                "line": 60
+                "line": 63
             },
             "expanded": [],
             "payload": null,
@@ -794,7 +794,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/guides.php",
-                "line": 84
+                "line": 90
             },
             "expanded": [],
             "payload": null,
@@ -1203,7 +1203,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifacts.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -1267,7 +1267,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifact_pieces.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -1306,7 +1306,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifact_pieces.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -1343,7 +1343,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifact_pieces.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -1412,7 +1412,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -1442,7 +1442,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -1479,7 +1479,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifacts.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -1516,7 +1516,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/artifacts.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -1591,7 +1591,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -1626,7 +1626,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,
@@ -1658,7 +1658,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions_sets.php",
-                "line": 41
+                "line": 49
             },
             "expanded": [],
             "payload": null,
@@ -1695,7 +1695,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions_sets.php",
-                "line": 63
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -1754,7 +1754,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/backgrounds.php",
-                "line": 49
+                "line": 48
             },
             "expanded": [],
             "payload": "Background",
@@ -1791,7 +1791,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/backgrounds.php",
-                "line": 84
+                "line": 87
             },
             "expanded": [],
             "payload": null,
@@ -1826,7 +1826,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/backgrounds.php",
-                "line": 35
+                "line": 33
             },
             "expanded": [],
             "payload": null,
@@ -1922,7 +1922,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -1986,7 +1986,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_characters.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -2025,7 +2025,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_characters.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -2062,7 +2062,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_characters.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -2164,7 +2164,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_weapons.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -2203,7 +2203,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_weapons.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -2240,7 +2240,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners_weapons.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -2309,7 +2309,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -2339,7 +2339,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -2376,7 +2376,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -2413,7 +2413,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/banners.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -2488,7 +2488,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -2523,7 +2523,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,
@@ -2611,7 +2611,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 52
+                "line": 41
             },
             "expanded": [],
             "payload": null,
@@ -2670,7 +2670,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 71
+                "line": 61
             },
             "expanded": [
                 "created_by"
@@ -2734,7 +2734,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -2798,7 +2798,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions_cost.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -2837,7 +2837,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions_cost.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -2874,7 +2874,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions_cost.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -2951,7 +2951,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -2988,7 +2988,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_ascensions.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -3090,7 +3090,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3154,7 +3154,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_artifacts.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3193,7 +3193,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_artifacts.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -3230,7 +3230,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_artifacts.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -3332,7 +3332,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_main_stats.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3371,7 +3371,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_main_stats.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -3408,7 +3408,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_main_stats.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -3510,7 +3510,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3549,7 +3549,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -3586,7 +3586,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -3688,7 +3688,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_sub_stats.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3727,7 +3727,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_sub_stats.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -3764,7 +3764,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_sub_stats.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -3866,7 +3866,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_talents.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -3905,7 +3905,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_talents.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -3942,7 +3942,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_talents.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -4044,7 +4044,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -4108,7 +4108,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams_characters.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -4147,7 +4147,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams_characters.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4184,7 +4184,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams_characters.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -4261,7 +4261,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4298,7 +4298,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_teams.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -4400,7 +4400,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_weapons.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -4439,7 +4439,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_weapons.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4476,7 +4476,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds_weapons.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -4553,7 +4553,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4590,7 +4590,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_builds.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -4692,7 +4692,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_constellations.php",
-                "line": 40
+                "line": 39
             },
             "expanded": [
                 "created_by"
@@ -4731,7 +4731,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_constellations.php",
-                "line": 70
+                "line": 73
             },
             "expanded": [],
             "payload": null,
@@ -4768,7 +4768,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_constellations.php",
-                "line": 24
+                "line": 22
             },
             "expanded": [
                 "created_by",
@@ -4870,7 +4870,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_relationships.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -4909,7 +4909,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_relationships.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -4946,7 +4946,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_relationships.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -5048,7 +5048,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_roles.php",
-                "line": 38
+                "line": 37
             },
             "expanded": [
                 "created_by"
@@ -5087,7 +5087,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_roles.php",
-                "line": 48
+                "line": 50
             },
             "expanded": [],
             "payload": null,
@@ -5124,7 +5124,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_roles.php",
-                "line": 24
+                "line": 22
             },
             "expanded": [
                 "created_by",
@@ -5186,7 +5186,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -5250,7 +5250,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents_cost.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -5289,7 +5289,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents_cost.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -5326,7 +5326,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents_cost.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -5403,7 +5403,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -5440,7 +5440,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -5542,7 +5542,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_voice_overs.php",
-                "line": 61
+                "line": 60
             },
             "expanded": [
                 "created_by"
@@ -5581,7 +5581,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_voice_overs.php",
-                "line": 91
+                "line": 94
             },
             "expanded": [],
             "payload": null,
@@ -5618,7 +5618,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_voice_overs.php",
-                "line": 45
+                "line": 43
             },
             "expanded": [
                 "created_by",
@@ -5697,7 +5697,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 263
+                "line": 245
             },
             "expanded": [
                 "created_by"
@@ -5730,7 +5730,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 27
+                "line": 24
             },
             "expanded": [],
             "payload": null,
@@ -5764,7 +5764,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 107
+                "line": 101
             },
             "expanded": [],
             "payload": null,
@@ -5801,7 +5801,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 39
+                "line": 34
             },
             "expanded": [
                 "created_by",
@@ -5838,7 +5838,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters.php",
-                "line": 95
+                "line": 86
             },
             "expanded": [
                 "created_by",
@@ -5878,7 +5878,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 546
+                "line": 504
             },
             "expanded": [
                 "created_by",
@@ -5921,7 +5921,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 483
+                "line": 441
             },
             "expanded": [
                 "created_by",
@@ -5977,7 +5977,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_constellations_sets.php",
-                "line": 38
+                "line": 46
             },
             "expanded": [],
             "payload": null,
@@ -6013,7 +6013,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_constellations_sets.php",
-                "line": 49
+                "line": 60
             },
             "expanded": [],
             "payload": null,
@@ -6047,7 +6047,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/dashboard.php",
-                "line": 281
+                "line": 311
             },
             "expanded": [],
             "payload": null,
@@ -6106,7 +6106,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/domain_levels.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "DomainLevel",
@@ -6143,7 +6143,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/domain_levels.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -6180,7 +6180,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/domain_levels.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -6267,7 +6267,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -6331,7 +6331,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_damage_types_elements.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -6370,7 +6370,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_damage_types_elements.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -6407,7 +6407,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_damage_types_elements.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -6509,7 +6509,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_drops.php",
-                "line": 59
+                "line": 58
             },
             "expanded": [
                 "created_by"
@@ -6548,7 +6548,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_drops.php",
-                "line": 87
+                "line": 90
             },
             "expanded": [],
             "payload": null,
@@ -6585,7 +6585,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_drops.php",
-                "line": 45
+                "line": 43
             },
             "expanded": [
                 "created_by",
@@ -6687,7 +6687,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_phases.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -6726,7 +6726,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_phases.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -6763,7 +6763,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies_phases.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -6832,7 +6832,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -6862,7 +6862,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -6899,7 +6899,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -6936,7 +6936,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemies.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -7011,7 +7011,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -7046,7 +7046,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,
@@ -7105,7 +7105,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_families.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "EnemyFamily",
@@ -7142,7 +7142,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_families.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -7179,7 +7179,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_families.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -7235,7 +7235,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_groups.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "EnemyGroup",
@@ -7272,7 +7272,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_groups.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -7309,7 +7309,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_groups.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -7365,7 +7365,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_types.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "EnemyType",
@@ -7402,7 +7402,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_types.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -7439,7 +7439,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/enemy_types.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -7486,7 +7486,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 165
+                "line": 176
             },
             "expanded": [],
             "payload": null,
@@ -7520,7 +7520,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 214
+                "line": 231
             },
             "expanded": [],
             "payload": null,
@@ -7559,7 +7559,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 310
+                "line": 342
             },
             "expanded": [],
             "payload": null,
@@ -7598,7 +7598,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 272
+                "line": 296
             },
             "expanded": [],
             "payload": null,
@@ -7629,7 +7629,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 319
+                "line": 329
             },
             "expanded": [],
             "payload": null,
@@ -7662,7 +7662,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 216
+                "line": 222
             },
             "expanded": [],
             "payload": null,
@@ -7694,7 +7694,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 288
+                "line": 295
             },
             "expanded": [],
             "payload": null,
@@ -7724,7 +7724,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 810
+                "line": 862
             },
             "expanded": [],
             "payload": null,
@@ -7755,7 +7755,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 835
+                "line": 890
             },
             "expanded": [],
             "payload": null,
@@ -7785,7 +7785,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 845
+                "line": 903
             },
             "expanded": [],
             "payload": null,
@@ -7815,7 +7815,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 776
+                "line": 825
             },
             "expanded": [],
             "payload": null,
@@ -7845,7 +7845,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 765
+                "line": 811
             },
             "expanded": [],
             "payload": null,
@@ -7876,7 +7876,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 161
+                "line": 164
             },
             "expanded": [],
             "payload": null,
@@ -7908,7 +7908,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 686
+                "line": 723
             },
             "expanded": [],
             "payload": null,
@@ -7939,7 +7939,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 622
+                "line": 656
             },
             "expanded": [],
             "payload": null,
@@ -7969,7 +7969,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 567
+                "line": 596
             },
             "expanded": [],
             "payload": null,
@@ -7996,7 +7996,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 741
+                "line": 784
             },
             "expanded": [],
             "payload": null,
@@ -8029,7 +8029,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 400
+                "line": 416
             },
             "expanded": [],
             "payload": null,
@@ -8058,7 +8058,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 445
+                "line": 464
             },
             "expanded": [],
             "payload": null,
@@ -8087,7 +8087,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 728
+                "line": 768
             },
             "expanded": [],
             "payload": null,
@@ -8116,7 +8116,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 354
+                "line": 367
             },
             "expanded": [],
             "payload": null,
@@ -8156,7 +8156,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 482
+                "line": 529
             },
             "expanded": [],
             "payload": null,
@@ -8196,7 +8196,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 412
+                "line": 452
             },
             "expanded": [],
             "payload": null,
@@ -8255,7 +8255,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/food_types.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "FoodType",
@@ -8292,7 +8292,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/food_types.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -8329,7 +8329,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/food_types.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -8388,7 +8388,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -8452,7 +8452,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods_recipe.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -8491,7 +8491,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods_recipe.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -8528,7 +8528,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods_recipe.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -8597,7 +8597,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -8627,7 +8627,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -8664,7 +8664,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -8701,7 +8701,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/foods.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -8776,7 +8776,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -8811,7 +8811,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,
@@ -8899,7 +8899,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_groups.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "MaterialGroup",
@@ -8936,7 +8936,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_groups.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -8973,7 +8973,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_groups.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -9029,7 +9029,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_types.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "MaterialType",
@@ -9066,7 +9066,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_types.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -9103,7 +9103,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/material_types.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -9162,7 +9162,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials.php",
-                "line": 50
+                "line": 46
             },
             "expanded": [
                 "created_by"
@@ -9226,7 +9226,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials_groups_join.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -9265,7 +9265,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials_groups_join.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -9302,7 +9302,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials_groups_join.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -9379,7 +9379,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials.php",
-                "line": 23
+                "line": 20
             },
             "expanded": [],
             "payload": null,
@@ -9405,7 +9405,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -9435,7 +9435,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -9509,7 +9509,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials.php",
-                "line": 34
+                "line": 29
             },
             "expanded": [
                 "created_by",
@@ -9546,7 +9546,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/materials.php",
-                "line": 70
+                "line": 67
             },
             "expanded": [
                 "created_by",
@@ -9584,7 +9584,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -9619,7 +9619,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,
@@ -9682,7 +9682,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/me.php",
-                "line": 58
+                "line": 60
             },
             "expanded": [],
             "payload": null,
@@ -9710,7 +9710,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_states.php",
-                "line": 20
+                "line": 23
             },
             "expanded": [],
             "payload": null,
@@ -9743,7 +9743,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_states.php",
-                "line": 60
+                "line": 66
             },
             "expanded": [],
             "payload": "QuizState",
@@ -9781,7 +9781,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_states.php",
-                "line": 99
+                "line": 110
             },
             "expanded": [],
             "payload": null,
@@ -9819,7 +9819,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_states.php",
-                "line": 31
+                "line": 35
             },
             "expanded": [],
             "payload": null,
@@ -9857,7 +9857,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_states.php",
-                "line": 82
+                "line": 91
             },
             "expanded": [],
             "payload": "QuizState",
@@ -9885,7 +9885,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_stats_history.php",
-                "line": 10
+                "line": 13
             },
             "expanded": [],
             "payload": null,
@@ -9918,7 +9918,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_stats_history.php",
-                "line": 50
+                "line": 56
             },
             "expanded": [],
             "payload": "QuizStatsHistory",
@@ -9960,7 +9960,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_stats_history.php",
-                "line": 85
+                "line": 101
             },
             "expanded": [],
             "payload": null,
@@ -10002,7 +10002,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_stats_history.php",
-                "line": 21
+                "line": 25
             },
             "expanded": [],
             "payload": null,
@@ -10044,7 +10044,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_stats_history.php",
-                "line": 70
+                "line": 84
             },
             "expanded": [],
             "payload": "QuizStatsHistory",
@@ -10072,7 +10072,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 420
+                "line": 436
             },
             "expanded": [],
             "payload": null,
@@ -10098,7 +10098,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 110
+                "line": 112
             },
             "expanded": [],
             "payload": null,
@@ -10124,7 +10124,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 263
+                "line": 271
             },
             "expanded": [],
             "payload": null,
@@ -10158,7 +10158,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 176
+                "line": 182
             },
             "expanded": [],
             "payload": null,
@@ -10191,7 +10191,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 153
+                "line": 157
             },
             "expanded": [],
             "payload": null,
@@ -10222,7 +10222,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 332
+                "line": 342
             },
             "expanded": [],
             "payload": null,
@@ -10250,7 +10250,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 448
+                "line": 466
             },
             "expanded": [],
             "payload": null,
@@ -10278,7 +10278,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 356
+                "line": 368
             },
             "expanded": [],
             "payload": null,
@@ -10306,7 +10306,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_progress.php",
-                "line": 394
+                "line": 408
             },
             "expanded": [],
             "payload": null,
@@ -10391,7 +10391,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quizzes.php",
-                "line": 31
+                "line": 33
             },
             "expanded": [],
             "payload": "Quiz",
@@ -10428,7 +10428,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quizzes.php",
-                "line": 62
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -10465,7 +10465,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quizzes.php",
-                "line": 21
+                "line": 19
             },
             "expanded": [],
             "payload": null,
@@ -10499,7 +10499,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quizzes.php",
-                "line": 48
+                "line": 54
             },
             "expanded": [],
             "payload": "Quiz",
@@ -10586,7 +10586,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/regions.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "Region",
@@ -10623,7 +10623,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/regions.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -10660,7 +10660,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/regions.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -10716,7 +10716,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/relationship_types.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "RelationshipType",
@@ -10753,7 +10753,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/relationship_types.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -10790,7 +10790,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/relationship_types.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -10846,7 +10846,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/roles.php",
-                "line": 32
+                "line": 34
             },
             "expanded": [],
             "payload": "Role",
@@ -10883,7 +10883,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/roles.php",
-                "line": 46
+                "line": 51
             },
             "expanded": [],
             "payload": null,
@@ -10920,7 +10920,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/roles.php",
-                "line": 22
+                "line": 20
             },
             "expanded": [],
             "payload": null,
@@ -10975,7 +10975,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/settings.php",
-                "line": 196
+                "line": 197
             },
             "expanded": [],
             "payload": null,
@@ -11003,7 +11003,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/settings.php",
-                "line": 115
+                "line": 112
             },
             "expanded": [],
             "payload": null,
@@ -11208,7 +11208,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/stats.php",
-                "line": 46
+                "line": 48
             },
             "expanded": [],
             "payload": "Stat",
@@ -11245,7 +11245,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/stats.php",
-                "line": 59
+                "line": 64
             },
             "expanded": [],
             "payload": null,
@@ -11282,7 +11282,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/stats.php",
-                "line": 29
+                "line": 27
             },
             "expanded": [],
             "payload": null,
@@ -11311,7 +11311,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents_sets.php",
-                "line": 39
+                "line": 47
             },
             "expanded": [],
             "payload": null,
@@ -11348,7 +11348,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_talents_sets.php",
-                "line": 57
+                "line": 68
             },
             "expanded": [],
             "payload": null,
@@ -11407,7 +11407,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/talent_types.php",
-                "line": 27
+                "line": 29
             },
             "expanded": [],
             "payload": "TalentType",
@@ -11444,7 +11444,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/talent_types.php",
-                "line": 38
+                "line": 43
             },
             "expanded": [],
             "payload": null,
@@ -11481,7 +11481,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/talent_types.php",
-                "line": 18
+                "line": 16
             },
             "expanded": [],
             "payload": null,
@@ -11545,7 +11545,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/uploads.php",
-                "line": 171
+                "line": 182
             },
             "expanded": [],
             "payload": null,
@@ -11593,7 +11593,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/uploads.php",
-                "line": 112
+                "line": 120
             },
             "expanded": [],
             "payload": null,
@@ -11624,7 +11624,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/user_quiz_history.php",
-                "line": 10
+                "line": 13
             },
             "expanded": [],
             "payload": null,
@@ -11656,7 +11656,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/user_quiz_history.php",
-                "line": 46
+                "line": 54
             },
             "expanded": [],
             "payload": "UserQuizHistory",
@@ -11690,7 +11690,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/user_quiz_history.php",
-                "line": 60
+                "line": 71
             },
             "expanded": [],
             "payload": null,
@@ -11727,7 +11727,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/user_quiz_history.php",
-                "line": 29
+                "line": 34
             },
             "expanded": [],
             "payload": null,
@@ -11753,7 +11753,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/visitor.php",
-                "line": 58
+                "line": 61
             },
             "expanded": [],
             "payload": null,
@@ -11781,7 +11781,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/voice_over_sets.php",
-                "line": 41
+                "line": 49
             },
             "expanded": [],
             "payload": null,
@@ -11817,7 +11817,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/voice_over_sets.php",
-                "line": 52
+                "line": 63
             },
             "expanded": [],
             "payload": null,
@@ -11907,7 +11907,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons.php",
-                "line": 41
+                "line": 40
             },
             "expanded": [
                 "created_by"
@@ -11971,7 +11971,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -12035,7 +12035,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions_cost.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -12074,7 +12074,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions_cost.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -12111,7 +12111,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions_cost.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -12188,7 +12188,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -12225,7 +12225,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_ascensions.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -12327,7 +12327,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_refinements.php",
-                "line": 39
+                "line": 38
             },
             "expanded": [
                 "created_by"
@@ -12366,7 +12366,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_refinements.php",
-                "line": 67
+                "line": 70
             },
             "expanded": [],
             "payload": null,
@@ -12403,7 +12403,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons_refinements.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -12472,7 +12472,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 296
+                "line": 289
             },
             "expanded": [
                 "created_by",
@@ -12502,7 +12502,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 326
+                "line": 318
             },
             "expanded": [],
             "payload": null,
@@ -12539,7 +12539,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons.php",
-                "line": 71
+                "line": 74
             },
             "expanded": [],
             "payload": null,
@@ -12576,7 +12576,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/weapons.php",
-                "line": 25
+                "line": 23
             },
             "expanded": [
                 "created_by",
@@ -12651,7 +12651,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 261
+                "line": 254
             },
             "expanded": [
                 "created_by",
@@ -12686,7 +12686,7 @@
             },
             "source": {
                 "file": "backend/api/full_resource.php",
-                "line": 362
+                "line": 353
             },
             "expanded": [],
             "payload": null,

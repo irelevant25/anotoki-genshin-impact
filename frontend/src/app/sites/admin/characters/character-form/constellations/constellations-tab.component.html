@@ -1,13 +1,11 @@
 <div class="set-toolbar">
-    <button
-        anotokiButton
-        anotokiTooltip="Use another character's constellation set (for the Traveler's variants)"
-        (click)="chooseSet()">
-        <span class="icon icon-layers" aria-hidden="true"></span> Choose set
+    <button anotokiButton anotokiTooltip="Use another character's constellation set (for the Traveler's variants)" (click)="chooseSet()">
+        <span class="icon icon-layers" aria-hidden="true"></span>
+        Choose set
     </button>
     @if (deleteAllArmed()) {
         <button anotokiButton (click)="cancelDeleteAll()">Cancel</button>
-        <button anotokiButton variant="danger" (click)="deleteAll()">{{ 'Delete all ' + constellations().length + '?' }}</button>
+        <button anotokiButton variant="danger" (click)="deleteAll()">{{ "Delete all " + constellations().length + "?" }}</button>
     } @else {
         <button anotokiButton variant="danger" [disabled]="!constellations().length" (click)="deleteAll()">Delete all</button>
     }
@@ -17,30 +15,22 @@
     @for (item of sorted(); track item.uid) {
         <div class="sub-card">
             <div class="sub-card-header">
-                <span class="sub-card-index">C{{ item.data.level }} · {{ item.data.name || 'Unnamed' }}</span>
+                <span class="sub-card-index">C{{ item.data.level }} · {{ item.data.name || "Unnamed" }}</span>
                 <button anotokiButton variant="danger" (click)="removeConstellation(item)">Delete</button>
             </div>
             <app-field-container [cols]="4">
-                <app-number
-                    [label]="'Level'"
-                    [value]="item.data.level"
-                    [required]="true"
-                    [min]="1"
-                    [max]="maxConstellations"
-                    (inputChange)="onLevelChange(item, $event)"
-                ></app-number>
+                <app-number [label]="'Level'" [value]="item.data.level" [required]="true" [min]="1" [max]="maxConstellations" (inputChange)="onLevelChange(item, $event)"></app-number>
                 <app-text class="col-span-3" [label]="'Name'" [(value)]="item.data.name" [required]="true"></app-text>
             </app-field-container>
             <app-field-container [cols]="4">
                 <app-entity-image
-                        [label]="'Icon'"
-                        [required]="true"
-                        [path]="iconPath(item)"
-                        [name]="iconName(item)"
-                        [pending]="item.pending"
-                        (picked)="onPicked(item, $event)"
-                        (cleared)="onCleared(item)"
-                    />
+                    [label]="'Icon'"
+                    [required]="true"
+                    [path]="iconPath(item)"
+                    [name]="iconName(item)"
+                    [pending]="item.pending"
+                    (picked)="onPicked(item, $event)"
+                    (cleared)="onCleared(item)" />
                 <app-textarea class="col-span-3" [label]="'Description'" [(value)]="item.data.description" [rows]="4"></app-textarea>
             </app-field-container>
         </div>

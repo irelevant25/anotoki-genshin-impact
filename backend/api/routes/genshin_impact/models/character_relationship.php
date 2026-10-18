@@ -8,6 +8,5 @@ class CharacterRelationship extends DbModel
         public readonly string $name,
         public readonly string $state,
         public readonly bool $is_biological = false,
-    ) {
-    }
+    ) {}
 }

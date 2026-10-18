@@ -12,8 +12,7 @@ class Material extends DbModel
         public readonly ?string $version = null,
         public readonly ?int $rarity = null,
         public readonly ?int $icon_file_id = null,
-    ) {
-    }
+    ) {}
 
     protected static function jsonFields(): array
     {

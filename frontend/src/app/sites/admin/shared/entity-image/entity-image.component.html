@@ -8,7 +8,7 @@
 
     <div class="entity-image-frame" [class.is-audio]="kind() === 'audio'" [class.empty]="!src()" [class.pending]="!!pending()" [class.error]="hasError()">
         @if (src(); as source) {
-            @if (kind() === 'audio') {
+            @if (kind() === "audio") {
                 <audio controls preload="none" [src]="source"></audio>
             } @else {
                 <img #img [src]="source" [alt]="label()" />
@@ -26,14 +26,14 @@
     }
 
     <div class="entity-image-actions">
-        <button
-            anotokiButton
-            size="sm"
-            (click)="open()">
-            <span class="icon icon-upload" aria-hidden="true"></span> {{ hasImage() ? 'Replace' : 'Upload' }}
+        <button anotokiButton size="sm" (click)="open()">
+            <span class="icon icon-upload" aria-hidden="true"></span>
+            {{ hasImage() ? "Replace" : "Upload" }}
         </button>
         @if (pending()) {
-            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Discard this pick" anotokiTooltip="Discard this pick" (click)="clear()"><span class="icon icon-close" aria-hidden="true"></span></button>
+            <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Discard this pick" anotokiTooltip="Discard this pick" (click)="clear()">
+                <span class="icon icon-close" aria-hidden="true"></span>
+            </button>
         }
     </div>
 

@@ -34,11 +34,13 @@ export function toAssetBaseName(name: string | null | undefined): string {
  * "Maintenance Mek: Gold Leader" is filed as "Maintenance Mek Gold Leader.avif".
  */
 export function toAssetLiteralName(name: string | null | undefined): string {
-  return String(name ?? '')
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\\/*?:"<>|\x00-\x1F]/g, '')
-    .replace(/ {2,}/g, ' ')
-    .trim();
+  return (
+    String(name ?? '')
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\\/*?:"<>|\x00-\x1F]/g, '')
+      .replace(/ {2,}/g, ' ')
+      .trim()
+  );
 }
 
 /**

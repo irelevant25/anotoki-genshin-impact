@@ -31,9 +31,7 @@
  */
 
 $outIndex = array_search('--out', $argv, true);
-$outPath = $outIndex !== false && isset($argv[$outIndex + 1])
-    ? $argv[$outIndex + 1]
-    : __DIR__ . '/../frontend/api-spec.json';
+$outPath = $outIndex !== false && isset($argv[$outIndex + 1]) ? $argv[$outIndex + 1] : __DIR__ . '/../frontend/api-spec.json';
 
 define('ANOTOKI_ROUTES_ONLY', true);
 
@@ -129,10 +127,14 @@ function respondJsonStatuses(string $body): array
 function splitPattern(string $pattern): array
 {
     $args = [];
-    $clean = preg_replace_callback('/\{([a-zA-Z_][a-zA-Z0-9_]*)(:[^{}]*(?:\{[^{}]*\}[^{}]*)*)?\}/', function ($m) use (&$args) {
-        $args[] = ['name' => $m[1], 'constraint' => isset($m[2]) ? ltrim($m[2], ':') : null];
-        return '{' . $m[1] . '}';
-    }, $pattern);
+    $clean = preg_replace_callback(
+        '/\{([a-zA-Z_][a-zA-Z0-9_]*)(:[^{}]*(?:\{[^{}]*\}[^{}]*)*)?\}/',
+        function ($m) use (&$args) {
+            $args[] = ['name' => $m[1], 'constraint' => isset($m[2]) ? ltrim($m[2], ':') : null];
+            return '{' . $m[1] . '}';
+        },
+        $pattern,
+    );
 
     return [$clean, $args];
 }
@@ -305,9 +307,7 @@ function fullResourceResponds(string $method, string $pattern): ?array
         return ['shape' => $declared['table'], 'list' => false];
     }
 
-    return $one
-        ? ['shape' => $declared['full'], 'list' => false]
-        : ['shape' => $declared['row'], 'list' => true];
+    return $one ? ['shape' => $declared['full'], 'list' => false] : ['shape' => $declared['row'], 'list' => true];
 }
 
 $routes = [];
@@ -341,8 +341,11 @@ $apiFolders = array_map('basename', glob(__DIR__ . '/api/*', GLOB_ONLYDIR) ?: []
 foreach ($routes as $route) {
     $first = explode('/', substr($route['path'], strlen('/api/')))[0];
     if (str_starts_with($route['path'], '/api/') && in_array($first, $apiFolders, true)) {
-        fwrite(STDERR, "{$route['method']} {$route['path']} is named after the folder api/{$first}/, which Apache on the"
-            . " hosting answers with a redirect to the folder instead of the API. Give the route another name.\n");
+        fwrite(
+            STDERR,
+            "{$route['method']} {$route['path']} is named after the folder api/{$first}/, which Apache on the" .
+                " hosting answers with a redirect to the folder instead of the API. Give the route another name.\n",
+        );
         exit(1);
     }
 }
@@ -876,10 +879,7 @@ function enumValues(string $list): ?array
     return array_map(fn($v) => str_replace("''", "'", $v), $values[1]) ?: null;
 }
 
-$tables = [
-    ...parseMigrations(__DIR__ . '/migrations/users', 'users'),
-    ...parseMigrations(__DIR__ . '/migrations/genshin_impact', 'genshin_impact'),
-];
+$tables = [...parseMigrations(__DIR__ . '/migrations/users', 'users'), ...parseMigrations(__DIR__ . '/migrations/genshin_impact', 'genshin_impact')];
 ksort($tables);
 
 // A handler's table is read out of its source, and the fallback that looks for
@@ -907,12 +907,4 @@ file_put_contents($outPath, json_encode($spec, JSON_PRETTY_PRINT | JSON_UNESCAPE
 
 $declared = count(array_filter($routes, fn($route) => $route['responds'] !== null));
 
-printf(
-    "%s\n  %d routes (%d declaring a response), %d models, %d shapes, %d tables\n",
-    realpath($outPath) ?: $outPath,
-    count($routes),
-    $declared,
-    count($models),
-    count($shapes),
-    count($tables)
-);
+printf("%s\n  %d routes (%d declaring a response), %d models, %d shapes, %d tables\n", realpath($outPath) ?: $outPath, count($routes), $declared, count($models), count($shapes), count($tables));

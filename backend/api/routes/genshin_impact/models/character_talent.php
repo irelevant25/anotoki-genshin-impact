@@ -10,6 +10,5 @@ class CharacterTalent extends DbModel
         public readonly string $type,
         public readonly ?int $icon_file_id = null,
         public readonly ?string $description = null,
-    ) {
-    }
+    ) {}
 }

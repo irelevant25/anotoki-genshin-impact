@@ -125,14 +125,7 @@ function buildProbe() {
   const imports = [...wanted].sort();
   const declarations = [...shapes].map(([name, expression]) => `export type ${name} = ${expression};`);
 
-  return [
-    `import { ${imports.join(', ')} } from './src/app/api';`,
-    '',
-    ...declarations.sort(),
-    '',
-    ...aliases,
-    '',
-  ].join('\n');
+  return [`import { ${imports.join(', ')} } from './src/app/api';`, '', ...declarations.sort(), '', ...aliases, ''].join('\n');
 }
 
 /**
@@ -324,12 +317,18 @@ schemaFor(declared.get('Shared_ApiValidationError'));
 // ─────────────────────────────────────────────────────────────────────────────
 
 const title = spec.site
-  ? spec.site.split('_').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
+  ? spec.site
+      .split('_')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ')
   : 'Anotoki';
 
 /** `getCharacterBuildTeams` -> `Get character build teams`. */
 function summaryOf(id) {
-  const words = id.replace(/([A-Z])/g, ' $1').trim().toLowerCase();
+  const words = id
+    .replace(/([A-Z])/g, ' $1')
+    .trim()
+    .toLowerCase();
   return words[0].toUpperCase() + words.slice(1);
 }
 
@@ -342,7 +341,7 @@ function describe(route) {
   } else if (route.owner) {
     lines.push(
       "A signed-in user, or - while the site does not require sign-in - this browser's visitor (`X-Visitor-Key`): " +
-        'whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.'
+        'whose own data it is. Nobody gets nothing back; a first save with a play makes a visitor and answers its key in `X-Visitor-Key`.',
     );
   } else if (route.auth) {
     lines.push('Requires a signed-in user.');
@@ -364,10 +363,7 @@ function parametersFor(route, id) {
     // `/api/materials/full` from `/api/materials/{id}` - Slim will not match a
     // literal against `[0-9]+`, and saying so keeps the document as unambiguous
     // as the routing is.
-    schema:
-      argType(arg) === 'number'
-        ? { type: 'integer' }
-        : { type: 'string', ...(arg.constraint ? { pattern: `^${arg.constraint}$` } : {}) },
+    schema: argType(arg) === 'number' ? { type: 'integer' } : { type: 'string', ...(arg.constraint ? { pattern: `^${arg.constraint}$` } : {}) },
   }));
 
   // Expanded rather than resolved through schemaOf(): a query type is a named
@@ -419,10 +415,7 @@ const FAILURE_TEXT = {
 };
 
 const FAILURES = Object.fromEntries(
-  Object.entries(FAILURE_TEXT).map(([status, description]) => [
-    status,
-    { description, content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiError' } } } },
-  ])
+  Object.entries(FAILURE_TEXT).map(([status, description]) => [status, { description, content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiError' } } } }]),
 );
 
 function responsesFor(route, id) {
@@ -469,9 +462,7 @@ function responsesFor(route, id) {
   }
   responses.default = { $ref: '#/components/responses/Error' };
 
-  return Object.fromEntries(
-    Object.entries(responses).sort(([a], [b]) => (a === 'default' ? 1 : b === 'default' ? -1 : Number(a) - Number(b)))
-  );
+  return Object.fromEntries(Object.entries(responses).sort(([a], [b]) => (a === 'default' ? 1 : b === 'default' ? -1 : Number(a) - Number(b))));
 }
 
 /**
@@ -514,9 +505,7 @@ const document = {
       'frontend/generate-openapi.mjs - not maintained by hand, and not annotated',
       'onto the handlers. Regenerate with `npm run api` in frontend/.',
       '',
-      skipped
-        ? `${skipped} registered routes are left out: they reference tables and model classes that do not exist, and answer 500.`
-        : '',
+      skipped ? `${skipped} registered routes are left out: they reference tables and model classes that do not exist, and answer 500.` : '',
     ]
       .filter(Boolean)
       .join('\n'),

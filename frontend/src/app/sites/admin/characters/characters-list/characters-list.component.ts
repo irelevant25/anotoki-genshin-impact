@@ -68,7 +68,12 @@ export class CharactersListComponent implements OnInit {
       if (id && !String(character.id).includes(id)) {
         return false;
       }
-      if (name && !String(character.name ?? '').toLowerCase().includes(name)) {
+      if (
+        name &&
+        !String(character.name ?? '')
+          .toLowerCase()
+          .includes(name)
+      ) {
         return false;
       }
       if (elements.length && !elements.includes(character.element)) {
@@ -99,7 +104,7 @@ export class CharactersListComponent implements OnInit {
       this._selected(this.filterWeapons()).length > 0 ||
       this._selected(this.filterRegions()).length > 0 ||
       this._selected(this.filterVersions()).length > 0 ||
-      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
+      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== ''),
   );
 
   private readonly _characterApi = inject(CharacterApiService);

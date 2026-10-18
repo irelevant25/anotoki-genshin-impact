@@ -13,15 +13,7 @@
  * foreign key back to the parent is filled in on save.
  */
 
-import {
-  ArtifactFull,
-  BannerFull,
-  CharacterFull,
-  EnemyFull,
-  FoodFull,
-  MaterialFull,
-  WeaponFull,
-} from '../../../api';
+import { ArtifactFull, BannerFull, CharacterFull, EnemyFull, FoodFull, MaterialFull, WeaponFull } from '../../../api';
 
 /** The element type of an array-valued property. */
 type Item<T> = NonNullable<T> extends readonly (infer U)[] ? U : never;

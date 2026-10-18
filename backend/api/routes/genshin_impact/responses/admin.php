@@ -14,35 +14,18 @@
 /** One row of the content counts, and where to go to edit it. */
 class DashboardContent extends ResponseShape
 {
-    public function __construct(
-        public readonly string $label,
-        public readonly string $table,
-        public readonly string $route,
-        public readonly string $icon,
-        public readonly int $total,
-    ) {
-    }
+    public function __construct(public readonly string $label, public readonly string $table, public readonly string $route, public readonly string $icon, public readonly int $total) {}
 }
 
 /** Records missing something they ought to have. */
 class DashboardGap extends ResponseShape
 {
-    public function __construct(
-        public readonly string $label,
-        public readonly string $route,
-        public readonly int $missing,
-        public readonly int $total,
-    ) {
-    }
+    public function __construct(public readonly string $label, public readonly string $route, public readonly int $missing, public readonly int $total) {}
 }
 
 class DashboardFeedbackType extends ResponseShape
 {
-    public function __construct(
-        public readonly string $type,
-        public readonly int $total,
-    ) {
-    }
+    public function __construct(public readonly string $type, public readonly int $total) {}
 }
 
 class DashboardFeedback extends ResponseShape
@@ -54,8 +37,7 @@ class DashboardFeedback extends ResponseShape
         public readonly int $last30,
         /** @var DashboardFeedbackType[] */
         public readonly array $byType,
-    ) {
-    }
+    ) {}
 }
 
 class DashboardChange extends ResponseShape
@@ -67,8 +49,7 @@ class DashboardChange extends ResponseShape
         public readonly string $action,
         public readonly string $changed_at,
         public readonly ?string $changed_by_username,
-    ) {
-    }
+    ) {}
 }
 
 class DashboardActivity extends ResponseShape
@@ -79,20 +60,12 @@ class DashboardActivity extends ResponseShape
         public readonly int $last30,
         /** @var DashboardChange[] */
         public readonly array $recent,
-    ) {
-    }
+    ) {}
 }
 
 class DashboardLanguage extends ResponseShape
 {
-    public function __construct(
-        public readonly string $code,
-        public readonly string $name,
-        public readonly string $native_name,
-        public readonly bool $enabled,
-        public readonly int $translated,
-    ) {
-    }
+    public function __construct(public readonly string $code, public readonly string $name, public readonly string $native_name, public readonly bool $enabled, public readonly int $translated) {}
 }
 
 class DashboardTranslations extends ResponseShape
@@ -101,8 +74,7 @@ class DashboardTranslations extends ResponseShape
         public readonly int $keys,
         /** @var DashboardLanguage[] */
         public readonly array $languages,
-    ) {
-    }
+    ) {}
 }
 
 class DashboardStats extends ResponseShape
@@ -122,8 +94,7 @@ class DashboardStats extends ResponseShape
         public readonly object $assets,
         /** @var DashboardVisitors */
         public readonly object $visitors,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -144,8 +115,7 @@ class DashboardVisitors extends ResponseShape
         public readonly int $max,
         /** Days a visitor is kept after their last visit (`keep_days`). */
         public readonly int $keep_days,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -170,6 +140,5 @@ class DashboardAssets extends ResponseShape
         public readonly object $catalogue,
         public readonly string $generated_at,
         public readonly int $age,
-    ) {
-    }
+    ) {}
 }

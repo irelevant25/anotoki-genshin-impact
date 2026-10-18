@@ -18,9 +18,7 @@ $app->get('/api/characters-constellations/{id:[0-9]+}', function (Request $reque
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('characters_constellations'));
 
 // POST create character constellation
@@ -29,15 +27,16 @@ $app->post('/api/characters-constellations', function (Request $request, Respons
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'characters_constellations', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'characters_constellations', [
-        ...CharacterConstellation::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'characters_constellations', [...CharacterConstellation::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'characters_constellations')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('characters_constellations'))->add(validateRequest(CharacterConstellation::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_constellations'))
+    ->add(validateRequest(CharacterConstellation::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update character constellation
 $app->put('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -48,16 +47,17 @@ $app->put('/api/characters-constellations/{id:[0-9]+}', function (Request $reque
     }
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'characters_constellations', $body, $user['id']);
-    DbQuery::update($pdo, 'characters_constellations', [
-        ...CharacterConstellation::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'characters_constellations', [...CharacterConstellation::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'characters_constellations')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('characters_constellations'))->add(validateRequest(CharacterConstellation::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_constellations'))
+    ->add(validateRequest(CharacterConstellation::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE character constellation
 $app->delete('/api/characters-constellations/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -67,4 +67,7 @@ $app->delete('/api/characters-constellations/{id:[0-9]+}', function (Request $re
     }
     DbQuery::update($pdo, 'characters_constellations', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('characters_constellations'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_constellations'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

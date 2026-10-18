@@ -2,7 +2,7 @@
     @for (piece of pieces(); track piece.uid) {
         <div class="sub-card">
             <div class="sub-card-header">
-                <span class="sub-card-index">{{ piece.data.type }} · {{ piece.data.name || 'Unnamed' }}</span>
+                <span class="sub-card-index">{{ piece.data.type }} · {{ piece.data.name || "Unnamed" }}</span>
                 <button anotokiButton variant="danger" (click)="removePiece(piece)">Delete</button>
             </div>
             <app-field-container [cols]="4">
@@ -15,8 +15,7 @@
                     [name]="iconName(piece)"
                     [pending]="piece.pending"
                     (picked)="onPicked(piece, $event)"
-                    (cleared)="onCleared(piece)"
-                />
+                    (cleared)="onCleared(piece)" />
             </app-field-container>
         </div>
     }

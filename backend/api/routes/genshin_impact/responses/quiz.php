@@ -21,24 +21,17 @@ class QuizProgress extends ResponseShape
          */
         public readonly array $state,
         public readonly bool $is_daily,
-    ) {
-    }
+    ) {}
 }
 
 class QuizProgressSaved extends ResponseShape
 {
-    public function __construct(
-        public readonly string $quiz,
-        public readonly bool $is_daily,
-    ) {
-    }
+    public function __construct(public readonly string $quiz, public readonly bool $is_daily) {}
 }
 
 class QuizProgressDeleted extends ResponseShape
 {
-    public function __construct(public readonly int $deleted)
-    {
-    }
+    public function __construct(public readonly int $deleted) {}
 }
 
 /**
@@ -67,15 +60,12 @@ class QuizCarryResult extends ResponseShape
          * The counts are then 0, and `games` the account's own.
          */
         public readonly bool $stayed,
-    ) {
-    }
+    ) {}
 }
 
 class QuizResultAck extends ResponseShape
 {
-    public function __construct(public readonly bool $recorded)
-    {
-    }
+    public function __construct(public readonly bool $recorded) {}
 }
 
 /** A player's totals for one character in one quiz. */
@@ -89,8 +79,7 @@ class QuizStatsRow extends ResponseShape
         public readonly int $wins,
         public readonly int $losses,
         public readonly int $attempts,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -114,8 +103,7 @@ class QuizVoiceOverRound extends ResponseShape
         public readonly ?string $wish_icon_name,
         public readonly int $rarity,
         public readonly string $element,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -138,8 +126,7 @@ class QuizDifficultyRow extends ResponseShape
         public readonly int $wins,
         public readonly int $losses,
         public readonly int $attempts,
-    ) {
-    }
+    ) {}
 }
 
 /** A day a player answered something, and how much of it they got right. */
@@ -150,8 +137,7 @@ class QuizActivityDay extends ResponseShape
         public readonly string $day,
         public readonly int $played,
         public readonly int $wins,
-    ) {
-    }
+    ) {}
 }
 
 /** One finished question, with enough of the character to draw them. */
@@ -167,6 +153,5 @@ class QuizRecentResult extends ResponseShape
         public readonly int $attempts,
         public readonly ?int $difficulty,
         public readonly string $created_at,
-    ) {
-    }
+    ) {}
 }

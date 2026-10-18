@@ -7,6 +7,6 @@ import { TranslatePipe } from '@anotoki/lib/translations';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
   imports: [TranslatePipe],
-  providers: []
+  providers: [],
 })
-export class NotFoundComponent { }
+export class NotFoundComponent {}

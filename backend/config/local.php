@@ -62,9 +62,7 @@ const SETUP_PATH = '/setup.php';
  * is what a command-line script, or a file deleted in the middle of a
  * request, runs into.
  */
-final class NotSetUpException extends RuntimeException
-{
-}
+final class NotSetUpException extends RuntimeException {}
 
 function localConfigPath(string $name): string
 {
@@ -157,7 +155,7 @@ function localConfigFileRead(string $file): array
 
     ob_start();
     try {
-        $value = (static fn (string $path): mixed => require $path)($file);
+        $value = (static fn(string $path): mixed => require $path)($file);
     } catch (\Throwable $e) {
         $failure = 'cannot be read (' . get_class($e) . ' on line ' . $e->getLine() . ')';
     } finally {
@@ -281,17 +279,11 @@ function localConfigProblems(): array
     $database = localConfig('database');
     if (!is_array($database)) {
         $problems[] = 'config/database.local.php is missing: the database connection.';
-    } elseif (
-        (!is_string($database['database'] ?? null) || trim($database['database']) === '')
-        && is_array($database['databases'] ?? null)
-    ) {
+    } elseif ((!is_string($database['database'] ?? null) || trim($database['database']) === '') && is_array($database['databases'] ?? null)) {
         // The two-database layout: running on it would find half the tables
         // missing, and setup.php saving over it would start that half empty.
         $problems[] = databaseTwoDatabasesMessage();
-    } elseif (
-        empty($database['host']) || empty($database['port']) || !isset($database['username'])
-        || !is_string($database['database'] ?? null) || trim($database['database']) === ''
-    ) {
+    } elseif (empty($database['host']) || empty($database['port']) || !isset($database['username']) || !is_string($database['database'] ?? null) || trim($database['database']) === '') {
         $problems[] = 'config/database.local.php does not name the host, port, username and database.';
     }
 
@@ -315,17 +307,17 @@ function localConfigProblems(): array
  */
 function databaseTwoDatabasesMessage(): string
 {
-    return 'config/database.local.php still names two databases, from before the site kept everything in one. '
-        . 'Move the second into the first with `php merge-databases.php` in backend/ - it copies every row and then '
-        . 'rewrites that file.';
+    return 'config/database.local.php still names two databases, from before the site kept everything in one. ' .
+        'Move the second into the first with `php merge-databases.php` in backend/ - it copies every row and then ' .
+        'rewrites that file.';
 }
 
 /** Throws, naming the file that setup.php would write. */
 function notSetUp(string $file, string $what): never
 {
     throw new NotSetUpException(
-        "This installation is not set up: config/{$file} ({$what}) is missing or incomplete. "
-        . 'Run setup.php - in development, `composer start` in backend/ and open '
-        . 'http://localhost:8000/setup.php.'
+        "This installation is not set up: config/{$file} ({$what}) is missing or incomplete. " .
+            'Run setup.php - in development, `composer start` in backend/ and open ' .
+            'http://localhost:8000/setup.php.',
     );
 }

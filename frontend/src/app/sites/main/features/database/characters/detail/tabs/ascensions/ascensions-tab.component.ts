@@ -25,7 +25,13 @@ export class CharacterAscensionsTabComponent {
 
   primaryStat = computed(() => this.ascensions()[0]?.primary_stat);
 
-  totals = computed(() => sumMaterials(this.ascensions().filter((ascension) => this.selectedPhases().has(ascension.phase)).flatMap((ascension) => ascension.costs ?? [])));
+  totals = computed(() =>
+    sumMaterials(
+      this.ascensions()
+        .filter((ascension) => this.selectedPhases().has(ascension.phase))
+        .flatMap((ascension) => ascension.costs ?? []),
+    ),
+  );
 
   togglePhase(phase: number): void {
     this.selectedPhases.update((current) => toggleIn(current, phase));

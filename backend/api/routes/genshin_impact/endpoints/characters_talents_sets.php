@@ -16,27 +16,35 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/talent-sets', function (Request $request, Response $response) {
     $pdo = genshinDb();
 
-    $sets = $pdo->query(
-        'SELECT s.id, count(t.id) FILTER (WHERE t.deleted = FALSE) AS talent_count
+    $sets = $pdo
+        ->query(
+            'SELECT s.id, count(t.id) FILTER (WHERE t.deleted = FALSE) AS talent_count
            FROM characters_talents_sets s
            LEFT JOIN characters_talents t ON t.talent_set_id = s.id
           GROUP BY s.id
-          ORDER BY s.id'
-    )->fetchAll(PDO::FETCH_ASSOC);
+          ORDER BY s.id',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     $members = [];
     foreach ($pdo->query('SELECT id, name, talent_set_id FROM characters WHERE talent_set_id IS NOT NULL AND deleted = FALSE ORDER BY name') as $c) {
         $members[(int) $c['talent_set_id']][] = ['id' => (int) $c['id'], 'name' => $c['name']];
     }
 
-    $out = array_map(fn(array $s) => [
-        'id' => (int) $s['id'],
-        'talent_count' => (int) $s['talent_count'],
-        'characters' => $members[(int) $s['id']] ?? [],
-    ], $sets);
+    $out = array_map(
+        fn(array $s) => [
+            'id' => (int) $s['id'],
+            'talent_count' => (int) $s['talent_count'],
+            'characters' => $members[(int) $s['id']] ?? [],
+        ],
+        $sets,
+    );
 
     return respondJson($response, $out);
-})->add(responds(TalentSet::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(TalentSet::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->get('/api/talent-sets/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -54,4 +62,7 @@ $app->get('/api/talent-sets/{id:[0-9]+}', function (Request $request, Response $
     $talent_cost = $stmt->fetchAll();
 
     return respondJson($response, ['talents' => $talents, 'talent_cost' => $talent_cost]);
-})->add(responds(TalentSetDetail::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(TalentSetDetail::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

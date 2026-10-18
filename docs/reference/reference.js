@@ -32,12 +32,7 @@
     }
     // Hide a section/group whose children are all filtered away, so the page
     // does not leave empty headings behind.
-    const containers =
-      current === 'frontend'
-        ? view.querySelectorAll('.fe-section, .fe-site')
-        : current === 'backend'
-          ? view.querySelectorAll('.be-group')
-          : [];
+    const containers = current === 'frontend' ? view.querySelectorAll('.fe-section, .fe-site') : current === 'backend' ? view.querySelectorAll('.be-group') : [];
     for (const c of containers) {
       const any = [...c.querySelectorAll(selectors[current])].some((el) => !el.classList.contains('is-filtered-out'));
       c.classList.toggle('is-filtered-out', !any);

@@ -61,9 +61,7 @@ export abstract class CharacterQuizComponent {
    * How the question is hidden right now. Nothing once it is over - the whole
    * point of finishing is seeing the answer plainly.
    */
-  readonly currentEffect = computed(() =>
-    this.isQuestionComplete() ? undefined : this.triesEffects().find((effect) => effect.try === this.tries().length),
-  );
+  readonly currentEffect = computed(() => (this.isQuestionComplete() ? undefined : this.triesEffects().find((effect) => effect.try === this.tries().length)));
 
   readonly effectClasses = computed(() => this.currentEffect()?.class?.split(' ') ?? []);
 
@@ -100,9 +98,7 @@ export abstract class CharacterQuizComponent {
   );
 
   /** Characters this quiz could ask about, once the pool has loaded. */
-  protected readonly answerable = computed(() =>
-    this.characters().filter((character) => !character.is_traveler && this.canAsk(character)),
-  );
+  protected readonly answerable = computed(() => this.characters().filter((character) => !character.is_traveler && this.canAsk(character)));
 
   /**
    * The pool every quiz works from: the character list, which is both what a

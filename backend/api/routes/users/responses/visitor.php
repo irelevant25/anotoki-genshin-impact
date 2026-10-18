@@ -15,8 +15,7 @@ class VisitorMoveGames extends ResponseShape
         public readonly int $kept,
         /** The visitor's dailies of another day than today (UTC), which never move. */
         public readonly int $stale,
-    ) {
-    }
+    ) {}
 }
 
 class VisitorMoveResult extends ResponseShape
@@ -39,6 +38,5 @@ class VisitorMoveResult extends ResponseShape
          * (the owner's decision of 2026-10-11). Everything else is then 0.
          */
         public readonly bool $stayed,
-    ) {
-    }
+    ) {}
 }

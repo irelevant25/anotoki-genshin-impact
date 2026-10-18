@@ -42,7 +42,7 @@ export class WeaponsListComponent extends AdminListComponent<any> implements OnI
         includedIn(row.type, this.filterTypes()) &&
         includedIn(row.version, this.filterVersions()) &&
         // Loose compare: the dropdown hands back the option key as a string.
-        (rarity === undefined || rarity === null || rarity === '' || row.rarity == rarity)
+        (rarity === undefined || rarity === null || rarity === '' || row.rarity == rarity),
     );
   });
 
@@ -52,7 +52,7 @@ export class WeaponsListComponent extends AdminListComponent<any> implements OnI
       !!String(this.filterName() ?? '').trim() ||
       (this.filterTypes() ?? []).length > 0 ||
       (this.filterVersions() ?? []).length > 0 ||
-      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
+      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== ''),
   );
 
   private readonly _weaponApi = inject(WeaponApiService);

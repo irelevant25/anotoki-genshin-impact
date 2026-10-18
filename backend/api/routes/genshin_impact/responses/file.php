@@ -9,11 +9,7 @@
 
 class AssetFolder extends ResponseShape
 {
-    public function __construct(
-        public readonly string $folder,
-        public readonly int $files,
-    ) {
-    }
+    public function __construct(public readonly string $folder, public readonly int $files) {}
 }
 
 class AssetFile extends ResponseShape
@@ -29,8 +25,7 @@ class AssetFile extends ResponseShape
         public readonly ?int $file_id,
         /** The category it is filed under, by code. */
         public readonly ?string $category,
-    ) {
-    }
+    ) {}
 }
 
 class AssetFilePage extends ResponseShape
@@ -42,8 +37,7 @@ class AssetFilePage extends ResponseShape
         public readonly int $pageSize,
         /** @var AssetFile[] */
         public readonly array $files,
-    ) {
-    }
+    ) {}
 }
 
 class TrashedFile extends ResponseShape
@@ -55,8 +49,7 @@ class TrashedFile extends ResponseShape
         public readonly string $name,
         public readonly string $deleted_at,
         public readonly int $size,
-    ) {
-    }
+    ) {}
 }
 
 class AssetUploadResult extends ResponseShape
@@ -66,28 +59,18 @@ class AssetUploadResult extends ResponseShape
         public readonly string $path,
         /** Same as `path`, relative to the site root. */
         public readonly string $url,
-    ) {
-    }
+    ) {}
 }
 
 /** Deleting moves the file to the trash under a stamped name; nothing is lost. */
 class AssetTrashResult extends ResponseShape
 {
-    public function __construct(
-        public readonly string $folder,
-        public readonly string $name,
-        public readonly string $trashed,
-    ) {
-    }
+    public function __construct(public readonly string $folder, public readonly string $name, public readonly string $trashed) {}
 }
 
 class AssetRestoreResult extends ResponseShape
 {
-    public function __construct(
-        public readonly string $folder,
-        public readonly string $name,
-    ) {
-    }
+    public function __construct(public readonly string $folder, public readonly string $name) {}
 }
 
 /**
@@ -104,8 +87,7 @@ class EntityUploadResult extends ResponseShape
         public readonly string $path,
         /** The catalogue row the file was filed as, or null if it could not be. */
         public readonly ?int $fileId,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -124,8 +106,7 @@ class RecordUploadResult extends ResponseShape
         public readonly string $path,
         /** The catalogue row the file was filed as, or null if it could not be. */
         public readonly ?int $fileId,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -136,10 +117,7 @@ class RecordUploadResult extends ResponseShape
  */
 class RawFile extends ResponseShape
 {
-    public function __construct(
-        public readonly string $content_type,
-    ) {
-    }
+    public function __construct(public readonly string $content_type) {}
 }
 
 /** What a rename settled on, which may not be exactly what was typed. */
@@ -151,8 +129,7 @@ class FileRenamed extends ResponseShape
         public readonly string $name,
         /** Where it is now, from the assets root. */
         public readonly string $path,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -175,8 +152,7 @@ class MissingFile extends ResponseShape
         public readonly ?string $modified_at,
         /** How many entity rows still point at it - deleting the row clears those. */
         public readonly int $used_by,
-    ) {
-    }
+    ) {}
 }
 
 /** What forgetting them did. */
@@ -186,19 +162,13 @@ class MissingForgotten extends ResponseShape
         public readonly int $forgotten,
         /** Entity columns set back to null because the row they named is gone. */
         public readonly int $unlinked,
-    ) {
-    }
+    ) {}
 }
 
 /** What emptying the trash did. */
 class TrashEmptied extends ResponseShape
 {
-    public function __construct(
-        public readonly int $deleted,
-        public readonly int $bytes,
-        public readonly int $failed,
-    ) {
-    }
+    public function __construct(public readonly int $deleted, public readonly int $bytes, public readonly int $failed) {}
 }
 
 // ── What is in the tree, and what is missing from it ──────────────────────────
@@ -210,8 +180,7 @@ class AssetFormatCount extends ResponseShape
         public readonly string $extension,
         public readonly int $files,
         public readonly int $bytes,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -236,8 +205,7 @@ class AssetConversionCount extends ResponseShape
          * count the cleanup modal lists, and what the delete button is gated on.
          */
         public readonly int $reclaimable,
-    ) {
-    }
+    ) {}
 }
 
 class AssetStats extends ResponseShape
@@ -256,8 +224,7 @@ class AssetStats extends ResponseShape
         public readonly object $audio,
         /** @var AssetCatalogueCounts How far the `files` table has drifted from the disk. */
         public readonly object $catalogue,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -281,17 +248,12 @@ class AssetConvertProgress extends ResponseShape
         public readonly object $blocked,
         /** @var string[] The first few that would not convert, to see a pattern by. */
         public readonly array $failures,
-    ) {
-    }
+    ) {}
 }
 
 class AssetBlockedCount extends ResponseShape
 {
-    public function __construct(
-        public readonly int $images,
-        public readonly int $audio,
-    ) {
-    }
+    public function __construct(public readonly int $images, public readonly int $audio) {}
 }
 
 // ── Taking the originals away ────────────────────────────────────────────────
@@ -304,8 +266,7 @@ class AssetCleanupFile extends ResponseShape
         /** Relative to `assets/`, e.g. `character/icon/BAIZHU.png`. */
         public readonly string $path,
         public readonly int $size,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -326,8 +287,7 @@ class AssetCleanupPage extends ResponseShape
         public readonly int $pageSize,
         /** @var AssetCleanupFile[] */
         public readonly array $files,
-    ) {
-    }
+    ) {}
 }
 
 /** How far a cleanup has got. Batched, like the conversion, for the same reason. */
@@ -346,8 +306,7 @@ class AssetCleanupProgress extends ResponseShape
         public readonly bool $finished,
         /** @var string[] The first few that would not move. */
         public readonly array $failures,
-    ) {
-    }
+    ) {}
 }
 
 // ── The catalogue ────────────────────────────────────────────────────────────
@@ -369,21 +328,13 @@ class AssetCatalogueCounts extends ResponseShape
         public readonly int $unfiled,
         /** Rows whose file has gone. Reported, never deleted automatically. */
         public readonly int $missing,
-    ) {
-    }
+    ) {}
 }
 
 /** What one sweep did. */
 class AssetReconcileResult extends ResponseShape
 {
-    public function __construct(
-        public readonly int $adopted,
-        public readonly int $moved_to_unfiled,
-        public readonly int $resized,
-        public readonly int $missing,
-        public readonly int $on_disk,
-    ) {
-    }
+    public function __construct(public readonly int $adopted, public readonly int $moved_to_unfiled, public readonly int $resized, public readonly int $missing, public readonly int $on_disk) {}
 }
 
 /**
@@ -408,8 +359,7 @@ class FileCategory extends ResponseShape
         public readonly int $sort_order,
         public readonly int $files,
         public readonly int $bytes,
-    ) {
-    }
+    ) {}
 }
 
 /** Where a file ended up after being moved between categories. */
@@ -422,6 +372,5 @@ class FileCategoryMove extends ResponseShape
         /** What it is called now - a collision in the new folder adds a suffix. */
         public readonly string $name,
         public readonly bool $renamed,
-    ) {
-    }
+    ) {}
 }

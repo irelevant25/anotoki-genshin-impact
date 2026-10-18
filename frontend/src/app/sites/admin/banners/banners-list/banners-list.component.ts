@@ -31,15 +31,9 @@ export class BannersListComponent extends AdminListComponent<any> implements OnI
   /** Newest run first - that is how banners are looked up in practice. */
   sorted = computed(() => [...this.rows()].sort((a, b) => String(b.duration_from ?? '').localeCompare(String(a.duration_from ?? ''))));
 
-  filtered = computed(() =>
-    this.sorted().filter(
-      (row) => contains(row.id, this.filterId()) && contains(row.name, this.filterName()) && includedIn(row.version, this.filterVersions())
-    )
-  );
+  filtered = computed(() => this.sorted().filter((row) => contains(row.id, this.filterId()) && contains(row.name, this.filterName()) && includedIn(row.version, this.filterVersions())));
 
-  hasActiveFilter = computed(
-    () => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0
-  );
+  hasActiveFilter = computed(() => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterVersions() ?? []).length > 0);
 
   private readonly _bannerApi = inject(BannerApiService);
 

@@ -82,11 +82,11 @@ function siteState(): SiteState
 
     return $state ??= new SiteState(
         // What setup.php would fix, the first thing it says - null when nothing.
-        settingsProblem: fn (): ?string => localConfigProblems()[0] ?? null,
-        installed: fn (): bool => siteInstalled(),
+        settingsProblem: fn(): ?string => localConfigProblems()[0] ?? null,
+        installed: fn(): bool => siteInstalled(),
         // Only asked once the settings are complete. A database that does not
         // answer is `unavailable`, not an update.
-        migrator: fn (): Migrator => siteMigrator(getDb()),
+        migrator: fn(): Migrator => siteMigrator(getDb()),
     );
 }
 
@@ -101,19 +101,22 @@ function siteState(): SiteState
 function siteNotSetUpResponse(ServerRequestInterface $request, ResponseFactoryInterface $responses): ResponseInterface
 {
     $notSetUp = new SiteState(
-        settingsProblem: fn (): string => 'a setting went missing during the request',
-        installed: fn (): bool => siteInstalled(),
-        migrator: fn (): Migrator => throw new LogicException('A site that is not set up has no migrations to ask.'),
+        settingsProblem: fn(): string => 'a setting went missing during the request',
+        installed: fn(): bool => siteInstalled(),
+        migrator: fn(): Migrator => throw new LogicException('A site that is not set up has no migrations to ask.'),
     );
 
     // No status path ("\0" is no path's): whatever the request was for, it
     // gets the answer.
     $gate = new SiteGate($notSetUp, $responses, [], "\0", SETUP_PATH);
 
-    return $gate->process($request, new class implements RequestHandlerInterface {
-        public function handle(ServerRequestInterface $request): ResponseInterface
-        {
-            throw new LogicException('The not-set-up answer passes nothing on.');
-        }
-    });
+    return $gate->process(
+        $request,
+        new class implements RequestHandlerInterface {
+            public function handle(ServerRequestInterface $request): ResponseInterface
+            {
+                throw new LogicException('The not-set-up answer passes nothing on.');
+            }
+        },
+    );
 }

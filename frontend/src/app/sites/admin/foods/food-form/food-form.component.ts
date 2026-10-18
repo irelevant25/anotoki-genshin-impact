@@ -39,7 +39,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
   baseDishOptions = computed<DropdownOption[]>(() =>
     this.foods()
       .filter((food) => food.id !== this.entityId())
-      .map((food) => ({ key: food.id, value: food.name }))
+      .map((food) => ({ key: food.id, value: food.name })),
   );
 
   private readonly _foodApi = inject(FoodApiService);

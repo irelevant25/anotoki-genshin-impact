@@ -8,10 +8,9 @@
                         [appMaterialIcon]="constellation.icon_name ?? constellation.name"
                         [appAssetFolder]="'character.constellations'"
                         [alt]="constellation.name"
-                        loading="lazy"
-                    />
+                        loading="lazy" />
                     <h3 class="constellation-name">{{ constellation.name }}</h3>
-                    <span class="constellation-level">{{ 'database.detail.level' | translate }} {{ constellation.level }}</span>
+                    <span class="constellation-level">{{ "database.detail.level" | translate }} {{ constellation.level }}</span>
                 </div>
                 <div class="constellation-description">{{ constellation.description }}</div>
             </div>

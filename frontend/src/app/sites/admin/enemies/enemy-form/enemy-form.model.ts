@@ -115,12 +115,12 @@ export function flattenDropGroups(groups: DropGroupWrapper[]): EnemyDropFormData
   return groups.flatMap((group) =>
     group.entries.map((entry) => ({
       ...entry.data,
-      material_id: entry.kind === 'material' ? entry.data.material_id ?? null : null,
-      artifact_id: entry.kind === 'artifact' ? entry.data.artifact_id ?? null : null,
+      material_id: entry.kind === 'material' ? (entry.data.material_id ?? null) : null,
+      artifact_id: entry.kind === 'artifact' ? (entry.data.artifact_id ?? null) : null,
       level_from: group.level_from ?? null,
       level_to: group.level_to ?? null,
       world_level: group.world_level ?? null,
       domain_level: group.domain_level ?? null,
-    }))
+    })),
   );
 }

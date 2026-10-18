@@ -118,9 +118,7 @@ export class DatabaseCharacterDetailComponent {
             costsByAscension.set(phase, [...(costsByAscension.get(phase) ?? []), withMaterial(cost)]);
           }
           this.ascensions.set(
-            [...(full.ascensions ?? [])]
-              .sort((a, b) => (a.phase ?? 0) - (b.phase ?? 0))
-              .map((ascension: any) => ({ ...ascension, costs: costsByAscension.get(ascension.id) ?? [] })),
+            [...(full.ascensions ?? [])].sort((a, b) => (a.phase ?? 0) - (b.phase ?? 0)).map((ascension: any) => ({ ...ascension, costs: costsByAscension.get(ascension.id) ?? [] })),
           );
 
           const byLevel = new Map<number, any[]>();

@@ -133,9 +133,7 @@ export class GamesMinesweeperComponent implements OnDestroy {
    * for its ticks, so the pipe has nothing to attach to. A computed because `t`
    * reads a signal, which is what makes them follow a change of language.
    */
-  readonly difficultyTicks = computed<SliderTick[]>(() =>
-    DIFFICULTIES.map((difficulty, index) => ({ value: index, label: this._i18n.t(`game.minesweeper.difficulty.${difficulty}`) })),
-  );
+  readonly difficultyTicks = computed<SliderTick[]>(() => DIFFICULTIES.map((difficulty, index) => ({ value: index, label: this._i18n.t(`game.minesweeper.difficulty.${difficulty}`) })));
 
   readonly sizeTicks: SliderTick[] = Array.from({ length: MAX_SIZE - MIN_SIZE + 1 }, (_, index) => ({ value: MIN_SIZE + index, label: String(MIN_SIZE + index) }));
 

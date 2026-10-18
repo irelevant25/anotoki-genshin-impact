@@ -19,24 +19,23 @@ $app->get('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $r
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('enemies_damage_types_elements'));
 
 // POST create
 $app->post('/api/enemies-damage-types-elements', function (Request $request, Response $response) {
     $user = $request->getAttribute('user');
     $pdo = genshinDb();
-    $id = DbQuery::insert($pdo, 'enemies_damage_types_elements', [
-        ...EnemyDamageTypeElement::fromBody($request->getParsedBody())->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'enemies_damage_types_elements', [...EnemyDamageTypeElement::fromBody($request->getParsedBody())->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'enemies_damage_types_elements')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('enemies_damage_types_elements'))->add(validateRequest(EnemyDamageTypeElement::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_damage_types_elements'))
+    ->add(validateRequest(EnemyDamageTypeElement::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -45,16 +44,17 @@ $app->put('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $r
     if (!DbQuery::from($pdo, 'enemies_damage_types_elements')->find(['id' => $args['id'], 'deleted' => false])) {
         return respondJson($response, ['error' => 'Not found'], 404);
     }
-    DbQuery::update($pdo, 'enemies_damage_types_elements', [
-        ...EnemyDamageTypeElement::partialToDbArray($request->getParsedBody()),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'enemies_damage_types_elements', [...EnemyDamageTypeElement::partialToDbArray($request->getParsedBody()), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'enemies_damage_types_elements')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('enemies_damage_types_elements'))->add(validateRequest(EnemyDamageTypeElement::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_damage_types_elements'))
+    ->add(validateRequest(EnemyDamageTypeElement::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -64,4 +64,7 @@ $app->delete('/api/enemies-damage-types-elements/{id:[0-9]+}', function (Request
     }
     DbQuery::update($pdo, 'enemies_damage_types_elements', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('enemies_damage_types_elements'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemies_damage_types_elements'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

@@ -2,9 +2,9 @@
 
 class DbQuery
 {
-    private array $includes = [];  // fkCol => ['table' => string, 'columns' => string[]]
-    private array $externalIncludes = [];  // fkCol => ['pdo' => PDO, 'table' => string, 'columns' => string[]]
-    private array $aliasMap = [];  // internal alias => ['fk' => string, 'col' => string]
+    private array $includes = []; // fkCol => ['table' => string, 'columns' => string[]]
+    private array $externalIncludes = []; // fkCol => ['pdo' => PDO, 'table' => string, 'columns' => string[]]
+    private array $aliasMap = []; // internal alias => ['fk' => string, 'col' => string]
     private array $orderCols = [];
     private ?array $includeColsList = null;
     private ?array $excludeColsList = null;
@@ -12,10 +12,8 @@ class DbQuery
     private ?int $offsetVal = null;
     private string $driver;
 
-    private function __construct(
-        private readonly PDO $pdo,
-        private readonly string $table,
-    ) {
+    private function __construct(private readonly PDO $pdo, private readonly string $table)
+    {
         $this->driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
     }
 
@@ -77,13 +75,15 @@ class DbQuery
             $joins[] = "LEFT JOIN {$rel['table']} {$joinAlias} ON {$t}.{$fkCol} = {$joinAlias}.id";
         }
 
-        $sql = 'SELECT ' . implode(', ', $selects)
-            . " FROM {$this->table} {$t}"
-            . ($joins ? ' ' . implode(' ', $joins) : '')
-            . ($condition ? " WHERE {$condition}" : '')
-            . ($orderBy ? ' ORDER BY ' . implode(', ', $orderBy) : '')
-            . ($this->limitVal ? " LIMIT {$this->limitVal}" : '')
-            . ($this->offsetVal ? " OFFSET {$this->offsetVal}" : '');
+        $sql =
+            'SELECT ' .
+            implode(', ', $selects) .
+            " FROM {$this->table} {$t}" .
+            ($joins ? ' ' . implode(' ', $joins) : '') .
+            ($condition ? " WHERE {$condition}" : '') .
+            ($orderBy ? ' ORDER BY ' . implode(', ', $orderBy) : '') .
+            ($this->limitVal ? " LIMIT {$this->limitVal}" : '') .
+            ($this->offsetVal ? " OFFSET {$this->offsetVal}" : '');
 
         return $sql;
     }
@@ -105,9 +105,7 @@ class DbQuery
         // Overwrite the FK integer with the nested object.
         // If all joined columns are null (LEFT JOIN found nothing), keep null.
         foreach ($nested as $fkCol => $relData) {
-            $result[$fkCol] = array_filter($relData, fn($v) => $v !== null)
-                ? $relData
-                : null;
+            $result[$fkCol] = array_filter($relData, fn($v) => $v !== null) ? $relData : null;
         }
 
         return $result;
@@ -198,7 +196,7 @@ class DbQuery
                 // An empty foreign key stays null without being looked up: null
                 // as an array key is deprecated from PHP 8.5, even under ??.
                 $id = $row[$fkCol];
-                $row[$fkCol] = $id === null ? null : ($lookup[$id] ?? null);
+                $row[$fkCol] = $id === null ? null : $lookup[$id] ?? null;
             }
             unset($row);
         }
@@ -220,7 +218,9 @@ class DbQuery
         $stmt = $this->pdo->prepare($this->buildSql($condition, $this->orderCols));
         $stmt->execute($params);
         $row = $stmt->fetch();
-        if (!$row) return null;
+        if (!$row) {
+            return null;
+        }
         $rows = $this->resolveExternalIncludes([$this->applyColFilters($this->nest($row))]);
         resolveAssetRows($this->pdo, $this->table, $rows);
         return $rows[0];
@@ -235,8 +235,8 @@ class DbQuery
 
     public static function insert(PDO $pdo, string $table, array $data): string
     {
-        $driver  = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-        $quote   = $driver === 'pgsql' ? '"' : '`';
+        $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+        $quote = $driver === 'pgsql' ? '"' : '`';
         $columns = implode(', ', array_map(fn($col) => "{$quote}{$col}{$quote}", array_keys($data)));
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
@@ -250,9 +250,9 @@ class DbQuery
             $newId = $pdo->lastInsertId();
         }
 
-        $userId = isset($data['created_by']) ? (int)$data['created_by'] : null;
+        $userId = isset($data['created_by']) ? (int) $data['created_by'] : null;
         if ($userId) {
-            $skip    = ['created_by', 'created_at', 'updated_by', 'updated_at'];
+            $skip = ['created_by', 'created_at', 'updated_by', 'updated_at'];
             $logData = array_diff_key($data, array_flip($skip));
             self::writeAuditLog($pdo, $table, $newId, 'INSERT', $userId, $logData);
         }
@@ -262,23 +262,22 @@ class DbQuery
 
     public static function update(PDO $pdo, string $table, array $data, int|string $id): void
     {
-        $userId = isset($data['updated_by']) ? (int)$data['updated_by'] : null;
+        $userId = isset($data['updated_by']) ? (int) $data['updated_by'] : null;
         if ($userId) {
             $stmt = $pdo->prepare("SELECT * FROM $table WHERE id = ?");
             $stmt->execute([$id]);
-            $old  = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+            $old = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
             $diff = self::computeDiff($old, $data);
             if (!empty($diff)) {
-                $action = (($diff['deleted']['new'] ?? null) === true) ? 'DELETE' : 'UPDATE';
-                self::writeAuditLog($pdo, $table, (string)$id, $action, $userId, $diff);
+                $action = ($diff['deleted']['new'] ?? null) === true ? 'DELETE' : 'UPDATE';
+                self::writeAuditLog($pdo, $table, (string) $id, $action, $userId, $diff);
             }
         }
 
         $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-        $quote  = $driver === 'pgsql' ? '"' : '`';
-        $sets   = implode(', ', array_map(fn($col) => "{$quote}{$col}{$quote} = ?", array_keys($data)));
-        $pdo->prepare("UPDATE $table SET $sets WHERE id = ?")
-            ->execute([...array_values($data), $id]);
+        $quote = $driver === 'pgsql' ? '"' : '`';
+        $sets = implode(', ', array_map(fn($col) => "{$quote}{$col}{$quote} = ?", array_keys($data)));
+        $pdo->prepare("UPDATE $table SET $sets WHERE id = ?")->execute([...array_values($data), $id]);
     }
 
     // -------------------------------------------------------------------------
@@ -288,9 +287,15 @@ class DbQuery
     /** Normalize a PostgreSQL-fetched value to a comparable PHP type. */
     private static function normalizePgValue(mixed $v): mixed
     {
-        if ($v === 't') return true;
-        if ($v === 'f') return false;
-        if (is_string($v) && is_numeric($v)) return $v + 0;
+        if ($v === 't') {
+            return true;
+        }
+        if ($v === 'f') {
+            return false;
+        }
+        if (is_string($v) && is_numeric($v)) {
+            return $v + 0;
+        }
         return $v;
     }
 
@@ -303,7 +308,9 @@ class DbQuery
         $skip = ['updated_by', 'updated_at', 'created_by', 'created_at'];
         $diff = [];
         foreach ($new as $key => $value) {
-            if (in_array($key, $skip, true)) continue;
+            if (in_array($key, $skip, true)) {
+                continue;
+            }
             $oldNorm = self::normalizePgValue($old[$key] ?? null);
             $newNorm = self::normalizePgValue($value);
             if ($oldNorm !== $newNorm) {

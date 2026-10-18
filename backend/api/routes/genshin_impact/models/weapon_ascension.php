@@ -11,6 +11,5 @@ class WeaponAscension extends DbModel
         public readonly ?int $start_level_to,
         public readonly ?int $end_level_from,
         public readonly ?int $end_level_to,
-    ) {
-    }
+    ) {}
 }

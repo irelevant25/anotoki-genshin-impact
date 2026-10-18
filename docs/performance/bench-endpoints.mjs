@@ -59,9 +59,7 @@ try {
     fail(`the API did not say where it signs in (${response.status}) - is its migration 040 applied?`);
   }
 } catch (error) {
-  fail(
-    `could not reach the API at ${API} - start it from backend/ with: composer start\n  (${error.cause?.code ?? error.message})`
-  );
+  fail(`could not reach the API at ${API} - start it from backend/ with: composer start\n  (${error.cause?.code ?? error.message})`);
 }
 
 // An access token lives ten minutes and a full run can take longer, so it is
@@ -278,12 +276,21 @@ writeFileSync(
       results,
     },
     null,
-    1
-  )
+    1,
+  ),
 );
 
 console.log(`\nmeasured ${measured.length} of ${gets.length} GET endpoints`);
 console.log(`written to ${OUT}`);
-console.log('failing:', measured.filter((r) => r.status >= 400).map((r) => `${r.status} ${r.path}`).join(', ') || 'none');
-const slow = measured.filter((r) => !r.heavy).sort((a, b) => b.median - a.median).slice(0, 8);
+console.log(
+  'failing:',
+  measured
+    .filter((r) => r.status >= 400)
+    .map((r) => `${r.status} ${r.path}`)
+    .join(', ') || 'none',
+);
+const slow = measured
+  .filter((r) => !r.heavy)
+  .sort((a, b) => b.median - a.median)
+  .slice(0, 8);
 for (const r of slow) console.log(`  ${r.median.toFixed(0).padStart(6)}ms  ${(r.bytes / 1048576).toFixed(2).padStart(6)} MB  ${r.path}`);

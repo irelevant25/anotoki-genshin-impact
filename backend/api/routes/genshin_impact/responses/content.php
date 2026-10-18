@@ -40,8 +40,7 @@ class CharacterFull extends ResponseShape
         public readonly array $relationships,
         /** @var string[] */
         public readonly array $roles,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -58,8 +57,7 @@ class WeaponAscensionFull extends ResponseShape
     public function __construct(
         /** @var WeaponAscensionCost[] */
         public readonly array $costs,
-    ) {
-    }
+    ) {}
 }
 
 class WeaponFull extends ResponseShape
@@ -71,8 +69,7 @@ class WeaponFull extends ResponseShape
         public readonly array $refinements,
         /** @var WeaponAscensionFull[] */
         public readonly array $ascensions,
-    ) {
-    }
+    ) {}
 }
 
 class ArtifactFull extends ResponseShape
@@ -82,8 +79,7 @@ class ArtifactFull extends ResponseShape
         public readonly object $artifact,
         /** @var ArtifactPiece[] */
         public readonly array $pieces,
-    ) {
-    }
+    ) {}
 }
 
 class MaterialFull extends ResponseShape
@@ -93,8 +89,7 @@ class MaterialFull extends ResponseShape
         public readonly object $material,
         /** @var MaterialGroupJoin[] */
         public readonly array $groups,
-    ) {
-    }
+    ) {}
 }
 
 class FoodFull extends ResponseShape
@@ -104,8 +99,7 @@ class FoodFull extends ResponseShape
         public readonly object $food,
         /** @var FoodRecipe[] */
         public readonly array $recipe,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -119,8 +113,7 @@ class EnemyPhaseFull extends ResponseShape
     public function __construct(
         /** @var EnemyDamageTypeElement[] */
         public readonly array $damage_type_elements,
-    ) {
-    }
+    ) {}
 }
 
 class EnemyFull extends ResponseShape
@@ -132,8 +125,7 @@ class EnemyFull extends ResponseShape
         public readonly array $phases,
         /** @var EnemyDrop[] */
         public readonly array $drops,
-    ) {
-    }
+    ) {}
 }
 
 class BannerFull extends ResponseShape
@@ -145,8 +137,7 @@ class BannerFull extends ResponseShape
         public readonly array $characters,
         /** @var BannerWeapon[] */
         public readonly array $weapons,
-    ) {
-    }
+    ) {}
 }
 
 // ── /full, listed ─────────────────────────────────────────────────────────────
@@ -165,8 +156,7 @@ class WeaponFullRow extends ResponseShape
         public readonly array $refinements,
         /** @var WeaponAscensionFull[] */
         public readonly array $ascensions,
-    ) {
-    }
+    ) {}
 }
 
 /** @merges artifacts */
@@ -175,8 +165,7 @@ class ArtifactFullRow extends ResponseShape
     public function __construct(
         /** @var ArtifactPiece[] */
         public readonly array $pieces,
-    ) {
-    }
+    ) {}
 }
 
 /** @merges materials */
@@ -185,8 +174,7 @@ class MaterialFullRow extends ResponseShape
     public function __construct(
         /** @var MaterialGroupJoin[] */
         public readonly array $groups,
-    ) {
-    }
+    ) {}
 }
 
 /** @merges foods */
@@ -195,8 +183,7 @@ class FoodFullRow extends ResponseShape
     public function __construct(
         /** @var FoodRecipe[] */
         public readonly array $recipe,
-    ) {
-    }
+    ) {}
 }
 
 /** @merges enemies */
@@ -207,8 +194,7 @@ class EnemyFullRow extends ResponseShape
         public readonly array $phases,
         /** @var EnemyDrop[] */
         public readonly array $drops,
-    ) {
-    }
+    ) {}
 }
 
 /** @merges banners */
@@ -219,8 +205,7 @@ class BannerFullRow extends ResponseShape
         public readonly array $characters,
         /** @var BannerWeapon[] */
         public readonly array $weapons,
-    ) {
-    }
+    ) {}
 }
 
 // ── Material usage ────────────────────────────────────────────────────────────
@@ -240,8 +225,7 @@ class MaterialCharacterSpender extends ResponseShape
         public readonly ?int $rarity,
         public readonly string $quantity,
         public readonly string $element,
-    ) {
-    }
+    ) {}
 }
 
 /** A weapon that spends a material. Carries its type where a character has an element. */
@@ -254,8 +238,7 @@ class MaterialWeaponSpender extends ResponseShape
         public readonly ?int $rarity,
         public readonly string $quantity,
         public readonly string $type,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -275,8 +258,7 @@ class MaterialUsage extends ResponseShape
         public readonly array $weapons_ascension,
         /** @var MaterialWeaponSpender[] */
         public readonly array $weapons_refinement,
-    ) {
-    }
+    ) {}
 }
 
 /**
@@ -294,18 +276,13 @@ class CharacterVoiceOverPage extends ResponseShape
         public readonly int $pageSize,
         /** @var characters_voice_overs[] */
         public readonly array $items,
-    ) {
-    }
+    ) {}
 }
 
 /** A character on a voice-over set, reduced to what the picker shows. */
 class VoiceOverSetMember extends ResponseShape
 {
-    public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-    ) {
-    }
+    public function __construct(public readonly int $id, public readonly string $name) {}
 }
 
 /** One voice-over set for the character-form picker: who shares it, and how big. */
@@ -316,17 +293,12 @@ class VoiceOverSet extends ResponseShape
         public readonly int $voice_over_count,
         /** @var VoiceOverSetMember[] The characters currently pointing at this set. */
         public readonly array $characters,
-    ) {
-    }
+    ) {}
 }
 
 class AscensionSetMember extends ResponseShape
 {
-    public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-    ) {
-    }
+    public function __construct(public readonly int $id, public readonly string $name) {}
 }
 
 /** One ascension set for the character-form picker: who shares it, and how big. */
@@ -337,8 +309,7 @@ class AscensionSet extends ResponseShape
         public readonly int $ascension_count,
         /** @var AscensionSetMember[] The characters currently pointing at this set. */
         public readonly array $characters,
-    ) {
-    }
+    ) {}
 }
 
 /** One ascension set's rows and their costs, for previewing a set in the picker. */
@@ -349,17 +320,12 @@ class AscensionSetDetail extends ResponseShape
         public readonly array $ascensions,
         /** @var characters_ascensions_cost[] */
         public readonly array $ascension_cost,
-    ) {
-    }
+    ) {}
 }
 
 class TalentSetMember extends ResponseShape
 {
-    public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-    ) {
-    }
+    public function __construct(public readonly int $id, public readonly string $name) {}
 }
 
 /** One talent set for the character-form picker: who shares it, and how big. */
@@ -370,8 +336,7 @@ class TalentSet extends ResponseShape
         public readonly int $talent_count,
         /** @var TalentSetMember[] The characters currently pointing at this set. */
         public readonly array $characters,
-    ) {
-    }
+    ) {}
 }
 
 /** One talent set's talents and their costs, for previewing a set in the picker. */
@@ -382,17 +347,12 @@ class TalentSetDetail extends ResponseShape
         public readonly array $talents,
         /** @var characters_talents_cost[] */
         public readonly array $talent_cost,
-    ) {
-    }
+    ) {}
 }
 
 class ConstellationSetMember extends ResponseShape
 {
-    public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-    ) {
-    }
+    public function __construct(public readonly int $id, public readonly string $name) {}
 }
 
 /** One constellation set for the character-form picker: who shares it, and how big. */
@@ -403,8 +363,7 @@ class ConstellationSet extends ResponseShape
         public readonly int $constellation_count,
         /** @var ConstellationSetMember[] The characters currently pointing at this set. */
         public readonly array $characters,
-    ) {
-    }
+    ) {}
 }
 
 /** A page of what enemies drop. */
@@ -416,6 +375,5 @@ class EnemyDropPage extends ResponseShape
         public readonly int $pageSize,
         /** @var enemies_drops[] */
         public readonly array $items,
-    ) {
-    }
+    ) {}
 }

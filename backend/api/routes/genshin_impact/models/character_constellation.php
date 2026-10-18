@@ -9,6 +9,5 @@ class CharacterConstellation extends DbModel
         public readonly int $level,
         public readonly ?int $icon_file_id = null,
         public readonly ?string $description = null,
-    ) {
-    }
+    ) {}
 }

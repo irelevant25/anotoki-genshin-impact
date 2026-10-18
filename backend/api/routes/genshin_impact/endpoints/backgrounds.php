@@ -29,9 +29,7 @@ $app->get('/api/backgrounds', function (Request $request, Response $response) {
 $app->get('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $item = _backgroundRow(genshinDb(), (int) $args['id']);
 
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('backgrounds'));
 
 // POST create background
@@ -40,13 +38,14 @@ $app->post('/api/backgrounds', function (Request $request, Response $response) {
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'backgrounds', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'backgrounds', [
-        ...Background::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'backgrounds', [...Background::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
 
     return respondJson($response, _backgroundRow($pdo, (int) $id), 201);
-})->add(responds('backgrounds'))->add(validateRequest(Background::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('backgrounds'))
+    ->add(validateRequest(Background::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update background
 $app->put('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -61,13 +60,14 @@ $app->put('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $
 
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'backgrounds', $body, $user['id']);
-    DbQuery::update($pdo, 'backgrounds', [
-        ...Background::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'backgrounds', [...Background::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
 
     return respondJson($response, _backgroundRow($pdo, (int) $args['id']));
-})->add(responds('backgrounds'))->add(validateRequest(Background::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('backgrounds'))
+    ->add(validateRequest(Background::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE background
 $app->delete('/api/backgrounds/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -81,4 +81,7 @@ $app->delete('/api/backgrounds/{id:[0-9]+}', function (Request $request, Respons
 
     DbQuery::update($pdo, 'backgrounds', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('backgrounds'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('backgrounds'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

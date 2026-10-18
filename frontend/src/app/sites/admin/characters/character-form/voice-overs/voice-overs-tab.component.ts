@@ -65,7 +65,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
         type,
         entries: entries.map((wrapper) => ({ wrapper, title: this._displayTitle(wrapper, titleCounts) })),
       };
-    })
+    }),
   );
 
   private _displayTitle(wrapper: VoiceOverWrapper, titleCounts: Map<string, number>): string {
@@ -91,7 +91,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
       resequence(
         sameType,
         (voiceOver) => voiceOver.data.order,
-        (voiceOver, order) => (voiceOver.data.order = order)
+        (voiceOver, order) => (voiceOver.data.order = order),
       );
       return remaining;
     });
@@ -105,7 +105,7 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
         wrapper,
         newOrder,
         (voiceOver) => voiceOver.data.order,
-        (voiceOver, order) => (voiceOver.data.order = order)
+        (voiceOver, order) => (voiceOver.data.order = order),
       );
       return changed ? [...voiceOvers] : voiceOvers;
     });
@@ -135,7 +135,11 @@ export class VoiceOversTabComponent extends AbstractModalComponent {
     this.stopAudio();
     this.deleteAllArmed.set(false);
 
-    const modal = this.dialogs.open<VoiceOverSetSelectorComponent, number | undefined>(VoiceOverSetSelectorComponent, { heading: 'Choose a voice-over set', size: 'lg', data: this.voiceOverSetId() ?? null });
+    const modal = this.dialogs.open<VoiceOverSetSelectorComponent, number | undefined>(VoiceOverSetSelectorComponent, {
+      heading: 'Choose a voice-over set',
+      size: 'lg',
+      data: this.voiceOverSetId() ?? null,
+    });
 
     void modal.closed.then((setId) => {
       if (typeof setId !== 'number') {

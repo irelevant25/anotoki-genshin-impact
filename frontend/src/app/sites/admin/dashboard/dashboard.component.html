@@ -27,8 +27,7 @@
         <div
             class="attention-card"
             [class.is-quiet]="!visitorsNearCeiling()"
-            title="People playing without signing in. Each is deleted {{ data.visitors.keep_days }} days after their last visit, or moved into an account when they sign in."
-        >
+            title="People playing without signing in. Each is deleted {{ data.visitors.keep_days }} days after their last visit, or moved into an account when they sign in.">
             @if (data.visitors.available) {
                 <span class="attention-value">{{ data.visitors.count }}</span>
                 <span class="attention-label">visitors</span>
@@ -52,7 +51,6 @@
     <!-- Two panels of equal height: what is missing, and what changed. -->
     <div class="columns">
         <anotoki-card class="panel" heading="Gaps in the database" subheading="Records missing rows they ought to have">
-
             @if (!gaps().length) {
                 <p class="panel-empty">Nothing missing. Every check came back complete.</p>
             } @else {
@@ -151,7 +149,6 @@
     }
 
     <anotoki-card class="panel panel-content" heading="Content">
-
         <div class="content-grid">
             @for (entry of data.content; track entry.table) {
                 <a class="content-card" [routerLink]="['/admin', entry.route]">

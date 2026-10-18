@@ -54,8 +54,9 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     foreach ($charIconMap as $fileKey => [$field, $folder, $name]) {
         if (!empty($uploadedFiles[$fileKey])) {
             $path = _saveCharacterFile($uploadedFiles[$fileKey], $folder, $name);
-            if ($path)
+            if ($path) {
                 $body['character'][$field] = $path;
+            }
         }
     }
 
@@ -65,8 +66,9 @@ function _applyUploads(array &$body, array $uploadedFiles): void
             $key = "vo_audio_{$i}_{$lang}";
             if (!empty($uploadedFiles[$key])) {
                 $path = _saveAudioFile($uploadedFiles[$key], 'voice-overs');
-                if ($path)
+                if ($path) {
                     $vo["audio_{$lang}"] = $path;
+                }
             }
         }
     }
@@ -75,10 +77,11 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     // Constellation icons - named {CharName}_C{level}
     foreach ($body['constellations'] ?? [] as $i => &$co) {
         if (!empty($uploadedFiles["co_icon_$i"])) {
-            $level = $co['level'] ?? ($i + 1);
+            $level = $co['level'] ?? $i + 1;
             $path = _saveCharacterFile($uploadedFiles["co_icon_$i"], 'constellations', $charName . '_C' . $level);
-            if ($path)
+            if ($path) {
                 $co['icon'] = $path;
+            }
         }
     }
     unset($co);
@@ -86,10 +89,11 @@ function _applyUploads(array &$body, array $uploadedFiles): void
     // Talent icons - named {CharName}_{TalentType}
     foreach ($body['talents'] ?? [] as $i => &$ta) {
         if (!empty($uploadedFiles["ta_icon_$i"])) {
-            $type = preg_replace('/[^a-zA-Z0-9]/', '_', $ta['type'] ?? ('talent_' . $i));
+            $type = preg_replace('/[^a-zA-Z0-9]/', '_', $ta['type'] ?? 'talent_' . $i);
             $path = _saveCharacterFile($uploadedFiles["ta_icon_$i"], 'talents', $charName . '_' . $type);
-            if ($path)
+            if ($path) {
                 $ta['icon'] = $path;
+            }
         }
     }
     unset($ta);
@@ -169,10 +173,7 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         }
 
         // 1. Character
-        $charId = DbQuery::insert($pdo, 'characters', [
-            ...Character::fromBody($body['character'])->toDbArray(),
-            'created_by' => $user['id'],
-        ]);
+        $charId = DbQuery::insert($pdo, 'characters', [...Character::fromBody($body['character'])->toDbArray(), 'created_by' => $user['id']]);
 
         // Everything below is logged against the character rather than against
         // whichever child table it lands in - see api/audit_scope.php.
@@ -183,10 +184,7 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         foreach ($body['voice_overs'] ?? [] as $vo) {
             $vo = [...$vo, 'voice_over_set_id' => $voiceSetId];
             resolveAssetBody($pdo, 'characters_voice_overs', $vo, $user['id']);
-            DbQuery::insert($pdo, 'characters_voice_overs', [
-                ...CharacterVoiceOver::fromBody($vo)->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            DbQuery::insert($pdo, 'characters_voice_overs', [...CharacterVoiceOver::fromBody($vo)->toDbArray(), 'created_by' => $user['id']]);
         }
 
         // 3. Constellations - into the character's set.
@@ -194,24 +192,15 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         foreach ($body['constellations'] ?? [] as $c) {
             $c = [...$c, 'constellation_set_id' => $conSetId];
             resolveAssetBody($pdo, 'characters_constellations', $c, $user['id']);
-            DbQuery::insert($pdo, 'characters_constellations', [
-                ...CharacterConstellation::fromBody($c)->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            DbQuery::insert($pdo, 'characters_constellations', [...CharacterConstellation::fromBody($c)->toDbArray(), 'created_by' => $user['id']]);
         }
 
         // 4. Ascensions (with costs) - into the character's set, not the character.
         $ascSetId = $body['character']['ascension_set_id'] ?? null;
         foreach ($body['ascensions'] ?? [] as $a) {
-            $ascId = DbQuery::insert($pdo, 'characters_ascensions', [
-                ...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            $ascId = DbQuery::insert($pdo, 'characters_ascensions', [...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(), 'created_by' => $user['id']]);
             foreach ($a['costs'] ?? [] as $cost) {
-                DbQuery::insert($pdo, 'characters_ascensions_cost', [
-                    ...CharacterAscensionCost::fromBody([...$cost, 'character_ascension_id' => $ascId])->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
+                DbQuery::insert($pdo, 'characters_ascensions_cost', [...CharacterAscensionCost::fromBody([...$cost, 'character_ascension_id' => $ascId])->toDbArray(), 'created_by' => $user['id']]);
             }
         }
 
@@ -220,31 +209,21 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         foreach ($body['talents'] ?? [] as $t) {
             $t = [...$t, 'talent_set_id' => $talentSetId];
             resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
-            DbQuery::insert($pdo, 'characters_talents', [
-                ...CharacterTalent::fromBody($t)->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            DbQuery::insert($pdo, 'characters_talents', [...CharacterTalent::fromBody($t)->toDbArray(), 'created_by' => $user['id']]);
         }
 
         foreach ($body['talent_costs'] ?? [] as $cost) {
-            DbQuery::insert($pdo, 'characters_talents_cost', [
-                ...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            DbQuery::insert($pdo, 'characters_talents_cost', [...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(), 'created_by' => $user['id']]);
         }
 
         // 6. Relationships
         foreach ($body['relationships'] ?? [] as $r) {
-            DbQuery::insert($pdo, 'characters_relationships', [
-                ...CharacterRelationship::fromBody([...$r, 'character_id' => $charId])->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            DbQuery::insert($pdo, 'characters_relationships', [...CharacterRelationship::fromBody([...$r, 'character_id' => $charId])->toDbArray(), 'created_by' => $user['id']]);
         }
 
         // 7. Roles
         foreach ($body['roles'] ?? [] as $roleName) {
-            $pdo->prepare('INSERT INTO characters_roles (character_id, role_name, created_by) VALUES (?, ?, ?)')
-                ->execute([$charId, $roleName, $user['id']]);
+            $pdo->prepare('INSERT INTO characters_roles (character_id, role_name, created_by) VALUES (?, ?, ?)')->execute([$charId, $roleName, $user['id']]);
         }
 
         $pdo->commit();
@@ -260,8 +239,10 @@ $app->post('/api/characters/full', function (Request $request, Response $respons
         ->find(['id' => $charId]);
 
     return respondJson($response, $character, 201);
-})->add(responds('characters'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
-
+})
+    ->add(responds('characters'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── PUT /api/characters/{id}/full ─────────────────────────────────────────────
 
@@ -294,23 +275,16 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     try {
         // 1. Update character base data
         if (!empty($body['character'])) {
-            DbQuery::update($pdo, 'characters', [
-                ...Character::partialToDbArray($body['character']),
-                'updated_by' => $user['id'],
-            ], $id);
+            DbQuery::update($pdo, 'characters', [...Character::partialToDbArray($body['character']), 'updated_by' => $user['id']], $id);
         }
 
         // Helper: soft-delete + re-insert (for resources without nested costs)
         $syncSubResource = function (string $table, string $fkCol, array $items, string $modelClass) use ($pdo, $id, $user) {
-            $pdo->prepare("UPDATE $table SET deleted = TRUE WHERE $fkCol = ? AND deleted = FALSE")
-                ->execute([$id]);
+            $pdo->prepare("UPDATE $table SET deleted = TRUE WHERE $fkCol = ? AND deleted = FALSE")->execute([$id]);
             foreach ($items as $item) {
                 $item = [...$item, $fkCol => $id];
                 resolveAssetBody($pdo, $table, $item, $user['id']);
-                DbQuery::insert($pdo, $table, [
-                    ...$modelClass::fromBody($item)->toDbArray(),
-                    'created_by' => $user['id'],
-                ]);
+                DbQuery::insert($pdo, $table, [...$modelClass::fromBody($item)->toDbArray(), 'created_by' => $user['id']]);
             }
         };
 
@@ -335,15 +309,11 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
                 $repointed = false;
             }
             if ($voiceSetId && !$repointed) {
-                $pdo->prepare('UPDATE characters_voice_overs SET deleted = TRUE WHERE voice_over_set_id = ? AND deleted = FALSE')
-                    ->execute([$voiceSetId]);
+                $pdo->prepare('UPDATE characters_voice_overs SET deleted = TRUE WHERE voice_over_set_id = ? AND deleted = FALSE')->execute([$voiceSetId]);
                 foreach ($body['voice_overs'] as $vo) {
                     $vo = [...$vo, 'voice_over_set_id' => $voiceSetId];
                     resolveAssetBody($pdo, 'characters_voice_overs', $vo, $user['id']);
-                    DbQuery::insert($pdo, 'characters_voice_overs', [
-                        ...CharacterVoiceOver::fromBody($vo)->toDbArray(),
-                        'created_by' => $user['id'],
-                    ]);
+                    DbQuery::insert($pdo, 'characters_voice_overs', [...CharacterVoiceOver::fromBody($vo)->toDbArray(), 'created_by' => $user['id']]);
                 }
             }
         }
@@ -366,10 +336,7 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
                 foreach ($body['constellations'] as $c) {
                     $c = [...$c, 'constellation_set_id' => $conSetId];
                     resolveAssetBody($pdo, 'characters_constellations', $c, $user['id']);
-                    DbQuery::insert($pdo, 'characters_constellations', [
-                        ...CharacterConstellation::fromBody($c)->toDbArray(),
-                        'created_by' => $user['id'],
-                    ]);
+                    DbQuery::insert($pdo, 'characters_constellations', [...CharacterConstellation::fromBody($c)->toDbArray(), 'created_by' => $user['id']]);
                 }
             }
         }
@@ -399,16 +366,11 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
                 $existingAscIds = array_column($stmt->fetchAll(), 'id');
                 if (!empty($existingAscIds)) {
                     $ph = implode(',', array_fill(0, count($existingAscIds), '?'));
-                    $pdo->prepare("UPDATE characters_ascensions_cost SET deleted = TRUE WHERE character_ascension_id IN ($ph) AND deleted = FALSE")
-                        ->execute($existingAscIds);
+                    $pdo->prepare("UPDATE characters_ascensions_cost SET deleted = TRUE WHERE character_ascension_id IN ($ph) AND deleted = FALSE")->execute($existingAscIds);
                 }
-                $pdo->prepare('UPDATE characters_ascensions SET deleted = TRUE WHERE ascension_set_id = ? AND deleted = FALSE')
-                    ->execute([$ascSetId]);
+                $pdo->prepare('UPDATE characters_ascensions SET deleted = TRUE WHERE ascension_set_id = ? AND deleted = FALSE')->execute([$ascSetId]);
                 foreach ($body['ascensions'] as $a) {
-                    $ascId = DbQuery::insert($pdo, 'characters_ascensions', [
-                        ...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(),
-                        'created_by' => $user['id'],
-                    ]);
+                    $ascId = DbQuery::insert($pdo, 'characters_ascensions', [...CharacterAscension::fromBody([...$a, 'ascension_set_id' => $ascSetId])->toDbArray(), 'created_by' => $user['id']]);
                     foreach ($a['costs'] ?? [] as $cost) {
                         DbQuery::insert($pdo, 'characters_ascensions_cost', [
                             ...CharacterAscensionCost::fromBody([...$cost, 'character_ascension_id' => $ascId])->toDbArray(),
@@ -439,19 +401,13 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
                     foreach ($body['talents'] as $t) {
                         $t = [...$t, 'talent_set_id' => $talentSetId];
                         resolveAssetBody($pdo, 'characters_talents', $t, $user['id']);
-                        DbQuery::insert($pdo, 'characters_talents', [
-                            ...CharacterTalent::fromBody($t)->toDbArray(),
-                            'created_by' => $user['id'],
-                        ]);
+                        DbQuery::insert($pdo, 'characters_talents', [...CharacterTalent::fromBody($t)->toDbArray(), 'created_by' => $user['id']]);
                     }
                 }
                 if (isset($body['talent_costs'])) {
                     $pdo->prepare('UPDATE characters_talents_cost SET deleted = TRUE WHERE talent_set_id = ? AND deleted = FALSE')->execute([$talentSetId]);
                     foreach ($body['talent_costs'] as $cost) {
-                        DbQuery::insert($pdo, 'characters_talents_cost', [
-                            ...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(),
-                            'created_by' => $user['id'],
-                        ]);
+                        DbQuery::insert($pdo, 'characters_talents_cost', [...CharacterTalentCost::fromBody([...$cost, 'talent_set_id' => $talentSetId])->toDbArray(), 'created_by' => $user['id']]);
                     }
                 }
             }
@@ -461,8 +417,7 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         if (isset($body['roles'])) {
             $pdo->prepare('DELETE FROM characters_roles WHERE character_id = ?')->execute([$id]);
             foreach ($body['roles'] as $roleName) {
-                $pdo->prepare('INSERT INTO characters_roles (character_id, role_name, created_by) VALUES (?, ?, ?)')
-                    ->execute([$id, $roleName, $user['id']]);
+                $pdo->prepare('INSERT INTO characters_roles (character_id, role_name, created_by) VALUES (?, ?, ?)')->execute([$id, $roleName, $user['id']]);
             }
         }
 
@@ -480,8 +435,10 @@ $app->put('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
         ->find(['id' => $id]);
 
     return respondJson($response, $character);
-})->add(responds('characters'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
-
+})
+    ->add(responds('characters'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── GET /api/characters/{id}/full ─────────────────────────────────────────────
 
@@ -499,8 +456,9 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     }
 
     $fetch = function (string $table, string $fkCol, array $ids) use ($pdo): array {
-        if (empty($ids))
+        if (empty($ids)) {
             return [];
+        }
         $ph = implode(',', array_fill(0, count($ids), '?'));
         $stmt = $pdo->prepare("SELECT * FROM $table WHERE $fkCol IN ($ph) AND deleted = FALSE ORDER BY id ASC");
         $stmt->execute($ids);

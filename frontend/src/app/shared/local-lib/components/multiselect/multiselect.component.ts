@@ -115,7 +115,11 @@ export class MultiselectComponent extends AbstractInputComponent<Type> {
     } else {
       chosen.delete(option.key);
     }
-    this._setKeys(this.computedOptions().filter((candidate) => chosen.has(candidate.key)).map((candidate) => candidate.key));
+    this._setKeys(
+      this.computedOptions()
+        .filter((candidate) => chosen.has(candidate.key))
+        .map((candidate) => candidate.key),
+    );
   }
 
   clear(): void {

@@ -4,12 +4,12 @@
             <thead>
                 <tr>
                     <th class="checkbox-column"></th>
-                    <th>{{ 'database.detail.phase' | translate }}</th>
+                    <th>{{ "database.detail.phase" | translate }}</th>
                     <th>HP</th>
                     <th>ATK</th>
                     <th>DEF</th>
-                    <th>{{ primaryStat() || ('database.detail.primaryStat' | translate) }}</th>
-                    <th>{{ 'database.detail.materials' | translate }}</th>
+                    <th>{{ primaryStat() || ("database.detail.primaryStat" | translate) }}</th>
+                    <th>{{ "database.detail.materials" | translate }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,10 +21,10 @@
                             }
                         </td>
                         <td>{{ ascension.phase }}</td>
-                        <td>{{ ascension.start_level_hp ?? '-' }} &rarr; {{ ascension.end_level_hp ?? '-' }}</td>
-                        <td>{{ ascension.start_level_atk ?? '-' }} &rarr; {{ ascension.end_level_atk ?? '-' }}</td>
-                        <td>{{ ascension.start_level_def ?? '-' }} &rarr; {{ ascension.end_level_def ?? '-' }}</td>
-                        <td>{{ ascension.primary_stat_value ?? '-' }}</td>
+                        <td>{{ ascension.start_level_hp ?? "-" }} &rarr; {{ ascension.end_level_hp ?? "-" }}</td>
+                        <td>{{ ascension.start_level_atk ?? "-" }} &rarr; {{ ascension.end_level_atk ?? "-" }}</td>
+                        <td>{{ ascension.start_level_def ?? "-" }} &rarr; {{ ascension.end_level_def ?? "-" }}</td>
+                        <td>{{ ascension.primary_stat_value ?? "-" }}</td>
                         @if (!ascension.costs.length) {
                             <td>-</td>
                         } @else {
@@ -52,7 +52,7 @@
     </div>
 
     <div class="total-materials">
-        <h3>{{ 'database.detail.totalAscensionMaterials' | translate }}</h3>
+        <h3>{{ "database.detail.totalAscensionMaterials" | translate }}</h3>
         <div class="d-flex flex-wrap gap-3">
             @for (total of totals(); track total.material.id) {
                 <a class="total-material-item hover" [routerLink]="['../../', 'materials', total.material.id]" [title]="total.material.name">

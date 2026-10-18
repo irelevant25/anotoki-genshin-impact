@@ -9,9 +9,9 @@ export default {
         noDirectInput: 'Input "{{ inputName }}" not allowed on {{ componentName }}. Use [config] instead.',
       },
     },
-    create (context) {
+    create(context) {
       return {
-        Program (node) {
+        Program(node) {
           const filename = context.getFilename();
 
           if (!filename.endsWith('.html')) {

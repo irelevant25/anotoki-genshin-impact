@@ -33,10 +33,7 @@ function _explorerWalk(): array
     $rootUnix = str_replace('\\', '/', $root);
 
     $files = [];
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         if ($info->isDir()) {

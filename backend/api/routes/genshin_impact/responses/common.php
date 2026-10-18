@@ -12,6 +12,5 @@ class ApiMessage extends ResponseShape
         public readonly string $message,
         /** Some endpoints add a sentence explaining what did *not* happen. */
         public readonly ?string $note = null,
-    ) {
-    }
+    ) {}
 }

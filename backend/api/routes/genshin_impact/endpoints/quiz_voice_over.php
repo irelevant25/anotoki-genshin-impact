@@ -51,7 +51,7 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
             AND vo.audio_english_file_id IS NOT NULL
             AND vo.text_english  IS NOT NULL AND vo.text_english  <> ''
           ORDER BY random()
-          LIMIT 1"
+          LIMIT 1",
     );
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);

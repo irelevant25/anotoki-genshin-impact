@@ -29,23 +29,24 @@ function adminSettingRows(): array
            FROM site_settings s
            LEFT JOIN users u ON u.id = s.updated_by
           WHERE s.site = ?
-          ORDER BY s.sort_order ASC, s.name ASC'
+          ORDER BY s.sort_order ASC, s.name ASC',
     );
     $statement->execute([currentSite()]);
 
-    return array_map(static fn(array $row): array => [
-        'name' => $row['name'],
-        'group_name' => $row['group_name'],
-        'type' => $row['type'],
-        // Split here rather than in the browser: the comma is this column's
-        // business, and a form should be handed a list.
-        'options' => $row['options'] === null || $row['options'] === ''
-            ? []
-            : array_map('trim', explode(',', (string) $row['options'])),
-        'value' => $row['value'],
-        'updated_at' => $row['updated_at'],
-        'updated_by' => $row['updated_by'],
-    ], $statement->fetchAll(PDO::FETCH_ASSOC));
+    return array_map(
+        static fn(array $row): array => [
+            'name' => $row['name'],
+            'group_name' => $row['group_name'],
+            'type' => $row['type'],
+            // Split here rather than in the browser: the comma is this column's
+            // business, and a form should be handed a list.
+            'options' => $row['options'] === null || $row['options'] === '' ? [] : array_map('trim', explode(',', (string) $row['options'])),
+            'value' => $row['value'],
+            'updated_at' => $row['updated_at'],
+            'updated_by' => $row['updated_by'],
+        ],
+        $statement->fetchAll(PDO::FETCH_ASSOC),
+    );
 }
 
 /**
@@ -62,14 +63,10 @@ function settingValueRefusal(array $setting, string $value): ?string
 {
     switch ($setting['type']) {
         case 'boolean':
-            return in_array($value, ['true', 'false'], true)
-                ? null
-                : "{$setting['name']} is a switch - expected 'true' or 'false'";
+            return in_array($value, ['true', 'false'], true) ? null : "{$setting['name']} is a switch - expected 'true' or 'false'";
 
         case 'choice':
-            return in_array($value, $setting['options'], true)
-                ? null
-                : "{$setting['name']} must be one of: " . implode(', ', $setting['options']);
+            return in_array($value, $setting['options'], true) ? null : "{$setting['name']} must be one of: " . implode(', ', $setting['options']);
 
         case 'i18n':
             $decoded = json_decode($value, true);
@@ -118,7 +115,10 @@ $app->get('/api/settings/public', function (Request $request, Response $response
 
 $app->get('/api/settings', function (Request $request, Response $response) {
     return respondJson($response, ['settings' => adminSettingRows()]);
-})->add(responds(SiteSettingList::class))->add(requireRole('ADMIN'))->add(requireAuth());
+})
+    ->add(responds(SiteSettingList::class))
+    ->add(requireRole('ADMIN'))
+    ->add(requireAuth());
 
 // ── PUT /api/settings ────────────────────────────────────────────────────────
 //
@@ -173,9 +173,7 @@ $app->put('/api/settings', function (Request $request, Response $response) {
     if ($changes !== []) {
         $pdo->beginTransaction();
         try {
-            $statement = $pdo->prepare(
-                'UPDATE site_settings SET value = ?, updated_at = CURRENT_TIMESTAMP, updated_by = ? WHERE site = ? AND name = ?'
-            );
+            $statement = $pdo->prepare('UPDATE site_settings SET value = ?, updated_at = CURRENT_TIMESTAMP, updated_by = ? WHERE site = ? AND name = ?');
 
             foreach ($changes as $name => $value) {
                 $statement->execute([$value, (int) $user['id'], currentSite(), $name]);
@@ -193,4 +191,7 @@ $app->put('/api/settings', function (Request $request, Response $response) {
     }
 
     return respondJson($response, ['settings' => adminSettingRows()]);
-})->add(responds(SiteSettingList::class))->add(requireRole('ADMIN'))->add(requireAuth());
+})
+    ->add(responds(SiteSettingList::class))
+    ->add(requireRole('ADMIN'))
+    ->add(requireAuth());

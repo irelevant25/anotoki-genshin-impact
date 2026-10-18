@@ -12,9 +12,7 @@ $app->get('/api/material-types/{name}', function (Request $request, Response $re
     $stmt = genshinDb()->prepare('SELECT * FROM material_types WHERE name = ?');
     $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('material_types'));
 
 $app->post('/api/material-types', function (Request $request, Response $response) {
@@ -24,7 +22,11 @@ $app->post('/api/material-types', function (Request $request, Response $response
     $stmt = $pdo->prepare('SELECT * FROM material_types WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('material_types'))->add(validateRequest(MaterialType::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('material_types'))
+    ->add(validateRequest(MaterialType::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/material-types/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +37,7 @@ $app->delete('/api/material-types/{name}', function (Request $request, Response 
     }
     $pdo->prepare('DELETE FROM material_types WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('material_types'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('material_types'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

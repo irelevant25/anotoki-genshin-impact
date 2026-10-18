@@ -5,12 +5,12 @@
         <div class="quiz-container">
             @if (!isDaily()) {
                 <div class="quiz-difficulty" [class]="'level-' + difficultyString()">
-                    <span class="recommended-ar">{{ 'quiz.difficulty.' + difficultyString() | translate }}</span>
+                    <span class="recommended-ar">{{ "quiz.difficulty." + difficultyString() | translate }}</span>
                 </div>
             }
 
             @if (quizSet(); as set) {
-                <p class="mismatch-prompt">{{ 'quiz.mismatch.prompt' | translate }}</p>
+                <p class="mismatch-prompt">{{ "quiz.mismatch.prompt" | translate }}</p>
 
                 <div class="character-grid">
                     @for (character of set.options; track character.id) {
@@ -22,8 +22,7 @@
                             [class.dimmed]="isQuestionComplete() && character.name !== set.answer.name && character.name !== picked()?.name"
                             [disabled]="isQuestionComplete()"
                             [title]="character.name"
-                            (click)="choose(character)"
-                        >
+                            (click)="choose(character)">
                             <img [appMaterialIcon]="character.icon_name ?? character.name" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
                         </button>
                     }
@@ -33,16 +32,16 @@
                      of why that one was the answer. -->
                 @if (isQuestionComplete()) {
                     <p class="mismatch-reason">
-                        {{ (isSuccess() ? 'quiz.mismatch.right' : 'quiz.mismatch.wrong') | translate }}
+                        {{ (isSuccess() ? "quiz.mismatch.right" : "quiz.mismatch.wrong") | translate }}
                         <span class="mismatch-common">{{ set.commonValue }}</span>
                     </p>
 
                     @if (!isDaily()) {
-                        <button anotokiButton variant="primary" size="lg" (click)="next()">{{ 'quiz.next' | translate }}</button>
+                        <button anotokiButton variant="primary" size="lg" (click)="next()">{{ "quiz.next" | translate }}</button>
                     }
                 }
             } @else {
-                <p class="mismatch-prompt">{{ 'quiz.mismatch.noSet' | translate }}</p>
+                <p class="mismatch-prompt">{{ "quiz.mismatch.noSet" | translate }}</p>
             }
         </div>
     }

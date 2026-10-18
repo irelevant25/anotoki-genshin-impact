@@ -50,10 +50,7 @@ const TRANSLATION_RELEASED_LANGUAGES = ['en', 'sk'];
 /** The library, set up for this site, on its one connection. Built when a request needs it. */
 function siteTranslations(): Translations
 {
-    return new Translations(usersDb(), new TranslationsConfig(
-        releasedLanguages: TRANSLATION_RELEASED_LANGUAGES,
-        usage: new GuideLanguageUsage(),
-    ));
+    return new Translations(usersDb(), new TranslationsConfig(releasedLanguages: TRANSLATION_RELEASED_LANGUAGES, usage: new GuideLanguageUsage()));
 }
 
 /**
@@ -102,14 +99,7 @@ function translationsActor(ServerRequestInterface $request): ?int
 function translationsAudit(ServerRequestInterface $request, string $action, ?string $type, ?string $id, array $details): void
 {
     $languages = implode(', ', array_map('strval', is_array($details['languages'] ?? null) ? $details['languages'] : []));
-    siteAudit()->record(
-        $request,
-        translationsActor($request),
-        $action,
-        $type ?? 'translations',
-        $id ?? ($languages === '' ? null : $languages),
-        $details,
-    );
+    siteAudit()->record($request, translationsActor($request), $action, $type ?? 'translations', $id ?? ($languages === '' ? null : $languages), $details);
 }
 
 /**

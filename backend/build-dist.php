@@ -84,10 +84,7 @@ function copyFileCounted(string $src, string $dst): void
 function copyTree(string $src, string $dst, ?callable $skip = null): void
 {
     $src = rtrim(str_replace('\\', '/', $src), '/');
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         $relative = substr(str_replace('\\', '/', $path), strlen($src) + 1);
@@ -110,7 +107,9 @@ function copyTree(string $src, string $dst, ?callable $skip = null): void
 function writeDenyHtaccess(string $dir): void
 {
     ensureDir($dir);
-    file_put_contents($dir . '/.htaccess', <<<HT
+    file_put_contents(
+        $dir . '/.htaccess',
+        <<<HT
         # Read by PHP from disk, never served over HTTP.
         <IfModule mod_authz_core.c>
             Require all denied
@@ -120,7 +119,9 @@ function writeDenyHtaccess(string $dir): void
             Deny from all
         </IfModule>
 
-        HT);
+        HT
+        ,
+    );
 }
 
 // ── Assemble ──────────────────────────────────────────────────────────────────

@@ -157,9 +157,7 @@ export function byQuiz(rows: readonly QuizStatsRow[]): QuizBreakdown[] {
   }));
 
   const catalogued = new Set<string>(QUIZ_CATALOG.map((card) => card.id));
-  const unknown = [...buckets.entries()]
-    .filter(([id]) => !catalogued.has(id))
-    .map(([id, counted]) => ({ id, totals: complete(counted) }));
+  const unknown = [...buckets.entries()].filter(([id]) => !catalogued.has(id)).map(([id, counted]) => ({ id, totals: complete(counted) }));
 
   return [...known, ...unknown];
 }

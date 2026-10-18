@@ -37,7 +37,6 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   loadingFiles = signal(false);
   busy = signal<string | undefined>(undefined);
 
-
   /** 900+ folders, so the sidebar is filtered rather than scrolled. */
   visibleFolders = computed(() => {
     const needle = String(this.folderFilter() ?? '')
@@ -148,11 +147,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     this._fileApi.moveFileToCategory(file.file_id, { category_id: Number(categoryId) }).subscribe({
       next: (result) => {
         this.busy.set(undefined);
-        this._notify.success(
-          result.renamed
-            ? `Moved to ${result.path}/ as ${result.name} — that folder already had a file of the same name.`
-            : `Moved to ${result.path}/.`
-        );
+        this._notify.success(result.renamed ? `Moved to ${result.path}/ as ${result.name} — that folder already had a file of the same name.` : `Moved to ${result.path}/.`);
         this.loadFiles();
         this.loadFolders();
       },
@@ -340,6 +335,4 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
       this.loadFolders();
     });
   }
-
-
 }

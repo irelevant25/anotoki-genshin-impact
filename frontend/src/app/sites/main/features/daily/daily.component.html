@@ -3,12 +3,12 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <div class="daily-header">
-            <h1>{{ 'daily.title' | translate }}</h1>
+            <h1>{{ "daily.title" | translate }}</h1>
             <p class="daily-subtitle">
                 @if (allDone()) {
-                    {{ 'daily.allDone' | translate }}
+                    {{ "daily.allDone" | translate }}
                 } @else {
-                    {{ 'daily.remaining' | translate: { count: remaining() } }}
+                    {{ "daily.remaining" | translate: { count: remaining() } }}
                 }
             </p>
         </div>
@@ -26,8 +26,8 @@
                 <a class="card px-5 pb-5" [class]="'status-' + entry.status" [routerLink]="['/', 'daily', entry.card.path]">
                     <app-guide-icon class="help-icon" [guide]="entry.card.id"></app-guide-icon>
 
-                    @if (entry.status !== 'new') {
-                        <span class="status-badge">{{ 'daily.status.' + entry.status | translate }}</span>
+                    @if (entry.status !== "new") {
+                        <span class="status-badge">{{ "daily.status." + entry.status | translate }}</span>
                     }
 
                     <img [src]="entry.card.image" [alt]="entry.card.title | translate" loading="lazy" />
@@ -38,7 +38,7 @@
                     </div>
                 </a>
             } @empty {
-                <p class="daily-empty">{{ 'daily.none' | translate }}</p>
+                <p class="daily-empty">{{ "daily.none" | translate }}</p>
             }
         </div>
     }

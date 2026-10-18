@@ -169,7 +169,7 @@ function visitorsReady(bool $reset = false): bool
             $statement = usersDb()->query(
                 "SELECT EXISTS (SELECT 1 FROM information_schema.columns
                                  WHERE table_schema = current_schema() AND table_name = 'users'
-                                   AND column_name = 'visitor_key_hash')"
+                                   AND column_name = 'visitor_key_hash')",
             );
             $ready = (bool) $statement->fetchColumn();
         } catch (\PDOException) {
@@ -199,8 +199,7 @@ function visitorUnknown(): ApiRefusal
     return new ApiRefusal(
         401,
         'visitor_unknown',
-        'This browser\'s games without signing in have ended: they were not used for ' . visitorSetting('keep_days')
-            . ' days, or they were moved into an account at a sign-in.',
+        'This browser\'s games without signing in have ended: they were not used for ' . visitorSetting('keep_days') . ' days, or they were moved into an account at a sign-in.',
     );
 }
 
@@ -217,17 +216,14 @@ function visitorFind(string $key): array
     visitorsMustBeReady();
 
     $pdo = usersDb();
-    $statement = $pdo->prepare(
-        "SELECT id, last_seen_at < now() - interval '1 hour' AS stale FROM users WHERE visitor_key_hash = ? AND id < 0"
-    );
+    $statement = $pdo->prepare("SELECT id, last_seen_at < now() - interval '1 hour' AS stale FROM users WHERE visitor_key_hash = ? AND id < 0");
     $statement->execute([visitorKeyHash($key)]);
     $row = $statement->fetch();
     if ($row === false) {
         throw visitorUnknown();
     }
     if ($row['stale'] === true || $row['stale'] === 't') {
-        $pdo->prepare("UPDATE users SET last_seen_at = now() WHERE id = ? AND id < 0 AND last_seen_at < now() - interval '1 hour'")
-            ->execute([(int) $row['id']]);
+        $pdo->prepare("UPDATE users SET last_seen_at = now() WHERE id = ? AND id < 0 AND last_seen_at < now() - interval '1 hour'")->execute([(int) $row['id']]);
     }
 
     return visitorUser((int) $row['id']);
@@ -263,7 +259,7 @@ function visitorMake(Request $request): array
     $statement = $pdo->prepare(
         'SELECT (SELECT count(*) FROM users WHERE id < 0) AS visitors,
                 (SELECT count(*) FROM visitor_starts WHERE address = ?) AS here,
-                (SELECT count(*) FROM visitor_starts) AS everywhere'
+                (SELECT count(*) FROM visitor_starts) AS everywhere',
     );
     $statement->execute([$address]);
     $counts = $statement->fetch();
@@ -279,9 +275,7 @@ function visitorMake(Request $request): array
 
     $pdo->prepare('INSERT INTO visitor_starts (address) VALUES (?)')->execute([$address]);
     $key = visitorNewKey();
-    $insert = $pdo->prepare(
-        "INSERT INTO users (id, username, visitor_key_hash, last_seen_at) VALUES (nextval('visitor_ids'), 'visitor', ?, now()) RETURNING id"
-    );
+    $insert = $pdo->prepare("INSERT INTO users (id, username, visitor_key_hash, last_seen_at) VALUES (nextval('visitor_ids'), 'visitor', ?, now()) RETURNING id");
     $insert->execute([visitorKeyHash($key)]);
 
     return ['user' => visitorUser((int) $insert->fetchColumn()), 'key' => $key];
@@ -388,9 +382,7 @@ function withVisitorMade(Response $response, ?string $key): Response
  */
 function ownerPrivate(Response $response): Response
 {
-    return $response
-        ->withHeader('Cache-Control', 'private, no-store')
-        ->withHeader('Vary', 'Authorization, ' . VISITOR_HEADER);
+    return $response->withHeader('Cache-Control', 'private, no-store')->withHeader('Vary', 'Authorization, ' . VISITOR_HEADER);
 }
 
 /**
@@ -477,7 +469,7 @@ function visitorMove(array $person, string $key, bool $silent = false): array
             $count = $pdo->prepare(
                 "SELECT count(*) FILTER (WHERE is_daily AND (state ->> 'date') IS DISTINCT FROM ?) AS stale,
                         count(*) FILTER (WHERE NOT is_daily OR (state ->> 'date') = ?) AS movable
-                   FROM quizzes_states WHERE user_id = ?"
+                   FROM quizzes_states WHERE user_id = ?",
             );
             $count->execute([$today, $today, $visitorId]);
             $games = $count->fetch(PDO::FETCH_ASSOC);
@@ -489,7 +481,7 @@ function visitorMove(array $person, string $key, bool $silent = false): array
                  ON CONFLICT (user_id, quiz_id, is_daily)
                  DO UPDATE SET state = EXCLUDED.state
                          WHERE quizzes_states.is_daily
-                           AND (quizzes_states.state ->> 'date') IS DISTINCT FROM ?"
+                           AND (quizzes_states.state ->> 'date') IS DISTINCT FROM ?",
             );
             $insert->execute([$personId, $visitorId, $today, $today]);
             $movedGames = $insert->rowCount();
@@ -507,7 +499,7 @@ function visitorMove(array $person, string $key, bool $silent = false): array
                  ON CONFLICT (user_id, character_id, quiz_id)
                  DO UPDATE SET wins     = quiz_stats_history.wins     + EXCLUDED.wins,
                                losses   = quiz_stats_history.losses   + EXCLUDED.losses,
-                               attempts = quiz_stats_history.attempts + EXCLUDED.attempts'
+                               attempts = quiz_stats_history.attempts + EXCLUDED.attempts',
             )->execute([$personId, $visitorId]);
 
             foreach (VISITOR_PERSON_TABLES as $table) {
@@ -523,28 +515,18 @@ function visitorMove(array $person, string $key, bool $silent = false): array
         });
     } catch (\PDOException $e) {
         if (in_array((string) $e->getCode(), VISITOR_MOVE_RETRY_STATES, true)) {
-            throw new ApiRefusal(
-                503,
-                'visitor_move_retry',
-                'Moving this browser\'s games did not finish this time. Try again in a moment.',
-                ['Retry-After' => '2'],
-            );
+            throw new ApiRefusal(503, 'visitor_move_retry', 'Moving this browser\'s games did not finish this time. Try again in a moment.', ['Retry-After' => '2']);
         }
         throw $e;
     }
 
     if ($moved === false) {
-        throw new ApiRefusal(
-            401,
-            'sign_in_required',
-            'Your record here went while this browser\'s games were being moved, and nothing was moved. Sign in to continue.',
-            ['WWW-Authenticate' => 'Bearer'],
-        );
+        throw new ApiRefusal(401, 'sign_in_required', 'Your record here went while this browser\'s games were being moved, and nothing was moved. Sign in to continue.', [
+            'WWW-Authenticate' => 'Bearer',
+        ]);
     }
 
-    return $moved === null
-        ? ['found' => false, 'games' => ['moved' => 0, 'kept' => 0, 'stale' => 0], 'results' => 0, 'stayed' => false]
-        : ['found' => true] + $moved;
+    return $moved === null ? ['found' => false, 'games' => ['moved' => 0, 'kept' => 0, 'stale' => 0], 'results' => 0, 'stayed' => false] : ['found' => true] + $moved;
 }
 
 /**
@@ -596,7 +578,7 @@ function visitorSweep(): int
             $pdo->prepare("SELECT set_config('statement_timeout', ?, true)")->execute([$timeout . 'ms']);
             $select = $pdo->prepare(
                 'SELECT id FROM users WHERE id < 0 AND last_seen_at < now() - make_interval(days => ?::int)
-                  ORDER BY last_seen_at LIMIT ? FOR UPDATE SKIP LOCKED'
+                  ORDER BY last_seen_at LIMIT ? FOR UPDATE SKIP LOCKED',
             );
             $select->execute([$keepDays, $batch]);
             $ids = array_map('intval', $select->fetchAll(PDO::FETCH_COLUMN));

@@ -6,7 +6,7 @@
             <div class="px-5 py-2">
                 <div class="filters">
                     <div class="chip-block">
-                        <span class="chip-label">{{ 'database.filters.weaponType' | translate }}</span>
+                        <span class="chip-label">{{ "database.filters.weaponType" | translate }}</span>
                         <div class="chip-group">
                             @for (type of types(); track type) {
                                 <button type="button" class="chip" [class.selected]="filterType() === type" [title]="type" [attr.aria-pressed]="filterType() === type" (click)="toggleType(type)">
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="chip-block">
-                        <span class="chip-label">{{ 'database.filters.rarity' | translate }}</span>
+                        <span class="chip-label">{{ "database.filters.rarity" | translate }}</span>
                         <div class="chip-group">
                             @for (rarity of rarities(); track rarity) {
                                 <button
@@ -26,22 +26,26 @@
                                     [class]="'quality-' + rarity"
                                     [class.selected]="filterRarity() === rarity"
                                     [attr.aria-pressed]="filterRarity() === rarity"
-                                    (click)="toggleRarity(rarity)"
-                                >
+                                    (click)="toggleRarity(rarity)">
                                     {{ rarity }}&#9733;
                                 </button>
                             }
                         </div>
                     </div>
 
-                    <anotoki-select class="filter" [label]="'database.filters.version' | translate" [options]="versionOptions()" [(value)]="filterVersion" [placeholder]="'database.filters.anyVersion' | translate" />
+                    <anotoki-select
+                        class="filter"
+                        [label]="'database.filters.version' | translate"
+                        [options]="versionOptions()"
+                        [(value)]="filterVersion"
+                        [placeholder]="'database.filters.anyVersion' | translate" />
 
                     <anotoki-text-field class="filter" type="search" [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName" />
 
-                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ 'database.filters.reset' | translate }}</button>
+                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
                 </div>
 
-                <div class="result-count">{{ 'database.results.count' | translate: { shown: filteredWeapons().length, total: weapons().length } }}</div>
+                <div class="result-count">{{ "database.results.count" | translate: { shown: filteredWeapons().length, total: weapons().length } }}</div>
 
                 <div class="card-grid">
                     @for (weapon of filteredWeapons(); track weapon.id) {
@@ -53,14 +57,13 @@
                                     [alt]="weapon.name"
                                     [title]="weapon.name"
                                     loading="lazy"
-                                    [class]="'quality-' + (weapon.rarity ?? '0')"
-                                />
+                                    [class]="'quality-' + (weapon.rarity ?? '0')" />
                                 <img class="type-badge" [appMaterialIcon]="weapon.type" [appAssetFolder]="'weapon_types'" [alt]="weapon.type" [title]="weapon.type" loading="lazy" />
                             </div>
                             <div class="name">{{ weapon.name }}</div>
                         </a>
                     } @empty {
-                        <div class="no-results">{{ 'database.results.none' | translate }}</div>
+                        <div class="no-results">{{ "database.results.none" | translate }}</div>
                     }
                 </div>
             </div>

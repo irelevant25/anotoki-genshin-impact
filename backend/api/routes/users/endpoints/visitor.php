@@ -49,10 +49,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->post('/api/visitor/move', function (Request $request, Response $response) {
     $body = $request->getParsedBody();
-    $silent = is_array($body) ? ($body['silent'] ?? false) : false;
+    $silent = is_array($body) ? $body['silent'] ?? false : false;
     if (!is_bool($silent)) {
         throw new ApiRefusal(422, 'invalid', 'silent is true or false: whether the sign-in was the IAM\'s silent one.', [], ['field' => 'silent']);
     }
 
     return respondJson($response, visitorMove($request->getAttribute('user'), $request->getAttribute('visitor_key'), $silent));
-})->add(responds(VisitorMoveResult::class))->add(requireVisitorKey())->add(requireAuth());
+})
+    ->add(responds(VisitorMoveResult::class))
+    ->add(requireVisitorKey())
+    ->add(requireAuth());

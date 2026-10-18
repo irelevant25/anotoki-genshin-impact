@@ -17,7 +17,10 @@ function quizStateIsDaily(Request $request): int
 $app->get('/api/quiz-states', function (Request $request, Response $response) {
     $stmt = genshinDb()->query('SELECT * FROM quizzes_states ORDER BY created_at DESC');
     return respondJson($response, $stmt->fetchAll());
-})->add(responds('quizzes_states', list: true))->add(requireRole(...ROLES_SYSTEM_READ))->add(requireAuth());
+})
+    ->add(responds('quizzes_states', list: true))
+    ->add(requireRole(...ROLES_SYSTEM_READ))
+    ->add(requireAuth());
 
 // GET single quiz state by composite key
 $app->get('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -25,14 +28,15 @@ $app->get('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Re
     $stmt->execute([$args['user_id'], $args['quiz_id'], quizStateIsDaily($request)]);
     $item = $stmt->fetch();
 
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
-})->add(responds('quizzes_states'))->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
+})
+    ->add(responds('quizzes_states'))
+    ->add(requireSelfOrAdmin('user_id'))
+    ->add(requireAuth());
 
 // POST create quiz state
 $app->post('/api/quiz-states', function (Request $request, Response $response) {
-    $pdo  = genshinDb();
+    $pdo = genshinDb();
     $data = array_filter(QuizState::fromBody($request->getParsedBody())->toDbArray(), fn($v) => $v !== null);
 
     // The body says whose progress this is; the token says who is asking.
@@ -51,13 +55,15 @@ $app->post('/api/quiz-states', function (Request $request, Response $response) {
     // serial, so there is no id to return.
     $columns = implode(', ', array_map(fn($column) => '"' . $column . '"', array_keys($data)));
     $placeholders = implode(', ', array_fill(0, count($data), '?'));
-    $pdo->prepare("INSERT INTO quizzes_states ($columns) VALUES ($placeholders)")
-        ->execute(array_map(fn($value) => is_bool($value) ? (int) $value : $value, array_values($data)));
+    $pdo->prepare("INSERT INTO quizzes_states ($columns) VALUES ($placeholders)")->execute(array_map(fn($value) => is_bool($value) ? (int) $value : $value, array_values($data)));
 
     $stmt = $pdo->prepare('SELECT * FROM quizzes_states WHERE user_id = ? AND quiz_id = ? AND is_daily = ?');
     $stmt->execute([$data['user_id'], $data['quiz_id'], (int) ($data['is_daily'] ?? false)]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('quizzes_states'))->add(validateRequest(QuizState::class))->add(requireAuth());
+})
+    ->add(responds('quizzes_states'))
+    ->add(validateRequest(QuizState::class))
+    ->add(requireAuth());
 
 // PUT update quiz state by composite key
 $app->put('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -73,13 +79,16 @@ $app->put('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Re
 
     $data = QuizState::partialToDbArray($request->getParsedBody());
     $sets = implode(', ', array_map(fn($col) => "$col = ?", array_keys($data)));
-    $pdo->prepare("UPDATE quizzes_states SET $sets WHERE user_id = ? AND quiz_id = ? AND is_daily = ?")
-        ->execute([...array_values($data), $args['user_id'], $args['quiz_id'], $isDaily]);
+    $pdo->prepare("UPDATE quizzes_states SET $sets WHERE user_id = ? AND quiz_id = ? AND is_daily = ?")->execute([...array_values($data), $args['user_id'], $args['quiz_id'], $isDaily]);
 
     $stmt = $pdo->prepare('SELECT * FROM quizzes_states WHERE user_id = ? AND quiz_id = ? AND is_daily = ?');
     $stmt->execute([$args['user_id'], $args['quiz_id'], $isDaily]);
     return respondJson($response, $stmt->fetch());
-})->add(responds('quizzes_states'))->add(validateRequest(QuizState::class, true))->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
+})
+    ->add(responds('quizzes_states'))
+    ->add(validateRequest(QuizState::class, true))
+    ->add(requireSelfOrAdmin('user_id'))
+    ->add(requireAuth());
 
 // DELETE quiz state by composite key
 $app->delete('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request, Response $response, array $args) {
@@ -93,7 +102,9 @@ $app->delete('/api/quiz-states/{user_id}/{quiz_id}', function (Request $request,
         return respondJson($response, ['error' => 'Not found'], 404);
     }
 
-    $pdo->prepare('DELETE FROM quizzes_states WHERE user_id = ? AND quiz_id = ? AND is_daily = ?')
-        ->execute([$args['user_id'], $args['quiz_id'], $isDaily]);
+    $pdo->prepare('DELETE FROM quizzes_states WHERE user_id = ? AND quiz_id = ? AND is_daily = ?')->execute([$args['user_id'], $args['quiz_id'], $isDaily]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('quizzes_states'))->add(requireSelfOrAdmin('user_id'))->add(requireAuth());
+})
+    ->add(responds('quizzes_states'))
+    ->add(requireSelfOrAdmin('user_id'))
+    ->add(requireAuth());

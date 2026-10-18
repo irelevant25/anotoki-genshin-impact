@@ -127,10 +127,9 @@ function assetSurvey(): array
 
     // A checkout without the asset tree (it is not in git) has nothing to
     // survey: every count is nought, rather than the walk failing.
-    $iterator = !is_dir($root) ? [] : new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator = !is_dir($root)
+        ? []
+        : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         if ($info->isDir()) {
@@ -310,7 +309,7 @@ function assetStats(bool $refresh = false): array
 {
     $file = _assetStatsFile();
 
-    if (!$refresh && is_file($file) && (time() - (int) filemtime($file)) < ASSET_STATS_TTL) {
+    if (!$refresh && is_file($file) && time() - (int) filemtime($file) < ASSET_STATS_TTL) {
         $cached = json_decode((string) file_get_contents($file), true);
         if (is_array($cached) && isset($cached['total_files'])) {
             return $cached;
@@ -340,7 +339,7 @@ function assetStats(bool $refresh = false): array
 function assetStatsCached(): ?array
 {
     $file = _assetStatsFile();
-    if (!is_file($file) || (time() - (int) filemtime($file)) >= ASSET_STATS_TTL) {
+    if (!is_file($file) || time() - (int) filemtime($file) >= ASSET_STATS_TTL) {
         return null;
     }
 

@@ -16,13 +16,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/ascension-sets', function (Request $request, Response $response) {
     $pdo = genshinDb();
 
-    $sets = $pdo->query(
-        'SELECT s.id, count(a.id) FILTER (WHERE a.deleted = FALSE) AS ascension_count
+    $sets = $pdo
+        ->query(
+            'SELECT s.id, count(a.id) FILTER (WHERE a.deleted = FALSE) AS ascension_count
            FROM characters_ascensions_sets s
            LEFT JOIN characters_ascensions a ON a.ascension_set_id = s.id
           GROUP BY s.id
-          ORDER BY s.id'
-    )->fetchAll(PDO::FETCH_ASSOC);
+          ORDER BY s.id',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     // The characters on each set, gathered in one pass - a set is identified by
     // who points at it, since the table itself is only an id.
@@ -31,14 +33,20 @@ $app->get('/api/ascension-sets', function (Request $request, Response $response)
         $members[(int) $c['ascension_set_id']][] = ['id' => (int) $c['id'], 'name' => $c['name']];
     }
 
-    $out = array_map(fn(array $s) => [
-        'id' => (int) $s['id'],
-        'ascension_count' => (int) $s['ascension_count'],
-        'characters' => $members[(int) $s['id']] ?? [],
-    ], $sets);
+    $out = array_map(
+        fn(array $s) => [
+            'id' => (int) $s['id'],
+            'ascension_count' => (int) $s['ascension_count'],
+            'characters' => $members[(int) $s['id']] ?? [],
+        ],
+        $sets,
+    );
 
     return respondJson($response, $out);
-})->add(responds(AscensionSet::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AscensionSet::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->get('/api/ascension-sets/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -60,4 +68,7 @@ $app->get('/api/ascension-sets/{id:[0-9]+}', function (Request $request, Respons
     }
 
     return respondJson($response, ['ascensions' => $ascensions, 'ascension_cost' => $ascension_cost]);
-})->add(responds(AscensionSetDetail::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AscensionSetDetail::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

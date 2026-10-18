@@ -19,9 +19,7 @@ $app->get('/api/weapons/{id:[0-9]+}', function (Request $request, Response $resp
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('weapons'));
 
 // POST create
@@ -30,15 +28,16 @@ $app->post('/api/weapons', function (Request $request, Response $response) {
     $pdo = genshinDb();
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'weapons', $body, $user['id']);
-    $id = DbQuery::insert($pdo, 'weapons', [
-        ...Weapon::fromBody($body)->toDbArray(),
-        'created_by' => $user['id'],
-    ]);
+    $id = DbQuery::insert($pdo, 'weapons', [...Weapon::fromBody($body)->toDbArray(), 'created_by' => $user['id']]);
     $result = DbQuery::from($pdo, 'weapons')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $id]);
     return respondJson($response, $result, 201);
-})->add(responds('weapons'))->add(validateRequest(Weapon::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('weapons'))
+    ->add(validateRequest(Weapon::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // PUT update
 $app->put('/api/weapons/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -49,16 +48,17 @@ $app->put('/api/weapons/{id:[0-9]+}', function (Request $request, Response $resp
     }
     $body = $request->getParsedBody() ?? [];
     resolveAssetBody($pdo, 'weapons', $body, $user['id']);
-    DbQuery::update($pdo, 'weapons', [
-        ...Weapon::partialToDbArray($body),
-        'updated_by' => $user['id'],
-    ], $args['id']);
+    DbQuery::update($pdo, 'weapons', [...Weapon::partialToDbArray($body), 'updated_by' => $user['id']], $args['id']);
     $result = DbQuery::from($pdo, 'weapons')
         ->includeExternal('created_by', usersDb(), 'users', ['id', 'username'])
         ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username'])
         ->find(['id' => $args['id']]);
     return respondJson($response, $result);
-})->add(responds('weapons'))->add(validateRequest(Weapon::class, true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('weapons'))
+    ->add(validateRequest(Weapon::class, true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE
 $app->delete('/api/weapons/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
@@ -68,4 +68,7 @@ $app->delete('/api/weapons/{id:[0-9]+}', function (Request $request, Response $r
     }
     DbQuery::update($pdo, 'weapons', ['deleted' => true], $args['id']);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('weapons'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('weapons'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

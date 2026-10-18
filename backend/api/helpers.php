@@ -20,13 +20,8 @@ final class ApiRefusal extends RuntimeException
      * @param array<string, string> $headers  e.g. ['Retry-After' => '60']
      * @param ?array<string, mixed> $params    what the frontend words the answer from
      */
-    public function __construct(
-        public readonly int $status,
-        public readonly string $refusal,
-        string $message,
-        public readonly array $headers = [],
-        public readonly ?array $params = null,
-    ) {
+    public function __construct(public readonly int $status, public readonly string $refusal, string $message, public readonly array $headers = [], public readonly ?array $params = null)
+    {
         parent::__construct($message);
     }
 
@@ -137,9 +132,7 @@ function validateBody(string $class, array $body, bool $partial = false): array
 function respondJson(Response $response, mixed $data, int $status = 200): Response
 {
     $json = json_encode($data);
-    $response = $response
-        ->withStatus($status)
-        ->withHeader('Content-Type', 'application/json');
+    $response = $response->withStatus($status)->withHeader('Content-Type', 'application/json');
     $response->getBody()->write($json);
     return $response;
 }

@@ -62,7 +62,7 @@ function siteRoutesAll(bool $reload = false): array
                FROM site_routes r
                LEFT JOIN users u ON u.id = r.updated_by
               WHERE r.site = ?
-              ORDER BY r.sort_order ASC, r.path ASC'
+              ORDER BY r.sort_order ASC, r.path ASC',
         );
         $statement->execute([currentSite()]);
 
@@ -82,8 +82,10 @@ function siteRoutesAll(bool $reload = false): array
         if ($routes !== []) {
             $endpoints = $pdo->query(
                 'SELECT route_id, prefix FROM site_route_endpoints
-                  WHERE route_id IN (' . implode(',', array_keys($routes)) . ')
-                  ORDER BY prefix'
+                  WHERE route_id IN (' .
+                    implode(',', array_keys($routes)) .
+                    ')
+                  ORDER BY prefix',
             );
 
             foreach ($endpoints->fetchAll(PDO::FETCH_ASSOC) as $row) {
@@ -250,13 +252,11 @@ function routePathRefusal(string $path): ?string
     }
 
     if (in_array($path, ROUTE_PATH_RESERVED, true)) {
-        return "'$path' is how somebody gets into the site, and is not governable - "
-             . 'switching it off would leave people signed in at the IAM and unable to arrive here';
+        return "'$path' is how somebody gets into the site, and is not governable - " . 'switching it off would leave people signed in at the IAM and unable to arrive here';
     }
 
     if (in_array($path, ROUTE_PATH_LEGAL, true)) {
-        return "'$path' is one of the legal pages, which are anybody's and not governable - "
-             . 'what the site keeps, and how to reach whoever runs it, is said to whoever asks';
+        return "'$path' is one of the legal pages, which are anybody's and not governable - " . 'what the site keeps, and how to reach whoever runs it, is said to whoever asks';
     }
 
     return null;
@@ -279,8 +279,7 @@ function routeEndpointRefusalToSave(string $prefix): ?string
     // but not '/api/media', which has nothing to do with /api/me.
     foreach (ROUTE_ENDPOINT_RESERVED as $reserved) {
         if (str_starts_with($reserved, $prefix) || $prefix === $reserved || str_starts_with($prefix, $reserved . '/')) {
-            return "'$prefix' covers $reserved, which has to keep answering - it is who the reader is, "
-                 . 'how this table is read, and how whatever was just done to it is undone';
+            return "'$prefix' covers $reserved, which has to keep answering - it is who the reader is, " . 'how this table is read, and how whatever was just done to it is undone';
         }
     }
 
@@ -298,9 +297,12 @@ function routeEndpointRefusalToSave(string $prefix): ?string
  */
 function publicSiteRoutes(): array
 {
-    return array_map(static fn(array $route): array => [
-        'path' => $route['path'],
-        'visibility' => $route['visibility'],
-        'blocked' => $route['blocked'],
-    ], siteRoutesAll());
+    return array_map(
+        static fn(array $route): array => [
+            'path' => $route['path'],
+            'visibility' => $route['visibility'],
+            'blocked' => $route['blocked'],
+        ],
+        siteRoutesAll(),
+    );
 }

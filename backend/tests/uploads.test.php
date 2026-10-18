@@ -23,20 +23,57 @@ require TEST_BACKEND . '/api/asset_naming.php';
 echo "A name a server could run\n";
 
 $runs = [
-    'shell.php.png', 'SHELL.PHP.PNG', 'shell.pHp.jpg', 'x.phtml.jpg', 'x.phar.avif', 'x.pht.gif',
-    'x.php3.png', 'x.php4.png', 'x.php5.webp', 'x.php6.png', 'x.php7.png', 'x.php8.png', 'x.phps.png',
-    'x.cgi.png', 'x.pl.mp3', 'x.py.ogg', 'x.sh.wav', 'x.asp.png', 'x.aspx.png', 'x.jsp.png', 'x.shtml.png',
-    'x.htaccess.png', 'x.htpasswd.png', 'x.ini.png', 'a.b.php.png', 'shell.php', 'shell.php.mp3',
-    '.htaccess', '.user.ini', '.htpasswd', '..php.png',
+    'shell.php.png',
+    'SHELL.PHP.PNG',
+    'shell.pHp.jpg',
+    'x.phtml.jpg',
+    'x.phar.avif',
+    'x.pht.gif',
+    'x.php3.png',
+    'x.php4.png',
+    'x.php5.webp',
+    'x.php6.png',
+    'x.php7.png',
+    'x.php8.png',
+    'x.phps.png',
+    'x.cgi.png',
+    'x.pl.mp3',
+    'x.py.ogg',
+    'x.sh.wav',
+    'x.asp.png',
+    'x.aspx.png',
+    'x.jsp.png',
+    'x.shtml.png',
+    'x.htaccess.png',
+    'x.htpasswd.png',
+    'x.ini.png',
+    'a.b.php.png',
+    'shell.php',
+    'shell.php.mp3',
+    '.htaccess',
+    '.user.ini',
+    '.htpasswd',
+    '..php.png',
 ];
 foreach ($runs as $name) {
     check("'$name' could run", uploadNameRunsOnServer($name));
 }
 
 $fine = [
-    'HU_TAO.avif', '1.0 - Ballad in Goblets 2020-09-28.avif', "...Now That's Rock 'N' Roll!.avif",
-    'php.png', 'ini.png', 'Chat - Hobbies.opus', 'エミリエを知る・1.opus', 'shellphp.png', 'x.phpx.png',
-    'x.php-.png', 'shell-php.png', 'shell-php.mp3', 'x.html.png', 'AQUILA_FAVONIA - ascension.avif',
+    'HU_TAO.avif',
+    '1.0 - Ballad in Goblets 2020-09-28.avif',
+    "...Now That's Rock 'N' Roll!.avif",
+    'php.png',
+    'ini.png',
+    'Chat - Hobbies.opus',
+    'エミリエを知る・1.opus',
+    'shellphp.png',
+    'x.phpx.png',
+    'x.php-.png',
+    'shell-php.png',
+    'shell-php.mp3',
+    'x.html.png',
+    'AQUILA_FAVONIA - ascension.avif',
 ];
 foreach ($fine as $name) {
     check("'$name' is a plain file", !uploadNameRunsOnServer($name));
@@ -219,8 +256,11 @@ foreach (['the generated guard' => uploadGuardHtaccess(), 'public/uploads/.htacc
 }
 same('the guard is RemoveHandler and RemoveType, nothing more', ['removehandler', 'removetype'], directivesOf(uploadGuardRules())['all']);
 foreach (['.php', '.phtml', '.phar', '.pht', '.php3', '.php5', '.php7', '.php8', '.phps', '.cgi', '.pl', '.py', '.sh', '.shtml'] as $extension) {
-    check("RemoveHandler and RemoveType take $extension", (bool) preg_match('/^RemoveHandler .*' . preg_quote($extension, '/') . '( |$)/m', uploadGuardRules())
-        && (bool) preg_match('/^RemoveType .*' . preg_quote($extension, '/') . '( |$)/m', uploadGuardRules()));
+    check(
+        "RemoveHandler and RemoveType take $extension",
+        (bool) preg_match('/^RemoveHandler .*' . preg_quote($extension, '/') . '( |$)/m', uploadGuardRules()) &&
+            (bool) preg_match('/^RemoveType .*' . preg_quote($extension, '/') . '( |$)/m', uploadGuardRules()),
+    );
 }
 check('public/uploads/.htaccess carries the same rules, word for word', str_contains($uploads, uploadGuardRules()));
 
@@ -231,18 +271,17 @@ function headerRulesOf(string $htaccess): array
         return [];
     }
 
-    return array_values(array_filter(
-        array_map('trim', preg_split('/\R/', $block[1])),
-        static fn (string $line): bool => $line !== '' && !str_starts_with($line, '#'),
-    ));
+    return array_values(array_filter(array_map('trim', preg_split('/\R/', $block[1])), static fn(string $line): bool => $line !== '' && !str_starts_with($line, '#')));
 }
 $headers = headerRulesOf(uploadGuardHtaccess());
 same('the asset tree\'s guard: nosniff, and anything but a raster picture as a download - public/uploads/.htaccess\'s rules, word for word', headerRulesOf($uploads), $headers);
 check('...nosniff on every file', in_array('Header set X-Content-Type-Options "nosniff"', $headers, true));
 $download = preg_match('/<FilesMatch "([^"]+)">/', uploadGuardHeaders(), $match) === 1 ? '~' . $match[1] . '~' : '~^$~';
-same('...as a download: an old page, an SVG and a sound (an <audio> plays it all the same) - never a raster picture, whatever its case',
+same(
+    '...as a download: an old page, an SVG and a sound (an <audio> plays it all the same) - never a raster picture, whatever its case',
     [true, true, true, true, false, false, false, false],
-    array_map(static fn (string $name): bool => preg_match($download, $name) === 1, ['old.html', 'old.svg', 'Amber.opus', 'voice.ogg', 'Amber.png', 'Amber.avif', 'Fontaine.jpg', 'CARD.WEBP']));
+    array_map(static fn(string $name): bool => preg_match($download, $name) === 1, ['old.html', 'old.svg', 'Amber.opus', 'voice.ogg', 'Amber.png', 'Amber.avif', 'Fontaine.jpg', 'CARD.WEBP']),
+);
 
 $guarded = testTempDir('ensure');
 check('ensureUploadGuard() writes one where there is none', ensureUploadGuard($guarded) && file_get_contents("$guarded/.htaccess") === uploadGuardHtaccess());
@@ -267,9 +306,7 @@ function uploadOf(string $bytes): object
     file_put_contents($file, $bytes);
 
     return new class ($file, strlen($bytes)) {
-        public function __construct(private readonly string $file, private readonly int $size)
-        {
-        }
+        public function __construct(private readonly string $file, private readonly int $size) {}
 
         public function getSize(): int
         {
@@ -279,9 +316,7 @@ function uploadOf(string $bytes): object
         public function getStream(): object
         {
             return new class ($this->file) {
-                public function __construct(private readonly string $file)
-                {
-                }
+                public function __construct(private readonly string $file) {}
 
                 public function getMetadata(?string $key = null): mixed
                 {
@@ -311,43 +346,49 @@ $wav = 'RIFF' . pack('V', 36) . 'WAVE' . 'fmt ' . str_repeat("\0", 16);
 $script = "<?php system(\$_GET['c']); ?>";
 $page = '<!doctype html><script>alert(1)</script>';
 
-foreach ([
-    'a PNG named .png' => [$png, 'png'],
-    '...named .PNG' => [$png, 'PNG'],
-    'a GIF named .gif' => [$gif, 'gif'],
-    'an AVIF named .avif (AVIF its major brand)' => [$avif, 'avif'],
-    'an MP4 sound named .m4a' => [$m4a, 'm4a'],
-    'an MP3 with an ID3 tag' => [$mp3Tagged, 'mp3'],
-    'an MP3 starting with a frame' => [$mp3Frame, 'mp3'],
-    'an Ogg file named .ogg' => [$ogg, 'ogg'],
-    '...named .opus' => [$ogg, 'opus'],
-    'a WAV named .wav' => [$wav, 'wav'],
-] as $what => [$bytes, $extension]) {
+foreach (
+    [
+        'a PNG named .png' => [$png, 'png'],
+        '...named .PNG' => [$png, 'PNG'],
+        'a GIF named .gif' => [$gif, 'gif'],
+        'an AVIF named .avif (AVIF its major brand)' => [$avif, 'avif'],
+        'an MP4 sound named .m4a' => [$m4a, 'm4a'],
+        'an MP3 with an ID3 tag' => [$mp3Tagged, 'mp3'],
+        'an MP3 starting with a frame' => [$mp3Frame, 'mp3'],
+        'an Ogg file named .ogg' => [$ogg, 'ogg'],
+        '...named .opus' => [$ogg, 'opus'],
+        'a WAV named .wav' => [$wav, 'wav'],
+    ]
+    as $what => [$bytes, $extension]
+) {
     check("$what: kept", keeps($bytes, $extension));
 }
-foreach ([
-    'a PHP script named .png' => [$script, 'png'],
-    'a PHP script named .avif' => [$script, 'avif'],
-    'a PHP script named .mp3 - the sound whose bytes nobody checked' => [$script, 'mp3'],
-    'a PHP script named .ogg' => [$script, 'ogg'],
-    'a PHP script named .wav' => [$script, 'wav'],
-    'a PHP script named .m4a' => [$script, 'm4a'],
-    'a page named .avif' => [$page, 'avif'],
-    'a HEIC picture named .avif (another brand)' => [$heic, 'avif'],
-    'an AVIF whose major brand is mif1 (the family\'s rule reads the major brand)' => [$avifAfterMif1, 'avif'],
-    'a PNG named .mp3' => [$png, 'mp3'],
-    'an Ogg file named .wav' => [$ogg, 'wav'],
-    'a WAV named .ogg' => [$wav, 'ogg'],
-    'an MP4 sound named .avif' => [$m4a, 'avif'],
-    'a PNG named .svg (no such kind here)' => [$png, 'svg'],
-    // The code review's probes of 2026-10-18, which the site's own check of the bytes let through.
-    'XBM text (two #define lines) named .png' => ["<?php system('id'); ?>\n#define a_width 1\n#define a_height 1\n<script>alert(1)</script>", 'png'],
-    'a WBMP head and a page named .jpg' => ["\x00\x00\x01\x01<html><script>alert(1)</script></html>", 'jpg'],
-    'GIF bytes named .png' => ["GIF89a\x01\x00\x01\x00\x00\x00\x00;", 'png'],
-    'an HTML comment spelling ftypavif, then a page, named .avif' => ["<!--ftypavif-->\n<html><script>alert(1)</script></html>", 'avif'],
-    'ID3 and then a page, named .mp3' => ['ID3<html><script>alert(1)</script></html>', 'mp3'],
-    'OggS and then a script, named .ogg' => ["OggS<?php system('id'); ?>", 'ogg'],
-] as $what => [$bytes, $extension]) {
+foreach (
+    [
+        'a PHP script named .png' => [$script, 'png'],
+        'a PHP script named .avif' => [$script, 'avif'],
+        'a PHP script named .mp3 - the sound whose bytes nobody checked' => [$script, 'mp3'],
+        'a PHP script named .ogg' => [$script, 'ogg'],
+        'a PHP script named .wav' => [$script, 'wav'],
+        'a PHP script named .m4a' => [$script, 'm4a'],
+        'a page named .avif' => [$page, 'avif'],
+        'a HEIC picture named .avif (another brand)' => [$heic, 'avif'],
+        'an AVIF whose major brand is mif1 (the family\'s rule reads the major brand)' => [$avifAfterMif1, 'avif'],
+        'a PNG named .mp3' => [$png, 'mp3'],
+        'an Ogg file named .wav' => [$ogg, 'wav'],
+        'a WAV named .ogg' => [$wav, 'ogg'],
+        'an MP4 sound named .avif' => [$m4a, 'avif'],
+        'a PNG named .svg (no such kind here)' => [$png, 'svg'],
+        // The code review's probes of 2026-10-18, which the site's own check of the bytes let through.
+        'XBM text (two #define lines) named .png' => ["<?php system('id'); ?>\n#define a_width 1\n#define a_height 1\n<script>alert(1)</script>", 'png'],
+        'a WBMP head and a page named .jpg' => ["\x00\x00\x01\x01<html><script>alert(1)</script></html>", 'jpg'],
+        'GIF bytes named .png' => ["GIF89a\x01\x00\x01\x00\x00\x00\x00;", 'png'],
+        'an HTML comment spelling ftypavif, then a page, named .avif' => ["<!--ftypavif-->\n<html><script>alert(1)</script></html>", 'avif'],
+        'ID3 and then a page, named .mp3' => ['ID3<html><script>alert(1)</script></html>', 'mp3'],
+        'OggS and then a script, named .ogg' => ["OggS<?php system('id'); ?>", 'ogg'],
+    ]
+    as $what => [$bytes, $extension]
+) {
     check("$what: refused", !keeps($bytes, $extension));
 }
 

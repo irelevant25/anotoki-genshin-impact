@@ -15,7 +15,7 @@ import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 type IBannerFull = Banner & {
   characters: Expanded<Character, 'created_by' | 'updated_by'>[];
   weapons: Expanded<Weapon, 'created_by' | 'updated_by'>[];
-}
+};
 
 @Component({
   selector: 'app-database-banners',
@@ -47,42 +47,44 @@ export class DatabaseBannersComponent {
       .trim()
       .toLowerCase();
 
-    return this.banners().filter((banner) => {
-      if (isChosen(version) && banner.version !== version) {
-        return false;
-      }
-      if (characterName && !(banner.characters ?? []).some((character: any) => matchesTerm(character.name, characterName))) {
-        return false;
-      }
-      if (weaponName && !(banner.weapons ?? []).some((weapon: any) => matchesTerm(weapon.name, weaponName))) {
-        return false;
-      }
-      return true;
-    }).sort((a, b) => {
-      // 1. Version descending
-      const versionDiff = compareVersionsDesc(a.version, b.version);
+    return this.banners()
+      .filter((banner) => {
+        if (isChosen(version) && banner.version !== version) {
+          return false;
+        }
+        if (characterName && !(banner.characters ?? []).some((character: any) => matchesTerm(character.name, characterName))) {
+          return false;
+        }
+        if (weaponName && !(banner.weapons ?? []).some((weapon: any) => matchesTerm(weapon.name, weaponName))) {
+          return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        // 1. Version descending
+        const versionDiff = compareVersionsDesc(a.version, b.version);
 
-      if (versionDiff !== 0) {
-        return versionDiff;
-      }
+        if (versionDiff !== 0) {
+          return versionDiff;
+        }
 
-      // 2. duration_from ascending
-      const durationDiff = a.duration_from.localeCompare(b.duration_from);
+        // 2. duration_from ascending
+        const durationDiff = a.duration_from.localeCompare(b.duration_from);
 
-      if (durationDiff !== 0) {
-        return durationDiff;
-      }
+        if (durationDiff !== 0) {
+          return durationDiff;
+        }
 
-      // 3. Objects with weapons go to the end
-      const aHasWeapons = a.weapons?.length > 0;
-      const bHasWeapons = b.weapons?.length > 0;
+        // 3. Objects with weapons go to the end
+        const aHasWeapons = a.weapons?.length > 0;
+        const bHasWeapons = b.weapons?.length > 0;
 
-      if (aHasWeapons !== bHasWeapons) {
-        return aHasWeapons ? 1 : -1;
-      }
+        if (aHasWeapons !== bHasWeapons) {
+          return aHasWeapons ? 1 : -1;
+        }
 
-      return 0;
-    });
+        return 0;
+      });
   });
 
   readonly optionsHelperService = inject(OptionsHelperService);
@@ -133,7 +135,7 @@ export class DatabaseBannersComponent {
               localBanners[index].weapons.push(weaponById);
             }
           });
-          banner
+          banner;
         });
 
         this.banners.set(localBanners);

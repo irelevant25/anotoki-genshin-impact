@@ -39,7 +39,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
       .replace(/<([a-z][a-z0-9]*)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
       .replace(/<[^>]*>/g, ' ')
       .replace(/\s+/g, ' ')
-      .trim()
+      .trim(),
   );
   readonly audioUrl = computed(() => this.voiceOver()?.audio_english ?? '');
 

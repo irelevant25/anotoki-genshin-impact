@@ -2,7 +2,7 @@
     @for (phase of phases(); track phase.uid; let i = $index) {
         <div class="sub-card">
             <div class="sub-card-header">
-                <span class="sub-card-index">Phase {{ i + 1 }} · {{ phase.data.title || 'Untitled' }}</span>
+                <span class="sub-card-index">Phase {{ i + 1 }} · {{ phase.data.title || "Untitled" }}</span>
                 <button anotokiButton variant="danger" (click)="removePhase(phase)">Delete</button>
             </div>
 
@@ -12,27 +12,9 @@
             </app-field-container>
 
             <app-field-container [cols]="4">
-                <app-dropdown
-                    [label]="'Type'"
-                    [options]="enemyTypes()"
-                    [(value)]="phase.data.living_being_type"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— none —'"
-                ></app-dropdown>
-                <app-dropdown
-                    [label]="'Family'"
-                    [options]="enemyFamilies()"
-                    [(value)]="phase.data.living_being_family"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— none —'"
-                ></app-dropdown>
-                <app-dropdown
-                    [label]="'Group'"
-                    [options]="enemyGroups()"
-                    [(value)]="phase.data.living_being_group"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— none —'"
-                ></app-dropdown>
+                <app-dropdown [label]="'Type'" [options]="enemyTypes()" [(value)]="phase.data.living_being_type" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+                <app-dropdown [label]="'Family'" [options]="enemyFamilies()" [(value)]="phase.data.living_being_family" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+                <app-dropdown [label]="'Group'" [options]="enemyGroups()" [(value)]="phase.data.living_being_group" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
                 <app-checkbox [label]="'Has Weakpoint'" [inline]="false" [(value)]="phase.data.has_weakpoint"></app-checkbox>
             </app-field-container>
 
@@ -45,8 +27,7 @@
                         [name]="imageName(phase, image.field)"
                         [pending]="phase.pending[image.field]"
                         (picked)="onPicked(phase, image.field, $event)"
-                        (cleared)="onCleared(phase, image.field)"
-                    />
+                        (cleared)="onCleared(phase, image.field)" />
                 }
             </app-field-container>
 

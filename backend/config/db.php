@@ -108,9 +108,7 @@ function getDb(): PDO
         // request died inside, and inheriting one is far worse than the round
         // trip this costs. Postgres warns rather than errors when there is
         // nothing to roll back, and both statements travel together.
-        $pdo->exec($persistent
-            ? "ROLLBACK; SET NAMES '{$config['charset']}'"
-            : "SET NAMES '{$config['charset']}'");
+        $pdo->exec($persistent ? "ROLLBACK; SET NAMES '{$config['charset']}'" : "SET NAMES '{$config['charset']}'");
     }
 
     return $pdo;

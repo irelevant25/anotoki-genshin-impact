@@ -41,17 +41,27 @@ echo "The library's translations set comes after the site's two folders\n";
 
 same('the sets, in the order they run', ['anotoki_admin', 'users', 'genshin_impact', 'anotoki_translations', 'anotoki_people'], migrationSetNames());
 $sets = migrationSets();
-same('the engine is given all five', ['anotoki_admin', 'users', 'genshin_impact', 'anotoki_translations', 'anotoki_people'], array_map(fn ($set) => $set->name, $sets));
+same('the engine is given all five', ['anotoki_admin', 'users', 'genshin_impact', 'anotoki_translations', 'anotoki_people'], array_map(fn($set) => $set->name, $sets));
 check('the fourth is the library\'s, from vendor/', $sets[3]->library && str_contains(str_replace('\\', '/', $sets[3]->directory), '/vendor/anotoki/lib/'));
-same('--folder=anotoki_translations is the library\'s set alone', ['anotoki_translations'], array_map(fn ($set) => $set->name, migrationSets('anotoki_translations')));
-same('a folder of the site\'s own is still itself alone (merge-databases.php)', ['users'], array_map(fn ($set) => $set->name, migrationSets('users')));
+same('--folder=anotoki_translations is the library\'s set alone', ['anotoki_translations'], array_map(fn($set) => $set->name, migrationSets('anotoki_translations')));
+same('a folder of the site\'s own is still itself alone (merge-databases.php)', ['users'], array_map(fn($set) => $set->name, migrationSets('users')));
 
-$recorded = fn (array $users, array $genshin, array $library) => ['anotoki_admin' => ['001_audit_log.sql'], 'users' => $users, 'genshin_impact' => $genshin, 'anotoki_translations' => $library, 'anotoki_people' => []];
+$recorded = fn(array $users, array $genshin, array $library) => [
+    'anotoki_admin' => ['001_audit_log.sql'],
+    'users' => $users,
+    'genshin_impact' => $genshin,
+    'anotoki_translations' => $library,
+    'anotoki_people' => [],
+];
 same('all three applied: in order', null, migrationsOrderRefusal($recorded(['001.sql'], ['001.sql'], ['001_languages_and_strings.sql'])));
 same('the folders applied, the library\'s waiting: in order', null, migrationsOrderRefusal($recorded(['001.sql'], ['001.sql'], [])));
 same('a fresh database: in order', null, migrationsOrderRefusal(array_fill_keys(migrationSetNames(), [])));
 $refusal = migrationsOrderRefusal($recorded([], [], ['001_languages_and_strings.sql']));
-check('the library\'s set recorded before users/: refused, naming both', $refusal !== null && str_contains($refusal, "the anotoki library's anotoki_translations") && str_contains($refusal, 'migrations/users/'), (string) $refusal);
+check(
+    'the library\'s set recorded before users/: refused, naming both',
+    $refusal !== null && str_contains($refusal, "the anotoki library's anotoki_translations") && str_contains($refusal, 'migrations/users/'),
+    (string) $refusal,
+);
 $refusal = migrationsOrderRefusal($recorded(['001.sql'], [], []), 'anotoki_translations');
 check('--folder=anotoki_translations before genshin_impact/ has run: refused', $refusal !== null && str_contains($refusal, 'migrations/genshin_impact/ comes before'), (string) $refusal);
 $refusal = migrationsOrderRefusal($recorded([], ['001.sql'], []));
@@ -69,9 +79,18 @@ echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n"
 // and the inputs' words), 010-011 (the Privacy page's sentences made true) and
 // 012 (the family's footer's words).
 const LIBRARY_WORDS_FILES = [
-    '001_languages_and_strings.sql', '002_library_words.sql', '003_sign_in_words.sql', '004_feedback_words.sql',
-    '005_legal_words.sql', '006_top_bar_words.sql', '007_kit_piece_words.sql', '008_tab_words.sql', '009_input_words.sql',
-    '010_backups_where_words.sql', '011_privacy_words_made_true.sql', '012_footer_words.sql',
+    '001_languages_and_strings.sql',
+    '002_library_words.sql',
+    '003_sign_in_words.sql',
+    '004_feedback_words.sql',
+    '005_legal_words.sql',
+    '006_top_bar_words.sql',
+    '007_kit_piece_words.sql',
+    '008_tab_words.sql',
+    '009_input_words.sql',
+    '010_backups_where_words.sql',
+    '011_privacy_words_made_true.sql',
+    '012_footer_words.sql',
 ];
 
 // Everything after users/049 and genshin_impact/027 came with this release or
@@ -81,17 +100,30 @@ const LIBRARY_WORDS_FILES = [
 // summaries gone) with the library's words 005-012, and users/057 (the
 // public footer's words), which one Apply brings along.
 const WORDS_AND_AFTER = [
-    'anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql',
-    'users/050_translations_into_the_library.sql', 'users/051_guide_strings.sql', 'users/052_people.sql',
-    'users/053_drop_old_feedback_and_callback_strings.sql', 'users/054_visitor_starts_hashed.sql',
-    'users/055_legal_pages.sql', 'users/056_drop_multiselect_selected_strings.sql', 'users/057_public_footer_strings.sql',
-    'genshin_impact/028_audit_into_library.sql', 'genshin_impact/029_feedback_into_library.sql',
-    'anotoki_translations/001_languages_and_strings.sql', 'anotoki_translations/002_library_words.sql',
-    'anotoki_translations/003_sign_in_words.sql', 'anotoki_translations/004_feedback_words.sql',
-    'anotoki_translations/005_legal_words.sql', 'anotoki_translations/006_top_bar_words.sql',
-    'anotoki_translations/007_kit_piece_words.sql', 'anotoki_translations/008_tab_words.sql',
-    'anotoki_translations/009_input_words.sql', 'anotoki_translations/010_backups_where_words.sql',
-    'anotoki_translations/011_privacy_words_made_true.sql', 'anotoki_translations/012_footer_words.sql',
+    'anotoki_admin/001_audit_log.sql',
+    'anotoki_admin/002_feedback.sql',
+    'users/050_translations_into_the_library.sql',
+    'users/051_guide_strings.sql',
+    'users/052_people.sql',
+    'users/053_drop_old_feedback_and_callback_strings.sql',
+    'users/054_visitor_starts_hashed.sql',
+    'users/055_legal_pages.sql',
+    'users/056_drop_multiselect_selected_strings.sql',
+    'users/057_public_footer_strings.sql',
+    'genshin_impact/028_audit_into_library.sql',
+    'genshin_impact/029_feedback_into_library.sql',
+    'anotoki_translations/001_languages_and_strings.sql',
+    'anotoki_translations/002_library_words.sql',
+    'anotoki_translations/003_sign_in_words.sql',
+    'anotoki_translations/004_feedback_words.sql',
+    'anotoki_translations/005_legal_words.sql',
+    'anotoki_translations/006_top_bar_words.sql',
+    'anotoki_translations/007_kit_piece_words.sql',
+    'anotoki_translations/008_tab_words.sql',
+    'anotoki_translations/009_input_words.sql',
+    'anotoki_translations/010_backups_where_words.sql',
+    'anotoki_translations/011_privacy_words_made_true.sql',
+    'anotoki_translations/012_footer_words.sql',
     'anotoki_people/001_people.sql',
 ];
 
@@ -107,27 +139,64 @@ const FOOTER_GONE_KEYS = ['footer.backgrounds', 'footer.github'];
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
 const OLD_FORM_KEYS = [
-    'auth.callback.back', 'auth.callback.cancelled', 'auth.callback.code', 'auth.callback.expired', 'auth.callback.failed',
-    'auth.callback.retry', 'auth.callback.title', 'common.cancel', 'common.submit',
-    'feedback.actual', 'feedback.actualPlaceholder', 'feedback.additional', 'feedback.additionalPlaceholder', 'feedback.anonymous',
-    'feedback.anonymousNote', 'feedback.details', 'feedback.detailsPlaceholder', 'feedback.emailHelp', 'feedback.emailOptional',
-    'feedback.emailPlaceholder', 'feedback.failed', 'feedback.incomplete', 'feedback.message', 'feedback.messagePlaceholder',
-    'feedback.section', 'feedback.sectionPlaceholder', 'feedback.sending', 'feedback.stepsPlaceholder', 'feedback.subject',
-    'feedback.subjectPlaceholder', 'feedback.thanks', 'feedback.title', 'feedback.type', 'feedback.typeBug', 'feedback.typeOther',
+    'auth.callback.back',
+    'auth.callback.cancelled',
+    'auth.callback.code',
+    'auth.callback.expired',
+    'auth.callback.failed',
+    'auth.callback.retry',
+    'auth.callback.title',
+    'common.cancel',
+    'common.submit',
+    'feedback.actual',
+    'feedback.actualPlaceholder',
+    'feedback.additional',
+    'feedback.additionalPlaceholder',
+    'feedback.anonymous',
+    'feedback.anonymousNote',
+    'feedback.details',
+    'feedback.detailsPlaceholder',
+    'feedback.emailHelp',
+    'feedback.emailOptional',
+    'feedback.emailPlaceholder',
+    'feedback.failed',
+    'feedback.incomplete',
+    'feedback.message',
+    'feedback.messagePlaceholder',
+    'feedback.section',
+    'feedback.sectionPlaceholder',
+    'feedback.sending',
+    'feedback.stepsPlaceholder',
+    'feedback.subject',
+    'feedback.subjectPlaceholder',
+    'feedback.thanks',
+    'feedback.title',
+    'feedback.type',
+    'feedback.typeBug',
+    'feedback.typeOther',
     'feedback.typeSuggestion',
 ];
 // ...and the keys of the same namespaces the pages still read, which it keeps.
 const STILL_READ_KEYS = [
-    'feedback.steps', 'feedback.expected', 'feedback.expectedPlaceholder', 'feedback.browser', 'feedback.browserPlaceholder',
-    'feedback.whyImportant', 'feedback.whyImportantPlaceholder', 'footer.feedback', 'common.close', 'common.signIn',
-    'auth.startFailed', 'auth.unavailable',
+    'feedback.steps',
+    'feedback.expected',
+    'feedback.expectedPlaceholder',
+    'feedback.browser',
+    'feedback.browserPlaceholder',
+    'feedback.whyImportant',
+    'feedback.whyImportantPlaceholder',
+    'footer.feedback',
+    'common.close',
+    'common.signIn',
+    'auth.startFailed',
+    'auth.unavailable',
 ];
 
 $base = testDatabase('words_base');
 $pdo = testPdo($base);
 $built = testMigrate($pdo, ['users' => '049_drop_not_set_up_strings.sql', 'genshin_impact' => '027_visitor_history_index.sql']);
 check('built by the site\'s engine', $built['error'] === null, (string) $built['error']);
-same('the words wait: users/050 and 051, the library\'s sets, and what came after', WORDS_AND_AFTER, array_map(fn ($file) => $file['set'] . '/' . $file['name'], siteMigrator($pdo)->applicable()));
+same('the words wait: users/050 and 051, the library\'s sets, and what came after', WORDS_AND_AFTER, array_map(fn($file) => $file['set'] . '/' . $file['name'], siteMigrator($pdo)->applicable()));
 
 // What the old admin panel did to a string: the value, who; the trigger stamps the time. The key was stamped too.
 $pdo->exec("INSERT INTO users (id, username, email) VALUES (7, 'Owner', 'owner@example.test')");
@@ -168,7 +237,7 @@ echo "Apply, as the Migrations page does\n";
 
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
-same('what was applied, in order', WORDS_AND_AFTER, array_map(fn ($file) => $file['set'] . '/' . $file['name'], $result['applied']));
+same('what was applied, in order', WORDS_AND_AFTER, array_map(fn($file) => $file['set'] . '/' . $file['name'], $result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
 same('the library\'s files are recorded under its own name', LIBRARY_WORDS_FILES, recordedMigrations($pdo)['anotoki_translations']);
 
@@ -203,9 +272,7 @@ foreach ($before as $row) {
         continue;
     }
     $guide = $guides[$key] ?? null;
-    $now = preg_match('/^guide\.[^.]+\.content$/', $row['key_name']) === 1
-        ? ($guide === null ? null : ['value' => $guide['html']] + $guide)
-        : ($strings[$key] ?? null);
+    $now = preg_match('/^guide\.[^.]+\.content$/', $row['key_name']) === 1 ? ($guide === null ? null : ['value' => $guide['html']] + $guide) : $strings[$key] ?? null;
     if ($now === null || $now['value'] !== $row['value'] || (string) $now['updated_by'] !== (string) $row['updated_by'] || $now['stamp'] !== $row['stamp']) {
         $lost[] = $key;
     }
@@ -218,76 +285,170 @@ same('the three blanks are gone', 3, $blank);
 // four (the footer's); 010 and 011 reword only.
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 261 of them', 261, $libraryKeys);
-$guideBodies = count(array_filter(array_keys($keysBefore), fn ($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-same('and nothing else but 051\'s one key, 055\'s and 057\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept', count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 261, (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn());
+$guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
+same(
+    'and nothing else but 051\'s one key, 055\'s and 057\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept',
+    count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 261,
+    (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
+);
 $inList = "'" . implode("', '", MULTISELECT_SUMMARY_KEYS) . "'";
-same('056: the multiselect\'s four old summaries, all there before, gone - with every string under one', [4, 0, 0], [
-    count(array_intersect(MULTISELECT_SUMMARY_KEYS, array_keys($keysBefore))),
-    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
-]);
-same('...multiselect.more.* kept, which the field still reads', 0, count(array_diff(
-    array_values(array_filter(array_keys($keysBefore), fn ($key) => str_starts_with($key, 'multiselect.more.'))),
-    $pdo->query("SELECT name FROM translation_keys WHERE name LIKE 'multiselect.more.%'")->fetchAll(PDO::FETCH_COLUMN),
-)));
-same('055: the legal pages\' facts and the footer\'s fan line, in English and Slovak', [LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS], [
-    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'legal.%' OR name = 'footer.fanDisclaimer'")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
-]);
+same(
+    '056: the multiselect\'s four old summaries, all there before, gone - with every string under one',
+    [4, 0, 0],
+    [
+        count(array_intersect(MULTISELECT_SUMMARY_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+same(
+    '...multiselect.more.* kept, which the field still reads',
+    0,
+    count(
+        array_diff(
+            array_values(array_filter(array_keys($keysBefore), fn($key) => str_starts_with($key, 'multiselect.more.'))),
+            $pdo->query("SELECT name FROM translation_keys WHERE name LIKE 'multiselect.more.%'")->fetchAll(PDO::FETCH_COLUMN),
+        ),
+    ),
+);
+same(
+    '055: the legal pages\' facts and the footer\'s fan line, in English and Slovak',
+    [LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS],
+    [
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'legal.%' OR name = 'footer.fanDisclaimer'")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
+    ],
+);
 $inList = "'" . implode("', '", FOOTER_GONE_KEYS) . "'";
-same('057: the footer\'s GitHub and Backgrounds items, both there before, gone - with every string under them', [count(FOOTER_GONE_KEYS), 0, 0], [
-    count(array_intersect(FOOTER_GONE_KEYS, array_keys($keysBefore))),
-    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
-]);
-same('...the footer\'s What\'s new and the account panel\'s Background, in English and Slovak', ["What's new", 'Čo je nové', 'Background', 'Pozadie'], [
-    $strings['footer.whatsNew|en']['value'] ?? null,
-    $strings['footer.whatsNew|sk']['value'] ?? null,
-    $strings['account.background|en']['value'] ?? null,
-    $strings['account.background|sk']['value'] ?? null,
-]);
+same(
+    '057: the footer\'s GitHub and Backgrounds items, both there before, gone - with every string under them',
+    [count(FOOTER_GONE_KEYS), 0, 0],
+    [
+        count(array_intersect(FOOTER_GONE_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+same(
+    '...the footer\'s What\'s new and the account panel\'s Background, in English and Slovak',
+    ["What's new", 'Čo je nové', 'Background', 'Pozadie'],
+    [
+        $strings['footer.whatsNew|en']['value'] ?? null,
+        $strings['footer.whatsNew|sk']['value'] ?? null,
+        $strings['account.background|en']['value'] ?? null,
+        $strings['account.background|sk']['value'] ?? null,
+    ],
+);
 same('...and the footer\'s Feedback alone, where users/004\'s "Feedback/Contact" stood', 'Feedback', $strings['footer.feedback|en']['value'] ?? null);
 
 $inList = "'" . implode("', '", OLD_FORM_KEYS) . "'";
-same('053: the old feedback form\'s and callback page\'s keys, all there before, gone - with every string under one, in every language', [count(OLD_FORM_KEYS), 0, 0], [
-    count(array_intersect(OLD_FORM_KEYS, array_keys($keysBefore))),
-    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
-]);
-same('...and every key of their namespaces the pages still read, kept', STILL_READ_KEYS, array_values(array_intersect(STILL_READ_KEYS, $pdo->query('SELECT name FROM translation_keys')->fetchAll(PDO::FETCH_COLUMN))));
+same(
+    '053: the old feedback form\'s and callback page\'s keys, all there before, gone - with every string under one, in every language',
+    [count(OLD_FORM_KEYS), 0, 0],
+    [
+        count(array_intersect(OLD_FORM_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+same(
+    '...and every key of their namespaces the pages still read, kept',
+    STILL_READ_KEYS,
+    array_values(array_intersect(STILL_READ_KEYS, $pdo->query('SELECT name FROM translation_keys')->fetchAll(PDO::FETCH_COLUMN))),
+);
 
 same('the owner\'s English rewording, and who made it', ["Today's pair", 7], [$strings['nav.daily|en']['value'], (int) $strings['nav.daily|en']['updated_by']]);
 same('the owner\'s Slovak rewording', 'Dnešná dvojica', $strings['nav.daily|sk']['value']);
 check('the Slovak string cleared in the grid stays cleared (reads the English)', !isset($strings['footer.feedback|sk']));
 same('the hidden language\'s string', 'Täglich', $strings['nav.daily|de']['value'] ?? null);
-same('the owner\'s guide in Slovak, and who wrote it', ["<h4>Môj návod</h4>\n<p>Slová majiteľa.</p>", 7], [$guides['guide.daily.content|sk']['html'] ?? null, (int) ($guides['guide.daily.content|sk']['updated_by'] ?? 0)]);
+same(
+    'the owner\'s guide in Slovak, and who wrote it',
+    ["<h4>Môj návod</h4>\n<p>Slová majiteľa.</p>", 7],
+    [$guides['guide.daily.content|sk']['html'] ?? null, (int) ($guides['guide.daily.content|sk']['updated_by'] ?? 0)],
+);
 check('the hidden language\'s guide', ($guides['guide.daily.content|de']['html'] ?? null) === '<p>Täglich</p>');
-check('the guide cleared in Slovak, and the one blanked, read the English', !isset($guides['guide.dish.content|sk']) && !isset($guides['guide.voice.content|sk']) && isset($guides['guide.voice.content|en']));
+check(
+    'the guide cleared in Slovak, and the one blanked, read the English',
+    !isset($guides['guide.dish.content|sk']) && !isset($guides['guide.voice.content|sk']) && isset($guides['guide.voice.content|en']),
+);
 same('every guide has its English', 11, (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'en'")->fetchColumn());
 check('the minesweeper\'s 2,154 characters, whole', mb_strlen($guides['guide.minesweeper.content|en']['html'] ?? '') > 2000);
-same('no guide\'s body is a key any more; the titles are', [0, 11], [(int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.content'")->fetchColumn(), (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.title'")->fetchColumn()]);
+same(
+    'no guide\'s body is a key any more; the titles are',
+    [0, 11],
+    [
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.content'")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.title'")->fetchColumn(),
+    ],
+);
 check('the key flagged as markup by mistake is still a string', isset($strings['notFound.text|en']));
-same('the key made in the panel, and its description', ['Extra', 'Made in the panel'], [$strings['nav.extra|en']['value'] ?? null, $pdo->query("SELECT description FROM translation_keys WHERE name = 'nav.extra'")->fetchColumn()]);
+same(
+    'the key made in the panel, and its description',
+    ['Extra', 'Made in the panel'],
+    [$strings['nav.extra|en']['value'] ?? null, $pdo->query("SELECT description FROM translation_keys WHERE name = 'nav.extra'")->fetchColumn()],
+);
 check('the Star Rail key is this site\'s now, like every key', isset($strings['nav.starRail|en']));
 same('the description edited in the panel, kept', 'Edited by the owner', $pdo->query("SELECT description FROM translation_keys WHERE name = 'nav.games'")->fetchColumn());
 check('the key whose English was cleared: still without it, its Slovak kept', !isset($strings['nav.quizzes|en']) && isset($strings['nav.quizzes|sk']));
-same('051: the guide that cannot be had, in English and Slovak', ['This guide could not be loaded. Close it and try again.', 'Tento návod sa nepodarilo načítať. Zavri ho a skús to znova.'], [$strings['guide.loadFailed|en']['value'] ?? null, $strings['guide.loadFailed|sk']['value'] ?? null]);
-same('the library\'s words, in both languages', ['Language: {name} ({code})', 'Jazyk: {name} ({code})'], [$strings['anotoki.language.button|en']['value'] ?? null, $strings['anotoki.language.button|sk']['value'] ?? null]);
+same(
+    '051: the guide that cannot be had, in English and Slovak',
+    ['This guide could not be loaded. Close it and try again.', 'Tento návod sa nepodarilo načítať. Zavri ho a skús to znova.'],
+    [$strings['guide.loadFailed|en']['value'] ?? null, $strings['guide.loadFailed|sk']['value'] ?? null],
+);
+same(
+    'the library\'s words, in both languages',
+    ['Language: {name} ({code})', 'Jazyk: {name} ({code})'],
+    [$strings['anotoki.language.button|en']['value'] ?? null, $strings['anotoki.language.button|sk']['value'] ?? null],
+);
 
 echo "The library's shape\n";
 
 $columns = [];
-foreach ($pdo->query("SELECT table_name, column_name, data_type, is_nullable FROM information_schema.columns WHERE table_schema = current_schema() AND table_name IN ('languages', 'translation_keys', 'translations', 'guide_contents') ORDER BY table_name, ordinal_position")->fetchAll() as $row) {
+foreach (
+    $pdo
+        ->query(
+            "SELECT table_name, column_name, data_type, is_nullable FROM information_schema.columns WHERE table_schema = current_schema() AND table_name IN ('languages', 'translation_keys', 'translations', 'guide_contents') ORDER BY table_name, ordinal_position",
+        )
+        ->fetchAll()
+    as $row
+) {
     $columns[$row['table_name']][] = $row['column_name'] . ' ' . $row['data_type'] . ($row['is_nullable'] === 'NO' ? ' not null' : '');
 }
-same('languages', ['name character varying not null', 'code character varying not null', 'native_name character varying not null', 'enabled boolean not null', 'sort_order integer not null'], $columns['languages']);
+same(
+    'languages',
+    ['name character varying not null', 'code character varying not null', 'native_name character varying not null', 'enabled boolean not null', 'sort_order integer not null'],
+    $columns['languages'],
+);
 same('translation_keys', ['name character varying not null', 'description text', 'created_at timestamp with time zone not null'], $columns['translation_keys']);
-same('translations', ['key_name character varying not null', 'language_code character varying not null', 'value text not null', 'updated_at timestamp with time zone not null', 'updated_by integer'], $columns['translations']);
-same('guide_contents', ['guide character varying not null', 'language_code character varying not null', 'html text not null', 'updated_at timestamp with time zone not null', 'updated_by integer'], $columns['guide_contents']);
-same('languages is keyed by its code', 'PRIMARY KEY (code)', $pdo->query("SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conrelid = 'languages'::regclass AND contype = 'p'")->fetchColumn());
-same('the hidden language kept its place and its switch', ['German', 'Deutsch', 'hidden', 3], array_values($pdo->query("SELECT name, native_name, CASE WHEN enabled THEN 'offered' ELSE 'hidden' END, sort_order FROM languages WHERE code = 'de'")->fetch()));
-same('no scope table, no trigger on the words', [false, 0], [(bool) $pdo->query("SELECT to_regclass('sites') IS NOT NULL")->fetchColumn(), (int) $pdo->query("SELECT count(*) FROM pg_trigger WHERE NOT tgisinternal AND tgrelid IN ('languages'::regclass, 'translation_keys'::regclass, 'translations'::regclass)")->fetchColumn()]);
+same(
+    'translations',
+    ['key_name character varying not null', 'language_code character varying not null', 'value text not null', 'updated_at timestamp with time zone not null', 'updated_by integer'],
+    $columns['translations'],
+);
+same(
+    'guide_contents',
+    ['guide character varying not null', 'language_code character varying not null', 'html text not null', 'updated_at timestamp with time zone not null', 'updated_by integer'],
+    $columns['guide_contents'],
+);
+same(
+    'languages is keyed by its code',
+    'PRIMARY KEY (code)',
+    $pdo->query("SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conrelid = 'languages'::regclass AND contype = 'p'")->fetchColumn(),
+);
+same(
+    'the hidden language kept its place and its switch',
+    ['German', 'Deutsch', 'hidden', 3],
+    array_values($pdo->query("SELECT name, native_name, CASE WHEN enabled THEN 'offered' ELSE 'hidden' END, sort_order FROM languages WHERE code = 'de'")->fetch()),
+);
+same(
+    'no scope table, no trigger on the words',
+    [false, 0],
+    [
+        (bool) $pdo->query("SELECT to_regclass('sites') IS NOT NULL")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM pg_trigger WHERE NOT tgisinternal AND tgrelid IN ('languages'::regclass, 'translation_keys'::regclass, 'translations'::regclass)")->fetchColumn(),
+    ],
+);
 
 $refused = static function (PDO $pdo, string $sql, string $code): string {
     try {
@@ -299,16 +460,30 @@ $refused = static function (PDO $pdo, string $sql, string $code): string {
 };
 same('an empty string can no longer be stored', 'refused', $refused($pdo, "INSERT INTO translations (key_name, language_code, value) VALUES ('nav.games', 'de', '')", '23514'));
 same('a code that is no code cannot become a language', 'refused', $refused($pdo, "INSERT INTO languages (code, name, native_name) VALUES ('EN_gb', 'Odd', 'Odd')", '23514'));
-same('deleting a language takes its guides with it', 0, (function () use ($pdo): int {
-    $pdo->exec("DELETE FROM languages WHERE code = 'de'");
-    return (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'de'")->fetchColumn();
-})());
+same(
+    'deleting a language takes its guides with it',
+    0,
+    (function () use ($pdo): int {
+        $pdo->exec("DELETE FROM languages WHERE code = 'de'");
+        return (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'de'")->fetchColumn();
+    })(),
+);
 
 echo "The copies, for one release\n";
 
 same('translations_before_library: every string as it was, blanks and guides included', count($before), (int) $pdo->query('SELECT count(*) FROM translations_before_library')->fetchColumn());
 same('translation_keys_before_library: every key, with its scope and flag', count($keysBefore), (int) $pdo->query('SELECT count(*) FROM translation_keys_before_library')->fetchColumn());
-same('...the Star Rail scope and the mistaken flag among them', ['star_rail', 'flagged'], array_values($pdo->query("SELECT (SELECT site FROM translation_keys_before_library WHERE name = 'nav.starRail'), (SELECT CASE WHEN is_html THEN 'flagged' END FROM translation_keys_before_library WHERE name = 'notFound.text')")->fetch()));
+same(
+    '...the Star Rail scope and the mistaken flag among them',
+    ['star_rail', 'flagged'],
+    array_values(
+        $pdo
+            ->query(
+                "SELECT (SELECT site FROM translation_keys_before_library WHERE name = 'nav.starRail'), (SELECT CASE WHEN is_html THEN 'flagged' END FROM translation_keys_before_library WHERE name = 'notFound.text')",
+            )
+            ->fetch(),
+    ),
+);
 $pdo = null;
 
 // ── The footer's Feedback, reworded by its owner ────────────────────────────
@@ -332,14 +507,30 @@ $odd = testDatabase('words_odd', $base);
 $pdo = testPdo($odd);
 $pdo->exec("INSERT INTO languages (name, code, native_name) VALUES ('Klingon', 'tlh', 'tlhIngan Hol')");
 $result = siteMigrator($pdo)->apply();
-check('a language code that is no code: 050 fails, saying which', ($result['failed']['name'] ?? '') === '050_translations_into_the_library.sql' && str_contains((string) $result['error'], "'tlh'"), (string) $result['error']);
-check('...and nothing of it is applied: the old shape stands, no copy was kept', (bool) $pdo->query("SELECT 1 FROM information_schema.columns WHERE table_name = 'translation_keys' AND column_name = 'site'")->fetchColumn() && !$pdo->query("SELECT to_regclass('translations_before_library') IS NOT NULL")->fetchColumn());
-same('...nor anything after it - only the library\'s admin set, which runs first', ['anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql'], array_map(fn ($file) => $file['set'] . '/' . $file['name'], $result['applied']));
+check(
+    'a language code that is no code: 050 fails, saying which',
+    ($result['failed']['name'] ?? '') === '050_translations_into_the_library.sql' && str_contains((string) $result['error'], "'tlh'"),
+    (string) $result['error'],
+);
+check(
+    '...and nothing of it is applied: the old shape stands, no copy was kept',
+    (bool) $pdo->query("SELECT 1 FROM information_schema.columns WHERE table_name = 'translation_keys' AND column_name = 'site'")->fetchColumn() &&
+        !$pdo->query("SELECT to_regclass('translations_before_library') IS NOT NULL")->fetchColumn(),
+);
+same(
+    '...nor anything after it - only the library\'s admin set, which runs first',
+    ['anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql'],
+    array_map(fn($file) => $file['set'] . '/' . $file['name'], $result['applied']),
+);
 $pdo = null;
 
 $referring = testDatabase('words_ref', $base);
 $pdo = testPdo($referring);
 $pdo->exec('CREATE TABLE notes (id SERIAL PRIMARY KEY, language_code VARCHAR(10) REFERENCES languages (code))');
 $result = siteMigrator($pdo)->apply();
-check('a table that refers to the languages besides the strings: 050 fails, naming it', ($result['failed']['name'] ?? '') === '050_translations_into_the_library.sql' && str_contains((string) $result['error'], 'notes'), (string) $result['error']);
+check(
+    'a table that refers to the languages besides the strings: 050 fails, naming it',
+    ($result['failed']['name'] ?? '') === '050_translations_into_the_library.sql' && str_contains((string) $result['error'], 'notes'),
+    (string) $result['error'],
+);
 $pdo = null;

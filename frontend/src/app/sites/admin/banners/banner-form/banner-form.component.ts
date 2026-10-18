@@ -29,14 +29,19 @@ interface FeaturedWrapper {
   selector: 'app-banner-form',
   templateUrl: './banner-form.component.html',
   styleUrls: ['./banner-form.component.scss'],
-  imports: [PageHeaderComponent, IconComponent, SpinnerComponent, TooltipDirective, 
+  imports: [
+    PageHeaderComponent,
+    IconComponent,
+    SpinnerComponent,
+    TooltipDirective,
     RouterLink,
     ButtonComponent,
     TextComponent,
     CalendarComponent,
     DropdownComponent,
     FieldContainerComponent,
-    EntityImageComponent],
+    EntityImageComponent,
+  ],
 })
 export class BannerFormComponent extends AdminFormComponent<BannerFull> implements OnInit {
   readonly entityLabel = 'Banner';
@@ -70,11 +75,9 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
         this.characterOptions.set(
           (result.characters ?? [])
             .map((entry: any) => ({ key: entry.id, value: `${entry.name}${entry.element ? ' (' + entry.element + ')' : ''}` }))
-            .sort((a, b) => String(a.value).localeCompare(String(b.value)))
+            .sort((a, b) => String(a.value).localeCompare(String(b.value))),
         );
-        this.weaponOptions.set(
-          (result.weapons ?? []).map((entry: any) => ({ key: entry.id, value: entry.name })).sort((a, b) => String(a.value).localeCompare(String(b.value)))
-        );
+        this.weaponOptions.set((result.weapons ?? []).map((entry: any) => ({ key: entry.id, value: entry.name })).sort((a, b) => String(a.value).localeCompare(String(b.value))));
         this.loadingLookups.set(false);
       },
       error: () => {
@@ -98,9 +101,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
 
   protected applyLoaded(data: BannerFull): void {
     this.banner.set(data.banner);
-    this.characters.set(
-      [...(data.characters ?? [])].sort((a, b) => a.order - b.order).map((entry) => ({ uid: createUid(), id: entry.character_id, order: entry.order }))
-    );
+    this.characters.set([...(data.characters ?? [])].sort((a, b) => a.order - b.order).map((entry) => ({ uid: createUid(), id: entry.character_id, order: entry.order })));
     this.weapons.set([...(data.weapons ?? [])].sort((a, b) => a.order - b.order).map((entry) => ({ uid: createUid(), id: entry.weapon_id, order: entry.order })));
   }
 
@@ -136,8 +137,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
         field: 'icon',
         picked,
         name: this.artName(),
-        apply: (path: string, name: string, fileId: number | null) =>
-          this.banner.update((banner) => ({ ...banner, icon: path, icon_name: name, icon_file_id: fileId })),
+        apply: (path: string, name: string, fileId: number | null) => this.banner.update((banner) => ({ ...banner, icon: path, icon_name: name, icon_file_id: fileId })),
       },
     ];
   }
@@ -180,7 +180,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
       resequence(
         remaining,
         (current) => current.order,
-        (current, order) => (current.order = order)
+        (current, order) => (current.order = order),
       );
       return remaining;
     });

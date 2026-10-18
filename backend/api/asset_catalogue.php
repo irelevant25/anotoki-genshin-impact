@@ -38,8 +38,7 @@ function catalogueRoot(): string
  */
 function catalogueCategories(PDO $pdo): array
 {
-    $categories = $pdo->query('SELECT id, code, label, path, is_system FROM file_categories WHERE deleted = FALSE')
-        ->fetchAll(PDO::FETCH_ASSOC);
+    $categories = $pdo->query('SELECT id, code, label, path, is_system FROM file_categories WHERE deleted = FALSE')->fetchAll(PDO::FETCH_ASSOC);
 
     usort($categories, fn(array $a, array $b) => strlen($b['path']) <=> strlen($a['path']));
 
@@ -83,8 +82,11 @@ function catalogueCompare(PDO $pdo): array
     $root = realpath(catalogueRoot());
 
     $known = [];
-    foreach ($pdo->query('SELECT f.id, f.name, f.extension, f.size, c.path
-                          FROM files f JOIN file_categories c ON c.id = f.category_id') as $row) {
+    foreach (
+        $pdo->query('SELECT f.id, f.name, f.extension, f.size, c.path
+                          FROM files f JOIN file_categories c ON c.id = f.category_id')
+        as $row
+    ) {
         $known[$row['path'] . '/' . $row['name'] . '.' . $row['extension']] = $row;
     }
 
@@ -98,10 +100,10 @@ function catalogueCompare(PDO $pdo): array
     // nothing about any one file, so none is called missing (`tree` false says
     // why): "every file is missing" would put the whole catalogue one click
     // from being forgotten.
-    $iterator = $root === false ? [] : new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator =
+        $root === false
+            ? []
+            : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         if ($info->isDir()) {
@@ -175,7 +177,7 @@ function catalogueCounts(PDO $pdo, bool $refresh = false): array
     // ends: what is on disk, and what the database says about it.
     $file = _catalogueCountsFile();
 
-    if (!$refresh && is_file($file) && (time() - (int) filemtime($file)) < ASSET_STATS_TTL) {
+    if (!$refresh && is_file($file) && time() - (int) filemtime($file) < ASSET_STATS_TTL) {
         $cached = json_decode((string) file_get_contents($file), true);
         if (is_array($cached) && isset($cached['on_disk'])) {
             return $cached;
@@ -204,7 +206,7 @@ function catalogueCounts(PDO $pdo, bool $refresh = false): array
 function catalogueCountsCached(): ?array
 {
     $file = _catalogueCountsFile();
-    if (!is_file($file) || (time() - (int) filemtime($file)) >= ASSET_STATS_TTL) {
+    if (!is_file($file) || time() - (int) filemtime($file) >= ASSET_STATS_TTL) {
         return null;
     }
 
@@ -293,18 +295,23 @@ function catalogueRowsAt(PDO $pdo, string $relative, bool $under = true): array
     $statement = $pdo->prepare(
         "SELECT f.id, f.category_id, f.name, f.extension, $path AS relative
            FROM files f JOIN file_categories c ON c.id = f.category_id
-          WHERE $path = ?" . ($under ? " OR left($path, ?) = ?" : '') . '
-          ORDER BY f.id'
+          WHERE $path = ?" .
+            ($under ? " OR left($path, ?) = ?" : '') .
+            '
+          ORDER BY f.id',
     );
     $statement->execute($under ? [$relative, mb_strlen($prefix, 'UTF-8'), $prefix] : [$relative]);
 
-    return array_map(static fn (array $row): array => [
-        'id' => (int) $row['id'],
-        'category_id' => (int) $row['category_id'],
-        'name' => (string) $row['name'],
-        'extension' => (string) $row['extension'],
-        'relative' => (string) $row['relative'],
-    ], $statement->fetchAll(PDO::FETCH_ASSOC));
+    return array_map(
+        static fn(array $row): array => [
+            'id' => (int) $row['id'],
+            'category_id' => (int) $row['category_id'],
+            'name' => (string) $row['name'],
+            'extension' => (string) $row['extension'],
+            'relative' => (string) $row['relative'],
+        ],
+        $statement->fetchAll(PDO::FETCH_ASSOC),
+    );
 }
 
 /**
@@ -329,27 +336,26 @@ function catalogueReferences(PDO $pdo, array $ids): array
         return [];
     }
 
-    $columns = $pdo->query(
-        "SELECT n.nspname AS schema_name, cl.relname AS table_name, a.attname AS column_name
+    $columns = $pdo
+        ->query(
+            "SELECT n.nspname AS schema_name, cl.relname AS table_name, a.attname AS column_name
            FROM pg_constraint c
            JOIN pg_class cl ON cl.oid = c.conrelid
            JOIN pg_namespace n ON n.oid = cl.relnamespace
            JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = c.conkey[1]
           WHERE c.contype = 'f' AND c.confrelid = 'files'::regclass AND cardinality(c.conkey) = 1
-          ORDER BY 2, 3"
-    )->fetchAll(PDO::FETCH_ASSOC);
+          ORDER BY 2, 3",
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
-    $quote = static fn (string $name): string => '"' . str_replace('"', '""', $name) . '"';
+    $quote = static fn(string $name): string => '"' . str_replace('"', '""', $name) . '"';
     // One parameter however many files a folder holds: an array, not a list of placeholders.
     $list = '{' . implode(',', $ids) . '}';
     $found = [];
     foreach ($columns as $column) {
-        $statement = $pdo->prepare(sprintf(
-            'SELECT count(*) FROM %s.%s WHERE %s = ANY (CAST(? AS integer[]))',
-            $quote($column['schema_name']),
-            $quote($column['table_name']),
-            $quote($column['column_name'])
-        ));
+        $statement = $pdo->prepare(
+            sprintf('SELECT count(*) FROM %s.%s WHERE %s = ANY (CAST(? AS integer[]))', $quote($column['schema_name']), $quote($column['table_name']), $quote($column['column_name'])),
+        );
         $statement->execute([$list]);
         $count = (int) $statement->fetchColumn();
         if ($count > 0) {
@@ -438,9 +444,13 @@ function catalogueMove(PDO $pdo, string $from, string $to, ?int $by = null): arr
 
     if ($moved > 0) {
         $single = count($plan) === 1 && $plan[0]['from'] === trim(str_replace('\\', '/', $from), '/');
-        auditFile($pdo, $single ? $plan[0]['id'] : 0, 'MOVE', $single
-            ? ['from' => $plan[0]['from'], 'to' => $plan[0]['to']]
-            : ['from' => trim($from, '/'), 'to' => trim($to, '/'), 'files' => $moved, 'left' => $left], $by);
+        auditFile(
+            $pdo,
+            $single ? $plan[0]['id'] : 0,
+            'MOVE',
+            $single ? ['from' => $plan[0]['from'], 'to' => $plan[0]['to']] : ['from' => trim($from, '/'), 'to' => trim($to, '/'), 'files' => $moved, 'left' => $left],
+            $by,
+        );
     }
 
     return ['moved' => $moved, 'left' => $left];
@@ -517,15 +527,19 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
         "SELECT id, extension FROM files
           WHERE category_id = :category AND name = :name
           ORDER BY CASE extension WHEN 'avif' THEN 0 WHEN 'opus' THEN 1 ELSE 2 END, id
-          LIMIT 1"
+          LIMIT 1",
     );
 
     foreach (_uploadTargets() as $entity => $spec) {
         $table = $spec['table'];
-        $hasDeleted = (int) $pdo->query(
-            "SELECT count(*) FROM information_schema.columns
-              WHERE table_name = " . $pdo->quote($table) . " AND column_name = 'deleted'"
-        )->fetchColumn();
+        $hasDeleted = (int) $pdo
+            ->query(
+                "SELECT count(*) FROM information_schema.columns
+              WHERE table_name = " .
+                    $pdo->quote($table) .
+                    " AND column_name = 'deleted'",
+            )
+            ->fetchColumn();
 
         foreach ($spec['fields'] as $field => $fieldSpec) {
             $column = $field . '_file_id';
@@ -539,7 +553,7 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
                 $folder = $fieldSpec['folder'] ?? null;
                 $name = null;
                 if (isset($spec['resolver'])) {
-                    $resolved = ($spec['resolver'])($pdo, $row, $field);
+                    $resolved = $spec['resolver']($pdo, $row, $field);
                     if (!$resolved) {
                         continue;
                     }
@@ -563,8 +577,7 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
                     continue;
                 }
 
-                $pdo->prepare("UPDATE \"$table\" SET \"$column\" = ? WHERE id = ?")
-                    ->execute([$file['id'], $row['id']]);
+                $pdo->prepare("UPDATE \"$table\" SET \"$column\" = ? WHERE id = ?")->execute([$file['id'], $row['id']]);
                 $linked++;
                 $byField["$table.$field"] = ($byField["$table.$field"] ?? 0) + 1;
             }
@@ -609,26 +622,32 @@ function _catalogueRepointToConverted(PDO $pdo, array &$byField): int
         "SELECT id, extension FROM files
           WHERE category_id = :category AND name = :name AND extension IN ('avif', 'opus')
           ORDER BY CASE extension WHEN 'avif' THEN 0 ELSE 1 END
-          LIMIT 1"
+          LIMIT 1",
     );
 
     $repointed = 0;
 
     foreach (assetColumnMap() as $table => $columns) {
-        $hasDeleted = (int) $pdo->query(
-            "SELECT count(*) FROM information_schema.columns
-              WHERE table_name = " . $pdo->quote($table) . " AND column_name = 'deleted'"
-        )->fetchColumn();
+        $hasDeleted = (int) $pdo
+            ->query(
+                "SELECT count(*) FROM information_schema.columns
+              WHERE table_name = " .
+                    $pdo->quote($table) .
+                    " AND column_name = 'deleted'",
+            )
+            ->fetchColumn();
 
         foreach (array_keys($columns) as $field) {
             $column = $field . '_file_id';
             $live = $hasDeleted ? ' WHERE t.deleted = FALSE' : '';
-            $rows = $pdo->query(
-                "SELECT DISTINCT f.id, f.name, f.extension, f.category_id, c.path
+            $rows = $pdo
+                ->query(
+                    "SELECT DISTINCT f.id, f.name, f.extension, f.category_id, c.path
                    FROM \"$table\" t
                    JOIN files f ON f.id = t.\"$column\"
-                   JOIN file_categories c ON c.id = f.category_id$live"
-            )->fetchAll(PDO::FETCH_ASSOC);
+                   JOIN file_categories c ON c.id = f.category_id$live",
+                )
+                ->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($rows as $row) {
                 $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
@@ -686,8 +705,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         }
         // Never overwrite something already sitting in unfiled.
         if (file_exists($destination)) {
-            $name = pathinfo($relative, PATHINFO_FILENAME) . '-' . substr(md5($relative), 0, 6)
-                . ($extension === '' ? '' : '.' . $extension);
+            $name = pathinfo($relative, PATHINFO_FILENAME) . '-' . substr(md5($relative), 0, 6) . ($extension === '' ? '' : '.' . $extension);
             $destination = $root . '/' . $unfiled['path'] . '/' . $name;
         }
 
@@ -709,7 +727,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         'INSERT INTO files (category_id, name, extension, size, modified_at)
          VALUES (:category_id, :name, :extension, :size, :modified_at)
          ON CONFLICT (category_id, name, extension) DO NOTHING
-         RETURNING id'
+         RETURNING id',
     );
 
     $adopted = 0;

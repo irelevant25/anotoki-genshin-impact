@@ -91,7 +91,7 @@ function colour(string $colour, string $text): string
 {
     $codes = ['red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'cyan' => 36, 'grey' => 90];
 
-    return "\033[" . ($codes[$colour] ?? 0) . "m" . $text . "\033[0m";
+    return "\033[" . ($codes[$colour] ?? 0) . 'm' . $text . "\033[0m";
 }
 
 function say(string $colour, string $text): void
@@ -110,7 +110,6 @@ function sayMissing(string $folder, array $missing): void
         say('red', "  ! {$file} is recorded as applied but is not in " . migrationSetLabel($folder));
     }
 }
-
 
 // ─── Doing it ────────────────────────────────────────────────────────────────
 
@@ -195,8 +194,7 @@ if ($statusOnly || $dryRun) {
         if ($statusOnly) {
             foreach ($files[$folder] as $file) {
                 $done = !in_array($file, $pending[$folder], true);
-                echo '  ' . ($done ? colour('green', '✔') : colour('yellow', '·')) . ' ' . $file
-                    . ($done ? '' : colour('yellow', '   pending')) . "\n";
+                echo '  ' . ($done ? colour('green', '✔') : colour('yellow', '·')) . ' ' . $file . ($done ? '' : colour('yellow', '   pending')) . "\n";
             }
             printf("  %d applied, %d pending\n", count($files[$folder]) - count($pending[$folder]), count($pending[$folder]));
             sayMissing($folder, $missing[$folder]);
@@ -248,15 +246,20 @@ $upToDateBefore = function (?string $folder) use (&$announced, $folders, $files,
     }
 };
 
-$engine = siteMigrator($pdo, $only, beforeFile: function (PDO $pdo, MigrationSet $set, string $file) use (&$open, $announce, $upToDateBefore): void {
-    if ($open) {
-        say('green', 'done');
-    }
-    $upToDateBefore($set->name);
-    $announce($set->name);
-    echo '  ' . $file . ' ... ';
-    $open = true;
-}, backups: siteBackups());
+$engine = siteMigrator(
+    $pdo,
+    $only,
+    beforeFile: function (PDO $pdo, MigrationSet $set, string $file) use (&$open, $announce, $upToDateBefore): void {
+        if ($open) {
+            say('green', 'done');
+        }
+        $upToDateBefore($set->name);
+        $announce($set->name);
+        echo '  ' . $file . ' ... ';
+        $open = true;
+    },
+    backups: siteBackups(),
+);
 
 try {
     $result = $engine->apply();
@@ -267,8 +270,7 @@ try {
 }
 
 if ($result['busy']) {
-    say('red', "\n  Another apply is running - the admin panel's Migrations page, setup.php or another migration.php."
-        . ' Nothing was applied: run this again once it has finished.');
+    say('red', "\n  Another apply is running - the admin panel's Migrations page, setup.php or another migration.php." . ' Nothing was applied: run this again once it has finished.');
     exit(1);
 }
 
@@ -276,11 +278,21 @@ if ($result['busy']) {
 // panel's Apply - with this run's own.
 siteAudit()->flushPending();
 if ($result['applied'] !== [] || $result['failed'] !== null) {
-    siteAudit()->record(null, null, 'migrations.applied', null, null, array_filter([
-        'files' => array_map(static fn (array $file): string => $file['set'] . '/' . $file['name'], $result['applied']),
-        'failed' => $result['failed'] === null ? null : $result['failed']['set'] . '/' . $result['failed']['name'],
-        'via' => 'command line',
-    ], static fn (mixed $value): bool => $value !== null));
+    siteAudit()->record(
+        null,
+        null,
+        'migrations.applied',
+        null,
+        null,
+        array_filter(
+            [
+                'files' => array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $result['applied']),
+                'failed' => $result['failed'] === null ? null : $result['failed']['set'] . '/' . $result['failed']['name'],
+                'via' => 'command line',
+            ],
+            static fn(mixed $value): bool => $value !== null,
+        ),
+    );
 }
 
 if ($result['failed'] !== null) {
@@ -296,9 +308,7 @@ if ($result['failed'] !== null) {
     // MIGRATION_FOLDERS) - which the library's sets stand around.
     $stoppedAt = $result['failed']['set'];
     $notRun = array_slice(migrationSetNames(), array_search($stoppedAt, migrationSetNames(), true) + 1);
-    say('red', "\nStopped at " . migrationSetLabel($stoppedAt) . '.' . ($notRun && $only === null
-        ? ' Not run: ' . implode(', ', array_map(fn ($f) => migrationSetLabel($f), $notRun)) . '.'
-        : ''));
+    say('red', "\nStopped at " . migrationSetLabel($stoppedAt) . '.' . ($notRun && $only === null ? ' Not run: ' . implode(', ', array_map(fn($f) => migrationSetLabel($f), $notRun)) . '.' : ''));
     exit(1);
 }
 

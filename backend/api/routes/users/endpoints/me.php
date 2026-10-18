@@ -55,4 +55,6 @@ function meFirstSeen(mixed $value): ?string
 
 $app->get('/api/me', function (Request $request, Response $response) {
     return respondJson($response, siteUserPayload($request->getAttribute('user')));
-})->add(responds(SiteUser::class))->add(requireAuth());
+})
+    ->add(responds(SiteUser::class))
+    ->add(requireAuth());

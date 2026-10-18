@@ -19,12 +19,7 @@ import { AscensionWrapper, emptyWeapon, RefinementWrapper, WEAPON_IMAGE_FIELDS, 
   selector: 'app-weapon-form',
   templateUrl: './weapon-form.component.html',
   styleUrls: ['./weapon-form.component.scss'],
-  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, 
-    RouterLink,
-    ButtonComponent,
-    BaseInfoTabComponent,
-    RefinementsTabComponent,
-    AscensionsTabComponent],
+  imports: [PageHeaderComponent, IconComponent, TabsComponent, SpinnerComponent, RouterLink, ButtonComponent, BaseInfoTabComponent, RefinementsTabComponent, AscensionsTabComponent],
 })
 export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implements OnInit, OnDestroy {
   readonly entityLabel = 'Weapon';
@@ -101,11 +96,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       pending: {},
     });
     this.refinements.set((data.refinements ?? []).map((refinement) => ({ uid: createUid(), data: refinement })));
-    this.ascensions.set(
-      [...(data.ascensions ?? [])]
-        .sort((a, b) => a.phase - b.phase)
-        .map((ascension) => ({ uid: createUid(), data: ascension, costs: ascension.costs ?? [] }))
-    );
+    this.ascensions.set([...(data.ascensions ?? [])].sort((a, b) => a.phase - b.phase).map((ascension) => ({ uid: createUid(), data: ascension, costs: ascension.costs ?? [] })));
   }
 
   protected override beforeReload(): void {

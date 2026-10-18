@@ -12,16 +12,7 @@ import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
 import { VOICE_OVER_LANGUAGES, VOICE_OVER_TYPES, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
-import {
-  applyMatch,
-  AudioMatch,
-  isAudioFile,
-  matchAudioToVoiceOvers,
-  MatchResult,
-  parseVoiceOverJson,
-  readAudioFiles,
-  VOICE_OVER_ASSET_ROOT,
-} from './voice-over-import.model';
+import { applyMatch, AudioMatch, isAudioFile, matchAudioToVoiceOvers, MatchResult, parseVoiceOverJson, readAudioFiles, VOICE_OVER_ASSET_ROOT } from './voice-over-import.model';
 
 export interface VoiceOverImportResult {
   wrappers: VoiceOverWrapper[];
@@ -38,7 +29,18 @@ export interface VoiceOverImportData {
   selector: 'app-voice-overs-import',
   templateUrl: './voice-overs-import.component.html',
   styleUrls: ['./voice-overs-import.component.scss'],
-  imports: [TooltipDirective, KitButtonComponent, DialogFooterDirective, ButtonComponent, TextareaComponent, CheckboxComponent, DropdownComponent, FileComponent, FilePickerComponent, DisclosureComponent],
+  imports: [
+    TooltipDirective,
+    KitButtonComponent,
+    DialogFooterDirective,
+    ButtonComponent,
+    TextareaComponent,
+    CheckboxComponent,
+    DropdownComponent,
+    FileComponent,
+    FilePickerComponent,
+    DisclosureComponent,
+  ],
 })
 export class VoiceOversImportComponent extends AbstractModalComponent {
   private readonly _data = inject<VoiceOverImportData | null>(ANOTOKI_DIALOG_DATA, { optional: true });
@@ -77,7 +79,7 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
       .map((wrapper) => ({
         key: wrapper.uid,
         value: `${wrapper.data.type} · ${wrapper.data.order}. ${wrapper.data.title_english || 'Untitled'}`,
-      }))
+      })),
   );
 
   languageOptions: DropdownOption[] = VOICE_OVER_LANGUAGES.map((language) => ({ key: language, value: language }));
@@ -220,7 +222,7 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
             matches: result.matches.filter((entry) => entry !== match),
             unmatched: result.unmatched.filter((entry) => entry !== match),
           }
-        : result
+        : result,
     );
   }
 

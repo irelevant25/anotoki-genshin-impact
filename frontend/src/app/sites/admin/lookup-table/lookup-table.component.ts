@@ -114,8 +114,14 @@ export class LookupTableComponent implements OnInit {
   load(): void {
     this.loading.set(true);
     this._listFn().subscribe({
-      next: (data) => { this.items.set(data); this.loading.set(false); },
-      error: () => { this.loading.set(false); this._notify.error('Failed to load data'); },
+      next: (data) => {
+        this.items.set(data);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+        this._notify.error('Failed to load data');
+      },
     });
   }
 
@@ -164,6 +170,6 @@ export class LookupTableComponent implements OnInit {
   getColumns(): string[] {
     const items = this.items();
     if (!items.length) return [];
-    return Object.keys(items[0]).filter(k => !['created_at', 'updated_at', 'created_by', 'updated_by'].includes(k));
+    return Object.keys(items[0]).filter((k) => !['created_at', 'updated_at', 'created_by', 'updated_by'].includes(k));
   }
 }

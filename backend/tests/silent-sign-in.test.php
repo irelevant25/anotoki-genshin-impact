@@ -57,7 +57,7 @@ const CARRY_NEWCOMER = 31;
 const CARRY_REGULAR = 32;
 $tokens = [];
 foreach ([NEWCOMER, REGULAR, LOOKER, CARRY_NEWCOMER, CARRY_REGULAR] as $sub) {
-    $tokens[$sub] = ($iam['token'])($sub, ['MEMBER']);
+    $tokens[$sub] = $iam['token']($sub, ['MEMBER']);
 }
 
 /** One request through the whole app; $as is who sends it (a token), null for nobody. */
@@ -69,8 +69,7 @@ function send(string $method, string $path, ?int $as = null, mixed $json = null,
         $request = $request->withHeader('Authorization', 'Bearer ' . $tokens[$as]);
     }
     if ($json !== null) {
-        $request = $request->withHeader('Content-Type', 'application/json')
-            ->withBody((new StreamFactory())->createStream(is_string($json) ? $json : json_encode($json)));
+        $request = $request->withHeader('Content-Type', 'application/json')->withBody((new StreamFactory())->createStream(is_string($json) ? $json : json_encode($json)));
     }
     foreach ($headers as $name => $value) {
         $request = $request->withHeader($name, $value);
@@ -140,7 +139,9 @@ echo "A silent sign-in into an account that has its own here: the visitor stays\
 
 same('the regular has a game of their own here (another device)', 200, send('PUT', '/api/quiz/progress/pixelate', REGULAR, PLAYED)->getStatusCode());
 $key = visitorWith('dish');
-$visitorRows = static fn (): array => getDb()->query("SELECT s.user_id, q.name, s.state::text AS state FROM quizzes_states s JOIN quizzes q ON q.id = s.quiz_id WHERE s.user_id < 0 ORDER BY s.user_id, q.name")->fetchAll();
+$visitorRows = static fn(): array => getDb()
+    ->query('SELECT s.user_id, q.name, s.state::text AS state FROM quizzes_states s JOIN quizzes q ON q.id = s.quiz_id WHERE s.user_id < 0 ORDER BY s.user_id, q.name')
+    ->fetchAll();
 $before = $visitorRows();
 $stayed = move(REGULAR, $key, ['silent' => true]);
 same('POST /api/visitor/move {silent: true} for the regular: 200, found, nothing moved, stayed true', [200, true, 0, 0, 0, true], outcome($stayed));
@@ -148,7 +149,11 @@ same('...the account keeps only its own game', ['pixelate'], gamesOf(REGULAR));
 same('...the visitor is as it was: its key still opens its game', ['dish'], gamesOf(null, $key));
 same('...row for row (the same visitor, the same game, the same state)', $before, $visitorRows());
 same('...the answer private all the same', 'private, no-store', $stayed->getHeaderLine('Cache-Control'));
-same('asked again (the next page load of the same silent session): the same answer, still nothing moved', [[200, true, 0, 0, 0, true], ['dish']], [outcome(move(REGULAR, $key, ['silent' => true])), gamesOf(null, $key)]);
+same(
+    'asked again (the next page load of the same silent session): the same answer, still nothing moved',
+    [[200, true, 0, 0, 0, true], ['dish']],
+    [outcome(move(REGULAR, $key, ['silent' => true])), gamesOf(null, $key)],
+);
 
 // ── A sign-in the person makes, into the same account: it moves ────────────
 
@@ -167,7 +172,11 @@ same('...into the account', ['dish', 'music', 'pixelate'], gamesOf(REGULAR));
 
 echo "The edges: what counts as having something here, a key nobody has, a silent that is not a yes or no\n";
 
-same('the looker opened a quiz page once, signed in: a fresh draw saved', 200, send('PUT', '/api/quiz/progress/banners', LOOKER, ['state' => ['tries' => [], 'isQuestionComplete' => false]])->getStatusCode());
+same(
+    'the looker opened a quiz page once, signed in: a fresh draw saved',
+    200,
+    send('PUT', '/api/quiz/progress/banners', LOOKER, ['state' => ['tries' => [], 'isQuestionComplete' => false]])->getStatusCode(),
+);
 $key = visitorWith('voice');
 same('a silent sign-in into that account: a saved game, even a fresh one, is something here - stayed', [200, true, 0, 0, 0, true], outcome(move(LOOKER, $key, ['silent' => true])));
 same('...the visitor\'s game where it was', ['voice'], gamesOf(null, $key));
@@ -181,7 +190,11 @@ foreach (['yes', 1, null] as $silent) {
         same('silent: null reads as no answer - a sign-in the person made: it moves', [200, true, 1, 0, 0, false], outcome($answer));
         continue;
     }
-    same('silent: ' . var_export($silent, true) . ' - 422 invalid (field silent), private', [422, 'invalid', 'silent', 'private, no-store'], [$answer->getStatusCode(), body($answer)['code'] ?? null, body($answer)['params']['field'] ?? null, $answer->getHeaderLine('Cache-Control')]);
+    same(
+        'silent: ' . var_export($silent, true) . ' - 422 invalid (field silent), private',
+        [422, 'invalid', 'silent', 'private, no-store'],
+        [$answer->getStatusCode(), body($answer)['code'] ?? null, body($answer)['params']['field'] ?? null, $answer->getHeaderLine('Cache-Control')],
+    );
 }
 
 // ── The carry of the games the browser kept by itself ──────────────────────
@@ -191,7 +204,7 @@ echo "The carry of the browser's own games after a silent sign-in: only into an 
 /** The games a browser kept by itself (no visitor was made: the server kept none, or was full), as the carry takes them. */
 function browserGames(string ...$quizzes): array
 {
-    return array_map(static fn (string $quiz): array => ['quiz' => $quiz, 'is_daily' => false, 'state' => PLAYED['state']], $quizzes);
+    return array_map(static fn(string $quiz): array => ['quiz' => $quiz, 'is_daily' => false, 'state' => PLAYED['state']], $quizzes);
 }
 
 function carry(?int $as, array $games, mixed $silent = 'absent'): ResponseInterface
@@ -209,7 +222,11 @@ function carried(ResponseInterface $answer): array
     return [$answer->getStatusCode(), $body['carried'] ?? null, $body['kept'] ?? null, $body['stayed'] ?? null, $games];
 }
 
-same('silent, into an account here for the first time: 200, carried, stayed false, the account\'s games after it', [200, 1, 0, false, ['dish']], carried(carry(CARRY_NEWCOMER, browserGames('dish'), true)));
+same(
+    'silent, into an account here for the first time: 200, carried, stayed false, the account\'s games after it',
+    [200, 1, 0, false, ['dish']],
+    carried(carry(CARRY_NEWCOMER, browserGames('dish'), true)),
+);
 same('...written into the account', ['dish'], gamesOf(CARRY_NEWCOMER));
 
 same('the carry\'s regular has a game of their own here', 200, send('PUT', '/api/quiz/progress/pixelate', CARRY_REGULAR, PLAYED)->getStatusCode());
@@ -218,13 +235,29 @@ same('silent, into an account that has its own here: 200, nothing carried or cou
 same('...nothing written (the browser keeps its games)', ['pixelate'], gamesOf(CARRY_REGULAR));
 same('...the answer private', 'private, no-store', $stayed->getHeaderLine('Cache-Control'));
 
-same('a sign-in the person makes into that account ({silent: false}): carried as ever - the new quiz in, the account\'s own game kept', [200, 1, 1, false, ['music', 'pixelate']], carried(carry(CARRY_REGULAR, browserGames('music', 'pixelate'), false)));
+same(
+    'a sign-in the person makes into that account ({silent: false}): carried as ever - the new quiz in, the account\'s own game kept',
+    [200, 1, 1, false, ['music', 'pixelate']],
+    carried(carry(CARRY_REGULAR, browserGames('music', 'pixelate'), false)),
+);
 same('...written into the account', ['music', 'pixelate'], gamesOf(CARRY_REGULAR));
 same('the body as the pages sent it before (no silent): carried as ever', [200, 1, 0, false, ['music', 'pixelate', 'voice']], carried(carry(CARRY_REGULAR, browserGames('voice'))));
 
 $made = carry(null, browserGames('banners'), true);
-same('nobody\'s carry saying silent: true - silent means nothing without an account: the visitor made as ever', [200, 1, 0, false, ['banners'], 43], [...carried($made), strlen($made->getHeaderLine('X-Visitor-Key'))]);
-same('...and a visitor\'s own carry saying it: carried into the visitor', [200, 1, 0, false, ['banners', 'dish']], carried(send('POST', '/api/quiz/progress/carry', null, ['games' => browserGames('dish'), 'silent' => true], ['X-Visitor-Key' => $made->getHeaderLine('X-Visitor-Key')])));
+same(
+    'nobody\'s carry saying silent: true - silent means nothing without an account: the visitor made as ever',
+    [200, 1, 0, false, ['banners'], 43],
+    [...carried($made), strlen($made->getHeaderLine('X-Visitor-Key'))],
+);
+same(
+    '...and a visitor\'s own carry saying it: carried into the visitor',
+    [200, 1, 0, false, ['banners', 'dish']],
+    carried(send('POST', '/api/quiz/progress/carry', null, ['games' => browserGames('dish'), 'silent' => true], ['X-Visitor-Key' => $made->getHeaderLine('X-Visitor-Key')])),
+);
 
 $refused = carry(CARRY_REGULAR, browserGames('mismatch'), 'yes');
-same('silent: \'yes\' on the carry - 422 invalid (field silent), nothing written', [422, 'invalid', 'silent', ['music', 'pixelate', 'voice']], [$refused->getStatusCode(), body($refused)['code'] ?? null, body($refused)['params']['field'] ?? null, gamesOf(CARRY_REGULAR)]);
+same(
+    'silent: \'yes\' on the carry - 422 invalid (field silent), nothing written',
+    [422, 'invalid', 'silent', ['music', 'pixelate', 'voice']],
+    [$refused->getStatusCode(), body($refused)['code'] ?? null, body($refused)['params']['field'] ?? null, gamesOf(CARRY_REGULAR)],
+);

@@ -16,13 +16,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/api/voice-over-sets', function (Request $request, Response $response) {
     $pdo = genshinDb();
 
-    $sets = $pdo->query(
-        'SELECT s.id, count(vo.id) FILTER (WHERE vo.deleted = FALSE) AS voice_over_count
+    $sets = $pdo
+        ->query(
+            'SELECT s.id, count(vo.id) FILTER (WHERE vo.deleted = FALSE) AS voice_over_count
            FROM characters_voice_overs_sets s
            LEFT JOIN characters_voice_overs vo ON vo.voice_over_set_id = s.id
           GROUP BY s.id
-          ORDER BY s.id'
-    )->fetchAll(PDO::FETCH_ASSOC);
+          ORDER BY s.id',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     // The characters on each set, gathered in one pass - a set is identified by
     // who points at it, since the table itself is only an id.
@@ -31,14 +33,20 @@ $app->get('/api/voice-over-sets', function (Request $request, Response $response
         $members[(int) $c['voice_over_set_id']][] = ['id' => (int) $c['id'], 'name' => $c['name']];
     }
 
-    $out = array_map(fn(array $s) => [
-        'id' => (int) $s['id'],
-        'voice_over_count' => (int) $s['voice_over_count'],
-        'characters' => $members[(int) $s['id']] ?? [],
-    ], $sets);
+    $out = array_map(
+        fn(array $s) => [
+            'id' => (int) $s['id'],
+            'voice_over_count' => (int) $s['voice_over_count'],
+            'characters' => $members[(int) $s['id']] ?? [],
+        ],
+        $sets,
+    );
 
     return respondJson($response, $out);
-})->add(responds(VoiceOverSet::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(VoiceOverSet::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->get('/api/voice-over-sets/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -49,4 +57,7 @@ $app->get('/api/voice-over-sets/{id:[0-9]+}', function (Request $request, Respon
     resolveAssetRows($pdo, 'characters_voice_overs', $rows);
 
     return respondJson($response, $rows);
-})->add(responds('characters_voice_overs', list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('characters_voice_overs', list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());

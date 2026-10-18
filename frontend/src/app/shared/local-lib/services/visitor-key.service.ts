@@ -93,9 +93,7 @@ export class VisitorKey implements VisitorKeyStore {
    * Whether this reader plays as a visitor: nobody is signed in, the site does
    * not require a sign-in, and the server keeps visitors. Holding a key or not.
    */
-  readonly visiting = computed(
-    () => !this._security.isLoggedIn() && !this._settings.loginRequired() && this._settings.visitorsAvailable(),
-  );
+  readonly visiting = computed(() => !this._security.isLoggedIn() && !this._settings.loginRequired() && this._settings.visitorsAvailable());
 
   /** A visitor with a key: the server, not this browser, holds their games. */
   readonly active = computed(() => this.visiting() && this._key() !== null);
@@ -132,13 +130,7 @@ export class VisitorKey implements VisitorKeyStore {
    * server keeps no visitors (nothing to move into an account then - the key
    * waits), or this page load moves this key no more.
    */
-  readonly moveSettled = computed(
-    () =>
-      !this._security.isLoggedIn() ||
-      this._key() === null ||
-      !this._settings.visitorsAvailable() ||
-      this._gaveUpFor() === this._key(),
-  );
+  readonly moveSettled = computed(() => !this._security.isLoggedIn() || this._key() === null || !this._settings.visitorsAvailable() || this._gaveUpFor() === this._key());
 
   constructor() {
     this._key.set(this._read());

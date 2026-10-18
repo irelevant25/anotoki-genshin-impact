@@ -65,8 +65,7 @@ const SEV = {
   info: { label: 'Info', rank: 4 },
 };
 
-const esc = (s) =>
-  String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 // A severity that is not one of the five would otherwise surface as "cannot
 // read properties of undefined" from inside the sort, naming nothing.
@@ -202,7 +201,7 @@ ${css}</style>
         (k) => `<button class="figure sev-fig sev-${k}${counts[k] ? '' : ' is-zero'}" data-filter="${k}" aria-pressed="false">
           <div class="figure-value">${counts[k]}</div>
           <div class="figure-label">${SEV[k].label}${fixedCount ? ' · found' : ''}</div>
-        </button>`
+        </button>`,
       )
       .join('')}
   </div>
@@ -245,7 +244,7 @@ ${css}</style>
           (c) => `<div class="cleared">
             <div class="cleared-check" aria-hidden="true">✓</div>
             <div><h3>${esc(c.area)}</h3><p>${esc(c.detail)}</p></div>
-          </div>`
+          </div>`,
         )
         .join('')}
     </div>
@@ -285,7 +284,14 @@ const out = outArg !== -1 ? process.argv[outArg + 1] : local(`./security-report-
 writeFileSync(out, page);
 
 console.log(`report written to ${out}`);
-console.log(`  findings: ${findings.length}  (` + Object.entries(counts).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(', ') + ')');
+console.log(
+  `  findings: ${findings.length}  (` +
+    Object.entries(counts)
+      .filter(([, n]) => n)
+      .map(([k, n]) => `${n} ${k}`)
+      .join(', ') +
+    ')',
+);
 console.log(`  open:     ${openFindings.length}   fixed: ${fixedCount}`);
 console.log(`  cleared:  ${data.cleared.length} areas`);
 for (const line of drift) console.warn(`  check:    ${line}`);

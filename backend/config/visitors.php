@@ -169,9 +169,12 @@ function visitorSettings(): array
         if ($error !== null) {
             // Passed over: the limits' defaults, and no proxy believed - never Cloudflare's ranges by default, which a
             // host not behind Cloudflare would have said [] to in this very file.
-            $result = ['settings' => VISITOR_SETTING_DEFAULTS, 'problems' => [
-                "config/visitors.local.php cannot be read cleanly ({$error}): the visitors' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended",
-            ]];
+            $result = [
+                'settings' => VISITOR_SETTING_DEFAULTS,
+                'problems' => [
+                    "config/visitors.local.php cannot be read cleanly ({$error}): the visitors' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended",
+                ],
+            ];
             $result['settings']['client_address']['trusted_proxies'] = [];
         } else {
             $result = visitorSettingsFrom(localConfig('visitors'));
@@ -206,7 +209,11 @@ function visitorSettingsFrom(mixed $values): array
 
         return [
             'settings' => $settings,
-            'problems' => ['config/visitors.local.php returns ' . get_debug_type($values) . ', not an array: the visitors\' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended'],
+            'problems' => [
+                'config/visitors.local.php returns ' .
+                get_debug_type($values) .
+                ', not an array: the visitors\' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended',
+            ],
         ];
     }
 
@@ -228,8 +235,7 @@ function visitorSettingsFrom(mixed $values): array
         }
         [$least, $most] = VISITOR_SETTING_RANGES[$name];
         if (!is_int($value) || $value < $least || $value > $most) {
-            $problems[] = "visitors.$name must be a whole number from $least to $most, not "
-                . visitorSettingShown($value) . ': the default ' . VISITOR_SETTING_DEFAULTS['visitors'][$name] . ' holds';
+            $problems[] = "visitors.$name must be a whole number from $least to $most, not " . visitorSettingShown($value) . ': the default ' . VISITOR_SETTING_DEFAULTS['visitors'][$name] . ' holds';
             continue;
         }
         $settings['visitors'][$name] = $value;
@@ -254,22 +260,22 @@ function visitorSettingsFrom(mixed $values): array
     if (array_key_exists('trusted_proxies', $address)) {
         $proxies = $address['trusted_proxies'];
         if (!is_array($proxies)) {
-            $problems[] = 'client_address.trusted_proxies must be a list of addresses or CIDR ranges, not '
-                . visitorSettingShown($proxies) . ': no proxy is trusted until it is mended';
+            $problems[] = 'client_address.trusted_proxies must be a list of addresses or CIDR ranges, not ' . visitorSettingShown($proxies) . ': no proxy is trusted until it is mended';
             $settings['client_address']['trusted_proxies'] = [];
         } else {
             $kept = [];
             foreach ($proxies as $range) {
                 $range = is_string($range) ? trim($range) : $range;
                 if (!is_string($range) || !visitorSettingRangeWellFormed($range)) {
-                    $problems[] = 'client_address.trusted_proxies holds ' . visitorSettingShown($range)
-                        . ', which is not an address or a CIDR range: dropped';
+                    $problems[] = 'client_address.trusted_proxies holds ' . visitorSettingShown($range) . ', which is not an address or a CIDR range: dropped';
                     continue;
                 }
                 if (visitorSettingRangeCatchAll($range)) {
-                    $problems[] = 'client_address.trusted_proxies holds ' . visitorSettingShown($range)
-                        . ', wider than any proxy\'s range (a /8 or narrower for IPv4, a /16 or narrower for IPv6) - believed'
-                        . ' from so many, the header would be whatever a sender likes: dropped';
+                    $problems[] =
+                        'client_address.trusted_proxies holds ' .
+                        visitorSettingShown($range) .
+                        ', wider than any proxy\'s range (a /8 or narrower for IPv4, a /16 or narrower for IPv6) - believed' .
+                        ' from so many, the header would be whatever a sender likes: dropped';
                     continue;
                 }
                 $kept[] = $range;

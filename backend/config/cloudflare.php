@@ -73,7 +73,9 @@ function originSecret(): ?string
             $error = is_file($file) ? localConfigError('cloudflare') : 'is not a file (a folder, or something else, in its place)';
             if ($error !== null) {
                 $secret = originSecretUnmatchable();
-                originSecretReport(["config/cloudflare.local.php cannot be read cleanly ({$error}): no request carries its secret, so every request from Cloudflare's ranges counts as the edge it came from until the file is mended"]);
+                originSecretReport([
+                    "config/cloudflare.local.php cannot be read cleanly ({$error}): no request carries its secret, so every request from Cloudflare's ranges counts as the edge it came from until the file is mended",
+                ]);
             } else {
                 $result = originSecretFrom(localConfig('cloudflare'));
                 $secret = $result['secret'] ?? originSecretUnmatchable();
@@ -125,8 +127,7 @@ function originSecretFrom(mixed $values): array
     }
     $secret = $values['origin_secret'] ?? null;
     if (!is_string($secret) || trim($secret) === '') {
-        $problems[] = 'origin_secret must be a string with something in it, not '
-            . (is_string($secret) ? 'an empty one' : get_debug_type($secret)) . ': ' . ORIGIN_SECRET_NONE;
+        $problems[] = 'origin_secret must be a string with something in it, not ' . (is_string($secret) ? 'an empty one' : get_debug_type($secret)) . ': ' . ORIGIN_SECRET_NONE;
 
         return ['secret' => null, 'problems' => $problems];
     }

@@ -1,4 +1,4 @@
-import { AlfRoutingMap, AlfRoutingNode } from "./routing.map";
+import { AlfRoutingMap, AlfRoutingNode } from './routing.map';
 
 export const ROUTE_MAP_DATA: AlfRoutingNode = {
   title: 'root',
@@ -44,7 +44,7 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
       title: 'Voice',
       path: 'voice',
       notInMenu: true,
-    }
+    },
   },
 
   quizzes: {
@@ -164,7 +164,7 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
     title: 'Staff sign-in',
     path: 'staff',
     notInMenu: true,
-  }
+  },
 };
 
 export const ROUTE_MAP = new AlfRoutingMap(ROUTE_MAP_DATA);

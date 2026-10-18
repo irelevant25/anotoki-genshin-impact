@@ -169,10 +169,10 @@ function siteAdminContext(): AdminContext
     static $context = null;
 
     return $context ??= new AdminContext(
-        actorId: static fn (ServerRequestInterface $request): ?int => Identify::person($request)?->sub,
-        proof: AdminContext::recentSignIn(static fn (ServerRequestInterface $request): ?int => Identify::person($request)?->authTime),
+        actorId: static fn(ServerRequestInterface $request): ?int => Identify::person($request)?->sub,
+        proof: AdminContext::recentSignIn(static fn(ServerRequestInterface $request): ?int => Identify::person($request)?->authTime),
         error: refusalResponse(...),
-        isAdmin: static fn (ServerRequestInterface $request): bool => Identify::person($request)?->isAdmin() ?? false,
+        isAdmin: static fn(ServerRequestInterface $request): bool => Identify::person($request)?->isAdmin() ?? false,
         names: peopleNamesById(...),
         trustedProxies: siteTrustedProxies(),
         originSecret: originSecret(),
@@ -209,16 +209,22 @@ function siteErrorLog(?App $app = null): ErrorLog
 {
     static $log = null;
 
-    return $log ??= new ErrorLog(siteStorageDir() . '/error-log', array_filter([
-        'root' => dirname(__DIR__),
-        'context' => siteAdminContext(),
-        'actorId' => errorLogActor(...),
-        'key' => siteKey('error-log'),
-        'storage' => siteStorageDir(),
-        'ignoreExceptions' => [ApiRefusal::class],
-        'expected' => SITE_EXPECTED_ANSWERS,
-        'app' => $app,
-    ], static fn (mixed $value): bool => $value !== null));
+    return $log ??= new ErrorLog(
+        siteStorageDir() . '/error-log',
+        array_filter(
+            [
+                'root' => dirname(__DIR__),
+                'context' => siteAdminContext(),
+                'actorId' => errorLogActor(...),
+                'key' => siteKey('error-log'),
+                'storage' => siteStorageDir(),
+                'ignoreExceptions' => [ApiRefusal::class],
+                'expected' => SITE_EXPECTED_ANSWERS,
+                'app' => $app,
+            ],
+            static fn(mixed $value): bool => $value !== null,
+        ),
+    );
 }
 
 /**
@@ -302,8 +308,7 @@ function oldErrorLogAddressesForgetSoon(): void
         }
         @touch($tried);
         foreach ($notDone as $file) {
-            $why = "The old error log file storage/logs/$file could not be read or rewritten, so the addresses and words it kept are still in it: "
-                . 'it is tried again in an hour - or remove it.';
+            $why = "The old error log file storage/logs/$file could not be read or rewritten, so the addresses and words it kept are still in it: " . 'it is tried again in an hour - or remove it.';
             error_log('[error-log] ' . $why);
             siteErrorLog()->record(new RuntimeException($why));
         }
@@ -380,7 +385,7 @@ function oldErrorLogLine(string $line, string $key): string
         if (is_string($scrubbed[$field] ?? null)) {
             $scrubbed[$field] = Redactor::text($scrubbed[$field]);
         } elseif (is_array($scrubbed[$field] ?? null)) {
-            $scrubbed[$field] = array_map(static fn (mixed $part): mixed => is_string($part) ? Redactor::text($part) : $part, $scrubbed[$field]);
+            $scrubbed[$field] = array_map(static fn(mixed $part): mixed => is_string($part) ? Redactor::text($part) : $part, $scrubbed[$field]);
         }
     }
     if (is_string($scrubbed['path'] ?? null) && $scrubbed['path'] !== '') {
@@ -398,8 +403,19 @@ function oldErrorLogLine(string $line, string $key): string
  * in the reader's language).
  */
 const FEEDBACK_SECTIONS = [
-    'Daily', 'Quiz - Banners', 'Quiz - Pixelate', 'Quiz - Mismatch', 'Quiz - Music', 'Quiz - Dish', 'Quiz - Voice',
-    'Difficulties', 'Database', "What's New", 'Backgrounds', 'Versions', 'Other',
+    'Daily',
+    'Quiz - Banners',
+    'Quiz - Pixelate',
+    'Quiz - Mismatch',
+    'Quiz - Music',
+    'Quiz - Dish',
+    'Quiz - Voice',
+    'Difficulties',
+    'Database',
+    "What's New",
+    'Backgrounds',
+    'Versions',
+    'Other',
 ];
 
 /**
@@ -433,14 +449,20 @@ function siteFeedback(): Feedback
 {
     static $feedback = null;
 
-    return $feedback ??= new Feedback(static fn (): PDO => getDb(), array_filter([
-        'storage' => siteStorageDir(),
-        'sections' => FEEDBACK_SECTIONS,
-        'fields' => FEEDBACK_FIELDS,
-        'subjectRequiredFor' => ['bug', 'idea'],
-        'key' => siteKey('feedback'),
-        'defer' => afterResponse(...),
-    ], static fn (mixed $value): bool => $value !== null));
+    return $feedback ??= new Feedback(
+        static fn(): PDO => getDb(),
+        array_filter(
+            [
+                'storage' => siteStorageDir(),
+                'sections' => FEEDBACK_SECTIONS,
+                'fields' => FEEDBACK_FIELDS,
+                'subjectRequiredFor' => ['bug', 'idea'],
+                'key' => siteKey('feedback'),
+                'defer' => afterResponse(...),
+            ],
+            static fn(mixed $value): bool => $value !== null,
+        ),
+    );
 }
 
 /**
@@ -506,16 +528,12 @@ function siteBackups(): Backups
 
     return $backups ??= new Backups(siteBackupConnection(...), siteStorageDir() . '/backups', [
         'site' => 'genshin',
-        'migrator' => static fn (PDO $pdo): Migrator => siteMigrator($pdo),
+        'migrator' => static fn(PDO $pdo): Migrator => siteMigrator($pdo),
         'lock' => MIGRATION_LOCK,
         'audit' => siteAudit(),
         'defer' => afterResponse(...),
-        'onError' => static fn (Throwable $e) => siteErrorLog()->record($e),
-        ...sitePeople()->restoreHooks(
-            delete: peopleDeleteGames(...),
-            defer: afterResponse(...),
-            then: static fn (array $manifest, PDO $pdo) => catalogueCountsForget(),
-        ),
+        'onError' => static fn(Throwable $e) => siteErrorLog()->record($e),
+        ...sitePeople()->restoreHooks(delete: peopleDeleteGames(...), defer: afterResponse(...), then: static fn(array $manifest, PDO $pdo) => catalogueCountsForget()),
     ]);
 }
 
@@ -526,12 +544,7 @@ function siteBackups(): Backups
 function siteBackupConnection(): PDO
 {
     $config = databaseConfig();
-    $pdo = Copy::connect(
-        "pgsql:host={$config['host']};port={$config['port']};dbname={$config['database']}",
-        $config['username'],
-        $config['password'],
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
-    );
+    $pdo = Copy::connect("pgsql:host={$config['host']};port={$config['port']};dbname={$config['database']}", $config['username'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $pdo->exec("SET NAMES '{$config['charset']}'");
 
     return $pdo;
@@ -568,14 +581,17 @@ function siteFileExplorer(): FileExplorer
 {
     static $explorer = null;
 
-    return $explorer ??= new FileExplorer([
-        new FileRoot('assets', _assetsRoot(), label: 'Assets', write: true, extensions: UPLOAD_ALLOWED_EXTENSIONS, maxBytes: 50 * 1024 * 1024, snapshot: true),
-        new FileRoot('uploads', dirname(__DIR__) . '/public/uploads', label: 'Uploads', write: true, extensions: UPLOADS_FOLDER_EXTENSIONS, maxBytes: 50 * 1024 * 1024),
-    ], [
-        'storage' => siteStorageDir() . '/explorer',
-        'key' => siteFilePreviewKey(),
-        'afterWrite' => explorerAfterWrite(...),
-    ]);
+    return $explorer ??= new FileExplorer(
+        [
+            new FileRoot('assets', _assetsRoot(), label: 'Assets', write: true, extensions: UPLOAD_ALLOWED_EXTENSIONS, maxBytes: 50 * 1024 * 1024, snapshot: true),
+            new FileRoot('uploads', dirname(__DIR__) . '/public/uploads', label: 'Uploads', write: true, extensions: UPLOADS_FOLDER_EXTENSIONS, maxBytes: 50 * 1024 * 1024),
+        ],
+        [
+            'storage' => siteStorageDir() . '/explorer',
+            'key' => siteFilePreviewKey(),
+            'afterWrite' => explorerAfterWrite(...),
+        ],
+    );
 }
 
 /**
@@ -690,10 +706,7 @@ function explorerGuard(ResponseFactoryInterface $responses): callable
         } elseif ($method === 'POST' && str_ends_with($pattern, '/move')) {
             $body = $request->getParsedBody();
             $body = is_array($body) ? $body : [];
-            $refusal = explorerMoveRefusal(
-                is_string($body['from'] ?? null) ? $body['from'] : '',
-                is_string($body['to'] ?? null) ? $body['to'] : '',
-            );
+            $refusal = explorerMoveRefusal(is_string($body['from'] ?? null) ? $body['from'] : '', is_string($body['to'] ?? null) ? $body['to'] : '');
         }
 
         return $refusal === null ? $handler->handle($request) : refusalResponse($responses->createResponse(), $refusal);
@@ -714,14 +727,19 @@ function explorerDeleteRefusal(string $path): ?Refusal
     }
     $count = array_sum($uses);
 
-    return new Refusal(409, 'file_in_use', sprintf(
-        'This file is in use: %d %s of the site\'s content %s it (%s). Point %s at another file first - or rename or move it instead, which keeps every link.',
-        $count,
-        $count === 1 ? 'row' : 'rows',
-        $count === 1 ? 'shows' : 'show',
-        implode(', ', array_map(static fn (string $column, int $n): string => "$column: $n", array_keys($uses), array_values($uses))),
-        $count === 1 ? 'it' : 'them',
-    ), ['used_by' => $uses]);
+    return new Refusal(
+        409,
+        'file_in_use',
+        sprintf(
+            'This file is in use: %d %s of the site\'s content %s it (%s). Point %s at another file first - or rename or move it instead, which keeps every link.',
+            $count,
+            $count === 1 ? 'row' : 'rows',
+            $count === 1 ? 'shows' : 'show',
+            implode(', ', array_map(static fn(string $column, int $n): string => "$column: $n", array_keys($uses), array_values($uses))),
+            $count === 1 ? 'it' : 'them',
+        ),
+        ['used_by' => $uses],
+    );
 }
 
 /** Why a move in the asset tree may not happen: a catalogued file would land where no category claims it. */
@@ -732,20 +750,22 @@ function explorerMoveRefusal(string $from, string $to): ?Refusal
     if ($source === null || $source === '' || $target === null || $target === '') {
         return null;
     }
-    $stranded = count(array_filter(
-        catalogueMovePlan(genshinDb(), $source, $target),
-        static fn (array $row): bool => $row['category_id'] === null,
-    ));
+    $stranded = count(array_filter(catalogueMovePlan(genshinDb(), $source, $target), static fn(array $row): bool => $row['category_id'] === null));
     if ($stranded === 0) {
         return null;
     }
 
-    return new Refusal(409, 'not_catalogued', sprintf(
-        'No category of the catalogue claims that folder, so %s would leave the catalogue - and the site\'s content would lose %s. Move %s into a folder a category claims (the Files page lists them).',
-        $stranded === 1 ? 'the file' : "$stranded files",
-        $stranded === 1 ? 'it' : 'them',
-        $stranded === 1 ? 'it' : 'them',
-    ), ['files' => $stranded]);
+    return new Refusal(
+        409,
+        'not_catalogued',
+        sprintf(
+            'No category of the catalogue claims that folder, so %s would leave the catalogue - and the site\'s content would lose %s. Move %s into a folder a category claims (the Files page lists them).',
+            $stranded === 1 ? 'the file' : "$stranded files",
+            $stranded === 1 ? 'it' : 'them',
+            $stranded === 1 ? 'it' : 'them',
+        ),
+        ['files' => $stranded],
+    );
 }
 
 // ─── People ──────────────────────────────────────────────────────────────────
@@ -762,8 +782,8 @@ function sitePeople(): People
     static $people = null;
 
     return $people ??= new People(
-        new PeopleTable(name: 'username', firstSeen: 'created_at', lastSeen: null, nameFallback: static fn (int $sub): string => "user$sub"),
-        static fn (): PDO => usersDb(),
+        new PeopleTable(name: 'username', firstSeen: 'created_at', lastSeen: null, nameFallback: static fn(int $sub): string => "user$sub"),
+        static fn(): PDO => usersDb(),
         siteIam(),
         hooks: [peopleScrubCopies(...)],
     );
@@ -785,12 +805,12 @@ function peopleScrubCopies(PDO $pdo, int $sub, ?array $former): void
         Feedback::forgetPeopleOn($pdo, [$sub]);
     }
     if (AdminSchema::has($pdo, AdminSchema::AUDIT_TABLE)) {
-        (new AuditLog(static fn (): PDO => $pdo))->scrubPeople([$sub]);
+        (new AuditLog(static fn(): PDO => $pdo))->scrubPeople([$sub]);
     }
     if (AdminSchema::has($pdo, 'feedback_before_library')) {
         $pdo->prepare(
             'UPDATE feedback_before_library SET username = ?, email = NULL, user_agent = NULL
-              WHERE user_id = ? AND (username IS DISTINCT FROM ? OR email IS NOT NULL OR user_agent IS NOT NULL)'
+              WHERE user_id = ? AND (username IS DISTINCT FROM ? OR email IS NOT NULL OR user_agent IS NOT NULL)',
         )->execute(["deleted-$sub", $sub, "deleted-$sub"]);
     }
 }
@@ -804,9 +824,9 @@ function peopleScrubCopies(PDO $pdo, int $sub, ?array $former): void
 function peopleColumns(): array
 {
     return [
-        new PeopleColumn('games', 'Saved games', 'count', static fn (PDO $pdo, array $subs): array => peopleCounts($pdo, 'quizzes_states', $subs)),
-        new PeopleColumn('results', 'Quiz results', 'count', static fn (PDO $pdo, array $subs): array => peopleCounts($pdo, 'user_quiz_history', $subs)),
-        new PeopleColumn('feedback', 'Feedback sent', 'count', static fn (PDO $pdo, array $subs): array => peopleCounts($pdo, AdminSchema::FEEDBACK_TABLE, $subs)),
+        new PeopleColumn('games', 'Saved games', 'count', static fn(PDO $pdo, array $subs): array => peopleCounts($pdo, 'quizzes_states', $subs)),
+        new PeopleColumn('results', 'Quiz results', 'count', static fn(PDO $pdo, array $subs): array => peopleCounts($pdo, 'user_quiz_history', $subs)),
+        new PeopleColumn('feedback', 'Feedback sent', 'count', static fn(PDO $pdo, array $subs): array => peopleCounts($pdo, AdminSchema::FEEDBACK_TABLE, $subs)),
     ];
 }
 

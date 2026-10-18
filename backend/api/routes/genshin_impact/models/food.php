@@ -23,8 +23,7 @@ class Food extends DbModel
         public readonly ?array $how_to_obtain = null,
         public readonly ?array $effects = null,
         public readonly ?string $version = null,
-    ) {
-    }
+    ) {}
 
     protected static function jsonFields(): array
     {

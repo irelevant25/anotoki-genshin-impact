@@ -63,12 +63,12 @@ if (isset($options['help'])) {
     exit(0);
 }
 
-$userId    = (int) ($options['user'] ?? 1);
+$userId = (int) ($options['user'] ?? 1);
 $questions = (int) ($options['questions'] ?? 1800);
-$days      = (int) ($options['days'] ?? 180);
-$seed      = (int) ($options['seed'] ?? 20260903);
-$clear     = isset($options['clear']);
-$dryRun    = isset($options['dry-run']);
+$days = (int) ($options['days'] ?? 180);
+$seed = (int) ($options['seed'] ?? 20260903);
+$clear = isset($options['clear']);
+$dryRun = isset($options['dry-run']);
 
 if ($questions < 1 || $days < 1) {
     fwrite(STDERR, "--questions and --days both have to be at least 1.\n");
@@ -170,15 +170,7 @@ if (!$quizzes || !$characters) {
     exit(1);
 }
 
-printf(
-    "Seeding %s (id %d): %d questions over %d days, across %d quizzes and %d characters.\n",
-    $account['username'],
-    $userId,
-    $questions,
-    $days,
-    count($quizzes),
-    count($characters)
-);
+printf("Seeding %s (id %d): %d questions over %d days, across %d quizzes and %d characters.\n", $account['username'], $userId, $questions, $days, count($quizzes), count($characters));
 
 // ─── The shape of this player ────────────────────────────────────────────────
 
@@ -235,7 +227,7 @@ $dayWeights = [];
 for ($day = 0; $day < $days; $day++) {
     // Two full cycles across the window, so a run of any length shows both a
     // busy stretch and a quiet one.
-    $drift = 1.0 + 0.55 * sin(2 * M_PI * $day / max(1, $days) * 2.0);
+    $drift = 1.0 + 0.55 * sin(((2 * M_PI * $day) / max(1, $days)) * 2.0);
 
     // 0 = today, counting backwards, so the weekday has to count back too.
     $weekday = (int) date('N', strtotime("-{$day} days"));
@@ -274,13 +266,14 @@ for ($n = 0; $n < $questions; $n++) {
     $roll = uniform();
     $difficulty = $roll < 0.34 ? 1 : ($roll < 0.79 ? 2 : 3);
 
-    $score = $skill
-        + $recognisability[$characterIndex]
-        - $quizHardness[$quizIndex]
+    $score =
+        $skill +
+        $recognisability[$characterIndex] -
+        $quizHardness[$quizIndex] -
         // Each step up costs about the same, which is what makes the
         // difficulty breakdown on the profile page read as a slope.
-        - ($difficulty - 1) * 0.85
-        + gauss(0.0, 0.4);
+        ($difficulty - 1) * 0.85 +
+        gauss(0.0, 0.4);
 
     $win = uniform() < logistic($score);
 
@@ -297,15 +290,7 @@ for ($n = 0; $n < $questions; $n++) {
 
     $timestamp = date('Y-m-d', strtotime("-{$dayIndex} days")) . sprintf(' %02d:%02d:%02d', $hour, $minute, $second);
 
-    $rows[] = [
-        $userId,
-        $characters[$characterIndex]['id'],
-        $quizzes[$quizIndex]['id'],
-        $win ? 'true' : 'false',
-        $attempts,
-        $timestamp,
-        $difficulty,
-    ];
+    $rows[] = [$userId, $characters[$characterIndex]['id'], $quizzes[$quizIndex]['id'], $win ? 'true' : 'false', $attempts, $timestamp, $difficulty];
 }
 
 // ─── What that came to ───────────────────────────────────────────────────────
@@ -336,18 +321,18 @@ foreach ($rows as $row) {
     $wins += $row[3] === 'true' ? 1 : 0;
 }
 
-echo "\n  overall      " . $wins . '/' . count($rows) . sprintf(' won (%.1f%%)', 100 * $wins / count($rows)) . "\n";
-echo "  days played  " . count($daysPlayed) . " of {$days}\n\n";
+echo "\n  overall      " . $wins . '/' . count($rows) . sprintf(' won (%.1f%%)', (100 * $wins) / count($rows)) . "\n";
+echo '  days played  ' . count($daysPlayed) . " of {$days}\n\n";
 
 arsort($byQuiz);
 foreach ($byQuiz as $name => $totals) {
-    printf("  %-12s %5d played  %5.1f%% won\n", $name, $totals['played'], 100 * $totals['wins'] / $totals['played']);
+    printf("  %-12s %5d played  %5.1f%% won\n", $name, $totals['played'], (100 * $totals['wins']) / $totals['played']);
 }
 
 echo "\n";
 ksort($byDifficulty);
 foreach ($byDifficulty as $level => $totals) {
-    printf("  difficulty %d %5d played  %5.1f%% won\n", $level, $totals['played'], 100 * $totals['wins'] / $totals['played']);
+    printf("  difficulty %d %5d played  %5.1f%% won\n", $level, $totals['played'], (100 * $totals['wins']) / $totals['played']);
 }
 
 if ($dryRun) {
@@ -371,7 +356,7 @@ $pdo->beginTransaction();
 try {
     $insert = $pdo->prepare(
         'INSERT INTO user_quiz_history (user_id, character_id, quiz_id, win, attempts, created_at, difficulty)
-              VALUES (?, ?, ?, ?, ?, ?, ?)'
+              VALUES (?, ?, ?, ?, ?, ?, ?)',
     );
 
     foreach ($rows as $row) {
@@ -391,7 +376,7 @@ try {
                 min(created_at)
            FROM user_quiz_history
           WHERE user_id = ?
-          GROUP BY user_id, character_id, quiz_id"
+          GROUP BY user_id, character_id, quiz_id",
     )->execute([$userId]);
 
     $pdo->commit();

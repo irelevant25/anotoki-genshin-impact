@@ -94,11 +94,7 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
 
   /** The form, as the rows stand. */
   start(): void {
-    this.draft.set(
-      Object.fromEntries(
-        this.routes().map((route) => [route.id, { visibility: route.visibility, blocked: route.blocked, endpoints: [...route.endpoints] }]),
-      ),
-    );
+    this.draft.set(Object.fromEntries(this.routes().map((route) => [route.id, { visibility: route.visibility, blocked: route.blocked, endpoints: [...route.endpoints] }])));
   }
 
   of(route: AdminSiteRoute): RouteDraft {
@@ -267,14 +263,7 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
     const kept = this.draft();
 
     this.routes.set(list.routes);
-    this.draft.set(
-      Object.fromEntries(
-        list.routes.map((route) => [
-          route.id,
-          kept[route.id] ?? { visibility: route.visibility, blocked: route.blocked, endpoints: [...route.endpoints] },
-        ]),
-      ),
-    );
+    this.draft.set(Object.fromEntries(list.routes.map((route) => [route.id, kept[route.id] ?? { visibility: route.visibility, blocked: route.blocked, endpoints: [...route.endpoints] }])));
     this.expanded.set(null);
   }
 
@@ -285,10 +274,6 @@ export class SettingsRoutesModalComponent extends AbstractModalComponent {
   private _differs(route: AdminSiteRoute): boolean {
     const draft = this.of(route);
 
-    return (
-      draft.visibility !== route.visibility ||
-      draft.blocked !== route.blocked ||
-      draft.endpoints.join('\n') !== [...route.endpoints].sort().join('\n')
-    );
+    return draft.visibility !== route.visibility || draft.blocked !== route.blocked || draft.endpoints.join('\n') !== [...route.endpoints].sort().join('\n');
   }
 }

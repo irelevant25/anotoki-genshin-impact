@@ -46,7 +46,7 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
            JOIN characters c ON c.ascension_set_id = a.ascension_set_id AND c.deleted = FALSE
           WHERE cost.material_id = ? AND cost.deleted = FALSE
           GROUP BY c.id, c.name, c.icon_file_id, c.rarity, c.element
-          ORDER BY c.name'
+          ORDER BY c.name',
     );
 
     $charactersTalent = $query(
@@ -55,7 +55,7 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
            JOIN characters c ON c.talent_set_id = cost.talent_set_id AND c.deleted = FALSE
           WHERE cost.material_id = ? AND cost.deleted = FALSE
           GROUP BY c.id, c.name, c.icon_file_id, c.rarity, c.element
-          ORDER BY c.name'
+          ORDER BY c.name',
     );
 
     $weaponsAscension = $query(
@@ -65,7 +65,7 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
            JOIN weapons w ON w.id = a.weapon_id AND w.deleted = FALSE
           WHERE cost.material_id = ? AND cost.deleted = FALSE
           GROUP BY w.id, w.name, w.icon_file_id, w.rarity, w.type
-          ORDER BY w.name'
+          ORDER BY w.name',
     );
 
     $weaponsRefinement = $query(
@@ -74,7 +74,7 @@ $app->get('/api/materials/{id:[0-9]+}/usage', function (Request $request, Respon
            JOIN weapons w ON w.id = r.weapon_id AND w.deleted = FALSE
           WHERE r.material_id = ? AND r.deleted = FALSE
           GROUP BY w.id, w.name, w.icon_file_id, w.rarity, w.type
-          ORDER BY w.name'
+          ORDER BY w.name',
     );
 
     resolveAssetRows($pdo, 'characters', $charactersAscension);

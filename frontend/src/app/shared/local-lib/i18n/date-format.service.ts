@@ -127,9 +127,7 @@ export function formatWith(date: Date, pattern: string, hour12 = false): string 
 
 /** The clock alone, in whichever cycle the device uses - the way a clock nobody chose is written. */
 export function formatTime(date: Date, hour12: boolean, seconds: boolean): string {
-  const pattern = hour12
-    ? `h:mm${seconds ? ':ss' : ''} a`
-    : `HH:mm${seconds ? ':ss' : ''}`;
+  const pattern = hour12 ? `h:mm${seconds ? ':ss' : ''} a` : `HH:mm${seconds ? ':ss' : ''}`;
 
   return formatWith(date, pattern, hour12);
 }

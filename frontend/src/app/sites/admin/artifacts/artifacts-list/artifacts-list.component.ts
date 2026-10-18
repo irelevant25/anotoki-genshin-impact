@@ -38,16 +38,12 @@ export class ArtifactsListComponent extends AdminListComponent<any> implements O
         contains(row.id, this.filterId()) &&
         contains(row.name, this.filterName()) &&
         includedIn(row.version, this.filterVersions()) &&
-        (rarities.length === 0 || rarities.some((rarity) => toBoolean(row[`has_rarity_${rarity}`])))
+        (rarities.length === 0 || rarities.some((rarity) => toBoolean(row[`has_rarity_${rarity}`]))),
     );
   });
 
   hasActiveFilter = computed(
-    () =>
-      !!String(this.filterId() ?? '').trim() ||
-      !!String(this.filterName() ?? '').trim() ||
-      (this.filterRarities() ?? []).length > 0 ||
-      (this.filterVersions() ?? []).length > 0
+    () => !!String(this.filterId() ?? '').trim() || !!String(this.filterName() ?? '').trim() || (this.filterRarities() ?? []).length > 0 || (this.filterVersions() ?? []).length > 0,
   );
 
   private readonly _artifactApi = inject(ArtifactApiService);

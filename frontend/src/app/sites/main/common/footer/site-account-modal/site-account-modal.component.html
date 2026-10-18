@@ -15,14 +15,14 @@
         @if (user.email) {
             <div class="fact">
                 <span class="icon icon-mail icon-size-4" aria-hidden="true"></span>
-                <span class="text-muted small fact-label">{{ 'account.email' | translate }}</span>
+                <span class="text-muted small fact-label">{{ "account.email" | translate }}</span>
                 <span class="fw-500 fs-14 fact-value">{{ user.email }}</span>
             </div>
         }
 
         <div class="fact">
             <span class="icon icon-shield icon-size-4" aria-hidden="true"></span>
-            <span class="text-muted small fact-label">{{ 'account.role' | translate }}</span>
+            <span class="text-muted small fact-label">{{ "account.role" | translate }}</span>
             <span class="fw-500 fs-14 fact-value">{{ roleKey() | translate }}</span>
         </div>
 
@@ -31,7 +31,7 @@
         @if (user.created_at) {
             <div class="fact">
                 <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
-                <span class="text-muted small fact-label">{{ 'account.memberSince' | translate }}</span>
+                <span class="text-muted small fact-label">{{ "account.memberSince" | translate }}</span>
                 <span class="fw-500 fs-14 fact-value">{{ user.created_at | appDate }}</span>
             </div>
         }
@@ -45,22 +45,22 @@
         <a class="manage" [href]="accountUrl" target="_blank" rel="noopener">
             <span class="icon icon-key icon-size-4" aria-hidden="true"></span>
             <span class="manage-body">
-                <span class="fw-500 fs-14">{{ 'account.manage' | translate }}</span>
-                <span class="text-muted small">{{ 'account.manageNote' | translate }}</span>
+                <span class="fw-500 fs-14">{{ "account.manage" | translate }}</span>
+                <span class="text-muted small">{{ "account.manageNote" | translate }}</span>
             </span>
             <span class="icon icon-link icon-size-4 manage-out" aria-hidden="true"></span>
         </a>
     }
 } @else {
-    <p class="signed-out-note">{{ 'account.signedOutNote' | translate }}</p>
+    <p class="signed-out-note">{{ "account.signedOutNote" | translate }}</p>
     @if (signInOffered()) {
-        <p class="signed-out-note">{{ 'account.iamLead' | translate }}</p>
+        <p class="signed-out-note">{{ "account.iamLead" | translate }}</p>
     }
 }
 
 <div class="theme-row">
     <span class="icon icon-gear icon-size-4" aria-hidden="true"></span>
-    <span class="text-muted small theme-row-label" aria-hidden="true">{{ 'account.appearance' | translate }}</span>
+    <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.appearance" | translate }}</span>
     <anotoki-segmented class="theme-choices" [label]="'account.appearance' | translate" [options]="themeChoices()" [value]="theme.currentTheme()" (valueChange)="setTheme($any($event))" />
 </div>
 
@@ -73,7 +73,7 @@
 @if (account.kept()) {
     <div class="theme-row">
         <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
-        <span class="text-muted small theme-row-label" aria-hidden="true">{{ 'account.dateFormat' | translate }}</span>
+        <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.dateFormat" | translate }}</span>
         <anotoki-select
             class="theme-choices"
             hideLabel
@@ -85,7 +85,7 @@
 
     <div class="theme-row">
         <span class="icon icon-clock icon-size-4" aria-hidden="true"></span>
-        <span class="text-muted small theme-row-label" aria-hidden="true">{{ 'account.timeFormat' | translate }}</span>
+        <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.timeFormat" | translate }}</span>
         <anotoki-segmented class="theme-choices" [label]="'account.timeFormat' | translate" [options]="timeChoices()" [value]="formats.timeChoice()" (valueChange)="setTimeFormat($any($event))" />
     </div>
 }
@@ -95,7 +95,7 @@
 @if (i18n.languages().length > 1) {
     <div class="theme-row">
         <span class="icon icon-globe icon-size-4" aria-hidden="true"></span>
-        <span class="text-muted small theme-row-label" aria-hidden="true">{{ 'account.language' | translate }}</span>
+        <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.language" | translate }}</span>
         @if (languageChoices().length <= 3) {
             <anotoki-segmented class="theme-choices" [label]="'account.language' | translate" [options]="languageChoices()" [value]="i18n.language()" (valueChange)="setLanguage($event)" />
         } @else {
@@ -108,7 +108,7 @@
      changes it on every anotoki site. Said before it surprises
      anybody on the next one. -->
 @if (account.kept()) {
-    <p class="account-note">{{ 'account.preferencesNote' | translate }}</p>
+    <p class="account-note">{{ "account.preferencesNote" | translate }}</p>
 }
 
 <!-- The wallpaper behind the site: this browser's own, never the anotoki
@@ -128,7 +128,7 @@
      before the button is pressed rather than discovered on the next
      site. -->
 @if (user()) {
-    <p class="account-note">{{ 'account.signOutNote' | translate }}</p>
+    <p class="account-note">{{ "account.signOutNote" | translate }}</p>
 }
 
 <ng-template anotokiDialogFooter>
@@ -136,18 +136,18 @@
         <!-- For the people the admin panel is for, and nobody else: a
              player would only be turned away at the door. -->
         @if (security.isStaff()) {
-            <button anotokiButton variant="primary" (click)="toAdmin()">{{ 'account.adminPanel' | translate }}</button>
+            <button anotokiButton variant="primary" (click)="toAdmin()">{{ "account.adminPanel" | translate }}</button>
         }
-        <button anotokiButton variant="danger" [loading]="loading()" (click)="logout()">{{ 'account.signOut' | translate }}</button>
+        <button anotokiButton variant="danger" [loading]="loading()" (click)="logout()">{{ "account.signOut" | translate }}</button>
     } @else {
-        <button anotokiButton (click)="closeModal()">{{ 'common.close' | translate }}</button>
+        <button anotokiButton (click)="closeModal()">{{ "common.close" | translate }}</button>
         <!-- Both go while the site is closed. A button that opens onto a
              sign-in the API will then refuse is worse than no button: it
              makes the site look broken rather than closed. An admin still
              has /staff, which is what that path is for. -->
         @if (signInOffered()) {
-            <button anotokiButton (click)="register()">{{ 'account.createAccount' | translate }}</button>
-            <button anotokiButton variant="primary" (click)="login()">{{ 'common.signIn' | translate }}</button>
+            <button anotokiButton (click)="register()">{{ "account.createAccount" | translate }}</button>
+            <button anotokiButton variant="primary" (click)="login()">{{ "common.signIn" | translate }}</button>
         }
     }
 </ng-template>

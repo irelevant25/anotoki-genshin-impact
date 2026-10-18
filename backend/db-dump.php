@@ -47,7 +47,7 @@ if (!$pgDump) {
 }
 
 $stamp = date('Ymd-His');
-$dir = rtrim($options['dir'] ?? (__DIR__ . '/storage/backups/manual/' . $stamp), '/\\');
+$dir = rtrim($options['dir'] ?? __DIR__ . '/storage/backups/manual/' . $stamp, '/\\');
 if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) {
     echo "Could not create {$dir}.\n";
     exit(1);

@@ -14,8 +14,7 @@
                             [appMaterialIcon]="character.card_icon_name ?? character.icon_name"
                             [appAssetFolder]="'character.card_icon'"
                             [alt]="character.name"
-                            loading="lazy"
-                        />
+                            loading="lazy" />
 
                         <div class="character-basics mx-3">
                             <h1 class="character-name justify-content-center" [class]="elementClass()">
@@ -29,63 +28,63 @@
 
                             <div class="character-info">
                                 <div>
-                                    <span class="info-label">{{ 'database.filters.element' | translate }}:</span>
+                                    <span class="info-label">{{ "database.filters.element" | translate }}:</span>
                                     <span class="info-value">
                                         @if (character.element) {
                                             <img class="element-icon" [appMaterialIcon]="character.element" [appAssetFolder]="'elements'" [alt]="character.element" loading="lazy" />
                                         }
-                                        {{ character.element ?? 'N/A' }}
+                                        {{ character.element ?? "N/A" }}
                                     </span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.filters.weaponType' | translate }}:</span>
+                                    <span class="info-label">{{ "database.filters.weaponType" | translate }}:</span>
                                     <span class="info-value">
                                         @if (character.weapon_type) {
                                             <img class="weapon-icon" [appMaterialIcon]="character.weapon_type" [appAssetFolder]="'weapon_types'" [alt]="character.weapon_type" loading="lazy" />
                                         }
-                                        {{ character.weapon_type ?? 'N/A' }}
+                                        {{ character.weapon_type ?? "N/A" }}
                                     </span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.filters.region' | translate }}:</span>
+                                    <span class="info-label">{{ "database.filters.region" | translate }}:</span>
                                     <span class="info-value">
                                         @if (character.region) {
                                             <img class="region-icon" [appMaterialIcon]="character.region" [appAssetFolder]="'regions'" [alt]="character.region" loading="lazy" />
                                         }
-                                        {{ character.region ?? 'N/A' }}
+                                        {{ character.region ?? "N/A" }}
                                     </span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.model' | translate }}:</span>
-                                    <span class="info-value">{{ character.model ?? 'N/A' }}</span>
+                                    <span class="info-label">{{ "database.detail.model" | translate }}:</span>
+                                    <span class="info-value">{{ character.model ?? "N/A" }}</span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.birthday' | translate }}:</span>
-                                    <span class="info-value">{{ character.birthday ?? 'N/A' }}</span>
+                                    <span class="info-label">{{ "database.detail.birthday" | translate }}:</span>
+                                    <span class="info-value">{{ character.birthday ?? "N/A" }}</span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.released' | translate }}:</span>
-                                    <span class="info-value">{{ character.release_date ?? 'N/A' }} ({{ versionLabel(character.version) }})</span>
+                                    <span class="info-label">{{ "database.detail.released" | translate }}:</span>
+                                    <span class="info-value">{{ character.release_date ?? "N/A" }} ({{ versionLabel(character.version) }})</span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.titles' | translate }}:</span>
-                                    <span class="info-value">{{ titles().join(', ') || 'N/A' }}</span>
+                                    <span class="info-label">{{ "database.detail.titles" | translate }}:</span>
+                                    <span class="info-value">{{ titles().join(", ") || "N/A" }}</span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.affiliations' | translate }}:</span>
-                                    <span class="info-value">{{ affiliations().join(', ') || 'N/A' }}</span>
+                                    <span class="info-label">{{ "database.detail.affiliations" | translate }}:</span>
+                                    <span class="info-value">{{ affiliations().join(", ") || "N/A" }}</span>
                                 </div>
 
                                 <div>
-                                    <span class="info-label">{{ 'database.detail.specialDish' | translate }}:</span>
-                                    <span class="info-value">{{ character.special_dish ?? 'N/A' }}</span>
+                                    <span class="info-label">{{ "database.detail.specialDish" | translate }}:</span>
+                                    <span class="info-value">{{ character.special_dish ?? "N/A" }}</span>
                                 </div>
                             </div>
 
@@ -93,17 +92,18 @@
                                 <div class="d-flex flex-row justify-content-between flex-wrap gap-3">
                                     @if (voiceActors().length) {
                                         <div class="voice-actors">
-                                            <h3>{{ 'database.detail.voiceActors' | translate }}</h3>
+                                            <h3>{{ "database.detail.voiceActors" | translate }}</h3>
                                             @for (actor of voiceActors(); track actor.language) {
                                                 <div class="voice-actor">
-                                                    <strong>{{ actor.language }}:</strong> {{ actor.actor }}
+                                                    <strong>{{ actor.language }}:</strong>
+                                                    {{ actor.actor }}
                                                 </div>
                                             }
                                         </div>
                                     }
                                     @if (demoMusicUrl(); as demoMusic) {
                                         <div class="demo-music">
-                                            <h3>{{ 'database.detail.demoMusic' | translate }}</h3>
+                                            <h3>{{ "database.detail.demoMusic" | translate }}</h3>
                                             <audio preload="metadata" controls [src]="demoMusic"></audio>
                                             <p>{{ character.demo_music_name }}</p>
                                         </div>
@@ -118,26 +118,26 @@
 
                     <div class="tabs-content" role="tabpanel" [id]="detailTabs.panelId(activeTab())" [attr.aria-labelledby]="detailTabs.tabId(activeTab())">
                         @switch (activeTab()) {
-                            @case ('ascensions') {
+                            @case ("ascensions") {
                                 <app-character-ascensions-tab [ascensions]="ascensions()"></app-character-ascensions-tab>
                             }
-                            @case ('talents') {
+                            @case ("talents") {
                                 <app-character-talents-tab [talents]="talents()" [levels]="talentLevels()"></app-character-talents-tab>
                             }
-                            @case ('constellations') {
+                            @case ("constellations") {
                                 <app-character-constellations-tab [constellations]="constellations()"></app-character-constellations-tab>
                             }
-                            @case ('build') {
+                            @case ("build") {
                                 <app-character-build-tab></app-character-build-tab>
                             }
-                            @case ('voiceOvers') {
+                            @case ("voiceOvers") {
                                 <app-character-voice-overs-tab [voiceOvers]="voiceOvers()"></app-character-voice-overs-tab>
                             }
                         }
                     </div>
                 </div>
             } @else {
-                <div class="not-found">{{ 'database.detail.notFound' | translate }}</div>
+                <div class="not-found">{{ "database.detail.notFound" | translate }}</div>
             }
         </div>
     }

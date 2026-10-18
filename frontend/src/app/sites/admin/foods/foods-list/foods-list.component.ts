@@ -45,7 +45,7 @@ export class FoodsListComponent extends AdminListComponent<any> implements OnIni
         includedIn(row.region, this.filterRegions()) &&
         includedIn(row.version, this.filterVersions()) &&
         // Loose compare: the dropdown hands back the option key as a string.
-        (rarity === undefined || rarity === null || rarity === '' || row.rarity == rarity)
+        (rarity === undefined || rarity === null || rarity === '' || row.rarity == rarity),
     );
   });
 
@@ -56,7 +56,7 @@ export class FoodsListComponent extends AdminListComponent<any> implements OnIni
       (this.filterTypes() ?? []).length > 0 ||
       (this.filterRegions() ?? []).length > 0 ||
       (this.filterVersions() ?? []).length > 0 ||
-      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== '')
+      (this.filterRarity() !== undefined && this.filterRarity() !== null && this.filterRarity() !== ''),
   );
 
   private readonly _foodApi = inject(FoodApiService);

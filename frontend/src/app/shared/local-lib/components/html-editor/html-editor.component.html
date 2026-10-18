@@ -115,14 +115,24 @@
                      the last back). -->
                 <anotoki-menu #sizeMenu label="Text size" (opened)="selectingFontSize.set(true)" (closed)="onFontSizeClosed(); selectingFontSize.set(false)">
                     @for (option of fontSizeOptions; track option.key) {
-                        <button anotokiMenuItem [radio]="fontSizeValue() === option.key" (mouseenter)="onFontSizeChange(option, false)" (focus)="onFontSizeChange(option, false)" (click)="onFontSizeChange(option, true)">
+                        <button
+                            anotokiMenuItem
+                            [radio]="fontSizeValue() === option.key"
+                            (mouseenter)="onFontSizeChange(option, false)"
+                            (focus)="onFontSizeChange(option, false)"
+                            (click)="onFontSizeChange(option, true)">
                             {{ option.value }}
                         </button>
                     }
                 </anotoki-menu>
                 <anotoki-menu #familyMenu label="Font" (opened)="selectingFontFamily.set(true)" (closed)="onFontFamilyClosed(); selectingFontFamily.set(false)">
                     @for (option of fontFamilyOptions; track option.key) {
-                        <button anotokiMenuItem [radio]="fontFamilyValue() === option.key" (mouseenter)="onFontFamilyChange(option, false)" (focus)="onFontFamilyChange(option, false)" (click)="onFontFamilyChange(option, true)">
+                        <button
+                            anotokiMenuItem
+                            [radio]="fontFamilyValue() === option.key"
+                            (mouseenter)="onFontFamilyChange(option, false)"
+                            (focus)="onFontFamilyChange(option, false)"
+                            (click)="onFontFamilyChange(option, true)">
                             {{ option.value }}
                         </button>
                     }
@@ -132,7 +142,12 @@
                      colours with their names), applied by Apply - a choice in the field moves nothing, so the arrow
                      keys can go through the suggestions. Escape closes it, back to its button. -->
                 @if (colorPanel(); as mode) {
-                    <div class="html-editor-colours" role="group" [id]="inputId + '-colours'" [attr.aria-label]="mode === 'fore' ? 'Text colour' : 'Highlight colour'" (keydown.escape)="closeColors(true)">
+                    <div
+                        class="html-editor-colours"
+                        role="group"
+                        [id]="inputId + '-colours'"
+                        [attr.aria-label]="mode === 'fore' ? 'Text colour' : 'Highlight colour'"
+                        (keydown.escape)="closeColors(true)">
                         <anotoki-color-field
                             class="html-editor-colour-field"
                             [label]="mode === 'fore' ? 'Text colour' : 'Highlight colour'"

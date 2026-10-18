@@ -32,10 +32,6 @@ use Anotoki\Lib\Translations\Http\TranslationsRoutes;
 // closure the routes call.
 TranslationsRoutes::bundle($app, siteTranslations(...), translationsError(...));
 
-TranslationsRoutes::strings($app, '/api/admin', siteTranslations(...), translationsActor(...), translationsError(...), translationsAudit(...))
-    ->add(requireRole(...ROLES_CONTENT))
-    ->add(requireAuth());
+TranslationsRoutes::strings($app, '/api/admin', siteTranslations(...), translationsActor(...), translationsError(...), translationsAudit(...))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
 
-TranslationsRoutes::languages($app, '/api/admin', siteTranslations(...), translationsError(...), translationsAudit(...))
-    ->add(requireRole(...ROLES_CONTENT))
-    ->add(requireAuth());
+TranslationsRoutes::languages($app, '/api/admin', siteTranslations(...), translationsError(...), translationsAudit(...))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());

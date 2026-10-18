@@ -77,10 +77,7 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
 
     // The site loads AVIF, so a raster upload is converted and the AVIF path is
     // what gets stored. The original stays on disk next to it.
-    if (
-        in_array($ext, UPLOAD_CONVERT_TO_AVIF, true)
-        && mediaToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')
-    ) {
+    if (in_array($ext, UPLOAD_CONVERT_TO_AVIF, true) && mediaToAvif($dir . '/' . $safeName . '.' . $ext, $dir . '/' . $safeName . '.avif')) {
         return '/uploads/' . $folder . '/' . $safeName . '.avif';
     }
 
@@ -176,10 +173,7 @@ function _fullInsertChildren(PDO $pdo, array $specs, array $body, int $parentId,
             resolveAssetBody($pdo, $spec['table'], $item, $userId);
 
             $model = $spec['model'];
-            $childId = (int) DbQuery::insert($pdo, $spec['table'], [
-                ...$model::fromBody($item)->toDbArray(),
-                'created_by' => $userId,
-            ]);
+            $childId = (int) DbQuery::insert($pdo, $spec['table'], [...$model::fromBody($item)->toDbArray(), 'created_by' => $userId]);
             if (!empty($spec['children'])) {
                 _fullInsertChildren($pdo, $spec['children'], $item, $childId, $userId);
             }
@@ -198,8 +192,7 @@ function _fullDeleteChildren(PDO $pdo, array $specs, int $parentId): void
                 _fullDeleteChildren($pdo, $spec['children'], (int) $childId);
             }
         }
-        $pdo->prepare("UPDATE {$spec['table']} SET deleted = TRUE WHERE {$spec['fk']} = ? AND deleted = FALSE")
-            ->execute([$parentId]);
+        $pdo->prepare("UPDATE {$spec['table']} SET deleted = TRUE WHERE {$spec['fk']} = ? AND deleted = FALSE")->execute([$parentId]);
     }
 }
 
@@ -279,16 +272,16 @@ function registerFullResource($app, string $path, string $table, string $modelCl
             ->includeExternal('updated_by', usersDb(), 'users', ['id', 'username']);
 
         if ($page !== null) {
-            $rows->orderBy('id')->limit($pageSize)->offset(($page - 1) * $pageSize);
+            $rows
+                ->orderBy('id')
+                ->limit($pageSize)
+                ->offset(($page - 1) * $pageSize);
         }
 
         $parents = $rows->fetchAll();
 
         foreach ($parents as &$parent) {
-            $parent = [
-                ...$parent,
-                ..._fullFetchChildren($pdo, $children, (int) $parent['id']),
-            ];
+            $parent = [...$parent, ..._fullFetchChildren($pdo, $children, (int) $parent['id'])];
         }
         unset($parent);
 
@@ -309,10 +302,7 @@ function registerFullResource($app, string $path, string $table, string $modelCl
 
         $pdo->beginTransaction();
         try {
-            $id = (int) DbQuery::insert($pdo, $table, [
-                ...$modelClass::fromBody($body[$bodyKey])->toDbArray(),
-                'created_by' => $user['id'],
-            ]);
+            $id = (int) DbQuery::insert($pdo, $table, [...$modelClass::fromBody($body[$bodyKey])->toDbArray(), 'created_by' => $user['id']]);
             // The children are logged against the thing being created rather
             // than each against itself - only known once the parent has an id.
             withAuditScope($table, (string) $id, fn() => _fullInsertChildren($pdo, $children, $body, $id, $user['id']));
@@ -323,7 +313,9 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         }
 
         return respondJson($response, DbQuery::from($pdo, $table)->find(['id' => $id]), 201);
-    })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+    })
+        ->add(requireRole('ADMIN', 'EDITOR'))
+        ->add(requireAuth());
 
     $app->put("/api/$path/{id:[0-9]+}/full", function ($request, $response, array $args) use ($table, $modelClass, $bodyKey, $children, $uploads) {
         $user = $request->getAttribute('user');
@@ -342,10 +334,7 @@ function registerFullResource($app, string $path, string $table, string $modelCl
             withAuditScope($table, (string) $id, function () use ($pdo, $table, $modelClass, $bodyKey, $body, $children, $id, $user) {
                 if (!empty($body[$bodyKey])) {
                     resolveAssetBody($pdo, $table, $body[$bodyKey], $user['id']);
-                    DbQuery::update($pdo, $table, [
-                        ...$modelClass::partialToDbArray($body[$bodyKey]),
-                        'updated_by' => $user['id'],
-                    ], $id);
+                    DbQuery::update($pdo, $table, [...$modelClass::partialToDbArray($body[$bodyKey]), 'updated_by' => $user['id']], $id);
                 }
                 // Only touch the collections the client actually sent.
                 $present = array_values(array_filter($children, fn($spec) => isset($body[$spec['key']])));
@@ -359,5 +348,7 @@ function registerFullResource($app, string $path, string $table, string $modelCl
         }
 
         return respondJson($response, DbQuery::from($pdo, $table)->find(['id' => $id]));
-    })->add(requireRole('ADMIN', 'EDITOR'))->add(requireAuth());
+    })
+        ->add(requireRole('ADMIN', 'EDITOR'))
+        ->add(requireAuth());
 }

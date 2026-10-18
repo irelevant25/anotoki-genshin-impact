@@ -51,7 +51,7 @@ export class QuizzesDishComponent extends CharacterQuizComponent {
         // for them rather than absent.
         return characters.map((character) => ({
           ...character,
-          dish: character.special_dish === null ? null : foodsById.get(character.special_dish) ?? null,
+          dish: character.special_dish === null ? null : (foodsById.get(character.special_dish) ?? null),
         }));
       }),
     );

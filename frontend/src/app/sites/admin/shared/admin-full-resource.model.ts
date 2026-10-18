@@ -101,7 +101,5 @@ export function createUid(): number {
 
 /** Renumbers items to a gap-free 1..n sequence, keeping their relative order. */
 export function resequence<T>(items: T[], getOrder: (item: T) => number, setOrder: (item: T, order: number) => void): void {
-  [...items]
-    .sort((a, b) => getOrder(a) - getOrder(b))
-    .forEach((item, index) => setOrder(item, index + 1));
+  [...items].sort((a, b) => getOrder(a) - getOrder(b)).forEach((item, index) => setOrder(item, index + 1));
 }

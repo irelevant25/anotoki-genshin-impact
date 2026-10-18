@@ -84,10 +84,9 @@ function _listAssetFolders(string $base): array
     $rootLength = strlen($base) + 1;
 
     // No asset tree (a checkout without it - it is not in git): no folders.
-    $iterator = !is_dir($base) ? [] : new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+    $iterator = !is_dir($base)
+        ? []
+        : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS), RecursiveIteratorIterator::SELF_FIRST);
 
     foreach ($iterator as $path => $info) {
         if ($info->isDir()) {
@@ -123,7 +122,7 @@ function _assetFolders(bool $refresh = false): array
 {
     $file = _assetFolderCacheFile();
 
-    if (!$refresh && is_file($file) && (time() - (int) filemtime($file)) < FILES_FOLDER_CACHE_TTL) {
+    if (!$refresh && is_file($file) && time() - (int) filemtime($file) < FILES_FOLDER_CACHE_TTL) {
         $cached = json_decode((string) file_get_contents($file), true);
         if (is_array($cached)) {
             return $cached;
@@ -146,19 +145,23 @@ $app->get('/api/files/folders', function (Request $request, Response $response) 
     // From the catalogue, not the disk: a "folder" here is a file category, and
     // its count is a group-by on the files table. The real directory tree is
     // the Files Explorer's job.
-    $rows = genshinDb()->query('
+    $rows = genshinDb()
+        ->query(
+            '
         SELECT c.path AS folder, count(f.id) AS files
         FROM file_categories c
         LEFT JOIN files f ON f.category_id = c.id
         WHERE c.deleted = FALSE
         GROUP BY c.path
-        ORDER BY c.path')->fetchAll(PDO::FETCH_ASSOC);
+        ORDER BY c.path',
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
-    return respondJson($response, array_map(
-        fn($r) => ['folder' => $r['folder'], 'files' => (int) $r['files']],
-        $rows
-    ));
-})->add(responds(AssetFolder::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+    return respondJson($response, array_map(fn($r) => ['folder' => $r['folder'], 'files' => (int) $r['files']], $rows));
+})
+    ->add(responds(AssetFolder::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->get('/api/files', function (Request $request, Response $response) {
     // One page of a category, read from the files table. Only catalogued files
@@ -213,7 +216,10 @@ $app->get('/api/files', function (Request $request, Response $response) {
         'pageSize' => FILES_PAGE_SIZE,
         'files' => $files,
     ]);
-})->add(responds(AssetFilePage::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetFilePage::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /**
  * The catalogue rows for named files in one folder, keyed by file name.
@@ -265,9 +271,7 @@ $app->post('/api/files', function (Request $request, Response $response) {
 
     // An explicit name replaces that file; otherwise the uploaded name is used.
     $requested = trim((string) ($body['name'] ?? ''));
-    $stem = $requested !== ''
-        ? pathinfo($requested, PATHINFO_FILENAME)
-        : pathinfo((string) $file->getClientFilename(), PATHINFO_FILENAME);
+    $stem = $requested !== '' ? pathinfo($requested, PATHINFO_FILENAME) : pathinfo((string) $file->getClientFilename(), PATHINFO_FILENAME);
 
     // null: this page browses the whole tree, voice overs included, so it
     // takes anything on the allowlist rather than images alone.
@@ -285,7 +289,10 @@ $app->post('/api/files', function (Request $request, Response $response) {
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'path' => $path, 'url' => ltrim(str_replace('../', '', $path), '/')]);
-})->add(responds(AssetUploadResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetUploadResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── Delete: moves to trash rather than unlinking ──────────────────────────────
 
@@ -316,7 +323,10 @@ $app->delete('/api/files', function (Request $request, Response $response) {
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $folder, 'name' => $name, 'trashed' => $stamped]);
-})->add(responds(AssetTrashResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetTrashResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── Trash ─────────────────────────────────────────────────────────────────────
 
@@ -351,7 +361,10 @@ $app->get('/api/files/trash', function (Request $request, Response $response) {
     $items = _listTrash(_trashRoot());
     usort($items, fn($a, $b) => strcmp($b['trashed'], $a['trashed']));
     return respondJson($response, $items);
-})->add(responds(TrashedFile::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(TrashedFile::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->post('/api/files/restore', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
@@ -397,7 +410,10 @@ $app->post('/api/files/restore', function (Request $request, Response $response)
 
     _assetFolderCacheClear();
     return respondJson($response, ['folder' => $safeFolder, 'name' => $name]);
-})->add(responds(AssetRestoreResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetRestoreResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── What is in the tree, and converting what is missing ───────────────────────
 //
@@ -442,7 +458,10 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
         // which is the same one the Files Explorer reads.
         'catalogue' => catalogueDriftFromSnapshot($pdo, $refresh),
     ]);
-})->add(responds(AssetStats::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetStats::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /**
  * Looks for files the catalogue has not heard of, and adopts them.
@@ -467,9 +486,18 @@ $app->get('/api/files/stats', function (Request $request, Response $response) {
 // cannot send one anyway.
 
 const FILE_MIME = [
-    'avif' => 'image/avif', 'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg',
-    'webp' => 'image/webp', 'gif' => 'image/gif', 'svg' => 'image/svg+xml',
-    'opus' => 'audio/ogg', 'ogg' => 'audio/ogg', 'mp3' => 'audio/mpeg', 'wav' => 'audio/wav', 'm4a' => 'audio/mp4',
+    'avif' => 'image/avif',
+    'png' => 'image/png',
+    'jpg' => 'image/jpeg',
+    'jpeg' => 'image/jpeg',
+    'webp' => 'image/webp',
+    'gif' => 'image/gif',
+    'svg' => 'image/svg+xml',
+    'opus' => 'audio/ogg',
+    'ogg' => 'audio/ogg',
+    'mp3' => 'audio/mpeg',
+    'wav' => 'audio/wav',
+    'm4a' => 'audio/mp4',
 ];
 
 $app->get('/api/files/raw', function (Request $request, Response $response) {
@@ -539,7 +567,10 @@ $app->get('/api/files/raw', function (Request $request, Response $response) {
 
         if ($start > $end || $start >= $size) {
             fclose($stream);
-            return $response->withStatus(416)->withHeader('Content-Range', 'bytes */' . $size)->withHeader('Content-Length', '0');
+            return $response
+                ->withStatus(416)
+                ->withHeader('Content-Range', 'bytes */' . $size)
+                ->withHeader('Content-Length', '0');
         }
 
         $length = $end - $start + 1;
@@ -561,9 +592,7 @@ $app->get('/api/files/raw', function (Request $request, Response $response) {
             ->withBody(new \Slim\Psr7\Stream($slice));
     }
 
-    return $response
-        ->withHeader('Content-Length', (string) $size)
-        ->withBody(new \Slim\Psr7\Stream($stream));
+    return $response->withHeader('Content-Length', (string) $size)->withBody(new \Slim\Psr7\Stream($stream));
 })->add(responds(RawFile::class));
 
 // ── Recorded but gone ─────────────────────────────────────────────────────────
@@ -592,11 +621,13 @@ $app->get('/api/files/missing', function (Request $request, Response $response) 
         }
     }
 
-    $rows = $pdo->query(
-        "SELECT f.id, f.name, f.extension, f.size, f.modified_at, c.code AS category, c.path
+    $rows = $pdo
+        ->query(
+            "SELECT f.id, f.name, f.extension, f.size, f.modified_at, c.code AS category, c.path
            FROM files f JOIN file_categories c ON c.id = f.category_id
-          ORDER BY c.path, f.name"
-    )->fetchAll(PDO::FETCH_ASSOC);
+          ORDER BY c.path, f.name",
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 
     $gone = array_flip($compare['vanished']);
     $items = [];
@@ -619,7 +650,10 @@ $app->get('/api/files/missing', function (Request $request, Response $response) 
     }
 
     return respondJson($response, $items);
-})->add(responds(MissingFile::class, list: true))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(MissingFile::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // DELETE /api/files/missing            forget every row whose file is gone
 // DELETE /api/files/missing?id=12,13   forget only these
@@ -642,7 +676,7 @@ $app->delete('/api/files/missing', function (Request $request, Response $respons
     $ids = [];
     $rows = $pdo->query(
         "SELECT f.id, f.name, f.extension, c.path
-           FROM files f JOIN file_categories c ON c.id = f.category_id"
+           FROM files f JOIN file_categories c ON c.id = f.category_id",
     );
     foreach ($rows as $row) {
         $suffix = $row['extension'] === '' ? '' : '.' . $row['extension'];
@@ -683,7 +717,10 @@ $app->delete('/api/files/missing', function (Request $request, Response $respons
 
     assetStatsForget();
     return respondJson($response, ['forgotten' => count($ids), 'unlinked' => $unlinked]);
-})->add(responds(MissingForgotten::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(MissingForgotten::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 // ── Emptying the trash ────────────────────────────────────────────────────────
 //
@@ -725,7 +762,10 @@ $app->delete('/api/files/trash', function (Request $request, Response $response)
     }
 
     return respondJson($response, ['deleted' => $deleted, 'bytes' => $bytes, 'failed' => $failed]);
-})->add(responds(TrashEmptied::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(TrashEmptied::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->post('/api/files/reconcile', function (Request $request, Response $response) {
     $result = catalogueReconcile(genshinDb());
@@ -738,7 +778,10 @@ $app->post('/api/files/reconcile', function (Request $request, Response $respons
     _assetFolderCacheClear();
 
     return respondJson($response, $result);
-})->add(responds(AssetReconcileResult::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetReconcileResult::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /**
  * Converts a batch of what is missing, and says where the job has got to.
@@ -762,7 +805,10 @@ $app->post('/api/files/convert', function (Request $request, Response $response)
     }
 
     return respondJson($response, _assetProgressBody($progress));
-})->add(responds(AssetConvertProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetConvertProgress::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /** Where a conversion started elsewhere has got to, without converting more. */
 $app->get('/api/files/convert', function (Request $request, Response $response) {
@@ -773,7 +819,10 @@ $app->get('/api/files/convert', function (Request $request, Response $response) 
     }
 
     return respondJson($response, _assetProgressBody($progress));
-})->add(responds(AssetConvertProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetConvertProgress::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /** The queue minus its work list, which is thousands of paths nobody reads. */
 function _assetProgressBody(array $queue): array
@@ -807,7 +856,10 @@ $app->get('/api/files/cleanup', function (Request $request, Response $response) 
     }
 
     return respondJson($response, cleanupPage(genshinDb(), $kind, (int) ($query['page'] ?? 1)));
-})->add(responds(AssetCleanupPage::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetCleanupPage::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->post('/api/files/cleanup', function (Request $request, Response $response) {
     $body = $request->getParsedBody() ?? [];
@@ -832,7 +884,10 @@ $app->post('/api/files/cleanup', function (Request $request, Response $response)
     }
 
     return respondJson($response, _cleanupBody($progress));
-})->add(responds(AssetCleanupProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetCleanupProgress::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->get('/api/files/cleanup/progress', function (Request $request, Response $response) {
     $progress = cleanupProgress();
@@ -842,7 +897,10 @@ $app->get('/api/files/cleanup/progress', function (Request $request, Response $r
     }
 
     return respondJson($response, _cleanupBody($progress));
-})->add(responds(AssetCleanupProgress::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds(AssetCleanupProgress::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 /** The queue minus its work list, which is tens of thousands of paths. */
 function _cleanupBody(array $queue): array

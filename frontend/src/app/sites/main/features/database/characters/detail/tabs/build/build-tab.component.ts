@@ -12,4 +12,4 @@ import { TranslatePipe } from '@anotoki/lib/translations';
   styleUrls: ['./build-tab.component.scss'],
   imports: [TranslatePipe],
 })
-export class CharacterBuildTabComponent { }
+export class CharacterBuildTabComponent {}

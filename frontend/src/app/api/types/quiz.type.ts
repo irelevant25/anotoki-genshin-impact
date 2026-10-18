@@ -40,4 +40,3 @@ export interface QuizResultRequest {
   attempts?: number;
   difficulty?: number | null;
 }
-

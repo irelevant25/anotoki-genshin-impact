@@ -12,9 +12,7 @@ $app->get('/api/enemy-families/{name}', function (Request $request, Response $re
     $stmt = genshinDb()->prepare('SELECT * FROM enemy_families WHERE name = ?');
     $stmt->execute([$args['name']]);
     $item = $stmt->fetch();
-    return $item
-        ? respondJson($response, $item)
-        : respondJson($response, ['error' => 'Not found'], 404);
+    return $item ? respondJson($response, $item) : respondJson($response, ['error' => 'Not found'], 404);
 })->add(responds('enemy_families'));
 
 $app->post('/api/enemy-families', function (Request $request, Response $response) {
@@ -24,7 +22,11 @@ $app->post('/api/enemy-families', function (Request $request, Response $response
     $stmt = $pdo->prepare('SELECT * FROM enemy_families WHERE name = ?');
     $stmt->execute([$body['name']]);
     return respondJson($response, $stmt->fetch(), 201);
-})->add(responds('enemy_families'))->add(validateRequest(EnemyFamily::class))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemy_families'))
+    ->add(validateRequest(EnemyFamily::class))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
 
 $app->delete('/api/enemy-families/{name}', function (Request $request, Response $response, array $args) {
     $pdo = genshinDb();
@@ -35,4 +37,7 @@ $app->delete('/api/enemy-families/{name}', function (Request $request, Response 
     }
     $pdo->prepare('DELETE FROM enemy_families WHERE name = ?')->execute([$args['name']]);
     return respondJson($response, ['message' => 'Deleted successfully']);
-})->add(responds('enemy_families'))->add(requireRole(...ROLES_CONTENT))->add(requireAuth());
+})
+    ->add(responds('enemy_families'))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
