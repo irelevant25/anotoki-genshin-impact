@@ -239,11 +239,17 @@ function seedContent(PDO $pdo): void
 
     // Something for the parts of a page that fold: Hu Tao's voice-over set (two
     // story lines and a combat one) and what a Hilichurl drops (one group, a
-    // material and an artifact).
+    // material and an artifact). Every line's text carries what anybody who may
+    // edit could have saved through the HTML source or the API straight - the
+    // server keeps a text as it was written: an image whose onerror marks the
+    // page. The screenshot run checks it never runs where a line is drawn (the
+    // admin panel's HTML editor, the character page), as every stored text
+    // reaches a live page through the allow-list (frontend rich-html.ts).
     $set = seed($pdo, 'characters_voice_overs_sets', []);
     $pdo->prepare('UPDATE characters SET voice_over_set_id = ? WHERE id = ?')->execute([$set, $characters['Hu Tao']]);
+    $hostile = '<img src="data:," onerror="document.documentElement.dataset.storedScript=\'ran\'">';
     foreach ([['story', 1, 'Hello'], ['story', 2, 'Chat: Wangsheng Funeral Parlor'], ['combat', 1, 'Elemental Skill: I']] as [$type, $order, $name]) {
-        seed($pdo, 'characters_voice_overs', $by + ['voice_over_set_id' => $set, 'type' => $type, 'order' => $order, 'name' => $name, 'text_english' => "$name, as Hu Tao says it."]);
+        seed($pdo, 'characters_voice_overs', $by + ['voice_over_set_id' => $set, 'type' => $type, 'order' => $order, 'name' => $name, 'text_english' => "$name, as Hu Tao says it.$hostile"]);
     }
     foreach ([['material_id' => $materials['Mora']], ['artifact_id' => $artifacts["Gladiator's Finale"]]] as $what) {
         seed($pdo, 'enemies_drops', $by + $what + ['enemy_id' => $enemies['Hilichurl'], 'level_from' => 1, 'level_to' => 40, 'world_level' => 0, 'quantity_from' => 1, 'quantity_to' => 2, 'drop_rate' => 0.5, 'average' => 0.75]);

@@ -547,7 +547,9 @@ pieces opened - what folds, a birthday's calendar, the editor's link dialog and
 colour panel, the voice-over import), and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,
 and `report.json`. It flags what a picture hides: a page wider than a phone, an
-error in the console, a key shown where a word should be - and throws an error
+error in the console, a key shown where a word should be, stored markup that
+ran (every seeded voice-over line carries an `<img onerror>`, which must never
+run in the HTML editor or on the character page) - and throws an error
 in a page, which must reach the backend's error log as the page's own,
 scrubbed (`error-report` in the report). Take one before a
 change to the pages and one after, and look at them side by side. It shows

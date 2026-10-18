@@ -9,6 +9,7 @@ import { AbstractInputComponent } from '../../abstract-input.class';
 import { DropdownOption } from '../../services/options-helper.service';
 import { RichTextComponent } from '../rich-text/rich-text.component';
 import { normalizeHtml } from '../../helper.class';
+import { sanitizeRichHtml } from '../../rich-html';
 import { HtmlEditorLinkData, HtmlEditorLinkDialogComponent, HtmlEditorLinkResult } from './link-dialog/html-editor-link-dialog.component';
 
 type Type = string;
@@ -35,9 +36,13 @@ type ColourMode = 'fore' | 'back';
  * The kit lets no markup in from outside: a paste or a drop that brings HTML
  * (a web page's, a word processor's) comes in as its plain text, and the
  * formatting is the toolbar's to give. What the editor holds is still
- * markup a person made, so nothing here is a defence: the preview and the
- * site show it through the same allow-list (`sanitizeRichHtml`, rich-html.ts),
- * and the server cleans every text it keeps.
+ * markup a person made - typed in the HTML source, or sent to the API by
+ * anybody who may edit - and the server keeps it as it was written (no
+ * allow-list there: api/guides.php, the voice-overs' text columns). So the
+ * page's allow-list (`sanitizeRichHtml`, rich-html.ts) stands wherever stored
+ * markup reaches a live page: the site and the preview (app-rich-text), and
+ * this editor itself as it loads a stored text (afterValueChange) - an
+ * `<img onerror>` an EDITOR saved never runs in an ADMIN's browser.
  */
 @Component({
   selector: 'app-html-editor',
@@ -534,8 +539,12 @@ export class HtmlEditorComponent extends AbstractInputComponent<Type> {
 
   override afterValueChange(value?: string | null): void {
     const el = this.editorElement()?.nativeElement;
-    if (el && el.innerHTML !== (value ?? '')) {
-      el.innerHTML = value ?? '';
+    // A stored text goes into this live page only through the allow-list: it keeps what the toolbar makes (the font,
+    // colour, background and indent styles, safe links) and drops every event handler and script - a text written
+    // in the HTML source or sent to the API straight is anybody's markup.
+    const safe = sanitizeRichHtml(value ?? '');
+    if (el && el.innerHTML !== safe) {
+      el.innerHTML = safe;
     }
     if (!this.showSource()) {
       this.sourceValue.set(value ?? '');

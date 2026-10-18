@@ -253,51 +253,49 @@ check('a folder that is not there has none', !ensureUploadGuard("$guarded/missin
 
 echo "What an upload is, by its bytes - never its name - and how large it may be\n";
 
-/** An upload as the API is handed one: its size, and its bytes behind a stream (the PSR-7 calls the check makes). */
+require TEST_BACKEND . '/vendor/autoload.php';
+
+/**
+ * An upload as the API is handed one: its size, and its bytes in PHP's temporary copy, behind a stream whose `uri`
+ * names that file (the PSR-7 calls the check makes - anotoki-lib's UploadPolicy reads the file itself).
+ */
 function uploadOf(string $bytes): object
 {
-    return new class ($bytes) {
-        public function __construct(private readonly string $bytes)
+    static $folder = null;
+    $folder ??= testTempDir('uploads');
+    $file = $folder . '/upload-' . bin2hex(random_bytes(6)) . '.tmp';
+    file_put_contents($file, $bytes);
+
+    return new class ($file, strlen($bytes)) {
+        public function __construct(private readonly string $file, private readonly int $size)
         {
         }
 
         public function getSize(): int
         {
-            return strlen($this->bytes);
+            return $this->size;
         }
 
         public function getStream(): object
         {
-            return new class ($this->bytes) {
-                private int $at = 0;
-
-                public function __construct(private readonly string $bytes)
+            return new class ($this->file) {
+                public function __construct(private readonly string $file)
                 {
                 }
 
-                public function rewind(): void
+                public function getMetadata(?string $key = null): mixed
                 {
-                    $this->at = 0;
-                }
-
-                public function read(int $length): string
-                {
-                    $part = substr($this->bytes, $this->at, $length);
-                    $this->at += strlen($part);
-
-                    return $part;
-                }
-
-                public function getContents(): string
-                {
-                    $rest = substr($this->bytes, $this->at);
-                    $this->at = strlen($this->bytes);
-
-                    return $rest;
+                    return $key === 'uri' ? $this->file : null;
                 }
             };
         }
     };
+}
+
+/** Whether the API keeps bytes uploaded under an extension (within the limit). */
+function keeps(string $bytes, string $extension): bool
+{
+    return uploadFileAcceptable(uploadOf($bytes), $extension);
 }
 
 $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
@@ -314,19 +312,18 @@ $script = "<?php system(\$_GET['c']); ?>";
 $page = '<!doctype html><script>alert(1)</script>';
 
 foreach ([
-    'a PNG named .png' => [$png, 'png', true],
-    '...named .PNG' => [$png, 'PNG', true],
-    'a GIF named .gif' => [$gif, 'gif', true],
-    'an AVIF named .avif (its brand the major one)' => [$avif, 'avif', true],
-    '...its brand among the compatible ones, after mif1' => [$avifAfterMif1, 'avif', true],
-    'an MP4 sound named .m4a' => [$m4a, 'm4a', true],
-    'an MP3 with an ID3 tag' => [$mp3Tagged, 'mp3', true],
-    'an MP3 starting with a frame' => [$mp3Frame, 'mp3', true],
-    'an Ogg file named .ogg' => [$ogg, 'ogg', true],
-    '...named .opus' => [$ogg, 'opus', true],
-    'a WAV named .wav' => [$wav, 'wav', true],
-] as $what => [$bytes, $extension, $expected]) {
-    same("$what: what it says", $expected, uploadBytesMatchExtension($bytes, $extension));
+    'a PNG named .png' => [$png, 'png'],
+    '...named .PNG' => [$png, 'PNG'],
+    'a GIF named .gif' => [$gif, 'gif'],
+    'an AVIF named .avif (AVIF its major brand)' => [$avif, 'avif'],
+    'an MP4 sound named .m4a' => [$m4a, 'm4a'],
+    'an MP3 with an ID3 tag' => [$mp3Tagged, 'mp3'],
+    'an MP3 starting with a frame' => [$mp3Frame, 'mp3'],
+    'an Ogg file named .ogg' => [$ogg, 'ogg'],
+    '...named .opus' => [$ogg, 'opus'],
+    'a WAV named .wav' => [$wav, 'wav'],
+] as $what => [$bytes, $extension]) {
+    check("$what: kept", keeps($bytes, $extension));
 }
 foreach ([
     'a PHP script named .png' => [$script, 'png'],
@@ -337,21 +334,28 @@ foreach ([
     'a PHP script named .m4a' => [$script, 'm4a'],
     'a page named .avif' => [$page, 'avif'],
     'a HEIC picture named .avif (another brand)' => [$heic, 'avif'],
+    'an AVIF whose major brand is mif1 (the family\'s rule reads the major brand)' => [$avifAfterMif1, 'avif'],
     'a PNG named .mp3' => [$png, 'mp3'],
     'an Ogg file named .wav' => [$ogg, 'wav'],
     'a WAV named .ogg' => [$wav, 'ogg'],
     'an MP4 sound named .avif' => [$m4a, 'avif'],
     'a PNG named .svg (no such kind here)' => [$png, 'svg'],
-    'nothing at all, named .png' => ['', 'png'],
-    'nothing at all, named .mp3' => ['', 'mp3'],
+    // The code review's probes of 2026-10-18, which the site's own check of the bytes let through.
+    'XBM text (two #define lines) named .png' => ["<?php system('id'); ?>\n#define a_width 1\n#define a_height 1\n<script>alert(1)</script>", 'png'],
+    'a WBMP head and a page named .jpg' => ["\x00\x00\x01\x01<html><script>alert(1)</script></html>", 'jpg'],
+    'GIF bytes named .png' => ["GIF89a\x01\x00\x01\x00\x00\x00\x00;", 'png'],
+    'an HTML comment spelling ftypavif, then a page, named .avif' => ["<!--ftypavif-->\n<html><script>alert(1)</script></html>", 'avif'],
+    'ID3 and then a page, named .mp3' => ['ID3<html><script>alert(1)</script></html>', 'mp3'],
+    'OggS and then a script, named .ogg' => ["OggS<?php system('id'); ?>", 'ogg'],
 ] as $what => [$bytes, $extension]) {
-    check("$what: refused", !uploadBytesMatchExtension($bytes, $extension));
+    check("$what: refused", !keeps($bytes, $extension));
 }
 
 same('an upload of a real picture within the limit: kept', true, uploadFileAcceptable(uploadOf($png), 'png', 1024));
 same('...the same over the limit: refused, whatever it holds', false, uploadFileAcceptable(uploadOf($png), 'png', strlen($png) - 1));
 same('...exactly at the limit: kept', true, uploadFileAcceptable(uploadOf($png), 'png', strlen($png)));
 same('an empty upload: refused', false, uploadFileAcceptable(uploadOf(''), 'png'));
+same('nothing at all, named .mp3: refused', false, uploadFileAcceptable(uploadOf(''), 'mp3'));
 same('a script named like a sound, within the limit: refused', false, uploadFileAcceptable(uploadOf($script), 'mp3'));
-same('a sound within the limit: kept - its start read alone', true, uploadFileAcceptable(uploadOf($ogg . str_repeat("\x01", 4096)), 'ogg'));
+same('a sound within the limit: kept', true, uploadFileAcceptable(uploadOf($ogg . str_repeat("\x01", 4096)), 'ogg'));
 same('the limit: 50 MB, the file explorer\'s and the hosting\'s', 50 * 1024 * 1024, UPLOAD_MAX_BYTES);

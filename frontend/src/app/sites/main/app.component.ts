@@ -55,7 +55,11 @@ export class AppComponent {
    * closed the site has to be able to look at it while it is closed, and to
    * open it again. It follows the session rather than reading it once, so the
    * sign goes up again the moment an admin signs out in another tab. The legal
-   * pages are exempt too: they need nothing the closed API keeps back.
+   * pages are exempt too: what the page itself needs - its words, the public
+   * settings - the closed API still answers. The shell drawn around it asks
+   * for more (the menu's Daily count, the footer's dialogs), which the closed
+   * API refuses: those parts stay empty, nothing of the closed site is shown,
+   * and Contact's feedback form cannot send until the site opens again.
    */
   readonly closed = computed(() => this._settings.maintenance() && !this._settings.isAdmin() && !this.legalPage());
 
@@ -69,8 +73,11 @@ export class AppComponent {
    * a browser that would not start it. Followed
    * rather than read once, so a sign-out in another tab puts the card up here
    * too. The closed sign comes first: maintenance outranks it, as on the API.
-   * Never on a legal page: the API keeps open all a legal page asks for (its
-   * words, the public settings).
+   * Never on a legal page: the API answers what the page itself needs (its
+   * words, the public settings) to anybody. The shell around it asks for more
+   * (the menu's Daily count, the footer's dialogs), which the API refuses
+   * somebody not signed in: those parts stay empty, and nothing leaks. So does
+   * Contact's feedback form, which is for people signed in then (api/index.php).
    */
   readonly signInFirst = computed(() => this._settings.loginRequired() && !this._security.isLoggedIn() && !this.legalPage());
 

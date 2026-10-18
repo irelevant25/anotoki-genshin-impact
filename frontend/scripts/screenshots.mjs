@@ -137,6 +137,18 @@ const hostingNamed = (page) =>
     15000,
   );
 
+/**
+ * A stored text's markup never runs where it is drawn: Hu Tao's voice-over lines are seeded with an image whose
+ * onerror marks the page (backend/tests/tools/browser-env.php) - what anybody who may edit could save, the server
+ * keeping a text as it was written. Drawn through the allow-list (rich-html.ts: the HTML editor as it loads the line,
+ * the character page's app-rich-text) it never runs; a page where it ran is one to look at. Given a moment, as an
+ * image's error comes after it is drawn.
+ */
+const storedMarkupInert = async (page) => {
+  await sleep(1500);
+  return page.evaluate("document.documentElement.dataset.storedScript !== 'ran'");
+};
+
 const MAIN = [
   { name: 'main-home', path: '/', focus: 4 },
   { name: 'main-daily', path: '/daily' },
@@ -157,7 +169,7 @@ const MAIN = [
   { name: 'main-database-characters', path: '/database/characters', focus: 6 },
   { name: 'main-database-character', path: '/database/characters/1' },
   { name: 'main-database-character-constellations', path: '/database/characters/1', then: click('[role=tab], .tab, app-tab, button', '^(Constellations?|Konštelácie)$') },
-  { name: 'main-database-character-voice-overs', path: '/database/characters/1', then: click('[role=tab]', '^Voice') },
+  { name: 'main-database-character-voice-overs', path: '/database/characters/1', then: steps(click('[role=tab]', '^Voice'), storedMarkupInert) },
   { name: 'main-database-weapons', path: '/database/weapons' },
   { name: 'main-database-weapon', path: '/database/weapons/1' },
   { name: 'main-database-materials', path: '/database/materials' },
@@ -237,10 +249,12 @@ const ADMIN = [
   {
     name: 'admin-characters-edit-voice-overs',
     path: '/admin/characters/1/edit',
+    // The line opened in the HTML editor carries an onerror in its stored text (storedMarkupInert).
     then: steps(
       click('[role=tab]', '^Voice Overs$'),
       press('anotoki-disclosure .anotoki-disclosure__button'),
       press('anotoki-disclosure anotoki-disclosure .anotoki-disclosure__button'),
+      storedMarkupInert,
     ),
   },
   { name: 'admin-enemies-edit-drops', path: '/admin/enemies/1/edit', then: steps(click('[role=tab]', '^Drops$'), press('anotoki-disclosure .anotoki-disclosure__button')) },

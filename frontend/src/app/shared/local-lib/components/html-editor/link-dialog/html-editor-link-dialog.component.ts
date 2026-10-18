@@ -21,8 +21,9 @@ export type HtmlEditorLinkResult = { address: string } | { remove: true };
  * Only an address the kit lets into a text is taken (`safeLinkAddress()`: a
  * web, mail or this site's own address - never javascript: or data:); any
  * other is refused here with why, and nothing is done. That is a convenience:
- * what decides is the cleaning the text goes through - the page's allow-list
- * where it is shown (rich-html.ts) and the server's where it is kept.
+ * the server keeps a text as it was written, and what decides is the page's
+ * allow-list (rich-html.ts), which every stored text goes through wherever it
+ * reaches a live page - the site, the preview, the editor as it loads one.
  */
 @Component({
   selector: 'app-html-editor-link-dialog',

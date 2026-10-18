@@ -383,7 +383,9 @@ not drift; [docs/README.md](docs/README.md) lists them.
   every item kept in a browser, by name; the hosting company, WebSupport
   s.r.o., and Cloudflare in front. Anybody may read them - signed in or not, while
   the IAM requires signing in, while the site is closed - and Contact opens
-  the feedback form. Under every page: Terms · Privacy · Contact and the fan
+  the feedback form (which sends while the site is open - while the IAM
+  requires signing in, for people signed in). Under every page: Terms ·
+  Privacy · Contact and the fan
   clause (migration `users/055`; `users/056` drops four words nothing reads).
   Every `config/*.local.php` is read cleanly or not at all: one saved with a
   byte-order mark or a line before its `<?php` is never compiled (before, with

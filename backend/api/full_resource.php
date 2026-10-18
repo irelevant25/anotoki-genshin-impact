@@ -60,8 +60,8 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
     if (!in_array($ext, UPLOAD_ALLOWED_EXTENSIONS, true)) {
         return null;
     }
-    // A file is what its extension says by its bytes - a picture that decodes, an AVIF's brand, a sound's signature -
-    // and no larger than the limit (api/upload_guard.php).
+    // A file is what its extension says by its bytes - the family's rule, anotoki-lib's UploadPolicy - and no larger
+    // than the limit (api/upload_guard.php).
     if (!uploadFileAcceptable($file, $ext)) {
         return null;
     }

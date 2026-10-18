@@ -735,7 +735,21 @@ if (!$onThisComputer) {
             );
         }
     }
-    $token = (string) setupToken();
+    $token = setupToken();
+    if ($token === null) {
+        // Written, and still no token read back - a file PHP may write but not read, or one PHP's opcode cache keeps
+        // serving as it was before. Never an empty token (which a post carrying none would match): no proof is
+        // accepted until the file reads.
+        render(
+            'Cannot read config/setup.local.php',
+            '<p>The installer wrote a setup token to <code>config/setup.local.php</code> but cannot read it back,'
+            . ' so it accepts nothing until it can.</p>'
+            . '<p class="muted">Check that the web server may read the file (or replace it with one returning'
+            . ' <code>[\'token\' =&gt; \'...\']</code>, starting with <code>&lt;?php</code>), wait a minute if the'
+            . ' host caches PHP files, and reload.</p>',
+            'bad'
+        );
+    }
 }
 
 $posted = ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST';

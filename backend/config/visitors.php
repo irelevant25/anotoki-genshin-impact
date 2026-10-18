@@ -199,9 +199,14 @@ function visitorSettingsFrom(mixed $values): array
         return ['settings' => $settings, 'problems' => []];
     }
     if (!is_array($values)) {
+        // Read cleanly but no array - a forgotten `return`, and require hands back 1: what it meant to say may have
+        // been [] for the proxies of a host not behind Cloudflare, so none is trusted until it is mended (coarser,
+        // never looser), and the limits keep their defaults.
+        $settings['client_address']['trusted_proxies'] = [];
+
         return [
             'settings' => $settings,
-            'problems' => ['config/visitors.local.php returns ' . get_debug_type($values) . ', not an array, so every default holds'],
+            'problems' => ['config/visitors.local.php returns ' . get_debug_type($values) . ', not an array: the visitors\' limits keep their defaults, and no proxy is trusted - every request counts as the address it came from - until it is mended'],
         ];
     }
 

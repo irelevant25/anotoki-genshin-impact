@@ -203,8 +203,8 @@ function _saveAssetUpload($file, string $folder, string $baseName, ?bool $audio 
 
     $isAudio = in_array($ext, $audioExtensions, true);
 
-    // What it is by its bytes - a picture that decodes, an AVIF's brand, a sound's signature - and no larger than the
-    // limit (api/upload_guard.php): the admin pages' file pickers check the same in the browser, as a convenience.
+    // What it is by its bytes - the family's rule, anotoki-lib's UploadPolicy - and no larger than the limit
+    // (api/upload_guard.php): the admin pages' file pickers check the kind and the size in the browser, as a convenience.
     if (!uploadFileAcceptable($file, $ext)) {
         return null;
     }

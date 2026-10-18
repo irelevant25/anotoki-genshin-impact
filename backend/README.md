@@ -42,7 +42,7 @@ api/            index.php - the Slim app, every request to /api lands here
                 may run: the names, the folders' .htaccess - no script, nosniff,
                 anything but a picture as a download; and an upload is kept only when
                 its bytes are what its name says, 50 MB at most -
-                uploadFileAcceptable()), site_user.php (this site's
+                uploadFileAcceptable(), anotoki-lib's UploadPolicy), site_user.php (this site's
                 record of a person, from the token), site_settings.php; translations.php
                 (the words: anotoki/lib's Translations set up for this site - the released
                 languages, the guides counted per language, the audit log) and guides.php

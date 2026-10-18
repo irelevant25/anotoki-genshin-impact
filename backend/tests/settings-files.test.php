@@ -326,6 +326,85 @@ same('a byte-order mark before <?php declare(strict_types=1);: the site runs, th
 ]);
 check('...said in PHP\'s log', str_contains($case['log'], '[visitors] config/visitors.local.php cannot be read cleanly (' . BAD_START . ')'), $case['log']);
 
+$returnsOne = visitorSettingsFrom(1);
+same('read cleanly but no array - a forgotten return, require giving 1: no proxy trusted, never Cloudflare\'s ranges by default', [], $returnsOne['settings']['client_address']['trusted_proxies']);
+same('...the limits at their defaults', VISITOR_SETTING_DEFAULTS['visitors'], $returnsOne['settings']['visitors']);
+check('...and said so', str_contains($returnsOne['problems'][0] ?? '', 'returns int, not an array') && str_contains($returnsOne['problems'][0] ?? '', 'no proxy is trusted'), $returnsOne['problems'][0] ?? '');
 same('read cleanly, a client_address that is no list: no proxy trusted', [], visitorSettingsFrom(['client_address' => 'cloudflare'])['settings']['client_address']['trusted_proxies']);
 same('...a trusted_proxies that is no list: none either - never the committed ranges by default', [], visitorSettingsFrom(['client_address' => ['trusted_proxies' => '173.245.48.0/20']])['settings']['client_address']['trusted_proxies']);
 same('...a file that says nothing of them: Cloudflare\'s committed ranges, as without the file', VISITOR_SETTING_DEFAULTS['client_address']['trusted_proxies'], visitorSettingsFrom(['visitors' => ['keep_days' => 60]])['settings']['client_address']['trusted_proxies']);
+
+// ── setup.php on a host: a token it cannot read back accepts no proof ───────
+
+echo "setup.php on a host: a setup token it cannot read back is no token at all\n";
+
+/**
+ * setup.php served by PHP's built-in server from this backend copy, asked under a host's name - so it is on the
+ * hosting, not this computer, and asks for the setup token - each answer's body. $staleCache: PHP's opcode cache
+ * keeping every file as it was first compiled (no timestamps checked), as a host's cache can serve a token file as it
+ * was before the installer wrote a new one.
+ *
+ * @param list<array{method?: string, fields?: array<string, string>, nonce?: string}> $asks
+ * @return list<string>
+ */
+function setupOnHost(string $backend, bool $staleCache, array $asks): array
+{
+    $socket = stream_socket_server('tcp://127.0.0.1:0');
+    $port = (int) substr(strrchr((string) stream_socket_get_name($socket, false), ':'), 1);
+    fclose($socket);
+    $cache = $staleCache
+        ? ['-d', 'opcache.enable=1', '-d', 'opcache.enable_cli=1', '-d', 'opcache.validate_timestamps=0', '-d', 'opcache.file_update_protection=0']
+        : ['-d', 'opcache.enable=0', '-d', 'opcache.enable_cli=0'];
+    $log = testTempDir('setup-host') . '/server.log';
+    $server = proc_open(array_merge([PHP_BINARY], $cache, ['-d', 'display_errors=0', '-S', "127.0.0.1:$port", '-t', $backend]), [1 => ['file', $log, 'a'], 2 => ['file', $log, 'a']], $pipes);
+    $bodies = [];
+    try {
+        $up = false;
+        for ($try = 0; $try < 100 && !$up; $try++) {
+            $probe = @fsockopen('127.0.0.1', $port, $errno, $errstr, 0.2);
+            if ($probe !== false) {
+                fclose($probe);
+                $up = true;
+            } else {
+                usleep(100_000);
+            }
+        }
+        foreach ($asks as $ask) {
+            $nonce = $ask['nonce'] ?? bin2hex(random_bytes(24));
+            $post = ($ask['method'] ?? 'GET') === 'POST';
+            $context = stream_context_create(['http' => [
+                'method' => $post ? 'POST' : 'GET',
+                'header' => "Host: genshin.example\r\nCookie: genshin_setup_nonce=$nonce\r\n" . ($post ? "Content-Type: application/x-www-form-urlencoded\r\n" : ''),
+                'content' => $post ? http_build_query(['nonce' => $nonce] + ($ask['fields'] ?? [])) : '',
+                'ignore_errors' => true,
+                'timeout' => 30,
+            ]]);
+            $bodies[] = (string) @file_get_contents("http://127.0.0.1:$port/setup.php", false, $context);
+        }
+    } finally {
+        proc_terminate($server);
+        proc_close($server);
+    }
+
+    return $bodies;
+}
+
+copy(TEST_BACKEND . '/setup.php', "$backend/setup.php");
+$tokenFile = "$backend/config/setup.local.php";
+
+// A token file read cleanly that holds no token (it returns no array): the installer writes a new one and reads that.
+file_put_contents($tokenFile, "<?php\n\nreturn 1;\n");
+touch($tokenFile, time() - 60);
+[$shown, $posted] = setupOnHost($backend, false, [[], ['method' => 'POST', 'fields' => ['action' => 'install']]]);
+check('a token file with no token in it: a new one written and read back - the page asks for it', str_contains($shown, 'name="token"') && !str_contains($shown, 'Cannot read config/setup.local.php'), substr(strip_tags($shown), 0, 300));
+check('...and a post without it is refused', str_contains($posted, 'That is not the setup token from config/setup.local.php.'), substr(strip_tags($posted), 0, 300));
+
+// The same file, served by a cache that keeps it as it was: the new token is never read back. Before the fix this was
+// an empty token, which a post carrying none matched (hash_equals('', '')) - the installer anybody's.
+file_put_contents($tokenFile, "<?php\n\nreturn 1;\n");
+touch($tokenFile, time() - 60);
+[$shown, $posted] = setupOnHost($backend, true, [[], ['method' => 'POST', 'fields' => ['action' => 'install']]]);
+check('the attack it stops: a token written but never read back - the page says so and asks for no token', str_contains($shown, 'Cannot read config/setup.local.php') && !str_contains($shown, 'name="token"'), substr(strip_tags($shown), 0, 300));
+check('...and a post carrying no token is never taken: the same page, nothing saved', str_contains($posted, 'Cannot read config/setup.local.php') && !is_file("$backend/storage/installed.lock"), substr(strip_tags($posted), 0, 300));
+@unlink($tokenFile);
+@unlink("$backend/setup.php");

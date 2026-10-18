@@ -251,7 +251,11 @@ ADMIN or EDITOR, languages too.
   `guide_contents`): `GET /api/guides/{guide}?language=` (public: the reader's
   language, English where the guide has none), `GET /api/admin/guides`,
   `PUT /api/admin/guides/{guide}` (ADMIN or EDITOR; English never blank). Markup,
-  drawn by `<app-rich-text>` only; made by migrations, edited on the admin Guides page.
+  kept as it was written - the server has no allow-list - so it reaches a live
+  page only through the page's (`rich-html.ts`): drawn by `<app-rich-text>`, and
+  loaded into the HTML editor through `sanitizeRichHtml()` (an `<img onerror>` an
+  EDITOR saved never runs in an ADMIN's browser); made by migrations, edited on
+  the admin Guides page. The voice-overs' `text_*` columns are the same.
 - **Pages**: `@anotoki/lib/translations` - its `TranslationService` (the reader's
   language, the account's while its choices apply, `effectiveLanguage()` English in
   the admin panel for its staff), its `translate` pipe in every template, the kit's
@@ -910,11 +914,15 @@ node docs/security/build-report.mjs                            # after re-runnin
   first use, has no folder) and the HTML editor (the kit's rich-text toolbar
   over its contenteditable; its own size and font menus, colours in a panel
   of the kit's colour field, a link asked in its own dialog and set through
-  the kit's `link()`; a paste comes in as plain text); rich text (the
-  allow-list's renderer, `rich-html.ts`); the waypoint loader, the audio
+  the kit's `link()`; a paste comes in as plain text; a stored text loads
+  through the page's allow-list); rich text (the allow-list's renderer,
+  `rich-html.ts`); the waypoint loader, the audio
   players, the theme toggle. Every file an editor uploads is checked again on
   the server by its bytes and its size (`uploadFileAcceptable()`,
-  `api/upload_guard.php`): the browser's check is a convenience. The bases:
+  `api/upload_guard.php`: anotoki-lib's `UploadPolicy::contentRefusal()`, the
+  family's rule - the picture or sound its name says, no markup at its start
+  nor a page's tags in its first kilobyte): the browser's check is a
+  convenience. The bases:
   `AbstractInputComponent`, `AbstractModalComponent` (`openModal()` over the
   kit's `AnotokiDialog`, data through `ANOTOKI_DIALOG_DATA`, `closeModal()`,
   `dialogHeading()`, `notificationService` = the kit's `ToastService`),
