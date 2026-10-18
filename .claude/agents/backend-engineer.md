@@ -251,6 +251,9 @@ development through `ng serve`'s proxy. Never print a `.local.php` file's conten
   for nobody, a MEMBER, an EDITOR and the ADMIN (`tests/library-tools-routes.test.php`),
   a data move's on a database shaped like an installed one
   (`tests/library-tools-migration.test.php`).
+- `bun run format:check` at the root passes (the anotoki family's Prettier
+  setup, which formats the PHP too; what it leaves alone is in `.prettierignore`
+  with its reason).
 - Run the dev server (`composer start` from `backend/`) and hit
   the route with `curl` for the real status, headers and body. A checkout without
   its config answers `not_set_up` to everything: `http://localhost:8000/setup.php`

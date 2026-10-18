@@ -155,6 +155,9 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 
 ## Verifying
 
+- `bun run format:check` at the root passes (the anotoki family's Prettier
+  setup; a template whose formatting would change what Angular compiles is in
+  `.prettierignore` with its reason - never hand-edited around).
 - `npx tsc --noEmit -p tsconfig.json` and, for template changes,
   `npx ng build --configuration development --output-path <a scratch folder>`
   (templates are only fully checked by a build). Without `--output-path` it

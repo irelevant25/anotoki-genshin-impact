@@ -34,7 +34,7 @@ snake_case name. Read the two or three most recent migrations in that folder
 first and match their structure exactly.
 
 Around both folders the engine runs the anotoki library's own sets
-(`vendor/anotoki/lib/php/migrations/`, never edited here): `anotoki_admin` FIRST
+(`vendor/anotoki/lib/backend/migrations/`, never edited here): `anotoki_admin` FIRST
 (the admin tools' tables `anotoki_audit_log` and `anotoki_feedback` - a
 `genshin_impact/` migration may build on them, as 028 and 029 moved the old
 rows in), and after the folders `anotoki_translations` - its 001 proves the

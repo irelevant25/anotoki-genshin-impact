@@ -12,10 +12,13 @@ that maintains its data. Three parts.
 The pre-rewrite Vue codebase (`old/`) is gone from the tree; git history keeps it.
 
 The root holds `.claude/`, `.gitignore`, `CLAUDE.md`, `README.md`, `DEV.md`,
-`backend/`, `frontend/` and `docs/` - nothing else is committed there, like every
-anotoki project. In development the untracked asset tree `assets/` (2.7 GB) sits
-there too: the backend writes uploads into it (`_assetsRoot()` in
-`api/asset_naming.php`) and `ng serve` serves it (`angular.json`'s `../assets`).
+`backend/`, `frontend/`, `docs/`, `tools/` (the host check) and the anotoki
+family's formatting setup - `package.json` and `bun.lock` (Prettier alone),
+`.prettierrc.json`, `.prettierignore` and `.editorconfig` - nothing else is
+committed there, like every anotoki project. In development the untracked
+asset tree `assets/` (2.7 GB) sits there too: the backend writes uploads into
+it (`_assetsRoot()` in `api/asset_naming.php`) and `ng serve` serves it
+(`angular.json`'s `../assets`).
 A file that would sit at the root goes where it is used: tooling
 into `backend/` or `frontend/scripts/`, images into `docs/images/` or
 `frontend/public/`, guides into `docs/`.
@@ -208,7 +211,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   padding (on a phone, to its own 56 px row), so the library's sticky heads stick
   flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.6.0"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.7.0"`, from the GitHub VCS
   repository; on 0.x a caret takes no next minor) and `composer update anotoki/lib
   --prefer-dist` in `backend/`; the release's tarball URL in
   `frontend/package.json`, then `bun install` (bun.lock), and package-lock.json's
@@ -216,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.6.3 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.7.0 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -247,7 +250,7 @@ ADMIN or EDITOR, languages too.
   in api-config.mjs's `SKIP_PREFIXES`: the library's Angular half is their client.
 - **The schema**: `translations` / `translation_keys` / `languages` keyed by its
   code, no scopes, flags or stamps; the library's own set `anotoki_translations`
-  (`vendor/anotoki/lib/php/migrations/translations`) runs after both folders
+  (`vendor/anotoki/lib/backend/migrations/translations`) runs after both folders
   (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
   its 002-009 and 012 add the library's words under `anotoki.*` (the kit's, the
   status page's, the sign-in page's, the feedback form's, the legal pages' 122,
@@ -540,6 +543,7 @@ npm start                            # bun ci, then ng serve on :4200 through pr
                                      # - it does not regenerate the API client: npm run api after an API change
 npm run api                          # regenerate the API client (see above)
 npm run lint
+cd .. && bun run format:check        # Prettier on every file of both halves, at the root (bun install there first)
 node scripts/screenshots.mjs         # every page and its dialogs in headless Edge, light and dark, 1280 and 390 px:
                                      # screenshots to compare before and after a change to the pages, and what a
                                      # picture hides (wider than a phone, console errors, a key shown as a word);
@@ -879,7 +883,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.6.3), each piece imported from its own entry point -
+  kit (anotoki-lib 0.7.0), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
