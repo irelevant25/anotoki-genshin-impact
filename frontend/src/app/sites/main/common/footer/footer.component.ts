@@ -9,7 +9,7 @@ import { LocalStorageService } from '../../../../shared/local-lib/services/local
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { StorageKeys } from '../../../../shared/state-manager.service';
 import { SiteAccountModalComponent } from './site-account-modal/site-account-modal.component';
-import { ChangelogEntry, SiteVersionModalComponent } from './site-version-modal/site-version-modal.component';
+import { ChangelogEntry } from './site-version-modal/site-version-modal.component';
 import { SiteWhatsNewModalComponent, WhatsNewData } from './site-whats-new-modal/site-whats-new-modal.component';
 import { sameVersion } from './versions';
 
@@ -17,10 +17,10 @@ import { sameVersion } from './versions';
  * The public site's footer - its own: the admin panel has the anotoki
  * family's (@anotoki/lib/footer), and the owner wants this one different.
  *
- * On the right, in this order (the owner's of 2026-10-18): the version (the
- * changelog), What's new, Feedback and the account - each a button that opens
- * its dialog - then Terms · Privacy · Contact, links to the legal pages in the
- * anotoki library's words (anotoki.legalLinks.*). On the left, alone, the fan
+ * On the right, in this order (the owner's of 2026-10-18 and 2026-10-19): the
+ * version, as text; What's new and Feedback, buttons that open their dialogs;
+ * Terms · Privacy · Contact, links to the legal pages in the anotoki library's
+ * words (anotoki.legalLinks.*); the account, last. On the left, alone, the fan
  * clause (footer.fanDisclaimer). Under every page: the closed sign and the
  * sign-in card keep the clause and the three links (`legalOnly`), as what the
  * site keeps is said before anybody signs in.
@@ -92,8 +92,8 @@ export class FooterComponent extends AbstractModalComponent {
    * the newest version opens (watchWhatsNew), and opening it records that
    * version so it does not show again. It is about the newest version only: a
    * visitor who skipped releases is told there were earlier ones, and its "See
-   * all changes" opens the full changelog, the same one the footer's version
-   * button does. Kept per browser rather than per account on purpose: a
+   * all changes" opens the full changelog. Kept per browser rather than per
+   * account on purpose: a
    * signed-in visitor on a second device is signed out there with an empty
    * localStorage, so an account could not tell us they had already seen it —
    * the browser is the thing that actually knows. The version kept may be an
@@ -129,7 +129,7 @@ export class FooterComponent extends AbstractModalComponent {
    * outside the effect's own run. It has to be: the note's constructor makes an
    * effect of its own, and Angular refuses to create an effect inside another
    * one's run (NG0602). By then the wait may have let the version be seen
-   * another way - the footer's version or What's new button, or the note in
+   * another way - the footer's What's new button, or the note in
    * another tab - and a note on what was just read is only in the way.
    */
   private watchWhatsNew(): void {
@@ -152,11 +152,6 @@ export class FooterComponent extends AbstractModalComponent {
     const savedBackground = this._storage.read(StorageKeys.BACKGROUND);
     const defaultBackground = 'assets/backgrounds/Fontaine.avif';
     document.body.style.backgroundImage = `url("${savedBackground || defaultBackground}")`;
-  }
-
-  /** Every version: the changelog this footer has read. Opening it marks the newest one seen. */
-  openVersions(): void {
-    this.openModal(SiteVersionModalComponent, { size: 'md', data: this.changelog() });
   }
 
   /**

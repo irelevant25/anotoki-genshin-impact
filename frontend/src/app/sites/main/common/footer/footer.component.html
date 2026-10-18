@@ -4,10 +4,12 @@
 <footer class="site-footer">
     <div class="site-footer-items">
         @if (!legalOnly()) {
-            <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openVersions()">{{ version() ?? ("footer.versions" | translate) }}</button>
+            <!-- The version is text, as on the other anotoki sites; the whole changelog is What's new's "See all changes". -->
+            @if (version(); as shown) {
+                <span class="site-footer-item site-footer-version">{{ shown }}</span>
+            }
             <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openWhatsNew()">{{ "footer.whatsNew" | translate }}</button>
             <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openFeedback()">{{ "footer.feedback" | translate }}</button>
-            <button type="button" class="site-footer-item site-footer-account" aria-haspopup="dialog" (click)="openAccount()">{{ username() ?? ("footer.account" | translate) }}</button>
         }
         <!-- The legal pages, named in the anotoki library's words (an owner's rewording first); the open one is marked. -->
         <nav class="site-footer-legal" [attr.aria-label]="'anotoki.legalLinks.label' | translate">
@@ -15,6 +17,10 @@
             <a class="site-footer-item" [routerLink]="legalPaths.privacy" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.privacy" | translate }}</a>
             <a class="site-footer-item" [routerLink]="legalPaths.contact" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.contact" | translate }}</a>
         </nav>
+        <!-- The account on the far right (the owner, 2026-10-19). -->
+        @if (!legalOnly()) {
+            <button type="button" class="site-footer-item site-footer-account" aria-haspopup="dialog" (click)="openAccount()">{{ username() ?? ("footer.account" | translate) }}</button>
+        }
     </div>
     <p class="site-footer-fan">{{ "footer.fanDisclaimer" | translate }}</p>
 </footer>

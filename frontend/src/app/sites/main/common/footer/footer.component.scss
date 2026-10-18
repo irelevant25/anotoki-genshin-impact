@@ -68,6 +68,17 @@
     transform: translateY(-1px);
   }
 
+  // The version is text, nothing to press: no pointer, no lift.
+  &.site-footer-version {
+    cursor: default;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.9);
+      background-color: transparent;
+      transform: none;
+    }
+  }
+
   // The page's focus ring is a blue the bar's black would swallow: white here, as the words are.
   &:focus-visible {
     outline: 2px solid white;
