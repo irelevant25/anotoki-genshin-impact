@@ -73,11 +73,12 @@ testNeedsDatabase();
 
 echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n";
 
-// The library's translations set as anotoki-lib 0.7.2 brings it: 001-004 (the
+// The library's translations set as anotoki-lib 0.8.0 brings it: 001-004 (the
 // words' shape, the kit's, the sign-in page's and the feedback form's words),
 // 005-009 (the legal pages', the top bar's, the kit's newer pieces', the tabs'
-// and the inputs' words), 010-011 (the Privacy page's sentences made true) and
-// 012 (the family's footer's words).
+// and the inputs' words), 010-011 (the Privacy page's sentences made true),
+// 012 (the family's footer's words) and 013 (the About and Support pages' and
+// the footer's two links to them).
 const LIBRARY_WORDS_FILES = [
     '001_languages_and_strings.sql',
     '002_library_words.sql',
@@ -91,13 +92,14 @@ const LIBRARY_WORDS_FILES = [
     '010_backups_where_words.sql',
     '011_privacy_words_made_true.sql',
     '012_footer_words.sql',
+    '013_about_and_support_words.sql',
 ];
 
 // Everything after users/049 and genshin_impact/027 came with this release or
 // the ones after it: users/050 and 051 with the words, then anotoki-lib
 // 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
 // 0.6's users/055-056 (the legal pages' facts, the multiselect's old
-// summaries gone) with the library's words 005-012, and users/057 (the
+// summaries gone) with the library's words 005-013, and users/057 (the
 // public footer's words), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
@@ -124,6 +126,7 @@ const WORDS_AND_AFTER = [
     'anotoki_translations/010_backups_where_words.sql',
     'anotoki_translations/011_privacy_words_made_true.sql',
     'anotoki_translations/012_footer_words.sql',
+    'anotoki_translations/013_about_and_support_words.sql',
     'anotoki_people/001_people.sql',
 ];
 
@@ -281,14 +284,15 @@ same('every string that was not blank: word for word, with its writer and its ti
 same('the three blanks are gone', 3, $blank);
 
 // 002's 54, 003's nine (the sign-in page's), 004's 31 (the feedback form's), 005's 122 (the legal pages'), 006's
-// one (the top bar's), 007's four (the kit's newer pieces'), 008's two (the tabs'), 009's 34 (the inputs') and 012's
-// four (the footer's); 010 and 011 reword only.
+// one (the top bar's), 007's four (the kit's newer pieces'), 008's two (the tabs'), 009's 34 (the inputs'), 012's
+// four (the footer's) and 013's 27 (the About and Support pages' 23, the footer's two links to them, the feedback
+// form's Clear and its name); 010 and 011 reword only.
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
-same('the library\'s own keys came, 261 of them', 261, $libraryKeys);
+same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
 same(
     'and nothing else but 051\'s one key, 055\'s and 057\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept',
-    count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 261,
+    count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
 $inList = "'" . implode("', '", MULTISELECT_SUMMARY_KEYS) . "'";

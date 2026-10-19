@@ -229,9 +229,10 @@ const ROUTE_PATH_RESERVED = ['/auth/callback', '/staff'];
  * facts in them): anybody's, whatever this table says, as their routes are
  * (sites/main/main.routes.ts gives them no page switch). What the site keeps
  * and how to reach its operator is said to whoever asks - before signing in,
- * and while a part of the site is off.
+ * and while a part of the site is off. So are the family's About and Support
+ * pages (anotoki-lib 0.8.0), routed as they are and linked beside them.
  */
-const ROUTE_PATH_LEGAL = ['/terms', '/privacy', '/contact'];
+const ROUTE_PATH_LEGAL = ['/about', '/support', '/terms', '/privacy', '/contact'];
 
 /** Why this page may not be added, or null when it may. */
 function routePathRefusal(string $path): ?string
@@ -256,7 +257,8 @@ function routePathRefusal(string $path): ?string
     }
 
     if (in_array($path, ROUTE_PATH_LEGAL, true)) {
-        return "'$path' is one of the legal pages, which are anybody's and not governable - " . 'what the site keeps, and how to reach whoever runs it, is said to whoever asks';
+        return "'$path' is one of the legal pages, or About or Support beside them, which are anybody's and not governable - " .
+            'what the site keeps, and how to reach whoever runs it, is said to whoever asks';
     }
 
     return null;

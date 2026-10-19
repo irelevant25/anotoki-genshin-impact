@@ -994,15 +994,16 @@ unlink("$backend/migrations/users/999_test_waiting.sql");
 same('applied: everything answers again', 200, send('GET', '/api/admin/audit', ADMIN)->getStatusCode());
 same('...and the error log wrote none of the 503 update_pending answers meanwhile: a state, not a failure', 0, linesSaying($backend, 'update_pending'));
 
-// The legal pages are anybody's: the page switches never govern them (anotoki-lib 0.6's Terms, Privacy, Contact).
+// The legal pages are anybody's: the page switches never govern them (anotoki-lib 0.6's Terms, Privacy, Contact),
+// nor the About and Support pages beside them (0.8.0).
 $governed = array_map(
     fn(string $path) => [
         send('POST', '/api/site-routes', ADMIN, ['path' => $path, 'visibility' => 'ADMIN'])->getStatusCode(),
         (int) $pdo->query('SELECT count(*) FROM site_routes WHERE path = ' . $pdo->quote($path))->fetchColumn(),
     ],
-    ['/terms', '/privacy', '/contact'],
+    ['/about', '/support', '/terms', '/privacy', '/contact'],
 );
-same('the page switches refuse the legal pages - 422, no row: they are anybody\'s', [[422, 0], [422, 0], [422, 0]], $governed);
+same('the page switches refuse About, Support and the legal pages - 422, no row: they are anybody\'s', [[422, 0], [422, 0], [422, 0], [422, 0], [422, 0]], $governed);
 check('...saying why', str_contains((string) (body(send('POST', '/api/site-routes', ADMIN, ['path' => '/privacy/']))['error'] ?? ''), 'legal pages'));
 
 echo "What the error log leaves out (a state the site is in) and what it writes (a failure, a 503 among them)\n";

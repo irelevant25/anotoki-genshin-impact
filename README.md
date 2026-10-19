@@ -422,6 +422,11 @@ not drift; [docs/README.md](docs/README.md) lists them.
   feedback form says itself whom its message is for, and while the site's
   words have not come the library's own are in the reader's language (the
   status page's too). Nothing to apply.
+- Later on 2026-10-19 the shared library is `anotoki-lib` 0.8.0 in both halves:
+  the anotoki family's **About** and **Support** pages (`/about`, `/support`),
+  anybody's as the legal pages are, linked first in both footers - About ·
+  Support · Terms · Privacy · Contact. The library's `anotoki_translations/013`
+  brings their words.
 
 ## More
 

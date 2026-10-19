@@ -9,7 +9,9 @@ import { siteLegalPagesConfig } from './legal-facts';
  * main.routes.ts): the site's own veiled column (`.container`, as every page
  * of the public site), between its header and its footer, and the pages'
  * facts, which only they read (legal-facts.ts) - loaded with the first of
- * them that is opened, out of the first load.
+ * them that is opened, out of the first load. The About and Support pages
+ * (@anotoki/lib/legal/about, /legal/support, anotoki-lib 0.8.0) are drawn in
+ * it too, as the library asks: they read none of the facts.
  *
  * Anybody may read them, signed in or not, a visitor or not, while the IAM
  * requires signing in and while the site is closed for maintenance: what the

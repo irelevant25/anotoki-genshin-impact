@@ -11,8 +11,10 @@
             <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openWhatsNew()">{{ "footer.whatsNew" | translate }}</button>
             <button type="button" class="site-footer-item" aria-haspopup="dialog" (click)="openFeedback()">{{ "footer.feedback" | translate }}</button>
         }
-        <!-- The legal pages, named in the anotoki library's words (an owner's rewording first); the open one is marked. -->
+        <!-- About, Support and the legal pages, named in the anotoki library's words (an owner's rewording first); the open one is marked. -->
         <nav class="site-footer-legal" [attr.aria-label]="'anotoki.legalLinks.label' | translate">
+            <a class="site-footer-item" [routerLink]="legalPaths.about" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.about" | translate }}</a>
+            <a class="site-footer-item" [routerLink]="legalPaths.support" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.support" | translate }}</a>
             <a class="site-footer-item" [routerLink]="legalPaths.terms" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.terms" | translate }}</a>
             <a class="site-footer-item" [routerLink]="legalPaths.privacy" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.privacy" | translate }}</a>
             <a class="site-footer-item" [routerLink]="legalPaths.contact" routerLinkActive ariaCurrentWhenActive="page">{{ "anotoki.legalLinks.contact" | translate }}</a>

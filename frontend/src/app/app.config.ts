@@ -57,7 +57,8 @@ export const BASE_PATH = new InjectionToken<string>('basePath');
  * own Sign in for an administrator. Without an IAM to go to there is nothing to
  * start. Whatever is not started here meets the sign-in card in the site's
  * shell, with the button on it. Never on a legal page (Terms, Privacy,
- * Contact): they are anybody's, read before signing in (shared/site-legal.ts).
+ * Contact), nor on About or Support: they are anybody's, read before signing
+ * in (shared/site-legal.ts).
  */
 function mustSignInFirst(siteSettings: SiteSettingsService, security: SecurityService, siteStatus: SiteStatus): boolean {
   return (
@@ -181,8 +182,9 @@ export const appConfig: ApplicationConfig = {
     // The visitors' feedback form (shared/site-feedback.ts) and its words, the
     // library's anotoki.feedback.*; the form itself loads when it is opened.
     provideAnotokiFeedback(siteFeedbackConfig),
-    // The anotoki family's legal pages - Terms, Privacy, Contact, on lazy routes
-    // open to anybody (sites/main/main.routes.ts) - and the footer's links to
+    // The anotoki family's legal pages - Terms, Privacy, Contact, and since
+    // 0.8.0 About and Support, on lazy routes open to anybody
+    // (sites/main/main.routes.ts) - and the footer's links to
     // them, in the library's words: the page's language and the database's
     // words (shared/site-legal.ts). The facts, which only the pages read, come
     // with their frame (sites/main/legal/), out of the first load.

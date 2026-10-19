@@ -23,7 +23,8 @@ import { ADMIN_ICONS } from './admin-icons';
  * footer (<anotoki-site-footer>, @anotoki/lib/footer, anotoki-lib 0.6.3 - the
  * owner's choice of 2026-10-18: one footer in every admin panel; the public
  * site keeps its own, which is "completely different"). The footer's parts
- * here: the version, What's new and Feedback, then Terms · Privacy · Contact
+ * here: the version, What's new and Feedback, then About · Support · Terms ·
+ * Privacy · Contact (links to the public site's pages, which are anybody's)
  * and the fan clause, in English as the panel is.
  */
 @Component({

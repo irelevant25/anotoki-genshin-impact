@@ -9,7 +9,7 @@
 // makes a throwaway site to show it - a database of its own with a little game content in it and a backend
 // copy serving it (backend/tests/tools/browser-env.php), the anotoki library's stand-in IAM to sign in at -,
 // serves the build and that API on one origin as the hosting does, and drives headless Edge (or Chrome)
-// through the pages: the public site as a visitor - Terms, Privacy and Contact in English and Slovak among them -,
+// through the pages: the public site as a visitor - Terms, Privacy, Contact, About and Support in English and Slovak among them -,
 // a sign-in the IAM refuses (the anotoki library's screens of it), a legal page while the IAM requires signing in
 // (drawn, never the sign-in card), an error thrown in a page (which must reach the site's error log, scrubbed),
 // the status page while the site is not ready (STATUS: alone, with nothing of either site's frame round it, and
@@ -150,7 +150,7 @@ const storedMarkupInert = async (page) => {
 
 /**
  * The public site's own footer (sites/main/common/footer): the site's dialogs in their order - the version (the
- * changelog's newest), What's new, Feedback, the account - then Terms · Privacy · Contact as links, and the fan clause;
+ * changelog's newest), What's new, Feedback, the account - then About · Support · Terms · Privacy · Contact as links, and the fan clause;
  * under the closed sign and the sign-in card (`legalOnly`) the links and the clause alone. The two sides side by side
  * on a wide window and stacked on a narrow one - never over each other, nor past the window's edge. Anything missing,
  * extra, out of order or overlapping is said.
@@ -178,7 +178,14 @@ const publicFooter =
       };
     })()`);
     const words = { en: ["What's new", 'Feedback', 'Account'], sk: ['Čo je nové', 'Spätná väzba', 'Účet'] }[facts.lang] ?? [];
-    const expected = { lang: facts.lang, buttons: legalOnly ? [] : [`v${version}`, ...words], links: ['/terms', '/privacy', '/contact'], fan: true, overlap: false, outside: false };
+    const expected = {
+      lang: facts.lang,
+      buttons: legalOnly ? [] : [`v${version}`, ...words],
+      links: ['/about', '/support', '/terms', '/privacy', '/contact'],
+      fan: true,
+      overlap: false,
+      outside: false,
+    };
     if (JSON.stringify(facts) !== JSON.stringify(expected)) {
       heard.push(`the public footer: ${JSON.stringify(facts)}, not ${JSON.stringify(expected)}`);
     }
@@ -237,6 +244,11 @@ const MAIN = [
   { name: 'main-terms-sk', path: '/terms', lang: 'sk' },
   { name: 'main-privacy-sk', path: '/privacy', lang: 'sk', then: hostingNamed },
   { name: 'main-contact-sk', path: '/contact', lang: 'sk' },
+  // The family's About and Support pages (anotoki-lib 0.8.0), in the same frame, in English and in Slovak.
+  { name: 'main-about', path: '/about' },
+  { name: 'main-support', path: '/support' },
+  { name: 'main-about-sk', path: '/about', lang: 'sk' },
+  { name: 'main-support-sk', path: '/support', lang: 'sk' },
   {
     name: 'main-contact-feedback',
     path: '/contact',
@@ -360,7 +372,7 @@ const ADMIN = [
 const failureShown = (page) => waitFor(page, "location.pathname === '/auth/callback' && !!document.querySelector('anotoki-sign-in-failure button')", 20000);
 const SIGN_IN_FAILED = [
   { name: 'main-sign-in-failed', path: '/admin', iam: { deny: true }, then: failureShown },
-  // The sign-in card keeps the footer's fan clause and Terms · Privacy · Contact alone.
+  // The sign-in card keeps the footer's fan clause and About · Support · Terms · Privacy · Contact alone.
   { name: 'main-sign-in-required-failed', path: '/', iam: { deny: true, login_required: true }, then: steps(failureShown, publicFooter({ legalOnly: true })) },
 ];
 
@@ -431,8 +443,8 @@ const triesAgain = (back) => steps(press('anotoki-site-status button'), back);
 
 /**
  * The admin panel's footer (the family's, anotoki-lib 0.6.3) with the parts it shows: "Version" and the
- * changelog's newest, What's new and - while the site can take a message - Feedback; Terms · Privacy · Contact;
- * the fan clause. Anything missing or extra is said.
+ * changelog's newest, What's new and - while the site can take a message - Feedback; About · Support · Terms ·
+ * Privacy · Contact, the public site's pages; the fan clause. Anything missing or extra is said.
  */
 const adminFooter =
   ({ feedback }) =>
@@ -452,7 +464,7 @@ const adminFooter =
         inMain: !!footer.closest('main'),
       };
     })()`);
-    const expected = { version: `v${version}Version ${version}`, whatsNew: true, feedback, links: ['/terms', '/privacy', '/contact'], fan: true, inMain: false };
+    const expected = { version: `v${version}Version ${version}`, whatsNew: true, feedback, links: ['/about', '/support', '/terms', '/privacy', '/contact'], fan: true, inMain: false };
     if (JSON.stringify(parts) !== JSON.stringify(expected)) {
       heard.push(`the admin footer: ${JSON.stringify(parts)}, not ${JSON.stringify(expected)}`);
     }

@@ -19,8 +19,9 @@
     <router-outlet></router-outlet>
 }
 
-<!-- Under every page. The closed sign and the sign-in card - which the legal pages stand in place of - keep the fan
-     clause and Terms · Privacy · Contact alone: the site's own dialogs would ask an API that refuses them. -->
+<!-- Under every page. The closed sign and the sign-in card - which the legal pages, About and Support stand in place of -
+     keep the fan clause and About · Support · Terms · Privacy · Contact alone: the site's own dialogs would ask an API
+     that refuses them. -->
 <app-footer [legalOnly]="closed() || signInFirst()" />
 
 <!-- Outside both, because a toast is about what just happened rather than about

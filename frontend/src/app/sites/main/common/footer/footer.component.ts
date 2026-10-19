@@ -19,11 +19,12 @@ import { sameVersion } from './versions';
  *
  * On the right, in this order (the owner's of 2026-10-18 and 2026-10-19): the
  * version, as text; What's new and Feedback, buttons that open their dialogs;
- * Terms · Privacy · Contact, links to the legal pages in the anotoki library's
- * words (anotoki.legalLinks.*); the account, last. On the left, alone, the fan
- * clause (footer.fanDisclaimer). Under every page: the closed sign and the
- * sign-in card keep the clause and the three links (`legalOnly`), as what the
- * site keeps is said before anybody signs in.
+ * About · Support · Terms · Privacy · Contact, links to the anotoki family's
+ * About and Support pages (anotoki-lib 0.8.0) and the legal pages in the
+ * library's words (anotoki.legalLinks.*); the account, last. On the left,
+ * alone, the fan clause (footer.fanDisclaimer). Under every page: the closed
+ * sign and the sign-in card keep the clause and the five links (`legalOnly`),
+ * as what the site keeps is said before anybody signs in.
  *
  * It also puts this browser's wallpaper behind the page as the site starts
  * (chosen in the account panel), and opens What's new once after a release.
@@ -36,13 +37,13 @@ import { sameVersion } from './versions';
 })
 export class FooterComponent extends AbstractModalComponent {
   /**
-   * The fan clause and Terms · Privacy · Contact alone: under the closed sign
+   * The fan clause and About · Support · Terms · Privacy · Contact alone: under the closed sign
    * and the sign-in card, which stand in for the site - its own dialogs would
    * ask an API that refuses them, and a release note has no place over either.
    */
   readonly legalOnly = input(false);
 
-  /** The legal pages' addresses: the library's own, where sites/main/main.routes.ts puts the pages (shared/site-legal.ts). */
+  /** About's, Support's and the legal pages' addresses: the library's own, where sites/main/main.routes.ts puts the pages (shared/site-legal.ts). */
   readonly legalPaths = DEFAULT_LEGAL_PATHS;
 
   /** The changelog, newest first: the version's label and dialog, and What's new, read it. */

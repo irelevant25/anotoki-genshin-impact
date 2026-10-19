@@ -164,6 +164,21 @@ export const routes: Routes = [
       // lesson, 2026-10-17). Before "**", which would take them. Their paths
       // are the library's (DEFAULT_LEGAL_PATHS: shared/site-legal.ts, the
       // footer's links go there).
+      //
+      // The About and Support pages (anotoki-lib 0.8.0: @anotoki/lib/legal/about,
+      // /legal/support - the same on every anotoki site, in the library's
+      // words) are anybody's too, in the same frame, the same way; both footers
+      // link them first.
+      {
+        path: 'about',
+        loadComponent: legalFrame,
+        children: [{ path: '', loadComponent: () => import('@anotoki/lib/legal/about').then((m) => m.AboutPageComponent) }],
+      },
+      {
+        path: 'support',
+        loadComponent: legalFrame,
+        children: [{ path: '', loadComponent: () => import('@anotoki/lib/legal/support').then((m) => m.SupportPageComponent) }],
+      },
       {
         path: 'terms',
         loadComponent: legalFrame,

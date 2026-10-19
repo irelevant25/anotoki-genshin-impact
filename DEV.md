@@ -253,7 +253,8 @@ settings, the sign-in hint, the interceptor, the visitor key on a player's own
 routes), `frontend/src/app/shared/site-feedback.ts` (the visitors' feedback
 form), `frontend/src/app/shared/site-legal.ts` and
 `frontend/src/app/sites/main/legal/` (Terms, Privacy and Contact with this
-site's facts, since 0.6.0), `frontend/src/app/shared/site-admin-tools.ts` (the admin tools,
+site's facts, since 0.6.0; About and Support on `/about` and `/support` in the
+same frame, since 0.8.0), `frontend/src/app/shared/site-admin-tools.ts` (the admin tools,
 provided at the app's root) and `frontend/src/app/sites/admin/people.ts` (the
 People page, on the admin panel's route) - their pages on lazy routes,
 `frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
@@ -267,9 +268,9 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.7.2 now
+sequences that count down, then the origin secret): both halves are 0.8.0 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
-takes no next minor: `^0.7.0` never brings 0.8, which needs its constraint
+takes no next minor: `^0.8.0` never brings 0.9, which needs its constraint
 written. A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.

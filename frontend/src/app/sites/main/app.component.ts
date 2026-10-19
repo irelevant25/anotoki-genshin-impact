@@ -41,9 +41,10 @@ export class AppComponent {
   );
 
   /**
-   * Whether the page is one of the legal pages (Terms, Privacy, Contact):
-   * anybody's - drawn in place of the closed sign and the sign-in card, as
-   * what the site keeps is said before anybody signs in (legal/legal-frame).
+   * Whether the page is one of the legal pages (Terms, Privacy, Contact) - or
+   * About or Support beside them (anotoki-lib 0.8.0): anybody's - drawn in
+   * place of the closed sign and the sign-in card, as what the site keeps is
+   * said before anybody signs in (legal/legal-frame).
    */
   readonly legalPage = computed(() => isLegalPage(this._path()));
 
