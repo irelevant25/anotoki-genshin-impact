@@ -3,7 +3,9 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <app-quiz-frame
-            [difficulty]="difficultyString()"
+            [quizId]="quizId"
+            [difficulty]="difficulty()"
+            [chosenDifficulty]="chosenDifficulty()"
             [isDaily]="isDaily()"
             [isQuestionComplete]="isQuestionComplete()"
             [tries]="displayTries()"
@@ -12,7 +14,8 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()">
+            (next)="next()"
+            (chooseDifficulty)="chooseDifficulty($event)">
             <!-- Once it is over, the portrait itself, in the same box: there is
                  nothing left to hide, and a canvas, however fine its grid, is a
                  copy scaled up. While it is open, a canvas rather than an image

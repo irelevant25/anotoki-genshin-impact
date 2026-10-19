@@ -17,8 +17,8 @@ declare(strict_types=1);
  *
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
- * strings - and nothing else came in but the library's words, 051's, 055's
- * and 057's, nothing else went but 053's, 056's and 057's, and nothing else
+ * strings - and nothing else came in but the library's words, 051's, 055's,
+ * 057's and 058's, nothing else went but 053's, 056's and 057's, and nothing else
  * was reworded but the footer's Feedback where it was still users/004's (057:
  * an owner's rewording of it stands); the
  * blanks went; the tables are in the library's shape, which its own 001
@@ -99,8 +99,9 @@ const LIBRARY_WORDS_FILES = [
 // the ones after it: users/050 and 051 with the words, then anotoki-lib
 // 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
 // 0.6's users/055-056 (the legal pages' facts, the multiselect's old
-// summaries gone) with the library's words 005-013, and users/057 (the
-// public footer's words), which one Apply brings along.
+// summaries gone) with the library's words 005-013, users/057 (the
+// public footer's words) and users/058 (the quizzes' difficulty dialog's),
+// which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -112,6 +113,7 @@ const WORDS_AND_AFTER = [
     'users/055_legal_pages.sql',
     'users/056_drop_multiselect_selected_strings.sql',
     'users/057_public_footer_strings.sql',
+    'users/058_quiz_difficulty_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql',
@@ -138,6 +140,30 @@ const LEGAL_PAGE_KEYS = 44;
 // footer's old GitHub and Backgrounds items, which nothing reads.
 const FOOTER_NEW_KEYS = ['account.background', 'footer.whatsNew'];
 const FOOTER_GONE_KEYS = ['footer.backgrounds', 'footer.github'];
+// What users/058 brings: the quizzes' difficulty badge's and dialog's words, and what each level shows.
+const DIFFICULTY_NEW_KEYS = [
+    'quiz.difficulty.button',
+    'quiz.difficulty.cancel',
+    'quiz.difficulty.choose',
+    'quiz.difficulty.current',
+    'quiz.difficulty.daily',
+    'quiz.difficulty.fromNext',
+    'quiz.difficulty.intro',
+    'quiz.difficulty.introMismatch',
+    'quiz.difficulty.next',
+    'quiz.difficulty.save',
+    'quiz.difficulty.title',
+    'quiz.levelInfo.mismatch',
+    'quiz.levelInfo.music',
+    'quiz.levelInfo.musicWhole',
+    'quiz.levelInfo.pictureEasy',
+    'quiz.levelInfo.pictureHard',
+    'quiz.levelInfo.pictureMedium',
+    'quiz.levelInfo.pixelate',
+    'quiz.levelInfo.voiceEasy',
+    'quiz.levelInfo.voiceHard',
+    'quiz.levelInfo.voiceMedium',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -290,10 +316,23 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
+$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS);
+$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS);
 same(
-    'and nothing else but 051\'s one key, 055\'s and 057\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept',
-    count($keysBefore) - $guideBodies + 1 - count(OLD_FORM_KEYS) + LEGAL_PAGE_KEYS - count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_NEW_KEYS) - count(FOOTER_GONE_KEYS) + 288,
+    'and nothing else but 051\'s one key, 055\'s, 057\'s and 058\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept',
+    count($keysBefore) - $guideBodies + $came - $went + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
+);
+$inList = "'" . implode("', '", DIFFICULTY_NEW_KEYS) . "'";
+same(
+    '058: the quizzes\' difficulty words, none there before, each in English and Slovak',
+    [0, count(DIFFICULTY_NEW_KEYS), count(DIFFICULTY_NEW_KEYS), count(DIFFICULTY_NEW_KEYS)],
+    [
+        count(array_intersect(DIFFICULTY_NEW_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND key_name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND key_name IN ($inList)")->fetchColumn(),
+    ],
 );
 $inList = "'" . implode("', '", MULTISELECT_SUMMARY_KEYS) . "'";
 same(

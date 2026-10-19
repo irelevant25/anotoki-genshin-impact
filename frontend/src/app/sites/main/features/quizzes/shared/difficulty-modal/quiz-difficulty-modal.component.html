@@ -1,0 +1,15 @@
+<p class="difficulty-intro">{{ intro | translate }}</p>
+
+<anotoki-radio-group [label]="'quiz.difficulty.choose' | translate" [options]="options()" [(value)]="selected" />
+
+<!-- A live region that is always there, so that the sentence is read out as it appears. -->
+<div class="difficulty-stays" role="status">
+    @if (stays(); as sentence) {
+        <p>{{ sentence }}</p>
+    }
+</div>
+
+<ng-template anotokiDialogFooter>
+    <button anotokiButton (click)="closeModal()">{{ "quiz.difficulty.cancel" | translate }}</button>
+    <button anotokiButton variant="primary" (click)="choose()">{{ "quiz.difficulty.save" | translate }}</button>
+</ng-template>

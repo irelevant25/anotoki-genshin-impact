@@ -3,7 +3,9 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <app-quiz-frame
-            [difficulty]="difficultyString()"
+            [quizId]="quizId"
+            [difficulty]="difficulty()"
+            [chosenDifficulty]="chosenDifficulty()"
             [isDaily]="isDaily()"
             [isQuestionComplete]="isQuestionComplete()"
             [tries]="displayTries()"
@@ -12,7 +14,8 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()">
+            (next)="next()"
+            (chooseDifficulty)="chooseDifficulty($event)">
             <app-quiz-audio-player [src]="trackUrl()" [limit]="limit()"></app-quiz-audio-player>
 
             @if (isQuestionComplete() && questionEntity(); as character) {

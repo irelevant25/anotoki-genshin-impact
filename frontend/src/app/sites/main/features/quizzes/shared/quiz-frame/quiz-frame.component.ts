@@ -4,6 +4,8 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective, materialIconCandidates } from '../../../../../admin/shared/material-icon.directive';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
+import { QuizDifficultyBadgeComponent } from '../difficulty-badge/quiz-difficulty-badge.component';
+import { QuizId } from '../quiz.types';
 
 /**
  * Everything around the question in the five character quizzes: the difficulty
@@ -17,10 +19,13 @@ import { DropdownOption } from '../../../../../../shared/local-lib/services/opti
   selector: 'app-quiz-frame',
   templateUrl: './quiz-frame.component.html',
   styleUrls: ['./quiz-frame.component.scss'],
-  imports: [ComboboxComponent, ButtonComponent, TranslatePipe, MaterialIconDirective],
+  imports: [ComboboxComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent],
 })
 export class QuizFrameComponent {
-  readonly difficulty = input<string>('easy');
+  readonly quizId = input.required<QuizId>();
+  /** The question's own level, and the one the next question is drawn at: 1 easy, 2 medium, 3 hard. */
+  readonly difficulty = input<number>(1);
+  readonly chosenDifficulty = input<number>(1);
   readonly isDaily = input<boolean>(false);
   readonly isQuestionComplete = input<boolean>(false);
 
@@ -36,6 +41,11 @@ export class QuizFrameComponent {
 
   readonly guess = output<DropdownOption | undefined>();
   readonly next = output<void>();
+  /** A level chosen in the difficulty dialog. */
+  readonly chooseDifficulty = output<number>();
+
+  /** Whether the question has begun - a guess made, or over: then it keeps its level. */
+  readonly started = computed(() => this.triesCount() > 0 || this.isQuestionComplete());
 
   /**
    * The search box's choices: each character by name, with their icon (the

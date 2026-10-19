@@ -16,13 +16,6 @@
   text-align: center;
 }
 
-// The difficulty badge above the question. Its colours are the quiz-difficulty
-// ones already defined in styles.scss (.level-easy / .level-medium / .level-hard).
-.quiz-difficulty {
-  // margin-bottom: var(--spacing-sm);
-  text-transform: capitalize;
-}
-
 // ── Search and next ─────────────────────────────────────────────────────────
 .quiz-search {
   display: flex;

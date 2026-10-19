@@ -8,8 +8,10 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { todayString } from '../shared/daily';
-import { QuizProgressService } from '../shared/quiz-progress.service';
-import { QuizId, QuizState, difficultyName } from '../shared/quiz.types';
+import { QuizDifficultyBadgeComponent } from '../shared/difficulty-badge/quiz-difficulty-badge.component';
+import { DAILY_DIFFICULTY, quizLevel } from '../shared/quiz-levels';
+import { QuizProgressService, hasPlay } from '../shared/quiz-progress.service';
+import { QuizId, QuizState } from '../shared/quiz.types';
 import { CharacterApiService } from '../../../../../api';
 
 /** The three things a set can have in common. */
@@ -38,7 +40,7 @@ interface QuizSet {
   selector: 'app-quizzes-mismatch',
   templateUrl: './mismatch.component.html',
   styleUrls: ['./mismatch.component.scss'],
-  imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective],
+  imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent],
 })
 export class QuizzesMismatchComponent {
   private readonly _characterApi = inject(CharacterApiService);
@@ -50,14 +52,18 @@ export class QuizzesMismatchComponent {
   readonly characters = signal<any[]>([]);
   readonly loading = signal(true);
   readonly isDaily = signal(false);
+
+  /** The set's own level: the one it was drawn at, kept to its end. */
   readonly difficulty = signal(1);
+
+  /** The level the next set is drawn at, chosen in the difficulty dialog - as in CharacterQuizComponent. */
+  readonly chosenDifficulty = signal(1);
 
   readonly quizSet = signal<QuizSet | null>(null);
   readonly picked = signal<any>(null);
   readonly isQuestionComplete = signal(false);
 
-  readonly difficultyString = computed(() => difficultyName(this.difficulty()));
-  readonly choicesAmount = computed(() => this._stateService.getQuizLevel(this._quizId, this.difficulty()).choicesAmount ?? 4);
+  readonly choicesAmount = computed(() => quizLevel(this._quizId, this.difficulty()).choicesAmount ?? 4);
   readonly isSuccess = computed(() => !!this.picked() && this.picked()?.name === this.quizSet()?.answer?.name);
 
   /**
@@ -69,7 +75,8 @@ export class QuizzesMismatchComponent {
 
   constructor() {
     this._activatedRoute.data.subscribe((data) => this.isDaily.set(!!data['daily']));
-    this.difficulty.set(this._stateService.getDifficulty());
+    this.chosenDifficulty.set(this._stateService.getQuizDifficulty(this._quizId));
+    this.difficulty.set(this._levelForNewSet());
     this._fetchAndRestore();
 
     // The owner changed under the page (a session that ended, a sign-in or a
@@ -126,6 +133,27 @@ export class QuizzesMismatchComponent {
     this._newQuestion();
   }
 
+  /**
+   * A level chosen in the difficulty dialog: kept for this quiz in this
+   * browser, for the sets drawn from now on. A set nobody has picked from yet
+   * has not begun, and is drawn again at once; an answered one keeps its level.
+   */
+  chooseDifficulty(difficulty: number): void {
+    if (this.isDaily()) {
+      return;
+    }
+    this._stateService.saveQuizDifficulty(this._quizId, difficulty);
+    this.chosenDifficulty.set(this._stateService.getQuizDifficulty(this._quizId));
+    if (!this.isQuestionComplete() && this.difficulty() !== this.chosenDifficulty()) {
+      this._newQuestion();
+    }
+  }
+
+  /** The daily's level, or the one chosen for this quiz. */
+  private _levelForNewSet(): number {
+    return this.isDaily() ? DAILY_DIFFICULTY : this.chosenDifficulty();
+  }
+
   private _restoreOrStart(): void {
     const saved = this._progress.get(this._quizId, this.isDaily());
     const byName = (name?: string) => this.characters().find((character) => character.name === name);
@@ -133,10 +161,12 @@ export class QuizzesMismatchComponent {
 
     // Restored only if the whole set comes back and, for a daily game, if it is
     // today's - the daily slot is reused, so yesterday's answered question would
-    // otherwise still be sitting there.
+    // otherwise still be sitting there. A set nobody has picked from yet, at
+    // another level than the one chosen since, has not begun: drawn again.
     const isForToday = !this.isDaily() || saved?.date === todayString();
+    const keepsItsLevel = this.isDaily() || saved?.difficulty === this.chosenDifficulty() || hasPlay(saved);
 
-    if (saved && isForToday && saved.options?.length && options.length === saved.options.length && byName(saved.answer)) {
+    if (saved && isForToday && keepsItsLevel && saved.options?.length && options.length === saved.options.length && byName(saved.answer)) {
       this.difficulty.set(saved.difficulty);
       this.quizSet.set({
         options,
@@ -152,6 +182,9 @@ export class QuizzesMismatchComponent {
   }
 
   private _newQuestion(): void {
+    // The choice read again, as another tab may have made one since.
+    this.chosenDifficulty.set(this._stateService.getQuizDifficulty(this._quizId));
+    this.difficulty.set(this._levelForNewSet());
     this.quizSet.set(this._randomQuizSet(this.choicesAmount()));
     this.picked.set(null);
     this.isQuestionComplete.set(false);

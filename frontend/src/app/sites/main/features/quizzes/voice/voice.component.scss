@@ -18,13 +18,18 @@
   line-height: var(--line-height-base);
 }
 
-// The first try shows half a line and cuts it off mid-sentence. Ported from
-// old/sites/top/quizzes/voice.css.
-.half-text {
+// The first tries show part of a line - half, or on hard a quarter first - on
+// one row, cut off mid-sentence. Ported from old/sites/top/quizzes/voice.css.
+.half-text,
+.quarter-text {
   display: block;
   width: 50%;
   margin: 0 auto;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.quarter-text {
+  width: 25%;
 }

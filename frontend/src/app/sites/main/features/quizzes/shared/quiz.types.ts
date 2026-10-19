@@ -6,7 +6,7 @@
  * a demo track, a voice line. Mismatch is the odd one, asking you to pick the
  * character that does not belong.
  *
- * Ported from the old site's data/config.js, where the same numbers lived.
+ * Their levels, one per difficulty, are in quiz-levels.ts.
  */
 
 export type QuizId = 'banners' | 'dish' | 'pixelate' | 'mismatch' | 'music' | 'voice';
@@ -73,7 +73,7 @@ export interface QuizState {
   voiceOverId?: number;
 }
 
-/** 1 easy, 2 medium, 3 hard - the numbers the config is keyed by. */
+/** 1 easy, 2 medium, 3 hard - the numbers the levels are keyed by (quiz-levels.ts). */
 export const QUIZ_DIFFICULTIES = [1, 2, 3] as const;
 
 export function difficultyName(difficulty: number): string {

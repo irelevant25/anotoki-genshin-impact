@@ -1,0 +1,24 @@
+<!-- The question's difficulty on the quiz's top edge (`.recommended-ar`, styles.scss), in its level's colour
+     (`.level-*`). A button that opens the difficulty dialog, but in the daily run: the same for everybody there. -->
+<div class="quiz-difficulty" [class]="'level-' + name()">
+    @if (isDaily()) {
+        <span class="recommended-ar">{{ "quiz.difficulty." + name() | translate }}</span>
+    } @else {
+        <button
+            type="button"
+            class="recommended-ar quiz-difficulty-button"
+            aria-haspopup="dialog"
+            [attr.aria-label]="buttonName()"
+            [attr.aria-describedby]="next() ? 'quiz-difficulty-next' : null"
+            (click)="open()">
+            {{ "quiz.difficulty." + name() | translate }}
+            <span class="icon icon-chevron-down quiz-difficulty-mark" aria-hidden="true"></span>
+        </button>
+    }
+</div>
+<!-- Why the daily's cannot change; elsewhere, the level the next question is drawn at, while it is another. -->
+@if (isDaily()) {
+    <p class="quiz-difficulty-note">{{ "quiz.difficulty.daily" | translate }}</p>
+} @else if (next(); as line) {
+    <p class="quiz-difficulty-note" id="quiz-difficulty-next">{{ line }}</p>
+}

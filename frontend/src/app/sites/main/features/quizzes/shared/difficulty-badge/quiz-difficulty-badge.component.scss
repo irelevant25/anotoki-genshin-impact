@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+// The badge as a button: its look is the badge's (`.recommended-ar` and `.level-*`, styles.scss), its manners a
+// button's - the page's font, a pointer, a little brighter under it, and a mark that it opens something.
+.quiz-difficulty-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--anotoki-focus);
+    outline-offset: 2px;
+  }
+}
+
+.quiz-difficulty-mark {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+// Under the badge, inside the quiz: quiet, as a caption is.
+.quiz-difficulty-note {
+  margin: 0 0 var(--spacing-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}

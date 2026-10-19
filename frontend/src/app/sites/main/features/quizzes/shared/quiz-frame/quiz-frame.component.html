@@ -1,10 +1,6 @@
 <div class="quiz-container">
-    <!-- The daily run sets the difficulty for you, so there is nothing to report. -->
-    @if (!isDaily()) {
-        <div class="quiz-difficulty" [class]="'level-' + difficulty()">
-            <span class="recommended-ar">{{ "quiz.difficulty." + difficulty() | translate }}</span>
-        </div>
-    }
+    <!-- The question's difficulty, which opens the quiz's difficulty dialog - but in the daily run, the same for everybody. -->
+    <app-quiz-difficulty [quizId]="quizId()" [difficulty]="difficulty()" [chosen]="chosenDifficulty()" [isDaily]="isDaily()" [started]="started()" (choose)="chooseDifficulty.emit($event)" />
 
     <ng-content></ng-content>
 

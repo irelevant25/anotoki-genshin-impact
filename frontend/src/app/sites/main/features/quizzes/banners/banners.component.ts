@@ -9,9 +9,9 @@ import { QuizId } from '../shared/quiz.types';
  * Guess the character from their namecard banner.
  *
  * The banner is revealed in stages by CSS - cropped, blurred and drained of
- * colour on the first try, one of those lifted with each wrong guess. That is
- * how the old site did it and what the difficulty config describes: the levels
- * for this quiz name classes, not numbers.
+ * colour on the first try (only cropped on easy), one of those lifted with each
+ * wrong guess. That is how the old site did it and what its levels describe
+ * (quiz-levels.ts): for this quiz they name classes, not numbers.
  */
 @Component({
   selector: 'app-quizzes-banners',

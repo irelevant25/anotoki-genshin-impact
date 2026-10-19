@@ -9,9 +9,11 @@ import { QuizApiService } from '../../../../../api';
 /**
  * Guess the character from one of their voice lines.
  *
- * It opens with half a line of text and no player at all. The next guess shows
- * the whole line, the one after that unlocks a half-second of audio, and from
- * there the recording plays in full.
+ * On easy it opens with half a line of text and no player at all. The next
+ * guess shows the whole line, the one after that unlocks a half-second of
+ * audio, and from there the recording plays in full. The harder levels start
+ * from less of the line and give the recording a second or two at most
+ * (quiz-levels.ts).
  *
  * Unlike the other four, the question is not drawn from the character list:
  * there are around eight thousand lines, so the server picks one. That is also
@@ -56,10 +58,15 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
     this.load();
   }
 
-  /** The server has already excluded the travellers and the unanswerable lines. */
+  /**
+   * The server has already excluded the travellers and the unanswerable lines.
+   * The new question's level is taken as its line arrives: until then the
+   * question on screen is still the last one, at its own.
+   */
   protected override newQuestion(): void {
     this._quizApi.getRandomVoiceOverRound().subscribe({
       next: (voiceOver) => {
+        this.drawLevel();
         this.voiceOver.set(voiceOver);
         this.questionEntity.set(this.characters().find((character) => character.name === voiceOver.character_name) ?? null);
         this.tries.set([]);
@@ -75,7 +82,7 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
     const saved = this.progress.get(this.quizId, this.isDaily());
     const character = saved?.questionEntity ? this.characters().find((x) => x.name === saved.questionEntity) : undefined;
 
-    if (!saved?.voiceOverId || !character || !this.isForToday(saved)) {
+    if (!saved?.voiceOverId || !character || !this.isForToday(saved) || !this.keepsItsLevel(saved)) {
       this.newQuestion();
       return;
     }

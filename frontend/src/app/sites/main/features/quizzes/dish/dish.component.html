@@ -3,7 +3,9 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <app-quiz-frame
-            [difficulty]="difficultyString()"
+            [quizId]="quizId"
+            [difficulty]="difficulty()"
+            [chosenDifficulty]="chosenDifficulty()"
             [isDaily]="isDaily()"
             [isQuestionComplete]="isQuestionComplete()"
             [tries]="displayTries()"
@@ -12,7 +14,8 @@
             [options]="searchOptions()"
             [answer]="questionEntity()"
             (guess)="guess($event)"
-            (next)="next()">
+            (next)="next()"
+            (chooseDifficulty)="chooseDifficulty($event)">
             @if (questionEntity()?.dish; as dish) {
                 <div class="dish">
                     <!-- The food art is filed under the dish's own name, not the

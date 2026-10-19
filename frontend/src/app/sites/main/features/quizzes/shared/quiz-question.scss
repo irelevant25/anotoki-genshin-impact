@@ -1,4 +1,4 @@
-// What a quiz puts in the frame, and the three ways it is hidden.
+// What a quiz puts in the frame, and the ways a picture is hidden.
 //
 // These live with each quiz rather than with the frame because they are used on
 // projected content - see the note in quiz-frame.scss.
@@ -14,17 +14,27 @@
   height: auto;
 }
 
-// The three ways a question is hidden, hardest first. A level stacks them: on
-// hard the first try shows a blurred, grey, half-cropped picture, and each try
-// takes one away.
-.difficulty-1 {
+// How much of the picture a try shows: a part of it (its left half, or
+// quarter), and how it is drawn - grey, blurred, more blurred. A step of a
+// level names at most one of each (quiz-levels.ts): on hard the first try
+// shows a quarter, heavily blurred and grey, and each wrong guess lifts one
+// thing - the crop, the blur, the grey.
+.shown-half {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.shown-quarter {
+  clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);
+}
+
+.shown-grey {
   filter: grayscale(1);
 }
 
-.difficulty-2 {
+.shown-grey-blurred {
   filter: grayscale(1) blur(2.5px);
 }
 
-.difficulty-3 {
-  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+.shown-grey-blurred-more {
+  filter: grayscale(1) blur(6px);
 }

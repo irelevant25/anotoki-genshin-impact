@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { todayString } from './daily';
-import { QuizProgressService } from './quiz-progress.service';
-import { QuizId, QuizState, difficultyName } from './quiz.types';
+import { DAILY_DIFFICULTY, quizLevel } from './quiz-levels';
+import { QuizProgressService, hasPlay } from './quiz-progress.service';
+import { QuizId, QuizState } from './quiz.types';
 import { CharacterApiService } from '../../../../../api';
 
 /**
@@ -28,7 +29,7 @@ export abstract class CharacterQuizComponent {
   protected readonly progress = inject(QuizProgressService);
   private readonly _activatedRoute = inject(ActivatedRoute);
 
-  /** Picks the difficulty config and the slot the saved game lives in. */
+  /** Picks the quiz's levels (quiz-levels.ts), its chosen difficulty and the slot the saved game lives in. */
   protected abstract readonly quizId: QuizId;
 
   /**
@@ -49,11 +50,21 @@ export abstract class CharacterQuizComponent {
   readonly questionEntity = signal<any>(null);
   readonly tries = signal<any[]>([]);
   readonly isQuestionComplete = signal(false);
+
+  /** The question's own level: the one it was drawn at, kept to its end. */
   readonly difficulty = signal(1);
 
-  readonly difficultyString = computed(() => difficultyName(this.difficulty()));
+  /**
+   * The level the next question is drawn at: chosen for this quiz in its
+   * difficulty dialog, and kept in this browser (StateService). Never the
+   * daily's, which is the same for everybody (DAILY_DIFFICULTY).
+   */
+  readonly chosenDifficulty = signal(1);
 
-  private readonly _level = computed(() => this.stateService.getQuizLevel(this.quizId, this.difficulty()));
+  /** Whether the question on screen has begun: a guess made, or over. One that has keeps its level. */
+  readonly started = computed(() => this.tries().length > 0 || this.isQuestionComplete());
+
+  private readonly _level = computed(() => quizLevel(this.quizId, this.difficulty()));
   readonly triesMax = computed(() => this._level().triesMax ?? 5);
   readonly triesEffects = computed(() => this._level().triesEffects ?? []);
 
@@ -137,8 +148,47 @@ export abstract class CharacterQuizComponent {
 
   protected load(): void {
     this._activatedRoute.data.subscribe((data) => this.isDaily.set(!!data['daily']));
-    this.difficulty.set(this.stateService.getDifficulty());
+    this.chosenDifficulty.set(this.stateService.getQuizDifficulty(this.quizId));
+    this.difficulty.set(this.levelForNewQuestion());
     this.fetchAndRestore();
+  }
+
+  /** The level a question drawn now is played at: the daily's, or the one chosen for this quiz. */
+  protected levelForNewQuestion(): number {
+    return this.isDaily() ? DAILY_DIFFICULTY : this.chosenDifficulty();
+  }
+
+  /** A new question's level, as it is drawn - the choice read again, as another tab may have made one since. */
+  protected drawLevel(): void {
+    this.chosenDifficulty.set(this.stateService.getQuizDifficulty(this.quizId));
+    this.difficulty.set(this.levelForNewQuestion());
+  }
+
+  /**
+   * A level chosen in the difficulty dialog: kept for this quiz in this
+   * browser, for the questions drawn from now on. A question nobody has
+   * guessed at yet has not begun, and is drawn again at once; one under way,
+   * or over, keeps its own level to its end - its result is recorded at the
+   * level it was played at.
+   */
+  chooseDifficulty(difficulty: number): void {
+    if (this.isDaily()) {
+      return;
+    }
+    this.stateService.saveQuizDifficulty(this.quizId, difficulty);
+    this.chosenDifficulty.set(this.stateService.getQuizDifficulty(this.quizId));
+    if (!this.started() && this.difficulty() !== this.chosenDifficulty()) {
+      this.newQuestion();
+    }
+  }
+
+  /**
+   * Whether a saved question is taken up again at its own level. One that has
+   * begun always is; one nobody has guessed at yet only while it is at the
+   * level chosen - another chosen since, in this tab or another, begins now.
+   */
+  protected keepsItsLevel(saved: QuizState): boolean {
+    return this.isDaily() || saved.difficulty === this.chosenDifficulty() || hasPlay(saved);
   }
 
   /**
@@ -171,13 +221,14 @@ export abstract class CharacterQuizComponent {
    *
    * A saved question whose character no longer resolves - renamed, removed, or
    * no longer answerable because the data behind it changed - is dropped rather
-   * than restored half-formed.
+   * than restored half-formed; so is one that has not begun at another level
+   * than the one chosen (keepsItsLevel).
    */
   protected restoreOrStart(): void {
     const saved = this.progress.get(this.quizId, this.isDaily());
     const character = saved?.questionEntity ? this.characters().find((x) => x.name === saved.questionEntity) : undefined;
 
-    if (saved && character && this.canAsk(character) && this.isForToday(saved)) {
+    if (saved && character && this.canAsk(character) && this.isForToday(saved) && this.keepsItsLevel(saved)) {
       this.difficulty.set(saved.difficulty);
       this.questionEntity.set(character);
       this.tries.set(saved.tries.map((name) => this.characters().find((x) => x.name === name)).filter(Boolean));
@@ -190,6 +241,7 @@ export abstract class CharacterQuizComponent {
   }
 
   protected newQuestion(): void {
+    this.drawLevel();
     const pool = this.answerable();
     this.questionEntity.set(pool.length ? pool[Math.floor(Math.random() * pool.length)] : null);
     this.tries.set([]);

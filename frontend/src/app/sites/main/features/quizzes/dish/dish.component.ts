@@ -11,8 +11,8 @@ import { FoodApiService } from '../../../../../api';
  * Guess the character from the dish only they can cook.
  *
  * Hidden the same way as the banner quiz - cropped, blurred, grey - because the
- * two share a difficulty config, and a dish icon is small enough that taking
- * the colour out of it is already most of the puzzle.
+ * two have the same levels (quiz-levels.ts), and a dish icon is small enough
+ * that taking the colour out of it is already most of the puzzle.
  */
 @Component({
   selector: 'app-quizzes-dish',

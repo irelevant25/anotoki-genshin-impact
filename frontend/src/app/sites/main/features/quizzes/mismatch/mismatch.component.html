@@ -3,11 +3,14 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <div class="quiz-container">
-            @if (!isDaily()) {
-                <div class="quiz-difficulty" [class]="'level-' + difficultyString()">
-                    <span class="recommended-ar">{{ "quiz.difficulty." + difficultyString() | translate }}</span>
-                </div>
-            }
+            <!-- The question's difficulty, which opens the quiz's difficulty dialog - but in the daily run, the same for everybody. -->
+            <app-quiz-difficulty
+                quizId="mismatch"
+                [difficulty]="difficulty()"
+                [chosen]="chosenDifficulty()"
+                [isDaily]="isDaily()"
+                [started]="isQuestionComplete()"
+                (choose)="chooseDifficulty($event)" />
 
             @if (quizSet(); as set) {
                 <p class="mismatch-prompt">{{ "quiz.mismatch.prompt" | translate }}</p>

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { QuizId, QuizLevel, QuizState } from '../sites/main/features/quizzes/shared/quiz.types';
+import { QuizId, QuizState } from '../sites/main/features/quizzes/shared/quiz.types';
+import { knownDifficulty } from '../sites/main/features/quizzes/shared/quiz-levels';
 import { LocalStorageService } from './local-lib/services/local-storage.service';
 import { HELPER } from './helper';
 
 export interface IStateBottomMenu {
   background: string;
+  /** The old site's one difficulty for every quiz, from its bottom menu: where a quiz with no choice of its own starts. */
   difficulty: string;
+  /** The difficulty chosen for each quiz, in its difficulty dialog (1 easy, 2 medium, 3 hard). */
+  difficulties?: Partial<Record<QuizId, number>>;
   version: string;
 }
 
@@ -78,6 +82,7 @@ export class StateService {
     bottomMenu: {
       background: '',
       difficulty: '1',
+      difficulties: {},
       version: '',
     },
     topMenu: {
@@ -102,154 +107,6 @@ export class StateService {
   get data() {
     return this._data;
   }
-
-  readonly APP_CONFIG = {
-    topMenu: {
-      banners: {
-        id: 'site-banners',
-        1: {
-          triesMax: 5,
-          triesEffects: [{ try: 0, class: 'difficulty-3' }],
-        },
-        2: {
-          triesMax: 4,
-          triesEffects: [
-            { try: 0, class: 'difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-2' },
-          ],
-        },
-        3: {
-          triesMax: 3,
-          triesEffects: [
-            { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-1 difficulty-2' },
-            { try: 2, class: 'difficulty-1' },
-          ],
-        },
-      },
-      pixelate: {
-        id: 'site-pixelate',
-        1: {
-          triesMax: 5,
-          triesEffects: [
-            { try: 0, data: 7 },
-            { try: 1, data: 12 },
-            { try: 2, data: 17 },
-            { try: 3, data: 22 },
-            { try: 4, data: 27 },
-          ],
-        },
-        2: {
-          triesMax: 4,
-          triesEffects: [
-            { try: 0, data: 6 },
-            { try: 1, data: 11 },
-            { try: 2, data: 16 },
-            { try: 3, data: 21 },
-          ],
-        },
-        3: {
-          triesMax: 3,
-          triesEffects: [
-            { try: 0, data: 5 },
-            { try: 1, data: 10 },
-            { try: 2, data: 15 },
-          ],
-        },
-      },
-      mismatch: {
-        id: 'site-mismatch',
-        1: {
-          choicesAmount: 3,
-        },
-        2: {
-          choicesAmount: 4,
-        },
-        3: {
-          choicesAmount: 5,
-        },
-      },
-      music: {
-        id: 'site-music',
-        1: {
-          triesMax: 5,
-          triesEffects: [
-            { try: 0, data: 5 },
-            { try: 1, data: 10 },
-            { try: 2, data: 15 },
-            { try: 3, data: 20 },
-          ],
-        },
-        2: {
-          triesMax: 4,
-          triesEffects: [
-            { try: 0, data: 5 },
-            { try: 1, data: 10 },
-            { try: 2, data: 15 },
-            { try: 3, data: 20 },
-          ],
-        },
-        3: {
-          triesMax: 3,
-          triesEffects: [
-            { try: 0, data: 5 },
-            { try: 1, data: 10 },
-            { try: 2, data: 15 },
-          ],
-        },
-      },
-      dish: {
-        id: 'site-dish',
-        1: {
-          triesMax: 5,
-          triesEffects: [{ try: 0, class: 'difficulty-3' }],
-        },
-        2: {
-          triesMax: 4,
-          triesEffects: [
-            { try: 0, class: 'difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-2' },
-          ],
-        },
-        3: {
-          triesMax: 3,
-          triesEffects: [
-            { try: 0, class: 'difficulty-1 difficulty-2 difficulty-3' },
-            { try: 1, class: 'difficulty-1 difficulty-2' },
-            { try: 2, class: 'difficulty-1' },
-          ],
-        },
-      },
-      voice: {
-        id: 'site-voice',
-        1: {
-          triesMax: 5,
-          triesEffects: [{ try: 0, class: 'half-text hidden-audio' }, { try: 1, class: 'hidden-audio' }, { try: 2, data: 0.5 }, { try: 3 }, { try: 4 }],
-        },
-        2: {
-          triesMax: 4,
-          triesEffects: [{ try: 0, class: 'half-text hidden-audio' }, { try: 1, class: 'hidden-audio' }, { try: 2, data: 0.5 }, { try: 3 }],
-        },
-        3: {
-          triesMax: 3,
-          triesEffects: [
-            { try: 0, class: 'half-text hidden-audio' },
-            { try: 1, class: 'hidden-audio' },
-            { try: 2, data: 0.5 },
-          ],
-        },
-      },
-      tournament: {
-        id: 'site-tournament',
-      },
-    },
-
-    tooltips: {
-      placement: 'top',
-      customClass: 'custom-tooltip',
-      container: 'body',
-    },
-  };
 
   constructor(private readonly _storageService: LocalStorageService) {
     this.loadData();
@@ -287,22 +144,27 @@ export class StateService {
     }
   }
 
-  /** The difficulty the whole site is set to. 1 easy, 2 medium, 3 hard. */
-  getDifficulty(): number {
-    const difficulty = Number(this.data.bottomMenu.difficulty);
-    return difficulty >= 1 && difficulty <= 3 ? difficulty : 1;
+  /**
+   * The difficulty chosen for a quiz in this browser: 1 easy, 2 medium, 3
+   * hard. A quiz never chosen for starts where the old site's one difficulty
+   * for every quiz was set, which is easy unless somebody set it there.
+   *
+   * Kept here, in app_data, beside the old one rather than on the server: a
+   * choice of how to play, as the wallpaper is, that the result of each
+   * question records anyway. Read back first, as the saved games are, for
+   * another tab may have chosen since.
+   */
+  getQuizDifficulty(quizId: QuizId): number {
+    this.loadData();
+    const menu = this.data.bottomMenu;
+    return knownDifficulty(menu.difficulties?.[quizId] ?? menu.difficulty);
   }
 
-  /**
-   * The tries and reveal steps for one quiz at one difficulty.
-   *
-   * APP_CONFIG is a literal, so its entries have six different inferred shapes
-   * and cannot be indexed by a QuizId without this. QuizLevel is what they all
-   * actually are.
-   */
-  getQuizLevel(quizId: QuizId, difficulty: number): QuizLevel {
-    const quiz = (this.APP_CONFIG.topMenu as unknown as Record<string, Record<number, QuizLevel>>)[quizId];
-    return quiz?.[difficulty] ?? {};
+  saveQuizDifficulty(quizId: QuizId, difficulty: number): boolean {
+    this.loadData();
+    const menu = this.data.bottomMenu;
+    menu.difficulties = { ...menu.difficulties, [quizId]: knownDifficulty(difficulty) };
+    return this.saveData(this.data);
   }
 
   /**

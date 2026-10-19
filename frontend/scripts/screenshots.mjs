@@ -215,6 +215,14 @@ const MAIN = [
   // The kit's combobox with the characters' pictures, a name begun.
   { name: 'main-quiz-pixelate-search', path: '/quizzes/pixelate', then: typeInto('anotoki-combobox input', 'a') },
   { name: 'main-quiz-voice', path: '/quizzes/voice' },
+  // The badge above a quiz's question opens the quiz's difficulty dialog (loaded with the press): every level, what
+  // each one shows - light in English, dark in Slovak.
+  {
+    name: 'main-quiz-difficulty',
+    path: '/quizzes/banners',
+    pairings: true,
+    then: steps(press('app-quiz-difficulty button'), (page) => waitFor(page, "!!document.querySelector('dialog[open] anotoki-radio-group')", 15000)),
+  },
   { name: 'main-daily-banners', path: '/daily/banners' },
   { name: 'main-games', path: '/games' },
   { name: 'main-game-tournament', path: '/games/tournament' },

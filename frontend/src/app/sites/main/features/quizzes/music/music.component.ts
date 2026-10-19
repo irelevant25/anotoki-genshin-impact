@@ -8,8 +8,9 @@ import { QuizId } from '../shared/quiz.types';
 /**
  * Guess the character from their demo track.
  *
- * Each wrong guess buys a few more seconds: five to start, up to twenty, and
- * the whole piece once it is over.
+ * Each wrong guess buys a few more seconds: on easy five to start, up to
+ * twenty and then the whole track, fewer on the harder levels (quiz-levels.ts),
+ * and the whole piece once it is over.
  */
 @Component({
   selector: 'app-quizzes-music',
