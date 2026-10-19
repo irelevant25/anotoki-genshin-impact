@@ -219,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.8.0 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.8.1 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -884,7 +884,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.8.0), each piece imported from its own entry point -
+  kit (anotoki-lib 0.8.1), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -1044,10 +1044,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   `aria-current`); on the left, alone, the fan clause in the site's words
   (`footer.fanDisclaimer`: "This site is a fan-made project and is not
   affiliated with or endorsed by HoYoverse."), its black fading towards the
-  middle as the right side's does. Fixed to the window's bottom from 1200 px,
-  stacked in the page's flow under it; the closed sign and the sign-in card
-  keep the links and the clause alone (`legalOnly`). The admin panel has the
-  family's footer instead (*The admin frame*).
+  middle as the right side's does. Fixed to the window's bottom from 1440 px -
+  measured: where the clause keeps to two lines beside the items in Slovak, a
+  scrollbar counted (`footer.component.scss`; re-measure when an item or its
+  words change) - stacked in the page's flow under it; the closed sign and the
+  sign-in card keep the links and the clause alone (`legalOnly`). The admin
+  panel has the family's footer instead (*The admin frame*).
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper
