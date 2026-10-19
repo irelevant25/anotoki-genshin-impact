@@ -3,56 +3,67 @@ name: deploy
 description: >
   Build and ship the site to production. Use for "build for production", "deploy",
   "release", "prepare the upload", "how do I put this live", "run the installer",
-  or applying a schema change on the live server. Covers the two builds, the
+  or applying a schema change on the live server. Covers the release
+  (anotoki-deploy: frontend/ and backend/, swapped in whole, a rollback), the
   installer (setup.php), and applying migrations on an FTP-only host.
 ---
 
 # Deploy to production
 
-Production is one web root (`public_html/`) served **same-origin**: the Angular
-app at the root, the API under `api/`, images under `assets/`. The frontend calls
+Production is the site's folder, `anotoki.eu/sub/genshin/`, served **same-origin**:
+the Angular app at the root, the API under `/api`, images under `/assets/`. The frontend calls
 its own `/api`, so there is no second domain and no CORS. The host is
-**FTP/SFTP-only — no shell**, which is why `vendor/` is shipped, migrations apply
+**SFTP-only — no shell**, which is why `vendor/` is shipped, migrations apply
 over HTTP, and a first install runs from a web page.
 
 The authoritative, step-by-step version lives in `DEV.md` (*Building for
 production* and *Deploying to the hosting*). This skill is the operating summary.
 
-## The two builds
-
-Neither build invents anything the running app would not have; they assemble and
-strip.
+## The release
 
 ```
-# Frontend  ->  frontend/dist/angular/browser/
-cd frontend && npm run build:deploy
-#   ng build --configuration production, then scripts/prepare-deploy.mjs writes,
-#   into the build only:
-#     config.json  { "url": "", "configuration": "prod" }   (same-origin API)
-#     .htaccess    SPA fallback, /api and /uploads passed through, AVIF/Opus types
-#   The 2.7 GB assets/ tree is NOT bundled (production drops the ../assets copy).
-
-# Backend   ->  backend/dist/
-cd ../backend && php build-dist.php
-#   Runtime-only allowlist: api/ (minus openapi.json, docs.html, the dev vhost),
-#   config/ (minus every *.local.php and the unused google.php), vendor/,
-#   migrations/, public/uploads/.htaccess, an empty storage/, and the asset
-#   tree's guard assets/.htaccess (api/upload_guard.php) - not composer.*,
-#   which would publish every dependency's version from the web root.
-#   Deny-.htaccess guards go on config/, migrations/, storage/, vendor/. Dev
-#   tooling, tests and secrets are left out.
+anotoki.eu/sub/genshin/   what genshin.anotoki.eu serves
+  .htaccess   the switch: /assets/ and /uploads/ as they are, every other request -> frontend/
+  frontend/   the built app, config.json, index.php (the front controller), .htaccess  } a release:
+  backend/    api/, config/ (the loaders, no *.local.php), migrations/, vendor/,        } replaced whole
+              release.json                                                              }
+  config/     *.local.php - the settings, the site's secret among them                  never in a release
+  storage/    the lock, logs, backups, caches, the trash                               never in a release
+  assets/     the asset tree (2.7 GB), its guard .htaccess                             uploaded on its own
+  uploads/    the older uploads, their guard .htaccess                                 never in a release
 ```
 
-## Upload map (all into `public_html/`)
-
+```bash
+cd frontend && npx anotoki-deploy build                # npm run build:deploy (production + the prod config.json),
+                                                       # then the release -> ../dist/frontend/ and ../dist/backend/
+npx anotoki-deploy deploy --backups <folder>           # a dry run: what goes up
+npx anotoki-deploy deploy --backups <folder> --go      # the live frontend/ and backend/ copied into <folder>,
+                                                       # the release up beside them, checked, swapped in, the site checked
+npx anotoki-deploy rollback --go                       # the release before (kept as .old) back in
 ```
-frontend/dist/angular/browser/*   →  public_html/          index.html, JS/CSS, config.json, .htaccess
-backend/dist/*                    →  public_html/          api/, config/, vendor/, migrations/, public/, storage/, assets/.htaccess
-assets/*                          →  public_html/assets/   uploaded separately — large, changes rarely
-backend/setup.php                 →  public_html/setup.php first install only, by hand (not in the dist)
-```
 
-`backend/dist/assets/.htaccess` is the asset tree's guard: nothing in the tree
+(Until `@anotoki/deploy` is a dev dependency of `frontend/` - from anotoki-lib
+0.9.0's release - `node ../../anotoki-lib/deploy/cli.mjs` stands for
+`npx anotoki-deploy`.) anotoki-deploy is the anotoki library's deploy tool, the
+same for every site; this site's facts are in `backend/composer.json`,
+`extra["anotoki-deploy"]`: what goes into `backend/` (`api/` minus
+`openapi.json`, `docs.html` and the dev vhost, `config/` minus every
+`*.local.php` and the unused `google.php`, `migrations/`, `vendor/` - never
+`setup.php`, the command-line tools, the tests or `composer.*`), the AVIF and
+Opus types the hosting's Apache does not know, and `assets` and `uploads`, which
+the switch serves beside the release. The SFTP login is never in a repository:
+`ANOTOKI_DEPLOY_SECRETS` names a `secrets.json`, with the host's pinned key in
+`hostkey.txt` beside it. The first time: `npx anotoki-deploy switch --go`, once.
+The PHP finds its state with one rule (`siteStateRoot()`, `config/local.php`):
+with `release.json` in `backend/`, `config/`, `storage/` and `uploads/` are the
+ones beside it; in a checkout, `backend/`'s own (`public/uploads/` there).
+`_assetsRoot()` is beside `backend/` in both.
+
+`backend/setup.php` is never in a release: for a first install it goes up by hand
+into the live `backend/`, and it deletes itself. The asset tree (`assets/`) goes up
+on its own, by SFTP - it is large and changes rarely.
+
+`assets/.htaccess` (on the host) is the asset tree's guard: nothing in the tree
 may run as a script (the host's Apache would run `x.php.png` as PHP where PHP is
 mapped by AddHandler), no file is sniffed into markup, and anything but a raster
 picture goes out as a download (an old `.svg` or `.html` never runs on the
@@ -299,12 +310,11 @@ and a backup downloads as one `.anotoki-backup` file (`tail -n +3 x.anotoki-back
 
 ## Verify before handing it over
 
-- `backend/dist/` has no `*.local.php`, no `openapi.json`/`docs.html`, and has the
-  deny `.htaccess` in config/, migrations/, storage/, vendor/, and the upload
-  guards `public/uploads/.htaccess` and `assets/.htaccess` (`php tests/run.php`
-  checks that neither uses `php_flag`, `Options` or `Require` - each can answer
-  500 for the folder on a host whose AllowOverride does not allow it).
-- `frontend/dist/angular/browser/config.json` is `{ "url": "", ... "prod" }` and a
-  `.htaccess` sits beside `index.html`.
-- These are build outputs (gitignored) — do not commit `backend/dist/` or
+- The release (`dist/`) has no `*.local.php`, no `openapi.json`/`docs.html`; the
+  host keeps the upload guards `uploads/.htaccess` and `assets/.htaccess`
+  (`php tests/run.php` checks that neither uses `php_flag`, `Options` or
+  `Require` - each can answer 500 for the folder on a host whose AllowOverride
+  does not allow it).
+- `dist/frontend/config.json` is `{ "url": "", ... "prod" }`, beside `index.html`.
+- These are build outputs (gitignored) — do not commit `dist/` or
   `frontend/dist/`. Commit only source changes, and only when asked.

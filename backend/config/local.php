@@ -64,9 +64,33 @@ const SETUP_PATH = '/setup.php';
  */
 final class NotSetUpException extends RuntimeException {}
 
+/**
+ * The folder this installation's state is in - config/*.local.php and storage/; and on the host the uploads too. On
+ * the host a release's backend/ carries release.json (anotoki-deploy) and the state is beside it, in the site's
+ * folder, never part of an upload; in a checkout (and a copy of the code, the tests') it is backend/ itself.
+ */
+function siteStateRoot(): string
+{
+    $backend = dirname(__DIR__);
+
+    return is_file($backend . '/release.json') ? dirname($backend) : $backend;
+}
+
+/**
+ * The uploads (the older multipart saves, the file explorer's "Uploads"): uploads/ beside the release on the host,
+ * served at /uploads/ by the switch (backend/composer.json's extra["anotoki-deploy"].beside); public/uploads/ in a
+ * checkout, which router.php serves there.
+ */
+function siteUploadsDir(): string
+{
+    $state = siteStateRoot();
+
+    return $state === dirname(__DIR__) ? dirname(__DIR__) . '/public/uploads' : $state . '/uploads';
+}
+
 function localConfigPath(string $name): string
 {
-    return __DIR__ . '/' . $name . '.local.php';
+    return siteStateRoot() . '/config/' . $name . '.local.php';
 }
 
 /**
@@ -191,7 +215,7 @@ function localConfigFileRead(string $file): array
  */
 function localConfigReport(string $name, ?string $error): void
 {
-    $marker = dirname(__DIR__) . '/storage/cache/settings-reported-' . preg_replace('/[^a-z0-9_-]/', '', strtolower($name));
+    $marker = siteStateRoot() . '/storage/cache/settings-reported-' . preg_replace('/[^a-z0-9_-]/', '', strtolower($name));
     $said = $error === null ? '' : hash('sha256', $error);
 
     clearstatcache(true, $marker);

@@ -24,7 +24,7 @@ const FILES_PAGE_SIZE = 60;
 
 function _trashRoot(): string
 {
-    return dirname(__DIR__, 4) . '/storage/trash';
+    return siteStateRoot() . '/storage/trash';
 }
 
 /** Absolute path for a folder inside assets/, or null if it escapes. */
@@ -53,7 +53,7 @@ const FILES_FOLDER_CACHE_TTL = 60;
 
 function _assetFolderCacheFile(): string
 {
-    return dirname(__DIR__, 4) . '/storage/cache/asset-folders.json';
+    return siteStateRoot() . '/storage/cache/asset-folders.json';
 }
 
 /** Called by everything that adds or removes an asset. */

@@ -216,8 +216,9 @@ single endpoint, but keep it in mind:
   `exec` / an external binary - the backups are the library's for that reason
   (COPY through PDO; `pg_dump` only in the command-line `db-dump.php` /
   `db-push.php`). Prefer pure PDO/PHP.
-- `php build-dist.php` assembles the deployable slice and deliberately omits the
-  generators, `openapi.json`, `docs.html`, and every `*.local.php` secret. A new
+- A release (anotoki-deploy, `composer.json`'s `extra["anotoki-deploy"]`) holds the
+  deployable slice and deliberately omits the generators, `openapi.json`,
+  `docs.html`, and every `*.local.php` secret; state only through `siteStateRoot()`. A new
   dev-only script at the `backend/` root is fine — it will not ship. A new runtime
   `require` must resolve from what the dist contains (`api/`, `config/`,
   `vendor/`, `migrations/`).

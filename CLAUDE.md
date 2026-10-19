@@ -62,7 +62,7 @@ token happens to be there. The **sync-api-client** skill covers this.
 ## Configuration — `backend/config/*.local.php`, written by `setup.php`
 
 Every value that differs between one installation and the next lives in
-`backend/config/*.local.php` — gitignored, never shipped by `build-dist.php`, and
+`config/*.local.php` (`backend/config/` in a checkout, beside the release on the host) — gitignored, never in a release, and
 **required**. There is no committed fallback, environment variable or default
 for any of them (`config/local.php` explains why):
 
@@ -560,8 +560,7 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
 
 # Production build (see Deployment)
-cd frontend && npm run build:deploy  # FE → frontend/dist/angular/browser/ (prod config.json + SPA .htaccess)
-cd backend && php build-dist.php     # BE → backend/dist/ (runtime-only slice; no secrets, no dev tooling)
+cd frontend && npx anotoki-deploy build   # → dist/frontend/ + dist/backend/: the release (deploy skill)
 
 # Docs generators (from repo root)
 node docs/reference/build-docs.mjs
@@ -853,8 +852,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   an `<img>` or an `<audio>` reads its file as before; never `php_flag`,
   `Options` or `Require` - each can answer 500 for the folder on a host whose
   AllowOverride does not allow it, and in `assets/` that is every picture),
-  shipped by `build-dist.php` and written by the API before an upload where it
-  is missing (the file explorer's writes too, `explorerGuard()`). `php
+  kept on the host beside the release (never in one) and written by the API
+  before an upload where it is missing (the file explorer's writes too, `explorerGuard()`). `php
   tests/run.php` checks all of it.
 
 ## Frontend layout & conventions
@@ -1074,15 +1073,14 @@ The site ships to **one web root, served same-origin** (the frontend calls its
 own `/api`). Two builds assemble it, neither adding anything the running app
 would not have:
 
-- `cd frontend && npm run build:deploy` → `frontend/dist/angular/browser/` — a
-  production build, plus a prod `config.json` (empty API URL, so `/api` stays
-  relative) and an SPA-fallback `.htaccess`. The 2.7 GB `assets/` tree is **not**
-  bundled.
-- `cd backend && php build-dist.php` → `backend/dist/` — the runtime-only slice:
-  `api/` (minus generators/openapi/docs), `config/` (minus every `*.local.php`),
-  `vendor/`, `migrations/`, hardened `public/uploads/` + `storage/`, and the
-  asset tree's guard `assets/.htaccess` (the tree itself goes up separately).
-  Dev tooling, tests and secrets are left out.
+- `cd frontend && npx anotoki-deploy build` → `dist/frontend/` (the production
+  build, its prod `config.json` - empty API URL, so `/api` stays relative -,
+  `index.php`, `.htaccess`) and `dist/backend/` (`api/` minus generators/openapi/
+  docs, `config/` minus every `*.local.php`, `vendor/`, `migrations/`): a release,
+  replaced whole on the host beside `config/`, `storage/`, `assets/` and
+  `uploads/`, which no release writes. The 2.7 GB `assets/` tree is **not** in it.
+  anotoki-deploy is the anotoki library's (`backend/composer.json`'s
+  `extra["anotoki-deploy"]`); the **deploy** skill covers shipping.
 
 Upload both into the web root, plus `assets/` separately. Production is
 **FTP-only, no shell**, which shapes everything: `vendor/` ships in the dist (no

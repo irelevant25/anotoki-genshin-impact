@@ -69,7 +69,7 @@ use Slim\Routing\RouteContext;
 /** backend/storage - in the upload, storage/ beside api/ in the web root, denied to the web. */
 function siteStorageDir(): string
 {
-    return dirname(__DIR__) . '/storage';
+    return siteStateRoot() . '/storage';
 }
 
 /**
@@ -584,7 +584,7 @@ function siteFileExplorer(): FileExplorer
     return $explorer ??= new FileExplorer(
         [
             new FileRoot('assets', _assetsRoot(), label: 'Assets', write: true, extensions: UPLOAD_ALLOWED_EXTENSIONS, maxBytes: 50 * 1024 * 1024, snapshot: true),
-            new FileRoot('uploads', dirname(__DIR__) . '/public/uploads', label: 'Uploads', write: true, extensions: UPLOADS_FOLDER_EXTENSIONS, maxBytes: 50 * 1024 * 1024),
+            new FileRoot('uploads', siteUploadsDir(), label: 'Uploads', write: true, extensions: UPLOADS_FOLDER_EXTENSIONS, maxBytes: 50 * 1024 * 1024),
         ],
         [
             'storage' => siteStorageDir() . '/explorer',
@@ -694,7 +694,7 @@ function explorerGuard(ResponseFactoryInterface $responses): callable
         if ($route === null || $method === 'GET' || $method === 'HEAD' || ($root !== 'assets' && $root !== 'uploads')) {
             return $handler->handle($request);
         }
-        ensureUploadGuard($root === 'assets' ? _assetsRoot() : dirname(__DIR__) . '/public/uploads');
+        ensureUploadGuard($root === 'assets' ? _assetsRoot() : siteUploadsDir());
         if ($root !== 'assets') {
             return $handler->handle($request);
         }

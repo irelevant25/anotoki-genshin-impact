@@ -338,7 +338,7 @@ function visitorSettingShown(mixed $value): string
  */
 function visitorSettingsReport(array $problems): void
 {
-    $marker = dirname(__DIR__) . '/storage/cache/visitors-settings-reported';
+    $marker = siteStateRoot() . '/storage/cache/visitors-settings-reported';
     $said = $problems === [] ? '' : hash('sha256', implode("\n", $problems));
 
     clearstatcache(true, $marker);

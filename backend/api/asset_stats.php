@@ -54,7 +54,7 @@ const ASSET_FAILURE_SAMPLE = 25;
 
 function _assetCacheDir(): string
 {
-    return dirname(__DIR__) . '/storage/cache';
+    return siteStateRoot() . '/storage/cache';
 }
 
 function _assetStatsFile(): string

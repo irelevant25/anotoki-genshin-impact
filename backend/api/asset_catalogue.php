@@ -216,7 +216,7 @@ function catalogueCountsCached(): ?array
 
 function _catalogueCountsFile(): string
 {
-    return dirname(__DIR__) . '/storage/cache/catalogue-counts.json';
+    return siteStateRoot() . '/storage/cache/catalogue-counts.json';
 }
 
 /** Dropped whenever the tree changes - see assetStatsForget(). */

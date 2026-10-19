@@ -20,7 +20,7 @@
 
 function explorerSnapshotFile(): string
 {
-    return dirname(__DIR__) . '/storage/cache/disk-snapshot.json';
+    return siteStateRoot() . '/storage/cache/disk-snapshot.json';
 }
 
 /** Walks the asset tree once, returning relpath => {size, modified}. */

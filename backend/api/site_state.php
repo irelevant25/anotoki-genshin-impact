@@ -69,7 +69,7 @@ define('SITE_OPEN_WHILE_UPDATING', [
 /** Whether the installer finished on a real host: it writes storage/installed.lock there - never on this computer. */
 function siteInstalled(): bool
 {
-    return is_file(dirname(__DIR__) . '/storage/installed.lock');
+    return is_file(siteStateRoot() . '/storage/installed.lock');
 }
 
 /**

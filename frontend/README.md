@@ -66,7 +66,7 @@ public/                 config.json (where the API is: empty - its own origin, h
                         production), changelog.json, robots.txt (crawlers kept off /auth/),
                         favicon.png
 proxy.conf.json         ng serve hands /api, /.well-known and /setup.php to the PHP server on :8000
-scripts/                prepare-deploy.mjs (the production config.json and the SPA .htaccess);
+scripts/                prepare-deploy.mjs (the production config.json - anotoki-deploy's build runs it);
                         screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
                         1280 and 390 px, on a throwaway site of its own; a refused sign-in's
                         screens; a thrown error read back from the error log; the status page
@@ -111,7 +111,7 @@ npm run lint
 npx tsc --noEmit -p tsconfig.app.json
 cd .. && bun run format:check   # Prettier on every file of both halves, at the root (bun install there first)
 node scripts/screenshots.mjs  # every page, light and dark, 1280 and 390 px, on a throwaway site (PHP= a PHP 8.2+)
-npm run build:deploy      # production -> dist/angular/browser/
+npm run build:deploy      # production -> dist/angular/browser/ (npx anotoki-deploy build runs it)
 ```
 
 `@anotoki/lib` - the anotoki sites' shared library - comes from its release's

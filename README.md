@@ -136,9 +136,10 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
 
 ## Deploying
 
-The hosting has FTP and nothing else - no shell, no cron. Two builds make the
-upload: `npm run build:deploy` in `frontend/` and `php build-dist.php` in
-`backend/`, neither carrying any configuration or secret; `assets/` is uploaded
+The hosting has FTP and nothing else - no shell, no cron. A release is
+`frontend/` and `backend/`, built and put up by the anotoki library's
+anotoki-deploy (`npx anotoki-deploy build` in `frontend/`), never carrying any
+configuration or secret, and replaced whole on the host; `assets/` is uploaded
 on its own. The first install runs through `setup.php` in the browser, proved by
 a token only FTP can read; it writes the settings, then locks and deletes
 itself. Later schema changes are applied from the admin panel's Migrations page,
@@ -194,7 +195,7 @@ backend/
   tests/                php tests/run.php - the upload rules; the words' migration and routes, the library's
                         data moves and admin tools, what a silent sign-in brings in, every settings file read
                         cleanly, migration.php (on throwaway databases)
-  setup.php, router.php, migration.php, build-dist.php, db-dump.php, db-push.php, assets.php,
+  setup.php, router.php, migration.php, db-dump.php, db-push.php, assets.php,
   merge-databases.php   (once, for a checkout from when the site had two databases)
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile; legal/ (Terms, Privacy and

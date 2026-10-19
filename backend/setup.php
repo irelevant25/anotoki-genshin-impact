@@ -82,8 +82,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/local.php';
 require_once __DIR__ . '/api/migration_runner.php';
 
-const SETUP_LOCK = __DIR__ . '/storage/installed.lock';
-const SETUP_TOKEN_FILE = __DIR__ . '/config/setup.local.php';
+define('SETUP_LOCK', siteStateRoot() . '/storage/installed.lock');
+define('SETUP_TOKEN_FILE', siteStateRoot() . '/config/setup.local.php');
 const SETUP_NONCE_COOKIE = 'genshin_setup_nonce';
 
 /**

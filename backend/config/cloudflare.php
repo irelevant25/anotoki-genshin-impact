@@ -146,7 +146,7 @@ function originSecretFrom(mixed $values): array
  */
 function originSecretReport(array $problems): void
 {
-    $marker = dirname(__DIR__) . '/storage/cache/cloudflare-settings-reported';
+    $marker = siteStateRoot() . '/storage/cache/cloudflare-settings-reported';
     $said = $problems === [] ? '' : hash('sha256', implode("\n", $problems));
 
     clearstatcache(true, $marker);

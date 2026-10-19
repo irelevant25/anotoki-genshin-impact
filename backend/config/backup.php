@@ -90,7 +90,7 @@ function backupProcessEnv(): array
 /** Where the backup directories live. Created on first use. */
 function backupDirectory(): string
 {
-    $directory = backupConfig()['directory'] ?? __DIR__ . '/../storage/backups';
+    $directory = backupConfig()['directory'] ?? siteStateRoot() . '/storage/backups';
 
     if (!is_dir($directory)) {
         mkdir($directory, 0775, true);

@@ -46,5 +46,5 @@ function iamClientConfig(): array
         notSetUp('iam.local.php', 'the IAM\'s address and this site\'s client id');
     }
 
-    return $config = array_replace(['cache_dir' => dirname(__DIR__) . '/storage/cache'], $local, ['issuer' => $issuer, 'client_id' => $clientId]);
+    return $config = array_replace(['cache_dir' => siteStateRoot() . '/storage/cache'], $local, ['issuer' => $issuer, 'client_id' => $clientId]);
 }

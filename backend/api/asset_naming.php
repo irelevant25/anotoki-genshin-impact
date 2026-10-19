@@ -19,17 +19,17 @@
 require_once __DIR__ . '/upload_guard.php';
 
 /**
- * The asset tree, which sits beside the site's pages. In a checkout that is
- * the repository root, one above backend/. In the upload build-dist.php makes,
- * api/ goes into the web root itself, beside the built pages and assets/ - so
- * there it is one level up from here, not two. build-dist.php is how the two
- * are told apart: a checkout's backend/ has it, and the upload never does.
+ * The asset tree, beside backend/: in a checkout (its composer.json) the
+ * repository's root, on the host (a release's release.json, anotoki-deploy)
+ * the site's folder, beside frontend/ and backend/ - served there by the switch
+ * (backend/composer.json's extra["anotoki-deploy"].beside). A copy of the code
+ * alone (the tests') keeps it in itself.
  */
 function _assetsRoot(): string
 {
     $backend = dirname(__DIR__);
 
-    return (is_file($backend . '/build-dist.php') ? dirname($backend) : $backend) . '/assets';
+    return (is_file($backend . '/composer.json') || is_file($backend . '/release.json') ? dirname($backend) : $backend) . '/assets';
 }
 
 /**

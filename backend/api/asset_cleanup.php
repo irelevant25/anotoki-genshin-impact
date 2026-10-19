@@ -40,7 +40,7 @@ const CLEANUP_SECONDS = 3.0;
 
 function _cleanupQueueFile(): string
 {
-    return dirname(__DIR__) . '/storage/cache/asset-cleanup-queue.json';
+    return siteStateRoot() . '/storage/cache/asset-cleanup-queue.json';
 }
 
 /**

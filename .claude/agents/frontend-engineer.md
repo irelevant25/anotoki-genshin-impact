@@ -162,7 +162,7 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   `npx ng build --configuration development --output-path <a scratch folder>`
   (templates are only fully checked by a build). Without `--output-path` it
   writes into `frontend/dist/`, over the production build `build:deploy` leaves
-  there for upload - rebuild that before an upload if you clobber it.
+  there for a release - rebuild that before an upload if you clobber it.
 - Run it: `npm start` (from `frontend/`: `bun ci`, then `ng serve` on :4200 with
   `proxy.conf.json`, which hands `/api` to the PHP server - one origin, no CORS;
   it does not regenerate the API client, `npm run api` does) with the PHP server up

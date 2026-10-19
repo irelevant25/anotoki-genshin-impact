@@ -92,7 +92,6 @@ vendor/         committed: the hosting has no Composer - anotoki/lib, the anotok
 | `setup.php` | the settings page on this computer, the one-time installer on the hosting: the database (`anotoki_genshin` on port 5432 to start from), the IAM and - on a host - the setup token, nothing else (this site's address comes from the request, pg_dump from `~/pgclient`); builds the database and writes `config/*.local.php` |
 | `migration.php` | applies pending migrations, every set in order - the library's around the two folders - after a backup of the database as it is (`--status`, `--dry-run`, `--folder=users`) |
 | `translations.php` | the words from the command line, the library's `TranslationsCommand`: `--status` (the keys the frontend uses against the database's, each language's coverage), `--export sk [file]` / `--import sk file`; it makes no key - keys come with migrations |
-| `build-dist.php` | the runtime-only slice for the upload, into `dist/` (with the asset tree's guard, `assets/.htaccess`) |
 | `tests/run.php` | the backend's tests, `tests/*.test.php`: the upload rules; on throwaway `genshin_test_*` databases the words' migration and routes, the library's data moves and admin routes, the addresses and what is kept of them, what a silent sign-in brings in, the command line |
 | `generate-api-spec.php` | writes `../frontend/api-spec.json` for the generated client (`npm run api` in `frontend/` calls it) |
 | `assets.php` | the asset tree against the catalogue and the rows naming it (`--status`, ...) |
@@ -110,7 +109,7 @@ php migration.php            # apply what is pending, after a backup (setup.php 
 php translations.php --status   # the keys the pages use against the database's
 php db-dump.php              # a pg_dump of your own, besides the library's backups
 php tests/run.php            # the tests (throwaway databases); on PHP 8.2 too
-php build-dist.php           # the upload -> dist/
+# the release: cd ../frontend && npx anotoki-deploy build (../DEV.md, Deploying)
 ```
 
 ## Checking it

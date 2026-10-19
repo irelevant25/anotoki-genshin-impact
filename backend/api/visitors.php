@@ -660,7 +660,7 @@ function visitorSweepAfterAnswer(bool $now = false): void
 /** Where the time of the last sweep is kept (backend/storage/, gitignored, shipped hardened). */
 function visitorSweepMarker(): string
 {
-    return dirname(__DIR__) . '/storage/visitors-swept';
+    return siteStateRoot() . '/storage/visitors-swept';
 }
 
 /**

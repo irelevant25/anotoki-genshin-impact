@@ -67,11 +67,11 @@ function _fullSaveUpload($file, string $folder, string $baseName): ?string
     }
 
     $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $baseName);
-    $dir = __DIR__ . '/../public/uploads/' . $folder;
+    $dir = siteUploadsDir() . '/' . $folder;
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);
     }
-    _fullHardenUploadDir(__DIR__ . '/../public/uploads');
+    _fullHardenUploadDir(siteUploadsDir());
 
     $file->moveTo($dir . '/' . $safeName . '.' . $ext);
 

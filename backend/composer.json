@@ -18,5 +18,40 @@
       "type": "vcs",
       "url": "https://github.com/irelevant25/anotoki-lib"
     }
-  ]
+  ],
+  "extra": {
+    "anotoki-deploy": {
+      "site": "genshin",
+      "remote": "/anotoki.eu/sub/genshin",
+      "url": "https://genshin.anotoki.eu",
+      "include": [
+        "api",
+        "config",
+        "migrations",
+        "vendor"
+      ],
+      "exclude": [
+        "api/openapi.json",
+        "api/docs.html",
+        "api/httpd-vhosts.conf",
+        "config/google.php"
+      ],
+      "frontendBuild": "npm run build:deploy",
+      "beside": [
+        "assets",
+        "uploads"
+      ],
+      "types": {
+        ".avif": "image/avif",
+        ".opus": "audio/ogg"
+      },
+      "noCache": [
+        "config.json",
+        "changelog.json"
+      ],
+      "smoke": [
+        "/api/site-status"
+      ]
+    }
+  }
 }

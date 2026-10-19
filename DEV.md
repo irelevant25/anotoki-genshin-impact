@@ -289,7 +289,7 @@ and `integrity`) given bun.lock's - never `npm install`, which would rewrite
 the whole lock.
 
 Then run the checks below, and ship `vendor/anotoki/lib` with the next upload
-(build-dist.php copies `vendor/` whole).
+(a release carries `vendor/` whole).
 
 ---
 
@@ -1019,25 +1019,35 @@ ones. `--dry-run` prints the summary without writing.
 
 ## Building for production
 
-The site ships to one web root, served same-origin. Two builds assemble it; neither
-adds anything the running site would not have.
+A release is `frontend/` and `backend/`, built by the anotoki library's
+anotoki-deploy and replaced whole on the host (*Deploying to the hosting*,
+below). It adds nothing the running site would not have:
 
 ```bash
-# Frontend  ->  frontend/dist/angular/browser/
-cd frontend && npm run build:deploy
-#   ng build (production) + scripts/prepare-deploy.mjs, which writes into the build:
-#     config.json  { "url": "", "configuration": "prod" }   (same-origin API)
-#     .htaccess    SPA fallback, with /api and /uploads passed through, and the
-#                  AVIF/Opus types the hosting's Apache does not know
-#   The 2.7 GB assets/ tree is NOT bundled.
-
-# Backend   ->  backend/dist/
-cd ../backend && php build-dist.php
-#   The runtime-only slice: api/ (minus the generators and the API reference),
-#   config/ (minus every *.local.php), vendor/, migrations/, hardened
-#   public/uploads/ + storage/, and the asset tree's guard, assets/.htaccess.
-#   Dev tooling, tests, secrets and composer.* stay behind.
+cd frontend && npx anotoki-deploy build                # npm run build:deploy (production + the prod config.json),
+                                                       # then the release -> ../dist/frontend/ and ../dist/backend/
+npx anotoki-deploy deploy --backups <folder>           # a dry run: what goes up
+npx anotoki-deploy deploy --backups <folder> --go      # the live frontend/ and backend/ copied into <folder>,
+                                                       # the release up beside them, checked, swapped in, the site checked
+npx anotoki-deploy rollback --go                       # the release before (kept as .old) back in
 ```
+
+(Until `@anotoki/deploy` is a dev dependency of `frontend/` - from anotoki-lib
+0.9.0's release - `node ../../anotoki-lib/deploy/cli.mjs` stands for
+`npx anotoki-deploy`.) anotoki-deploy is the anotoki library's deploy tool, the
+same for every site; this site's facts are in `backend/composer.json`,
+`extra["anotoki-deploy"]`: what goes into `backend/` (`api/` minus
+`openapi.json`, `docs.html` and the dev vhost, `config/` minus every
+`*.local.php` and the unused `google.php`, `migrations/`, `vendor/` - never
+`setup.php`, the command-line tools, the tests or `composer.*`), the AVIF and
+Opus types the hosting's Apache does not know, and `assets` and `uploads`, which
+the switch serves beside the release. The SFTP login is never in a repository:
+`ANOTOKI_DEPLOY_SECRETS` names a `secrets.json`, with the host's pinned key in
+`hostkey.txt` beside it. The first time: `npx anotoki-deploy switch --go`, once.
+The PHP finds its state with one rule (`siteStateRoot()`, `config/local.php`):
+with `release.json` in `backend/`, `config/`, `storage/` and `uploads/` are the
+ones beside it; in a checkout, `backend/`'s own (`public/uploads/` there).
+`_assetsRoot()` is beside `backend/` in both.
 
 ---
 
@@ -1054,22 +1064,35 @@ does not answer that yet says 404 - which this site reads as "sign-in required"
 and sends everybody signed out to sign in. Before uploading a build that reads the
 switch, check that address answers 200 with `"login_required": false`.
 
-### The upload map
-
-All into `public_html/`:
+### The site's folder on the host
 
 ```
-frontend/dist/angular/browser/*   →  public_html/              index.html, JS/CSS, config.json, .htaccess
-backend/dist/*                    →  public_html/              api/, config/, vendor/, migrations/, public/, storage/, assets/.htaccess
-assets/*                          →  public_html/assets/       separately - it is large and changes rarely
-backend/setup.php                 →  public_html/setup.php     the first install only, by hand
+anotoki.eu/sub/genshin/   what genshin.anotoki.eu serves
+  .htaccess   the switch: /assets/ and /uploads/ as they are, every other request -> frontend/
+  frontend/   the built app, config.json, index.php (the front controller), .htaccess  } a release:
+  backend/    api/, config/ (the loaders, no *.local.php), migrations/, vendor/,        } replaced whole
+              release.json                                                              }
+  config/     *.local.php - the settings, the site's secret among them                  never in a release
+  storage/    the lock, logs, backups, caches, the trash                               never in a release
+  assets/     the asset tree (2.7 GB), its guard .htaccess                             uploaded on its own
+  uploads/    the older uploads, their guard .htaccess                                 never in a release
 ```
 
-`backend/dist/assets/` holds one file, the asset tree's `.htaccess`: it keeps
-anything in the tree from running as a script (`api/upload_guard.php`). Let
-it go up with the rest of `backend/dist/` - it merges into the tree already
-there - and keep it there: the API writes it back before an upload when it is
-missing, but a tree with none waits for that upload.
+`assets/.htaccess` is the asset tree's guard: it keeps anything in the tree from
+running as a script (`api/upload_guard.php`). Keep it there: the API writes it
+back before an upload when it is missing, but a tree with none waits for that
+upload. `uploads/.htaccess` is the uploads' (`backend/public/uploads/.htaccess`
+in the repository: upload it into `uploads/` once, on a new site).
+
+**The move to the release layout (2026-10-19), once.** Until then everything was
+uploaded over the web root, and the uploads were in `public/uploads/` - linked
+as `/uploads/...`, which no folder answered, so every upload was a 404. Rename
+`public/uploads` → `uploads` on the host first (its guard goes with it), then
+`deploy --go` and `switch --go` (the folder's `.htaccess` before is kept as
+`.htaccess.flat`; `switch --undo --go` puts it back). The old files of the flat
+layout - the bundles, `api/`, `vendor/`, `migrations/`, `config/`'s loaders -
+are deleted once the site runs well; `config/*.local.php`, `storage/`, `assets/`
+and `uploads/` stay.
 
 **Looking for files that could run.** Until 2026-10-07 an upload kept every
 dot in its name, so an editor could store `shell.php.png` (or `.avif`, or
@@ -1078,12 +1101,12 @@ can no longer be named so, but look once for anything left from before, and
 whenever files have gone up by FTP: a name with `.php`, `.phtml`, `.phar`,
 `.pht`, `.php3`-`.php8`, `.phps`, `.cgi`, `.pl`, `.py`, `.sh`, `.asp`, `.aspx`,
 `.jsp`, `.shtml`, `.htaccess`, `.htpasswd` or `.ini` anywhere after its first
-dot, in `assets/` or `public/uploads/` - the guard files themselves apart. With
+dot, in `assets/` or `uploads/` - the guard files themselves apart. With
 no shell on the host, list the tree over FTP and filter the names, e.g. with
 lftp:
 
 ```bash
-lftp -u <ftp-user> <ftp-host> -e 'find public_html/assets public_html/public/uploads; bye' \
+lftp -u <ftp-user> <ftp-host> -e 'find anotoki.eu/sub/genshin/assets anotoki.eu/sub/genshin/uploads; bye' \
   | grep -iE '\.(php[3-8s]?|phtml|phar|pht|cgi|pl|py|sh|aspx?|jsp|shtml|htaccess|htpasswd|ini)(\.|$)'
 ```
 
@@ -1097,8 +1120,8 @@ Delete what turns up - on the Files page (it moves to the trash, which is not
 served, and the trash will not put such a name back) or over FTP - and never
 open one in a browser.
 
-The real config lives in `config/*.local.php`, which the build leaves out on
-purpose and a deploy never touches; `setup.php` writes it on the server. Never
+The real config lives in `config/*.local.php` - beside the release on the host,
+never in one - which a deploy never touches; `setup.php` writes it on the server. Never
 ship or commit a `*.local.php`.
 
 When a migration renames files in the tree - `024` renamed the demo music to
@@ -1189,8 +1212,8 @@ open the site, **Sign in** on the "being updated" page as an ADMIN, **Open
 Migrations**, **Apply pending**.
 
 **The shared library on the host** (2026-10-07, `anotoki-lib` 0.1.0): nothing to
-apply - upload both builds in the same go (`vendor/anotoki/lib` goes up with
-`backend/dist/`; the new pages ask `/api/site-status`, which an older API
+apply - release it (`vendor/anotoki/lib` goes up in the release's
+`backend/`; the new pages ask `/api/site-status`, which an older API
 answers 404 - read as "not available right now" until the API is there too)
 and the site works as before, but for what it does while not ready. Check that
 `storage/installed.lock` is on the host (the installer wrote it there): it is
@@ -1211,7 +1234,7 @@ committed in `config/visitors.php`, and the visitor's own address is read from
 `CF-Connecting-IP` on a connection from them (nothing to upload; a host that is
 not behind Cloudflare says so in a `config/visitors.local.php`,
 `['client_address' => ['trusted_proxies' => []]]`, which setup.php never writes
-and build-dist leaves behind, so it survives uploads) - and, with the origin
+and a release never carries or touches) - and, with the origin
 secret, only on a request that carries it (*The origin secret on the host*,
 below). To stop visitors at once,
 switch **Sign-in required** on in the IAM.
@@ -1291,8 +1314,8 @@ same value in two places, a long random value of 32 characters or more:
 1. In Cloudflare: Rules → Transform Rules → Modify Request Header → "Set
    static" `X-Anotoki-Origin` to the secret, for every request of the zone -
    one rule for every anotoki site; a site without the secret pays it no heed.
-2. On the host, by hand (setup.php never writes or reads it, build-dist leaves
-   it behind, so it survives uploads): `backend/config/cloudflare.local.php` -
+2. On the host, by hand (setup.php never writes or reads it, a release never
+   carries or touches it): `config/cloudflare.local.php` -
    `<?php return ['origin_secret' => '<the same value>'];` - the same file in
    every anotoki site. Keep a copy off the server.
 
@@ -1384,4 +1407,3 @@ the PostgreSQL client tools locally.
 - `php assets.php --status` - the asset tree against the `files` catalogue and the rows that name it.
 - `php translations.php --status` - the translation keys the frontend asks for against the ones the database has, each language's coverage, and stored strings a save would refuse (`--export CODE [FILE]`, `--import CODE FILE`; the anotoki library's command - no key is made here, keys come from migrations).
 - `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`: the upload rules; the words' migration and routes, on `genshin_test_*` databases of their own).
-- `php build-dist.php` - the production backend slice (see above).

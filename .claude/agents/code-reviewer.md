@@ -139,7 +139,7 @@ subscribed, an `effect`/`computed` that misses a dependency.
   download rule (an old `.svg` in the asset tree would run on the site's origin).
 - Deployment boundary: a runtime feature must not depend on a shell
   (`proc_open`/`exec`) or an external binary — production is FTP-only. A new
-  runtime `require` must resolve from what `build-dist.php` ships. Anything that
+  runtime `require` must resolve from what a release ships (`extra["anotoki-deploy"].include`). Anything that
   can build/wipe a database (the installer, the migration-apply endpoint) stays
   gated — in `setup.php` the nonce everywhere plus, off this computer, the token
   and the lock; ADMIN + `requireAuth()` on apply.

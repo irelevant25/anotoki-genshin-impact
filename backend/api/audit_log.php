@@ -46,7 +46,7 @@ function siteAudit(): AuditLog
     static $audit = null;
 
     return $audit ??= new AuditLog(fn(): PDO => getDb(), [
-        'pendingFile' => dirname(__DIR__) . '/storage/logs/audit-pending.jsonl',
+        'pendingFile' => siteStateRoot() . '/storage/logs/audit-pending.jsonl',
         'ready' => auditMovedToLibrary(...),
         'actorIds' => auditActorIds(...),
     ]);
