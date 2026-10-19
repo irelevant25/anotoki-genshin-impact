@@ -452,7 +452,7 @@ const adminFooter =
         inMain: !!footer.closest('main'),
       };
     })()`);
-    const expected = { version: `Version ${version}`, whatsNew: true, feedback, links: ['/terms', '/privacy', '/contact'], fan: true, inMain: false };
+    const expected = { version: `v${version}Version ${version}`, whatsNew: true, feedback, links: ['/terms', '/privacy', '/contact'], fan: true, inMain: false };
     if (JSON.stringify(parts) !== JSON.stringify(expected)) {
       heard.push(`the admin footer: ${JSON.stringify(parts)}, not ${JSON.stringify(expected)}`);
     }
