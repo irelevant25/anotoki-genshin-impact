@@ -19,7 +19,10 @@
         </nav>
         <!-- The account on the far right (the owner, 2026-10-19). -->
         @if (!legalOnly()) {
-            <button type="button" class="site-footer-item site-footer-account" aria-haspopup="dialog" (click)="openAccount()">{{ username() ?? ("footer.account" | translate) }}</button>
+            <button type="button" class="site-footer-item site-footer-account" aria-haspopup="dialog" (click)="openAccount()">
+                <span class="icon icon-user icon-size-4" aria-hidden="true"></span>
+                {{ username() ?? ("footer.account" | translate) }}
+            </button>
         }
     </div>
     <p class="site-footer-fan">{{ "footer.fanDisclaimer" | translate }}</p>

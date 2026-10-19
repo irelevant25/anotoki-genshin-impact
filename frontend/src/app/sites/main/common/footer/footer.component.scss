@@ -79,6 +79,13 @@
     }
   }
 
+  // The account stands apart from the links: the person's icon before the name (the owner, 2026-10-19).
+  &.site-footer-account {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   // The page's focus ring is a blue the bar's black would swallow: white here, as the words are.
   &:focus-visible {
     outline: 2px solid white;
