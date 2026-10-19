@@ -3,8 +3,14 @@
 // 80 % black, the bar's own colours: they stand over any wallpaper, in either theme.
 //
 // On a wide window the bar is fixed to its bottom edge, and the clear middle lets the clicks through to the page under
-// it. Narrower than 1200 px, the nine items and the sentence would not fit side by side: the footer is in the page's
-// flow under it, the items over the clause on one dark band, wrapping as a phone needs.
+// it - from 1440 px, where the clause keeps to two lines beside the nine items in Slovak, the longer of the two
+// languages. Measured in a production build (2026-10-19: the nine items as they are, "Account" / "Účet" last): the
+// Slovak clause needs 1408 px of bar, the English 1249; a window's classic scrollbar (17 px) is counted by the media
+// query but not given to the bar, and the rest is room for another browser's rendering. Re-measure when an item or
+// its words change. A name wider than "Účet" (the account's 12rem at most) can still take the Slovak clause to three
+// lines up to 1526 px: 71 px of bar, which a page's 60 px margin and its 25 px padding (`.container`, styles.scss)
+// still keep its words clear of, as they do the two lines' 52 px. Narrower, the footer is in the page's flow under
+// it, the items over the clause on one dark band, wrapping as a phone needs.
 
 :host {
   display: block;
@@ -117,13 +123,13 @@
   border-top-right-radius: 8px;
   background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) var(--site-footer-fade));
   color: rgba(255, 255, 255, 0.85);
-  // Small enough to stay two lines beside the Slovak items from 1200 px; the lines balanced, never one word left alone.
+  // Small, so that two lines of it fit beside the items from 1440 px; the lines balanced, never one word left alone.
   font-size: 0.8125rem;
   line-height: 1.4;
   text-wrap: balance;
 }
 
-@media only screen and (max-width: 1199px) {
+@media only screen and (max-width: 1439px) {
   .site-footer {
     position: relative;
     flex-direction: column;

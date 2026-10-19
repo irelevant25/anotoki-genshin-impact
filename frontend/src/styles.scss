@@ -171,6 +171,8 @@ h4 {
   border-radius: 50px;
   background-color: var(--bg-veil);
   justify-self: center;
+  // Also what keeps a page's end clear of the public footer's bar where it is fixed (from 1440 px, 52 px high:
+  // sites/main/common/footer/footer.component.scss).
   margin-bottom: 60px;
   // padding: 0;
   padding: 25px;

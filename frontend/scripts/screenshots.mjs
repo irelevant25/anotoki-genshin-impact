@@ -149,11 +149,12 @@ const storedMarkupInert = async (page) => {
 };
 
 /**
- * The public site's own footer (sites/main/common/footer): the site's dialogs in their order - the version (the
- * changelog's newest), What's new, Feedback, the account - then About · Support · Terms · Privacy · Contact as links, and the fan clause;
+ * The public site's own footer (sites/main/common/footer): the version as text (the changelog's newest), the site's
+ * dialogs in their order - What's new, Feedback, the account - and About · Support · Terms · Privacy · Contact as links, and the fan clause;
  * under the closed sign and the sign-in card (`legalOnly`) the links and the clause alone. The two sides side by side
- * on a wide window and stacked on a narrow one - never over each other, nor past the window's edge. Anything missing,
- * extra, out of order or overlapping is said.
+ * on a wide window and stacked on a narrow one - never over each other, nor past the window's edge - and where the bar
+ * is fixed, the clause on two lines at most (footer.component.scss: where it is fixed is measured for that). Anything
+ * missing, extra, out of order, overlapping or squeezed is said.
  */
 const publicFooter =
   ({ legalOnly }) =>
@@ -168,23 +169,30 @@ const publicFooter =
       const fan = footer.querySelector('.site-footer-fan');
       const a = items.getBoundingClientRect();
       const b = fan.getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(fan);
+      const lines = new Set([...range.getClientRects()].filter((rect) => rect.width > 0).map((rect) => Math.round(rect.top))).size;
       return {
         lang: document.documentElement.lang,
+        version: items.querySelector('.site-footer-version')?.textContent.trim() ?? null,
         buttons: [...items.querySelectorAll(':scope > button')].map((button) => button.textContent.trim()),
         links: [...footer.querySelectorAll('nav a')].map((link) => link.getAttribute('href')),
         fan: fan.textContent.trim() !== '',
         overlap: a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1,
         outside: Math.min(a.left, b.left) < 0 || Math.max(a.right, b.right) > window.innerWidth + 1,
+        squeezed: getComputedStyle(footer).position === 'fixed' && lines > 2,
       };
     })()`);
     const words = { en: ["What's new", 'Feedback', 'Account'], sk: ['Čo je nové', 'Spätná väzba', 'Účet'] }[facts.lang] ?? [];
     const expected = {
       lang: facts.lang,
-      buttons: legalOnly ? [] : [`v${version}`, ...words],
+      version: legalOnly ? null : `v${version}`,
+      buttons: legalOnly ? [] : words,
       links: ['/about', '/support', '/terms', '/privacy', '/contact'],
       fan: true,
       overlap: false,
       outside: false,
+      squeezed: false,
     };
     if (JSON.stringify(facts) !== JSON.stringify(expected)) {
       heard.push(`the public footer: ${JSON.stringify(facts)}, not ${JSON.stringify(expected)}`);
