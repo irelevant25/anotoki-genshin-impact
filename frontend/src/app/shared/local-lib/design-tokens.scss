@@ -428,8 +428,10 @@
   --medal-silver: #a8adb3;
   --medal-bronze: #b87333;
 
-  /* Quiz difficulty */
-  --level-easy: #0f9d63;
+  /* Quiz difficulty: the badge above a quiz's question, white words on these
+     in both themes - 4.5:1 at least (WCAG 1.4.3): Easy 5.05, Medium 5.17,
+     Hard 5.70. Easy's green was #0f9d63 until 2026-10-19, 3.5:1. */
+  --level-easy: #0a7f4f;
   --level-medium: #2563eb;
   --level-hard: #7c3aed;
 

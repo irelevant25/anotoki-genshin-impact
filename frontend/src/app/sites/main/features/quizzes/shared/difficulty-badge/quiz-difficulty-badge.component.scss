@@ -3,7 +3,8 @@
 }
 
 // The badge as a button: its look is the badge's (`.recommended-ar` and `.level-*`, styles.scss), its manners a
-// button's - the page's font, a pointer, a little brighter under it, and a mark that it opens something.
+// button's - the page's font, a pointer, a little darker under it, and a mark that it opens something. Darker, never
+// brighter: its white words keep 4.5:1 or more on every level's colour (design-tokens.scss), and lighter would lower it.
 .quiz-difficulty-button {
   display: inline-flex;
   align-items: center;
@@ -13,7 +14,7 @@
   cursor: pointer;
 
   &:hover {
-    filter: brightness(1.1);
+    filter: brightness(0.88);
   }
 
   &:focus-visible {

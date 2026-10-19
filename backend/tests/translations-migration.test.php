@@ -19,8 +19,9 @@ declare(strict_types=1);
  * word, with its writer and its time - a guide's body as a guide, the rest as
  * strings - and nothing else came in but the library's words, 051's, 055's,
  * 057's and 058's, nothing else went but 053's, 056's and 057's, and nothing else
- * was reworded but the footer's Feedback where it was still users/004's (057:
- * an owner's rewording of it stands); the
+ * was reworded but the footer's Feedback where it was still users/004's (057)
+ * and the quizzes' cards and Mismatch's guide where they were still users/005's
+ * and 028's (059) - an owner's rewording of any of them stands; the
  * blanks went; the tables are in the library's shape, which its own 001
  * proved; the copies keep everything as it was. And 050 refuses, naming what
  * stops it, a database it cannot move: a language code that is no code, a
@@ -100,8 +101,9 @@ const LIBRARY_WORDS_FILES = [
 // 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
 // 0.6's users/055-056 (the legal pages' facts, the multiselect's old
 // summaries gone) with the library's words 005-013, users/057 (the
-// public footer's words) and users/058 (the quizzes' difficulty dialog's),
-// which one Apply brings along.
+// public footer's words), users/058 (the quizzes' difficulty dialog's) and
+// users/059 (the quizzes' cards and Mismatch's guide reworded), which one
+// Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -114,6 +116,7 @@ const WORDS_AND_AFTER = [
     'users/056_drop_multiselect_selected_strings.sql',
     'users/057_public_footer_strings.sql',
     'users/058_quiz_difficulty_strings.sql',
+    'users/059_quiz_cards_and_mismatch_guide.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql',
@@ -140,6 +143,19 @@ const LEGAL_PAGE_KEYS = 44;
 // footer's old GitHub and Backgrounds items, which nothing reads.
 const FOOTER_NEW_KEYS = ['account.background', 'footer.whatsNew'];
 const FOOTER_GONE_KEYS = ['footer.backgrounds', 'footer.github'];
+// What users/059 rewords, where it is still users/005's and 028's: Mismatch's card and guide, which said four characters
+// in both languages, and the other five cards' Slovak, from "vy" to "ty".
+const REWORDED_BY_059 = [
+    'guide.mismatch.content|en',
+    'guide.mismatch.content|sk',
+    'quiz.banners.info|sk',
+    'quiz.dish.info|sk',
+    'quiz.mismatch.info|en',
+    'quiz.mismatch.info|sk',
+    'quiz.music.info|sk',
+    'quiz.pixelate.info|sk',
+    'quiz.voice.info|sk',
+];
 // What users/058 brings: the quizzes' difficulty badge's and dialog's words, and what each level shows.
 const DIFFICULTY_NEW_KEYS = [
     'quiz.difficulty.button',
@@ -296,8 +312,8 @@ foreach ($before as $row) {
         }
         continue;
     }
-    if (in_array($row['key_name'], FOOTER_GONE_KEYS, true) || $key === 'footer.feedback|en') {
-        // users/057's to take away, and the one string it rewords - looked at below.
+    if (in_array($row['key_name'], FOOTER_GONE_KEYS, true) || $key === 'footer.feedback|en' || in_array($key, REWORDED_BY_059, true)) {
+        // users/057's to take away, and the strings 057 and 059 reword - looked at below.
         continue;
     }
     $guide = $guides[$key] ?? null;
@@ -381,6 +397,32 @@ same(
         $strings['footer.whatsNew|sk']['value'] ?? null,
         $strings['account.background|en']['value'] ?? null,
         $strings['account.background|sk']['value'] ?? null,
+    ],
+);
+same(
+    '059: Mismatch\'s card for three to five characters, in English and Slovak, and the other cards\' Slovak says "ty"',
+    [
+        'Test your character knowledge by finding the "odd one out" among three to five character icons.',
+        'Over si znalosti postáv a nájdi tú, ktorá medzi tri až päť ikon nepatrí.',
+        'Skús spoznať postavy podľa silno pixelizovaných portrétov.',
+        'Over si znalosti a spoznaj postavy podľa ich hlasu.',
+    ],
+    [
+        $strings['quiz.mismatch.info|en']['value'] ?? null,
+        $strings['quiz.mismatch.info|sk']['value'] ?? null,
+        $strings['quiz.pixelate.info|sk']['value'] ?? null,
+        $strings['quiz.voice.info|sk']['value'] ?? null,
+    ],
+);
+same('...and the cards\' English but Mismatch\'s, as users/005 wrote it', 'Test your knowledge by identifying characters from their dish.', $strings['quiz.dish.info|en']['value'] ?? null);
+same(
+    '...and Mismatch\'s guide: three, four or five characters, in English and Slovak, no four left',
+    [true, true, false, false],
+    [
+        str_contains($guides['guide.mismatch.content|en']['html'] ?? '', '<li>Three, four or five character icons are shown - more on a harder difficulty.</li>'),
+        str_contains($guides['guide.mismatch.content|sk']['html'] ?? '', '<li>Zobrazia sa ikony troch, štyroch alebo piatich postáv - na ťažšej obtiažnosti viac.</li>'),
+        str_contains($guides['guide.mismatch.content|en']['html'] ?? '', 'Four'),
+        str_contains($guides['guide.mismatch.content|sk']['html'] ?? '', 'Štyri'),
     ],
 );
 same('...and the footer\'s Feedback alone, where users/004\'s "Feedback/Contact" stood', 'Feedback', $strings['footer.feedback|en']['value'] ?? null);
@@ -529,17 +571,35 @@ same(
 );
 $pdo = null;
 
-// ── The footer's Feedback, reworded by its owner ────────────────────────────
+// ── Words reworded by their owner ───────────────────────────────────────────
 
-echo "users/057 rewords the footer's Feedback only where it is still users/004's\n";
+echo "users/057 and 059 reword only where the words are still those migrations' own\n";
 
 $reworded = testDatabase('words_feedback', $base);
 $pdo = testPdo($reworded);
 $pdo->exec("UPDATE translations SET value = 'Write to us', updated_by = 7 WHERE key_name = 'footer.feedback' AND language_code = 'en'");
+$pdo->exec("UPDATE translations SET value = 'Nájdi votrelca.', updated_by = 7 WHERE key_name = 'quiz.mismatch.info' AND language_code = 'sk'");
+$pdo->exec("UPDATE translations SET value = '<p>The owner''s own guide.</p>', updated_by = 7 WHERE key_name = 'guide.mismatch.content' AND language_code = 'en'");
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
 $feedback = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'footer.feedback' AND language_code = 'en'")->fetch();
 same('the owner\'s English rewording stands, with who made it', ['Write to us', 7], [$feedback['value'] ?? null, (int) ($feedback['updated_by'] ?? 0)]);
+$card = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'quiz.mismatch.info' AND language_code = 'sk'")->fetch();
+$guide = $pdo->query("SELECT html, updated_by FROM guide_contents WHERE guide = 'mismatch' AND language_code = 'en'")->fetch();
+same(
+    '...so do the owner\'s Mismatch card in Slovak and Mismatch guide in English, with who made them',
+    ['Nájdi votrelca.', 7, "<p>The owner's own guide.</p>", 7],
+    [$card['value'] ?? null, (int) ($card['updated_by'] ?? 0), $guide['html'] ?? null, (int) ($guide['updated_by'] ?? 0)],
+);
+same(
+    '...while the card and the guide nobody reworded are 059\'s',
+    [true, true],
+    [
+        ($pdo->query("SELECT value FROM translations WHERE key_name = 'quiz.mismatch.info' AND language_code = 'en'")->fetchColumn() ?: '') ===
+        'Test your character knowledge by finding the "odd one out" among three to five character icons.',
+        str_contains((string) $pdo->query("SELECT html FROM guide_contents WHERE guide = 'mismatch' AND language_code = 'sk'")->fetchColumn(), 'troch, štyroch alebo piatich postáv'),
+    ],
+);
 $pdo = null;
 
 // ── What 050 will not move ──────────────────────────────────────────────────
