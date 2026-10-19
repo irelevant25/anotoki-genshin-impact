@@ -211,7 +211,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   padding (on a phone, to its own 56 px row), so the library's sticky heads stick
   flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.7.0"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.8.0"`, from the GitHub VCS
   repository; on 0.x a caret takes no next minor) and `composer update anotoki/lib
   --prefer-dist` in `backend/`; the release's tarball URL in
   `frontend/package.json`, then `bun install` (bun.lock), and package-lock.json's
@@ -219,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.7.2 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.8.0 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -252,10 +252,11 @@ ADMIN or EDITOR, languages too.
   code, no scopes, flags or stamps; the library's own set `anotoki_translations`
   (`vendor/anotoki/lib/backend/migrations/translations`) runs after both folders
   (`migrationSetNames()`, `api/migration_runner.php`) - its 001 proves the shape,
-  its 002-009 and 012 add the library's words under `anotoki.*` (the kit's, the
+  its 002-009, 012 and 013 add the library's words under `anotoki.*` (the kit's, the
   status page's, the sign-in page's, the feedback form's, the legal pages' 122,
-  the top bar's, the kit's newer pieces', the tabs', the inputs' and - 012,
-  0.6.3 - the family's footer's four),
+  the top bar's, the kit's newer pieces', the tabs', the inputs', - 012,
+  0.6.3 - the family's footer's four and - 013, 0.8.0 - the About and Support
+  pages' and the footer's links to them),
   and 010-011 reword the Privacy page's sentences where nobody saved them, which
   the owner may reword like any string. `anotoki.` is the
   library's namespace: never a key of this site's. `translation_keys_before_library`
@@ -883,7 +884,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.7.2), each piece imported from its own entry point -
+  kit (anotoki-lib 0.8.0), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -963,7 +964,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   dialog, `site-whats-new-modal`, loaded with the press), Feedback (the
   library's form in its own dialog, sent as the person signed in; never while
   an update waits - `SiteStatus.blocked()` - when the server would refuse it),
-  Terms · Privacy · Contact and the fan clause (`fan="hoyoverse"`). A landmark
+  About · Support · Terms · Privacy · Contact (the public site's pages, the
+  legal configuration's paths) and the fan clause (`fan="hoyoverse"`). A landmark
   of its own beside the panel's `<main>` (`.admin-page`), both in the column
   that scrolls (`.admin-main`, its padding and sticky offsets as they were), at
   its foot on a short page. Every page works at 390 px.
@@ -1018,7 +1020,11 @@ node docs/security/build-report.mjs                            # after re-runnin
   `routeAccessGuard` (the API refuses a site_routes row for them,
   `ROUTE_PATH_LEGAL`), the public shell draws them in place of its closed sign
   and sign-in card (`legalPage()`), and the app initializer never sends somebody
-  opening one to the IAM (`mustSignInFirst()`). `provideAnotokiLegal()`
+  opening one to the IAM (`mustSignInFirst()`). The family's About and Support
+  pages (anotoki-lib 0.8.0: `@anotoki/lib/legal/about`, `/legal/support`, the
+  same on every anotoki site, in the library's words) are routed the same way
+  on `/about` and `/support`, in the same frame, anybody's by the same rules
+  (`LEGAL_PAGE_PATHS` in `shared/site-legal.ts`, `ROUTE_PATH_LEGAL`). `provideAnotokiLegal()`
   (`shared/site-legal.ts`: the page's language, the database's words; the
   operator the library's default, Code Hero s.r.o.) is in the first load; the
   facts are the frame's (`sites/main/legal/legal-facts.ts`), out of it - each
@@ -1033,8 +1039,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   footer (`sites/main/common/footer`, the owner's order of 2026-10-18): on the
   right the version, What's new (`site-whats-new-modal`), Feedback and the
   account - buttons, each opening its dialog; the wallpapers' window opens from
-  the account panel, never the footer - then Terms · Privacy · Contact, router
-  links in the library's words (`anotoki.legalLinks.*`, the open one
+  the account panel, never the footer - then About · Support · Terms · Privacy ·
+  Contact, router links in the library's words (`anotoki.legalLinks.*`, the open one
   `aria-current`); on the left, alone, the fan clause in the site's words
   (`footer.fanDisclaimer`: "This site is a fan-made project and is not
   affiliated with or endorsed by HoYoverse."), its black fading towards the
