@@ -268,7 +268,7 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.8.0 now
+sequences that count down, then the origin secret): both halves are 0.8.1 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.8.0` never brings 0.9, which needs its constraint
 written. A piece of the library's kit is

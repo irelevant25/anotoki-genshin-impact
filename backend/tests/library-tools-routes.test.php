@@ -381,7 +381,9 @@ same(
     body(send('GET', '/api/admin/feedback/unread', ADMIN))['unread'] ?? null,
 );
 $idea = (int) ($list['items'][0]['id'] ?? 0);
-same('opening one marks it read', 'read', body(send('GET', "/api/admin/feedback/$idea", ADMIN))['message']['status'] ?? null);
+// Opening one only reads it (anotoki-lib 0.8.1); the page marks a new one read by a PUT of its own, sent as it sends it.
+same('opening one leaves it new', 'new', body(send('GET', "/api/admin/feedback/$idea", ADMIN))['message']['status'] ?? null);
+same('...and the page marks it read by its own write', 'read', body(send('PUT', "/api/admin/feedback/$idea/read", ADMIN, '{}'))['message']['status'] ?? null);
 same(
     'marked resolved by the ADMIN: 200, audited',
     [200, 1],
