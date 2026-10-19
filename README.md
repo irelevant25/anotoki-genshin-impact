@@ -417,6 +417,11 @@ not drift; [docs/README.md](docs/README.md) lists them.
   halves: its folders are named as in every anotoki project - its PHP half's
   files are under `backend/vendor/anotoki/lib/backend/` now, no longer `php/`.
   Nothing a player notices, nothing to apply; the first load is as it was.
+- On 2026-10-19 the shared library is `anotoki-lib` 0.7.2 in both halves: the
+  admin panel's footer writes the version short ("v1.2.0"), the library's
+  feedback form says itself whom its message is for, and while the site's
+  words have not come the library's own are in the reader's language (the
+  status page's too). Nothing to apply.
 
 ## More
 
