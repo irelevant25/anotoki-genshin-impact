@@ -109,7 +109,7 @@ php migration.php            # apply what is pending, after a backup (setup.php 
 php translations.php --status   # the keys the pages use against the database's
 php db-dump.php              # a pg_dump of your own, besides the library's backups
 php tests/run.php            # the tests (throwaway databases); on PHP 8.2 too
-# the release: cd ../frontend && npx anotoki-deploy build (../DEV.md, Deploying)
+# the release: cd ../frontend && bun run anotoki-deploy build (../DEV.md, Deploying)
 ```
 
 ## Checking it

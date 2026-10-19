@@ -1024,17 +1024,17 @@ anotoki-deploy and replaced whole on the host (*Deploying to the hosting*,
 below). It adds nothing the running site would not have:
 
 ```bash
-cd frontend && npx anotoki-deploy build                # npm run build:deploy (production + the prod config.json),
+cd frontend && bun run anotoki-deploy build            # npm run build:deploy (production + the prod config.json),
                                                        # then the release -> ../dist/frontend/ and ../dist/backend/
-npx anotoki-deploy deploy --backups <folder>           # a dry run: what goes up
-npx anotoki-deploy deploy --backups <folder> --go      # the live frontend/ and backend/ copied into <folder>,
+bun run anotoki-deploy deploy --backups <folder>       # a dry run: what goes up
+bun run anotoki-deploy deploy --backups <folder> --go  # the live frontend/ and backend/ copied into <folder>,
                                                        # the release up beside them, checked, swapped in, the site checked
-npx anotoki-deploy rollback --go                       # the release before (kept as .old) back in
+bun run anotoki-deploy rollback --go                   # the release before (kept as .old) back in
 ```
 
-(Until `@anotoki/deploy` is a dev dependency of `frontend/` - from anotoki-lib
-0.9.0's release - `node ../../anotoki-lib/deploy/cli.mjs` stands for
-`npx anotoki-deploy`.) anotoki-deploy is the anotoki library's deploy tool, the
+(`@anotoki/deploy`: a dev dependency of `frontend/`, from anotoki-lib's release.
+`bun run` finds it whichever tool installed `node_modules/`; on Windows, `npx`
+misses bun's links.) anotoki-deploy is the anotoki library's deploy tool, the
 same for every site; this site's facts are in `backend/composer.json`,
 `extra["anotoki-deploy"]`: what goes into `backend/` (`api/` minus
 `openapi.json`, `docs.html` and the dev vhost, `config/` minus every
@@ -1043,11 +1043,11 @@ same for every site; this site's facts are in `backend/composer.json`,
 Opus types the hosting's Apache does not know, and `assets` and `uploads`, which
 the switch serves beside the release. The SFTP login is never in a repository:
 `ANOTOKI_DEPLOY_SECRETS` names a `secrets.json`, with the host's pinned key in
-`hostkey.txt` beside it. The first time: `npx anotoki-deploy switch --go`, once.
-The PHP finds its state with one rule (`siteStateRoot()`, `config/local.php`):
-with `release.json` in `backend/`, `config/`, `storage/` and `uploads/` are the
-ones beside it; in a checkout, `backend/`'s own (`public/uploads/` there).
-`_assetsRoot()` is beside `backend/` in both.
+`hostkey.txt` beside it. The first time: `bun run anotoki-deploy switch --go`,
+once. The PHP finds its state with one rule (`siteStateRoot()`,
+`config/local.php`): with `release.json` in `backend/`, `config/`, `storage/` and
+`uploads/` are the ones beside it; in a checkout, `backend/`'s own
+(`public/uploads/` there). `_assetsRoot()` is beside `backend/` in both.
 
 ---
 

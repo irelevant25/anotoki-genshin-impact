@@ -138,7 +138,7 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
 
 The hosting has FTP and nothing else - no shell, no cron. A release is
 `frontend/` and `backend/`, built and put up by the anotoki library's
-anotoki-deploy (`npx anotoki-deploy build` in `frontend/`), never carrying any
+anotoki-deploy (`bun run anotoki-deploy build` in `frontend/`), never carrying any
 configuration or secret, and replaced whole on the host; `assets/` is uploaded
 on its own. The first install runs through `setup.php` in the browser, proved by
 a token only FTP can read; it writes the settings, then locks and deletes

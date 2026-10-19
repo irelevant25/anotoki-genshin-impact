@@ -560,7 +560,7 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
 
 # Production build (see Deployment)
-cd frontend && npx anotoki-deploy build   # → dist/frontend/ + dist/backend/: the release (deploy skill)
+cd frontend && bun run anotoki-deploy build   # → dist/frontend/ + dist/backend/: the release (deploy skill)
 
 # Docs generators (from repo root)
 node docs/reference/build-docs.mjs
@@ -1073,14 +1073,15 @@ The site ships to **one web root, served same-origin** (the frontend calls its
 own `/api`). Two builds assemble it, neither adding anything the running app
 would not have:
 
-- `cd frontend && npx anotoki-deploy build` → `dist/frontend/` (the production
-  build, its prod `config.json` - empty API URL, so `/api` stays relative -,
-  `index.php`, `.htaccess`) and `dist/backend/` (`api/` minus generators/openapi/
-  docs, `config/` minus every `*.local.php`, `vendor/`, `migrations/`): a release,
-  replaced whole on the host beside `config/`, `storage/`, `assets/` and
-  `uploads/`, which no release writes. The 2.7 GB `assets/` tree is **not** in it.
-  anotoki-deploy is the anotoki library's (`backend/composer.json`'s
-  `extra["anotoki-deploy"]`); the **deploy** skill covers shipping.
+- `cd frontend && bun run anotoki-deploy build` → `dist/frontend/` (the
+  production build, its prod `config.json` - empty API URL, so `/api` stays
+  relative -, `index.php`, `.htaccess`) and `dist/backend/` (`api/` minus
+  generators/openapi/docs, `config/` minus every `*.local.php`, `vendor/`,
+  `migrations/`): a release, replaced whole on the host beside `config/`,
+  `storage/`, `assets/` and `uploads/`, which no release writes. The 2.7 GB
+  `assets/` tree is **not** in it. anotoki-deploy is the anotoki library's
+  (`backend/composer.json`'s `extra["anotoki-deploy"]`); the **deploy** skill
+  covers shipping.
 
 Upload both into the web root, plus `assets/` separately. Production is
 **FTP-only, no shell**, which shapes everything: `vendor/` ships in the dist (no

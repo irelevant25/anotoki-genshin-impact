@@ -111,7 +111,7 @@ npm run lint
 npx tsc --noEmit -p tsconfig.app.json
 cd .. && bun run format:check   # Prettier on every file of both halves, at the root (bun install there first)
 node scripts/screenshots.mjs  # every page, light and dark, 1280 and 390 px, on a throwaway site (PHP= a PHP 8.2+)
-npm run build:deploy      # production -> dist/angular/browser/ (npx anotoki-deploy build runs it)
+npm run build:deploy      # production -> dist/angular/browser/ (bun run anotoki-deploy build runs it)
 ```
 
 `@anotoki/lib` - the anotoki sites' shared library - comes from its release's
