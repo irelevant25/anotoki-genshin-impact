@@ -30,7 +30,11 @@ export class DatabaseCharactersComponent {
   filterVersion = signal('');
   filterName = signal('');
 
-  elements = computed(() => distinctValues(this.characters(), 'element').sort((a, b) => a.localeCompare(b)));
+  elements = computed(() =>
+    distinctValues(this.characters(), 'element')
+      .filter((x) => x !== 'Adaptive')
+      .sort((a, b) => a.localeCompare(b)),
+  );
   weaponTypes = computed(() => distinctValues(this.characters(), 'weapon_type').sort((a, b) => a.localeCompare(b)));
   rarities = computed(() => rarityValues(this.characters()));
   regionOptions = computed(() => buildValueOptions(this.characters(), 'region'));
