@@ -18,10 +18,12 @@ declare(strict_types=1);
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
  * strings - and nothing else came in but the library's words, 051's, 055's,
- * 057's and 058's, nothing else went but 053's, 056's and 057's, and nothing else
- * was reworded but the footer's Feedback where it was still users/004's (057)
- * and the quizzes' cards and Mismatch's guide where they were still users/005's
- * and 028's (059) - an owner's rewording of any of them stands; the
+ * 057's and 058's, nothing else went but 053's, 056's, 057's and 060's, and
+ * nothing else was reworded but the footer's Feedback where it was still
+ * users/004's (057), the quizzes' cards and Mismatch's guide where they were
+ * still users/005's and 028's (059), and 060's guides and Slovak where they
+ * were still their earlier migrations' - an owner's rewording of any of them
+ * stands; the
  * blanks went; the tables are in the library's shape, which its own 001
  * proved; the copies keep everything as it was. And 050 refuses, naming what
  * stops it, a database it cannot move: a language code that is no code, a
@@ -101,9 +103,10 @@ const LIBRARY_WORDS_FILES = [
 // 0.4.1's sets, users/052-053 and genshin_impact/028-029, 0.5.0's users/054,
 // 0.6's users/055-056 (the legal pages' facts, the multiselect's old
 // summaries gone) with the library's words 005-013, users/057 (the
-// public footer's words), users/058 (the quizzes' difficulty dialog's) and
-// users/059 (the quizzes' cards and Mismatch's guide reworded), which one
-// Apply brings along.
+// public footer's words), users/058 (the quizzes' difficulty dialog's),
+// users/059 (the quizzes' cards and Mismatch's guide reworded) and users/060
+// (words made true before the owner's usability test), which one Apply brings
+// along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -117,6 +120,7 @@ const WORDS_AND_AFTER = [
     'users/057_public_footer_strings.sql',
     'users/058_quiz_difficulty_strings.sql',
     'users/059_quiz_cards_and_mismatch_guide.sql',
+    'users/060_words_made_true_for_the_usability_test.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'anotoki_translations/001_languages_and_strings.sql',
@@ -143,6 +147,51 @@ const LEGAL_PAGE_KEYS = 44;
 // footer's old GitHub and Backgrounds items, which nothing reads.
 const FOOTER_NEW_KEYS = ['account.background', 'footer.whatsNew'];
 const FOOTER_GONE_KEYS = ['footer.backgrounds', 'footer.github'];
+// What users/060 rewords where it is still its earlier migration's - the Quizzes', Daily's, Tournament's, Pixelate's and
+// Mismatch's guides (Mismatch's Slovak is 059's, below), two guides' Slovak titles, the Slovak of the Database cards, the
+// account panel and every other string that still said "vy", the wallpapers' window's one sentence - and takes away: the
+// Database cards' help, the window's how-to. The Daily's Slovak guide is not among them: the owner reworded it, below,
+// and it must stand.
+const REWORDED_BY_060 = [
+    'account.formats.failed|sk',
+    'account.iamLead|sk',
+    'account.manageNote|sk',
+    'account.signOutNote|sk',
+    'account.signedOutNote|sk',
+    'admin.noAccess.text|sk',
+    'auth.unavailable|sk',
+    'backgrounds.whatText|en',
+    'backgrounds.whatText|sk',
+    'database.banners.info|sk',
+    'database.characters.info|sk',
+    'database.materials.info|sk',
+    'database.weapons.info|sk',
+    'guide.daily.content|en',
+    'guide.mismatch.title|sk',
+    'guide.pixelate.content|sk',
+    'guide.pixelate.title|sk',
+    'guide.quizzes.content|en',
+    'guide.quizzes.content|sk',
+    'guide.tournament.content|en',
+    'guide.tournament.content|sk',
+    'notFound.text|sk',
+    'whatsNew.earlier|sk',
+];
+const GONE_BY_060 = [
+    'backgrounds.availableText',
+    'backgrounds.availableTitle',
+    'backgrounds.howTitle',
+    'backgrounds.note',
+    'backgrounds.step1',
+    'backgrounds.step2',
+    'backgrounds.step3',
+    'backgrounds.step4',
+    'backgrounds.whatTitle',
+    'database.banners.about',
+    'database.characters.about',
+    'database.materials.about',
+    'database.weapons.about',
+];
 // What users/059 rewords, where it is still users/005's and 028's: Mismatch's card and guide, which said four characters
 // in both languages, and the other five cards' Slovak, from "vy" to "ty".
 const REWORDED_BY_059 = [
@@ -312,8 +361,14 @@ foreach ($before as $row) {
         }
         continue;
     }
-    if (in_array($row['key_name'], FOOTER_GONE_KEYS, true) || $key === 'footer.feedback|en' || in_array($key, REWORDED_BY_059, true)) {
-        // users/057's to take away, and the strings 057 and 059 reword - looked at below.
+    if (
+        in_array($row['key_name'], FOOTER_GONE_KEYS, true) ||
+        in_array($row['key_name'], GONE_BY_060, true) ||
+        $key === 'footer.feedback|en' ||
+        in_array($key, REWORDED_BY_059, true) ||
+        in_array($key, REWORDED_BY_060, true)
+    ) {
+        // users/057's and 060's to take away, and the strings 057, 059 and 060 reword - looked at below.
         continue;
     }
     $guide = $guides[$key] ?? null;
@@ -333,9 +388,9 @@ $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE na
 same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
 $came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS);
-$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS);
+$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s and 058\'s in, 053\'s, 056\'s and 057\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s and 058\'s in, 053\'s, 056\'s, 057\'s and 060\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -426,6 +481,85 @@ same(
     ],
 );
 same('...and the footer\'s Feedback alone, where users/004\'s "Feedback/Contact" stood', 'Feedback', $strings['footer.feedback|en']['value'] ?? null);
+
+$inList = "'" . implode("', '", GONE_BY_060) . "'";
+same(
+    '060: the Database cards\' help and the wallpapers\' window\'s how-to, all there before, gone - with every string under them',
+    [count(GONE_BY_060), 0, 0],
+    [
+        count(array_intersect(GONE_BY_060, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+same(
+    '...the cards\' names in the Slovak guides\' titles, "ty" in the account panel and on the Database cards, the window\'s one sentence',
+    [
+        'O pixelácii',
+        'O nesúlade',
+        'Nie si prihlásený. Tvoje nastavenia sú uložené v tomto zariadení.',
+        'Prihlasuješ sa účtom anotoki - tým istým pre všetky stránky anotoki.',
+        'Prezri si postavy v hre a dozvieš sa o nich viac.',
+        'Choose the wallpaper behind the site: it changes at once, and this browser keeps your choice.',
+        'Vyber si tapetu za stránkou: zmení sa hneď a tento prehliadač si tvoju voľbu zapamätá.',
+    ],
+    [
+        $strings['guide.pixelate.title|sk']['value'] ?? null,
+        $strings['guide.mismatch.title|sk']['value'] ?? null,
+        $strings['account.signedOutNote|sk']['value'] ?? null,
+        $strings['account.iamLead|sk']['value'] ?? null,
+        $strings['database.characters.info|sk']['value'] ?? null,
+        $strings['backgrounds.whatText|en']['value'] ?? null,
+        $strings['backgrounds.whatText|sk']['value'] ?? null,
+    ],
+);
+same(
+    '...and "ty" on the 404 page, in What\'s new, for the sign-in out of reach and on the admin panel\'s no-access page',
+    [
+        'Je nám ľúto, ale nemohli sme nájsť stránku, ktorú hľadáš. Skontroluj, či je adresa správna.',
+        'Čakajú ťa aj staršie novinky - nájdeš ich v úplnom zozname.',
+        'Stránka sa teraz nevie spojiť so službou prihlásenia. Skús to o chvíľu znova.',
+        'Si prihlásený ako {username} a tento účet nemá na tejto stránke žiadnu rolu. Administrácia je určená jej editorom a administrátorom.',
+    ],
+    [
+        $strings['notFound.text|sk']['value'] ?? null,
+        $strings['whatsNew.earlier|sk']['value'] ?? null,
+        $strings['auth.unavailable|sk']['value'] ?? null,
+        $strings['admin.noAccess.text|sk']['value'] ?? null,
+    ],
+);
+// The whole site says "ty" (the owner's decision): no Slovak string or guide of its own says "vy" - its pronouns, or a
+// verb in the forms the site's Slovak used it in. The library's words (anotoki.*) are the library's.
+$saysVy =
+    '/(?<!\p{L})(ste|vás|vám|váš|vaša|vaše|vašej|vašu|vaším|vašich|vašim|môžete|máte|chcete|budete|nájdete|hľadáte|skúste|skontrolujte|' .
+    'prihláste|prihlasujete|zvoľte|vyberte|kliknite|prezrite|prezerajte|prispôsobte|dozviete|zobrazíte|nastavíte|nájdite|overte)(?!\p{L})/iu';
+$formal = [];
+foreach ($strings as $key => $row) {
+    if (str_ends_with($key, '|sk') && !str_starts_with($key, 'anotoki.') && preg_match($saysVy, $row['value']) === 1) {
+        $formal[] = $key;
+    }
+}
+foreach ($guides as $key => $row) {
+    if (str_ends_with($key, '|sk') && preg_match($saysVy, $row['html']) === 1) {
+        $formal[] = $key;
+    }
+}
+same('...and no Slovak string or guide of the site\'s own says "vy" any more', [], $formal);
+same(
+    '...and the guides: nothing timed, the cards\' names, the difficulty chosen, the Tournament\'s setup as the page has it',
+    [false, false, false, true, true, true, true, true],
+    [
+        str_contains($guides['guide.daily.content|en']['html'] ?? '', 'timed'),
+        str_contains($guides['guide.quizzes.content|en']['html'] ?? '', 'timed'),
+        str_contains($guides['guide.quizzes.content|sk']['html'] ?? '', 'na čas') || str_contains($guides['guide.quizzes.content|sk']['html'] ?? '', 'votrelec'),
+        str_contains($guides['guide.quizzes.content|en']['html'] ?? '', '<li>Every quiz has a difficulty - choose it with the button above the question.</li>'),
+        str_contains($guides['guide.pixelate.content|sk']['html'] ?? '', '<h4>Čo je kvíz Pixelácia?</h4>'),
+        str_contains($guides['guide.mismatch.content|sk']['html'] ?? '', '<h4>Čo je kvíz Nesúlad?</h4>'),
+        str_contains(str_replace("\r", '', $guides['guide.tournament.content|en']['html'] ?? ''), "<li>Choose the format.</li>\n<li>Choose how many characters take part.</li>\n<li>Press Start.</li>"),
+        str_contains($guides['guide.tournament.content|sk']['html'] ?? '', '<li>Stlač tlačidlo Začať.</li>') &&
+        str_contains($guides['guide.tournament.content|sk']['html'] ?? '', '<span class="tag">Jednoduché vyraďovanie</span>'),
+    ],
+);
 
 $inList = "'" . implode("', '", OLD_FORM_KEYS) . "'";
 same(
@@ -573,13 +707,15 @@ $pdo = null;
 
 // ── Words reworded by their owner ───────────────────────────────────────────
 
-echo "users/057 and 059 reword only where the words are still those migrations' own\n";
+echo "users/057, 059 and 060 reword only where the words are still those migrations' own\n";
 
 $reworded = testDatabase('words_feedback', $base);
 $pdo = testPdo($reworded);
 $pdo->exec("UPDATE translations SET value = 'Write to us', updated_by = 7 WHERE key_name = 'footer.feedback' AND language_code = 'en'");
 $pdo->exec("UPDATE translations SET value = 'Nájdi votrelca.', updated_by = 7 WHERE key_name = 'quiz.mismatch.info' AND language_code = 'sk'");
 $pdo->exec("UPDATE translations SET value = '<p>The owner''s own guide.</p>', updated_by = 7 WHERE key_name = 'guide.mismatch.content' AND language_code = 'en'");
+$pdo->exec("UPDATE translations SET value = 'Prihlasuj sa účtom anotoki.', updated_by = 7 WHERE key_name = 'account.iamLead' AND language_code = 'sk'");
+$pdo->exec("UPDATE translations SET value = '<p>Vlastný návod o kvízoch.</p>', updated_by = 7 WHERE key_name = 'guide.quizzes.content' AND language_code = 'sk'");
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
 $feedback = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'footer.feedback' AND language_code = 'en'")->fetch();
@@ -598,6 +734,22 @@ same(
         ($pdo->query("SELECT value FROM translations WHERE key_name = 'quiz.mismatch.info' AND language_code = 'en'")->fetchColumn() ?: '') ===
         'Test your character knowledge by finding the "odd one out" among three to five character icons.',
         str_contains((string) $pdo->query("SELECT html FROM guide_contents WHERE guide = 'mismatch' AND language_code = 'sk'")->fetchColumn(), 'troch, štyroch alebo piatich postáv'),
+    ],
+);
+$lead = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'account.iamLead' AND language_code = 'sk'")->fetch();
+$quizzes = $pdo->query("SELECT html, updated_by FROM guide_contents WHERE guide = 'quizzes' AND language_code = 'sk'")->fetch();
+same(
+    '...so do the owner\'s account panel line and Quizzes guide in Slovak, with who made them, through 060',
+    ['Prihlasuj sa účtom anotoki.', 7, '<p>Vlastný návod o kvízoch.</p>', 7],
+    [$lead['value'] ?? null, (int) ($lead['updated_by'] ?? 0), $quizzes['html'] ?? null, (int) ($quizzes['updated_by'] ?? 0)],
+);
+same(
+    '...while the account panel\'s other lines and the Quizzes guide in English, nobody\'s rewording, are 060\'s',
+    [true, true],
+    [
+        ($pdo->query("SELECT value FROM translations WHERE key_name = 'account.signOutNote' AND language_code = 'sk'")->fetchColumn() ?: '') ===
+        'Odhlásenie ťa odhlási zo všetkých stránok anotoki naraz.',
+        !str_contains((string) $pdo->query("SELECT html FROM guide_contents WHERE guide = 'quizzes' AND language_code = 'en'")->fetchColumn(), 'timed'),
     ],
 );
 $pdo = null;

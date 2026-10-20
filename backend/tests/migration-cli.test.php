@@ -79,8 +79,8 @@ same(
     (int) $pdo->query("SELECT count(*) FROM anotoki_audit_log WHERE action = 'backup.created' AND actor_id IS NULL")->fetchColumn(),
 );
 $run = json_decode((string) $pdo->query("SELECT details::text FROM anotoki_audit_log WHERE action = 'migrations.applied' ORDER BY id DESC LIMIT 1")->fetchColumn(), true);
-// The admin set's two, users/052-059, genshin_impact/028-029, the library's words 003-013 and the people set's one.
-same('the run written down: what it applied, via the command line, by nobody', [24, 'command line'], [count($run['files'] ?? []), $run['via'] ?? null]);
+// The admin set's two, users/052-060, genshin_impact/028-029, the library's words 003-013 and the people set's one.
+same('the run written down: what it applied, via the command line, by nobody', [25, 'command line'], [count($run['files'] ?? []), $run['via'] ?? null]);
 $pdo = null;
 
 echo "Again\n";

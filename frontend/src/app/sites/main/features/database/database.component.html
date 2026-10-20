@@ -1,14 +1,13 @@
 <div class="container d-flex flex-wrap justify-content-center gap-5 text-align-center">
     @for (item of DATABASE; track item.path) {
-        <div class="card px-5 pb-5" [routerLink]="item.path">
-            <div class="help-icon right" data-bs-toggle="tooltip" data-bs-placement="left" [title]="item.modalTitle | translate">
-                <i class="bi bi-question-circle-fill" data-bs-toggle="modal" data-bs-target="#site-banners-modal" onclick="event.stopPropagation()"></i>
-            </div>
-            <img [src]="item.cardImage" loading="lazy" />
+        <!-- A link, as the Quizzes and Games cards are: the keyboard reaches it and Enter opens it. The picture says
+             nothing the title does not, so it has no words of its own. -->
+        <a class="card px-5 pb-5" [routerLink]="item.path">
+            <img [src]="item.cardImage" alt="" loading="lazy" />
             <div class="card-body">
                 <h3 class="card-title">{{ item.title | translate }}</h3>
                 <p class="card-text">{{ item.cardInfo | translate }}</p>
             </div>
-        </div>
+        </a>
     }
 </div>

@@ -1,8 +1,8 @@
-// The card the Quizzes, Daily and Games pages all draw.
+// The card the Quizzes, Daily, Games and Database pages all draw.
 //
 // Angular scopes a component's styles to that component, so this is a partial
 // each page pulls in rather than one stylesheet reaching across. It sits in
-// common/ because it belongs to none of the three.
+// common/ because it belongs to none of the four.
 
 .card {
   position: relative;

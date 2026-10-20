@@ -1,22 +1,5 @@
-<div class="mb-4">
-    <h3>{{ "backgrounds.whatTitle" | translate }}</h3>
-    <p>{{ "backgrounds.whatText" | translate }}</p>
-</div>
-
-<div class="mb-4">
-    <h3>{{ "backgrounds.howTitle" | translate }}</h3>
-    <ol>
-        <li>{{ "backgrounds.step1" | translate }}</li>
-        <li>{{ "backgrounds.step2" | translate }}</li>
-        <li>{{ "backgrounds.step3" | translate }}</li>
-        <li>{{ "backgrounds.step4" | translate }}</li>
-    </ol>
-</div>
-
-<h3>{{ "backgrounds.availableTitle" | translate }}</h3>
-<p>{{ "backgrounds.availableText" | translate }}</p>
-
-<p class="text-muted i my-3">{{ "backgrounds.note" | translate }}</p>
+<!-- Opened from the account panel's Background row: what choosing one does is all it needs to say. -->
+<p class="backgrounds-intro">{{ "backgrounds.whatText" | translate }}</p>
 
 <div class="background-grid">
     @for (item of BACKGROUNDS; track item.wallpaper) {
