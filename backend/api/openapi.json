@@ -3,7 +3,7 @@
   "info": {
     "title": "Genshin Impact API",
     "version": "1.0.0",
-    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n49 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
+    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n50 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
   },
   "servers": [
     {
@@ -99,6 +99,10 @@
     {
       "name": "visitor",
       "description": "This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in."
+    },
+    {
+      "name": "catalog",
+      "description": "The game catalog the build analyzer reads, server to server: every live character, weapon and artifact set with the game's own id, public and read-only. No page calls it."
     },
     {
       "name": "lookup",
@@ -1018,6 +1022,16 @@
                       {
                         "type": "boolean",
                         "const": true
+                      }
+                    ]
+                  },
+                  "game_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
                       }
                     ]
                   }
@@ -2574,6 +2588,93 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/api/catalog/artifacts": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "operationId": "getCatalogArtifacts",
+        "summary": "Get catalog artifacts",
+        "description": "Public.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogArtifact"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/catalog/characters": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "operationId": "getCatalogCharacters",
+        "summary": "Get catalog characters",
+        "description": "Public.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogCharacter"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/catalog/weapons": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "operationId": "getCatalogWeapons",
+        "summary": "Get catalog weapons",
+        "description": "Public.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogWeapon"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
       }
     },
     "/api/character-models": {
@@ -8166,6 +8267,16 @@
                       },
                       {
                         "type": "string"
+                      }
+                    ]
+                  },
+                  "game_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
                       }
                     ]
                   }
@@ -19218,6 +19329,16 @@
                         "type": "string"
                       }
                     ]
+                  },
+                  "game_id": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
                   }
                 },
                 "additionalProperties": false
@@ -19781,6 +19902,16 @@
                 "type": "string"
               }
             ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -19807,7 +19938,8 @@
           "updated_by",
           "icon_file_id",
           "icon",
-          "icon_name"
+          "icon_name",
+          "game_id"
         ],
         "additionalProperties": false
       },
@@ -19969,6 +20101,16 @@
           "has_rarity_5": {
             "type": "boolean"
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "id": {
             "type": "number"
           },
@@ -20026,6 +20168,7 @@
           "has_rarity_3",
           "has_rarity_4",
           "has_rarity_5",
+          "game_id",
           "id",
           "deleted",
           "created_at",
@@ -20258,6 +20401,16 @@
                 ]
               },
               "icon_file_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "game_id": {
                 "anyOf": [
                   {
                     "type": "null"
@@ -20526,6 +20679,16 @@
               }
             ]
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "pieces": {
             "type": "array",
             "items": {
@@ -20607,6 +20770,7 @@
           "icon_file_id",
           "icon",
           "icon_name",
+          "game_id",
           "pieces"
         ],
         "additionalProperties": false
@@ -20838,6 +21002,16 @@
               {
                 "type": "boolean",
                 "const": true
+              }
+            ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           }
@@ -21373,6 +21547,16 @@
           "has_rarity_5": {
             "type": "boolean"
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "id": {
             "type": "number"
           },
@@ -21439,6 +21623,7 @@
           "has_rarity_3",
           "has_rarity_4",
           "has_rarity_5",
+          "game_id",
           "id",
           "deleted",
           "created_at",
@@ -23455,6 +23640,287 @@
           "updated_at",
           "created_by",
           "updated_by"
+        ],
+        "additionalProperties": false
+      },
+      "CatalogArtifact": {
+        "title": "CatalogArtifact",
+        "description": "`GET /api/catalog/artifacts` - one live artifact set.",
+        "type": "object",
+        "properties": {
+          "game_id": {
+            "description": "The game's own id for the set, null until somebody knows it.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "two_piece": {
+            "description": "The 2-piece bonus, as the site words it.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "four_piece": {
+            "description": "The 4-piece bonus, as the site words it.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "rarities": {
+            "description": "The rarities the set drops at, lowest first: [4, 5].",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "version": {
+            "description": "The version to compare, MAJOR.MINOR: \"1.3\", a Luna release as its number (\"Luna III\" is \"6.2\"). Null where the site's text is no version.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "version_name": {
+            "description": "The version's name where it has one (\"Luna III\"), or the site's text where that is no version; null for a plain number.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "icon": {
+            "description": "The icon's absolute address, on the host the request was made to (https; http on a loopback host).",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "game_id",
+          "name",
+          "two_piece",
+          "four_piece",
+          "rarities",
+          "version",
+          "version_name",
+          "icon"
+        ],
+        "additionalProperties": false
+      },
+      "CatalogCharacter": {
+        "title": "CatalogCharacter",
+        "description": "`GET /api/catalog/characters` - one live character.",
+        "type": "object",
+        "properties": {
+          "game_id": {
+            "description": "The game's own id, null until somebody knows it. Every row of one Traveler carries it: Aether 10000005, Lumine 10000007, a row per element.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "element": {
+            "description": "As this site stores it: Anemo, Cryo, Dendro, Electro, Geo, Hydro, Pyro - or Adaptive, for a character whose element the player chooses.",
+            "type": "string"
+          },
+          "weapon_type": {
+            "description": "Sword, Claymore, Polearm, Bow or Catalyst.",
+            "type": "string"
+          },
+          "rarity": {
+            "type": "number"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "version": {
+            "description": "The version to compare, MAJOR.MINOR: \"1.3\", a Luna release as its number (\"Luna III\" is \"6.2\"). Null where the site's text is no version.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "version_name": {
+            "description": "The version's name where it has one (\"Luna III\"), or the site's text where that is no version; null for a plain number.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "release_date": {
+            "description": "YYYY-MM-DD.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "is_traveler": {
+            "description": "A Traveler's row: one per element, named Aether or Lumine.",
+            "type": "boolean"
+          },
+          "icon": {
+            "description": "The icon's absolute address, on the host the request was made to (https; http on a loopback host).",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "game_id",
+          "name",
+          "element",
+          "weapon_type",
+          "rarity",
+          "region",
+          "version",
+          "version_name",
+          "release_date",
+          "is_traveler",
+          "icon"
+        ],
+        "additionalProperties": false
+      },
+      "CatalogWeapon": {
+        "title": "CatalogWeapon",
+        "description": "`GET /api/catalog/weapons` - one live weapon.",
+        "type": "object",
+        "properties": {
+          "game_id": {
+            "description": "The game's own id, null until somebody knows it.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "description": "Sword, Claymore, Polearm, Bow or Catalyst.",
+            "type": "string"
+          },
+          "rarity": {
+            "type": "number"
+          },
+          "version": {
+            "description": "The version to compare, MAJOR.MINOR: \"1.3\", a Luna release as its number (\"Luna III\" is \"6.2\"). Null where the site's text is no version.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "version_name": {
+            "description": "The version's name where it has one (\"Luna III\"), or the site's text where that is no version; null for a plain number.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "release_date": {
+            "description": "YYYY-MM-DD.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "icon": {
+            "description": "The icon's absolute address, on the host the request was made to (https; http on a loopback host).",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "game_id",
+          "name",
+          "type",
+          "rarity",
+          "version",
+          "version_name",
+          "release_date",
+          "icon"
         ],
         "additionalProperties": false
       },
@@ -29934,6 +30400,16 @@
               "Ousia",
               "Pneuma & Ousia"
             ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -30004,7 +30480,8 @@
           "demo_video",
           "demo_music_file_id",
           "demo_music",
-          "arkhe"
+          "arkhe",
+          "game_id"
         ],
         "additionalProperties": false
       },
@@ -33519,6 +33996,16 @@
           "version": {
             "type": "string"
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "element": {
             "type": "string"
           },
@@ -34068,6 +34555,7 @@
           "icon",
           "icon_name",
           "version",
+          "game_id",
           "element",
           "weapon_type",
           "rarity",
@@ -34558,6 +35046,16 @@
                 ]
               },
               "icon_file_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "game_id": {
                 "anyOf": [
                   {
                     "type": "null"
@@ -35807,6 +36305,16 @@
                 "type": "string"
               }
             ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -35863,6 +36371,16 @@
           },
           "version": {
             "type": "string"
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "element": {
             "type": "string"
@@ -36422,6 +36940,7 @@
           "icon",
           "icon_name",
           "version",
+          "game_id",
           "element",
           "weapon_type",
           "rarity",
@@ -42048,6 +42567,16 @@
                 "type": "string"
               }
             ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -42075,7 +42604,8 @@
           "icon_2_name",
           "icon_ascension_file_id",
           "icon_ascension",
-          "icon_ascension_name"
+          "icon_ascension_name",
+          "game_id"
         ],
         "additionalProperties": false
       },
@@ -42898,6 +43428,16 @@
               }
             ]
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "type": {
             "type": "string"
           },
@@ -43060,6 +43600,7 @@
           "icon_name",
           "version",
           "effects",
+          "game_id",
           "type",
           "rarity",
           "how_to_obtain",
@@ -43243,6 +43784,16 @@
                 ]
               },
               "icon_file_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "game_id": {
                 "anyOf": [
                   {
                     "type": "null"
@@ -43540,6 +44091,16 @@
               }
             ]
           },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
           "refinements": {
             "type": "array",
             "items": {
@@ -43601,6 +44162,7 @@
           "icon_ascension_file_id",
           "icon_ascension",
           "icon_ascension_name",
+          "game_id",
           "refinements",
           "ascensions"
         ],
@@ -43793,6 +44355,16 @@
                 "type": "string"
               }
             ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         },
         "required": [
@@ -43857,6 +44429,16 @@
               },
               {
                 "type": "string"
+              }
+            ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           },
@@ -44031,6 +44613,7 @@
           "icon_name",
           "version",
           "effects",
+          "game_id",
           "type",
           "rarity",
           "how_to_obtain",

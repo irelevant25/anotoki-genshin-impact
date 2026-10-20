@@ -80,6 +80,7 @@ export interface Character {
   demo_music_file_id: number | null;
   demo_music: string | null;
   arkhe: 'Pneuma' | 'Ousia' | 'Pneuma & Ousia' | null;
+  game_id: number | null;
 }
 
 /**
@@ -433,6 +434,7 @@ export interface CharacterPayload {
   constellation?: string | null;
   namecard_name?: string | null;
   arkhe?: string | null;
+  game_id?: number | null;
 }
 
 /**

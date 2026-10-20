@@ -38,6 +38,7 @@ export interface Artifact {
   icon_file_id: number | null;
   icon: string | null;
   icon_name: string | null;
+  game_id: number | null;
 }
 
 /**
@@ -90,6 +91,7 @@ export interface ArtifactPayload {
   has_rarity_3?: boolean;
   has_rarity_4?: boolean;
   has_rarity_5?: boolean;
+  game_id?: number | null;
 }
 
 /**

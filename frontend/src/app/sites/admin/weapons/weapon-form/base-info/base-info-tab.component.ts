@@ -1,6 +1,7 @@
 import { Component, computed, input, model } from '@angular/core';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
+import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { CalendarComponent } from '../../../../../shared/local-lib/components/calendar/calendar.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
@@ -13,7 +14,7 @@ import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, We
   selector: 'app-weapon-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, DropdownComponent, CalendarComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [TextComponent, TextareaComponent, NumberComponent, DropdownComponent, CalendarComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   weapon = model<WeaponWrapper>(emptyWeapon());

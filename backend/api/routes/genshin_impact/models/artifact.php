@@ -19,6 +19,8 @@ class Artifact extends DbModel
         public readonly bool $has_rarity_3 = false,
         public readonly bool $has_rarity_4 = false,
         public readonly bool $has_rarity_5 = true,
+        /** The game's own id for the set (genshin_impact/030), one live row each. */
+        public readonly ?int $game_id = null,
     ) {}
 
     protected static function jsonFields(): array

@@ -35,6 +35,7 @@ export interface Weapon {
   icon_ascension_file_id: number | null;
   icon_ascension: string | null;
   icon_ascension_name: string | null;
+  game_id: number | null;
 }
 
 /**
@@ -117,6 +118,7 @@ export interface WeaponPayload {
   release_date?: string | null;
   version?: string | null;
   description?: string | null;
+  game_id?: number | null;
 }
 
 /**

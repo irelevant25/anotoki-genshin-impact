@@ -8,7 +8,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { ArtifactApiService, LookupApiService, ArtifactFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toNullableNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { PiecesTabComponent } from './pieces/pieces-tab.component';
@@ -133,6 +133,7 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
       data[`how_to_obtain_quality_${rarity}`] = toStringArray(data[`how_to_obtain_quality_${rarity}`]);
     }
     data.effects = toStringArray(data.effects);
+    data.game_id = toNullableNumber(data.game_id);
 
     return buildFullFormData({ artifact: data, pieces: this.pieces().map((piece) => piece.data) });
   }

@@ -3,6 +3,7 @@
     <div class="form-grid">
         <app-text [label]="'Name'" [placeholder]="'e.g. Blizzard Strayer'" [(value)]="artifact().data.name" [required]="true"></app-text>
         <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="artifact().data.version"></app-text>
+        <app-number [label]="'Game ID'" [placeholder]="'e.g. 14001'" [description]="'The set&#8217;s own id in the game.'" [min]="1" [(value)]="artifact().data.game_id"></app-number>
     </div>
 </div>
 

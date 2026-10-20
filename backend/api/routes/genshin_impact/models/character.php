@@ -52,6 +52,11 @@ class Character extends DbModel
         public readonly ?string $namecard_name = null,
         /** Pneuma, Ousia, or Pneuma & Ousia. */
         public readonly ?string $arkhe = null,
+        /**
+         * The game's own id (genshin_impact/030): one live row each, but every row of one
+         * Traveler shares it - Aether 10000005, Lumine 10000007, a row per element.
+         */
+        public readonly ?int $game_id = null,
     ) {}
 
     protected static function jsonFields(): array

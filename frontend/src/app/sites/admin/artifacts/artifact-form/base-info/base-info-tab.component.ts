@@ -1,6 +1,7 @@
 import { Component, model } from '@angular/core';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
 import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
+import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
 import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
@@ -13,7 +14,7 @@ import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-f
   selector: 'app-artifact-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, CheckboxComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [TextComponent, TextareaComponent, NumberComponent, CheckboxComponent, FieldContainerComponent, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   artifact = model<ArtifactWrapper>(emptyArtifact());

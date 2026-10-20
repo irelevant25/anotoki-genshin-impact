@@ -8,6 +8,7 @@
         <app-dropdown [label]="'Secondary Stat'" [options]="stats()" [(value)]="weapon().data.secondary_stat" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
         <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="weapon().data.version"></app-text>
         <app-calendar [label]="'Release Date'" [(value)]="weapon().data.release_date"></app-calendar>
+        <app-number [label]="'Game ID'" [placeholder]="'e.g. 12502'" [description]="'The game&#8217;s own id.'" [min]="1" [(value)]="weapon().data.game_id"></app-number>
     </div>
 </div>
 

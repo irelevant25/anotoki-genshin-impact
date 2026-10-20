@@ -192,11 +192,13 @@ backend/
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
                         (the shared library's own sets around them, from vendor/)
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
-  tests/                php tests/run.php - the upload rules; the words' migration and routes, the library's
-                        data moves and admin tools, what a silent sign-in brings in, every settings file read
-                        cleanly, migration.php (on throwaway databases)
+  tests/                php tests/run.php - the upload rules; the game catalog and its ids, the words'
+                        migration and routes, the library's data moves and admin tools, what a silent
+                        sign-in brings in, every settings file read cleanly, migration.php (on throwaway
+                        databases)
   setup.php, router.php, migration.php, db-dump.php, db-push.php, assets.php,
-  merge-databases.php   (once, for a checkout from when the site had two databases)
+  merge-databases.php   (once, for a checkout from when the site had two databases),
+  game-ids.php          (once: the game's own ids for the rows, by name - migration genshin_impact/031)
 frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile; legal/ (Terms, Privacy and
                         Contact: their frame and this site's facts)
@@ -428,6 +430,16 @@ not drift; [docs/README.md](docs/README.md) lists them.
   anybody's as the legal pages are, linked first in both footers - About ·
   Support · Terms · Privacy · Contact. The library's `anotoki_translations/013`
   brings their words.
+- Since 2026-10-20 the owner's other site, the build analyzer
+  (builder.anotoki.eu), takes its game catalog from this one, at the owner's
+  word: every character, weapon and artifact set carries the game's own id
+  (migration `genshin_impact/030`; `031` fills it by name - every Aether row
+  10000005, every Lumine row 10000007 - made by `backend/game-ids.php`), and
+  `GET /api/catalog/characters`, `/weapons` and `/artifacts` answer the live
+  rows, public and read-only, under the site's switches like every route (DEV.md,
+  *The game catalog*). The admin panel's base-info tabs take a **Game ID**, and
+  the owner's importer sends it from now on. Players notice nothing; the
+  version stays 1.2.0.
 
 ## More
 

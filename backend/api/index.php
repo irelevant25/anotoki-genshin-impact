@@ -56,6 +56,10 @@ require_once __DIR__ . '/site_routes.php';
 // and the guides behind the question marks.
 require_once __DIR__ . '/translations.php';
 require_once __DIR__ . '/guides.php';
+// The game catalog another site reads (the build analyzer), and the pages' way
+// of reading a version, which it answers with.
+require_once __DIR__ . '/game_versions.php';
+require_once __DIR__ . '/catalog.php';
 // The migrations (on anotoki/lib's engine), and where the site stands: not set
 // up, a database update waiting, or ready.
 require_once __DIR__ . '/migration_runner.php';
@@ -177,6 +181,7 @@ require_once __DIR__ . '/routes/genshin_impact/responses/file.php';
 require_once __DIR__ . '/routes/genshin_impact/responses/admin.php';
 require_once __DIR__ . '/routes/genshin_impact/responses/quiz.php';
 require_once __DIR__ . '/routes/genshin_impact/responses/content.php';
+require_once __DIR__ . '/routes/genshin_impact/responses/catalog.php';
 
 // endpoints
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters.php';
@@ -258,6 +263,8 @@ require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_sub_s
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_teams_characters.php';
 require_once __DIR__ . '/routes/genshin_impact/endpoints/characters_builds_recommended_stats.php';
+// The game catalog, public and read-only, for the build analyzer (api/catalog.php).
+require_once __DIR__ . '/routes/genshin_impact/endpoints/catalog.php';
 
 ///////////////////
 // THE SITE'S STATE AND ITS MIGRATIONS (anotoki/lib)

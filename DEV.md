@@ -476,13 +476,33 @@ own). Upload both builds and Apply at once. A `cloudflare.local.php` on the host
 that names no usable secret fails closed from this release (*The origin secret on
 the host*, below): make sure it holds the zone's value, or delete it.
 
+**And (written 2026-10-20): the game's own ids**, for the build analyzer's
+catalog (*The game catalog*, below). Two files, in this order:
+`genshin_impact/030_game_ids.sql` (the column `game_id` on `characters`,
+`weapons` and `artifacts`, a positive number or nothing, one live row an id - a
+Traveler's one an element - no row changed) and `031_game_ids_filled.sql` (the
+ids, set by name: 136 characters with the 14 Traveler rows, 252 weapons and 63
+artifact sets, as the live site's public lists named them on 2026-10-20; a row
+with an id keeps it, a deleted row and an id another live row holds are left
+alone; its gate proves no id changed, each one set is its name's, and nothing it
+names was missed). Upload both builds and Apply at once; the Apply backs the
+database up first. Either order is safe - a build from before reads and writes no
+`game_id` - but the catalog needs the new build. Players notice nothing. Four
+rows stay without an id (no list of the game's carries them): Prized Isshin
+Blade (Awakened) and (Shattered), Sword of Narzissenkreuz (Quest), Initiate.
+
 ---
 
 ## Checking your work
 
 `backend/tests/` - the upload rules (what an upload may be called, where it may
 be written, the folders' `.htaccess` guard, an upload's bytes and size), run
-without a database or a server;
+without a database or a server, and so is `catalog-versions.test.php` (a version
+read as the pages read it, held to the cases `database-helpers.ts` names);
+the game catalog (`catalog-routes.test.php`: its three answers, field for field,
+the icons' host, ETag and 304, the gates and the admin's way in, 030's indexes
+and CHECK, and 031 on a database with rows - each id by its name, never over one
+- with both gates shown to notice what they must);
 the words (`translations-migration.test.php`: users/050 on a database as its
 owner left it - reworded strings and guides, blanks, a hidden language - and
 what it refuses, and users/053's strings gone with the keys still read kept; `translations-routes.test.php`: the whole API in-process - the
@@ -1017,6 +1037,102 @@ ones. `--dry-run` prints the summary without writing.
 
 ---
 
+## The game catalog (for the build analyzer)
+
+The owner's other site, the build analyzer (builder.anotoki.eu), takes its game
+catalog - characters, weapons, artifact sets - from this site (2026-10-20, at
+the owner's word). It reads three public lists, server to server: no browser asks
+for them, so the API still sends no CORS header.
+
+| Route | Each item |
+| --- | --- |
+| `GET /api/catalog/characters` | `game_id`, `name`, `element`, `weapon_type`, `rarity`, `region`, `version`, `version_name`, `release_date`, `is_traveler`, `icon` |
+| `GET /api/catalog/weapons` | `game_id`, `name`, `type`, `rarity`, `version`, `version_name`, `release_date`, `icon` |
+| `GET /api/catalog/artifacts` | `game_id`, `name`, `two_piece`, `four_piece`, `rarities` (`[4, 5]`, lowest first), `version`, `version_name`, `icon` |
+
+```json
+{
+  "game_id": 10000046,
+  "name": "Hu Tao",
+  "element": "Pyro",
+  "weapon_type": "Polearm",
+  "rarity": 5,
+  "region": "Liyue",
+  "version": "1.3",
+  "version_name": null,
+  "release_date": "2021-03-02",
+  "is_traveler": false,
+  "icon": "https://genshin.anotoki.eu/assets/character/icon/HU_TAO.avif"
+}
+```
+
+- **Live rows only**, each list a bare JSON array, by name (byte by byte) then
+  id; nothing of an editor's, no row ids. `game_id` is null where nobody knows
+  it yet.
+- **The Travelers** are rows like any other, one per element, named Aether or
+  Lumine, `is_traveler` true: every Aether row carries 10000005, every Lumine
+  row 10000007. `element` is as this site keeps it: Anemo, Cryo, Dendro,
+  Electro, Geo, Hydro, Pyro - or Adaptive, for Manekin and Manekina.
+- **A version** as the pages read it (`api/game_versions.php`): "1.3" is version
+  1.3 with no name; "Luna III" is version 6.2 with `version_name` "Luna III";
+  any other text is no version, the text in `version_name`.
+- **An icon** is an absolute address on the host the request named - https and
+  no port (a port there is likelier the one a proxy reached PHP on than one
+  anybody asked for), but http and its port for a loopback host:
+  `http://localhost:4200/assets/...` through `ng serve`, which serves the asset
+  tree (the backend's own :8000 does not). A request whose Host is no host
+  answers 400 `invalid_host`.
+- **ETag** and `Cache-Control: no-cache`: send the tag back in `If-None-Match`
+  and an unchanged list answers 304 with no body (a weak `W/` tag, or one an
+  Apache marked `-gzip`, is the same tag).
+- **Under the site's switches**, like every route: 503 while an update waits or
+  the site is closed for maintenance, 401 `sign_in_required` while the IAM
+  requires signing in here, 423 while a page's row names `/api/catalog`. The
+  analyzer keeps the catalog it read last until this answers again.
+
+```bash
+curl -si http://localhost:8000/api/catalog/characters | head -20
+```
+
+### The ids
+
+`game_id` is the game's own id of a character, a weapon or an artifact set
+(migration `genshin_impact/030`): a positive number, one live row each - a
+Traveler's one an element. The admin panel's base-info tabs of a character, a
+weapon and an artifact set have a **Game ID** field for it (empty is none; an id
+another live row holds is refused, 409). **The owner's importer, which feeds this
+site's database, sends `game_id` with every character, weapon and set it writes
+from now on.**
+
+The ids the rows had on 2026-10-20 came from `backend/game-ids.php`, a one-off
+run on this computer (never in a release):
+
+```bash
+cd backend
+php game-ids.php                                       # a dry run: what matched, what did not, the duplicates
+php game-ids.php --from=https://genshin.anotoki.eu     # the rows as a site's public lists name them
+php game-ids.php --from=<site> --write-migration       # writes migrations/genshin_impact/031_game_ids_filled.sql
+```
+
+It reads this checkout's rows from its database (read-only) - or, with
+`--from`, from a site's public lists, which is how 031 was made: from the live
+site's, as a checkout's database may hold no game content - and the game's own
+data lists (`https://gi.yatta.moe/api/v2/en/avatar`, `/weapon` and
+`/reliquary`, the lists the build analyzer read its catalog from until now),
+each downloaded once into a folder outside the repository (`--cache=<folder>`,
+the system's temporary folder by default) and read from there after;
+`--refresh` asks again. A row matches by its name reduced to lowercase letters
+and digits (the analyzer's own key), a Traveler by its name, and where the
+game's list has one name twice - a quest's copy, a weapon's skin - the lowest
+id wins; a row that has an id keeps it. What matched nothing was looked up by
+hand (`GAME_IDS_BY_HAND`): the two Prized Isshin Blades, the quest's Sword of
+Narzissenkreuz and Initiate are in none of the game's lists and stay without an
+id. 031 sets the ids by name - and element, for a Traveler - never by a row's
+id, so it applies on the host's database as on this one; once applied anywhere
+it is never written again (`--force` writes over it only before that).
+
+---
+
 ## Building for production
 
 A release is `frontend/` and `backend/`, built by the anotoki library's
@@ -1406,4 +1522,5 @@ the PostgreSQL client tools locally.
 - `php db-push.php` - copy local data up to another server in one command. ⚠ erases the target (confirmed by typing the host); for seeding a fresh production server.
 - `php assets.php --status` - the asset tree against the `files` catalogue and the rows that name it.
 - `php translations.php --status` - the translation keys the frontend asks for against the ones the database has, each language's coverage, and stored strings a save would refuse (`--export CODE [FILE]`, `--import CODE FILE`; the anotoki library's command - no key is made here, keys come from migrations).
-- `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`: the upload rules; the words' migration and routes, on `genshin_test_*` databases of their own).
+- `php game-ids.php [--from=<site>] [--write-migration]` - the game's own ids for the characters, weapons and artifact sets by name, a dry run unless asked to write `genshin_impact/031` ([The game catalog](#the-game-catalog-for-the-build-analyzer)); a one-off, the game's lists kept outside the repository.
+- `php tests/run.php [file…]` - the backend's tests (`tests/*.test.php`: the upload rules, a version as the pages read it; the words' migration and routes, the game catalog, on `genshin_test_*` databases of their own).

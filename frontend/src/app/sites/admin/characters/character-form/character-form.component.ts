@@ -18,6 +18,7 @@ import { AscensionCostFormData, CharacterFullPayload, RelationshipFormData, Tale
 import { Audited, Material, toFormData } from '../../../../api';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { PendingImage } from '../../shared/admin-form.class';
+import { toNullableNumber } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
 import {
   AscensionWrapper,
@@ -460,6 +461,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         how_to_obtain: toStringArray(character.how_to_obtain),
         affiliations: toStringArray(character.affiliations),
         namecard_sources: toStringArray(character.namecard_sources),
+        game_id: toNullableNumber(character.game_id),
       },
       voice_overs: this.voiceOvers().map((voiceOver) => ({ ...this._withBoldTags(voiceOver.data), order: toNumber(voiceOver.data.order, 1) })),
       constellations: this.constellations().map((constellation) => ({ ...constellation.data, level: toNumber(constellation.data.level, 1) })),

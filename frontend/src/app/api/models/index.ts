@@ -6,6 +6,7 @@ export * from './artifact.model';
 export * from './ascensionSet.model';
 export * from './background.model';
 export * from './banner.model';
+export * from './catalog.model';
 export * from './character.model';
 export * from './constellationSet.model';
 export * from './dashboard.model';

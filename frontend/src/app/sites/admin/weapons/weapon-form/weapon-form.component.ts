@@ -9,7 +9,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { Audited, Material } from '../../../../api';
 import { LookupApiService, MaterialApiService, StatApiService, WeaponApiService, WeaponFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, createUid, revokeAllPicked, toNullableNumber, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { RefinementsTabComponent } from './refinements/refinements-tab.component';
 import { AscensionsTabComponent } from './ascensions/ascensions-tab.component';
@@ -132,6 +132,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
         rarity: toNumber(weapon.data.rarity, 5),
         how_to_obtain: toStringArray(weapon.data.how_to_obtain),
         effects: toStringArray(weapon.data.effects),
+        game_id: toNullableNumber(weapon.data.game_id),
       },
       // Position in the list is the refinement level.
       refinements: this.refinements().map((refinement) => ({

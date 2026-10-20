@@ -15,6 +15,12 @@
         <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
         <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
         <app-dropdown [label]="'Special Dish'" [options]="foodOptions()" [(value)]="character().data.special_dish" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
+        <app-number
+            [label]="'Game ID'"
+            [placeholder]="'e.g. 10000046'"
+            [description]="'The game&#8217;s own id. Every Aether row is 10000005, every Lumine row 10000007.'"
+            [min]="1"
+            [(value)]="character().data.game_id"></app-number>
         <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().data.is_traveler"></app-checkbox>
     </div>
     <app-field-container [class]="'mt-3'" [cols]="2">

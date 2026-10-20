@@ -57,6 +57,7 @@ export const GROUPS = [
   ['route', ['/api/site-routes']],
   ['dashboard', ['/api/dashboard']],
   ['visitor', ['/api/visitor']],
+  ['catalog', ['/api/catalog']],
   ['lookup', ['/api/']],
 ];
 
@@ -84,6 +85,7 @@ export const GROUP_DOCS = {
   route: 'Which pages of the site exist, who they are drawn for, and which API paths go dark with them.',
   dashboard: 'The counts on the admin landing page.',
   visitor: "This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in.",
+  catalog: "The game catalog the build analyzer reads, server to server: every live character, weapon and artifact set with the game's own id, public and read-only. No page calls it.",
   lookup: 'The name-keyed lookup tables. Every one is a list of `{ name }`, read to fill a dropdown.',
 };
 
@@ -203,6 +205,11 @@ export const NAMES = {
   'GET /api/quiz/results': 'getRecentQuizResults',
 
   'POST /api/visitor/move': 'moveVisitor',
+
+  // The mechanical rule reads `catalog` as a collection of them: getCatalogsCharacters.
+  'GET /api/catalog/characters': 'getCatalogCharacters',
+  'GET /api/catalog/weapons': 'getCatalogWeapons',
+  'GET /api/catalog/artifacts': 'getCatalogArtifacts',
 };
 
 /**

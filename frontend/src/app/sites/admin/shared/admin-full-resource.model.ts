@@ -63,6 +63,16 @@ export function toOptionalNumber(value: unknown): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+/**
+ * An optional number as the API takes it: a number, or null once the field is
+ * emptied - never '' or NaN. `undefined` would leave the key out of the body,
+ * and an update that leaves it out keeps the old value; '' is no number to an
+ * INTEGER column (a create would not even get past the model). For `game_id`.
+ */
+export function toNullableNumber(value: unknown): number | null {
+  return toOptionalNumber(value) ?? null;
+}
+
 /** PostgreSQL hands booleans back as `'t'` / `'f'`, both of which are truthy in JS. */
 export function toBoolean(value: unknown): boolean {
   return value === true || value === 1 || value === 't' || value === 'true' || value === '1';

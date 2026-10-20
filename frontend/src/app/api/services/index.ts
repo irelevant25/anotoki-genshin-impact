@@ -6,6 +6,7 @@ export * from './artifact.service';
 export * from './ascensionSet.service';
 export * from './background.service';
 export * from './banner.service';
+export * from './catalog.service';
 export * from './character.service';
 export * from './constellationSet.service';
 export * from './dashboard.service';

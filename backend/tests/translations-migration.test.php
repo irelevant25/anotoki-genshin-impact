@@ -105,8 +105,9 @@ const LIBRARY_WORDS_FILES = [
 // summaries gone) with the library's words 005-013, users/057 (the
 // public footer's words), users/058 (the quizzes' difficulty dialog's),
 // users/059 (the quizzes' cards and Mismatch's guide reworded) and users/060
-// (words made true before the owner's usability test), which one Apply brings
-// along.
+// (words made true before the owner's usability test), and genshin_impact/
+// 030-031 (the game's own ids, for the build analyzer's catalog), which one
+// Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -123,6 +124,8 @@ const WORDS_AND_AFTER = [
     'users/060_words_made_true_for_the_usability_test.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
+    'genshin_impact/030_game_ids.sql',
+    'genshin_impact/031_game_ids_filled.sql',
     'anotoki_translations/001_languages_and_strings.sql',
     'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql',

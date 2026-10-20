@@ -16,6 +16,8 @@ class Weapon extends DbModel
         public readonly ?string $release_date = null,
         public readonly ?string $version = null,
         public readonly ?string $description = null,
+        /** The game's own id (genshin_impact/030), one live row each. */
+        public readonly ?int $game_id = null,
     ) {}
 
     protected static function jsonFields(): array

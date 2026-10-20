@@ -3,6 +3,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { IdNameEntry } from '../../../../../api';
 import { RelationshipFormData } from '../../../shared/admin-form.model';
 import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
 import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { CalendarComponent } from '../../../../../shared/local-lib/components/calendar/calendar.component';
@@ -50,7 +51,7 @@ function emptyRelationship(): RelationshipFormData {
   selector: 'app-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FieldContainerComponent, EntityImageComponent, ChipsComponent],
+  imports: [ButtonComponent, TextComponent, NumberComponent, DropdownComponent, CalendarComponent, CheckboxComponent, TextareaComponent, FieldContainerComponent, EntityImageComponent, ChipsComponent],
 })
 export class BaseInfoTabComponent {
   character = model<CharacterWrapper>(emptyCharacter());

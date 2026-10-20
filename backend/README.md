@@ -46,7 +46,9 @@ api/            index.php - the Slim app, every request to /api lands here
                 record of a person, from the token), site_settings.php; translations.php
                 (the words: anotoki/lib's Translations set up for this site - the released
                 languages, the guides counted per language, the audit log) and guides.php
-                (the guides' pages, guide_contents); visitors.php (playing without signing
+                (the guides' pages, guide_contents); catalog.php (the game catalog the
+                build analyzer reads, GET /api/catalog/..., each row with the game's own id)
+                and game_versions.php (a version read as the pages read it); visitors.php (playing without signing
                 in: make, find, lock, sweep, move into an account at sign-in; ownerWrite(),
                 the one way a player's own data is written), client_address.php (where a
                 request comes from - the library's ClientAddress: CF-Connecting-IP from
@@ -92,7 +94,8 @@ vendor/         committed: the hosting has no Composer - anotoki/lib, the anotok
 | `setup.php` | the settings page on this computer, the one-time installer on the hosting: the database (`anotoki_genshin` on port 5432 to start from), the IAM and - on a host - the setup token, nothing else (this site's address comes from the request, pg_dump from `~/pgclient`); builds the database and writes `config/*.local.php` |
 | `migration.php` | applies pending migrations, every set in order - the library's around the two folders - after a backup of the database as it is (`--status`, `--dry-run`, `--folder=users`) |
 | `translations.php` | the words from the command line, the library's `TranslationsCommand`: `--status` (the keys the frontend uses against the database's, each language's coverage), `--export sk [file]` / `--import sk file`; it makes no key - keys come with migrations |
-| `tests/run.php` | the backend's tests, `tests/*.test.php`: the upload rules; on throwaway `genshin_test_*` databases the words' migration and routes, the library's data moves and admin routes, the addresses and what is kept of them, what a silent sign-in brings in, the command line |
+| `tests/run.php` | the backend's tests, `tests/*.test.php`: the upload rules, a version as the pages read it; on throwaway `genshin_test_*` databases the game catalog and its ids, the words' migration and routes, the library's data moves and admin routes, the addresses and what is kept of them, what a silent sign-in brings in, the command line |
+| `game-ids.php` | once: the game's own ids for the characters, weapons and artifact sets, by name, from the game's data lists (kept outside the repository) - a dry run, or `--write-migration` writes `genshin_impact/031` (`--from=<site>` reads the rows from a site's public lists; ../DEV.md, *The game catalog*) |
 | `generate-api-spec.php` | writes `../frontend/api-spec.json` for the generated client (`npm run api` in `frontend/` calls it) |
 | `assets.php` | the asset tree against the catalogue and the rows naming it (`--status`, ...) |
 | `db-dump.php`, `db-push.php` | back the database up with pg_dump; copy it to another server (the computer's own PostgreSQL client - the admin panel's Backups need none) |
@@ -117,7 +120,11 @@ php tests/run.php            # the tests (throwaway databases); on PHP 8.2 too
 `php tests/run.php` runs `tests/*.test.php`, each in a PHP process of its own -
 on PHP 8.2 too, as the hosts run 8.2 and up: the upload rules (names,
 containment, the `.htaccess` guards, an upload's bytes and size) with no
-database, server or config; the
+database, server or config, and so `catalog-versions` (a version read as the
+pages read it, held to `database-helpers.ts`); the game catalog:
+`catalog-routes` drives its three answers, the icons' host, ETag and 304 and
+the gates in-process, and proves `genshin_impact/030`'s indexes and `031`'s
+fill on a database with rows, each gate shown to notice what it must; the
 words: `translations-migration` builds a database from this site's own
 migrations, words it as an owner would and proves `users/050` keeps every
 string (and `users/053` takes only the old feedback form's and callback
