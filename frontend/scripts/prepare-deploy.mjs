@@ -31,7 +31,6 @@ if (!existsSync(join(dist, 'index.html'))) {
 const config = { url: '', configuration: 'prod' };
 writeFileSync(join(dist, 'config.json'), JSON.stringify(config, null, 2) + '\n');
 
-
 const shown = dist
   .replace(process.cwd() + '\\', '')
   .replace(process.cwd() + '/', '')
