@@ -194,7 +194,7 @@ backend/
                         (the shared library's own sets around them, from vendor/)
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
   tests/                php tests/run.php - the upload rules; the game catalog and its ids, the words'
-                        migration and routes, the quizzes' levels, the library's data moves and admin tools, what a silent
+                        migration and routes, the quizzes' levels, the character page's answer, the library's data moves and admin tools, what a silent
                         sign-in brings in, every settings file read cleanly, migration.php (on throwaway
                         databases)
   setup.php, router.php, migration.php, db-dump.php, db-push.php, assets.php,

@@ -24,6 +24,13 @@ class CharacterFull extends ResponseShape
     public function __construct(
         /** @var Character */
         public readonly object $character,
+        /**
+         * The character's special dish - the food `character.special_dish` names, while it is not deleted - or null
+         * for none: what the character page shows.
+         *
+         * @var CharacterDish
+         */
+        public readonly ?object $dish,
         /** @var CharacterVoiceOver[] */
         public readonly array $voice_overs,
         /** @var CharacterConstellation[] */
@@ -41,6 +48,12 @@ class CharacterFull extends ResponseShape
         /** @var string[] */
         public readonly array $roles,
     ) {}
+}
+
+/** A character's special dish as the character page shows it: its picture is filed under its name (`foods`). */
+class CharacterDish extends ResponseShape
+{
+    public function __construct(public readonly int $id, public readonly string $name, public readonly ?int $rarity) {}
 }
 
 /**

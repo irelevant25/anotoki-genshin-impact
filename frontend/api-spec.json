@@ -6084,7 +6084,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 504
+                "line": 517
             },
             "expanded": [
                 "created_by",
@@ -17726,6 +17726,44 @@
             ]
         },
         {
+            "name": "CharacterDish",
+            "file": "content.php",
+            "merges": null,
+            "description": "A character's special dish as the character page shows it: its picture is filed under its name (`foods`).",
+            "fields": [
+                {
+                    "name": "id",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "rarity",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "CharacterFull",
             "file": "content.php",
             "merges": null,
@@ -17740,6 +17778,16 @@
                     "optional": false,
                     "of": "Character",
                     "description": null
+                },
+                {
+                    "name": "dish",
+                    "types": [
+                        "object"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": "CharacterDish",
+                    "description": "The character's special dish - the food `character.special_dish` names, while it is not deleted - or null\nfor none: what the character page shows."
                 },
                 {
                     "name": "voice_overs",

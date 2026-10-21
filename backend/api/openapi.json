@@ -34811,6 +34811,35 @@
         ],
         "additionalProperties": false
       },
+      "CharacterDish": {
+        "title": "CharacterDish",
+        "description": "A character's special dish as the character page shows it: its picture is filed under its name (`foods`).",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rarity": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "rarity"
+        ],
+        "additionalProperties": false
+      },
       "CharacterFull": {
         "title": "CharacterFull",
         "description": "`GET /api/characters/{id}/full` The odd one out: characters predate registerFullResource(), so their costs come back flat rather than nested under the phase or level they belong to. The write side nests ascension costs and spells the talent costs `talent_costs`, which is why the form rebuilds the body rather than putting back what it was given.",
@@ -35414,6 +35443,17 @@
             ],
             "additionalProperties": false
           },
+          "dish": {
+            "description": "The character's special dish - the food `character.special_dish` names, while it is not deleted - or null for none: what the character page shows.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CharacterDish"
+              }
+            ]
+          },
           "voice_overs": {
             "type": "array",
             "items": {
@@ -35900,6 +35940,7 @@
         },
         "required": [
           "character",
+          "dish",
           "voice_overs",
           "constellations",
           "ascensions",

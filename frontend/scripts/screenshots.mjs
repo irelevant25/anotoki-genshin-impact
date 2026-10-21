@@ -208,6 +208,35 @@ const publicFooter =
 const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (page) => waitFor(page, "!!document.querySelector('dialog[open] button[aria-haspopup=dialog]')", 15000));
 
 /**
+ * The character page's facts that name another thing or a day (sites/main/features/database/characters/detail): the
+ * special dish as the dish itself - its picture, filed under its name in `foods`, and its name, never its id - and the
+ * birthday as a day and a month in the page's language, never the stored date, whose year means nothing. Hu Tao's, as
+ * the throwaway site seeds them: Ghostly March, the 15th of July. Anything else is said.
+ */
+const characterFacts = async (page) => {
+  if (!(await waitFor(page, "!!document.querySelector('app-database-character-detail .character-info')", 15000))) {
+    return false;
+  }
+  const facts = await page.evaluate(`(() => {
+    const rows = [...document.querySelectorAll('app-database-character-detail .character-info > div')];
+    const row = (label) => rows.find((div) => new RegExp(label).test(div.querySelector('.info-label')?.textContent ?? ''));
+    const dish = row('^(Special dish|Špeciálne jedlo)');
+    return {
+      lang: document.documentElement.lang,
+      dish: dish?.querySelector('.info-value')?.textContent.replace(/\\s+/g, ' ').trim() ?? null,
+      picture: decodeURIComponent(dish?.querySelector('img.dish-icon')?.getAttribute('src') ?? ''),
+      birthday: row('^(Birthday|Narodeniny)')?.querySelector('.info-value')?.textContent.trim() ?? null,
+    };
+  })()`);
+  // English as the page's locale orders it: "15 July" where it is British, "July 15" where it is not.
+  const wanted = { dish: 'Ghostly March', birthday: { en: ['15 July', 'July 15'], sk: ['15. júla'] }[facts.lang] ?? [] };
+  if (facts.dish !== wanted.dish || !/foods\/.*Ghostly[ _]March/i.test(facts.picture) || !wanted.birthday.includes(facts.birthday)) {
+    heard.push(`the character page's facts: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)} with the dish's picture from foods`);
+  }
+  return true;
+};
+
+/**
  * The top bar's items open and close their sections (sites/main/common/header, the owner's decision of 2026-10-21): on a
  * section's own page its item leads home and is the page (aria-current="page"), on a page inside the section it leads to
  * the section's page and is the current one (aria-current="true"), anywhere else it opens the section - its address
@@ -462,6 +491,8 @@ const MAIN = [
   { name: 'main-database', path: '/database' },
   { name: 'main-database-characters', path: '/database/characters', focus: 6 },
   { name: 'main-database-character', path: '/database/characters/1' },
+  // Its special dish and birthday as a reader reads them (characterFacts) - light in English, dark in Slovak.
+  { name: 'main-database-character-facts', path: '/database/characters/1', pairings: true, then: characterFacts },
   { name: 'main-database-character-constellations', path: '/database/characters/1', then: click('[role=tab], .tab, app-tab, button', '^(Constellations?|Konštelácie)$') },
   { name: 'main-database-character-voice-overs', path: '/database/characters/1', then: steps(click('[role=tab]', '^Voice'), storedMarkupInert) },
   { name: 'main-database-weapons', path: '/database/weapons' },

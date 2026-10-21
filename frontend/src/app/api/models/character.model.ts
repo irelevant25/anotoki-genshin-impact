@@ -703,6 +703,15 @@ export interface CharacterVoiceOverPayload {
 }
 
 /**
+ * A character's special dish as the character page shows it: its picture is filed under its name (`foods`).
+ */
+export interface CharacterDish {
+  id: number;
+  name: string;
+  rarity: number | null;
+}
+
+/**
  * `GET /api/characters/{id}/full`
  *
  * The odd one out: characters predate registerFullResource(), so their costs
@@ -713,6 +722,8 @@ export interface CharacterVoiceOverPayload {
  */
 export interface CharacterFull {
   character: Saved<CharacterPayload>;
+  /** The character's special dish - the food `character.special_dish` names, while it is not deleted - or null for none: what the character page shows. */
+  dish: CharacterDish | null;
   voice_overs: Saved<CharacterVoiceOverPayload>[];
   constellations: Saved<CharacterConstellationPayload>[];
   ascensions: Saved<CharacterAscensionPayload>[];

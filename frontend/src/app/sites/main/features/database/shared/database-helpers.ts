@@ -159,6 +159,29 @@ export function sumMaterials(costs: any[]): MaterialTotal[] {
   return [...totals.values()].sort((a, b) => b.quantity - a.quantity);
 }
 
+/**
+ * A character's birthday as a reader writes one: its day and month in the
+ * reader's language ("15 July", "15. júla") - never the stored DATE, whose year
+ * means nothing (characters.birthday is kept in year 4, the admin form's
+ * calendar writes it so - shared/local-lib/stored-dates.ts). Null for no
+ * birthday, or one that is no date.
+ */
+export function birthdayLabel(stored: unknown, locale: string): string | null {
+  const match = /^\d{4}-(\d{2})-(\d{2})/.exec(String(stored ?? '').trim());
+  if (!match) {
+    return null;
+  }
+  const month = Number(match[1]) - 1;
+  const day = Number(match[2]);
+  // A leap year, so the 29th of February is a birthday like any other, and in
+  // UTC, so no time zone moves it to another day.
+  const date = new Date(Date.UTC(2000, month, day));
+  if (date.getUTCMonth() !== month || date.getUTCDate() !== day) {
+    return null;
+  }
+  return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(date);
+}
+
 /** Adds `value` to the set, or removes it when it is already there. */
 export function toggleIn<T>(current: Set<T>, value: T): Set<T> {
   const next = new Set(current);

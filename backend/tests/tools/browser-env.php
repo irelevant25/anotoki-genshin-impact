@@ -185,7 +185,14 @@ function seedContent(PDO $pdo): void
 
     $foods = [];
     foreach (
-        [['Sweet Madame', 'Mondstadt', 2, 'Recovery Dish'], ['Jade Parcels', 'Liyue', 4, 'ATK-Boosting Dish'], ['Fontainian Onion Soup', 'Fontaine', 3, 'Recovery Dish']]
+        [
+            ['Sweet Madame', 'Mondstadt', 2, 'Recovery Dish'],
+            ['Jade Parcels', 'Liyue', 4, 'ATK-Boosting Dish'],
+            ['Fontainian Onion Soup', 'Fontaine', 3, 'Recovery Dish'],
+            // Hu Tao's and Xiangling's own dishes (characters.special_dish, below).
+            ['Ghostly March', 'Liyue', 3, 'Recovery Dish'],
+            ['Wanmin Restaurant\'s Boiled Fish', 'Liyue', 3, 'ATK-Boosting Dish'],
+        ]
         as [$name, $region, $rarity, $type]
     ) {
         $foods[$name] = seed(
@@ -203,16 +210,18 @@ function seedContent(PDO $pdo): void
     }
 
     $characters = [];
+    // A birthday as the site keeps one - a DATE in year 4, its year meaning nothing (the admin form's calendar
+    // writes it so) -, Bennett's the 29th of February; a special dish for two of them, a food's id.
     foreach (
         [
-            ['Hu Tao', 'Pyro', 'Polearm', 5, 'Liyue', 'Short Female', 'Fragrance in Thaw', '1.3'],
-            ['Xiangling', 'Pyro', 'Polearm', 4, 'Liyue', 'Short Female', 'Exquisite Delicacy', '1.0'],
-            ['Furina', 'Hydro', 'Sword', 5, 'Fontaine', 'Medium Female', 'Endless Solo of Solitude', '4.2'],
-            ['Bennett', 'Pyro', 'Sword', 4, 'Mondstadt', 'Medium Male', 'Trial by Fire', '1.0'],
-            ['Nahida', 'Dendro', 'Catalyst', 5, 'Sumeru', 'Short Female', 'Physic of Purity', '3.2'],
-            ['Kaeya', 'Cryo', 'Sword', 4, 'Mondstadt', 'Tall Male', 'Frostwind Swordsman', '1.0'],
+            ['Hu Tao', 'Pyro', 'Polearm', 5, 'Liyue', 'Short Female', 'Fragrance in Thaw', '1.3', '0004-07-15', 'Ghostly March'],
+            ['Xiangling', 'Pyro', 'Polearm', 4, 'Liyue', 'Short Female', 'Exquisite Delicacy', '1.0', '0004-11-02', 'Wanmin Restaurant\'s Boiled Fish'],
+            ['Furina', 'Hydro', 'Sword', 5, 'Fontaine', 'Medium Female', 'Endless Solo of Solitude', '4.2', '0004-10-13', null],
+            ['Bennett', 'Pyro', 'Sword', 4, 'Mondstadt', 'Medium Male', 'Trial by Fire', '1.0', '0004-02-29', null],
+            ['Nahida', 'Dendro', 'Catalyst', 5, 'Sumeru', 'Short Female', 'Physic of Purity', '3.2', '0004-10-27', null],
+            ['Kaeya', 'Cryo', 'Sword', 4, 'Mondstadt', 'Tall Male', 'Frostwind Swordsman', '1.0', '0004-11-30', null],
         ]
-        as [$name, $element, $weapon, $rarity, $region, $model, $title, $version]
+        as [$name, $element, $weapon, $rarity, $region, $model, $title, $version, $birthday, $dish]
     ) {
         $characters[$name] = seed(
             $pdo,
@@ -227,7 +236,8 @@ function seedContent(PDO $pdo): void
                 'title' => $title,
                 'version' => $version,
                 'release_date' => '2024-01-01',
-                'birthday' => '2000-07-15',
+                'birthday' => $birthday,
+                'special_dish' => $dish === null ? null : $foods[$dish],
                 'namecard_description' => "$name's namecard.",
                 'voice_actor_english' => 'Sample',
                 'voice_actor_japanese' => 'Sample',

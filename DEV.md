@@ -529,7 +529,10 @@ must, saying where; who may - nobody, a MEMBER refused, an EDITOR and the ADMIN
 not; a save and a reset with their audit entries; the public read - ETag and
 304, null for the built-in levels, for saved ones the rules no longer take and
 before the table is there - under the site's switches; users/061's table,
-Voice's sentences reworded only where they are still 058's, and its gate); and
+Voice's sentences reworded only where they are still 058's, and its gate); the
+character page's answer (`character-full.test.php`: the special dish as itself
+beside the character, none when it is deleted or there is none, the birthday as
+the site keeps it); and
 anotoki-lib 0.5.0 here (`library-tools-migration.test.php`: users/052, 054 and
 genshin_impact/028-029 on a database shaped like an installed one, with rows in
 every table that moves, in a server zone that is not UTC - every row under its
@@ -598,7 +601,9 @@ a visitor, its dialogs, a quiz's search with a name begun, the top bar's items
 opening and closing their sections (the address each leads to, `aria-current`,
 Enter), the quizzes at saved levels (answered by the browser for
 `/api/quiz/levels`: Mismatch's count, the difficulty dialog's numbers) and at
-the built-in ones when that answer fails, Terms, Privacy and
+the built-in ones when that answer fails, a character's special dish (its
+picture and its name, never its id) and birthday (a day and a month, never the
+stored date) in English and Slovak, Terms, Privacy and
 Contact in English and Slovak (the Privacy page flagged unless it names the
 hosting company, and Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
 of it on the callback's page, and in the sign-in card while the IAM requires

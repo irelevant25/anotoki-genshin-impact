@@ -5,8 +5,8 @@ import { LoaderComponent } from '../../../../../../shared/local-lib/components/l
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
-import { asList, versionLabel } from '../../shared/database-helpers';
-import { CharacterApiService, MaterialApiService } from '../../../../../../api';
+import { asList, birthdayLabel, versionLabel } from '../../shared/database-helpers';
+import { CharacterApiService, CharacterDish, MaterialApiService } from '../../../../../../api';
 import { CharacterAscensionsTabComponent } from './tabs/ascensions/ascensions-tab.component';
 import { CharacterTalentsTabComponent } from './tabs/talents/talents-tab.component';
 import { CharacterConstellationsTabComponent } from './tabs/constellations/constellations-tab.component';
@@ -38,6 +38,8 @@ export class DatabaseCharacterDetailComponent {
   private readonly _i18n = inject(TranslationService);
 
   character = signal<any | null>(null);
+  /** The special dish, as the API hands it beside the character - `character.special_dish` is only its id. */
+  dish = signal<CharacterDish | null>(null);
   talents = signal<any[]>([]);
   constellations = signal<any[]>([]);
   ascensions = signal<any[]>([]);
@@ -63,6 +65,8 @@ export class DatabaseCharacterDetailComponent {
   elementClass = computed(() => String(this.character()?.element ?? '').toLowerCase());
   affiliations = computed(() => asList(this.character()?.affiliations));
   titles = computed(() => [this.character()?.title, this.character()?.secondary_title].filter((title) => !!title));
+  /** The day and month, in the reader's language - the stored date's year means nothing. */
+  birthday = computed(() => birthdayLabel(this.character()?.birthday, this._i18n.locale()));
 
   voiceActors = computed(() => {
     const character = this.character();
@@ -104,6 +108,7 @@ export class DatabaseCharacterDetailComponent {
 
           const full = result.full;
           this.character.set(full.character ?? null);
+          this.dish.set(full.dish ?? null);
           this.talents.set([...(full.talents ?? [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
           this.constellations.set([...(full.constellations ?? [])].sort((a, b) => (a.level ?? 0) - (b.level ?? 0)));
           this.roles.set(full.roles ?? []);
@@ -132,6 +137,7 @@ export class DatabaseCharacterDetailComponent {
         },
         error: () => {
           this.character.set(null);
+          this.dish.set(null);
           this.loading.set(false);
         },
       });

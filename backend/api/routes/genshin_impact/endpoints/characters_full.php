@@ -490,8 +490,21 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     $rolesStmt->execute([$id]);
     $roles = array_column($rolesStmt->fetchAll(), 'role_name');
 
+    // The special dish is only a food's id on the character (special_dish, as
+    // the admin form sets it), and the character page shows the dish itself -
+    // its name, and its picture, which is filed under that name. So it comes
+    // along: a live dish, or none.
+    $dish = null;
+    if (($character['special_dish'] ?? null) !== null) {
+        $dishStmt = $pdo->prepare('SELECT id, name, rarity FROM foods WHERE id = ? AND deleted = FALSE');
+        $dishStmt->execute([$character['special_dish']]);
+        $row = $dishStmt->fetch(PDO::FETCH_ASSOC);
+        $dish = $row === false ? null : ['id' => (int) $row['id'], 'name' => (string) $row['name'], 'rarity' => $row['rarity'] === null ? null : (int) $row['rarity']];
+    }
+
     return respondJson($response, [
         'character' => $character,
+        'dish' => $dish,
         'voice_overs' => $voice_overs,
         'constellations' => $constellations,
         'relationships' => $relationships,

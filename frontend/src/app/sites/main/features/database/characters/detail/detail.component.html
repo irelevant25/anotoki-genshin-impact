@@ -64,7 +64,7 @@
 
                                 <div>
                                     <span class="info-label">{{ "database.detail.birthday" | translate }}:</span>
-                                    <span class="info-value">{{ character.birthday ?? "N/A" }}</span>
+                                    <span class="info-value">{{ birthday() ?? "N/A" }}</span>
                                 </div>
 
                                 <div>
@@ -84,7 +84,16 @@
 
                                 <div>
                                     <span class="info-label">{{ "database.detail.specialDish" | translate }}:</span>
-                                    <span class="info-value">{{ character.special_dish ?? "N/A" }}</span>
+                                    <!-- The dish itself, as the old site showed it: its picture, filed
+                                         under its name (as in the dish quiz), and its name. -->
+                                    <span class="info-value">
+                                        @if (dish(); as dish) {
+                                            <img class="dish-icon" [appMaterialIcon]="dish.name" [appAssetFolder]="'foods'" alt="" loading="lazy" />
+                                            {{ dish.name }}
+                                        } @else {
+                                            N/A
+                                        }
+                                    </span>
                                 </div>
                             </div>
 
