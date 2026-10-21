@@ -211,7 +211,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   padding (on a phone, to its own 56 px row), so the library's sticky heads stick
   flush with its top.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.8.0"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.9.0"`, from the GitHub VCS
   repository; on 0.x a caret takes no next minor) and `composer update anotoki/lib
   --prefer-dist` in `backend/`; the release's tarball URL in
   `frontend/package.json`, then `bun install` (bun.lock), and package-lock.json's
@@ -219,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.8.1 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.9.1 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -949,7 +949,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.8.1), each piece imported from its own entry point -
+  kit (anotoki-lib 0.9.1), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
