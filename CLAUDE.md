@@ -531,7 +531,8 @@ php translations.php --export sk [f] # a language's own strings as flat JSON; --
 php game-ids.php [--from=<site>]     # the game's ids for the rows by name, a dry run (--write-migration writes
                                      # genshin_impact/031; the lists kept outside the repository, --cache=<folder>)
 php tests/run.php                    # the backend's tests: the upload rules (no database); the words' migration and
-                                     # routes, the game catalog and its ids, the library's data moves, every admin route's permissions, sign-in,
+                                     # routes, the game catalog and its ids, the quizzes' levels (every rule, the routes,
+                                     # users/061), the library's data moves, every admin route's permissions, sign-in,
                                      # the gates, a restore doing again the deletes since its backup, the pages'
                                      # error reports, where a request comes from (Cloudflare; with the origin
                                      # secret, only through the owner's zone) and what is kept of
@@ -556,6 +557,10 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # page's row, and that row opened; the status page alone in its three
                                      # states (light English, dark Slovak) and the frame back after; the public
                                      # footer (light English, dark Slovak) and the account panel's wallpapers; the
+                                     # top bar's items opening and closing their sections; the quizzes at saved
+                                     # levels (the browser answering /api/quiz/levels) and at the built-in ones
+                                     # when that fails; the Quiz levels page (problems as typed, the words levels
+                                     # leave behind, a save and back); the
                                      # admin panel's footer, its two dialogs, and Migrations while an update waits.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
@@ -709,7 +714,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   request - this site's record of the person (`siteUserOf()`, the library's
   `PeopleRecorder`) plus the `role` the token grants here (ADMIN / EDITOR / USER)
   - and `session` (the IAM's `sid`). Role groups: `ROLES_CONTENT` (ADMIN/EDITOR,
-  writing game content - and the words: strings, languages, guides),
+  writing game content - and the words: strings, languages, guides - and the
+  quizzes' levels),
   `ROLES_SYSTEM_READ` (the dashboard), `ROLES_SYSTEM_WRITE`. Ownership via
   `requireSelfOrAdmin` / `refuseForeignUserId`. The library's admin tools and the
   Migrations routes are ADMIN's alone, judged from the token (`RequireRole::admin()`).
@@ -755,7 +761,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   that says a state the site is in (the library's `expected`,
   `SITE_EXPECTED_ANSWERS`: the family's `update_pending`, `feature_unavailable`,
   `not_set_up`, and this site's `maintenance`, `guides_unavailable`,
-  `visitors_unavailable` - the owner's rule: an expected refusal stays out, a
+  `visitors_unavailable`, `quiz_levels_unavailable` - the owner's rule: an expected refusal stays out, a
   real failure is written, a 503 among them: `storage_unavailable`,
   `database_unavailable`, `visitor_move_retry`); an `ApiRefusal` is an answer,
   not a failure. The pages' own errors come in at `POST
@@ -764,7 +770,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   here, at most 20 an hour from one sender (a person by their account, a
   visitor by their address bucket) and 500 a day from the visitors, as many
   from the people signed in), `/api/admin/audit` (`siteAudit()`, `api/audit_log.php`:
-  `anotoki_audit_log` - `content.*` from DbQuery and the guides, `catalogue.*`
+  `anotoki_audit_log` - `content.*` from DbQuery, the guides and the quiz levels, `catalogue.*`
   from `auditFile()`, the words' and the tools' own; entries wait in
   `storage/logs/audit-pending.jsonl` until `genshin_impact/028` has run),
   `/api/admin/feedback` and the public `POST /api/feedback` (`siteFeedback()`:
@@ -886,6 +892,35 @@ node docs/security/build-report.mjs                            # after re-runnin
   from), and the owner's importer sends `game_id` from now on.
   `tests/catalog-routes.test.php` covers the answers, the gates, the indexes
   and both migrations' gates.
+- **The quizzes' levels** (the owner's decision of 2026-10-21): what each level
+  of each quiz shows, try by try, is data - `quiz_levels` (`users/061`: one row
+  at most, the levels as JSONB and their time, no person; no row is the
+  built-in levels, the frontend's `QUIZ_LEVELS`), `api/quiz_levels.php` the
+  rules and the row, `routes/users/endpoints/quiz_levels.php` the routes,
+  `responses/quiz_levels.php` the shapes. `GET /api/quiz/levels` (public,
+  `{levels}` - null for the built-in levels, also for a saved row the rules no
+  longer take and before the table is there; ETag + `no-cache`, a 304; under
+  every gate like `/api/quiz`); `GET`, `PUT` and `DELETE /api/admin/quiz-levels`
+  and `POST /api/admin/quiz-levels/check` (ADMIN or EDITOR, `ROLES_CONTENT`;
+  `{levels}` in a body of 16 KB at most, read by `JsonBody`; a save the rules
+  refuse is 422 `invalid_levels` with `problems` - `{quiz, level, try,
+  message}`, English - and keeps nothing; a check answers the same problems and
+  keeps nothing; 503 `quiz_levels_unavailable` before `users/061`, one of
+  `SITE_EXPECTED_ANSWERS`). The server is the rule (`quizLevelsChecked()`), held
+  to before a row is written and again as it is read: exactly the six quizzes and
+  the levels "1"-"3"; `triesMax` 5 everywhere (the owner's rule of 2026-10-19 -
+  a change to it is a decision, not a refactor) and five steps, `try` 0-4 in
+  order; a step's `class` only its quiz's CSS classes, one of each kind;
+  Pixelate's grid 3-60 on every step, Music's seconds 1-60 on every step but
+  the last, Voice's 0.25-10 never beside `hidden-audio`, none on a picture;
+  Mismatch's `choicesAmount` 3-8; each wrong guess showing more, never less; no
+  other key, no other type. The levels are kept and answered in their own order
+  (the quizzes, the levels, each object's keys), so a save of the same levels
+  changes nothing and writes no entry. A save and a reset are
+  `content.insert|update|delete` on `quiz_levels` (`auditContent()`, the levels
+  before and after). `tests/quiz-levels.test.php` reads `QUIZ_LEVELS` from
+  `quiz-levels.ts` - the built-in levels must pass the rules - and holds every
+  rule, the routes, the audit, the gates and `users/061`.
 
 ## Frontend layout & conventions
 
@@ -1080,6 +1115,36 @@ node docs/security/build-report.mjs                            # after re-runnin
   words change) - stacked in the page's flow under it; the closed sign and the
   sign-in card keep the links and the clause alone (`legalOnly`). The admin
   panel has the family's footer instead (*The admin frame*).
+- **The top bar's items open and close their sections**
+  (`sites/main/common/header`, the owner's decision of 2026-10-21): on a
+  section's own page (`/quizzes`, `/daily`) its item leads to the home page
+  (`aria-current="page"`), on a page inside it (`/quizzes/pixelate`,
+  `/daily/banners`) to the section's page (`aria-current="true"`), from anywhere
+  else into the section - the link's address is where it goes, read from the
+  router's settled address (`NavigationEnd`), so hovering it says so, and Enter
+  goes there; the open section's item is marked (`li.active`, the hover's
+  look). `data-section` names each item for the screenshot run's checks.
+- **The quizzes' levels, the pages' half** (*The quizzes' levels* in the
+  backend's conventions): `features/quizzes/shared/quiz-levels.ts` holds the
+  built-in levels (`QUIZ_LEVELS`, which must pass the server's rules - the
+  backend's test reads them from the file: keep the literal plain), the
+  dialog's words (`levelWords()`) and a client's check of an answer's shape
+  (`usableLevels()`); `QuizLevelsService` the levels in force - asked once a
+  page load, joined to every quiz's characters, at most 2.5 seconds, the
+  built-in ones while it asks and on any failure, and never changed after
+  that - and every quiz reads its level from it (the daily's Easy, level 1 of
+  them). The difficulty dialog takes every number from the level in force (the
+  reader's way of writing numbers; a key keeps its English's placeholders, so a
+  Voice level playing fewer pieces of the recording than its sentence names is
+  said in `quiz.levelInfo.voiceOther`'s general words - never a placeholder
+  left unfilled); what no number can say -
+  `quiz.levelInfo.picture*`, the steps of `quiz.levelInfo.voice*`, Mismatch's
+  card and guide - is written for the built-in levels, and the admin Quiz
+  levels page (`sites/admin/quiz-levels/`, System in the navigation, ADMIN or
+  EDITOR, `anotokiUnsavedChangesGuard`) warns when levels leave it behind
+  (`quiz-level-words.ts`) - a new kind of step, or a sentence that names one,
+  needs a warning there too. The page shows what the server's rules say (`POST
+  /api/admin/quiz-levels/check`, as it is typed), never rules of its own.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper
