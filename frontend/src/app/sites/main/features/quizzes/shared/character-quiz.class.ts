@@ -41,7 +41,9 @@ export abstract class CharacterQuizComponent {
   }
 
   /** Called once a question is settled, whether drawn fresh or restored. */
-  protected onQuestionChanged(): void {}
+  protected onQuestionChanged(): void {
+    // Nothing by default: a quiz that has to react to a new question overrides this.
+  }
 
   readonly characters = signal<any[]>([]);
   readonly loading = signal(true);
@@ -89,7 +91,9 @@ export abstract class CharacterQuizComponent {
   readonly displayTries = computed(() => {
     const slots: (any | null)[] = Array(this.triesMax()).fill(null);
     this.tries().forEach((character, index) => {
-      if (index < slots.length) slots[index] = character;
+      if (index < slots.length) {
+        slots[index] = character;
+      }
     });
     return slots;
   });

@@ -3,7 +3,7 @@ import { LoaderComponent } from '../../../../../shared/local-lib/components/load
 import { QuizAudioPlayerComponent } from '../shared/audio-player/audio-player.component';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
-import { QuizId, QuizState } from '../shared/quiz.types';
+import { QuizId } from '../shared/quiz.types';
 import { QuizApiService } from '../../../../../api';
 
 /**

@@ -7,7 +7,6 @@ import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { AccordionComponent, DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { Artifact, Audited, Material } from '../../../../../api';
-import { ArtifactFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
 import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyDropEntry, emptyDropGroup } from '../enemy-form.model';
 

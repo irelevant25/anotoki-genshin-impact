@@ -103,7 +103,11 @@ export class CleanupModalComponent extends AbstractModalComponent {
   toggle(file: AssetCleanupFile): void {
     this.kept.update((kept) => {
       const next = new Set(kept);
-      next.has(file.path) ? next.delete(file.path) : next.add(file.path);
+      if (next.has(file.path)) {
+        next.delete(file.path);
+      } else {
+        next.add(file.path);
+      }
       return next;
     });
   }
@@ -113,7 +117,11 @@ export class CleanupModalComponent extends AbstractModalComponent {
     this.kept.update((kept) => {
       const next = new Set(kept);
       for (const file of this.files()) {
-        keep ? next.add(file.path) : next.delete(file.path);
+        if (keep) {
+          next.add(file.path);
+        } else {
+          next.delete(file.path);
+        }
       }
       return next;
     });

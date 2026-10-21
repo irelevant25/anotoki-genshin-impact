@@ -31,8 +31,12 @@ export interface Placing<T> {
 
 /** How many matches a format takes, which is fixed before a ball is kicked. */
 export function totalMatches(format: TournamentFormat, size: number): number {
-  if (format === 'single') return size - 1;
-  if (format === 'double') return size * 2 - 2;
+  if (format === 'single') {
+    return size - 1;
+  }
+  if (format === 'double') {
+    return size * 2 - 2;
+  }
   return (size * (size - 1)) / 2;
 }
 
@@ -65,8 +69,12 @@ function pairUp<T>(entrants: readonly T[], bracket?: Bracket): { matches: Match<
 function interleave<T>(survivors: readonly T[], arrivals: readonly T[]): T[] {
   const out: T[] = [];
   for (let i = 0; i < Math.max(survivors.length, arrivals.length); i++) {
-    if (i < survivors.length) out.push(survivors[i]);
-    if (i < arrivals.length) out.push(arrivals[i]);
+    if (i < survivors.length) {
+      out.push(survivors[i]);
+    }
+    if (i < arrivals.length) {
+      out.push(arrivals[i]);
+    }
   }
   return out;
 }
@@ -140,13 +148,17 @@ export class Tournament<T extends { name: string }> {
     this._wins.set(winner.name, (this._wins.get(winner.name) ?? 0) + 1);
 
     if (this.format === 'roundRobin') {
-      if (!this._queue.length) this._finishRoundRobin();
+      if (!this._queue.length) {
+        this._finishRoundRobin();
+      }
       return;
     }
 
     if (this.format === 'single') {
       this._upper.push(winner);
-      if (!this._queue.length) this._advanceSingle();
+      if (!this._queue.length) {
+        this._advanceSingle();
+      }
       return;
     }
 
@@ -167,7 +179,9 @@ export class Tournament<T extends { name: string }> {
       this._thirdPlace = loser;
     }
 
-    if (!this._queue.length) this._advanceDouble();
+    if (!this._queue.length) {
+      this._advanceDouble();
+    }
   }
 
   private _thirdPlace?: T;
@@ -237,8 +251,11 @@ export class Tournament<T extends { name: string }> {
     const round = pairUp(entrants, bracket);
     this._queue = round.matches;
     if (round.bye) {
-      if (bracket === 'upper') this._upper.push(round.bye);
-      else this._lower.push(round.bye);
+      if (bracket === 'upper') {
+        this._upper.push(round.bye);
+      } else {
+        this._lower.push(round.bye);
+      }
     }
     if (!round.matches.length) {
       this._advanceDouble();

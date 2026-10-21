@@ -245,7 +245,8 @@ const MAIN = [
   { name: 'main-footer', path: '/', pairings: true, then: publicFooter({ legalOnly: false }) },
   { name: 'main-footer-account', path: '/', pairings: true, widths: [1280], then: accountOpen },
   { name: 'main-dialog-account', path: '/', then: click('app-footer button', '^Account$') },
-  { name: 'main-dialog-versions', path: '/', then: click('app-footer button', '^v\\d') },
+  // The footer's version is text since 2026-10-19 (anotoki-lib 0.8.0): every version opens from What's new.
+  { name: 'main-dialog-versions', path: '/', then: steps(click('app-footer button', "^What's new$"), click('dialog[open] button', '^See all changes$')) },
   { name: 'main-dialog-backgrounds', path: '/', then: steps(accountOpen, press('dialog[open] button[aria-haspopup=dialog]')) },
   { name: 'main-dialog-feedback', path: '/', then: click('app-footer button', '^Feedback$') },
   { name: 'main-dialog-whats-new', path: '/', fresh: true },

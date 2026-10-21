@@ -74,7 +74,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
       next: (result) => {
         this.characterOptions.set(
           (result.characters ?? [])
-            .map((entry: any) => ({ key: entry.id, value: `${entry.name}${entry.element ? ' (' + entry.element + ')' : ''}` }))
+            .map((entry: any) => ({ key: entry.id, value: `${entry.name}${entry.element ? ` (${entry.element})` : ''}` }))
             .sort((a, b) => String(a.value).localeCompare(String(b.value))),
         );
         this.weaponOptions.set((result.weapons ?? []).map((entry: any) => ({ key: entry.id, value: entry.name })).sort((a, b) => String(a.value).localeCompare(String(b.value))));

@@ -104,7 +104,7 @@ export class StateService {
   set data(data: IState) {
     this._data = data;
   }
-  get data() {
+  get data(): IState {
     return this._data;
   }
 
@@ -190,8 +190,11 @@ export class StateService {
   saveQuizState(quizId: QuizId, state: QuizState, daily: boolean = false): boolean {
     this.loadData();
     const entry = this.data.topMenu[quizId];
-    if (daily) entry.dailyState = { ...state };
-    else entry.state = { ...state };
+    if (daily) {
+      entry.dailyState = { ...state };
+    } else {
+      entry.state = { ...state };
+    }
     return this.saveData(this.data);
   }
 
@@ -221,7 +224,7 @@ export class StateService {
     return this.getQuizState('banners', daily);
   }
 
-  saveTopMenuBannersState(state: QuizState, daily: boolean = false) {
+  saveTopMenuBannersState(state: QuizState, daily: boolean = false): boolean {
     return this.saveQuizState('banners', state, daily);
   }
 

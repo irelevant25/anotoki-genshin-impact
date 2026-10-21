@@ -67,7 +67,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       next: (result) => {
         // `rarities.name` is a SMALLINT, so this list is the one place a lookup
         // answers with numbers rather than text.
-        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
+        const names = (entries: { name: string | number }[]): string[] => entries.map((entry) => String(entry.name));
         this.foodTypes.set(names(result.foodTypes));
         this.regions.set(names(result.regions));
         this.rarities.set(names(result.rarities).sort().reverse());
@@ -125,7 +125,7 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
       field: `icon_${quality}`,
       picked: food.pending[`icon_${quality}`]!,
       name: foodImageName(food.data.name, quality),
-      apply: (path: string, name: string, fileId: number | null) => {
+      apply: (path: string, name: string, fileId: number | null): void => {
         food.data[`icon_${quality}`] = path;
         food.data[`icon_${quality}_name`] = name;
         food.data[`icon_${quality}_file_id`] = fileId;

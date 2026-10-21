@@ -143,7 +143,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
       next: (result) => {
         // `rarities.name` is a SMALLINT, so this list is the one place a lookup
         // answers with numbers rather than text.
-        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
+        const names = (entries: { name: string | number }[]): string[] => entries.map((entry) => String(entry.name));
         this.regions.set(names(result.regions));
         this.roles.set(names(result.roles));
         this.talentTypes.set(names(result.talentTypes));

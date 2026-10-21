@@ -73,8 +73,12 @@ export class DatabaseCharactersComponent {
         const releasedA = a.release_date ?? '';
         const releasedB = b.release_date ?? '';
         if (releasedA !== releasedB) {
-          if (!releasedA) return 1;
-          if (!releasedB) return -1;
+          if (!releasedA) {
+            return 1;
+          }
+          if (!releasedB) {
+            return -1;
+          }
           return releasedB.localeCompare(releasedA);
         }
         return String(a.name).localeCompare(String(b.name));

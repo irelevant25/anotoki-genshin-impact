@@ -8,7 +8,6 @@ import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { Artifact, Audited, Material } from '../../../../api';
 import { ArtifactApiService, EnemyApiService, LookupApiService, MaterialApiService, EnemyFull } from '../../../../api';
-import { ArtifactFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
 import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
@@ -66,7 +65,7 @@ export class EnemyFormComponent extends AdminFormComponent<EnemyFull> implements
       artifacts: this._artifactApi.getArtifacts(),
     }).subscribe({
       next: (result) => {
-        const names = (entries: { name: string }[]) => entries.map((entry) => entry.name);
+        const names = (entries: { name: string }[]): string[] => entries.map((entry) => entry.name);
         this.enemyTypes.set(names(result.enemyTypes));
         this.enemyFamilies.set(names(result.enemyFamilies));
         this.enemyGroups.set(names(result.enemyGroups));

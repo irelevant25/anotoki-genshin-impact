@@ -8,7 +8,7 @@ export interface IImageEffect {
   draw: (canvas: HTMLCanvasElement, imgUrl: string) => void;
 }
 
-export function normalize(input: string) {
+export function normalize(input: string): string {
   return input
     ?.replaceAll(/[^a-zA-Z ]/g, '')
     .replaceAll(' ', '_')
@@ -87,6 +87,8 @@ export const HELPER = {
     type EffectCallback = (params: { ctx: CanvasRenderingContext2D; canvas: HTMLCanvasElement; filters: Filters }) => void;
 
     const effects: EffectCallback[] = [];
+    // The chain each effect hands back, filled with them below (declared first: every effect returns it).
+    const api = {} as IImageEffect;
 
     function effectClip(clipOrientations = ['left'], clipWidths = [0.5], invert = false): IImageEffect {
       effects.push(({ ctx, canvas }) => {
@@ -114,10 +116,18 @@ export const HELPER = {
             const clipX = w * width;
             const clipY = h * width;
 
-            if (o === 'left') ctx.rect(0, 0, clipX, h);
-            if (o === 'right') ctx.rect(clipX, 0, w - clipX, h);
-            if (o === 'top') ctx.rect(0, 0, w, clipY);
-            if (o === 'bottom') ctx.rect(0, clipY, w, h - clipY);
+            if (o === 'left') {
+              ctx.rect(0, 0, clipX, h);
+            }
+            if (o === 'right') {
+              ctx.rect(clipX, 0, w - clipX, h);
+            }
+            if (o === 'top') {
+              ctx.rect(0, 0, w, clipY);
+            }
+            if (o === 'bottom') {
+              ctx.rect(0, clipY, w, h - clipY);
+            }
           }
         }
 
@@ -127,33 +137,33 @@ export const HELPER = {
       return api;
     }
 
-    function effectGrayscale(amount = 1) {
+    function effectGrayscale(amount = 1): IImageEffect {
       effects.push(({ ctx, filters }) => {
         filters.grayscale = `grayscale(${amount})`;
       });
       return api;
     }
 
-    function effectBlur(px = 2.5) {
+    function effectBlur(px = 2.5): IImageEffect {
       effects.push(({ filters }) => {
         filters.blur = `blur(${px}px)`;
       });
       return api;
     }
 
-    function effectPixelate(pixelSize = 8) {
+    function effectPixelate(pixelSize = 8): IImageEffect {
       effects.push(({ filters }) => {
         filters.pixelate = pixelSize;
       });
       return api;
     }
 
-    function draw(canvas: HTMLCanvasElement, imgUrl: string) {
+    function draw(canvas: HTMLCanvasElement, imgUrl: string): void {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = imgUrl;
 
-      img.onload = function () {
+      img.onload = function (): void {
         const ctx = canvas.getContext('2d');
         if (!ctx) {
           console.error('Failed to get 2D context');
@@ -179,13 +189,17 @@ export const HELPER = {
           lowRes.width = pw;
           lowRes.height = ph;
           const lowResCtx = lowRes.getContext('2d');
-          if (!lowResCtx) return;
+          if (!lowResCtx) {
+            return;
+          }
           lowResCtx.drawImage(img, 0, 0, pw, ph);
           const pixelated = document.createElement('canvas');
           pixelated.width = w;
           pixelated.height = h;
           const pixelatedCtx = pixelated.getContext('2d');
-          if (!pixelatedCtx) return;
+          if (!pixelatedCtx) {
+            return;
+          }
           pixelatedCtx.imageSmoothingEnabled = false;
           pixelatedCtx.drawImage(lowRes, 0, 0, w, h);
           source = pixelated;
@@ -238,14 +252,12 @@ export const HELPER = {
       };
     }
 
-    const api = {
+    return Object.assign(api, {
       effectClip,
       effectGrayscale,
       effectBlur,
       effectPixelate,
       draw,
-    };
-
-    return api;
+    });
   },
 };

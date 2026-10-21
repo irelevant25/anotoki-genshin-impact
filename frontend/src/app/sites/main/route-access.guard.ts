@@ -22,7 +22,7 @@ import { SiteSettingsService } from '../../shared/local-lib/services/site-settin
  * row names the endpoints that belong to it - see meddleware/route_gate.php.
  */
 export const routeAccessGuard: CanMatchFn = (_route: Route, segments: UrlSegment[]) => {
-  const path = '/' + segments.map((segment) => segment.path).join('/');
+  const path = `/${segments.map((segment) => segment.path).join('/')}`;
 
   return inject(SiteSettingsService).mayNavigate(path);
 };

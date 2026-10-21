@@ -3,7 +3,6 @@
 // Regenerate: php ../backend/generate-api-spec.php && node generate-api.mjs
 
 import type { Saved } from '../types/common.type';
-import type { CharacterAscension } from './ascensionSet.model';
 
 /**
  * A row of `characters` as the API reads it back.

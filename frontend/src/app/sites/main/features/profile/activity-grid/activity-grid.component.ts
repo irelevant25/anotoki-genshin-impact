@@ -54,7 +54,7 @@ export class ActivityGridComponent {
 
     // Seven cells to a column, so every seventh cell is a Monday.
     for (let index = 0; index < this.cells().length; index += 7) {
-      const monday = new Date(this.cells()[index].day + 'T00:00:00Z');
+      const monday = new Date(`${this.cells()[index].day}T00:00:00Z`);
       const label = format.format(monday);
       const previous = months[months.length - 1];
 

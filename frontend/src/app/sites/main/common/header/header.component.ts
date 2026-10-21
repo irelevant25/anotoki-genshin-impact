@@ -61,6 +61,6 @@ export class HeaderComponent {
    * look exactly the same to them whatever they had just switched off.
    */
   readonly menuItems = computed<DrawnMenuItem[]>(() =>
-    this._allItems.filter((item) => this._settings.mayNavigate('/' + item.id)).map((item) => ({ ...item, hidden: this._settings.noticeFor('/' + item.id) !== null })),
+    this._allItems.filter((item) => this._settings.mayNavigate(`/${item.id}`)).map((item) => ({ ...item, hidden: this._settings.noticeFor(`/${item.id}`) !== null })),
   );
 }

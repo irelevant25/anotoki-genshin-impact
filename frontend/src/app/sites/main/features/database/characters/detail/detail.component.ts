@@ -100,7 +100,7 @@ export class DatabaseCharacterDetailComponent {
             return;
           }
           const materialsById = new Map(result.materials.map((material) => [material.id, material]));
-          const withMaterial = (row: any) => ({ ...row, material: materialsById.get(row.material_id) ?? null });
+          const withMaterial = (row: any): any => ({ ...row, material: materialsById.get(row.material_id) ?? null });
 
           const full = result.full;
           this.character.set(full.character ?? null);

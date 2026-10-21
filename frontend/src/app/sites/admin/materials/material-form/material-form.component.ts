@@ -72,7 +72,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
       next: (result) => {
         // `rarities.name` is a SMALLINT, so this list is the one place a lookup
         // answers with numbers rather than text.
-        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
+        const names = (entries: { name: string | number }[]): string[] => entries.map((entry) => String(entry.name));
         this.materialTypes.set(names(result.materialTypes));
         this.materialGroups.set(names(result.materialGroups));
         this.regions.set(names(result.regions));

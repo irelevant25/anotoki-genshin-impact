@@ -11,6 +11,26 @@ export type RouteVisibility = 'PUBLIC' | 'USER' | 'EDITOR' | 'ADMIN';
 export type RouteNotice = { kind: 'blocked' } | { kind: 'restricted'; visibility: RouteVisibility } | null;
 
 /**
+ * Whether a stored path matches a URL.
+ *
+ * A ':id' segment stands for any one segment, which is how the router writes
+ * it and the only pattern this needs. Segment counts have to match, so
+ * '/database/characters' does not match '/database/characters/5': those are
+ * two rows and two decisions. Kept in step with routeMatchesPath() in
+ * api/site_routes.php, which decides the same thing for the API.
+ */
+export function routeMatchesPath(pattern: string, path: string): boolean {
+  const left = pattern.replace(/^\/+|\/+$/g, '').split('/');
+  const right = path.replace(/^\/+|\/+$/g, '').split('/');
+
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return left.every((segment, index) => segment.startsWith(':') || segment === right[index]);
+}
+
+/**
  * The state of the site itself, as an admin last left it.
  *
  * Read once at start-up, before anything is drawn. It has to be first: the
@@ -198,26 +218,6 @@ export class SiteSettingsService {
 
     return route.visibility === 'PUBLIC' ? null : { kind: 'restricted', visibility: route.visibility as RouteVisibility };
   }
-}
-
-/**
- * Whether a stored path matches a URL.
- *
- * A ':id' segment stands for any one segment, which is how the router writes
- * it and the only pattern this needs. Segment counts have to match, so
- * '/database/characters' does not match '/database/characters/5': those are
- * two rows and two decisions. Kept in step with routeMatchesPath() in
- * api/site_routes.php, which decides the same thing for the API.
- */
-export function routeMatchesPath(pattern: string, path: string): boolean {
-  const left = pattern.replace(/^\/+|\/+$/g, '').split('/');
-  const right = path.replace(/^\/+|\/+$/g, '').split('/');
-
-  if (left.length !== right.length) {
-    return false;
-  }
-
-  return left.every((segment, index) => segment.startsWith(':') || segment === right[index]);
 }
 
 /**

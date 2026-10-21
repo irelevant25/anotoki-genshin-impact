@@ -156,7 +156,7 @@ export class QuizzesMismatchComponent {
 
   private _restoreOrStart(): void {
     const saved = this._progress.get(this._quizId, this.isDaily());
-    const byName = (name?: string) => this.characters().find((character) => character.name === name);
+    const byName = (name?: string): any => this.characters().find((character) => character.name === name);
     const options = (saved?.options ?? []).map(byName).filter(Boolean);
 
     // Restored only if the whole set comes back and, for a daily game, if it is
@@ -209,10 +209,14 @@ export class QuizzesMismatchComponent {
       const counts = new Map<string, number>();
       for (const character of characters) {
         const value = character[property];
-        if (value) counts.set(value, (counts.get(value) ?? 0) + 1);
+        if (value) {
+          counts.set(value, (counts.get(value) ?? 0) + 1);
+        }
       }
       for (const [value, frequency] of counts) {
-        if (frequency >= count - 1) viable.push({ property, value });
+        if (frequency >= count - 1) {
+          viable.push({ property, value });
+        }
       }
     }
 

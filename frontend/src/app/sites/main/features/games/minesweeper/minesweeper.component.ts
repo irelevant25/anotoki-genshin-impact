@@ -421,8 +421,12 @@ export class GamesMinesweeperComponent implements OnDestroy {
     const found: Cell[] = [];
     for (let r = Math.max(0, row - 1); r <= Math.min(size - 1, row + 1); r++) {
       for (let c = Math.max(0, col - 1); c <= Math.min(size - 1, col + 1); c++) {
-        if (r === row && c === col) continue;
-        if (!diagonals && r !== row && c !== col) continue;
+        if (r === row && c === col) {
+          continue;
+        }
+        if (!diagonals && r !== row && c !== col) {
+          continue;
+        }
         found.push(this.at(cells, r, c));
       }
     }

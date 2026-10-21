@@ -57,7 +57,7 @@ export class DatabaseWeaponDetailComponent {
             return;
           }
           const materialsById = new Map(result.materials.map((material) => [material.id, material]));
-          const withMaterial = (row: any) => ({ ...row, material: materialsById.get(row.material_id) ?? null });
+          const withMaterial = (row: any): any => ({ ...row, material: materialsById.get(row.material_id) ?? null });
 
           this.weapon.set(result.full.weapon ?? null);
           this.refinements.set((result.full.refinements ?? []).map(withMaterial));

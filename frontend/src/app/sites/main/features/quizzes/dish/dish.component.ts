@@ -38,12 +38,12 @@ export class QuizzesDishComponent extends CharacterQuizComponent {
    * to find its picture. The two lists are independent, so they are fetched
    * together and joined here rather than one after the other.
    */
-  private readonly foodApi = inject(FoodApiService);
+  private readonly _foodApi = inject(FoodApiService);
 
   protected override fetchCharacters(): Observable<any[]> {
     return forkJoin({
       characters: this.characterApi.getCharactersMinimal(),
-      foods: this.foodApi.getFoods(),
+      foods: this._foodApi.getFoods(),
     }).pipe(
       map(({ characters, foods }) => {
         const foodsById = new Map(foods.map((food) => [food.id, food]));

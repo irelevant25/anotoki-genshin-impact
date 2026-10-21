@@ -79,14 +79,14 @@ export class QuizzesPixelateComponent extends CharacterQuizComponent {
 
     // The picture may be a .avif, a .png, or an upper-cased .png; only the
     // browser can say which exists, so each is tried in turn.
-    image.onerror = () => {
+    image.onerror = (): void => {
       candidate += 1;
       if (candidate < candidates.length) {
         image.src = candidates[candidate];
       }
     };
 
-    image.onload = () => {
+    image.onload = (): void => {
       const small = document.createElement('canvas');
       small.width = grid;
       small.height = grid;

@@ -12,6 +12,30 @@ export function todayString(): string {
 }
 
 /**
+ * A small deterministic generator, seeded from a string.
+ *
+ * Math.random cannot be seeded, and this needs the same answer on every machine
+ * for a given day. mulberry32 over a cheap string hash is plenty for choosing
+ * two of six - it is picking a quiz, not protecting anything.
+ */
+function seededRandom(seed: string): () => number {
+  let hash = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    hash ^= seed.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  let state = hash >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
  * The quizzes set for a given day.
  *
  * Worked out from the date rather than drawn once and remembered. The old site
@@ -35,30 +59,6 @@ export function dailyQuizzes(date: string = todayString()): QuizId[] {
   }
 
   return pool.slice(0, DAILY_COUNT);
-}
-
-/**
- * A small deterministic generator, seeded from a string.
- *
- * Math.random cannot be seeded, and this needs the same answer on every machine
- * for a given day. mulberry32 over a cheap string hash is plenty for choosing
- * two of six - it is picking a quiz, not protecting anything.
- */
-function seededRandom(seed: string): () => number {
-  let hash = 2166136261;
-  for (let i = 0; i < seed.length; i++) {
-    hash ^= seed.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
-  }
-
-  let state = hash >>> 0;
-  return () => {
-    state = (state + 0x6d2b79f5) >>> 0;
-    let t = state;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
 }
 
 /** How a daily quiz stands today: untouched, part-played, won or lost. */

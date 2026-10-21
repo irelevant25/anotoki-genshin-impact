@@ -1,6 +1,13 @@
 import { Component, computed, effect, ElementRef, input, signal, viewChild } from '@angular/core';
 import { TranslatePipe } from '@anotoki/lib/translations';
 
+function formatTime(seconds: number): string {
+  const safe = Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
+  const minutes = Math.floor(safe / 60);
+  const rest = Math.floor(safe % 60);
+  return `${String(minutes).padStart(2, '0')}:${String(rest).padStart(2, '0')}`;
+}
+
 /**
  * The player the music and voice quizzes share.
  *
@@ -111,7 +118,7 @@ export class QuizAudioPlayerComponent {
    */
   private _track(): void {
     this._stopTracking();
-    const step = () => {
+    const step = (): void => {
       const audio = this._audio()?.nativeElement;
       if (!audio) {
         return;
@@ -135,11 +142,4 @@ export class QuizAudioPlayerComponent {
       this._frame = null;
     }
   }
-}
-
-function formatTime(seconds: number): string {
-  const safe = Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
-  const minutes = Math.floor(safe / 60);
-  const rest = Math.floor(safe % 60);
-  return `${String(minutes).padStart(2, '0')}:${String(rest).padStart(2, '0')}`;
 }

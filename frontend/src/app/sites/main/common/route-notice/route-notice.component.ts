@@ -42,7 +42,7 @@ export class RouteNoticeComponent {
   readonly audience = computed(() => {
     const notice = this.notice();
 
-    return notice?.kind === 'restricted' ? this._i18n.t('route.audience.' + notice.visibility) : '';
+    return notice?.kind === 'restricted' ? this._i18n.t(`route.audience.${notice.visibility}`) : '';
   });
 
   constructor() {

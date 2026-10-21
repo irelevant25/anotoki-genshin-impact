@@ -59,7 +59,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       next: (result) => {
         // `rarities.name` is a SMALLINT, so this list is the one place a lookup
         // answers with numbers rather than text.
-        const names = (entries: { name: string | number }[]) => entries.map((entry) => String(entry.name));
+        const names = (entries: { name: string | number }[]): string[] => entries.map((entry) => String(entry.name));
         this.weaponTypes.set(names(result.weaponTypes));
         this.rarities.set(names(result.rarities).sort().reverse());
         this.stats.set(names(result.stats));
@@ -114,7 +114,7 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       field,
       picked: weapon.pending[field]!,
       name: weaponImageName(weapon.data.name, field),
-      apply: (path: string, name: string, fileId: number | null) => {
+      apply: (path: string, name: string, fileId: number | null): void => {
         const data = weapon.data as unknown as Record<string, unknown>;
         data[field] = path;
         data[`${field}_name`] = name;

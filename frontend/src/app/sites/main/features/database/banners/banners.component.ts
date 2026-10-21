@@ -117,10 +117,9 @@ export class DatabaseBannersComponent {
 
         const localBanners: IBannerFull[] = [];
         banners.forEach((banner, index) => {
-          const { characters, weapons, ...copy } = banner;
-          localBanners.push(copy as IBannerFull);
+          // The banner with its own lists of ids emptied, to be filled with the full rows they name.
+          localBanners.push({ ...banner, characters: [], weapons: [] } as IBannerFull);
 
-          localBanners[index].characters = [];
           banner.characters.forEach((character) => {
             const characterById = charactersById.get(character.character_id ?? -1);
             if (characterById) {
@@ -128,14 +127,12 @@ export class DatabaseBannersComponent {
             }
           });
 
-          localBanners[index].weapons = [];
           banner.weapons.forEach((weapon) => {
             const weaponById = weaponsById.get(weapon.weapon_id ?? -1);
             if (weaponById) {
               localBanners[index].weapons.push(weaponById);
             }
           });
-          banner;
         });
 
         this.banners.set(localBanners);

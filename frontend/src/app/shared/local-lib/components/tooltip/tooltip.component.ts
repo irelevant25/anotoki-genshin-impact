@@ -4,6 +4,16 @@ import { AbstractRolesComponent } from '../../abstract-roles.class';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
+/**
+ * Order to fall back through when the asked-for side does not fit. The one
+ * the caller asked for is tried first, wherever it appears in here.
+ */
+const FALLBACK_ORDER: TooltipPosition[] = ['top', 'left', 'right', 'bottom'];
+
+/** Gap between the target and the tooltip, and the margin kept off the viewport edge. */
+const GAP = 8;
+const VIEWPORT_PADDING = 8;
+
 @Component({
   selector: 'app-tooltip',
   imports: [CommonModule],
@@ -46,16 +56,6 @@ export class TooltipComponent extends AbstractRolesComponent {
   }
 
   /**
-   * Order to fall back through when the asked-for side does not fit. The one
-   * the caller asked for is tried first, wherever it appears in here.
-   */
-  private static readonly FALLBACK_ORDER: TooltipPosition[] = ['top', 'left', 'right', 'bottom'];
-
-  /** Gap between the target and the tooltip, and the margin kept off the viewport edge. */
-  private static readonly GAP = 8;
-  private static readonly VIEWPORT_PADDING = 8;
-
-  /**
    * The side actually used, which may not be the one that was asked for. The
    * arrow follows this rather than `tooltipPosition`, so it keeps pointing at
    * the target after a flip.
@@ -75,7 +75,7 @@ export class TooltipComponent extends AbstractRolesComponent {
     const tooltipRect = tooltipElement.getBoundingClientRect();
 
     const preferred = this.tooltipPosition();
-    const order = [preferred, ...TooltipComponent.FALLBACK_ORDER.filter((position) => position !== preferred)];
+    const order = [preferred, ...FALLBACK_ORDER.filter((position) => position !== preferred)];
 
     // First side that has room. If none does - a target in a corner of a small
     // window - the asked-for side is used and clamped, which is the old behaviour.
@@ -83,7 +83,7 @@ export class TooltipComponent extends AbstractRolesComponent {
     const coordinates = this.coordinatesFor(position, targetRect, tooltipRect);
 
     // Only the cross axis can still overflow; the main axis was just checked.
-    const padding = TooltipComponent.VIEWPORT_PADDING;
+    const padding = VIEWPORT_PADDING;
     const left = Math.max(padding, Math.min(coordinates.left, window.innerWidth - tooltipRect.width - padding));
     const top = Math.max(padding, Math.min(coordinates.top, window.innerHeight - tooltipRect.height - padding));
 
@@ -107,7 +107,7 @@ export class TooltipComponent extends AbstractRolesComponent {
 
   /** Whether the side has room on the axis it pushes the tooltip along. */
   private fits(position: TooltipPosition, targetRect: DOMRect, tooltipRect: DOMRect): boolean {
-    const padding = TooltipComponent.VIEWPORT_PADDING;
+    const padding = VIEWPORT_PADDING;
     const { top, left } = this.coordinatesFor(position, targetRect, tooltipRect);
 
     switch (position) {
@@ -123,7 +123,7 @@ export class TooltipComponent extends AbstractRolesComponent {
   }
 
   private coordinatesFor(position: TooltipPosition, targetRect: DOMRect, tooltipRect: DOMRect): { top: number; left: number } {
-    const gap = TooltipComponent.GAP;
+    const gap = GAP;
 
     switch (position) {
       case 'top':

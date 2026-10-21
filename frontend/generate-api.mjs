@@ -235,10 +235,13 @@ for (const [group, blocks] of modelFiles) {
 
   // A shape can name a type belonging to another service - a FeedbackPage holds
   // Feedback rows - so each file imports whatever it does not declare itself.
-  const declared = new Set([...text.matchAll(/^export (?:interface|type) (\w+)/gm)].map((hit) => hit[1]));
+  // Names in the code alone: a comment naming a type ("A body `CharacterAscension`
+  // accepts") imports nothing.
+  const code = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const declared = new Set([...code.matchAll(/^export (?:interface|type) (\w+)/gm)].map((hit) => hit[1]));
   const byFile = new Map();
 
-  for (const name of new Set([...text.matchAll(/\b([A-Z]\w+)\b/g)].map((hit) => hit[1]))) {
+  for (const name of new Set([...code.matchAll(/\b([A-Z]\w+)\b/g)].map((hit) => hit[1]))) {
     const from = exportedTypes.get(name);
     if (!from || from === group || declared.has(name)) continue;
     if (!byFile.has(from)) byFile.set(from, []);

@@ -22,8 +22,6 @@ export default {
           const text = sourceCode.getText();
 
           const configComponentRegex = /<([\w-]+-config)\s+([^>]+)>/g;
-          console.log(sourceCode);
-          console.log(text);
 
           let match;
           while ((match = configComponentRegex.exec(text)) !== null) {

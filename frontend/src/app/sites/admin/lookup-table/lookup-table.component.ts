@@ -64,7 +64,7 @@ export class LookupTableComponent implements OnInit {
       'enemy-families': () => this._lookupApi.getEnemyFamilies(),
       'enemy-groups': () => this._lookupApi.getEnemyGroups(),
     };
-    return map[key] ?? (() => this._lookupApi.getElements());
+    return map[key] ?? ((): Observable<any[]> => this._lookupApi.getElements());
   }
 
   get _createFn(): ((name: string) => Observable<any>) | null {
@@ -127,7 +127,9 @@ export class LookupTableComponent implements OnInit {
 
   add(): void {
     const name = this.newName().trim();
-    if (!name || !this._createFn) return;
+    if (!name || !this._createFn) {
+      return;
+    }
     this.saving.set(true);
     this._createFn(name).subscribe({
       next: () => {
@@ -151,7 +153,9 @@ export class LookupTableComponent implements OnInit {
   }
 
   delete(pk: string): void {
-    if (!this._deleteFn) return;
+    if (!this._deleteFn) {
+      return;
+    }
     this._deleteFn(pk).subscribe({
       next: () => {
         this.load();
@@ -169,7 +173,9 @@ export class LookupTableComponent implements OnInit {
 
   getColumns(): string[] {
     const items = this.items();
-    if (!items.length) return [];
+    if (!items.length) {
+      return [];
+    }
     return Object.keys(items[0]).filter((k) => !['created_at', 'updated_at', 'created_by', 'updated_by'].includes(k));
   }
 }

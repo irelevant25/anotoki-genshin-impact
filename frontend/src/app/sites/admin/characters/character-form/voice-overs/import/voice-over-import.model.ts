@@ -131,6 +131,24 @@ export function isAudioFile(fileName: string): boolean {
 
 // ── Matching ──────────────────────────────────────────────────────────────────
 
+/** Voice overs of the file's type whose title in that language is the file name, in `order`. */
+function findCandidates(audio: AudioFileEntry, voiceOvers: VoiceOverWrapper[], language: VoiceOverLanguage): VoiceOverWrapper[] {
+  const wanted = normalizeTitle(audio.title);
+  const wantedWithVariant = audio.variant !== undefined ? normalizeTitle(`${audio.title} ${String(audio.variant).padStart(2, '0')}`) : undefined;
+
+  const candidates = voiceOvers.filter((wrapper) => {
+    if (wrapper.data.type !== audio.type) {
+      return false;
+    }
+    return TITLE_FIELDS[language].some((field) => {
+      const title = normalizeTitle(wrapper.data[field] as string | undefined);
+      return title.length > 0 && (title === wanted || title === wantedWithVariant);
+    });
+  });
+
+  return candidates.sort((a, b) => a.data.order - b.data.order);
+}
+
 /**
  * Places every audio file on the voice over whose title it carries.
  *
@@ -198,24 +216,6 @@ export function matchAudioToVoiceOvers(audioFiles: AudioFileEntry[], voiceOvers:
   };
 }
 
-/** Voice overs of the file's type whose title in that language is the file name, in `order`. */
-function findCandidates(audio: AudioFileEntry, voiceOvers: VoiceOverWrapper[], language: VoiceOverLanguage): VoiceOverWrapper[] {
-  const wanted = normalizeTitle(audio.title);
-  const wantedWithVariant = audio.variant !== undefined ? normalizeTitle(`${audio.title} ${String(audio.variant).padStart(2, '0')}`) : undefined;
-
-  const candidates = voiceOvers.filter((wrapper) => {
-    if (wrapper.data.type !== audio.type) {
-      return false;
-    }
-    return TITLE_FIELDS[language].some((field) => {
-      const title = normalizeTitle(wrapper.data[field] as string | undefined);
-      return title.length > 0 && (title === wanted || title === wantedWithVariant);
-    });
-  });
-
-  return candidates.sort((a, b) => a.data.order - b.data.order);
-}
-
 /** Writes a match onto its voice over. Used for both automatic and manual assignment. */
 export function applyMatch(match: AudioMatch): void {
   if (!match.target || !match.audio.language) {
@@ -243,7 +243,7 @@ export function parseVoiceOverJson(raw: string, knownTypes: readonly string[]): 
   const source = JSON.parse(raw);
   const items: Record<string, unknown>[] = [];
 
-  const push = (entry: unknown, fallbackType?: string) => {
+  const push = (entry: unknown, fallbackType?: string): void => {
     if (!entry || typeof entry !== 'object') {
       return;
     }
