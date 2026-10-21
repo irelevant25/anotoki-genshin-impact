@@ -5,17 +5,19 @@ import { LoaderComponent } from '../../../../../../shared/local-lib/components/l
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, versionLabel } from '../../shared/database-helpers';
-import { MaterialApiService, WeaponApiService } from '../../../../../../api';
+import { WeaponApiService } from '../../../../../../api';
+import { AppDatePipe } from '../../../../../../shared/local-lib/pipes/date.pipe';
+import { GameListsService } from '../../../../game-lists.service';
 
 @Component({
   selector: 'app-database-weapon-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
-  imports: [RouterModule, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [RouterModule, LoaderComponent, TranslatePipe, MaterialIconDirective, AppDatePipe],
 })
 export class DatabaseWeaponDetailComponent {
   private readonly _weaponApi = inject(WeaponApiService);
-  private readonly _materialApi = inject(MaterialApiService);
+  private readonly _lists = inject(GameListsService);
   private readonly _route = inject(ActivatedRoute);
 
   weapon = signal<any | null>(null);
@@ -43,10 +45,11 @@ export class DatabaseWeaponDetailComponent {
             return of(null);
           }
           // The costs name a material by id only, so the material list comes
-          // along to give each one a name and an icon.
+          // along to give each one a name and an icon - asked once a page life
+          // (GameListsService), so the next weapon has it already.
           return forkJoin({
             full: this._weaponApi.getWeaponFull(Number(id)),
-            materials: this._materialApi.getMaterials(),
+            materials: this._lists.materials(),
           });
         }),
       )

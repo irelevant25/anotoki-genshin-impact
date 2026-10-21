@@ -5903,7 +5903,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 245
+                "line": 276
             },
             "expanded": [
                 "created_by"
@@ -6084,7 +6084,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 517
+                "line": 540
             },
             "expanded": [
                 "created_by",
@@ -6127,7 +6127,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/characters_full.php",
-                "line": 441
+                "line": 472
             },
             "expanded": [
                 "created_by",
@@ -17726,44 +17726,6 @@
             ]
         },
         {
-            "name": "CharacterDish",
-            "file": "content.php",
-            "merges": null,
-            "description": "A character's special dish as the character page shows it: its picture is filed under its name (`foods`).",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "rarity",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
             "name": "CharacterFull",
             "file": "content.php",
             "merges": null,
@@ -17776,18 +17738,8 @@
                     ],
                     "nullable": false,
                     "optional": false,
-                    "of": "Character",
+                    "of": "CharacterWithDish",
                     "description": null
-                },
-                {
-                    "name": "dish",
-                    "types": [
-                        "object"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": "CharacterDish",
-                    "description": "The character's special dish - the food `character.special_dish` names, while it is not deleted - or null\nfor none: what the character page shows."
                 },
                 {
                     "name": "voice_overs",
@@ -17916,6 +17868,44 @@
                     "optional": false,
                     "of": "characters_voice_overs[]",
                     "description": null
+                }
+            ]
+        },
+        {
+            "name": "CharacterWithDish",
+            "file": "content.php",
+            "merges": "Character",
+            "description": "The character as its page reads it: the row, and beside `special_dish` - the food's id, the admin form's to set - the\ndish as the page shows it, by its name and its picture: the food's own normal icon, a path and the file's name, the\nway every picture of the character's comes. All three null for no dish or a deleted one; the picture's two for a dish\nwith no normal icon.",
+            "fields": [
+                {
+                    "name": "special_dish_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The special dish's name, e.g. \"Ghostly March\"."
+                },
+                {
+                    "name": "special_dish_icon",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Its picture, the food's normal icon: a path as every picture comes, e.g. \"../assets/foods/GHOSTLY_MARCH - normal.avif\"."
+                },
+                {
+                    "name": "special_dish_icon_name",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "That file's name, without its folder or extension, e.g. \"GHOSTLY_MARCH - normal\"."
                 }
             ]
         },

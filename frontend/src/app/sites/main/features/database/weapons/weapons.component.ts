@@ -7,7 +7,7 @@ import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
-import { WeaponApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 @Component({
   selector: 'app-database-weapons',
@@ -16,7 +16,7 @@ import { WeaponApiService } from '../../../../../api';
   imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseWeaponsComponent {
-  private readonly _weaponApi = inject(WeaponApiService);
+  private readonly _lists = inject(GameListsService);
 
   weapons = signal<any[]>([]);
   loading = signal(true);
@@ -64,9 +64,10 @@ export class DatabaseWeaponsComponent {
       name: [this.filterName, asText],
     });
 
-    this._weaponApi.getWeapons().subscribe({
+    this._lists.weapons().subscribe({
       next: (weapons) => {
-        this.weapons.set(weapons.sort((a, b) => String(a.name).localeCompare(String(b.name))));
+        // A copy: the list is shared with every page that asked for it (GameListsService).
+        this.weapons.set([...weapons].sort((a, b) => String(a.name).localeCompare(String(b.name))));
         this.loading.set(false);
       },
       error: () => this.loading.set(false),

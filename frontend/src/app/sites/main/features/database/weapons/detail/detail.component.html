@@ -22,7 +22,7 @@
                             </div>
                             <div>
                                 <span class="d-flex fw-700">{{ "database.detail.releaseDate" | translate }}:</span>
-                                <span class="d-flex text-start">{{ weapon.release_date ?? "-" }}</span>
+                                <span class="d-flex text-start">{{ (weapon.release_date | appDate) || "-" }}</span>
                             </div>
                             <div>
                                 <span class="d-flex fw-700">{{ "database.detail.secondaryStat" | translate }}:</span>

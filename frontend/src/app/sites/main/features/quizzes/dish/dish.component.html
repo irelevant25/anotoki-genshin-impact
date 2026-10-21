@@ -18,9 +18,9 @@
             (chooseDifficulty)="chooseDifficulty($event)">
             @if (questionEntity()?.dish; as dish) {
                 <div class="dish">
-                    <!-- The food art is filed under the dish's own name, not the
-                         upper-cased icon name the character tables use. -->
-                    <img class="quiz-question-image" [class]="effectClasses()" [appMaterialIcon]="dish.name" [appAssetFolder]="'foods'" alt="" loading="eager" />
+                    <!-- The dish's own picture: its normal icon, the path the foods list
+                         answers (icon_normal) - never a file named after the dish. -->
+                    <img class="quiz-question-image" [class]="effectClasses()" [appMaterialIcon]="dish.icon_normal" alt="" loading="eager" />
 
                     @if (isQuestionComplete()) {
                         <p class="dish-name">{{ dish.name }}</p>

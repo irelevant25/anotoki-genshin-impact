@@ -6,7 +6,9 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { asList, birthdayLabel, versionLabel } from '../../shared/database-helpers';
-import { CharacterApiService, CharacterDish, MaterialApiService } from '../../../../../../api';
+import { CharacterApiService } from '../../../../../../api';
+import { AppDatePipe } from '../../../../../../shared/local-lib/pipes/date.pipe';
+import { GameListsService } from '../../../../game-lists.service';
 import { CharacterAscensionsTabComponent } from './tabs/ascensions/ascensions-tab.component';
 import { CharacterTalentsTabComponent } from './tabs/talents/talents-tab.component';
 import { CharacterConstellationsTabComponent } from './tabs/constellations/constellations-tab.component';
@@ -23,6 +25,7 @@ type CharacterTab = 'ascensions' | 'talents' | 'constellations' | 'build' | 'voi
     LoaderComponent,
     TabsComponent,
     TranslatePipe,
+    AppDatePipe,
     MaterialIconDirective,
     CharacterAscensionsTabComponent,
     CharacterTalentsTabComponent,
@@ -33,13 +36,11 @@ type CharacterTab = 'ascensions' | 'talents' | 'constellations' | 'build' | 'voi
 })
 export class DatabaseCharacterDetailComponent {
   private readonly _characterApi = inject(CharacterApiService);
-  private readonly _materialApi = inject(MaterialApiService);
+  private readonly _lists = inject(GameListsService);
   private readonly _route = inject(ActivatedRoute);
   private readonly _i18n = inject(TranslationService);
 
   character = signal<any | null>(null);
-  /** The special dish, as the API hands it beside the character - `character.special_dish` is only its id. */
-  dish = signal<CharacterDish | null>(null);
   talents = signal<any[]>([]);
   constellations = signal<any[]>([]);
   ascensions = signal<any[]>([]);
@@ -90,10 +91,12 @@ export class DatabaseCharacterDetailComponent {
           if (!id) {
             return of(null);
           }
-          // Costs name a material by id only, so the material list comes along.
+          // Costs name a material by id only, so the material list comes along -
+          // asked once a page life (GameListsService), so the next character,
+          // and the Materials page, have it already.
           return forkJoin({
             full: this._characterApi.getCharacterFull(Number(id)),
-            materials: this._materialApi.getMaterials(),
+            materials: this._lists.materials(),
           });
         }),
       )
@@ -108,7 +111,6 @@ export class DatabaseCharacterDetailComponent {
 
           const full = result.full;
           this.character.set(full.character ?? null);
-          this.dish.set(full.dish ?? null);
           this.talents.set([...(full.talents ?? [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
           this.constellations.set([...(full.constellations ?? [])].sort((a, b) => (a.level ?? 0) - (b.level ?? 0)));
           this.roles.set(full.roles ?? []);
@@ -137,7 +139,6 @@ export class DatabaseCharacterDetailComponent {
         },
         error: () => {
           this.character.set(null);
-          this.dish.set(null);
           this.loading.set(false);
         },
       });

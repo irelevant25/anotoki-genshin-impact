@@ -138,7 +138,7 @@ to what they must take and refuse, drives the routes - who may, a save and a
 reset with their audit entries, the public read and its fallbacks, the gates -
 and proves `users/061`'s table, its rewording only where the words are still
 `users/058`'s, and its gate; `character-full` the character page's answer - its
-special dish as itself, none when deleted or absent; the anotoki library's 0.5.0 modules: `library-tools-migration`
+special dish by name and picture (the food's own normal icon) beside its id, none when deleted or absent; the anotoki library's 0.5.0 modules: `library-tools-migration`
 moves a database shaped like an installed one, with rows in every table that
 moves, through `users/052`, `054` and `genshin_impact/028`-`029` and proves every
 row came through under its id (and no address left); `library-tools-routes`

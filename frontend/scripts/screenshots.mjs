@@ -209,9 +209,11 @@ const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (pag
 
 /**
  * The character page's facts that name another thing or a day (sites/main/features/database/characters/detail): the
- * special dish as the dish itself - its picture, filed under its name in `foods`, and its name, never its id - and the
- * birthday as a day and a month in the page's language, never the stored date, whose year means nothing. Hu Tao's, as
- * the throwaway site seeds them: Ghostly March, the 15th of July. Anything else is said.
+ * special dish as the dish itself - its picture, the food's own normal icon (`special_dish_icon`), never a file named
+ * after the dish, and its name, never its id - and the birthday as a day and a month in the page's language, never the
+ * stored date, whose year means nothing. Hu Tao's, as the throwaway site seeds them: Ghostly March and its icon
+ * "GHOSTLY_MARCH - normal" (catalogued, the file not there: the picture hides itself and keeps its address), the 15th
+ * of July. Anything else is said.
  */
 const characterFacts = async (page) => {
   if (!(await waitFor(page, "!!document.querySelector('app-database-character-detail .character-info')", 15000))) {
@@ -229,9 +231,9 @@ const characterFacts = async (page) => {
     };
   })()`);
   // English as the page's locale orders it: "15 July" where it is British, "July 15" where it is not.
-  const wanted = { dish: 'Ghostly March', birthday: { en: ['15 July', 'July 15'], sk: ['15. júla'] }[facts.lang] ?? [] };
-  if (facts.dish !== wanted.dish || !/foods\/.*Ghostly[ _]March/i.test(facts.picture) || !wanted.birthday.includes(facts.birthday)) {
-    heard.push(`the character page's facts: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)} with the dish's picture from foods`);
+  const wanted = { dish: 'Ghostly March', picture: 'assets/foods/GHOSTLY_MARCH - normal.avif', birthday: { en: ['15 July', 'July 15'], sk: ['15. júla'] }[facts.lang] ?? [] };
+  if (facts.dish !== wanted.dish || facts.picture !== wanted.picture || !wanted.birthday.includes(facts.birthday)) {
+    heard.push(`the character page's facts: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)}`);
   }
   return true;
 };

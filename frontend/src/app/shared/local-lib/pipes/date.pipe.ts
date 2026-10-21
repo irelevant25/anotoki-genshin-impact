@@ -5,6 +5,27 @@ import { DateFormatService, formatWith } from '../i18n/date-format.service';
 export type AppDateFormat = 'date' | 'datetime' | 'datetimeWithSeconds' | 'time';
 
 /**
+ * A date and nothing more - "2024-01-01": a DATE column such as a release date,
+ * a day of the changelog - names a day on the calendar, not a moment.
+ * `new Date()` reads it as midnight in UTC, which is the day before for a
+ * reader anywhere west of Greenwich, so it is read as that day where the
+ * reader is.
+ */
+const CALENDAR_DAY = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+function asDate(value: string | number): Date {
+  const day = typeof value === 'string' ? CALENDAR_DAY.exec(value) : null;
+  if (!day) {
+    return new Date(value);
+  }
+  // Midnight where the reader is, set through setFullYear(): the constructor
+  // would take a year below 100 for one in the 1900s.
+  const date = new Date(2000, 0, 1);
+  date.setFullYear(Number(day[1]), Number(day[2]) - 1, Number(day[3]));
+  return date;
+}
+
+/**
  * A date, written the way whoever is reading writes dates.
  *
  * This was SlovakDatePipe, with `d.M.yyyy` and a 24-hour clock baked in. That
@@ -32,7 +53,7 @@ export class AppDatePipe implements PipeTransform {
       return '';
     }
 
-    const date = value instanceof Date ? value : new Date(value);
+    const date = value instanceof Date ? value : asDate(value);
 
     if (isNaN(date.getTime())) {
       console.warn(`AppDatePipe: invalid date "${String(value)}"`);

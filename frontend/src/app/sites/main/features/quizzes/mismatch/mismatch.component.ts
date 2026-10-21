@@ -13,7 +13,7 @@ import { DAILY_DIFFICULTY } from '../shared/quiz-levels';
 import { QuizLevelsService } from '../shared/quiz-levels.service';
 import { QuizProgressService, hasPlay } from '../shared/quiz-progress.service';
 import { QuizId, QuizState } from '../shared/quiz.types';
-import { CharacterApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 /** The three things a set can have in common. */
 const PROPERTIES = ['element', 'weapon_type', 'region'] as const;
@@ -45,7 +45,7 @@ interface QuizSet {
   imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent],
 })
 export class QuizzesMismatchComponent {
-  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _lists = inject(GameListsService);
   private readonly _stateService = inject(StateService);
   private readonly _progress = inject(QuizProgressService);
   private readonly _levels = inject(QuizLevelsService);
@@ -103,7 +103,7 @@ export class QuizzesMismatchComponent {
     this.loading.set(true);
 
     // The levels in force beside them, as every quiz asks (CharacterQuizComponent.fetchAndRestore()).
-    forkJoin({ characters: known.length ? of(known) : this._characterApi.getCharactersMinimal(), progress: this._progress.ready(), levels: this._levels.ready() }).subscribe({
+    forkJoin({ characters: known.length ? of(known) : this._lists.charactersMinimal(), progress: this._progress.ready(), levels: this._levels.ready() }).subscribe({
       next: ({ characters }) => {
         if (run !== this._loads) {
           return;

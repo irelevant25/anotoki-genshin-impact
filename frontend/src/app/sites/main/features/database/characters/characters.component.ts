@@ -7,7 +7,7 @@ import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
-import { CharacterApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 @Component({
   selector: 'app-database-characters',
@@ -16,7 +16,7 @@ import { CharacterApiService } from '../../../../../api';
   imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseCharactersComponent {
-  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _lists = inject(GameListsService);
 
   characters = signal<any[]>([]);
   loading = signal(true);
@@ -97,7 +97,7 @@ export class DatabaseCharactersComponent {
       name: [this.filterName, asText],
     });
 
-    this._characterApi.getCharacters().subscribe({
+    this._lists.characters().subscribe({
       next: (characters) => {
         this.characters.set(characters);
         this.loading.set(false);

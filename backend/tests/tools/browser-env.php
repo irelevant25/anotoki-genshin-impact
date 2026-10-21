@@ -183,6 +183,12 @@ function seedContent(PDO $pdo): void
 {
     $by = ['created_by' => 1];
 
+    // Every dish has its normal icon, as the live data has one: a row of the catalogue named the way the admin form
+    // names it ("GHOSTLY_MARCH - normal"), the file itself not there, like every picture here. The character page and
+    // the dish quiz show a dish by that icon, never by a file named after the dish, and the quiz asks only about a
+    // dish that has one.
+    $foodPictures = (int) $pdo->query("SELECT id FROM file_categories WHERE code = 'foods'")->fetchColumn();
+
     $foods = [];
     foreach (
         [
@@ -195,6 +201,7 @@ function seedContent(PDO $pdo): void
         ]
         as [$name, $region, $rarity, $type]
     ) {
+        $icon = trim(strtoupper((string) preg_replace('/\s/', '_', (string) preg_replace('/[^A-Za-z0-9\s]/', '', $name))), '_') . ' - normal';
         $foods[$name] = seed(
             $pdo,
             'foods',
@@ -205,6 +212,7 @@ function seedContent(PDO $pdo): void
                 'type' => typeOr($pdo, 'food_types', $type),
                 'description_normal' => 'A dish that restores the spirits of whoever eats it.',
                 'version' => '1.0',
+                'icon_normal_file_id' => seed($pdo, 'files', ['category_id' => $foodPictures, 'name' => $icon, 'extension' => 'avif']),
             ],
         );
     }

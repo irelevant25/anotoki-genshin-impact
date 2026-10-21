@@ -112,6 +112,37 @@ function _parseBody(Request $request): array
     return is_array($parsed) ? $parsed : [];
 }
 
+/**
+ * A character's special dish as the character page shows it, to go beside
+ * `special_dish` (the food's id, which the admin form sets): its name, and its
+ * picture - the food's own normal icon, as a path and the file's name, the way
+ * resolveAssetRows() answers every picture of the character's. Never a file
+ * named after the dish: the foods folder files each picture by quality
+ * ("GHOSTLY_MARCH - normal"). All three are null for no dish or a deleted one,
+ * and the picture's two for a dish with no normal icon.
+ *
+ * @return array{special_dish_name: ?string, special_dish_icon: ?string, special_dish_icon_name: ?string}
+ */
+function _characterSpecialDish(PDO $pdo, mixed $foodId): array
+{
+    $dish = ['special_dish_name' => null, 'special_dish_icon' => null, 'special_dish_icon_name' => null];
+    if ($foodId === null) {
+        return $dish;
+    }
+
+    $statement = $pdo->prepare('SELECT name, icon_normal_file_id FROM foods WHERE id = ? AND deleted = FALSE');
+    $statement->execute([$foodId]);
+    $food = $statement->fetch(PDO::FETCH_ASSOC);
+    if ($food === false) {
+        return $dish;
+    }
+
+    $rows = [$food];
+    resolveAssetRows($pdo, 'foods', $rows);
+
+    return ['special_dish_name' => (string) $rows[0]['name'], 'special_dish_icon' => $rows[0]['icon_normal'], 'special_dish_icon_name' => $rows[0]['icon_normal_name']];
+}
+
 /** A fresh, empty voice-over set. The wrapper is just an id. */
 function _newVoiceOverSet(PDO $pdo): int
 {
@@ -491,20 +522,12 @@ $app->get('/api/characters/{id:[0-9]+}/full', function (Request $request, Respon
     $roles = array_column($rolesStmt->fetchAll(), 'role_name');
 
     // The special dish is only a food's id on the character (special_dish, as
-    // the admin form sets it), and the character page shows the dish itself -
-    // its name, and its picture, which is filed under that name. So it comes
-    // along: a live dish, or none.
-    $dish = null;
-    if (($character['special_dish'] ?? null) !== null) {
-        $dishStmt = $pdo->prepare('SELECT id, name, rarity FROM foods WHERE id = ? AND deleted = FALSE');
-        $dishStmt->execute([$character['special_dish']]);
-        $row = $dishStmt->fetch(PDO::FETCH_ASSOC);
-        $dish = $row === false ? null : ['id' => (int) $row['id'], 'name' => (string) $row['name'], 'rarity' => $row['rarity'] === null ? null : (int) $row['rarity']];
-    }
+    // the admin form sets it), and the character page shows the dish itself,
+    // so its name and picture come beside the id.
+    $character = [...$character, ..._characterSpecialDish($pdo, $character['special_dish'] ?? null)];
 
     return respondJson($response, [
         'character' => $character,
-        'dish' => $dish,
         'voice_overs' => $voice_overs,
         'constellations' => $constellations,
         'relationships' => $relationships,

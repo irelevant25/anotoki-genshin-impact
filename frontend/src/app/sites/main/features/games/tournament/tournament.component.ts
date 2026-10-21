@@ -5,7 +5,7 @@ import { LoaderComponent } from '../../../../../shared/local-lib/components/load
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { shuffle, Tournament, TOURNAMENT_SIZES, TournamentFormat } from './tournament.class';
-import { CharacterApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 /** How long a chosen face stays lit before the next pair comes up. */
 const PICK_PAUSE_MS = 450;
@@ -26,7 +26,7 @@ const PICK_PAUSE_MS = 450;
   imports: [ButtonComponent, SelectComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class GamesTournamentComponent {
-  private readonly _characterApi = inject(CharacterApiService);
+  private readonly _lists = inject(GameListsService);
   private readonly _i18n = inject(TranslationService);
 
   readonly loading = signal(true);
@@ -101,7 +101,7 @@ export class GamesTournamentComponent {
   readonly champion = computed(() => (this.placings().length === 1 ? this.placings()[0].entrant : null));
 
   constructor() {
-    this._characterApi.getCharactersMinimal().subscribe({
+    this._lists.charactersMinimal().subscribe({
       next: (characters) => {
         // Travellers are left out for the same reason as everywhere else: one
         // character across twelve rows would meet themselves in the bracket.

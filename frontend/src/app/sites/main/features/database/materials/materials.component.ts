@@ -7,7 +7,7 @@ import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
 import { asNumber, asText, bindFiltersToUrl } from '../shared/filter-url';
-import { MaterialApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 @Component({
   selector: 'app-database-materials',
@@ -16,7 +16,7 @@ import { MaterialApiService } from '../../../../../api';
   imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
 })
 export class DatabaseMaterialsComponent {
-  private readonly _materialApi = inject(MaterialApiService);
+  private readonly _lists = inject(GameListsService);
 
   materials = signal<any[]>([]);
   loading = signal(true);
@@ -73,9 +73,10 @@ export class DatabaseMaterialsComponent {
       name: [this.filterName, asText],
     });
 
-    this._materialApi.getMaterials().subscribe({
+    this._lists.materials().subscribe({
       next: (materials) => {
-        this.materials.set(materials.sort((a, b) => String(a.name).localeCompare(String(b.name))));
+        // A copy: the list is shared with every page that asked for it (GameListsService).
+        this.materials.set([...materials].sort((a, b) => String(a.name).localeCompare(String(b.name))));
         this.loading.set(false);
       },
       error: () => this.loading.set(false),

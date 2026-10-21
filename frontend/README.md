@@ -23,7 +23,11 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         (legal-facts.ts), anybody's, each loaded when opened; the quizzes' levels
                         (features/quizzes/shared: quiz-levels.ts the built-in ones and the
                         dialog's words, quiz-levels.service.ts the ones in force - asked once a
-                        page load, the built-in ones while asking and whenever it fails)
+                        page load, the built-in ones while asking and whenever it fails);
+                        game-lists.service.ts the game's lists (characters, materials, weapons,
+                        banners, foods) - each asked once a page load and shared by every page that
+                        needs it, a failure not kept, all forgotten when the admin panel opens; the
+                        public site's alone: the admin panel asks every time
 src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words, settings;
                         /admin/translations and /admin/languages are the shared library's pages
                         (@anotoki/lib/translations/admin), localization/guides/ the guides' pages;

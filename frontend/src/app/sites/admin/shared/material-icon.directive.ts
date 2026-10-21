@@ -9,8 +9,16 @@ import { Directive, effect, ElementRef, inject, input } from '@angular/core';
  *
  * The browser cannot stat the folder, so the candidates are tried in order and
  * the next one is used whenever the current src fails to load.
+ *
+ * A path the API stores for a picture - `../assets/foods/PITA_POCKET - normal.avif`,
+ * a food's icon - is the file itself: the one candidate, with nothing guessed
+ * from a name and the folder not asked. A picture that has its own column is
+ * drawn from it, never from a file named after what it shows.
  */
 export const DEFAULT_ASSET_FOLDER = 'materials';
+
+/** A stored path, with or without the `../` the API puts in front of an image's. */
+const STORED_PATH = /^(?:\.\.\/)?(assets\/.+)$/;
 
 /** Apostrophes, quotes and hyphens are dropped; every other run becomes one underscore. */
 export function materialUpperSnake(name: string): string {
@@ -25,6 +33,10 @@ export function materialIconCandidates(name: string | number | undefined | null,
   const trimmed = String(name ?? '').trim();
   if (!trimmed) {
     return [];
+  }
+  const stored = STORED_PATH.exec(trimmed);
+  if (stored) {
+    return [stored[1]];
   }
   const root = `assets/${folder.split('.').join('/')}`;
   return [`${root}/${trimmed}.avif`, `${root}/${trimmed}.png`, `${root}/${materialUpperSnake(trimmed)}.png`];

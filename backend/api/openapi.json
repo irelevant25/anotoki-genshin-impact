@@ -34811,648 +34811,13 @@
         ],
         "additionalProperties": false
       },
-      "CharacterDish": {
-        "title": "CharacterDish",
-        "description": "A character's special dish as the character page shows it: its picture is filed under its name (`foods`).",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "rarity": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "rarity"
-        ],
-        "additionalProperties": false
-      },
       "CharacterFull": {
         "title": "CharacterFull",
         "description": "`GET /api/characters/{id}/full` The odd one out: characters predate registerFullResource(), so their costs come back flat rather than nested under the phase or level they belong to. The write side nests ascension costs and spells the talent costs `talent_costs`, which is why the form rebuilds the body rather than putting back what it was given.",
         "type": "object",
         "properties": {
           "character": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "icon": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "icon_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "version": {
-                "type": "string"
-              },
-              "element": {
-                "type": "string"
-              },
-              "weapon_type": {
-                "type": "string"
-              },
-              "rarity": {
-                "type": "number"
-              },
-              "model": {
-                "type": "string"
-              },
-              "namecard_description": {
-                "type": "string"
-              },
-              "voice_actor_english": {
-                "type": "string"
-              },
-              "voice_actor_japanese": {
-                "type": "string"
-              },
-              "voice_actor_korean": {
-                "type": "string"
-              },
-              "voice_actor_chinese": {
-                "type": "string"
-              },
-              "is_traveler": {
-                "anyOf": [
-                  {
-                    "type": "boolean",
-                    "const": false
-                  },
-                  {
-                    "type": "boolean",
-                    "const": true
-                  }
-                ]
-              },
-              "how_to_obtain": {
-                "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                ]
-              },
-              "affiliations": {
-                "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                ]
-              },
-              "namecard_icon": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_icon_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_background": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_background_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_banner": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_banner_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "card_icon": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "card_icon_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "wish_icon": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "wish_icon_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "ingame_icon": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "ingame_icon_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "card_icon_2": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "card_icon_2_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "ingame_icon_2": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "ingame_icon_2_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "title": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "secondary_title": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "region": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "birthday": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "special_dish": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "namecard_sources": {
-                "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                ]
-              },
-              "release_date": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "introduced": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "demo_music_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "demo_music": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "demo_video": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "constellation_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "constellation": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "namecard_name": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "arkhe": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "icon_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "game_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "voice_over_set_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "ascension_set_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "talent_set_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "constellation_set_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "namecard_icon_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "namecard_background_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "namecard_banner_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "card_icon_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "wish_icon_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "ingame_icon_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "card_icon_2_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "ingame_icon_2_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "demo_music_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "constellation_file_id": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "id": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "version",
-              "element",
-              "weapon_type",
-              "rarity",
-              "model",
-              "namecard_description",
-              "voice_actor_english",
-              "voice_actor_japanese",
-              "voice_actor_korean",
-              "voice_actor_chinese"
-            ],
-            "additionalProperties": false
-          },
-          "dish": {
-            "description": "The character's special dish - the food `character.special_dish` names, while it is not deleted - or null for none: what the character page shows.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/CharacterDish"
-              }
-            ]
+            "$ref": "#/components/schemas/CharacterWithDish"
           },
           "voice_overs": {
             "type": "array",
@@ -35940,7 +35305,6 @@
         },
         "required": [
           "character",
-          "dish",
           "voice_overs",
           "constellations",
           "ascensions",
@@ -39435,6 +38799,642 @@
           "updated_at",
           "created_by",
           "updated_by"
+        ],
+        "additionalProperties": false
+      },
+      "CharacterWithDish": {
+        "title": "CharacterWithDish",
+        "description": "The character as its page reads it: the row, and beside `special_dish` - the food's id, the admin form's to set - the dish as the page shows it, by its name and its picture: the food's own normal icon, a path and the file's name, the way every picture of the character's comes. All three null for no dish or a deleted one; the picture's two for a dish with no normal icon.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "version": {
+            "type": "string"
+          },
+          "element": {
+            "type": "string"
+          },
+          "weapon_type": {
+            "type": "string"
+          },
+          "rarity": {
+            "type": "number"
+          },
+          "model": {
+            "type": "string"
+          },
+          "namecard_description": {
+            "type": "string"
+          },
+          "voice_actor_english": {
+            "type": "string"
+          },
+          "voice_actor_japanese": {
+            "type": "string"
+          },
+          "voice_actor_korean": {
+            "type": "string"
+          },
+          "voice_actor_chinese": {
+            "type": "string"
+          },
+          "is_traveler": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "const": false
+              },
+              {
+                "type": "boolean",
+                "const": true
+              }
+            ]
+          },
+          "how_to_obtain": {
+            "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "affiliations": {
+            "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "namecard_icon": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_background": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_background_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_banner": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_banner_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "card_icon": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "card_icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "wish_icon": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "wish_icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "ingame_icon": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "ingame_icon_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "card_icon_2": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "card_icon_2_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "ingame_icon_2": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "ingame_icon_2_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "secondary_title": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "birthday": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "special_dish": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "namecard_sources": {
+            "description": "JSON: send the value; it reads back as a JSON string. See parseJsonColumn.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "release_date": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "introduced": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_music": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "demo_video": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "constellation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "namecard_name": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "arkhe": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "icon_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "voice_over_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "ascension_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "talent_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_set_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "namecard_icon_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "namecard_background_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "namecard_banner_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "card_icon_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "wish_icon_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "ingame_icon_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "card_icon_2_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "ingame_icon_2_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "demo_music_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "constellation_file_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "special_dish_name": {
+            "description": "The special dish's name, e.g. \"Ghostly March\".",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "special_dish_icon": {
+            "description": "Its picture, the food's normal icon: a path as every picture comes, e.g. \"../assets/foods/GHOSTLY_MARCH - normal.avif\".",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "special_dish_icon_name": {
+            "description": "That file's name, without its folder or extension, e.g. \"GHOSTLY_MARCH - normal\".",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "version",
+          "element",
+          "weapon_type",
+          "rarity",
+          "model",
+          "namecard_description",
+          "voice_actor_english",
+          "voice_actor_japanese",
+          "voice_actor_korean",
+          "voice_actor_chinese",
+          "special_dish_name",
+          "special_dish_icon",
+          "special_dish_icon_name"
         ],
         "additionalProperties": false
       },

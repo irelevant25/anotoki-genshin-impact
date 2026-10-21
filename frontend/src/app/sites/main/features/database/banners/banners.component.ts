@@ -9,8 +9,9 @@ import { LoaderComponent } from '../../../../../shared/local-lib/components/load
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm } from '../shared/database-helpers';
 import { asText, bindFiltersToUrl } from '../shared/filter-url';
-import { Banner, BannerApiService, Character, CharacterApiService, Expanded, Weapon, WeaponApiService } from '../../../../../api';
+import { Banner, Character, Expanded, Weapon } from '../../../../../api';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { GameListsService } from '../../../game-lists.service';
 
 type IBannerFull = Banner & {
   characters: Expanded<Character, 'created_by' | 'updated_by'>[];
@@ -88,9 +89,7 @@ export class DatabaseBannersComponent {
   });
 
   readonly optionsHelperService = inject(OptionsHelperService);
-  private readonly _bannerApi = inject(BannerApiService);
-  private readonly _characterApi = inject(CharacterApiService);
-  private readonly _weaponApi = inject(WeaponApiService);
+  private readonly _lists = inject(GameListsService);
 
   constructor() {
     // The filters go in the URL, so coming back from a detail page finds the
@@ -104,9 +103,9 @@ export class DatabaseBannersComponent {
     // The three lists do not depend on one another - only the merge below does -
     // so they go out together rather than one after the next.
     forkJoin({
-      characters: this._characterApi.getCharacters(),
-      weapons: this._weaponApi.getWeapons(),
-      banners: this._bannerApi.getBannersFull(),
+      characters: this._lists.characters(),
+      weapons: this._lists.weapons(),
+      banners: this._lists.banners(),
     }).subscribe({
       next: ({ characters, weapons, banners }) => {
         this.characters.set(characters);

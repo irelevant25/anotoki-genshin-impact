@@ -22,15 +22,8 @@
 class CharacterFull extends ResponseShape
 {
     public function __construct(
-        /** @var Character */
+        /** @var CharacterWithDish */
         public readonly object $character,
-        /**
-         * The character's special dish - the food `character.special_dish` names, while it is not deleted - or null
-         * for none: what the character page shows.
-         *
-         * @var CharacterDish
-         */
-        public readonly ?object $dish,
         /** @var CharacterVoiceOver[] */
         public readonly array $voice_overs,
         /** @var CharacterConstellation[] */
@@ -50,10 +43,24 @@ class CharacterFull extends ResponseShape
     ) {}
 }
 
-/** A character's special dish as the character page shows it: its picture is filed under its name (`foods`). */
-class CharacterDish extends ResponseShape
+/**
+ * The character as its page reads it: the row, and beside `special_dish` - the food's id, the admin form's to set - the
+ * dish as the page shows it, by its name and its picture: the food's own normal icon, a path and the file's name, the
+ * way every picture of the character's comes. All three null for no dish or a deleted one; the picture's two for a dish
+ * with no normal icon.
+ *
+ * @merges Character
+ */
+class CharacterWithDish extends ResponseShape
 {
-    public function __construct(public readonly int $id, public readonly string $name, public readonly ?int $rarity) {}
+    public function __construct(
+        /** The special dish's name, e.g. "Ghostly March". */
+        public readonly ?string $special_dish_name,
+        /** Its picture, the food's normal icon: a path as every picture comes, e.g. "../assets/foods/GHOSTLY_MARCH - normal.avif". */
+        public readonly ?string $special_dish_icon,
+        /** That file's name, without its folder or extension, e.g. "GHOSTLY_MARCH - normal". */
+        public readonly ?string $special_dish_icon_name,
+    ) {}
 }
 
 /**

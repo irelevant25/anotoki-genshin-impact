@@ -9,6 +9,7 @@ import { QuizLevelsService } from './quiz-levels.service';
 import { QuizProgressService, hasPlay } from './quiz-progress.service';
 import { QuizId, QuizState } from './quiz.types';
 import { CharacterApiService } from '../../../../../api';
+import { GameListsService } from '../../../game-lists.service';
 
 /**
  * Everything the five "which character is this?" quizzes do.
@@ -26,6 +27,7 @@ import { CharacterApiService } from '../../../../../api';
  */
 export abstract class CharacterQuizComponent {
   protected readonly characterApi = inject(CharacterApiService);
+  protected readonly lists = inject(GameListsService);
   protected readonly stateService = inject(StateService);
   protected readonly progress = inject(QuizProgressService);
   private readonly _levels = inject(QuizLevelsService);
@@ -119,13 +121,14 @@ export abstract class CharacterQuizComponent {
 
   /**
    * The pool every quiz works from: the character list, which is both what a
-   * question is drawn from and what the search box offers.
+   * question is drawn from and what the search box offers - asked once a page
+   * life and shared by every quiz (GameListsService).
    *
    * Overridable because the dish quiz needs each character's dish attached, and
    * that lives in another table.
    */
   protected fetchCharacters(): Observable<any[]> {
-    return this.characterApi.getCharactersMinimal();
+    return this.lists.charactersMinimal();
   }
 
   /**

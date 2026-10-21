@@ -1,11 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
 import { QuizId } from '../shared/quiz.types';
-import { FoodApiService } from '../../../../../api';
 
 /**
  * Guess the character from the dish only they can cook.
@@ -34,19 +33,20 @@ export class QuizzesDishComponent extends CharacterQuizComponent {
   }
 
   /**
-   * `characters.special_dish` is a food id, and the quiz needs the dish's name
-   * to find its picture. The two lists are independent, so they are fetched
-   * together and joined here rather than one after the other.
+   * `characters.special_dish` is a food id, and the quiz shows the dish's own
+   * picture: its normal icon, the path the foods list answers in `icon_normal` -
+   * never a file named after the dish. A dish without one, or a deleted one (the
+   * character page shows none), leaves its character out of the pool, as having
+   * no dish does. The two lists are independent, so they are fetched together
+   * and joined here rather than one after the other.
    */
-  private readonly _foodApi = inject(FoodApiService);
-
   protected override fetchCharacters(): Observable<any[]> {
     return forkJoin({
-      characters: this.characterApi.getCharactersMinimal(),
-      foods: this._foodApi.getFoods(),
+      characters: this.lists.charactersMinimal(),
+      foods: this.lists.foods(),
     }).pipe(
       map(({ characters, foods }) => {
-        const foodsById = new Map(foods.map((food) => [food.id, food]));
+        const foodsById = new Map(foods.filter((food) => !food.deleted && !!food.icon_normal).map((food) => [food.id, food]));
         // Most characters have no dish of their own, and `special_dish` is null
         // for them rather than absent.
         return characters.map((character) => ({
