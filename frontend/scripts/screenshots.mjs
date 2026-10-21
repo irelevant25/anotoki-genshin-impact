@@ -492,14 +492,18 @@ const MAIN = [
   { name: 'main-game-minesweeper', path: '/games/minesweeper' },
   { name: 'main-database', path: '/database' },
   { name: 'main-database-characters', path: '/database/characters', focus: 6 },
+  // The lists' filter card with a choice made and the sections regrouped (the owner's choice "E" of 2026-10-21).
+  { name: 'main-database-characters-filtered', path: '/database/characters?element=Pyro&group=version' },
   { name: 'main-database-character', path: '/database/characters/1' },
   // Its special dish and birthday as a reader reads them (characterFacts) - light in English, dark in Slovak.
   { name: 'main-database-character-facts', path: '/database/characters/1', pairings: true, then: characterFacts },
   { name: 'main-database-character-constellations', path: '/database/characters/1', then: click('[role=tab], .tab, app-tab, button', '^(Constellations?|Konštelácie)$') },
   { name: 'main-database-character-voice-overs', path: '/database/characters/1', then: steps(click('[role=tab]', '^Voice'), storedMarkupInert) },
   { name: 'main-database-weapons', path: '/database/weapons' },
+  { name: 'main-database-weapons-filtered', path: '/database/weapons?type=Sword&rarity=5' },
   { name: 'main-database-weapon', path: '/database/weapons/1' },
   { name: 'main-database-materials', path: '/database/materials' },
+  { name: 'main-database-materials-filtered', path: '/database/materials?category=Local%20Specialty&group=region' },
   { name: 'main-database-material', path: '/database/materials/1' },
   { name: 'main-database-banners', path: '/database/banners' },
   { name: 'main-profile', path: '/profile' },

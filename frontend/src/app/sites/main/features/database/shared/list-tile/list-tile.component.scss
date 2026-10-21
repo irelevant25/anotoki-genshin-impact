@@ -1,0 +1,144 @@
+@use "../detail-page" as *;
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.tile {
+  @include rarity-colour;
+  @include element-accent;
+
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: var(--spacing-sm);
+  align-items: center;
+  min-height: 118px;
+  padding: var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-small);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--anotoki-focus);
+    outline-offset: 2px;
+  }
+}
+
+// The namecard fills the tile and fades into the surface towards the right,
+// where the words are; a tile without one gets a corner of colour instead.
+.tile-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.tile--picture .tile-veil {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--bg-card) 35%, transparent) 0%, color-mix(in srgb, var(--bg-card) 86%, transparent) 42%, var(--bg-card) 100%);
+}
+
+.tile--element .tile-veil {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--element-fill, var(--color-primary)) 32%, var(--bg-card)) 0%, var(--bg-card) 70%);
+}
+
+.tile--rarity .tile-veil {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--rarity) 26%, var(--bg-card)) 0%, var(--bg-card) 62%);
+}
+
+.tile-art,
+.tile-body,
+.tile-version {
+  position: relative;
+  z-index: 2;
+}
+
+.tile-art {
+  @include rarity-ground;
+
+  width: 88px;
+  height: 88px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px var(--bg-card);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.tile-version {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--border-radius-pill);
+  background: var(--anotoki-surface-3);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tile-name {
+  // Clear of the version badge in the corner.
+  padding-right: 56px;
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.tile-subtitle {
+  margin-top: 2px;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tile-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px var(--spacing-sm);
+  margin-top: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: 650;
+}

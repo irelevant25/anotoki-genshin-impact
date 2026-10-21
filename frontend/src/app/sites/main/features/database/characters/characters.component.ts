@@ -1,24 +1,41 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
-import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
-import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { Character, Expanded } from '../../../../../api';
+import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityStars, rarityValues } from '../shared/database-helpers';
+import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
+import { ListTileComponent } from '../shared/list-tile/list-tile.component';
+import { ELEMENT_ORDER, GroupKey, groupRows, inGameOrder, WEAPON_TYPE_ORDER } from '../shared/list-groups';
 import { GameListsService } from '../../../game-lists.service';
 
+type CharacterRow = Expanded<Character, 'created_by' | 'updated_by'>;
+
+/** How this list can be grouped, the first the default. */
+const GROUPINGS: readonly GroupKey[] = ['region', 'version', 'none'];
+
+/**
+ * The characters list (the owner's choice "E" of 2026-10-21 among the
+ * mockups): the elements as a wide track with names and counts, the other
+ * facets under it, and the characters as tiles in sections by region - or
+ * by version, or in one grid - newest first within each.
+ */
 @Component({
   selector: 'app-database-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss'],
-  imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [ButtonComponent, SelectComponent, TextFieldComponent, IconComponent, SegmentedComponent, LoaderComponent, TranslatePipe, MaterialIconDirective, FacetTrackComponent, ListTileComponent],
 })
 export class DatabaseCharactersComponent {
   private readonly _lists = inject(GameListsService);
+  private readonly _i18n = inject(TranslationService);
 
-  characters = signal<any[]>([]);
+  characters = signal<CharacterRow[]>([]);
   loading = signal(true);
 
   // Toggles: clicking the one already on clears it, so null means "any".
@@ -30,15 +47,38 @@ export class DatabaseCharactersComponent {
   filterVersion = signal('');
   filterName = signal('');
 
-  elements = computed(() =>
-    distinctValues(this.characters(), 'element')
-      .filter((x) => x !== 'Adaptive')
-      .sort((a, b) => a.localeCompare(b)),
+  groupBy = signal<GroupKey>(GROUPINGS[0]);
+
+  rarityStars = rarityStars;
+
+  /** The elements in the game's order, each with its glyph, its count and its own colours; 'Adaptive' is the Traveler's placeholder, not an element. */
+  elementOptions = computed<FacetOption[]>(() => {
+    const rows = this.characters();
+    const elements = inGameOrder(distinctValues(rows, 'element'), ELEMENT_ORDER).filter((element) => element !== 'Adaptive');
+    return elements.map((element) => ({
+      value: element,
+      label: element,
+      picture: { name: element, folder: 'elements' },
+      count: rows.filter((character) => character.element === element).length,
+      ring: `var(--${element.toLowerCase()}-secondary-white)`,
+      ink: `var(--${element.toLowerCase()}-text)`,
+    }));
+  });
+
+  weaponOptions = computed<FacetOption[]>(() =>
+    inGameOrder(distinctValues(this.characters(), 'weapon_type'), WEAPON_TYPE_ORDER).map((type) => ({
+      value: type,
+      label: type,
+      picture: { name: type, folder: 'weapon_types' },
+    })),
   );
-  weaponTypes = computed(() => distinctValues(this.characters(), 'weapon_type').sort((a, b) => a.localeCompare(b)));
-  rarities = computed(() => rarityValues(this.characters()));
+
+  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.characters()).map((rarity) => ({ value: rarity, label: `${rarity}★`, words: true, star: rarityColour(rarity) })));
+
   regionOptions = computed(() => buildValueOptions(this.characters(), 'region'));
   versionOptions = computed(() => buildVersionOptions(this.characters()));
+
+  groupChoices = computed(() => GROUPINGS.map((key) => ({ value: key, label: this._i18n.t(`database.filters.group.${key}`) })));
 
   filteredCharacters = computed(() => {
     const element = this.filterElement();
@@ -85,6 +125,9 @@ export class DatabaseCharactersComponent {
       });
   });
 
+  /** The filtered characters in sections, by what the reader groups them by. */
+  groups = computed(() => groupRows(this.filteredCharacters(), this.groupBy()));
+
   constructor() {
     // The filters go in the URL, so coming back from a detail page finds the
     // list as it was left and the address can be handed to somebody else.
@@ -95,6 +138,7 @@ export class DatabaseCharactersComponent {
       region: [this.filterRegion, asText],
       version: [this.filterVersion, asText],
       name: [this.filterName, asText],
+      group: [this.groupBy, asOneOf(GROUPINGS, GROUPINGS[0])],
     });
 
     this._lists.characters().subscribe({
@@ -108,16 +152,20 @@ export class DatabaseCharactersComponent {
     });
   }
 
-  toggleElement(element: string): void {
-    this.filterElement.update((current) => (current === element ? null : element));
+  /** The counted sentence for n characters - one of its three forms, by the reader's language. */
+  countKey(count: number): string {
+    return `database.characters.count.${pluralTail(count, this._i18n.language())}`;
   }
 
-  toggleWeaponType(weaponType: string): void {
-    this.filterWeaponType.update((current) => (current === weaponType ? null : weaponType));
+  setGroupBy(key: string): void {
+    if ((GROUPINGS as readonly string[]).includes(key)) {
+      this.groupBy.set(key as GroupKey);
+    }
   }
 
-  toggleRarity(rarity: number): void {
-    this.filterRarity.update((current) => (current === rarity ? null : rarity));
+  /** The line under a character's name: the title, or who the Traveler is. */
+  subtitle(character: CharacterRow): string | null {
+    return character.title || (character.is_traveler ? 'Traveler' : null);
   }
 
   resetFilters(): void {

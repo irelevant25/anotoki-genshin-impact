@@ -3,29 +3,57 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <div class="database-page banners-page">
-            <div class="filters">
-                <anotoki-select
-                    class="filter"
-                    [label]="'database.filters.version' | translate"
-                    [options]="versionOptions()"
-                    [(value)]="filterVersions"
-                    [placeholder]="'database.filters.anyVersion' | translate" />
-                <anotoki-text-field
-                    class="filter"
-                    type="search"
-                    [label]="'database.filters.characterName' | translate"
-                    [placeholder]="'database.filters.contains' | translate"
-                    [(value)]="filterCharacterName" />
-                <anotoki-text-field
-                    class="filter"
-                    type="search"
-                    [label]="'database.filters.weaponName' | translate"
-                    [placeholder]="'database.filters.contains' | translate"
-                    [(value)]="filterWeaponName" />
-                <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
+            <header class="list-head">
+                <div>
+                    <div class="list-eyebrow">{{ "nav.database" | translate }}</div>
+                    <h1 class="list-title">{{ "database.banners.title" | translate }}</h1>
+                </div>
+                <div class="list-total">{{ countKey(banners().length) | translate: { n: banners().length } }}</div>
+            </header>
+
+            <div class="list-bar">
+                <div class="list-bar-row">
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.version" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.version' | translate"
+                            [options]="versionOptions()"
+                            [(value)]="filterVersions"
+                            [placeholder]="'database.filters.anyVersion' | translate" />
+                    </div>
+                    <div class="facet facet--grow">
+                        <span class="facet-label">{{ "database.filters.characterName" | translate }}</span>
+                        <anotoki-text-field
+                            hideLabel
+                            type="search"
+                            [label]="'database.filters.characterName' | translate"
+                            [placeholder]="'database.filters.contains' | translate"
+                            [(value)]="filterCharacterName">
+                            <anotoki-icon fieldPrefix name="search" [size]="16" />
+                        </anotoki-text-field>
+                    </div>
+                    <div class="facet facet--grow">
+                        <span class="facet-label">{{ "database.filters.weaponName" | translate }}</span>
+                        <anotoki-text-field
+                            hideLabel
+                            type="search"
+                            [label]="'database.filters.weaponName' | translate"
+                            [placeholder]="'database.filters.contains' | translate"
+                            [(value)]="filterWeaponName">
+                            <anotoki-icon fieldPrefix name="search" [size]="16" />
+                        </anotoki-text-field>
+                    </div>
+                </div>
             </div>
 
-            <div class="result-count">{{ "database.results.count" | translate: { shown: filteredBanners().length, total: banners().length } }}</div>
+            <div class="list-meta">
+                <span>{{ "database.results.count" | translate: { shown: filteredBanners().length, total: banners().length } }}</span>
+                <button anotokiButton variant="ghost" size="sm" type="button" (click)="resetFilters()">
+                    <anotoki-icon name="x" [size]="14" />
+                    {{ "database.filters.reset" | translate }}
+                </button>
+            </div>
 
             <div class="timeline">
                 @for (group of groups(); track group.version) {

@@ -1,0 +1,26 @@
+<a
+    class="tile"
+    [routerLink]="link()"
+    [attr.data-rarity]="rarityAttr()"
+    [attr.data-element]="elementAttr()"
+    [class.tile--picture]="!!backdrop()"
+    [class.tile--element]="!backdrop() && tint() === 'element'"
+    [class.tile--rarity]="!backdrop() && tint() === 'rarity'">
+    @if (backdrop(); as backdrop) {
+        <img class="tile-backdrop" [appMaterialIcon]="backdrop.name" [appAssetFolder]="backdrop.folder" alt="" loading="lazy" />
+    }
+    <span class="tile-veil" aria-hidden="true"></span>
+    @if (version(); as version) {
+        <span class="tile-version">{{ version }}</span>
+    }
+    <span class="tile-art">
+        <img [appMaterialIcon]="picture().name" [appAssetFolder]="picture().folder" alt="" loading="lazy" />
+    </span>
+    <span class="tile-body">
+        <span class="tile-name">{{ name() }}</span>
+        @if (subtitle(); as subtitle) {
+            <span class="tile-subtitle">{{ subtitle }}</span>
+        }
+        <span class="tile-facts"><ng-content /></span>
+    </span>
+</a>

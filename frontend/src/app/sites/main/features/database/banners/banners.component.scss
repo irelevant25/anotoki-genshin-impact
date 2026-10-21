@@ -1,6 +1,5 @@
-@use "../shared/item-tile" as *;
-// The filter bar the other database pages have.
-@use "../shared/database-page" as *;
+// The page head and the filter card the other database pages have.
+@use "../shared/list-page" as *;
 
 // The timeline: a heading a version, then a block a phase - its dates and its
 // state once, on a rail at the left, and the phase's banners as cards beside
@@ -9,6 +8,7 @@
 
 .timeline {
   padding: 0 var(--spacing-sm);
+  margin-top: var(--spacing-xs);
 }
 
 .version-group {

@@ -140,6 +140,13 @@ export function rarityStars(rarity: unknown): string {
   return Number.isFinite(count) && count > 0 ? '★'.repeat(count) : '';
 }
 
+const RARITY_WORDS: Record<number, string> = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
+
+/** The rarity's colour as the site names it (`var(--five-star)`); a 1★'s for anything else. */
+export function rarityColour(rarity: unknown): string {
+  return `var(--${RARITY_WORDS[Number(rarity)] ?? 'one'}-star)`;
+}
+
 /**
  * Gives a cost row (`material_id`, `quantity`) its material from the list, by
  * id - null for one the list lacks, which the tiles then leave out.

@@ -1066,7 +1066,24 @@ node docs/security/build-report.mjs                            # after re-runnin
   columns, the cost tables); the sections are the kit's cards. The Banners page
   is a timeline, grouped by version and phase (`banners/banner-groups.ts`, pure;
   `app-banner-card`), its states counted in days through `pluralTail()` and the
-  three plural keys of `users/062`.
+  three plural keys of `users/062`. The three lists (characters, weapons,
+  materials) share one system since the owner's choice of 2026-10-21 among the
+  mockups ("E"): a page head, one filter card (`shared/_list-page.scss`) whose
+  main facet is a wide track with names and counts - the elements, the weapon
+  types, the rarities - the search beside it and the other facets under it,
+  each a track (`app-facet-track`, `shared/facet-track/`: the kit's segmented
+  look carrying the site's pictures, one choice at a time, the chosen one
+  cleared by a second click), a kit select or the kit's segmented Group by;
+  under the card the count and Reset; then the rows as landscape tiles
+  (`app-list-tile`, `shared/list-tile/`: the picture on the rarity ground, the
+  name, a line and the facts, the version top right, a character's namecard
+  veiled behind it) in sections by region, version or rarity
+  (`shared/list-groups.ts`, pure: the game's order of regions and elements,
+  `groupRows()`; never by category - the owner's word), the grouping in the
+  URL with the filters (`filter-url.ts`'s `asOneOf`, the default unwritten).
+  The Banners page keeps its timeline under the same head and card. The words
+  are `users/063`'s (the counts in three forms under `database.<list>.count.`,
+  the groupings under `database.filters.group.` - both in `dynamic-keys.ts`).
 - **The public site's lists are asked once a page load** (the owner's decision
   of 2026-10-21): `sites/main/game-lists.service.ts` (`GameListsService`) -
   characters, the minimal characters, materials, weapons, banners (`/full`),

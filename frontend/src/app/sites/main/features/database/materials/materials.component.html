@@ -3,69 +3,123 @@
 
     @if (!loader.loadingCtrl.loading()) {
         <div class="database-page">
-            <div class="py-2">
-                <div class="filters">
-                    <div class="chip-block">
-                        <span class="chip-label">{{ "database.filters.rarity" | translate }}</span>
-                        <div class="chip-group">
-                            @for (rarity of rarities(); track rarity) {
-                                <button
-                                    type="button"
-                                    class="chip"
-                                    [class]="'quality-' + rarity"
-                                    [class.selected]="filterRarity() === rarity"
-                                    [attr.aria-pressed]="filterRarity() === rarity"
-                                    (click)="toggleRarity(rarity)">
-                                    {{ rarity }}&#9733;
-                                </button>
-                            }
-                        </div>
-                    </div>
-
-                    <anotoki-select
-                        class="filter"
-                        [label]="'database.filters.category' | translate"
-                        [options]="categoryOptions()"
-                        [(value)]="filterCategory"
-                        [placeholder]="'database.filters.anyCategory' | translate" />
-
-                    <anotoki-select
-                        class="filter"
-                        [label]="'database.filters.region' | translate"
-                        [options]="regionOptions()"
-                        [(value)]="filterRegion"
-                        [placeholder]="'database.filters.anyRegion' | translate" />
-
-                    <anotoki-select
-                        class="filter"
-                        [label]="'database.filters.version' | translate"
-                        [options]="versionOptions()"
-                        [(value)]="filterVersion"
-                        [placeholder]="'database.filters.anyVersion' | translate" />
-
-                    <anotoki-text-field class="filter" type="search" [label]="'database.filters.name' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName" />
-
-                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
+            <header class="list-head">
+                <div>
+                    <div class="list-eyebrow">{{ "nav.database" | translate }}</div>
+                    <h1 class="list-title">{{ "database.materials.title" | translate }}</h1>
                 </div>
+                <div class="list-total">{{ countKey(materials().length) | translate: { n: materials().length } }}</div>
+            </header>
 
-                <div class="result-count">{{ "database.results.count" | translate: { shown: filteredMaterials().length, total: materials().length } }}</div>
-
-                <div class="card-grid">
-                    @for (material of filteredMaterials(); track material.id) {
-                        <a class="entity-card material-card" [routerLink]="[material.id]" [title]="material.name + (material.type ? ' - ' + material.type : '')">
-                            <img
-                                [appMaterialIcon]="material.icon_name ?? material.name"
-                                [appAssetFolder]="'materials'"
-                                [alt]="material.name"
-                                loading="lazy"
-                                [class]="'quality-' + (material.rarity ?? '0')" />
-                            <div class="name">{{ material.name }}</div>
-                        </a>
-                    } @empty {
-                        <div class="no-results">{{ "database.results.none" | translate }}</div>
-                    }
+            <div class="list-bar">
+                <div class="list-bar-row">
+                    <app-facet-track
+                        class="facet--main"
+                        wide
+                        [label]="'database.filters.rarity' | translate"
+                        [options]="rarityOptions()"
+                        [allLabel]="'database.filters.all' | translate"
+                        [allTotal]="materials().length"
+                        [(value)]="filterRarity" />
+                    <div class="facet facet--search">
+                        <span class="facet-label">{{ "database.filters.search" | translate }}</span>
+                        <anotoki-text-field hideLabel type="search" [label]="'database.filters.search' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName">
+                            <anotoki-icon fieldPrefix name="search" [size]="16" />
+                        </anotoki-text-field>
+                    </div>
+                </div>
+                <div class="list-bar-row">
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.category" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.category' | translate"
+                            [options]="categoryOptions()"
+                            [(value)]="filterCategory"
+                            [placeholder]="'database.filters.anyCategory' | translate" />
+                    </div>
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.region" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.region' | translate"
+                            [options]="regionOptions()"
+                            [(value)]="filterRegion"
+                            [placeholder]="'database.filters.anyRegion' | translate" />
+                    </div>
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.version" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.version' | translate"
+                            [options]="versionOptions()"
+                            [(value)]="filterVersion"
+                            [placeholder]="'database.filters.anyVersion' | translate" />
+                    </div>
+                    <div class="facet">
+                        <span class="facet-label">{{ "database.filters.groupBy" | translate }}</span>
+                        <anotoki-segmented [label]="'database.filters.groupBy' | translate" [options]="groupChoices()" [value]="groupBy()" (valueChange)="setGroupBy($event)" />
+                    </div>
                 </div>
             </div>
+
+            <div class="list-meta">
+                <span>{{ "database.results.count" | translate: { shown: filteredMaterials().length, total: materials().length } }}</span>
+                <button anotokiButton variant="ghost" size="sm" type="button" (click)="resetFilters()">
+                    <anotoki-icon name="x" [size]="14" />
+                    {{ "database.filters.reset" | translate }}
+                </button>
+            </div>
+
+            @for (group of groups(); track group.key) {
+                <section class="list-section">
+                    @if (groupBy() !== "none") {
+                        <div class="list-section-head">
+                            <span class="list-emblem" aria-hidden="true">
+                                @if (group.emblem.kind === "picture") {
+                                    <img [appMaterialIcon]="group.emblem.name" [appAssetFolder]="group.emblem.folder" alt="" />
+                                } @else if (group.emblem.kind === "rarity") {
+                                    {{ group.emblem.rarity }}
+                                    <span class="star">★</span>
+                                } @else {
+                                    {{ group.emblem.text }}
+                                }
+                            </span>
+                            <h2 class="list-section-title" [class.list-section-title--stars]="group.emblem.kind === 'rarity'">
+                                @if (group.title === null) {
+                                    {{ "database.list.other" | translate }}
+                                } @else if (groupBy() === "version") {
+                                    {{ "database.list.version" | translate: { version: group.title } }}
+                                } @else {
+                                    {{ group.title }}
+                                }
+                            </h2>
+                            <span class="list-section-count">{{ countKey(group.items.length) | translate: { n: group.items.length } }}</span>
+                        </div>
+                    }
+                    <div class="list-grid">
+                        @for (material of group.items; track material.id) {
+                            <app-list-tile
+                                [link]="[material.id]"
+                                [name]="material.name"
+                                [subtitle]="material.type"
+                                [picture]="{ name: material.icon_name ?? material.name, folder: 'materials' }"
+                                [rarity]="material.rarity"
+                                [version]="material.version"
+                                tint="rarity">
+                                @if (material.group && material.group !== material.type) {
+                                    <span class="fact fact--muted">{{ material.group }}</span>
+                                }
+                                @if (material.rarity) {
+                                    <span class="fact fact--stars" aria-hidden="true">{{ rarityStars(material.rarity) }}</span>
+                                }
+                            </app-list-tile>
+                        }
+                    </div>
+                </section>
+            } @empty {
+                <div class="no-results">{{ "database.results.none" | translate }}</div>
+            }
         </div>
     }
 </div>

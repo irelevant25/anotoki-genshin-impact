@@ -1,0 +1,137 @@
+// The kit's segmented control's look (ui/segmented: the surface-2 pill with
+// the strong edge, 3 px of padding, the chosen segment on the surface with
+// its shadow) carrying pictures; the ring round the chosen segment is the
+// value's own colour where it has one - an element's - the primary otherwise.
+// Every colour is a token, so it is right in both themes.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.facet-label {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.track {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--anotoki-border-strong);
+  // Half a segment plus the padding: a pill on one line, a rounded box once it wraps (as the kit's wraps).
+  border-radius: 21px;
+  background: var(--anotoki-surface-2);
+}
+
+.track--wide {
+  display: flex;
+}
+
+.seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--border-radius-pill);
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--anotoki-focus);
+    outline-offset: 1px;
+  }
+
+  // A picture alone: a round segment.
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: opacity var(--transition-fast);
+  }
+}
+
+// Words, or a wide track's segment: room round the content, and a share of the row.
+.seg--words,
+.seg--wide {
+  padding: 0 12px;
+  font-size: 14px;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.seg--wide {
+  flex: 1 1 auto;
+}
+
+.seg--on {
+  background: var(--anotoki-surface);
+  color: var(--text-primary);
+  box-shadow:
+    var(--shadow-small),
+    0 0 0 2px var(--ring, var(--color-primary));
+
+  .seg-count {
+    color: var(--ink, var(--color-primary));
+  }
+}
+
+// Once something is chosen the other pictures step back.
+.track--chosen .seg:not(.seg--on) img {
+  opacity: 0.6;
+}
+
+.seg-count {
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.seg-stars {
+  color: var(--genshin-gold);
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.seg-star {
+  margin-left: -4px;
+  font-size: 12px;
+  color: var(--star, var(--genshin-gold));
+}
+
+@media (max-width: 860px) {
+  // The wide track's segments two to a row, each starting at its left edge.
+  .seg--wide {
+    flex: 1 1 42%;
+    justify-content: flex-start;
+  }
+}

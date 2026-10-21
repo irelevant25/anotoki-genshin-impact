@@ -18,6 +18,8 @@ export interface FilterCodec<T> {
   readonly empty: T;
   /** Parameter text back to a value. The text itself, unless given. */
   readonly parse?: (raw: string) => T;
+  /** A value as parameter text, null for none in the URL. The value's own text, unless given, and nothing for a blank. */
+  readonly format?: (value: T) => string | null;
 }
 
 /** Free text, or a choice from a list (the kit's select holds text too), where absent and empty mean the same thing. */
@@ -33,6 +35,19 @@ export const asNumber: FilterCodec<number | null> = {
   // list away, so anything that is not a number reads as no filter at all.
   parse: (raw) => (raw.trim() && !Number.isNaN(Number(raw)) ? Number(raw) : null),
 };
+
+/**
+ * A choice among a page's own keys - how a list is grouped - with one of them
+ * the default: that one is not written to the URL, and anything else in the
+ * URL (a hand-edited `?group=x`) reads as it, as `asNumber` ignores `?rarity=abc`.
+ */
+export function asOneOf<T extends string>(values: readonly T[], fallback: T): FilterCodec<T> {
+  return {
+    empty: fallback,
+    parse: (raw) => (values.includes(raw as T) ? (raw as T) : fallback),
+    format: (value) => (value === fallback ? null : value),
+  };
+}
 
 /**
  * One filter: the signal holding it, and how it is written down.
@@ -60,9 +75,9 @@ export function bindFiltersToUrl(bindings: Record<string, FilterBinding>): void 
   /** The query string these signals describe. `null` drops the parameter. */
   const fromSignals = (): Params =>
     Object.fromEntries(
-      entries.map(([key, [value]]) => {
+      entries.map(([key, [value, codec]]) => {
         const current = value();
-        return [key, isBlank(current) ? null : String(current)];
+        return [key, codec.format ? codec.format(current) : isBlank(current) ? null : String(current)];
       }),
     );
 

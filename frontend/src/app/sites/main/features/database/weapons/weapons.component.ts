@@ -1,24 +1,41 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { IconComponent } from '@anotoki/lib/ui/icon';
+import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
-import { buildVersionOptions, distinctValues, isChosen, matchesTerm, rarityValues } from '../shared/database-helpers';
-import { asNumber, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { Expanded, Weapon } from '../../../../../api';
+import { buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityStars, rarityValues } from '../shared/database-helpers';
+import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
+import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
+import { ListTileComponent } from '../shared/list-tile/list-tile.component';
+import { GroupKey, groupRows, inGameOrder, WEAPON_TYPE_ORDER } from '../shared/list-groups';
 import { GameListsService } from '../../../game-lists.service';
 
+type WeaponRow = Expanded<Weapon, 'created_by' | 'updated_by'>;
+
+/** How this list can be grouped, the first the default. */
+const GROUPINGS: readonly GroupKey[] = ['rarity', 'version', 'none'];
+
+/**
+ * The weapons list, in the characters list's system (the owner's choice "E"
+ * of 2026-10-21): the types as a wide track with names and counts, the rarity
+ * and the version under it, and the weapons as tiles in sections by rarity -
+ * or by version, or in one grid - A to Z within each.
+ */
 @Component({
   selector: 'app-database-weapons',
   templateUrl: './weapons.component.html',
   styleUrls: ['./weapons.component.scss'],
-  imports: [RouterModule, ButtonComponent, SelectComponent, TextFieldComponent, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [ButtonComponent, SelectComponent, TextFieldComponent, IconComponent, SegmentedComponent, LoaderComponent, TranslatePipe, MaterialIconDirective, FacetTrackComponent, ListTileComponent],
 })
 export class DatabaseWeaponsComponent {
   private readonly _lists = inject(GameListsService);
+  private readonly _i18n = inject(TranslationService);
 
-  weapons = signal<any[]>([]);
+  weapons = signal<WeaponRow[]>([]);
   loading = signal(true);
 
   // Toggles: clicking the one already on clears it, so null means "any".
@@ -28,9 +45,26 @@ export class DatabaseWeaponsComponent {
   filterVersion = signal('');
   filterName = signal('');
 
-  types = computed(() => distinctValues(this.weapons(), 'type').sort((a, b) => a.localeCompare(b)));
-  rarities = computed(() => rarityValues(this.weapons()));
+  groupBy = signal<GroupKey>(GROUPINGS[0]);
+
+  rarityStars = rarityStars;
+
+  /** The types in the game's order, each with its coin and its count. */
+  typeOptions = computed<FacetOption[]>(() => {
+    const rows = this.weapons();
+    return inGameOrder(distinctValues(rows, 'type'), WEAPON_TYPE_ORDER).map((type) => ({
+      value: type,
+      label: type,
+      picture: { name: type, folder: 'weapon_types' },
+      count: rows.filter((weapon) => weapon.type === type).length,
+    }));
+  });
+
+  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.weapons()).map((rarity) => ({ value: rarity, label: `${rarity}★`, words: true, star: rarityColour(rarity) })));
+
   versionOptions = computed(() => buildVersionOptions(this.weapons()));
+
+  groupChoices = computed(() => GROUPINGS.map((key) => ({ value: key, label: this._i18n.t(`database.filters.group.${key}`) })));
 
   filteredWeapons = computed(() => {
     const type = this.filterType();
@@ -54,6 +88,9 @@ export class DatabaseWeaponsComponent {
     });
   });
 
+  /** The filtered weapons in sections, by what the reader groups them by. */
+  groups = computed(() => groupRows(this.filteredWeapons(), this.groupBy()));
+
   constructor() {
     // The filters go in the URL, so coming back from a detail page finds the
     // list as it was left and the address can be handed to somebody else.
@@ -62,6 +99,7 @@ export class DatabaseWeaponsComponent {
       rarity: [this.filterRarity, asNumber],
       version: [this.filterVersion, asText],
       name: [this.filterName, asText],
+      group: [this.groupBy, asOneOf(GROUPINGS, GROUPINGS[0])],
     });
 
     this._lists.weapons().subscribe({
@@ -74,12 +112,21 @@ export class DatabaseWeaponsComponent {
     });
   }
 
-  toggleType(type: string): void {
-    this.filterType.update((current) => (current === type ? null : type));
+  /** The counted sentence for n weapons - one of its three forms, by the reader's language. */
+  countKey(count: number): string {
+    return `database.weapons.count.${pluralTail(count, this._i18n.language())}`;
   }
 
-  toggleRarity(rarity: number): void {
-    this.filterRarity.update((current) => (current === rarity ? null : rarity));
+  setGroupBy(key: string): void {
+    if ((GROUPINGS as readonly string[]).includes(key)) {
+      this.groupBy.set(key as GroupKey);
+    }
+  }
+
+  /** The line under a weapon's name: its stats, "ATK · CRIT DMG". */
+  subtitle(weapon: WeaponRow): string | null {
+    const stats = [weapon.primary_stat, weapon.secondary_stat].filter((stat) => !!stat);
+    return stats.length ? stats.join(' · ') : null;
   }
 
   resetFilters(): void {

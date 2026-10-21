@@ -1,0 +1,215 @@
+@use "item-tile" as *;
+
+// The list pages' skeleton since their redesign (the owner's choice "E" of
+// 2026-10-21 among the mockups): a page head, one filter card with every
+// facet in it - the main one a wide track with names and counts, the search
+// beside it, the rest on a second row, each under a small label - the count
+// and Reset under the card, then the rows in sections by what they are
+// grouped by, as tiles (app-list-tile). The banners page takes the head and
+// the card and keeps its timeline. Everything reads the theme's tokens.
+
+.list-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-xs) var(--spacing-md);
+  margin: 2px var(--spacing-xs) var(--spacing-md);
+}
+
+.list-eyebrow {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.list-title {
+  margin: 2px 0 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.list-total {
+  padding-bottom: 3px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+// The filter card: its rows wrap, and every control stands under its label.
+.list-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 14px var(--spacing-md) var(--spacing-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-small);
+}
+
+.list-bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 18px;
+}
+
+// A kit field with the track's kind of label above it (the field's own hidden, said to a screen reader).
+.facet {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.facet-label {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+// The main track takes the room its row has left.
+.facet--main {
+  flex: 1 1 auto;
+}
+
+.facet--search {
+  flex: 0 1 280px;
+  min-width: 180px;
+}
+
+.facet--select {
+  min-width: 148px;
+}
+
+// The banners' two searches share their row.
+.facet--grow {
+  flex: 1 1 220px;
+}
+
+.list-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: 14px var(--spacing-xxs) var(--spacing-sm);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+// A section: the banners page's heading vocabulary - the block before the
+// words, the title, the count, a rule under them.
+.list-section {
+  margin-top: 18px;
+}
+
+.list-section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0 var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color-dark);
+}
+
+.list-emblem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-width: 44px;
+  height: 32px;
+  padding: 0 var(--spacing-xs);
+  border-radius: var(--border-radius-large);
+  background: var(--text-primary);
+  color: var(--bg-card);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .star {
+    color: var(--genshin-gold);
+  }
+}
+
+.list-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.list-section-title--stars {
+  color: var(--genshin-gold);
+  letter-spacing: 2px;
+}
+
+.list-section-count {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 12px;
+}
+
+// The facts a page puts on a tile: a picture and a word each.
+.fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+
+  img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+}
+
+// The element's ink, from the tile's data-element (the element-accent mixin).
+.fact--element {
+  color: var(--accent, var(--text-primary));
+}
+
+.fact--muted {
+  color: var(--text-secondary);
+}
+
+.fact--stars {
+  color: var(--genshin-gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 860px) {
+  .facet--search,
+  .facet--grow {
+    flex-basis: 100%;
+  }
+
+  .facet--select {
+    flex: 1 1 120px;
+    min-width: 0;
+  }
+
+  .list-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

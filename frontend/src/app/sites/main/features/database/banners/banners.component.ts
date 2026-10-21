@@ -4,6 +4,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { BadgeComponent, BadgeTone } from '@anotoki/lib/ui/badge';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { IconComponent } from '@anotoki/lib/ui/icon';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm, pluralTail, versionLabel } from '../shared/database-helpers';
 import { asText, bindFiltersToUrl } from '../shared/filter-url';
@@ -32,7 +33,7 @@ type ShownPhase = BannerPhase<IBannerFull> & { stateKey: string; stateParams: Re
   selector: 'app-database-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [AppDatePipe, ButtonComponent, BadgeComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, BannerCardComponent],
+  imports: [AppDatePipe, ButtonComponent, BadgeComponent, IconComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, BannerCardComponent],
 })
 export class DatabaseBannersComponent {
   private readonly _lists = inject(GameListsService);
@@ -150,6 +151,11 @@ export class DatabaseBannersComponent {
       },
       error: () => this.loading.set(false),
     });
+  }
+
+  /** The counted sentence for n banners - the page head's total - one of its three forms, by the reader's language. */
+  countKey(count: number): string {
+    return `database.banners.count.${pluralTail(count, this._i18n.language())}`;
   }
 
   resetFilters(): void {

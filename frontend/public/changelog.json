@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.4.0",
+    "date": "2026-10-21",
+    "changes": {
+      "updated": [
+        "A new look for the character, weapon and material lists — every filter in one card at the top of each database page, the lists in sections you can group by region, rarity or version, and the version each one came in on its card"
+      ]
+    }
+  },
+  {
     "version": "1.3.0",
     "date": "2026-10-21",
     "changes": {
