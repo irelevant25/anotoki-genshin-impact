@@ -48,6 +48,8 @@ export const ADMIN_ICONS: IconSet = {
   // Lucide's open book: the site's own book (a filled drawing) is no line icon.
   'admin-book': ['M12 7v14', 'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'],
   'admin-settings': ['M20 7h-9', 'M14 17H5', circle(17, 17, 3), circle(7, 7, 3)],
+  // The quizzes' three levels: three bars, each taller (Lucide's signal, three of its bars).
+  'admin-levels': ['M6 20v-4', 'M12 20v-9', 'M18 20V6'],
   'admin-user-check': ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2', circle(9, 7, 4), 'M16 11 18 13 22 9'],
   'admin-mail': [rect(2, 4, 20, 16, 2), 'm22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'],
   'admin-history': ['M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8', 'M3 3v5h5', 'M12 7v5l4 2'],

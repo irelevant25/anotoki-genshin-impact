@@ -19,6 +19,7 @@ export * from './lookup.model';
 export * from './material.model';
 export * from './me.model';
 export * from './quiz.model';
+export * from './quizLevel.model';
 export * from './route.model';
 export * from './setting.model';
 export * from './stat.model';

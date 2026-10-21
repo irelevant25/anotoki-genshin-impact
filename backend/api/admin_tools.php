@@ -237,11 +237,12 @@ function siteErrorLog(?App $app = null): ErrorLog
  * (update_pending), a tool whose table waits (feature_unavailable), a site not
  * set up (not_set_up) - and this site's own of the same kind: closed for
  * maintenance (every request answers so while the owner keeps it closed), and
- * the guides' and the visitors' tables waiting for their update
- * (guides_unavailable, visitors_unavailable). Written, each would be a line on
- * every visit until the state ends, burying what failed.
+ * the guides', the visitors' and the quiz levels' tables waiting for their
+ * update (guides_unavailable, visitors_unavailable, quiz_levels_unavailable).
+ * Written, each would be a line on every visit until the state ends, burying
+ * what failed.
  */
-const SITE_EXPECTED_ANSWERS = [...ErrorLog::EXPECTED_CODES, 'maintenance', 'guides_unavailable', 'visitors_unavailable'];
+const SITE_EXPECTED_ANSWERS = [...ErrorLog::EXPECTED_CODES, 'maintenance', 'guides_unavailable', 'visitors_unavailable', 'quiz_levels_unavailable'];
 
 /**
  * Who a failing request was from, for its line: the person Identify found -

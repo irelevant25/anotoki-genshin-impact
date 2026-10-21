@@ -1059,6 +1059,114 @@
             "visitor_key": false
         },
         {
+            "method": "DELETE",
+            "path": "/api/admin/quiz-levels",
+            "args": [],
+            "file": "quiz_levels.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "QuizLevelsEditorView",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/quiz_levels.php",
+                "line": 131
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/quiz-levels",
+            "args": [],
+            "file": "quiz_levels.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "QuizLevelsEditorView",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/quiz_levels.php",
+                "line": 81
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/quiz-levels",
+            "args": [],
+            "file": "quiz_levels.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "QuizLevelsEditorView",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/quiz_levels.php",
+                "line": 114
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/quiz-levels/check",
+            "args": [],
+            "file": "quiz_levels.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "QuizLevelsCheck",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/quiz_levels.php",
+                "line": 90
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
             "method": "GET",
             "path": "/api/admin/translations",
             "args": [],
@@ -10178,6 +10286,30 @@
             "auth": true,
             "roles": [],
             "owner": true,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/quiz/levels",
+            "args": [],
+            "file": "quiz_levels.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": {
+                "shape": "QuizLevelsInForce",
+                "list": false
+            },
+            "source": {
+                "file": "backend/api/routes/users/endpoints/quiz_levels.php",
+                "line": 72
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
             "visitor_key": false
         },
         {
@@ -19650,6 +19782,128 @@
             ]
         },
         {
+            "name": "QuizLevelProblem",
+            "file": "quiz_levels.php",
+            "merges": null,
+            "description": "One thing the rules say of a set of levels, and where it is.",
+            "fields": [
+                {
+                    "name": "quiz",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The quiz it is about (banners, pixelate, mismatch, music, dish, voice) - null: the levels as a whole."
+                },
+                {
+                    "name": "level",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The level: \"1\" (Easy), \"2\" (Medium) or \"3\" (Hard) - null: the quiz as a whole."
+                },
+                {
+                    "name": "try",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The step, by its try (0 to 4: how many wrong guesses before it) - null: the level as a whole."
+                },
+                {
+                    "name": "message",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "What is wrong, in English."
+                }
+            ]
+        },
+        {
+            "name": "QuizLevelsCheck",
+            "file": "quiz_levels.php",
+            "merges": null,
+            "description": "`POST /api/admin/quiz-levels/check` - what the rules say of levels, nothing kept.",
+            "fields": [
+                {
+                    "name": "problems",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "QuizLevelProblem[]",
+                    "description": "None: they may be saved."
+                }
+            ]
+        },
+        {
+            "name": "QuizLevelsEditorView",
+            "file": "quiz_levels.php",
+            "merges": null,
+            "description": "`GET`, `PUT` and `DELETE /api/admin/quiz-levels` - the Quiz levels page's view.",
+            "fields": [
+                {
+                    "name": "levels",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": "array<string, mixed>",
+                    "description": "What is saved, as it was saved - null: nothing is, and the built-in levels are in force."
+                },
+                {
+                    "name": "updated_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "When it was saved (ISO 8601, UTC); null while nothing is."
+                },
+                {
+                    "name": "problems",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "QuizLevelProblem[]",
+                    "description": "What the rules say of what is saved now: none while it is in force."
+                }
+            ]
+        },
+        {
+            "name": "QuizLevelsInForce",
+            "file": "quiz_levels.php",
+            "merges": null,
+            "description": "`GET /api/quiz/levels` - the levels every quiz plays.",
+            "fields": [
+                {
+                    "name": "levels",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": "array<string, mixed>",
+                    "description": "The six quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in\nlevels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved."
+                }
+            ]
+        },
+        {
             "name": "QuizProgress",
             "file": "quiz.php",
             "merges": null,
@@ -24500,6 +24754,31 @@
                     "name": "applied_at",
                     "sqlType": "TIMESTAMP",
                     "nullable": true,
+                    "enum": null
+                }
+            ]
+        },
+        {
+            "table": "quiz_levels",
+            "database": "users",
+            "interface": null,
+            "columns": [
+                {
+                    "name": "id",
+                    "sqlType": "SMALLINT",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "levels",
+                    "sqlType": "JSONB",
+                    "nullable": false,
+                    "enum": null
+                },
+                {
+                    "name": "updated_at",
+                    "sqlType": "TIMESTAMPTZ",
+                    "nullable": false,
                     "enum": null
                 }
             ]

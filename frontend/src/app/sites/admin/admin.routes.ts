@@ -24,6 +24,7 @@ import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgro
 import { SettingsComponent } from './settings/settings.component';
 import { FileCategoriesComponent } from './file-categories/file-categories.component';
 import { GuidesComponent } from './localization/guides/guides.component';
+import { QuizLevelsComponent } from './quiz-levels/quiz-levels.component';
 import { lookupRoute } from './pages/pages';
 import { provideAdminPeople } from './people';
 
@@ -96,6 +97,10 @@ export const routes: Routes = [
         loadComponent: () => import('@anotoki/lib/translations/admin').then((m) => m.TranslationsPageComponent),
       },
       { path: 'guides', component: GuidesComponent },
+
+      // What each level of each quiz shows, as data (users/061); leaving it with
+      // changes not saved asks first, as the words' pages do.
+      { path: 'quiz-levels', component: QuizLevelsComponent, canDeactivate: [anotokiUnsavedChangesGuard] },
 
       { path: 'backgrounds', component: BackgroundsListComponent },
       { path: 'files', component: FilesManagerComponent },

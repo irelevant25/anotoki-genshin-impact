@@ -14,5 +14,6 @@ export * from './common.type';
 export * from './file.type';
 export * from './guide.type';
 export * from './quiz.type';
+export * from './quiz-level.type';
 export * from './setting.type';
 export * from './visitor.type';

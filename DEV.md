@@ -491,6 +491,22 @@ database up first. Either order is safe - a build from before reads and writes n
 rows stay without an id (no list of the game's carries them): Prized Isshin
 Blade (Awakened) and (Shattered), Sword of Narzissenkreuz (Quest), Initiate.
 
+**And (written 2026-10-21): the quizzes' levels**, on the admin panel (*Quiz
+levels*, below). One file: `users/061_quiz_levels.sql` - the table
+`quiz_levels` (one row at most, the levels as JSON, its time; no person - who
+changed them is the audit log's), which it leaves empty: the built-in levels
+stay in force until somebody saves others. And Voice's three sentences in the
+difficulty dialog take their seconds from the levels (`{first}`, `{second}`,
+`{third}`), English and Slovak, each only while it is still `users/058`'s
+words - a Slovak one only beside this file's English; one key is new,
+`quiz.levelInfo.voiceOther` (English and Slovak, each only where it has none):
+the general words for a Voice level that plays fewer pieces of the recording
+than its sentence names. Its gate proves the table empty, no Voice sentence
+left in 058's words, the new key in both languages, and every key the dialog
+reads still there. Upload both builds and Apply at once; the Apply backs the database
+up first. Either order is safe: a build from before reads no `quiz_levels` and
+plays the built-in levels, as the new one does with nothing saved.
+
 ---
 
 ## Checking your work
@@ -506,7 +522,14 @@ and CHECK, and 031 on a database with rows - each id by its name, never over one
 the words (`translations-migration.test.php`: users/050 on a database as its
 owner left it - reworded strings and guides, blanks, a hidden language - and
 what it refuses, and users/053's strings gone with the keys still read kept; `translations-routes.test.php`: the whole API in-process - the
-bundle, who may do what, saves, the languages, the guides, the gates); and
+bundle, who may do what, saves, the languages, the guides, the gates); the
+quizzes' levels (`quiz-levels.test.php`: the built-in levels, read from the
+frontend's `quiz-levels.ts`, passing the rules; every rule refusing what it
+must, saying where; who may - nobody, a MEMBER refused, an EDITOR and the ADMIN
+not; a save and a reset with their audit entries; the public read - ETag and
+304, null for the built-in levels, for saved ones the rules no longer take and
+before the table is there - under the site's switches; users/061's table,
+Voice's sentences reworded only where they are still 058's, and its gate); and
 anotoki-lib 0.5.0 here (`library-tools-migration.test.php`: users/052, 054 and
 genshin_impact/028-029 on a database shaped like an installed one, with rows in
 every table that moves, in a server zone that is not UTC - every row under its
@@ -571,7 +594,11 @@ cd frontend && npm run api && git diff --stat src/app/api api-spec.json
 
 **Every page in a real browser.** `node scripts/screenshots.mjs` (in `frontend/`)
 builds the site for production and shows every page of it - the public site as
-a visitor, its dialogs, a quiz's search with a name begun, Terms, Privacy and
+a visitor, its dialogs, a quiz's search with a name begun, the top bar's items
+opening and closing their sections (the address each leads to, `aria-current`,
+Enter), the quizzes at saved levels (answered by the browser for
+`/api/quiz/levels`: Mismatch's count, the difficulty dialog's numbers) and at
+the built-in ones when that answer fails, Terms, Privacy and
 Contact in English and Slovak (the Privacy page flagged unless it names the
 hosting company, and Contact's feedback form), a sign-in the IAM refuses (the anotoki library's screen
 of it on the callback's page, and in the sign-in card while the IAM requires
@@ -581,7 +608,9 @@ database is out of reach and the site is not set up (alone - flagged with any
 header, navigation or footer round it - in light English and dark Slovak, and
 flagged unless the site's frame comes back once it is ready), then the admin
 panel as its ADMIN (the Errors page with the page's thrown error as its row,
-and that row opened; the kit's pieces opened - what folds, a birthday's
+and that row opened; the Quiz levels page - what the rules say as levels are
+typed, a text that is no JSON, the words levels leave behind, a save and back
+to the defaults; the kit's pieces opened - what folds, a birthday's
 calendar, the editor's link dialog and colour panel, the voice-over import; the
 family's footer and the two dialogs it opens, the status page while an update
 waits, and Migrations then in the panel's frame, its footer without Feedback),
@@ -865,6 +894,59 @@ or edit its description - keys come from migrations with their descriptions;
 an import never creates one either. The guides' bodies left the strings for
 `guide_contents`. Before an upload that changes the words, export every language
 from the Translations page and keep the files.
+
+### Quiz levels
+
+Admin panel → System → Quiz levels, for ADMIN and EDITOR (since `users/061`):
+what each level of each quiz shows, try by try - the classes that hide a
+picture (Banners, Dish) or a voice line, Pixelate's grid, the seconds of a
+track or a recording, how many characters Mismatch offers - as JSON in an
+editor (`sites/admin/quiz-levels/`). Nothing saved, it holds the built-in
+levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
+
+- As you type, the page asks the server what its rules say
+  (`POST /api/admin/quiz-levels/check`) and lists every problem with where it
+  is - the quiz, the level, the try - and what is wrong; **Save** waits until
+  there is none. The server is the rule (`backend/api/quiz_levels.php`): exactly
+  the six quizzes, the levels "1", "2" and "3"; five tries on every level of every
+  quiz (`triesMax` 5 - the Profile counts tries and wins across levels) and five
+  steps, `try` 0 to 4 in order; a step's `class` only the classes its quiz's CSS
+  has, one crop and one filter for a picture, one cut of the line and
+  `hidden-audio` for Voice, none for Pixelate and Music; `data` Pixelate's grid
+  (3 to 60 blocks across, every step), Music's seconds (1 to 60, every step but
+  the last, which may leave it out for the whole track), Voice's seconds (0.25 to
+  10, never beside `hidden-audio`), none for a picture; Mismatch's
+  `choicesAmount` 3 to 8; each wrong guess showing more, never less (the grid
+  finer, the seconds more, a picture or a line never hidden more than the try
+  before, the player never hidden again); no other key, no other type, 16 KB at
+  most. A save the rules refuse answers 422 `invalid_levels` with the same
+  problems, and keeps nothing.
+- **Save** puts them in force for every quiz from its next page load; **Back to
+  the defaults** deletes what is saved, and the built-in levels are in force
+  again. Both are in the audit log (`content.insert|update|delete` on
+  `quiz_levels`, the levels before and after); a save of the levels as they are
+  changes nothing. Saved levels a later release's rules no longer take are shown
+  as saved, with why, and the quizzes play the built-in ones until they are
+  mended.
+- The pages ask `GET /api/quiz/levels` once a page load (`{levels}`, null for the
+  built-in ones; ETag and no-cache) beside a quiz's characters, and play the
+  built-in levels while it is on its way, when it fails or is refused, or when
+  what it says is no levels (`QuizLevelsService`, at most 2.5 seconds' wait);
+  settled once a page load, they never change under a question being played. The
+  daily plays Easy - level 1 of the levels in force.
+- The difficulty dialog takes its numbers from the levels in force - Pixelate's
+  grid, Music's and Voice's seconds, Mismatch's count - in the reader's way of
+  writing numbers ("0,5 s" in Slovak). What no number can say is written for
+  the built-in levels: Banners' and Dish's steps (`quiz.levelInfo.picture*`),
+  which of Voice's steps show the line and which play the recording
+  (`quiz.levelInfo.voice*`), and Mismatch's card and guide, which say three to
+  five characters (`quiz.mismatch.info`, the Mismatch guide). The page warns -
+  never refuses - when levels leave those words behind, naming each string to
+  reword on the Translations page (and the guide on the Guides page). A key
+  keeps its English's placeholders, so a Voice level that plays fewer pieces
+  of the recording than its sentence names is said in general words instead
+  (`quiz.levelInfo.voiceOther`) - never a number missing - and the page says
+  that too.
 
 ### The asset library
 

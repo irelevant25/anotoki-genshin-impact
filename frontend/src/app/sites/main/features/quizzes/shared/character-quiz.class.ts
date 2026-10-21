@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { todayString } from './daily';
-import { DAILY_DIFFICULTY, quizLevel } from './quiz-levels';
+import { DAILY_DIFFICULTY } from './quiz-levels';
+import { QuizLevelsService } from './quiz-levels.service';
 import { QuizProgressService, hasPlay } from './quiz-progress.service';
 import { QuizId, QuizState } from './quiz.types';
 import { CharacterApiService } from '../../../../../api';
@@ -27,9 +28,10 @@ export abstract class CharacterQuizComponent {
   protected readonly characterApi = inject(CharacterApiService);
   protected readonly stateService = inject(StateService);
   protected readonly progress = inject(QuizProgressService);
+  private readonly _levels = inject(QuizLevelsService);
   private readonly _activatedRoute = inject(ActivatedRoute);
 
-  /** Picks the quiz's levels (quiz-levels.ts), its chosen difficulty and the slot the saved game lives in. */
+  /** Picks the quiz's levels (the ones in force: QuizLevelsService), its chosen difficulty and the slot the saved game lives in. */
   protected abstract readonly quizId: QuizId;
 
   /**
@@ -66,7 +68,7 @@ export abstract class CharacterQuizComponent {
   /** Whether the question on screen has begun: a guess made, or over. One that has keeps its level. */
   readonly started = computed(() => this.tries().length > 0 || this.isQuestionComplete());
 
-  private readonly _level = computed(() => quizLevel(this.quizId, this.difficulty()));
+  private readonly _level = computed(() => this._levels.level(this.quizId, this.difficulty()));
   readonly triesMax = computed(() => this._level().triesMax ?? 5);
   readonly triesEffects = computed(() => this._level().triesEffects ?? []);
 
@@ -198,15 +200,17 @@ export abstract class CharacterQuizComponent {
   /**
    * The saved game is fetched alongside the characters rather than after
    * them: neither needs the other, and a quiz cannot decide whether it is
-   * resuming until both have arrived. Again after a change of owner, with the
-   * characters already in hand; only the latest of these draws.
+   * resuming until both have arrived. So are the levels in force, so that the
+   * first question is drawn at them - settled by then whatever the server
+   * said, or did not (QuizLevelsService). Again after a change of owner, with
+   * the characters already in hand; only the latest of these draws.
    */
   protected fetchAndRestore(): void {
     const run = ++this._loads;
     const characters = this.characters();
     this.loading.set(true);
 
-    forkJoin({ characters: characters.length ? of(characters) : this.fetchCharacters(), progress: this.progress.ready() }).subscribe({
+    forkJoin({ characters: characters.length ? of(characters) : this.fetchCharacters(), progress: this.progress.ready(), levels: this._levels.ready() }).subscribe({
       next: ({ characters }) => {
         if (run !== this._loads) {
           return;

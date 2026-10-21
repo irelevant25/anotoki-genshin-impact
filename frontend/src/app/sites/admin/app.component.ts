@@ -169,7 +169,8 @@ export class AppComponent {
       },
       {
         label: 'System',
-        links: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'admin-settings' }, ...tools],
+        // The quiz levels beside the site's settings: how the site plays, for whoever may change its content.
+        links: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'admin-settings' }, { label: 'Quiz levels', path: 'quiz-levels', icon: 'admin-levels' }, ...tools],
       },
     ];
   });

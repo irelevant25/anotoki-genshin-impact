@@ -56,6 +56,8 @@ require_once __DIR__ . '/site_routes.php';
 // and the guides behind the question marks.
 require_once __DIR__ . '/translations.php';
 require_once __DIR__ . '/guides.php';
+// The quizzes' levels, as the admin panel's Quiz levels page keeps them.
+require_once __DIR__ . '/quiz_levels.php';
 // The game catalog another site reads (the build analyzer), and the pages' way
 // of reading a version, which it answers with.
 require_once __DIR__ . '/game_versions.php';
@@ -112,6 +114,7 @@ require_once __DIR__ . '/routes/users/models/migration.php';
 // responses
 require_once __DIR__ . '/routes/users/responses/me.php';
 require_once __DIR__ . '/routes/users/responses/guide.php';
+require_once __DIR__ . '/routes/users/responses/quiz_levels.php';
 require_once __DIR__ . '/routes/users/responses/setting.php';
 require_once __DIR__ . '/routes/users/responses/visitor.php';
 
@@ -123,6 +126,7 @@ require_once __DIR__ . '/routes/users/endpoints/routes.php';
 // site's checks (api/translations.php is the site's part of them).
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
 require_once __DIR__ . '/routes/users/endpoints/guides.php';
+require_once __DIR__ . '/routes/users/endpoints/quiz_levels.php';
 require_once __DIR__ . '/routes/users/endpoints/visitor.php';
 
 ///////////////////

@@ -9,12 +9,15 @@
 // makes a throwaway site to show it - a database of its own with a little game content in it and a backend
 // copy serving it (backend/tests/tools/browser-env.php), the anotoki library's stand-in IAM to sign in at -,
 // serves the build and that API on one origin as the hosting does, and drives headless Edge (or Chrome)
-// through the pages: the public site as a visitor - Terms, Privacy, Contact, About and Support in English and Slovak among them -,
+// through the pages: the public site as a visitor - Terms, Privacy, Contact, About and Support in English and Slovak among them,
+// the top bar's items opening and closing their sections, the quizzes at saved levels and at the built-in ones when
+// asking for them fails -,
 // a sign-in the IAM refuses (the anotoki library's screens of it), a legal page while the IAM requires signing in
 // (drawn, never the sign-in card), an error thrown in a page (which must reach the site's error log, scrubbed),
 // the status page while the site is not ready (STATUS: alone, with nothing of either site's frame round it, and
 // the frame back once the site is), then the admin panel as its ADMIN (the Errors page with that error as its
-// row, and the row opened; the family's footer under its pages and what it opens). Then it stops all of it and
+// row, and the row opened; the Quiz levels page - what the rules say as levels are typed, the words they leave
+// behind, a save and back; the family's footer under its pages and what it opens). Then it stops all of it and
 // drops the database - also when something fails. Nothing here touches your database, your settings, your
 // browser or a real IAM.
 //
@@ -77,7 +80,8 @@ const php = process.env.PHP ?? 'php';
 // The pages. `then` runs once the page has settled - a dialog opened, a tab
 // chosen - before its screenshots; `focus` is how many presses of Tab the
 // focus shot takes; `data` is where the page shows dotted names that are not
-// words to translate (measure()); `widths`, the only widths it is taken at.
+// words to translate (measure()); `widths`, the only widths it is taken at; `levels`, what the browser answers
+// GET /api/quiz/levels with ({status, body} - answerLevels()).
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Clicks the first element under `scope` whose own words match `words` (a RegExp source). */
@@ -203,6 +207,200 @@ const publicFooter =
 /** The account panel open from the footer - its Background row's button, which opens the wallpapers' window, drawn. */
 const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (page) => waitFor(page, "!!document.querySelector('dialog[open] button[aria-haspopup=dialog]')", 15000));
 
+/**
+ * The top bar's items open and close their sections (sites/main/common/header, the owner's decision of 2026-10-21): on a
+ * section's own page its item leads home and is the page (aria-current="page"), on a page inside the section it leads to
+ * the section's page and is the current one (aria-current="true"), anywhere else it opens the section - its address
+ * saying where it goes, so hovering it says so - and the open section's item is marked. Enter on it, from the keyboard,
+ * goes there. Anything else is said.
+ */
+const topBarItem =
+  (section, { href, current, goes }) =>
+  async (page) => {
+    const link = `app-header a[data-section="${section}"]`;
+    if (!(await waitFor(page, `!!document.querySelector(${JSON.stringify(link)})`, 15000))) {
+      heard.push(`the top bar has no ${section} item`);
+      return true;
+    }
+    const facts = await page.evaluate(`(() => {
+      const link = document.querySelector(${JSON.stringify(link)});
+      return { href: link.getAttribute('href'), current: link.getAttribute('aria-current'), marked: link.closest('li').classList.contains('active') };
+    })()`);
+    const expected = { href, current, marked: current !== null };
+    if (JSON.stringify(facts) !== JSON.stringify(expected)) {
+      heard.push(`the top bar's ${section} item: ${JSON.stringify(facts)}, not ${JSON.stringify(expected)}`);
+    }
+    await page.evaluate(`document.querySelector(${JSON.stringify(link)}).focus(); true`);
+    await page.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+    await page.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+    if (!(await waitFor(page, `location.pathname === ${JSON.stringify(goes)}`, 10000))) {
+      heard.push(`the top bar's ${section} item: Enter went to ${await page.evaluate('location.pathname')}, not ${goes}`);
+    }
+    return true;
+  };
+
+/** Five steps of a level, try 0 to 4, each with what it hides. */
+const fiveTries = (...effects) => effects.map((effect, index) => ({ try: index, ...effect }));
+
+/**
+ * Levels as an ADMIN might save them on the Quiz levels page (the server's rules take them): Pixelate's Easy grid from
+ * 9 blocks across, four characters on every level of Mismatch, Voice's Medium 0.5, 1.5 and 3 seconds of the recording
+ * and its Hard one piece where its sentence names two (said in general words). The browser answers GET /api/quiz/levels
+ * with them for an entry's `levels`, as the API does once they are saved.
+ */
+const SAVED_LEVELS = (() => {
+  const picture = {
+    1: { triesMax: 5, triesEffects: fiveTries({ class: 'shown-half' }, {}, {}, {}, {}) },
+    2: { triesMax: 5, triesEffects: fiveTries({ class: 'shown-half shown-grey-blurred' }, { class: 'shown-grey-blurred' }, { class: 'shown-grey' }, {}, {}) },
+    3: {
+      triesMax: 5,
+      triesEffects: fiveTries(
+        { class: 'shown-quarter shown-grey-blurred-more' },
+        { class: 'shown-half shown-grey-blurred-more' },
+        { class: 'shown-half shown-grey-blurred' },
+        { class: 'shown-grey-blurred' },
+        { class: 'shown-grey' },
+      ),
+    },
+  };
+  const seconds = (...data) => ({ triesMax: 5, triesEffects: fiveTries(...data.map((value) => (value === null ? {} : { data: value }))) });
+  return {
+    banners: picture,
+    pixelate: { 1: seconds(9, 12, 17, 22, 27), 2: seconds(6, 10, 14, 18, 22), 3: seconds(5, 8, 11, 14, 17) },
+    mismatch: { 1: { choicesAmount: 4 }, 2: { choicesAmount: 4 }, 3: { choicesAmount: 4 } },
+    music: { 1: seconds(5, 10, 15, 20, null), 2: seconds(3, 6, 9, 12, 15), 3: seconds(2, 4, 6, 8, 10) },
+    dish: picture,
+    voice: {
+      1: { triesMax: 5, triesEffects: fiveTries({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}, {}) },
+      2: { triesMax: 5, triesEffects: fiveTries({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, { data: 1.5 }, { data: 3 }) },
+      3: { triesMax: 5, triesEffects: fiveTries({ class: 'quarter-text hidden-audio' }, { class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}) },
+    },
+  };
+})();
+
+/**
+ * Mismatch at the levels in force (QuizLevelsService): as many characters as the level its badge shows has in `byLevel`
+ * - the saved levels' four, or the built-in 3, 4 and 5 when asking for them failed - and a question drawn either way.
+ * A question an earlier page left keeps its own set, so it is answered first and the next one drawn.
+ */
+const mismatchChoices = (byLevel) => async (page) => {
+  if (!(await waitFor(page, "document.querySelectorAll('app-quizzes-mismatch .character-choice').length > 0", 20000))) {
+    heard.push('Mismatch drew no question');
+    return true;
+  }
+  await page.evaluate("document.querySelector('app-quizzes-mismatch .character-choice:not(:disabled)')?.click(); true");
+  await sleep(400);
+  if (!(await click('app-quizzes-mismatch button', '^Next$')(page))) {
+    heard.push('Mismatch offered no next question');
+    return true;
+  }
+  await sleep(600);
+  const facts = await page.evaluate(
+    "({ level: document.querySelector('app-quiz-difficulty .quiz-difficulty')?.className ?? '', choices: document.querySelectorAll('app-quizzes-mismatch .character-choice').length })",
+  );
+  const level = /level-hard/.test(facts.level) ? 'hard' : /level-medium/.test(facts.level) ? 'medium' : 'easy';
+  if (facts.choices !== byLevel[level]) {
+    heard.push(`Mismatch at ${level}: ${facts.choices} characters, not ${byLevel[level]}`);
+  }
+  return true;
+};
+
+/** The difficulty dialog open, its levels' words holding each of `words` - the numbers of the levels in force. */
+const dialogSays = (words) => async (page) => {
+  if (!(await waitFor(page, "!!document.querySelector('dialog[open] anotoki-radio-group')", 15000))) {
+    return false;
+  }
+  const text = await page.evaluate("document.querySelector('dialog[open] anotoki-radio-group').textContent.replace(/\\s+/g, ' ')");
+  for (const word of words) {
+    if (!text.includes(word)) {
+      heard.push(`the difficulty dialog does not say "${word}": ${text.slice(0, 300)}`);
+    }
+  }
+  return true;
+};
+
+/** The Quiz levels page's editor, typed into: its text with each [from, to] replaced (the first of each), as an input. */
+const editLevels =
+  (...replacements) =>
+  async (page) => {
+    if (!(await waitFor(page, "(document.querySelector('app-admin-quiz-levels textarea')?.value ?? '').includes('banners')", 15000))) {
+      return false;
+    }
+    return page.evaluate(`(() => {
+      const area = document.querySelector('app-admin-quiz-levels textarea');
+      area.value = ${JSON.stringify(replacements)}.reduce((text, [from, to]) => text.replace(from, to), area.value);
+      area.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+  };
+
+/**
+ * What the Quiz levels page says once the server's rules have answered: its verdict, the problems - each with its place,
+ * the quiz, the level and the try -, the words the levels leave behind, the field's own error, whether Save may be
+ * pressed. Each expectation given is held to; anything else is said.
+ */
+const levelsPageSays =
+  ({ verdict, problems = [], warnings = [], field = null, saveDisabled }) =>
+  async (page) => {
+    const asked = "document.querySelector('app-admin-quiz-levels .levels-verdict')?.textContent ?? 'Asking'";
+    if (!(await waitFor(page, `!/Asking/.test(${asked})`, 15000))) {
+      heard.push('the Quiz levels page never said what the rules say');
+      return true;
+    }
+    const facts = await page.evaluate(`(() => {
+      const host = document.querySelector('app-admin-quiz-levels');
+      const words = (element) => (element?.textContent ?? '').replace(/\\s+/g, ' ').trim();
+      return {
+        verdict: words(host.querySelector('.levels-verdict')),
+        problems: [...host.querySelectorAll('.levels-report:not(.levels-report--warnings) .levels-list li')].map(words),
+        warnings: [...host.querySelectorAll('.levels-report--warnings .levels-list li')].map(words),
+        field: host.querySelector('.anotoki-field__error') ? words(host.querySelector('.anotoki-field__error')) : null,
+        saveDisabled: host.querySelector('.levels-actions button')?.disabled ?? null,
+      };
+    })()`);
+    const wrong = [];
+    if (!verdict.test(facts.verdict)) wrong.push(`the verdict "${facts.verdict}"`);
+    if (problems.length !== facts.problems.length || problems.some((said) => !facts.problems.some((line) => line.startsWith(said)))) wrong.push(`the problems ${JSON.stringify(facts.problems)}`);
+    if (warnings.length !== facts.warnings.length || warnings.some((said) => !facts.warnings.some((line) => line.startsWith(said)))) wrong.push(`the warnings ${JSON.stringify(facts.warnings)}`);
+    if (field === null ? facts.field !== null : !field.test(facts.field ?? '')) wrong.push(`the field's error ${JSON.stringify(facts.field)}`);
+    if (facts.saveDisabled !== saveDisabled) wrong.push(`Save ${facts.saveDisabled ? 'disabled' : 'enabled'}`);
+    if (wrong.length) {
+      heard.push(`the Quiz levels page: ${wrong.join(', ')}`);
+    }
+    return true;
+  };
+
+/**
+ * A save on the Quiz levels page, and back: Save once the rules say nothing - the levels in force, the pages reading them
+ * (GET /api/quiz/levels) -, then "Back to the defaults", confirmed - the built-in levels in force again, nothing for the
+ * pages to read. Both are audited by the server (backend tests/quiz-levels.test.php holds that).
+ */
+const savedAndBack = async (page) => {
+  const state = "document.querySelector('app-admin-quiz-levels .levels-state')?.textContent ?? ''";
+  if (!(await waitFor(page, "document.querySelector('app-admin-quiz-levels .levels-actions button')?.disabled === false", 15000))) {
+    heard.push('Save never became pressable');
+    return true;
+  }
+  await page.evaluate("document.querySelector('app-admin-quiz-levels .levels-actions button').click(); true");
+  if (!(await waitFor(page, `/In force: the levels saved/.test(${state})`, 15000))) {
+    heard.push('a save did not put the levels in force');
+  }
+  const read = await page.evaluate("fetch('/api/quiz/levels').then((answer) => answer.json()).then((body) => body.levels?.mismatch?.['1']?.choicesAmount ?? null)");
+  if (read !== 4) {
+    heard.push(`after the save the pages read Mismatch's Easy as ${read}, not 4`);
+  }
+  await click('app-admin-quiz-levels .levels-actions button', '^Back to the defaults$')(page);
+  await sleep(500);
+  await click('dialog[open] button', '^Back to the defaults$')(page);
+  if (!(await waitFor(page, `/In force: the built-in levels/.test(${state})`, 15000))) {
+    heard.push('Back to the defaults did not put the built-in levels in force');
+  }
+  if ((await page.evaluate("fetch('/api/quiz/levels').then((answer) => answer.json()).then((body) => body.levels)")) !== null) {
+    heard.push('after Back to the defaults the pages still read saved levels');
+  }
+  return true;
+};
+
 const MAIN = [
   { name: 'main-home', path: '/', focus: 4 },
   { name: 'main-daily', path: '/daily' },
@@ -224,6 +422,40 @@ const MAIN = [
     then: steps(press('app-quiz-difficulty button'), (page) => waitFor(page, "!!document.querySelector('dialog[open] anotoki-radio-group')", 15000)),
   },
   { name: 'main-daily-banners', path: '/daily/banners' },
+  // The quizzes play the levels in force (QuizLevelsService): saved ones as the API answers them - Mismatch's count, the
+  // difficulty dialog's numbers, in a Voice sentence too - and the built-in ones when asking for them fails.
+  { name: 'main-quiz-levels-saved', path: '/quizzes/mismatch', widths: [1280], levels: { status: 200, body: { levels: SAVED_LEVELS } }, then: mismatchChoices({ easy: 4, medium: 4, hard: 4 }) },
+  {
+    name: 'main-quiz-levels-dialog',
+    path: '/quizzes/pixelate',
+    widths: [1280],
+    levels: { status: 200, body: { levels: SAVED_LEVELS } },
+    then: steps(press('app-quiz-difficulty button'), dialogSays(['A 9 × 9 grid to start', 'up to 27 × 27'])),
+  },
+  {
+    name: 'main-quiz-levels-voice',
+    path: '/quizzes/voice',
+    widths: [1280],
+    levels: { status: 200, body: { levels: SAVED_LEVELS } },
+    then: steps(
+      press('app-quiz-difficulty button'),
+      dialogSays(['then 0.5 s of the recording, then 1.5 s, then 3 s.', 'Part of the line or of its recording to start, and more with each wrong guess.']),
+    ),
+  },
+  {
+    name: 'main-quiz-levels-failed',
+    path: '/quizzes/mismatch',
+    widths: [1280],
+    levels: { status: 500, body: { error: 'Internal Server Error' } },
+    then: mismatchChoices({ easy: 3, medium: 4, hard: 5 }),
+  },
+  // The top bar: an item closes its section from the section's own page, goes to it from inside it, opens it from
+  // anywhere else - the daily's too (topBarItem).
+  { name: 'main-top-bar-section', path: '/quizzes', widths: [1280], then: topBarItem('quizzes', { href: '/', current: 'page', goes: '/' }) },
+  { name: 'main-top-bar-inside', path: '/quizzes/pixelate', widths: [1280], then: topBarItem('quizzes', { href: '/quizzes', current: 'true', goes: '/quizzes' }) },
+  { name: 'main-top-bar-elsewhere', path: '/games', widths: [1280], then: topBarItem('quizzes', { href: '/quizzes', current: null, goes: '/quizzes' }) },
+  { name: 'main-top-bar-daily', path: '/daily', widths: [1280], then: topBarItem('daily', { href: '/', current: 'page', goes: '/' }) },
+  { name: 'main-top-bar-daily-quiz', path: '/daily/banners', widths: [1280], then: topBarItem('daily', { href: '/daily', current: 'true', goes: '/daily' }) },
   { name: 'main-games', path: '/games' },
   { name: 'main-game-tournament', path: '/games/tournament' },
   { name: 'main-game-minesweeper', path: '/games/minesweeper' },
@@ -354,6 +586,33 @@ const ADMIN = [
   // The editor's own parts beside the kit's toolbar: the link asked in its dialog, the colour panel (the kit's field).
   { name: 'admin-guides-editor-link', path: '/admin/guides', then: steps(click('button, a', '^Edit'), press('anotoki-rich-text-toolbar button[aria-label="Link"]')) },
   { name: 'admin-guides-editor-colour', path: '/admin/guides', then: steps(click('button, a', '^Edit'), press('button[aria-label="Text colour"]')) },
+  // The Quiz levels page (sites/admin/quiz-levels): the levels in force as JSON, what the server's rules say of them as
+  // they are typed - where (the quiz, the level, the try) and what -, the site's words they would leave behind, Save only
+  // once nothing is wrong; a save, and back to the built-in levels.
+  { name: 'admin-quiz-levels', path: '/admin/quiz-levels', then: levelsPageSays({ verdict: /^Nothing: these levels are what the editor started from/, saveDisabled: true }) },
+  {
+    name: 'admin-quiz-levels-refused',
+    path: '/admin/quiz-levels',
+    then: steps(
+      editLevels(['"triesMax": 5', '"triesMax": 4']),
+      levelsPageSays({ verdict: /^One problem/, problems: ['Banners · Easy: triesMax is 5 on every level of every quiz'], saveDisabled: true }),
+    ),
+  },
+  {
+    name: 'admin-quiz-levels-not-json',
+    path: '/admin/quiz-levels',
+    widths: [1280],
+    then: steps(editLevels(['"banners": {', '"banners": ']), levelsPageSays({ verdict: /once the text is JSON/, field: /^Not JSON yet/, saveDisabled: true })),
+  },
+  {
+    name: 'admin-quiz-levels-warnings',
+    path: '/admin/quiz-levels',
+    then: steps(
+      editLevels(['"choicesAmount": 3', '"choicesAmount": 4'], ['{ "try": 0, "class": "shown-half" }', '{ "try": 0, "class": "shown-quarter" }']),
+      levelsPageSays({ verdict: /^Nothing: these levels may be saved/, warnings: ['Banners · Easy', 'Mismatch'], saveDisabled: false }),
+    ),
+  },
+  { name: 'admin-quiz-levels-saved', path: '/admin/quiz-levels', widths: [1280], then: steps(editLevels(['"choicesAmount": 3', '"choicesAmount": 4']), savedAndBack) },
   { name: 'admin-settings', path: '/admin/settings' },
   { name: 'admin-settings-group', path: '/admin/settings', then: press('button.card') },
   { name: 'admin-settings-routes', path: '/admin/settings', then: click('button.card', '^Parts of the site') },
@@ -687,8 +946,37 @@ const ANSWERS = {
   },
 };
 
+/**
+ * What the browser answers GET /api/quiz/levels with while an entry's `levels` ({status, body}) says - levels saved, or
+ * a failure - so that the quizzes' pages are seen at levels the throwaway database does not hold. Null: the API answers.
+ */
+let levelsAnswer = null;
+
+async function answerLevels(answer) {
+  levelsAnswer = answer;
+  if (answer !== null) {
+    await page.send('Fetch.enable', { patterns: [{ urlPattern: `${origin}/api/quiz/levels*`, requestStage: 'Request' }] });
+  } else if (siteAnswers === null) {
+    await page.send('Fetch.disable').catch(() => undefined);
+  }
+}
+
 /** A paused API request (Fetch.requestPaused): answered as the site's state says, or passed on to the API. */
 async function answerPaused(event) {
+  if (levelsAnswer !== null && new URL(event.request.url).pathname === '/api/quiz/levels') {
+    await page
+      .send('Fetch.fulfillRequest', {
+        requestId: event.requestId,
+        responseCode: levelsAnswer.status,
+        responseHeaders: [
+          { name: 'Content-Type', value: 'application/json' },
+          { name: 'Cache-Control', value: 'no-store' },
+        ],
+        body: Buffer.from(JSON.stringify(levelsAnswer.body)).toString('base64'),
+      })
+      .catch(() => undefined);
+    return;
+  }
   const answers = siteAnswers === null ? null : ANSWERS[siteAnswers];
   if (answers === null) {
     await page.send('Fetch.continueRequest', { requestId: event.requestId }).catch(() => undefined);
@@ -887,6 +1175,9 @@ async function visitAs(entry, width) {
     if (entry.closed) {
       await closeSite(entry.closed);
     }
+    if (entry.levels) {
+      await answerLevels(entry.levels);
+    }
     try {
       await page.send('Page.navigate', { url: origin + entry.path });
       await settle();
@@ -917,6 +1208,9 @@ async function visitAs(entry, width) {
     } finally {
       if (entry.closed) {
         await openSite();
+      }
+      if (entry.levels) {
+        await answerLevels(null);
       }
     }
     problems.push(...heard.filter((line) => !problems.includes(line)));

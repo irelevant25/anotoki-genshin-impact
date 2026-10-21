@@ -1023,8 +1023,8 @@ $answered = function (int $status, string $code) use ($backend): int {
     return linesSaying($backend, $code) - $before;
 };
 same(
-    'a 503 that says a state - the family\'s three, the closed sign, the guides\' and the visitors\' tables waiting: none written',
-    [0, 0, 0, 0, 0, 0],
+    'a 503 that says a state - the family\'s three, the closed sign, the guides\', the visitors\' and the quiz levels\' tables waiting: none written',
+    [0, 0, 0, 0, 0, 0, 0],
     [
         $answered(503, 'update_pending'),
         $answered(503, 'feature_unavailable'),
@@ -1032,6 +1032,7 @@ same(
         $answered(503, 'maintenance'),
         $answered(503, 'guides_unavailable'),
         $answered(503, 'visitors_unavailable'),
+        $answered(503, 'quiz_levels_unavailable'),
     ],
 );
 same(

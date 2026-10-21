@@ -1,0 +1,115 @@
+// The kit draws the heading, the spinner, the error, the field and the
+// buttons; what is here is this page's own: the line on what is in force, the
+// editor's code font, and what the rules and the words say under it.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 60rem;
+}
+
+.levels-state {
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  // Saved, but not in force: said as the warnings are.
+  .levels-state--broken {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-warning-light-border);
+    border-radius: var(--border-radius-large);
+    background: var(--color-warning-light);
+    color: var(--color-warning-light-text);
+  }
+}
+
+// JSON reads as code: the kit's textarea, in the family's mono font, its lines
+// kept whole (it scrolls sideways inside itself rather than wrapping a step).
+.levels-editor ::ng-deep .anotoki-textarea__multiline {
+  font-family: var(--anotoki-font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+.levels-report {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-card);
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.levels-report--warnings {
+  border-color: var(--color-warning-light-border);
+  background: var(--color-warning-light);
+  color: var(--color-warning-light-text);
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+// Where the words are reworded, each a link of its own.
+.levels-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.levels-heading {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.levels-verdict--fine {
+  color: var(--color-success-light-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.levels-verdict--problem {
+  color: var(--anotoki-danger-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.levels-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding-left: var(--spacing-lg);
+  line-height: 1.5;
+
+  code {
+    font-family: var(--anotoki-font-mono);
+    font-size: var(--font-size-sm);
+    overflow-wrap: anywhere;
+  }
+}
+
+// Where a problem is - the quiz, the level, the try - before what it is.
+.levels-place {
+  margin-right: var(--spacing-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.levels-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

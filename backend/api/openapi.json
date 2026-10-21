@@ -65,6 +65,10 @@
       "description": "Wish banners and the characters and weapons on them."
     },
     {
+      "name": "quizLevel",
+      "description": "The quizzes' levels: what every quiz plays - the built-in levels while nothing is saved - and the admin Quiz levels page's reading, checking, saving and resetting of them."
+    },
+    {
       "name": "quiz",
       "description": "The quizzes, a player's progress through them, and the history behind the stats."
     },
@@ -181,6 +185,166 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GuideEditorEntry"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/admin/quiz-levels": {
+      "delete": {
+        "tags": [
+          "quizLevel"
+        ],
+        "operationId": "resetAdminQuizLevels",
+        "summary": "Reset admin quiz levels",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizLevelsEditorView"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "quizLevel"
+        ],
+        "operationId": "getAdminQuizLevels",
+        "summary": "Get admin quiz levels",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizLevelsEditorView"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "quizLevel"
+        ],
+        "operationId": "saveAdminQuizLevels",
+        "summary": "Save admin quiz levels",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizLevelsSaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizLevelsEditorView"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/admin/quiz-levels/check": {
+      "post": {
+        "tags": [
+          "quizLevel"
+        ],
+        "operationId": "checkAdminQuizLevels",
+        "summary": "Check admin quiz levels",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuizLevelsSaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizLevelsCheck"
                 }
               }
             }
@@ -15380,6 +15544,32 @@
           },
           {}
         ]
+      }
+    },
+    "/api/quiz/levels": {
+      "get": {
+        "tags": [
+          "quizLevel"
+        ],
+        "operationId": "getQuizLevels",
+        "summary": "Get quiz levels",
+        "description": "Public.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizLevelsInForce"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
       }
     },
     "/api/quiz/progress": {
@@ -41011,6 +41201,153 @@
           "attempts",
           "created_at",
           "difficulty"
+        ],
+        "additionalProperties": false
+      },
+      "QuizLevelProblem": {
+        "title": "QuizLevelProblem",
+        "description": "One thing the rules say of a set of levels, and where it is.",
+        "type": "object",
+        "properties": {
+          "quiz": {
+            "description": "The quiz it is about (banners, pixelate, mismatch, music, dish, voice) - null: the levels as a whole.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "level": {
+            "description": "The level: \"1\" (Easy), \"2\" (Medium) or \"3\" (Hard) - null: the quiz as a whole.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "try": {
+            "description": "The step, by its try (0 to 4: how many wrong guesses before it) - null: the level as a whole.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "message": {
+            "description": "What is wrong, in English.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "quiz",
+          "level",
+          "try",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "QuizLevelsEditorView": {
+        "title": "QuizLevelsEditorView",
+        "description": "`GET`, `PUT` and `DELETE /api/admin/quiz-levels` - the Quiz levels page's view.",
+        "type": "object",
+        "properties": {
+          "levels": {
+            "description": "What is saved, as it was saved - null: nothing is, and the built-in levels are in force.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            ]
+          },
+          "updated_at": {
+            "description": "When it was saved (ISO 8601, UTC); null while nothing is.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "problems": {
+            "description": "What the rules say of what is saved now: none while it is in force.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizLevelProblem"
+            }
+          }
+        },
+        "required": [
+          "levels",
+          "updated_at",
+          "problems"
+        ],
+        "additionalProperties": false
+      },
+      "QuizLevelsCheck": {
+        "title": "QuizLevelsCheck",
+        "description": "`POST /api/admin/quiz-levels/check` - what the rules say of levels, nothing kept.",
+        "type": "object",
+        "properties": {
+          "problems": {
+            "description": "None: they may be saved.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizLevelProblem"
+            }
+          }
+        },
+        "required": [
+          "problems"
+        ],
+        "additionalProperties": false
+      },
+      "QuizLevelsInForce": {
+        "title": "QuizLevelsInForce",
+        "description": "`GET /api/quiz/levels` - the levels every quiz plays.",
+        "type": "object",
+        "properties": {
+          "levels": {
+            "description": "The six quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in levels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            ]
+          }
+        },
+        "required": [
+          "levels"
+        ],
+        "additionalProperties": false
+      },
+      "QuizLevelsSaveRequest": {
+        "title": "QuizLevelsSaveRequest",
+        "description": "The quizzes' levels, as the admin Quiz levels page sends them to be checked or saved. Hand-written: the levels are the frontend's own shape (quiz-levels.ts, QUIZ_LEVELS), which a PHP constructor has no way to describe - and the page sends whatever its editor holds, as JSON, for the server's rules to say what is wrong with it (api/quiz_levels.php).",
+        "type": "object",
+        "properties": {
+          "levels": {}
+        },
+        "required": [
+          "levels"
         ],
         "additionalProperties": false
       },

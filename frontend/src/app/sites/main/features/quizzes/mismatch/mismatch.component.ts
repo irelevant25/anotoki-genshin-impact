@@ -9,7 +9,8 @@ import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { todayString } from '../shared/daily';
 import { QuizDifficultyBadgeComponent } from '../shared/difficulty-badge/quiz-difficulty-badge.component';
-import { DAILY_DIFFICULTY, quizLevel } from '../shared/quiz-levels';
+import { DAILY_DIFFICULTY } from '../shared/quiz-levels';
+import { QuizLevelsService } from '../shared/quiz-levels.service';
 import { QuizProgressService, hasPlay } from '../shared/quiz-progress.service';
 import { QuizId, QuizState } from '../shared/quiz.types';
 import { CharacterApiService } from '../../../../../api';
@@ -31,7 +32,8 @@ interface QuizSet {
  * Pick the character that does not belong.
  *
  * All but one share an element, a weapon type or a region; you click the odd one
- * out. Three on easy, five on hard.
+ * out. Three on easy, five on hard - as the built-in levels have it; the levels
+ * in force say how many (QuizLevelsService).
  *
  * This is the one quiz that is not "which character is this?", so it has none of
  * the tries machinery the other five share - one click ends it.
@@ -46,6 +48,7 @@ export class QuizzesMismatchComponent {
   private readonly _characterApi = inject(CharacterApiService);
   private readonly _stateService = inject(StateService);
   private readonly _progress = inject(QuizProgressService);
+  private readonly _levels = inject(QuizLevelsService);
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _quizId: QuizId = 'mismatch';
 
@@ -63,7 +66,7 @@ export class QuizzesMismatchComponent {
   readonly picked = signal<any>(null);
   readonly isQuestionComplete = signal(false);
 
-  readonly choicesAmount = computed(() => quizLevel(this._quizId, this.difficulty()).choicesAmount ?? 4);
+  readonly choicesAmount = computed(() => this._levels.level(this._quizId, this.difficulty()).choicesAmount ?? 4);
   readonly isSuccess = computed(() => !!this.picked() && this.picked()?.name === this.quizSet()?.answer?.name);
 
   /**
@@ -99,7 +102,8 @@ export class QuizzesMismatchComponent {
     const known = this.characters();
     this.loading.set(true);
 
-    forkJoin({ characters: known.length ? of(known) : this._characterApi.getCharactersMinimal(), progress: this._progress.ready() }).subscribe({
+    // The levels in force beside them, as every quiz asks (CharacterQuizComponent.fetchAndRestore()).
+    forkJoin({ characters: known.length ? of(known) : this._characterApi.getCharactersMinimal(), progress: this._progress.ready(), levels: this._levels.ready() }).subscribe({
       next: ({ characters }) => {
         if (run !== this._loads) {
           return;

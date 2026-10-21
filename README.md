@@ -16,7 +16,7 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
   device's and dates are written the device's way.
 - **Admin panel**: every piece of game content and its media, the site's words
   (translations, languages and the guides' pages), site switches (maintenance,
-  announcements, which pages are open to whom), migrations, backups, the audit
+  announcements, which pages are open to whom), the quizzes' levels, migrations, backups, the audit
   log, errors, feedback, the file explorer and the people the site keeps a
   record of - the last seven the anotoki library's pages, for the ADMIN alone.
 - **What's new**: the version at the bottom of the site opens the changelog
@@ -187,13 +187,14 @@ backend/
                         audit_log.php (the shared library's sign-in, people and admin tools, set up for
                         this site); migration_runner.php and site_state.php (the migrations and
                         where the site stands, on the shared library); translations.php and guides.php
-                        (the words, on the shared library; the guides' pages)
+                        (the words, on the shared library; the guides' pages); quiz_levels.php (the
+                        quizzes' levels the admin panel saves, and their rules)
   config/               one module per concern; *.local.php per installation (written by setup.php)
   migrations/           users/ and genshin_impact/ - the one database's schema, as SQL files applied in order
                         (the shared library's own sets around them, from vendor/)
   vendor/               committed: the hosting has no Composer (anotoki/lib, the anotoki sites' library, too)
   tests/                php tests/run.php - the upload rules; the game catalog and its ids, the words'
-                        migration and routes, the library's data moves and admin tools, what a silent
+                        migration and routes, the quizzes' levels, the library's data moves and admin tools, what a silent
                         sign-in brings in, every settings file read cleanly, migration.php (on throwaway
                         databases)
   setup.php, router.php, migration.php, db-dump.php, db-push.php, assets.php,
@@ -440,6 +441,24 @@ not drift; [docs/README.md](docs/README.md) lists them.
   *The game catalog*). The admin panel's base-info tabs take a **Game ID**, and
   the owner's importer sends it from now on. Players notice nothing; the
   version stays 1.2.0.
+- Since 2026-10-21, at the owner's word, the top bar's items open and close
+  their sections: on a section's own page (`/quizzes`, `/daily`) its item leads
+  back to the home page, inside it (`/quizzes/pixelate`) to the section's page,
+  from anywhere else into the section - the link's address says which - and
+  the open section's item is marked (`aria-current`). And the quizzes' levels -
+  what each level of each quiz shows, try by try - are data: an ADMIN or an
+  EDITOR changes them on the admin panel's new **Quiz levels** page, as JSON the
+  server holds to its rules (the six quizzes, three levels each, five tries
+  every level, each wrong guess showing more), and "Back to the defaults"
+  returns to the built-in ones; both are in the audit log. The pages read the
+  levels in force at `GET /api/quiz/levels` and play the built-in ones while
+  nothing is saved and whenever that answer fails; the daily plays Easy, level
+  1 of them. The difficulty dialog's numbers follow the levels (Voice's seconds
+  too, migration `users/061`, which also makes the table, and general words for
+  a Voice level with fewer pieces of the recording than its sentence names); the
+  words no number can follow - the pictures' steps, Voice's, Mismatch's card and
+  guide - the Quiz levels page says to reword when a level leaves them behind
+  (DEV.md, *Quiz levels*).
 
 ## More
 

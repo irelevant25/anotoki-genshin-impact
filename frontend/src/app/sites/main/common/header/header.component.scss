@@ -48,6 +48,8 @@ nav ul li a:hover {
   color: inherit;
 }
 
+// The section open now - its own page or one inside it - drawn as a hovered
+// item is: pressing it again closes it (header.component.ts, menuItems).
 nav ul li.active {
   box-shadow:
     0 0 10px rgba(0, 0, 0, 0.1),

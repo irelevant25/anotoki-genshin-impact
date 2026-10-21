@@ -1,0 +1,95 @@
+<anotoki-page-header
+    heading="Quiz levels"
+    lead="What each level of each quiz shows, try by try: the classes that hide a picture or a line, Pixelate's grid, the seconds of a track or a recording, how many characters Mismatch offers. Saved here, they take the place of the built-in levels on every quiz at once; the daily plays Easy." />
+
+@if (loading()) {
+    <anotoki-spinner class="page-spinner" label />
+} @else {
+    @if (failed()) {
+        <anotoki-error-state heading="The quiz levels could not be read" [message]="failed()!" (retry)="load()" />
+    } @else {
+        <!-- No inline element meets a stop or a comma here, so that a reformat never puts a space where none was (the
+             root's .prettierignore names the templates that cannot be written so). -->
+        <section class="levels-state" aria-label="The levels in force">
+            @if (view()?.levels === null) {
+                <p>In force: the built-in levels. Nothing is saved.</p>
+            } @else if (view()?.problems?.length) {
+                <p class="levels-state--broken">
+                    Saved {{ view()?.updated_at | appDate: "datetime" }}, but the rules no longer take these levels: every quiz plays the built-in levels until they are mended and saved, or reset.
+                </p>
+            } @else {
+                <p>In force: the levels saved {{ view()?.updated_at | appDate: "datetime" }}.</p>
+            }
+        </section>
+
+        <anotoki-textarea
+            class="levels-editor"
+            label="The levels, as JSON"
+            hint="Six quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has five steps, try 0 to try 4 - what it hides after that many wrong guesses; a Mismatch level, how many characters it shows."
+            spellcheck="false"
+            [rows]="22"
+            [disabled]="busy()"
+            [error]="syntaxError()"
+            [(value)]="text" />
+
+        <section class="levels-report" aria-labelledby="levels-rules-heading">
+            <h2 id="levels-rules-heading" class="levels-heading">What the rules say</h2>
+            <!-- A live region that is always there, so that what the rules say is read out as it comes. -->
+            <div role="status" class="levels-verdict">
+                @if (syntaxError()) {
+                    <p>The rules are asked once the text is JSON.</p>
+                } @else if (checkFailed()) {
+                    <p class="levels-verdict--problem">The rules could not be asked: the server is out of reach. Nothing can be saved until it answers.</p>
+                } @else if (problems() === null) {
+                    <p>Asking the rules…</p>
+                } @else if (problems()!.length === 0) {
+                    <p class="levels-verdict--fine">Nothing: these levels {{ dirty() ? "may be saved" : "are what the editor started from" }}.</p>
+                } @else {
+                    <p class="levels-verdict--problem">{{ problems()!.length === 1 ? "One problem" : problems()!.length + " problems" }} - nothing is saved until they are mended:</p>
+                }
+            </div>
+            @if (problems()?.length) {
+                <ul class="levels-list">
+                    @for (problem of problems(); track $index) {
+                        <li>
+                            <span class="levels-place">{{ placeOf(problem.quiz, problem.level, problem.try) }}:</span>
+                            {{ problem.message }}
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+
+        @if (warnings().length) {
+            <section class="levels-report levels-report--warnings" aria-labelledby="levels-words-heading">
+                <h2 id="levels-words-heading" class="levels-heading">Words these levels leave behind</h2>
+                <p>
+                    The difficulty dialog takes its numbers from the levels by itself. What no number can say is written for the built-in levels: reword it to match, in English and Slovak - a string
+                    on the Translations page, a guide on the Guides page.
+                </p>
+                <p class="levels-links">
+                    <a routerLink="/admin/translations">Translations page</a>
+                    <a routerLink="/admin/guides">Guides page</a>
+                </p>
+                <ul class="levels-list">
+                    @for (warning of warnings(); track warning.quiz + warning.level) {
+                        <li>
+                            <span class="levels-place">{{ placeOf(warning.quiz, warning.level) }}:</span>
+                            {{ warning.message }} Its words:
+                            <code>{{ warning.key }}</code>
+                            @if (warning.guide) {
+                                and the {{ placeOf(warning.quiz, null) }} guide
+                            }
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+
+        <div class="levels-actions">
+            <button anotokiButton variant="primary" [disabled]="!canSave()" (click)="save()">Save</button>
+            <button anotokiButton [disabled]="!dirty() || busy()" (click)="discard()">Discard changes</button>
+            <button anotokiButton variant="danger-ghost" [disabled]="!canReset()" (click)="backToDefaults()">Back to the defaults</button>
+        </div>
+    }
+}

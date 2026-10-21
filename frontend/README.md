@@ -20,10 +20,15 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         (app.component) says once what happened to a visitor's games, in toasts;
                         legal/ - /terms, /privacy, /contact: the library's pages
                         (@anotoki/lib/legal/pages) in their frame, with this site's facts
-                        (legal-facts.ts), anybody's, each loaded when opened
+                        (legal-facts.ts), anybody's, each loaded when opened; the quizzes' levels
+                        (features/quizzes/shared: quiz-levels.ts the built-in ones and the
+                        dialog's words, quiz-levels.service.ts the ones in force - asked once a
+                        page load, the built-in ones while asking and whenever it fails)
 src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words, settings;
                         /admin/translations and /admin/languages are the shared library's pages
                         (@anotoki/lib/translations/admin), localization/guides/ the guides' pages;
+                        quiz-levels/ the Quiz levels page (the levels as JSON, what the server's
+                        rules say of them as they are typed, the words they leave behind);
                         for the ADMIN alone, the library's /admin/migrations, People
                         (/admin/people, configured in people.ts) and admin tools - Feedback, Audit
                         Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
@@ -70,7 +75,9 @@ scripts/                prepare-deploy.mjs (the production config.json - anotoki
                         screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
                         1280 and 390 px, on a throwaway site of its own; a refused sign-in's
                         screens; a thrown error read back from the error log; the status page
-                        alone while the site is not ready, and the frame back once it is)
+                        alone while the site is not ready, and the frame back once it is; the
+                        top bar's items opening and closing their sections; the quizzes at
+                        saved levels and at the built-in ones; the Quiz levels page)
 src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
                         dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs

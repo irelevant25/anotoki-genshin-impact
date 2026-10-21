@@ -1,7 +1,7 @@
 <nav>
     <ul>
         @for (menuItem of menuItems(); track menuItem.id) {
-            <li>
+            <li [class.active]="menuItem.current !== null">
                 <!-- How much of today's daily is left, and green once it is
                      none. A count says what a question mark could not: whether
                      it is worth going in. -->
@@ -21,7 +21,9 @@
                 @if (menuItem.hidden) {
                     <span class="hidden-badge">{{ 'route.hiddenBadge' | translate }}</span>
                 }
-                <a [routerLink]="menuItem.id" [class.nav-hidden]="menuItem.hidden">{{ menuItem.title | translate }}</a>
+                <!-- Opens the section, or on the section's own page closes it: the
+                     address says which (HeaderComponent.menuItems). -->
+                <a [routerLink]="menuItem.target" [attr.aria-current]="menuItem.current" [attr.data-section]="menuItem.id" [class.nav-hidden]="menuItem.hidden">{{ menuItem.title | translate }}</a>
             </li>
         }
     </ul>

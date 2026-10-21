@@ -18,7 +18,7 @@ declare(strict_types=1);
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
  * strings - and nothing else came in but the library's words, 051's, 055's,
- * 057's and 058's, nothing else went but 053's, 056's, 057's and 060's, and
+ * 057's, 058's and 061's, nothing else went but 053's, 056's, 057's and 060's, and
  * nothing else was reworded but the footer's Feedback where it was still
  * users/004's (057), the quizzes' cards and Mismatch's guide where they were
  * still users/005's and 028's (059), and 060's guides and Slovak where they
@@ -104,10 +104,12 @@ const LIBRARY_WORDS_FILES = [
 // 0.6's users/055-056 (the legal pages' facts, the multiselect's old
 // summaries gone) with the library's words 005-013, users/057 (the
 // public footer's words), users/058 (the quizzes' difficulty dialog's),
-// users/059 (the quizzes' cards and Mismatch's guide reworded) and users/060
-// (words made true before the owner's usability test), and genshin_impact/
-// 030-031 (the game's own ids, for the build analyzer's catalog), which one
-// Apply brings along.
+// users/059 (the quizzes' cards and Mismatch's guide reworded), users/060
+// (words made true before the owner's usability test) and users/061 (the
+// quizzes' levels' table; Voice's levels' seconds, 058's words, from the
+// levels - tests/quiz-levels.test.php), and genshin_impact/030-031 (the
+// game's own ids, for the build analyzer's catalog), which one Apply brings
+// along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -122,6 +124,7 @@ const WORDS_AND_AFTER = [
     'users/058_quiz_difficulty_strings.sql',
     'users/059_quiz_cards_and_mismatch_guide.sql',
     'users/060_words_made_true_for_the_usability_test.sql',
+    'users/061_quiz_levels.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -232,6 +235,8 @@ const DIFFICULTY_NEW_KEYS = [
     'quiz.levelInfo.voiceHard',
     'quiz.levelInfo.voiceMedium',
 ];
+// What users/061 brings: Voice's general words, for a level playing fewer pieces than its sentence names.
+const LEVELS_NEW_KEYS = ['quiz.levelInfo.voiceOther'];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -390,10 +395,10 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS);
+$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS);
 $went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s and 058\'s in, 053\'s, 056\'s, 057\'s and 060\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s and 061\'s in, 053\'s, 056\'s, 057\'s and 060\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
