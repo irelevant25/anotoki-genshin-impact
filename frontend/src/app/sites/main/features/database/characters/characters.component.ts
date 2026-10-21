@@ -73,7 +73,7 @@ export class DatabaseCharactersComponent {
     })),
   );
 
-  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.characters()).map((rarity) => ({ value: rarity, label: `${rarity}★`, words: true, star: rarityColour(rarity) })));
+  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.characters()).map((rarity) => ({ value: rarity, label: String(rarity), words: true, star: rarityColour(rarity) })));
 
   regionOptions = computed(() => buildValueOptions(this.characters(), 'region'));
   versionOptions = computed(() => buildVersionOptions(this.characters()));
@@ -161,11 +161,6 @@ export class DatabaseCharactersComponent {
     if ((GROUPINGS as readonly string[]).includes(key)) {
       this.groupBy.set(key as GroupKey);
     }
-  }
-
-  /** The line under a character's name: the title, or who the Traveler is. */
-  subtitle(character: CharacterRow): string | null {
-    return character.title || (character.is_traveler ? 'Traveler' : null);
   }
 
   resetFilters(): void {

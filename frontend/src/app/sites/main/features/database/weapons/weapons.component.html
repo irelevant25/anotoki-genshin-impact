@@ -68,7 +68,10 @@
                                     {{ group.emblem.text }}
                                 }
                             </span>
-                            <h2 class="list-section-title" [class.list-section-title--stars]="group.emblem.kind === 'rarity'">
+                            <h2
+                                class="list-section-title"
+                                [class.list-section-title--stars]="group.emblem.kind === 'rarity'"
+                                [attr.aria-label]="group.emblem.kind === 'rarity' ? group.emblem.rarity + '★' : null">
                                 @if (group.title === null) {
                                     {{ "database.list.other" | translate }}
                                 } @else if (groupBy() === "version") {

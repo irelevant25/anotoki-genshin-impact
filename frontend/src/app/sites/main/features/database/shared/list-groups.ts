@@ -20,8 +20,6 @@ export const WEAPON_TYPE_ORDER: readonly string[] = ['Sword', 'Claymore', 'Polea
 /** What a list can be grouped by; each page offers its own subset (`none` is one flat grid). */
 export type GroupKey = 'region' | 'version' | 'rarity' | 'none';
 
-export const GROUP_KEYS: readonly GroupKey[] = ['region', 'version', 'rarity', 'none'];
-
 /** The block before a group's title: a region's emblem, a version's number, a rarity's "5★", or a mark for the rows without the value. */
 export type GroupEmblem = { kind: 'picture'; name: string; folder: string } | { kind: 'text'; text: string } | { kind: 'rarity'; rarity: number };
 

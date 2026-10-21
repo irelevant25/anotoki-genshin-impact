@@ -10,7 +10,7 @@
 // reads the theme's tokens, so it is right in the dark theme as in the light.
 
 // The rarity's colour from a `data-rarity` attribute - the colour the list
-// cards' gradient reads too (characters.component.scss).
+// tiles' ground reads too (shared/list-tile).
 @mixin rarity-colour {
   --rarity: var(--one-star);
 

@@ -107,9 +107,10 @@ const LIBRARY_WORDS_FILES = [
 // users/059 (the quizzes' cards and Mismatch's guide reworded), users/060
 // (words made true before the owner's usability test) and users/061 (the
 // quizzes' levels' table; Voice's levels' seconds, 058's words, from the
-// levels - tests/quiz-levels.test.php), and genshin_impact/030-031 (the
-// game's own ids, for the build analyzer's catalog), which one Apply brings
-// along.
+// levels - tests/quiz-levels.test.php), users/062 (the detail pages' and the
+// banners' new look's words) and users/063 (the lists' new look's words), and
+// genshin_impact/030-031 (the game's own ids, for the build analyzer's
+// catalog), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -125,6 +126,8 @@ const WORDS_AND_AFTER = [
     'users/059_quiz_cards_and_mismatch_guide.sql',
     'users/060_words_made_true_for_the_usability_test.sql',
     'users/061_quiz_levels.sql',
+    'users/062_database_pages_redesign_strings.sql',
+    'users/063_database_lists_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',

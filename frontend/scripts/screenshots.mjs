@@ -503,7 +503,7 @@ const MAIN = [
   { name: 'main-database-weapons-filtered', path: '/database/weapons?type=Sword&rarity=5' },
   { name: 'main-database-weapon', path: '/database/weapons/1' },
   { name: 'main-database-materials', path: '/database/materials' },
-  { name: 'main-database-materials-filtered', path: '/database/materials?category=Local%20Specialty&group=region' },
+  { name: 'main-database-materials-filtered', path: '/database/materials?category=Local%20Specialty&group=version' },
   { name: 'main-database-material', path: '/database/materials/1' },
   { name: 'main-database-banners', path: '/database/banners' },
   { name: 'main-profile', path: '/profile' },

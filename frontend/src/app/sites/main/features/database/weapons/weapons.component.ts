@@ -60,7 +60,7 @@ export class DatabaseWeaponsComponent {
     }));
   });
 
-  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.weapons()).map((rarity) => ({ value: rarity, label: `${rarity}★`, words: true, star: rarityColour(rarity) })));
+  rarityOptions = computed<FacetOption[]>(() => rarityValues(this.weapons()).map((rarity) => ({ value: rarity, label: String(rarity), words: true, star: rarityColour(rarity) })));
 
   versionOptions = computed(() => buildVersionOptions(this.weapons()));
 
