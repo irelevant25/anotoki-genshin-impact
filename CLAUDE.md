@@ -219,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.9.1 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.9.2 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -955,7 +955,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.9.1), each piece imported from its own entry point -
+  kit (anotoki-lib 0.9.2), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -964,8 +964,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   own: `ui/side-nav` (the admin panel's navigation), `ui/disclosure` (what
   folds: an accordion of disclosures), `ui/combobox` (the quizzes' search with
   pictures), `ui/date-field`, `ui/slider`, `ui/chips`, `ui/file-picker`,
-  `ui/color-field`, `ui/rich-text` (the HTML editor's toolbar) and `ui/icons`
-  (the family's drawings) - never `@anotoki/lib/ui`. Beside them: a dialog as
+  `ui/color-field`, `ui/rich-text` (the HTML editor's toolbar), `ui/code-editor`
+  (the Quiz levels page's JSON, since 0.9.2) and `ui/icons` (the family's
+  drawings) - never `@anotoki/lib/ui`. Beside them: a dialog as
   wide as `xl` (64rem: the guides' editor, the parts of the site, the
   wallpapers), `variant="danger-ghost"` for a row's quiet Delete, a page
   header's lead with markup in `[pageLead]`, `.table-middle` on the admin
