@@ -610,7 +610,13 @@ node docs/security/build-report.mjs                            # after re-runnin
   voice-overs belong to shared **sets** (`characters_*_sets`, migrations 016–020)
   that the character points at, so the Traveler's variants share one copy. It
   writes through the set, and leaves alone a set the character was just
-  repointed at.
+  repointed at. Its GET hands the special dish beside the character (`dish`:
+  id, name, rarity - a live food, or null), as `character.special_dish` is only
+  the food's id, the admin form's to set: a page shows the dish, never that
+  number (the character page printed it from 2026-08-31 to 2026-10-21;
+  `tests/character-full.test.php`). Likewise a page writes a birthday - a DATE
+  in year 4 - as a day and a month (`birthdayLabel()`, database-helpers.ts),
+  never as stored.
 - **Migrations are the schema.** `backend/migrations/{users,genshin_impact}/NNN_name.sql`,
   applied in order by `php migration.php` - `users/` first, then `genshin_impact/`,
   into the one database, and recorded in its `migrations` table by folder and file
