@@ -1056,7 +1056,17 @@ node docs/security/build-report.mjs                            # after re-runnin
   in `sites/admin/app.component.ts`. Simple lookup tables use the shared
   `lookup-table` component: a line in `LOOKUP_PAGES` in `sites/admin/pages/pages.ts`
   and `lookupRoute('path')` in `admin.routes.ts`.
-- **Public DB pages** live in `sites/main/features/database/<entity>/`.
+- **Public DB pages** live in `sites/main/features/database/<entity>/`. The
+  three detail pages (character, weapon, material) share one skeleton since
+  the owner's choice of 2026-10-21 among the mockups ("Showcase"):
+  `features/database/shared/` holds the hero (`app-detail-hero`: the namecard
+  or the rarity's colour behind the name, the art, a strip of facts), the facts
+  list (`app-detail-facts`), the material tile (`app-material-tile`) and
+  `_detail-page.scss` (the rarity ground and element accent mixins, the
+  columns, the cost tables); the sections are the kit's cards. The Banners page
+  is a timeline, grouped by version and phase (`banners/banner-groups.ts`, pure;
+  `app-banner-card`), its states counted in days through `pluralTail()` and the
+  three plural keys of `users/062`.
 - **The public site's lists are asked once a page load** (the owner's decision
   of 2026-10-21): `sites/main/game-lists.service.ts` (`GameListsService`) -
   characters, the minimal characters, materials, weapons, banners (`/full`),

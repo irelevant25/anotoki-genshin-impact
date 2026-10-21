@@ -25,6 +25,14 @@ export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   'daily.status.': ['won', 'lost', 'started'],
   // A voice-over's type, the filter of the character page's voice-over tab (characters_voice_overs.type).
   'database.detail.': ['story', 'combat'],
+  // A banner's kind on the Banners page, inferred from what it features (weapons -> weapon; users/062).
+  'database.banners.kind.': ['character', 'weapon'],
+  // A phase's state on the Banners page, counted in days: one, few, other - the forms Intl.PluralRules
+  // names, which the page picks by the reader's language (pluralTail, database-helpers.ts; users/062).
+  'database.banners.state.endsIn.': ['one', 'few', 'other'],
+  'database.banners.state.startsIn.': ['one', 'few', 'other'],
+  // How many banners a version holds, beside its heading on the Banners page - the same three forms.
+  'database.banners.count.': ['one', 'few', 'other'],
   // Elemental Minesweeper's difficulties, and the hint under the chosen one.
   'game.minesweeper.difficulty.': ['easy', 'medium', 'hard'],
   'game.minesweeper.difficultyHint.': ['easy', 'medium', 'hard'],

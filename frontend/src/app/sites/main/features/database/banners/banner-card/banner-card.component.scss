@@ -1,0 +1,122 @@
+@use "../../shared/detail-page" as *;
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.banner-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-small);
+  overflow: hidden;
+}
+
+// The wish art is 16:9; the box keeps that shape before the lazy picture comes,
+// so the row has its height from the start.
+.banner-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.banner-body {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+}
+
+.banner-name {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.featured {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.featured-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 0 var(--spacing-xxs);
+  background: var(--border-color);
+}
+
+.feat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover .feat-ring {
+    transform: translateY(-2px);
+  }
+}
+
+// A round picture on the rarity's ground, ringed in the rarity's colour: gold for a 5★, purple for a 4★.
+.feat-ring {
+  display: block;
+  padding: 2px;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 2px var(--ring);
+  transition: transform var(--transition-base);
+
+  img {
+    display: block;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--border-radius-pill);
+    object-fit: cover;
+    @include rarity-ground;
+  }
+}
+
+.feat--five {
+  --rarity: var(--five-star);
+  --ring: var(--genshin-gold);
+}
+
+.feat--four {
+  --rarity: var(--four-star);
+  --ring: var(--four-star);
+  width: 56px;
+
+  .feat-ring {
+    margin-top: var(--spacing-xs);
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .feat-name {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.feat-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+  word-break: break-word;
+}

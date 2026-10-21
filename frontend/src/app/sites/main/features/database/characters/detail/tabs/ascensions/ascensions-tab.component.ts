@@ -1,14 +1,14 @@
 import { Component, computed, input, linkedSignal } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '@anotoki/lib/translations';
-import { MaterialIconDirective } from '../../../../../../../admin/shared/material-icon.directive';
+import { CardComponent } from '@anotoki/lib/ui/card';
+import { MaterialTileComponent } from '../../../../shared/material-tile/material-tile.component';
 import { sumMaterials, toggleIn } from '../../../../shared/database-helpers';
 
 @Component({
   selector: 'app-character-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [RouterModule, TranslatePipe, MaterialIconDirective],
+  imports: [TranslatePipe, CardComponent, MaterialTileComponent],
 })
 export class CharacterAscensionsTabComponent {
   ascensions = input<any[]>([]);

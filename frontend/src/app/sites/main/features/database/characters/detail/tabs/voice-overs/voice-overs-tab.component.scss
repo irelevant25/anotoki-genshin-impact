@@ -4,66 +4,12 @@
 // bright hole punched in the dark theme. They use the veil tokens instead, so a
 // card is a light panel in the light theme and a dark one in the dark theme.
 
-.voiceover-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-lg);
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-}
-
 .voiceover-filters {
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
   flex-wrap: wrap;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  background-color: var(--bg-veil-strong);
-  padding: var(--spacing-xxs) var(--spacing-sm);
-  border-radius: var(--border-radius-pill);
-  box-shadow: var(--shadow-small);
-}
-
-.filter-group-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-muted);
-}
-
-.filter-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: var(--font-size-base);
-  padding: var(--spacing-xxs) var(--spacing-sm);
-  border-radius: var(--border-radius-pill);
-  color: var(--text-primary);
-  transition: all var(--transition-base);
-
-  &:hover {
-    background-color: var(--color-primary-light);
-  }
-
-  &.active {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-  }
-
-  // Story and combat keep their own colours so the badge on a card and the
-  // button that selected it are visibly the same thing.
-  &.story.active {
-    background-color: var(--story-color);
-  }
-
-  &.combat.active {
-    background-color: var(--combat-color);
-  }
+  margin-bottom: var(--spacing-lg);
 }
 
 .voicelines-container {

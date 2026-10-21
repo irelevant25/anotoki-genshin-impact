@@ -1,0 +1,64 @@
+<section class="hero" [class.hero--portrait]="!!portrait()" [attr.data-element]="elementKey()" [attr.data-rarity]="rarity()">
+    <!-- The picture behind the header - or the rarity's colour - fading into the card's own ground. -->
+    <div class="hero-back" aria-hidden="true">
+        @if (backdrop(); as back) {
+            <img class="hero-back-image" [appMaterialIcon]="back.name" [appAssetFolder]="back.folder" alt="" loading="lazy" />
+        }
+        <div class="hero-scrim"></div>
+    </div>
+
+    @if (splash(); as art) {
+        <img class="hero-splash" [class.hero-splash--item]="splashKind() === 'item'" [appMaterialIcon]="art.name" [appAssetFolder]="art.folder" alt="" loading="lazy" />
+    }
+
+    <div class="hero-body">
+        @if (portrait(); as card) {
+            <div class="hero-portrait">
+                <img [appMaterialIcon]="card.name" [appAssetFolder]="card.folder" [alt]="name()" loading="lazy" />
+            </div>
+        }
+
+        <div class="hero-text">
+            <h1 class="hero-name">{{ name() }}</h1>
+
+            @if (stars() || subtitle()) {
+                <div class="hero-sub">
+                    @if (stars()) {
+                        <span class="rarity-stars" [attr.aria-label]="rarity() + ' ★'">{{ stars() }}</span>
+                    }
+                    @if (subtitle()) {
+                        <span class="hero-title">{{ subtitle() }}</span>
+                    }
+                </div>
+            }
+
+            @if (tiles().length) {
+                <dl class="stats">
+                    @for (stat of tiles(); track $index) {
+                        <div class="stat">
+                            <dt class="stat-label">{{ stat.text }}</dt>
+                            <dd class="stat-value">
+                                @if (stat.icon; as icon) {
+                                    <span class="stat-icon" [class.stat-icon--disc]="icon.disc">
+                                        <img [appMaterialIcon]="icon.name" [appAssetFolder]="icon.folder" alt="" loading="lazy" />
+                                    </span>
+                                }
+                                @if (stat.stars) {
+                                    <span class="rarity-stars">{{ starsOf(stat.stars) }}</span>
+                                }
+                                @if (stat.date) {
+                                    <span class="stat-text">{{ stat.date | appDate }}</span>
+                                } @else if (stat.value !== null && stat.value !== undefined && stat.value !== "") {
+                                    <span class="stat-text">{{ stat.value }}</span>
+                                }
+                                @if (stat.hint) {
+                                    <span class="stat-hint">· {{ stat.hint }}</span>
+                                }
+                            </dd>
+                        </div>
+                    }
+                </dl>
+            }
+        </div>
+    </div>
+</section>

@@ -134,6 +134,39 @@ export function asList(input: unknown): string[] {
     .filter((entry) => entry.length > 0);
 }
 
+/** The rarity as stars - "★★★★★" - or nothing for none. */
+export function rarityStars(rarity: unknown): string {
+  const count = Number(rarity ?? 0);
+  return Number.isFinite(count) && count > 0 ? '★'.repeat(count) : '';
+}
+
+/**
+ * Gives a cost row (`material_id`, `quantity`) its material from the list, by
+ * id - null for one the list lacks, which the tiles then leave out.
+ */
+export function withMaterialFrom(materials: readonly { id: number }[]): (row: any) => any {
+  const byId = new Map(materials.map((material) => [material.id, material]));
+  return (row: any): any => ({ ...row, material: byId.get(row.material_id) ?? null });
+}
+
+/**
+ * Which of a counted sentence's three forms a number takes in a language:
+ * `one`, `few` or `other`, as Intl.PluralRules names them (Slovak: 1 deň,
+ * 2-4 dni, 5 dní; English has no `few`). The site's key scan knows no plural
+ * forms, so a counted key is three keys under one prefix (users/062,
+ * shared/dynamic-keys.ts); anything else the rules might say ("many", for a
+ * fraction) falls to `other`.
+ */
+export function pluralTail(count: number, language: string): 'one' | 'few' | 'other' {
+  let category = 'other';
+  try {
+    category = new Intl.PluralRules(language).select(count);
+  } catch {
+    category = 'other';
+  }
+  return category === 'one' || category === 'few' ? category : 'other';
+}
+
 export interface MaterialTotal {
   material: any;
   quantity: number;

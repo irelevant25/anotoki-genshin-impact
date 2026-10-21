@@ -1,0 +1,29 @@
+<dl class="facts">
+    @for (row of shown(); track $index) {
+        <div class="fact">
+            <dt class="fact-label">{{ row.text }}</dt>
+            <dd class="fact-value">
+                @if (row.icon; as icon) {
+                    <img class="fact-icon" [appMaterialIcon]="icon.name" [appAssetFolder]="icon.folder ?? 'materials'" alt="" loading="lazy" />
+                }
+                @if (row.stars) {
+                    <span class="rarity-stars">{{ starsOf(row.stars) }}</span>
+                }
+                @if (row.chips?.length) {
+                    <span class="chips">
+                        @for (chip of row.chips; track $index) {
+                            <span class="chip">{{ chip }}</span>
+                        }
+                    </span>
+                } @else if (row.date) {
+                    <span>{{ row.date | appDate }}</span>
+                } @else if (row.value !== null && row.value !== undefined && row.value !== "") {
+                    <span>{{ row.value }}</span>
+                }
+                @if (row.hint) {
+                    <span class="fact-hint">· {{ row.hint }}</span>
+                }
+            </dd>
+        </div>
+    }
+</dl>

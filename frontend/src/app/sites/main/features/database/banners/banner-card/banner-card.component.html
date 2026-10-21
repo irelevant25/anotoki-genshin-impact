@@ -1,0 +1,27 @@
+<article class="banner-card">
+    <img class="banner-art" [appMaterialIcon]="banner().icon_name" [appAssetFolder]="'banners'" [alt]="label()" loading="lazy" />
+    <div class="banner-body">
+        <anotoki-badge [tone]="kind() === 'weapon' ? 'warning' : 'primary'">{{ "database.banners.kind." + kind() | translate }}</anotoki-badge>
+        <h3 class="banner-name">{{ label() }}</h3>
+
+        @if (five().length || four().length) {
+            <div class="featured">
+                @for (item of five(); track item.key) {
+                    <a class="feat feat--five" [routerLink]="item.link" [title]="item.name">
+                        <span class="feat-ring"><img [appMaterialIcon]="item.icon ?? item.name" [appAssetFolder]="item.folder" alt="" loading="lazy" /></span>
+                        <span class="feat-name">{{ item.name }}</span>
+                    </a>
+                }
+                @if (five().length && four().length) {
+                    <span class="featured-sep" aria-hidden="true"></span>
+                }
+                @for (item of four(); track item.key) {
+                    <a class="feat feat--four" [routerLink]="item.link" [title]="item.name">
+                        <span class="feat-ring"><img [appMaterialIcon]="item.icon ?? item.name" [appAssetFolder]="item.folder" alt="" loading="lazy" /></span>
+                        <span class="feat-name">{{ item.name }}</span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</article>

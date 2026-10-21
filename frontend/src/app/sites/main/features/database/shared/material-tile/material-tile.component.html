@@ -1,0 +1,11 @@
+<a class="tile" [class.tile--lg]="size() === 'lg'" [attr.data-rarity]="rarity() ?? 1" [routerLink]="link()" [anotokiTooltip]="tooltip()" [attr.aria-label]="label()">
+    <span class="tile-art">
+        <img [appMaterialIcon]="icon() ?? name()" [appAssetFolder]="folder()" alt="" loading="lazy" />
+        @if (count(); as count) {
+            <span class="tile-count" aria-hidden="true">{{ count }}</span>
+        }
+    </span>
+    @if (size() === "lg") {
+        <span class="tile-name" aria-hidden="true">{{ name() }}</span>
+    }
+</a>

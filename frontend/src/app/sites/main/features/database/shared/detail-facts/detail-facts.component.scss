@@ -1,0 +1,58 @@
+@use "../detail-page" as *;
+
+:host {
+  display: block;
+}
+
+.facts {
+  margin: 0;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: minmax(96px, max-content) minmax(0, 1fr);
+  gap: var(--spacing-md);
+  align-items: start;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.fact-label {
+  margin: 0;
+  padding-top: 3px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.fact-value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+  min-width: 0;
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.fact-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.fact-hint {
+  color: var(--text-muted);
+}
+
+.rarity-stars {
+  font-size: 15px;
+  letter-spacing: 1px;
+}

@@ -1,39 +1,53 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { OptionsHelperService } from '../../../../../shared/local-lib/services/options-helper.service';
 import { forkJoin } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TranslatePipe } from '@anotoki/lib/translations';
+import { BadgeComponent, BadgeTone } from '@anotoki/lib/ui/badge';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
-import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm } from '../shared/database-helpers';
+import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm, pluralTail, versionLabel } from '../shared/database-helpers';
 import { asText, bindFiltersToUrl } from '../shared/filter-url';
 import { Banner, Character, Expanded, Weapon } from '../../../../../api';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
 import { GameListsService } from '../../../game-lists.service';
+import { todayString } from '../../quizzes/shared/daily';
+import { BannerPhase, groupBanners, phaseNumbers } from './banner-groups';
+import { BannerCardComponent } from './banner-card/banner-card.component';
 
 type IBannerFull = Banner & {
   characters: Expanded<Character, 'created_by' | 'updated_by'>[];
   weapons: Expanded<Weapon, 'created_by' | 'updated_by'>[];
 };
 
+/** A phase with its state put into words: the key, its placeholders, the badge's colour. */
+type ShownPhase = BannerPhase<IBannerFull> & { stateKey: string; stateParams: Record<string, number>; tone: BadgeTone };
+
+/**
+ * The banners as a timeline (the owner's choice of 2026-10-21 among the
+ * mockups): a heading a version, and under it one block a phase - the banners
+ * that ran together - with the dates and the state said once, on the left,
+ * and the phase's banners as cards beside them.
+ */
 @Component({
   selector: 'app-database-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [AppDatePipe, RouterModule, ButtonComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, MaterialIconDirective],
-  providers: [],
+  imports: [AppDatePipe, ButtonComponent, BadgeComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, BannerCardComponent],
 })
 export class DatabaseBannersComponent {
+  private readonly _lists = inject(GameListsService);
+  private readonly _i18n = inject(TranslationService);
+  /** The day the states are judged against, taken once: the page is not open for days. */
+  private readonly _today = todayString();
+
   banners = signal<IBannerFull[]>([]);
-  characters = signal<Expanded<Character, 'created_by' | 'updated_by'>[]>([]);
-  weapons = signal<Expanded<Weapon, 'created_by' | 'updated_by'>[]>([]);
   loading = signal(true);
 
   filterVersions = signal('');
   filterCharacterName = signal('');
   filterWeaponName = signal('');
+
+  versionLabel = versionLabel;
 
   // The key stays the raw `version` off the banner, so it can be compared
   // straight against the data; only the label gets the Luna number added.
@@ -88,8 +102,18 @@ export class DatabaseBannersComponent {
       });
   });
 
-  readonly optionsHelperService = inject(OptionsHelperService);
-  private readonly _lists = inject(GameListsService);
+  /** Each phase's number within its version, from every banner, so a filter never renumbers one. */
+  private readonly _phaseNumbers = computed(() => phaseNumbers(this.banners()));
+
+  /** The filtered banners by version and phase - a version or a phase the filter empties is simply not there. */
+  groups = computed(() => {
+    const language = this._i18n.language();
+    return groupBanners(this.filteredBanners(), this._phaseNumbers(), this._today).map((version) => ({
+      ...version,
+      countKey: `database.banners.count.${pluralTail(version.count, language)}`,
+      phases: version.phases.map((phase): ShownPhase => ({ ...phase, ...this._stateWords(phase, language) })),
+    }));
+  });
 
   constructor() {
     // The filters go in the URL, so coming back from a detail page finds the
@@ -108,33 +132,20 @@ export class DatabaseBannersComponent {
       banners: this._lists.banners(),
     }).subscribe({
       next: ({ characters, weapons, banners }) => {
-        this.characters.set(characters);
-        this.weapons.set(weapons);
-
         const charactersById = new Map(characters.map((character) => [character.id, character]));
         const weaponsById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
 
-        const localBanners: IBannerFull[] = [];
-        banners.forEach((banner, index) => {
-          // The banner with its own lists of ids emptied, to be filled with the full rows they name.
-          localBanners.push({ ...banner, characters: [], weapons: [] } as IBannerFull);
-
-          banner.characters.forEach((character) => {
-            const characterById = charactersById.get(character.character_id ?? -1);
-            if (characterById) {
-              localBanners[index].characters.push(characterById);
-            }
-          });
-
-          banner.weapons.forEach((weapon) => {
-            const weaponById = weaponsById.get(weapon.weapon_id ?? -1);
-            if (weaponById) {
-              localBanners[index].weapons.push(weaponById);
-            }
-          });
-        });
-
-        this.banners.set(localBanners);
+        // Each banner with the full rows its join rows name, in their order; a row the lists lack is left out.
+        this.banners.set(
+          banners.map(
+            (banner) =>
+              ({
+                ...banner,
+                characters: banner.characters.map((row) => charactersById.get(row.character_id ?? -1)).filter((character) => !!character),
+                weapons: banner.weapons.map((row) => weaponsById.get(row.weapon_id ?? -1)).filter((weapon) => !!weapon),
+              }) as IBannerFull,
+          ),
+        );
         this.loading.set(false);
       },
       error: () => this.loading.set(false),
@@ -145,5 +156,24 @@ export class DatabaseBannersComponent {
     this.filterVersions.set('');
     this.filterCharacterName.set('');
     this.filterWeaponName.set('');
+  }
+
+  /** The state badge's words - a counted sentence in the reader's language - and its colour. */
+  private _stateWords(phase: BannerPhase<IBannerFull>, language: string): { stateKey: string; stateParams: Record<string, number>; tone: BadgeTone } {
+    const days = phase.days ?? 0;
+    switch (phase.state) {
+      case 'ended':
+        return { stateKey: 'database.banners.state.ended', stateParams: {}, tone: 'neutral' };
+      case 'upcoming':
+        return { stateKey: `database.banners.state.startsIn.${pluralTail(days, language)}`, stateParams: { days }, tone: 'info' };
+      default:
+        if (phase.days === null) {
+          return { stateKey: 'database.banners.state.running', stateParams: {}, tone: 'success' };
+        }
+        if (days === 0) {
+          return { stateKey: 'database.banners.state.endsToday', stateParams: {}, tone: 'success' };
+        }
+        return { stateKey: `database.banners.state.endsIn.${pluralTail(days, language)}`, stateParams: { days }, tone: 'success' };
+    }
   }
 }

@@ -4,129 +4,99 @@
     @if (!loader.loadingCtrl.loading()) {
         <div class="database-page weapon-detail">
             @if (weapon(); as weapon) {
-                <div class="p-4 d-flex flex-row gap-3 flex-column-mobile">
-                    <div class="d-flex flex-column flex-1 text-center-mobile gap-3 left-bar">
-                        <h3 class="text-center">{{ weapon.name }}</h3>
-                        <img
-                            class="border-full mx-auto"
-                            [appMaterialIcon]="weapon.icon_name ?? weapon.name"
-                            [appAssetFolder]="'weapons'"
-                            [alt]="weapon.name"
-                            [class]="'quality-' + (weapon.rarity ?? '0')"
-                            loading="lazy" />
+                <app-detail-hero [name]="weapon.name" [rarity]="weapon.rarity" [subtitle]="weapon.type" [splash]="splash()" splashKind="item" [stats]="heroStats()" />
 
-                        <div class="d-flex flex-column gap-2 info">
-                            <div>
-                                <span class="d-flex fw-700">{{ "database.filters.weaponType" | translate }}:</span>
-                                <span class="d-flex text-start">{{ weapon.type ?? "-" }}</span>
-                            </div>
-                            <div>
-                                <span class="d-flex fw-700">{{ "database.detail.releaseDate" | translate }}:</span>
-                                <span class="d-flex text-start">{{ (weapon.release_date | appDate) || "-" }}</span>
-                            </div>
-                            <div>
-                                <span class="d-flex fw-700">{{ "database.detail.secondaryStat" | translate }}:</span>
-                                <span class="d-flex text-start">{{ weapon.secondary_stat ?? "-" }}</span>
-                            </div>
-                            <div>
-                                <span class="d-flex fw-700">{{ "database.detail.released" | translate }}:</span>
-                                <span class="d-flex text-start">{{ versionLabel(weapon.version) || "-" }}</span>
-                            </div>
-                            @if (effects().length) {
-                                <div>
-                                    <span class="d-flex fw-700">{{ "database.detail.effects" | translate }}:</span>
-                                    @for (effect of effects(); track effect) {
-                                        <span class="d-flex text-start">{{ effect }}</span>
-                                    }
-                                </div>
-                            }
-                        </div>
-
+                @if (refinements().length || effects().length || weapon.description) {
+                    <div class="detail-columns">
                         @if (refinements().length) {
-                            <div class="d-flex flex-column gap-2 info">
-                                <h3>{{ "database.detail.refinements" | translate }}</h3>
-                                <div class="text-center">
-                                    @for (level of refinements(); track level.id; let i = $index) {
-                                        <button
-                                            type="button"
-                                            class="btn number-btn"
-                                            [class.btn-primary]="selectedRefinement() === i"
-                                            [class.btn-outline-primary]="selectedRefinement() !== i"
-                                            (click)="selectedRefinement.set(i)">
-                                            {{ i + 1 }}
-                                        </button>
-                                    }
+                            <anotoki-card [heading]="'database.detail.refinements' | translate">
+                                <div class="refine-pick">
+                                    <anotoki-segmented
+                                        [label]="'database.detail.refinement' | translate"
+                                        [options]="refinementOptions()"
+                                        [value]="refinementValue()"
+                                        (valueChange)="pickRefinement($event)"
+                                        size="sm" />
                                 </div>
-                                <div class="text-display">
-                                    <div class="text-content">
-                                        <p class="mb-0">{{ refinement()?.description ?? "None" }}</p>
+                                <p class="refine-text">{{ refinement()?.description ?? "-" }}</p>
+                            </anotoki-card>
+                        }
+
+                        @if (effects().length || weapon.description) {
+                            <anotoki-card [heading]="'database.detail.effects' | translate">
+                                @if (effects().length) {
+                                    <div class="chips">
+                                        @for (effect of effects(); track $index) {
+                                            <span class="chip">{{ effect }}</span>
+                                        }
                                     </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
-                    <div class="d-flex flex-column gap-3 w-100">
-                        <h3>{{ "database.detail.ascensions" | translate }}</h3>
-                        <div class="w-100" style="overflow-x: auto">
-                            <table class="table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 80px">{{ "database.detail.phase" | translate }}</th>
-                                        <th style="width: 100px">{{ "database.detail.level" | translate }}</th>
-                                        <th style="width: 80px">{{ weapon.primary_stat || "Atk" }}</th>
-                                        <th style="width: 140px">{{ weapon.secondary_stat || ("database.detail.secondaryStat" | translate) }}</th>
-                                        <th>{{ "database.detail.cost" | translate }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (ascension of ascensions(); track ascension.id) {
-                                        <tr>
-                                            <td>{{ ascension.phase }}</td>
-                                            <td>{{ ascension.start_level_from }} - {{ ascension.end_level_to }}</td>
-                                            <td>{{ ascension.primary_stat_value ?? "-" }}</td>
-                                            <td>{{ ascension.secondary_stat_value ?? "-" }}</td>
-                                            @if (!ascension.costs.length) {
-                                                <td></td>
-                                            } @else {
-                                                <td>
-                                                    <div class="d-flex flex-row flex-nowrap gap-2">
-                                                        @for (cost of ascension.costs; track cost.id) {
-                                                            @if (cost.material) {
-                                                                <a
-                                                                    class="d-flex flex-column card-container hover"
-                                                                    [routerLink]="['../../', 'materials', cost.material.id]"
-                                                                    [title]="cost.material.name">
-                                                                    <img
-                                                                        class="top-border"
-                                                                        [appMaterialIcon]="cost.material.icon_name ?? cost.material.name"
-                                                                        [appAssetFolder]="'materials'"
-                                                                        [alt]="cost.material.name"
-                                                                        [class]="'quality-' + (cost.material.rarity ?? '0')"
-                                                                        loading="lazy" />
-                                                                    <div class="name text-center bottom-border py-1">x{{ cost.quantity }}</div>
-                                                                </a>
-                                                            }
-                                                        }
-                                                    </div>
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-
-                        @if (howToObtain().length) {
-                            <h3>{{ "database.detail.howToObtain" | translate }}</h3>
-                            <ul class="d-flex flex-column gap-2 list-style-none">
-                                @for (entry of howToObtain(); track entry) {
-                                    <li>{{ entry }}</li>
                                 }
-                            </ul>
+                                @if (weapon.description) {
+                                    <p class="weapon-description" [class.weapon-description--under]="effects().length">{{ weapon.description }}</p>
+                                }
+                            </anotoki-card>
                         }
                     </div>
-                </div>
+                }
+
+                <anotoki-card class="detail-card" [heading]="'database.detail.ascensions' | translate" flush>
+                    <div class="table-wrap">
+                        <table class="cost-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ "database.detail.phase" | translate }}</th>
+                                    <th>{{ "database.detail.level" | translate }}</th>
+                                    <th>{{ weapon.primary_stat || "ATK" }}</th>
+                                    <th>{{ weapon.secondary_stat || ("database.detail.secondaryStat" | translate) }}</th>
+                                    <th>{{ "database.detail.cost" | translate }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (ascension of ascensions(); track ascension.id) {
+                                    <tr>
+                                        <td class="phase-column">{{ ascension.phase }}</td>
+                                        <td>
+                                            {{ ascension.start_level_from }}
+                                            <span class="arrow">&rarr;</span>
+                                            {{ ascension.end_level_to }}
+                                        </td>
+                                        <td>{{ ascension.primary_stat_value ?? "-" }}</td>
+                                        <td>{{ ascension.secondary_stat_value ?? "-" }}</td>
+                                        <td>
+                                            @if (ascension.costs.length) {
+                                                <div class="tiles">
+                                                    @for (cost of ascension.costs; track cost.id) {
+                                                        @if (cost.material) {
+                                                            <app-material-tile
+                                                                [name]="cost.material.name"
+                                                                [icon]="cost.material.icon_name"
+                                                                [rarity]="cost.material.rarity"
+                                                                [quantity]="cost.quantity"
+                                                                [link]="['../../', 'materials', cost.material.id]" />
+                                                        }
+                                                    }
+                                                </div>
+                                            } @else {
+                                                <span class="text-muted">-</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </anotoki-card>
+
+                <!-- The first way is in the hero's strip; the rest, where there are more, get their card. -->
+                @if (howToObtain().length > 1) {
+                    <anotoki-card class="detail-card" [heading]="'database.detail.howToObtain' | translate">
+                        <ul class="plain-list">
+                            @for (entry of howToObtain(); track entry) {
+                                <li>{{ entry }}</li>
+                            }
+                        </ul>
+                    </anotoki-card>
+                }
             } @else {
                 <div class="not-found">{{ "database.detail.notFound" | translate }}</div>
             }

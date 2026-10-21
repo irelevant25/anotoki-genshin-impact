@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.3.0",
+    "date": "2026-10-21",
+    "changes": {
+      "updated": [
+        "A new look for the character, weapon and material pages — the name and the art at the top, the facts in a strip under them, and every section in a card of its own, in the dark theme as in the light",
+        "The banners are grouped by version and phase — each phase says its dates once, and whether it is running, coming or over — and a 5★ stands out from the 4★ beside it"
+      ]
+    }
+  },
+  {
     "version": "1.2.0",
     "date": "2026-10-18",
     "changes": {

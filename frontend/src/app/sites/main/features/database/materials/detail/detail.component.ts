@@ -1,22 +1,31 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
 import { TranslatePipe } from '@anotoki/lib/translations';
-import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
+import { CardComponent } from '@anotoki/lib/ui/card';
+import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { asList, versionLabel } from '../../shared/database-helpers';
 import { MaterialApiService, MaterialUsage } from '../../../../../../api';
+import { DetailHeroComponent, HeroPicture, HeroStat } from '../../shared/detail-hero/detail-hero.component';
+import { MaterialTileComponent } from '../../shared/material-tile/material-tile.component';
 
 type UsageSection = 'characters_ascension' | 'characters_talent' | 'weapons_ascension' | 'weapons_refinement';
 
 /** Mora is spent by 111 characters and 230 weapons; the rest is behind a button. */
 const USAGE_PAGE_SIZE = 20;
 
+/**
+ * A material's page: the hero in its rarity's colour with the art and the
+ * strip of facts, the Description and How to obtain cards, then one card per
+ * use - the same bones as the character's and the weapon's pages (the owner's
+ * choice of 2026-10-21 among the mockups, "Showcase").
+ */
 @Component({
   selector: 'app-database-material-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
-  imports: [RouterModule, LoaderComponent, TranslatePipe, MaterialIconDirective],
+  imports: [LoaderComponent, TranslatePipe, CardComponent, ButtonComponent, DetailHeroComponent, MaterialTileComponent],
 })
 export class DatabaseMaterialDetailComponent {
   private readonly _materialApi = inject(MaterialApiService);
@@ -38,10 +47,7 @@ export class DatabaseMaterialDetailComponent {
     { key: 'weapons_refinement', label: 'database.detail.weaponsRefinement', target: 'weapons', folder: 'weapons' },
   ];
 
-  versionLabel = versionLabel;
-
   howToObtain = computed(() => asList(this.material()?.how_to_obtain));
-  rarityStars = computed(() => '★'.repeat(Number(this.material()?.rarity ?? 0)));
   groupNames = computed(() => {
     const primary = this.material()?.group;
     return [...new Set([primary, ...this.groups().map((row) => row.group)].filter((name) => !!name))];
@@ -49,6 +55,26 @@ export class DatabaseMaterialDetailComponent {
   usedAnywhere = computed(() => {
     const usage = this.usage();
     return !!usage && Object.values(usage).some((list) => list.length > 0);
+  });
+
+  splash = computed<HeroPicture | null>(() => {
+    const material = this.material();
+    return material ? { name: material.icon_name ?? material.name, folder: 'materials' } : null;
+  });
+
+  /** The strip of tiles under the name: what identifies the material at a glance. */
+  heroStats = computed<HeroStat[]>(() => {
+    const material = this.material();
+    if (!material) {
+      return [];
+    }
+    const groups = this.groupNames();
+    return [
+      { label: 'database.filters.rarity', stars: Number(material.rarity) || null },
+      { label: 'database.detail.group', value: groups.length ? groups.join(' · ') : null },
+      { label: 'database.filters.region', value: material.region },
+      { label: 'database.filters.version', value: material.version ? versionLabel(material.version) : null },
+    ];
   });
 
   constructor() {

@@ -1,21 +1,23 @@
-<div id="constellations">
-    <div class="constellations-info">
-        @for (constellation of constellations(); track constellation.id) {
-            <div class="p-3">
-                <div class="constellation-header">
-                    <img
-                        class="constellation-icon"
-                        [appMaterialIcon]="constellation.icon_name ?? constellation.name"
-                        [appAssetFolder]="'character.constellations'"
-                        [alt]="constellation.name"
-                        loading="lazy" />
+@for (constellation of constellations(); track constellation.id) {
+    <anotoki-card class="detail-card">
+        <div class="constellation">
+            <span class="constellation-icon">
+                <img [appMaterialIcon]="constellation.icon_name ?? constellation.name" [appAssetFolder]="'character.constellations'" [alt]="constellation.name" loading="lazy" />
+            </span>
+            <div class="constellation-text">
+                <div class="constellation-head">
                     <h3 class="constellation-name">{{ constellation.name }}</h3>
                     <span class="constellation-level">{{ "database.detail.level" | translate }} {{ constellation.level }}</span>
                 </div>
-                <div class="constellation-description">{{ constellation.description }}</div>
+                <p class="constellation-description" [class.folded]="isLong(constellation.description) && !unfolded().has(constellation.id)">{{ constellation.description }}</p>
+                @if (isLong(constellation.description)) {
+                    <button type="button" class="unfold" (click)="toggleText(constellation.id)">
+                        {{ (unfolded().has(constellation.id) ? "database.detail.showLess" : "database.detail.showMore") | translate }}
+                    </button>
+                }
             </div>
-        } @empty {
-            <div class="p-3 text-muted">-</div>
-        }
-    </div>
-</div>
+        </div>
+    </anotoki-card>
+} @empty {
+    <div class="text-muted">-</div>
+}

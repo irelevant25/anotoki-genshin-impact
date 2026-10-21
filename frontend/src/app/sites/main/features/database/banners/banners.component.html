@@ -2,92 +2,68 @@
     <app-loader #loader [loading]="loading()"></app-loader>
 
     @if (!loader.loadingCtrl.loading()) {
-        <div class="database-page">
-            <div class="px-5 py-2">
-                <div class="filters">
-                    <anotoki-select
-                        class="filter"
-                        [label]="'database.filters.version' | translate"
-                        [options]="versionOptions()"
-                        [(value)]="filterVersions"
-                        [placeholder]="'database.filters.anyVersion' | translate" />
-                    <anotoki-text-field
-                        class="filter"
-                        type="search"
-                        [label]="'database.filters.characterName' | translate"
-                        [placeholder]="'database.filters.contains' | translate"
-                        [(value)]="filterCharacterName" />
-                    <anotoki-text-field
-                        class="filter"
-                        type="search"
-                        [label]="'database.filters.weaponName' | translate"
-                        [placeholder]="'database.filters.contains' | translate"
-                        [(value)]="filterWeaponName" />
-                    <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
-                </div>
+        <div class="database-page banners-page">
+            <div class="filters">
+                <anotoki-select
+                    class="filter"
+                    [label]="'database.filters.version' | translate"
+                    [options]="versionOptions()"
+                    [(value)]="filterVersions"
+                    [placeholder]="'database.filters.anyVersion' | translate" />
+                <anotoki-text-field
+                    class="filter"
+                    type="search"
+                    [label]="'database.filters.characterName' | translate"
+                    [placeholder]="'database.filters.contains' | translate"
+                    [(value)]="filterCharacterName" />
+                <anotoki-text-field
+                    class="filter"
+                    type="search"
+                    [label]="'database.filters.weaponName' | translate"
+                    [placeholder]="'database.filters.contains' | translate"
+                    [(value)]="filterWeaponName" />
+                <button anotokiButton class="filter-reset" (click)="resetFilters()">{{ "database.filters.reset" | translate }}</button>
+            </div>
 
-                <div class="result-count">{{ "database.results.count" | translate: { shown: filteredBanners().length, total: banners().length } }}</div>
+            <div class="result-count">{{ "database.results.count" | translate: { shown: filteredBanners().length, total: banners().length } }}</div>
 
-                <div class="d-flex flex-column gap-2 py-3">
-                    @for (banner of filteredBanners(); track banner.id) {
-                        <div class="wish-card-container-wrapper gap-2 flex-column w-100">
-                            <div class="wish-card-container gap-1 flex-row flex-column-mobile">
-                                <div id="version-duration" class="d-flex flex-col justify-content-center" style="width: 80px; min-width: 80px">
-                                    <div class="align-content-center m-auto-mobile w-auto-mobile">{{ banner.version }}</div>
-                                    <div class="align-content-center m-auto-mobile w-auto-mobile">
-                                        {{ banner.duration_from | appDate }}
+            <div class="timeline">
+                @for (group of groups(); track group.version) {
+                    <section class="version-group">
+                        <header class="version-head">
+                            <span class="version-num" aria-hidden="true">{{ group.version }}</span>
+                            <h2 class="version-title">{{ "database.banners.version" | translate: { version: versionLabel(group.version) } }}</h2>
+                            <span class="version-count">{{ group.countKey | translate: { n: group.count } }}</span>
+                        </header>
+
+                        @for (phase of group.phases; track phase.key) {
+                            <div class="phase" [class.phase--four]="phase.banners.length === 4">
+                                <div class="rail">
+                                    <span class="rail-phase">{{ "database.banners.phase" | translate: { n: phase.number } }}</span>
+                                    <div class="rail-dates">
+                                        <span>{{ phase.from | appDate }}</span>
+                                        <span class="rail-to">{{ "database.banners.to" | translate }}</span>
+                                        <span>
+                                            @if (phase.to) {
+                                                {{ phase.to | appDate }}
+                                            } @else {
+                                                {{ "database.banners.noEnd" | translate }}
+                                            }
+                                        </span>
                                     </div>
-                                    <div class="align-content-center m-auto-mobile w-auto-mobile">
-                                        {{ banner.duration_to | appDate }}
-                                    </div>
+                                    <anotoki-badge [tone]="phase.tone" dot>{{ phase.stateKey | translate: phase.stateParams }}</anotoki-badge>
                                 </div>
-                                <img
-                                    id="banner-image"
-                                    [appMaterialIcon]="banner.icon_name"
-                                    [appAssetFolder]="'banners'"
-                                    [alt]="banner.name"
-                                    class="my-auto mx-auto-mobile"
-                                    loading="lazy"
-                                    style="width: 620px; min-width: 620px" />
-                                <div class="d-flex flex-row flex-wrap gap-2 m-auto-mobile">
-                                    @for (character of banner.characters; track character.id) {
-                                        <div class="card-container">
-                                            <!-- `character_id` rather than `id`: the row this came from is a
-                                                 banners_characters join row with an id of its own, and the merge
-                                                 in the component only overwrites it when the character was found. -->
-                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'characters', character.id]" [title]="character.name">
-                                                <img
-                                                    [appMaterialIcon]="character.icon_name"
-                                                    [appAssetFolder]="'character.icon'"
-                                                    [alt]="character.name"
-                                                    class="top-border"
-                                                    loading="lazy"
-                                                    [class]="'quality-' + character.rarity" />
-                                                <div class="name text-center bottom-border py-1 text-center">{{ character.name }}</div>
-                                            </a>
-                                        </div>
-                                    }
-                                    @for (weapon of banner.weapons; track weapon.id) {
-                                        <div class="card-container">
-                                            <a class="d-flex flex-column item-card hover" [routerLink]="['../', 'weapons', weapon.id]" [title]="weapon.name">
-                                                <img
-                                                    [appMaterialIcon]="weapon.icon_name"
-                                                    [appAssetFolder]="'weapons'"
-                                                    [alt]="weapon.name"
-                                                    class="top-border"
-                                                    loading="lazy"
-                                                    [class]="'quality-' + weapon.rarity" />
-                                                <div class="name text-center bottom-border py-1 text-center">{{ weapon.name }}</div>
-                                            </a>
-                                        </div>
+                                <div class="phase-cards">
+                                    @for (banner of phase.banners; track banner.id) {
+                                        <app-banner-card [banner]="banner" />
                                     }
                                 </div>
                             </div>
-                        </div>
-                    } @empty {
-                        <div class="text-center text-muted py-5">{{ "database.results.none" | translate }}</div>
-                    }
-                </div>
+                        }
+                    </section>
+                } @empty {
+                    <div class="no-results">{{ "database.results.none" | translate }}</div>
+                }
             </div>
         </div>
     }

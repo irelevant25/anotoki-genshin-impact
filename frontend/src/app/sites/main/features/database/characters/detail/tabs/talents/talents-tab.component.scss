@@ -1,40 +1,61 @@
-@use "../material-tiles" as *;
+@use "../../../../shared/detail-page" as *;
 
-.talent-header {
+// One card a talent: its icon in a dark disc (the glyphs are drawn light), its
+// name with its type as a badge, its description folded to four lines while it
+// is long.
+
+.talent {
   display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-md);
+  align-items: flex-start;
 }
 
 .talent-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: var(--spacing-md);
-  object-fit: contain;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-tooltip);
+
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+}
+
+.talent-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.talent-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .talent-name {
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  margin: 0;
-}
-
-.talent-type {
-  margin-left: var(--spacing-sm);
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-  padding: 3px var(--spacing-xs);
-  border-radius: var(--border-radius-pill);
-  font-size: var(--font-size-sm);
 }
 
 .talent-description {
+  margin: 0;
   line-height: var(--line-height-base);
+  // A description that keeps its line breaks shows them.
+  white-space: pre-line;
 }
 
-.talent-level-table {
-  th,
-  td {
-    min-width: 90px;
-  }
+// Inside the flush card the note takes the table's own inset.
+.talent-note {
+  margin: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
 }

@@ -1,32 +1,61 @@
-.constellation-header {
+@use "../../../../shared/detail-page" as *;
+
+// One card a constellation, drawn as a talent is; the level pill purple, to
+// tell a constellation from a talent's blue badge at a glance.
+
+.constellation {
   display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-md);
+  align-items: flex-start;
 }
 
 .constellation-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: var(--spacing-md);
-  object-fit: contain;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--border-radius-pill);
+  background: var(--bg-tooltip);
+
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+}
+
+.constellation-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.constellation-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .constellation-name {
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  margin: 0;
 }
 
-// Purple, to tell a constellation apart from the blue talent badge at a glance.
 .constellation-level {
-  margin-left: var(--spacing-sm);
   background-color: var(--genshin-purple);
   color: var(--color-primary-text);
-  padding: 3px var(--spacing-xs);
+  padding: 2px var(--spacing-sm);
   border-radius: var(--border-radius-pill);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
 }
 
 .constellation-description {
+  margin: 0;
   line-height: var(--line-height-base);
+  white-space: pre-line;
 }

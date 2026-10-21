@@ -1,18 +1,7 @@
 <div id="voice-overs" class="voiceover-container">
-    <div class="voiceover-header">
-        <div class="voiceover-filters">
-            <div class="filter-group">
-                <span class="filter-group-label">{{ "database.detail.language" | translate }}:</span>
-                @for (entry of languages; track entry.code) {
-                    <button type="button" class="filter-btn" [class.active]="language() === entry.code" (click)="language.set(entry.code)">{{ entry.code.toUpperCase() }}</button>
-                }
-            </div>
-            <div class="filter-group">
-                <span class="filter-group-label">{{ "database.detail.type" | translate }}:</span>
-                <button type="button" class="filter-btn story" [class.active]="type() === 'story'" (click)="type.set('story')">{{ "database.detail.story" | translate }}</button>
-                <button type="button" class="filter-btn combat" [class.active]="type() === 'combat'" (click)="type.set('combat')">{{ "database.detail.combat" | translate }}</button>
-            </div>
-        </div>
+    <div class="voiceover-filters">
+        <anotoki-segmented [label]="'database.detail.language' | translate" [options]="languageOptions" [value]="language()" (valueChange)="language.set($event)" size="sm" />
+        <anotoki-segmented [label]="'database.detail.type' | translate" [options]="typeOptions()" [value]="type()" (valueChange)="pickType($event)" size="sm" />
     </div>
 
     <div class="voicelines-container">

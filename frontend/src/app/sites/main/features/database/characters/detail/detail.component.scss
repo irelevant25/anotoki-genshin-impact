@@ -1,107 +1,18 @@
-@use "../../shared/item-tile" as *;
+@use "../../shared/detail-page" as *;
 
-// Ported from old/sites/top/database/characters/detail.css. The old rules were
-// scoped by #site-characters-detail; Angular scopes them per component instead,
-// so the wrapper is gone but the shape is the one that was there.
+// The hero, the cards and the tabs are the shared skeleton (shared/_detail-page.scss,
+// the hero and facts components); what is the character page's own is the demo
+// track under the voice actors.
 
-.character-detail {
-  #banner {
-    max-width: 100%;
-  }
+.demo-music {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
 
-  /* Character Header */
-  .character-header {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: var(--spacing-lg);
-    position: relative;
-  }
-
-  .character-image {
-    width: 250px;
-    border-radius: var(--border-radius-large);
-    box-shadow: var(--shadow-medium);
-    object-fit: cover;
-  }
-
-  .character-basics {
-    flex: 1;
-  }
-
-  .character-name {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-  }
-
-  .rarity-stars {
-    display: inline-flex;
-    margin-left: var(--spacing-sm);
-    font-size: var(--font-size-2xl);
-  }
-
-  .character-title {
-    font-size: var(--font-size-lg);
-    color: var(--text-muted);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .character-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .info-label {
-    font-weight: var(--font-weight-bold);
-    margin-right: var(--spacing-sm);
-    min-width: 70px;
-  }
-
-  .info-value {
-    display: flex;
-    align-items: center;
-  }
-
-  .element-icon,
-  .weapon-icon,
-  .region-icon,
-  .dish-icon {
-    width: 48px;
-    height: 48px;
-    margin-right: var(--spacing-xs);
-    object-fit: contain;
-  }
-
-  // Region glyphs are drawn light, so they keep a dark disc in both themes.
-  .region-icon {
-    background-color: var(--bg-tooltip);
-    border-radius: var(--border-radius-pill);
-  }
-
-  .voice-actors,
-  .demo-music {
-    margin-top: var(--spacing-lg);
-  }
-
-  .voice-actor {
-    margin-bottom: var(--spacing-xxs);
-  }
-
-  /* Tabs */
-  .detail-tabs {
-    display: block;
-    margin-bottom: var(--spacing-lg);
-  }
-
-  @media (max-width: 768px) {
-    .character-info {
-      grid-template-columns: 1fr;
-    }
-
-    .flex-column-mobile {
-      flex-direction: column;
-    }
-  }
+// With no voice actors above it the track needs no line over it.
+.demo-music--alone {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }

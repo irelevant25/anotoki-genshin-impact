@@ -1,0 +1,206 @@
+@use "item-tile" as *;
+
+// The detail pages' skeleton since their redesign (the owner's choice among the
+// mockups of 2026-10-21, "Showcase"): a hero at the top of the container - the
+// namecard's picture or the rarity's colour behind the name, the art beside it,
+// a strip of facts under it - then the sections in the kit's cards, one or two
+// to a row, then the tabs. What lives here is what the three pages and their
+// tabs share: the rarity's ground under a transparent picture, the element's
+// accent, the two columns, the cost tables and the grids of tiles. Everything
+// reads the theme's tokens, so it is right in the dark theme as in the light.
+
+// The rarity's colour from a `data-rarity` attribute - the colour the list
+// cards' gradient reads too (characters.component.scss).
+@mixin rarity-colour {
+  --rarity: var(--one-star);
+
+  &[data-rarity="2"] {
+    --rarity: var(--two-star);
+  }
+  &[data-rarity="3"] {
+    --rarity: var(--three-star);
+  }
+  &[data-rarity="4"] {
+    --rarity: var(--four-star);
+  }
+  &[data-rarity="5"] {
+    --rarity: var(--five-star);
+  }
+}
+
+// The ground under a transparent picture: the rarity's colour, lighter at the
+// top, as the list cards draw it - the game's own colours, the same in both
+// themes.
+@mixin rarity-ground {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rarity, var(--one-star)) 55%, white) 0%, var(--rarity, var(--one-star)) 100%);
+}
+
+// The element's accent from a `data-element` attribute: its ink for words,
+// tuned per theme (design-tokens.scss), its fill for grounds. Never the global
+// `.hydro` class, which colours every word under it.
+@mixin element-accent {
+  @each $element in (anemo, geo, electro, dendro, hydro, pyro, cryo) {
+    &[data-element="#{$element}"] {
+      --accent: var(--#{$element}-text);
+      --element-fill: var(--#{$element}-secondary-white);
+    }
+  }
+}
+
+// Two cards side by side, one under the other on a phone.
+.detail-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-md);
+  align-items: start;
+  margin-bottom: var(--spacing-md);
+}
+
+// A card alone in its row.
+.detail-card {
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-tabs {
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
+// The cost tables - a character's ascensions and talent levels, a weapon's
+// ascensions - inside a flush card: quiet rules, striped rows, uppercase
+// headings, the figures in tabular digits.
+.table-wrap {
+  overflow-x: auto;
+}
+
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+
+  th {
+    text-align: left;
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-bold);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--color-secondary-light);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: var(--bg-row-striped);
+  }
+
+  .checkbox-column {
+    width: 44px;
+    text-align: center;
+  }
+
+  .phase-column {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .arrow {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+  }
+
+  // A row of tiles keeps a width of its own, so a narrow screen scrolls the
+  // table sideways rather than stacking the tiles one under another.
+  .tiles {
+    min-width: 236px;
+    padding: var(--spacing-xxs) 0 var(--spacing-xs);
+  }
+}
+
+// Tiles in a row or a grid (app-material-tile).
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.tiles--lg {
+  gap: var(--spacing-md) var(--spacing-sm);
+}
+
+// A list - titles, affiliations, a weapon's effects, a material's groups - as
+// chips, each its own word instead of one line of commas.
+.chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+  background: var(--color-secondary-light);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+}
+
+// A quiet word in a card's heading row.
+.hint {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+// A long description folded to a few lines, with a button to unfold it.
+.folded {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.unfold {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: var(--spacing-xs);
+  color: var(--color-link);
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
