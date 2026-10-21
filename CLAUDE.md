@@ -610,13 +610,23 @@ node docs/security/build-report.mjs                            # after re-runnin
   voice-overs belong to shared **sets** (`characters_*_sets`, migrations 016–020)
   that the character points at, so the Traveler's variants share one copy. It
   writes through the set, and leaves alone a set the character was just
-  repointed at. Its GET hands the special dish beside the character (`dish`:
-  id, name, rarity - a live food, or null), as `character.special_dish` is only
-  the food's id, the admin form's to set: a page shows the dish, never that
-  number (the character page printed it from 2026-08-31 to 2026-10-21;
-  `tests/character-full.test.php`). Likewise a page writes a birthday - a DATE
-  in year 4 - as a day and a month (`birthdayLabel()`, database-helpers.ts),
-  never as stored.
+  repointed at. Its GET answers the special dish on the character, beside
+  `special_dish` - only the food's id, the admin form's to set - the way the
+  character's own pictures come (`CharacterWithDish`): `special_dish_name`,
+  `special_dish_icon` (the food's normal icon as a path,
+  `../assets/foods/GHOSTLY_MARCH - normal.avif`) and `special_dish_icon_name`,
+  all null for no dish or a deleted one (the owner's request of 2026-10-21; the
+  top-level `dish` of 10275e936 went the same day). A page shows the dish, never that number (the character page
+  printed it from 2026-08-31 to 2026-10-21; `tests/character-full.test.php`).
+  Likewise a page writes a birthday - a DATE in year 4 - as a day and a month
+  (`birthdayLabel()`, database-helpers.ts), never as stored.
+- **A food's pictures are its icon columns** (`icon_normal`, `icon_delicious`,
+  `icon_suspicious`: "PITA_POCKET - normal.avif", one per quality, the normal
+  one on every food), never a file named after the food ("Pita pocket.avif"),
+  which no page asks for since 2026-10-21 and the owner removes from the host:
+  the character page draws `special_dish_icon`, the dish quiz each food's
+  `icon_normal` (a food without one, or deleted, leaves its character out of
+  the pool) - `appMaterialIcon` takes a stored path as the file itself.
 - **Migrations are the schema.** `backend/migrations/{users,genshin_impact}/NNN_name.sql`,
   applied in order by `php migration.php` - `users/` first, then `genshin_impact/`,
   into the one database, and recorded in its `migrations` table by folder and file
@@ -1047,6 +1057,16 @@ node docs/security/build-report.mjs                            # after re-runnin
   `lookup-table` component: a line in `LOOKUP_PAGES` in `sites/admin/pages/pages.ts`
   and `lookupRoute('path')` in `admin.routes.ts`.
 - **Public DB pages** live in `sites/main/features/database/<entity>/`.
+- **The public site's lists are asked once a page load** (the owner's decision
+  of 2026-10-21): `sites/main/game-lists.service.ts` (`GameListsService`) -
+  characters, the minimal characters, materials, weapons, banners (`/full`),
+  foods - one `shareReplay(1)` each, shared by every page, quiz and game that
+  needs it; a failure is not kept; every list is forgotten when the admin panel
+  opens (`isAdminArea()`), so a public page after an edit in the same tab asks
+  again. The lists are shared: sort a copy, never one in place. The admin panel
+  never uses it - it asks the generated services every time, as its staff edit
+  the data. A per-id read (`/full`, a material's usage, a voice-over round)
+  stays a request of its own.
 - **Admin assets**: the **Files** page (`sites/admin/files/`) browses the
   DB-catalogued assets, previewing through its `file-preview` modal; **Files
   Explorer** (`/admin/files-explorer`) is the library's file explorer over the
@@ -1158,7 +1178,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   nouns (character names, usernames, version numbers) are shown as they are, not
   through the pipe. Dates go through `AppDatePipe`: the signed-in account's date
   order and clock (a chosen clock in the page language's words for am and pm),
-  else the device's. The reading language is the signed-in account's when this
+  else the device's - never written raw (a release date included, since
+  2026-10-21); a date alone ("2024-01-01", a DATE column) is that day where the
+  reader is, never UTC midnight. The reading language is the signed-in account's when this
   site has it, else this device's (see *Signing in*, the account's
   preferences); the admin panel is English for its staff. New keys arrive in a
   `users` migration with a description, English and Slovak strings - copy

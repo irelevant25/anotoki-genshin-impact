@@ -152,7 +152,9 @@ that has not been followed by a client regenerate.
 **Conventions** (from CLAUDE.md):
 - Frontend: a component is three files (`.ts`, `.html`, `.scss`) - no inline
   `template:`/`styles:`; signals not zone.js; `@if`/`@for`; generated services over raw
-  `HttpClient`; the family's kit used, each piece from its own entry point (never
+  `HttpClient` (on the public site the game's lists through `GameListsService`, never
+  sorted in place; never it in the admin panel); a food's picture from its icon
+  columns, never from its name; the family's kit used, each piece from its own entry point (never
   `@anotoki/lib/ui`), and no local copy of a piece it has; local-lib bases reused;
   colours from the tokens, both themes handled;
   copy through the `translate` pipe; dates through `AppDatePipe`.

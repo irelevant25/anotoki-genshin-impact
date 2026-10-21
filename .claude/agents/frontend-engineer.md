@@ -95,7 +95,15 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
 - **Use the generated services**, e.g. `inject(CharacterApiService)` and call its
   typed methods, rather than raw `HttpClient`. The method names and DTO types
   come from the backend; if one is missing or wrong, the fix is on the backend +
-  a regenerate (see the sync-api-client skill), not a hand-written call.
+  a regenerate (see the sync-api-client skill), not a hand-written call. On the
+  public site the game's lists (characters, minimal characters, materials,
+  weapons, banners, foods) come from `GameListsService`
+  (`sites/main/game-lists.service.ts`: asked once a page load, shared - sort a
+  copy, never the list in place); the admin panel never uses it.
+- **A picture with its own column is drawn from it**: a food's from its icon
+  columns (`icon_normal`; a character's special dish from `special_dish_icon`),
+  never a file named after the food - `appMaterialIcon` takes a stored path as
+  the file itself.
 - **Build with the kit**: `anotokiButton`, the kit's fields, dialogs
   (`AnotokiDialog`, `ConfirmService`), toasts (`ToastService`), tabs, pagination,
   segmented, tooltips, menus and popovers, drawer, cards, page header, empty and
