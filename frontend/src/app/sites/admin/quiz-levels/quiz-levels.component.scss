@@ -1,6 +1,7 @@
-// The kit draws the heading, the spinner, the error, the field and the
-// buttons; what is here is this page's own: the line on what is in force, the
-// editor's code font, and what the rules and the words say under it.
+// The kit draws the heading, the spinner, the error, the code editor (its
+// font, its colours, its lines kept whole) and the buttons; what is here is
+// this page's own: the line on what is in force, and what the rules and the
+// words say under it.
 
 :host {
   display: flex;
@@ -23,18 +24,6 @@
     background: var(--color-warning-light);
     color: var(--color-warning-light-text);
   }
-}
-
-// JSON reads as code: the kit's textarea, in the family's mono font, its lines
-// kept whole (it scrolls sideways inside itself rather than wrapping a step).
-.levels-editor ::ng-deep .anotoki-textarea__multiline {
-  font-family: var(--anotoki-font-mono);
-  font-size: var(--font-size-sm);
-  line-height: 1.45;
-  white-space: pre;
-  overflow-wrap: normal;
-  overflow-x: auto;
-  tab-size: 2;
 }
 
 .levels-report {

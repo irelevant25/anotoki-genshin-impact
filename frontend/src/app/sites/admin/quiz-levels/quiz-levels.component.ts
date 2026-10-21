@@ -5,7 +5,7 @@ import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
 import { ErrorStateComponent } from '@anotoki/lib/ui/error-state';
 import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextareaComponent } from '@anotoki/lib/ui/forms';
+import { CodeEditorComponent } from '@anotoki/lib/ui/code-editor';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { QuizLevelApiService, QuizLevelProblem, QuizLevelsEditorView } from '../../../api';
@@ -36,7 +36,8 @@ function failureText(error: unknown, otherwise: string): string {
 /**
  * The quizzes' levels - what each level of each quiz shows, try by try - on
  * a page of their own since they are data (users/061, the owner's decision of
- * 2026-10-21): the levels in force as JSON in an editor, what the server's
+ * 2026-10-21): the levels in force as JSON in the kit's code editor
+ * (anotoki-lib 0.9.2: it colours the JSON), what the server's
  * rules say of them as they are written (POST /api/admin/quiz-levels/check -
  * the server is the rule, so the page says its words, never its own), the
  * words of the site they would leave behind (quiz-level-words.ts), and Save
@@ -52,7 +53,7 @@ function failureText(error: unknown, otherwise: string): string {
   selector: 'app-admin-quiz-levels',
   templateUrl: './quiz-levels.component.html',
   styleUrls: ['./quiz-levels.component.scss'],
-  imports: [PageHeaderComponent, ErrorStateComponent, SpinnerComponent, ButtonComponent, TextareaComponent, AppDatePipe, RouterLink],
+  imports: [PageHeaderComponent, ErrorStateComponent, SpinnerComponent, ButtonComponent, CodeEditorComponent, AppDatePipe, RouterLink],
 })
 export class QuizLevelsComponent implements OnInit, OnDestroy {
   private readonly _api = inject(QuizLevelApiService);

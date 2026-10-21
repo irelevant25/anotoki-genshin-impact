@@ -22,11 +22,10 @@
             }
         </section>
 
-        <anotoki-textarea
-            class="levels-editor"
+        <anotoki-code-editor
             label="The levels, as JSON"
+            language="json"
             hint="Six quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has five steps, try 0 to try 4 - what it hides after that many wrong guesses; a Mismatch level, how many characters it shows."
-            spellcheck="false"
             [rows]="22"
             [disabled]="busy()"
             [error]="syntaxError()"

@@ -268,7 +268,7 @@ minus its padding on the admin panel's `.admin-main`, which has no anotoki top b
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.9.1 now
+sequences that count down, then the origin secret): both halves are 0.9.2 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.9.0` never brings 0.10, which needs its constraint
 written. A piece of the library's kit is
@@ -905,8 +905,9 @@ from the Translations page and keep the files.
 Admin panel → System → Quiz levels, for ADMIN and EDITOR (since `users/061`):
 what each level of each quiz shows, try by try - the classes that hide a
 picture (Banners, Dish) or a voice line, Pixelate's grid, the seconds of a
-track or a recording, how many characters Mismatch offers - as JSON in an
-editor (`sites/admin/quiz-levels/`). Nothing saved, it holds the built-in
+track or a recording, how many characters Mismatch offers - as JSON in the
+kit's code editor, which colours it (`@anotoki/lib/ui/code-editor`, since
+anotoki-lib 0.9.2; `sites/admin/quiz-levels/`). Nothing saved, it holds the built-in
 levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
 
 - As you type, the page asks the server what its rules say
