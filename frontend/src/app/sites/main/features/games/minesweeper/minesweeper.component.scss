@@ -87,14 +87,24 @@
 
 // ── The board ────────────────────────────────────────────────────────────────
 
+// The reaction that kills the round, on the card's ground: on the purple it
+// once sat on, the element words in their inks read 1.1:1 to 4.4:1. The name
+// is the page's text (15.62:1 light, 13.53:1 dark), and each element a chip
+// in the fill its tiles have on the board - the game's colours, so the line
+// reads like the board - its word in that fill's own ink (--*-fill-text,
+// design-tokens.scss: 4.68:1 at the least).
 .reaction {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-md);
+  max-width: 100%;
+  padding: var(--spacing-xxs) var(--spacing-xxs) var(--spacing-xxs) var(--spacing-md);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius-pill);
-  background-color: var(--genshin-purple);
-  color: var(--color-primary-text);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
   font-weight: var(--font-weight-bold);
 }
 
@@ -105,8 +115,20 @@
   text-transform: capitalize;
 }
 
+.reaction-element {
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--border-radius-pill);
+}
+
+@each $element in (pyro, hydro, anemo, electro, dendro, cryo, geo) {
+  .reaction-#{$element} {
+    background-color: var(--#{$element}-secondary-white);
+    color: var(--#{$element}-fill-text);
+  }
+}
+
 .reaction-plus {
-  opacity: 0.7;
+  color: var(--text-secondary);
 }
 
 .status {
@@ -139,6 +161,9 @@
   width: 100%;
 }
 
+// A tile's fills are design-tokens.scss's --minesweeper-*: in the light theme
+// the board as it was first drawn, in the dark one far enough apart to tell a
+// covered tile from a revealed one at a glance.
 .cell {
   aspect-ratio: 1;
   display: flex;
@@ -147,7 +172,7 @@
   padding: 0;
   border: none;
   border-radius: 5px;
-  background-color: var(--bg-tooltip);
+  background-color: var(--minesweeper-dimmed);
   color: var(--text-tooltip);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
@@ -155,14 +180,24 @@
   transition: transform var(--transition-base);
 
   // Dimmed until there is something to reason from - a cell you cannot yet
-  // work out is a cell the game does not want you clicking.
-  opacity: 0.7;
+  // work out is a cell the game does not want you clicking - and once the
+  // game is over. The light theme dims the slate by opacity; the dark one
+  // gives the tile a fill of its own, opaque, so the wallpaper behind the
+  // board never decides how far it stands from a revealed one.
+  opacity: var(--minesweeper-dimmed-opacity);
+
+  // The pointer only where a press acts - isClickable(): any tile before the
+  // opening press, a worked-out covered one after it, none once the game is
+  // over. general.scss gives every button the pointer, a disabled one too.
+  cursor: default;
 
   &.clickable {
+    background-color: var(--minesweeper-covered);
     opacity: 1;
     cursor: pointer;
 
     &:hover {
+      background-color: var(--minesweeper-covered-hover);
       transform: scale(1.1);
     }
   }
@@ -170,17 +205,6 @@
   &.revealed {
     opacity: 1;
     box-shadow: none;
-    cursor: default;
-  }
-}
-
-// Before the opening click every square is fair game, so they all invite one.
-.awaiting-first-click .cell {
-  opacity: 1;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
   }
 }
 
@@ -193,7 +217,7 @@
 }
 
 .element-empty {
-  background-color: var(--bg-active);
+  background-color: var(--minesweeper-revealed);
   color: var(--text-primary);
 }
 

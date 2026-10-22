@@ -11,13 +11,15 @@
 // serves the build and that API on one origin as the hosting does, and drives headless Edge (or Chrome)
 // through the pages: the public site as a visitor - Terms, Privacy, Contact, About and Support in English and Slovak among them,
 // the top bar's items opening and closing their sections, the quizzes at saved levels and at the built-in ones when
-// asking for them fails -,
+// asking for them fails, Minesweeper's board opened and played out (a tile's cursor, the contrast of the reaction's
+// words and of the tiles' fills) -,
 // a sign-in the IAM refuses (the anotoki library's screens of it), a legal page while the IAM requires signing in
 // (drawn, never the sign-in card), an error thrown in a page (which must reach the site's error log, scrubbed),
 // the status page while the site is not ready (STATUS: alone, with nothing of either site's frame round it, and
 // the frame back once the site is), then the admin panel as its ADMIN (the Errors page with that error as its
 // row, and the row opened; the Quiz levels page - what the rules say as levels are typed, the words they leave
-// behind, a save and back; the family's footer under its pages and what it opens). Then it stops all of it and
+// behind, a save and back; the family's footer under its pages and what it opens), and last the account panel of
+// an account whose preferences the IAM keeps. Then it stops all of it and
 // drops the database - also when something fails. Nothing here touches your database, your settings, your
 // browser or a real IAM.
 //
@@ -67,6 +69,8 @@ const IAM = portOf('IAM', 8594);
 const BROWSER = portOf('BROWSER', 8595);
 const origin = `http://127.0.0.1:${SITE}`;
 const issuer = `http://127.0.0.1:${IAM}`;
+/** Whom the stand-in IAM signs in: the site's ADMIN, an account whose preferences the IAM keeps none of. */
+const OWNER = { id: 1, username: 'owner', roles: ['MEMBER', 'ADMIN'] };
 
 const work = mkdtempSync(join(tmpdir(), 'genshin-shots-'));
 const out = resolve(option('--out', join(tmpdir(), `genshin-screenshots-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}`)));
@@ -206,6 +210,140 @@ const publicFooter =
 
 /** The account panel open from the footer - its Background row's button, which opens the wallpapers' window, drawn. */
 const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (page) => waitFor(page, "!!document.querySelector('dialog[open] button[aria-haspopup=dialog]')", 15000));
+
+/**
+ * The account panel of somebody signed in whose anotoki account keeps the preferences (ACCOUNT_KEPT): the appearance,
+ * the language and the wallpaper to choose, and the line saying the first two are the account's - no dates or clock,
+ * which only the IAM's account page sets since the owner's decision of 2026-10-22 - and the member-since date written
+ * in the account's own order all the same (AppDatePipe): `ymd_dash` in English, `dmy_dot` in Slovak. Anything else is
+ * said.
+ */
+const accountPanelKept = async (page) => {
+  // Signed in, the footer's button says the person's name: found by its class rather than its words.
+  const opened = steps(press('app-footer button.site-footer-account'), (open) => waitFor(open, "!!document.querySelector('dialog[open] button[aria-haspopup=dialog]')", 15000));
+  if (!(await opened(page))) {
+    return false;
+  }
+  const facts = await page.evaluate(`(() => {
+    const dialog = document.querySelector('dialog[open]');
+    return {
+      lang: document.documentElement.lang,
+      rows: [...dialog.querySelectorAll('.theme-row-label')].map((label) => label.textContent.trim()),
+      notes: dialog.querySelectorAll('.account-note').length,
+      since: dialog.querySelector('.fact .icon-calendar')?.closest('.fact').querySelector('.fact-value')?.textContent.trim() ?? null,
+    };
+  })()`);
+  const rows = { en: ['Appearance', 'Language', 'Background'], sk: ['Vzhľad', 'Jazyk', 'Pozadie'] }[facts.lang] ?? [];
+  const order = { en: /^\d{4}-\d{2}-\d{2}$/, sk: /^\d{1,2}\.\d{1,2}\.\d{4}$/ }[facts.lang] ?? /^$/;
+  if (JSON.stringify(facts.rows) !== JSON.stringify(rows) || facts.notes !== 2 || !order.test(facts.since ?? '')) {
+    heard.push(`the account panel signed in: ${JSON.stringify(facts)}, not the rows ${JSON.stringify(rows)}, the account's line and the sign-out's, and the account's date order`);
+  }
+  return true;
+};
+
+/** WCAG's contrast of two colours as getComputedStyle writes them (rgb() or rgba(), the alpha left out), to two places. */
+function contrastOf(first, second) {
+  const luminance = (colour) => {
+    const [r, g, b] = (colour.match(/[\d.]+/g) ?? []).slice(0, 3).map((part) => {
+      const channel = Number(part) / 255;
+      return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [lighter, darker] = [luminance(first), luminance(second)].sort((a, b) => b - a);
+  return Math.round(((lighter + 0.05) / (darker + 0.05)) * 100) / 100;
+}
+
+/**
+ * Minesweeper (sites/main/features/games/minesweeper) dealt - Math.random seeded first, so every run deals the same
+ * board - and opened with a press in the board's middle; with `playedOut`, then played until the game is over (the
+ * first tile a press acts on, again and again). What a picture cannot be trusted with is said, and what was measured
+ * kept in report.json: a tile shows the pointer exactly when a press acts on it (`.clickable` - none once the game is
+ * over); the reaction line's name and each element's word read 4.5:1 on what is behind them (WCAG 1.4.3); a covered
+ * tile's fill and the cleared patch's 3:1 apart (1.4.11), the dimmed tiles' too where they are opaque.
+ */
+const minesweeperBoard =
+  ({ playedOut }) =>
+  async (page) => {
+    // mulberry32: the game asks Math.random for the reaction, the opening patch and every element.
+    await page.evaluate(`(() => {
+      let seed = 20261022;
+      Math.random = () => {
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+      return true;
+    })()`);
+    if (!(await click('app-games-minesweeper button', '^(Start|Začať)$')(page))) {
+      return false;
+    }
+    await sleep(500);
+    const opened = await page.evaluate("(() => { const cells = document.querySelectorAll('app-games-minesweeper .cell'); cells[Math.floor(cells.length / 2)]?.click(); return cells.length > 0; })()");
+    if (!opened) {
+      return false;
+    }
+    await sleep(500);
+    if (playedOut) {
+      await page.evaluate(`(async () => {
+        for (let i = 0; i < 400 && !document.querySelector('app-games-minesweeper .result'); i++) {
+          document.querySelector('app-games-minesweeper .cell.clickable')?.click();
+          await new Promise((done) => setTimeout(done, 40));
+        }
+        return true;
+      })()`);
+      await sleep(500);
+    }
+    const facts = await page.evaluate(`(() => {
+      const board = document.querySelector('app-games-minesweeper');
+      const style = (element) => getComputedStyle(element);
+      // What is drawn behind an element: its own fill, or the nearest one round it.
+      const ground = (element) => {
+        for (let at = element; at; at = at.parentElement) {
+          const fill = style(at).backgroundColor;
+          if (fill !== 'transparent' && fill !== 'rgba(0, 0, 0, 0)') return fill;
+        }
+        return 'rgb(255, 255, 255)';
+      };
+      const tile = (selector) => {
+        const cell = board.querySelector(selector);
+        return cell ? { fill: style(cell).backgroundColor, opacity: Number(style(cell).opacity) } : null;
+      };
+      const cells = [...board.querySelectorAll('.cell')];
+      const name = board.querySelector('.reaction-name');
+      return {
+        over: !!board.querySelector('.result'),
+        pressable: cells.filter((cell) => cell.classList.contains('clickable')).length,
+        pointerWrong: cells.filter((cell) => (style(cell).cursor === 'pointer') !== cell.classList.contains('clickable')).length,
+        name: name ? { text: style(name).color, ground: ground(name) } : null,
+        words: [...board.querySelectorAll('.reaction-elements > span:not(.reaction-plus)')].map((word) => ({ word: word.textContent.trim(), text: style(word).color, ground: ground(word) })),
+        covered: tile('.cell.clickable:not(.revealed)'),
+        dimmed: tile('.cell:not(.clickable):not(.revealed)'),
+        revealed: tile('.cell.element-empty'),
+      };
+    })()`);
+    const wrong = [];
+    if (facts.pointerWrong > 0) wrong.push(`${facts.pointerWrong} tiles with a cursor that says otherwise than whether a press acts on them`);
+    if (playedOut && !facts.over) wrong.push('the game never ended');
+    if (playedOut && facts.pressable > 0) wrong.push(`${facts.pressable} tiles still pressable once the game is over`);
+    const name = facts.name === null ? 0 : contrastOf(facts.name.text, facts.name.ground);
+    const words = facts.words.map((word) => ({ word: word.word, ratio: contrastOf(word.text, word.ground) }));
+    if (name < 4.5) wrong.push(`the reaction's name ${name}:1`);
+    if (words.length !== 2 || words.some((word) => word.ratio < 4.5)) wrong.push(`the reaction's words ${words.map((word) => `${word.word} ${word.ratio}:1`).join(', ')}`);
+    // A dimmed tile is measured only where it is opaque: through one that is not, the wallpaper shows.
+    const tiles = [
+      ...(facts.covered && facts.revealed ? [{ kind: 'covered', ratio: contrastOf(facts.covered.fill, facts.revealed.fill) }] : []),
+      ...(facts.dimmed && facts.revealed && facts.dimmed.opacity === 1 ? [{ kind: 'dimmed', ratio: contrastOf(facts.dimmed.fill, facts.revealed.fill) }] : []),
+    ];
+    const against = tiles.map((tile) => `${tile.kind} ${tile.ratio}:1`).join(', ') || 'nothing covered to measure';
+    if (tiles.some((tile) => tile.ratio < 3)) wrong.push(`against the cleared patch: ${against}`);
+    noted.push(`the reaction's name ${name}:1, its words ${words.map((word) => `${word.word} ${word.ratio}:1`).join(', ')}; against the cleared patch: ${against}`);
+    if (wrong.length) {
+      heard.push(`Minesweeper: ${wrong.join('; ')}`);
+    }
+    return true;
+  };
 
 /**
  * The character page's facts that name another thing or a day (sites/main/features/database/characters/detail): the
@@ -489,7 +627,12 @@ const MAIN = [
   { name: 'main-top-bar-daily-quiz', path: '/daily/banners', widths: [1280], then: topBarItem('daily', { href: '/daily', current: 'true', goes: '/daily' }) },
   { name: 'main-games', path: '/games' },
   { name: 'main-game-tournament', path: '/games/tournament' },
-  { name: 'main-game-minesweeper', path: '/games/minesweeper' },
+  // Minesweeper, light in English and dark in Slovak: the setup, a board opened - the reaction line over it, covered
+  // tiles (those a press acts on, and the dimmed rest), the cleared patch and its ring of elements - and a game played
+  // to its end (minesweeperBoard).
+  { name: 'main-game-minesweeper', path: '/games/minesweeper', pairings: true },
+  { name: 'main-game-minesweeper-board', path: '/games/minesweeper', pairings: true, then: minesweeperBoard({ playedOut: false }) },
+  { name: 'main-game-minesweeper-end', path: '/games/minesweeper', pairings: true, then: minesweeperBoard({ playedOut: true }) },
   { name: 'main-database', path: '/database' },
   { name: 'main-database-characters', path: '/database/characters', focus: 6 },
   // The lists' filter card with a choice made and the sections regrouped (the owner's choice "E" of 2026-10-21).
@@ -820,6 +963,22 @@ const SIGNED_IN = [
   { name: 'main-privacy-signed-in', path: '/privacy' },
 ];
 
+/**
+ * Last, the account panel of an account whose preferences the IAM keeps (its 015, as every IAM now): signed in afresh
+ * for each pairing (`account`, the stand-in's user for the pairing's language) - its language the pairing's, its theme
+ * 'auto' (the browser's, which the pairing sets), its dates in an order of its own and a 24-hour clock - and the owner
+ * signed in again after it (accountPanelKept).
+ */
+const ACCOUNT_KEPT = [
+  {
+    name: 'main-dialog-account-signed-in',
+    path: '/',
+    pairings: true,
+    account: (lang) => ({ ...OWNER, locale: lang, preferences: { theme: 'auto', date_format: lang === 'sk' ? 'dmy_dot' : 'ymd_dash', time_format: '24' } }),
+    then: accountPanelKept,
+  },
+];
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Servers
 // ─────────────────────────────────────────────────────────────────────────────
@@ -930,6 +1089,8 @@ const report = [];
 let version = '';
 let page;
 let heard = [];
+/** What a page's checks measured, beside what they heard: kept in report.json as the page's `measured`. */
+let noted = [];
 let inFlight = new Set();
 
 async function setIam(changes) {
@@ -937,6 +1098,19 @@ async function setIam(changes) {
   if (!answer.ok) {
     throw new Error(`the stand-in IAM refused its state: ${answer.status}`);
   }
+}
+
+/**
+ * The browser signed in afresh as `user` (the stand-in IAM's {id, username, roles, locale?, preferences?}): the site's
+ * tokens forgotten, then /admin, which sends somebody signed out to the IAM - and the IAM signs `user` in at once.
+ */
+async function signInAs(user) {
+  await setIam({ user });
+  await page.evaluate(
+    "(() => { for (const store of [localStorage, sessionStorage]) for (const key of Object.keys(store)) if (key.startsWith('anotoki-auth') || key === 'genshin-silent-sign-in') store.removeItem(key); return true; })()",
+  );
+  await page.send('Page.navigate', { url: `${origin}/admin` });
+  return waitFor(page, "location.pathname.startsWith('/admin') && !!document.querySelector('app-admin-root')", 30000);
 }
 
 /** The backend copy that serves the API (browser-env.php's), once it is up. */
@@ -1188,6 +1362,9 @@ async function visit(entry, width) {
     if (entry.iam) {
       await iamState({ deny: false, login_required: false });
     }
+    if (entry.account && !(await signInAs(OWNER))) {
+      throw new Error(`The owner was not signed in again after ${entry.name}.`);
+    }
   }
 }
 
@@ -1195,6 +1372,7 @@ async function visitAs(entry, width) {
   let facts = null;
   const keys = [];
   const problems = [];
+  const measured = [];
   // Light and dark in the page's language - or the two pairings the owner looks at, light in English and dark in
   // Slovak, each file saying its language.
   const rounds = entry.pairings
@@ -1208,7 +1386,11 @@ async function visitAs(entry, width) {
       ];
   for (const [themeName, lang] of rounds) {
     heard = [];
+    noted = [];
     await boot(themeName, entry.fresh, lang);
+    if (entry.account && !(await signInAs(entry.account(lang ?? 'en')))) {
+      heard.push('the sign-in as the account did not come back');
+    }
     if (entry.closed) {
       await closeSite(entry.closed);
     }
@@ -1251,6 +1433,7 @@ async function visitAs(entry, width) {
       }
     }
     problems.push(...heard.filter((line) => !problems.includes(line)));
+    measured.push(...noted.map((line) => `${themeName}${lang ? ` ${lang}` : ''}: ${line}`));
   }
   if (facts.scrollWidth > facts.width + 1) {
     problems.push(`wider than the window: ${facts.scrollWidth} of ${facts.width} (${facts.wide.join(', ')})`);
@@ -1258,7 +1441,7 @@ async function visitAs(entry, width) {
   if (keys.length) {
     problems.push(`keys where words should be: ${keys.join(', ')}`);
   }
-  report.push({ page: entry.name, width, path: facts.path, title: facts.title, problems });
+  report.push({ page: entry.name, width, path: facts.path, title: facts.title, problems, ...(measured.length ? { measured } : {}) });
   console.log(`${problems.length ? 'LOOK' : 'ok  '} ${entry.name} ${width}${problems.length ? ' - ' + problems.join(' | ') : ''}`);
 }
 
@@ -1335,7 +1518,7 @@ try {
 
   await waitForUrl(`${issuer}/.well-known/openid-configuration`, 'The stand-in IAM');
   // Visitors welcome (genshin's own switch is off), and the person the IAM signs in is the site's ADMIN.
-  await setIam({ login_required: false, user: { id: 1, username: 'owner', roles: ['MEMBER', 'ADMIN'] } });
+  await setIam({ login_required: false, user: OWNER });
   await waitForUrl(`${origin}/api/site-status`, 'The site');
   await waitForUrl(`http://127.0.0.1:${BROWSER}/json/version`, 'The browser');
 
@@ -1412,6 +1595,7 @@ try {
   await pass(ADMIN_FOOTER);
   await pass(ADMIN_STATUS);
   await pass(SIGNED_IN);
+  await pass(ACCOUNT_KEPT);
 
   writeFileSync(join(out, 'report.json'), JSON.stringify(report, null, 2));
   const looked = report.filter((entry) => entry.problems.length);

@@ -64,32 +64,6 @@
     <anotoki-segmented class="theme-choices" [label]="'account.appearance' | translate" [options]="themeChoices()" [value]="theme.currentTheme()" (valueChange)="setTheme($any($event))" />
 </div>
 
-<!-- While the anotoki account keeps them, because that is where the
-     answer goes. Signed out - or with an IAM that keeps no
-     preferences - the device's own settings are used and there is
-     nothing to choose: see DateFormatService. Five date orders do not
-     fit a phone's width side by side, so they are a list to choose
-     from; the clock's three are a row. -->
-@if (account.kept()) {
-    <div class="theme-row">
-        <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
-        <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.dateFormat" | translate }}</span>
-        <anotoki-select
-            class="theme-choices"
-            hideLabel
-            [label]="'account.dateFormat' | translate"
-            [options]="dateChoices()"
-            [value]="formats.dateChoice()"
-            (valueChange)="setDateFormat($any($event))" />
-    </div>
-
-    <div class="theme-row">
-        <span class="icon icon-clock icon-size-4" aria-hidden="true"></span>
-        <span class="text-muted small theme-row-label" aria-hidden="true">{{ "account.timeFormat" | translate }}</span>
-        <anotoki-segmented class="theme-choices" [label]="'account.timeFormat' | translate" [options]="timeChoices()" [value]="formats.timeChoice()" (valueChange)="setTimeFormat($any($event))" />
-    </div>
-}
-
 <!-- Languages come from the database, so this list grows without a deploy:
      a row of a few, a list to choose from once there are more. -->
 @if (i18n.languages().length > 1) {

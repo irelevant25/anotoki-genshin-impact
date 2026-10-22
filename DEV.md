@@ -757,19 +757,22 @@ along. The admin dashboard's *visitors* card counts them against
 `max_visitors`, and asks to be looked at near the ceiling.
 
 **The account's preferences** (the local IAM with its migration 015). Signed
-in, the account panel's choosers - appearance, dates, clock, language - and the
+in, the account panel's choosers - appearance, language - and the
 admin panel's theme button each show the choice at once and send one
 `POST {issuer}/api/oidc/preferences` (the Network tab; never a request to this
 site's API), one at a time when clicked quickly; the IAM's account page shows
 the same choice, and a choice made there reaches this site with its next token
-refresh (or at once in a tab of this site that saved it). The theme is the same
-in `/admin` as on the site. With the IAM stopped, a theme, date order or clock
+refresh (or at once in a tab of this site that saved it). The dates and the
+clock are chosen on the IAM's account page alone (the owner's decision of
+2026-10-22): one chosen there writes this site's dates - the account panel's
+member-since among them - from the next refresh. The theme is the same
+in `/admin` as on the site. With the IAM stopped, a theme
 goes back to the account's and the panel says it could not be saved; a language
 stays on the page for the visit, with the same words - and without a word when
 the IAM simply does not offer it. Signed out, the
 appearance and the language are kept in this browser's localStorage (`theme`,
-`language`, prefixed `anotoki-genshin-impact-`) and the date and clock
-choosers are not shown.
+`language`, prefixed `anotoki-genshin-impact-`) and dates are written the
+device's way.
 
 **While an update waits** (*Database & migrations*). A database one migration
 behind is enough: leave the newest file unapplied on a scratch copy (never your

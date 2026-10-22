@@ -37,12 +37,13 @@
     } @else {
         <!-- The one reaction that kills this round. Everything on the board is
              read against it, so it stays in view rather than sitting in a help
-             modal - and on Hard it is the thing that keeps changing. -->
+             modal - and on Hard it is the thing that keeps changing. Each of its
+             elements is a chip in the fill its tiles have on the board. -->
         <div class="reaction">
             <span class="reaction-name">{{ reaction().name }}</span>
             <span class="reaction-elements">
                 @for (element of reaction().elements; track element; let last = $last) {
-                    <span [class]="element">{{ element }}</span>
+                    <span class="reaction-element" [class]="'reaction-' + element">{{ element }}</span>
                     @if (!last) {
                         <span class="reaction-plus">+</span>
                     }
@@ -69,7 +70,7 @@
         <!-- Fluid rather than a fixed cell size: fifteen columns of forty
              pixels is wider than a phone, and the board is square whatever it
              ends up being given. -->
-        <div class="grid" [class.awaiting-first-click]="!started()" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'" [style.max-width.px]="boardSize() * 44">
+        <div class="grid" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'" [style.max-width.px]="boardSize() * 44">
             @for (cell of cells(); track cell.row + "," + cell.col) {
                 <button
                     type="button"

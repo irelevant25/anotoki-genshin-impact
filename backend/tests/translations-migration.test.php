@@ -18,7 +18,8 @@ declare(strict_types=1);
  * What must hold: every string that was not blank is still there word for
  * word, with its writer and its time - a guide's body as a guide, the rest as
  * strings - and nothing else came in but the library's words, 051's, 055's,
- * 057's, 058's and 061's, nothing else went but 053's, 056's, 057's and 060's, and
+ * 057's, 058's, 061's, 062's and 063's, nothing else went but 053's, 056's,
+ * 057's, 060's, 062's, 063's and 064's, and
  * nothing else was reworded but the footer's Feedback where it was still
  * users/004's (057), the quizzes' cards and Mismatch's guide where they were
  * still users/005's and 028's (059), and 060's guides and Slovak where they
@@ -108,7 +109,8 @@ const LIBRARY_WORDS_FILES = [
 // (words made true before the owner's usability test) and users/061 (the
 // quizzes' levels' table; Voice's levels' seconds, 058's words, from the
 // levels - tests/quiz-levels.test.php), users/062 (the detail pages' and the
-// banners' new look's words) and users/063 (the lists' new look's words), and
+// banners' new look's words), users/063 (the lists' new look's words) and
+// users/064 (the account panel's date and clock words gone), and
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
 // catalog), which one Apply brings along.
 const WORDS_AND_AFTER = [
@@ -128,6 +130,7 @@ const WORDS_AND_AFTER = [
     'users/061_quiz_levels.sql',
     'users/062_database_pages_redesign_strings.sql',
     'users/063_database_lists_strings.sql',
+    'users/064_drop_account_dates_and_clock_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -240,6 +243,25 @@ const DIFFICULTY_NEW_KEYS = [
 ];
 // What users/061 brings: Voice's general words, for a level playing fewer pieces than its sentence names.
 const LEVELS_NEW_KEYS = ['quiz.levelInfo.voiceOther'];
+// How many keys users/062 and 063 bring - the database pages' new look's words, 28 and 19 - and what they take away:
+// the labels those pages no longer say.
+const DATABASE_PAGES_KEYS = 28 + 19;
+const GONE_BY_062_063 = ['database.detail.demoMusic', 'database.detail.releaseDate', 'database.detail.voiceActors', 'database.filters.name'];
+// What users/064 takes away: the account panel's Dates and Clock rows' words - their labels, the orders' and clocks'
+// names, the "Saved." after a change - which nothing reads since the owner's decision of 2026-10-22 (only the IAM's
+// account page sets them). Kept: the panel's line under its choices, and its words for a choice not saved.
+const GONE_BY_064 = [
+    'account.dateFormat',
+    'account.formats.auto',
+    'account.formats.clock12',
+    'account.formats.clock24',
+    'account.formats.dmyDot',
+    'account.formats.dmySlash',
+    'account.formats.mdySlash',
+    'account.formats.saved',
+    'account.formats.ymdDash',
+    'account.timeFormat',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -361,8 +383,13 @@ $lost = [];
 $blank = 0;
 foreach ($before as $row) {
     $key = $row['key_name'] . '|' . $row['language_code'];
-    if (in_array($row['key_name'], OLD_FORM_KEYS, true) || in_array($row['key_name'], MULTISELECT_SUMMARY_KEYS, true)) {
-        // users/053's and 056's to take away - looked at below.
+    if (
+        in_array($row['key_name'], OLD_FORM_KEYS, true) ||
+        in_array($row['key_name'], MULTISELECT_SUMMARY_KEYS, true) ||
+        in_array($row['key_name'], GONE_BY_062_063, true) ||
+        in_array($row['key_name'], GONE_BY_064, true)
+    ) {
+        // users/053's, 056's, 062's, 063's and 064's to take away - looked at below.
         continue;
     }
     if (preg_match('/\S/', $row['value']) !== 1) {
@@ -398,10 +425,10 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS);
-$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060);
+$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS;
+$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s and 061\'s in, 053\'s, 056\'s, 057\'s and 060\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s and 063\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s and 064\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -572,6 +599,43 @@ same(
     ],
 );
 
+$inList = "'" . implode("', '", GONE_BY_062_063) . "'";
+same(
+    '062 and 063: the labels the database pages no longer say, all there before, gone - with every string under them',
+    [count(GONE_BY_062_063), 0, 0],
+    [
+        count(array_intersect(GONE_BY_062_063, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+
+$inList = "'" . implode("', '", GONE_BY_064) . "'";
+same(
+    '064: the account panel\'s date and clock words, all there before, gone - with every string under them',
+    [count(GONE_BY_064), 0, 0],
+    [
+        count(array_intersect(GONE_BY_064, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+same(
+    '...the panel\'s line under its choices and its words for a choice not saved, kept - described without the dates and the clock',
+    [
+        'These settings belong to your anotoki account and apply on every anotoki site.',
+        'That could not be saved. Try again in a moment.',
+        'Line in the account panel, under the appearance and language choosers of somebody signed in, saying they are the anotoki account\'s and every anotoki site follows them',
+        'Notification when a change to the appearance or the language could not be saved to the anotoki account',
+    ],
+    [
+        $strings['account.preferencesNote|en']['value'] ?? null,
+        $strings['account.formats.failed|en']['value'] ?? null,
+        $pdo->query("SELECT description FROM translation_keys WHERE name = 'account.preferencesNote'")->fetchColumn(),
+        $pdo->query("SELECT description FROM translation_keys WHERE name = 'account.formats.failed'")->fetchColumn(),
+    ],
+);
+
 $inList = "'" . implode("', '", OLD_FORM_KEYS) . "'";
 same(
     '053: the old feedback form\'s and callback page\'s keys, all there before, gone - with every string under one, in every language',
@@ -718,7 +782,7 @@ $pdo = null;
 
 // ── Words reworded by their owner ───────────────────────────────────────────
 
-echo "users/057, 059 and 060 reword only where the words are still those migrations' own\n";
+echo "users/057, 059, 060 and 064 reword only where the words are still those migrations' own\n";
 
 $reworded = testDatabase('words_feedback', $base);
 $pdo = testPdo($reworded);
@@ -727,6 +791,8 @@ $pdo->exec("UPDATE translations SET value = 'Nájdi votrelca.', updated_by = 7 W
 $pdo->exec("UPDATE translations SET value = '<p>The owner''s own guide.</p>', updated_by = 7 WHERE key_name = 'guide.mismatch.content' AND language_code = 'en'");
 $pdo->exec("UPDATE translations SET value = 'Prihlasuj sa účtom anotoki.', updated_by = 7 WHERE key_name = 'account.iamLead' AND language_code = 'sk'");
 $pdo->exec("UPDATE translations SET value = '<p>Vlastný návod o kvízoch.</p>', updated_by = 7 WHERE key_name = 'guide.quizzes.content' AND language_code = 'sk'");
+// A description the old admin panel let its owner write, before users/050 made them the code's.
+$pdo->exec("UPDATE translation_keys SET description = 'The owner''s own description' WHERE name = 'account.preferencesNote'");
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
 $feedback = $pdo->query("SELECT value, updated_by FROM translations WHERE key_name = 'footer.feedback' AND language_code = 'en'")->fetch();
@@ -761,6 +827,14 @@ same(
         ($pdo->query("SELECT value FROM translations WHERE key_name = 'account.signOutNote' AND language_code = 'sk'")->fetchColumn() ?: '') ===
         'Odhlásenie ťa odhlási zo všetkých stránok anotoki naraz.',
         !str_contains((string) $pdo->query("SELECT html FROM guide_contents WHERE guide = 'quizzes' AND language_code = 'en'")->fetchColumn(), 'timed'),
+    ],
+);
+same(
+    '...and the description of the account panel\'s line its owner wrote stands through 064, which describes only 047\'s anew',
+    ["The owner's own description", 'Notification when a change to the appearance or the language could not be saved to the anotoki account'],
+    [
+        $pdo->query("SELECT description FROM translation_keys WHERE name = 'account.preferencesNote'")->fetchColumn(),
+        $pdo->query("SELECT description FROM translation_keys WHERE name = 'account.formats.failed'")->fetchColumn(),
     ],
 );
 $pdo = null;

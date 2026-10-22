@@ -1,5 +1,5 @@
-import { Injectable, computed, inject, linkedSignal } from '@angular/core';
-import { AccountPreferences, type AnotokiDateFormat, type AnotokiTimeFormat, type PreferenceSave } from '@anotoki/lib/auth';
+import { Injectable, computed, inject } from '@angular/core';
+import { AccountPreferences, type AnotokiDateFormat, type AnotokiTimeFormat } from '@anotoki/lib/auth';
 import { TranslationService } from '@anotoki/lib/translations';
 
 /**
@@ -171,35 +171,23 @@ export function formatClock(date: Date, locale: string, hour12: boolean, seconds
  * account overrides it (AccountPreferences) - for the reader whose device
  * disagrees with them, which is a real case: someone in Slovakia on a laptop
  * bought in the States, or anyone who simply wants a 24-hour clock wherever
- * they are. Their choice is every anotoki site's, and it is made here or on
- * any of them. A visitor, or an IAM that keeps no preferences, gets the
- * device's way.
+ * they are. Their choice is every anotoki site's, made on the IAM's account
+ * page - this site's account panel has no chooser for it since the owner's
+ * decision of 2026-10-22. A visitor, or an IAM that keeps no preferences,
+ * gets the device's way.
  *
- * Everything here is a signal, so changing the setting repaints every date on
- * the page rather than only the ones that happen to be redrawn next.
+ * Everything here is a signal, so a change of the account's choice - another
+ * site's, signing out - repaints every date on the page rather than only the
+ * ones that happen to be redrawn next.
  */
 @Injectable({ providedIn: 'root' })
 export class DateFormatService {
   private readonly _account = inject(AccountPreferences);
   private readonly _i18n = inject(TranslationService);
 
-  /**
-   * What the account asks for, or 'auto' when it asks for nothing - or there
-   * is no account.
-   *
-   * Writable, so the chooser shows a choice before the account has answered,
-   * and linked to the account's value, so the answer - another site's
-   * choice, signing out - puts it right. Not while a choice made here is on
-   * its way: an earlier answer would flick it back.
-   */
-  readonly dateChoice = linkedSignal<AnotokiDateFormat | null, DateFormatChoice>({
-    source: () => this._account.preferences()?.date_format ?? null,
-    computation: (account, previous) => (previous && this._account.saving('date_format') ? previous.value : (account ?? 'auto')),
-  });
-  readonly timeChoice = linkedSignal<AnotokiTimeFormat | null, TimeFormatChoice>({
-    source: () => this._account.preferences()?.time_format ?? null,
-    computation: (account, previous) => (previous && this._account.saving('time_format') ? previous.value : (account ?? 'auto')),
-  });
+  /** What the account asks for, or 'auto' when it asks for nothing - or there is no account. */
+  readonly dateChoice = computed<DateFormatChoice>(() => this._account.preferences()?.date_format ?? 'auto');
+  readonly timeChoice = computed<TimeFormatChoice>(() => this._account.preferences()?.time_format ?? 'auto');
 
   /** The pattern in force, the account's choice first and the device behind it. */
   readonly pattern = computed<DatePattern>(() => {
@@ -214,44 +202,9 @@ export class DateFormatService {
     };
   });
 
-  /**
-   * A date order chosen: shown at once, then saved to the account. A refused
-   * save puts the account's order back; the caller says so.
-   */
-  chooseDateFormat(choice: DateFormatChoice): Promise<PreferenceSave> {
-    this.dateChoice.set(choice);
-    return this._account.save('date_format', choice === 'auto' ? null : choice).then((result) => {
-      if (result.outcome === 'refused') {
-        this.dateChoice.set(this._account.preferences()?.date_format ?? 'auto');
-      }
-      return result;
-    });
-  }
-
-  /** The same for the clock. */
-  chooseTimeFormat(choice: TimeFormatChoice): Promise<PreferenceSave> {
-    this.timeChoice.set(choice);
-    return this._account.save('time_format', choice === 'auto' ? null : choice).then((result) => {
-      if (result.outcome === 'refused') {
-        this.timeChoice.set(this._account.preferences()?.time_format ?? 'auto');
-      }
-      return result;
-    });
-  }
-
   /** The time of day on the clock in force - `seconds` for the long form. */
   time(date: Date, seconds = false): string {
     const { hour12, chosenClock } = this.pattern();
     return chosenClock ? formatClock(date, this._i18n.effectiveLanguage(), hour12, seconds) : formatTime(date, hour12, seconds);
-  }
-
-  /** How a date in each choice reads today, so a chooser can show examples. */
-  example(choice: DateFormatChoice, now = new Date()): string {
-    const pattern = choice === 'auto' ? devicePattern().date : PATTERNS[choice];
-    return formatWith(now, pattern);
-  }
-
-  exampleTime(choice: TimeFormatChoice, now = new Date()): string {
-    return choice === 'auto' ? formatTime(now, devicePattern().hour12, false) : formatClock(now, this._i18n.effectiveLanguage(), choice === '12', false);
   }
 }

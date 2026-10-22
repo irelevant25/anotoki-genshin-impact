@@ -10,9 +10,10 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
   music, pixelated art, voice lines - with progress and statistics per person.
 - **Games**: an elemental minesweeper and a tournament.
 - **Profile**: quiz history and statistics. English and Slovak throughout.
-- **Appearance, dates, clock and language** are the reader's anotoki account's:
-  chosen in the account panel (or the admin panel's theme button), they apply on
-  every anotoki site. Without signing in, the theme and the language are this
+- **Appearance, dates, clock and language** are the reader's anotoki account's
+  and apply on every anotoki site: the appearance and the language chosen in the
+  account panel (or the admin panel's theme button), the dates and the clock on
+  the IAM's account page. Without signing in, the theme and the language are this
   device's and dates are written the device's way.
 - **Admin panel**: every piece of game content and its media, the site's words
   (translations, languages and the guides' pages), site switches (maintenance,
@@ -459,6 +460,13 @@ not drift; [docs/README.md](docs/README.md) lists them.
   words no number can follow - the pictures' steps, Voice's, Mismatch's card and
   guide - the Quiz levels page says to reword when a level leaves them behind
   (DEV.md, *Quiz levels*).
+- Since 2026-10-22, at the owner's word, the account panel chooses the
+  appearance and the language only: the dates and the clock are chosen on the
+  IAM's account page, and the site still writes every date by them. Migration
+  `users/064` takes the panel's date and clock words away. In Minesweeper the
+  dangerous reaction reads in both themes - each element a chip in its tiles'
+  colour -, only a tile a press acts on shows the pointer, and the dark board
+  tells a covered tile from a revealed one at a glance.
 
 ## More
 

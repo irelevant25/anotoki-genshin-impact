@@ -3,16 +3,15 @@ import { SiteSettingsService } from '../../../../../shared/local-lib/services/si
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
-import { AccountPreferences, type PreferenceSave } from '@anotoki/lib/auth';
+import { AccountPreferences } from '@anotoki/lib/auth';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
-import { SelectComponent, SelectOption } from '@anotoki/lib/ui/forms';
+import { SelectComponent } from '@anotoki/lib/ui/forms';
 import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
-import { DateFormatChoice, DateFormatService, TimeFormatChoice } from '../../../../../shared/local-lib/i18n/date-format.service';
 import { SiteBackgroundsModalComponent } from '../site-backgrounds/site-backgrounds-modal.component';
 import { wallpaperName } from '../site-backgrounds/wallpapers';
 
@@ -21,12 +20,14 @@ import { wallpaperName } from '../site-backgrounds/wallpapers';
  *
  * The account itself - password, two-factor, Google, sessions - is the anotoki
  * IAM's, shared by every anotoki site, and this panel only links to the IAM's
- * page for it. The appearance, the dates, the clock and the language are the
- * account's too (AccountPreferences): chosen here, they are saved to it, and
- * every anotoki site follows them. Signed out, the appearance and the language
- * are this device's. What is this site's own is the name and role it knows the
- * reader by - and the wallpaper behind the site, this browser's alone, chosen
- * in a window of its own opened from here.
+ * page for it. The appearance and the language are the account's too
+ * (AccountPreferences): chosen here, they are saved to it, and every anotoki
+ * site follows them. So are the dates and the clock, which the site writes
+ * every date by (AppDatePipe) - but they are chosen on the IAM's account page
+ * alone (the owner's decision of 2026-10-22). Signed out, the appearance and
+ * the language are this device's. What is this site's own is the name and
+ * role it knows the reader by - and the wallpaper behind the site, this
+ * browser's alone, chosen in a window of its own opened from here.
  */
 @Component({
   selector: 'app-site-account-modal',
@@ -43,9 +44,6 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
 
   /** The language the site is read in; the admin panel stays English. */
   readonly i18n = inject(TranslationService);
-
-  /** How dates and times are written for this reader. */
-  readonly formats = inject(DateFormatService);
 
   /** Whether the choices here are the anotoki account's - see the template. */
   readonly account = inject(AccountPreferences);
@@ -84,33 +82,8 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
     { value: 'auto', label: 'theme.auto' },
   ];
 
-  /**
-   * The orders on offer, labelled by an example rather than by a pattern.
-   *
-   * "1.3.2026" tells you what you are choosing; "d.M.yyyy" tells you only if
-   * you already know. The label behind the tooltip says which is which for
-   * anybody who wants the name.
-   */
-  readonly dateOptions: { value: DateFormatChoice; label: string }[] = [
-    { value: 'auto', label: 'account.formats.auto' },
-    { value: 'dmy_dot', label: 'account.formats.dmyDot' },
-    { value: 'dmy_slash', label: 'account.formats.dmySlash' },
-    { value: 'mdy_slash', label: 'account.formats.mdySlash' },
-    { value: 'ymd_dash', label: 'account.formats.ymdDash' },
-  ];
-
-  readonly timeOptions: { value: TimeFormatChoice; label: string }[] = [
-    { value: 'auto', label: 'account.formats.auto' },
-    { value: '24', label: 'account.formats.clock24' },
-    { value: '12', label: 'account.formats.clock12' },
-  ];
-
   // The choices as the kit's choosers take them, in the reader's language.
   readonly themeChoices = computed<SegmentedOption[]>(() => this.themeOptions.map((option) => ({ value: option.value, label: this.i18n.t(option.label) })));
-  readonly dateChoices = computed<SelectOption[]>(() =>
-    this.dateOptions.map((option) => ({ value: option.value, label: option.value === 'auto' ? this.i18n.t(option.label) : `${this.formats.example(option.value)} (${this.i18n.t(option.label)})` })),
-  );
-  readonly timeChoices = computed<SegmentedOption[]>(() => this.timeOptions.map((option) => ({ value: option.value, label: this.formats.exampleTime(option.value), hint: this.i18n.t(option.label) })));
   readonly languageChoices = computed(() => this.i18n.languages().map((language) => ({ value: language.code, label: language.native_name, lang: language.code })));
 
   /** Off to the IAM, coming back to the page this was opened on. */
@@ -151,18 +124,10 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
   }
 
   /**
-   * Each is shown at once - a chooser that lags a round trip behind feels
-   * broken - and saved to the account after. A refusal puts the account's
-   * value back, and says so.
+   * Shown at once - a chooser that lags a round trip behind feels broken -
+   * and saved to the account after. A refusal puts the account's theme back,
+   * and says so.
    */
-  setDateFormat(choice: DateFormatChoice): void {
-    void this.formats.chooseDateFormat(choice).then((result) => this._saidFormats(result));
-  }
-
-  setTimeFormat(choice: TimeFormatChoice): void {
-    void this.formats.chooseTimeFormat(choice).then((result) => this._saidFormats(result));
-  }
-
   setTheme(theme: Theme): void {
     void this.theme.setTheme(theme).then((result) => {
       if (result.outcome === 'refused') {
@@ -183,14 +148,6 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
 
   toAdmin(): void {
     window.open('/admin', '_blank');
-  }
-
-  private _saidFormats(result: PreferenceSave): void {
-    if (result.outcome === 'saved') {
-      this.notificationService.success(this.i18n.t('account.formats.saved'));
-    } else if (result.outcome === 'refused') {
-      this._notSaved();
-    }
   }
 
   private _notSaved(): void {

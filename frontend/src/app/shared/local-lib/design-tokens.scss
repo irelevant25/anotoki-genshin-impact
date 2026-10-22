@@ -15,8 +15,9 @@
 ///   palette-*      the colours that are this site's alone and change with
 ///                  the theme: the veils over the wallpaper, the tooltip
 ///                  bubble, the SQL viewer, the charts, the elements' inks,
-///                  the version badge. Both mixins define the *same* names,
-///                  so neither theme can be missing one.
+///                  the version badge, Minesweeper's tiles. Both mixins
+///                  define the *same* names, so neither theme can be missing
+///                  one.
 ///
 /// Light is written straight onto :root; `[data-theme="dark"]` (what the
 /// theme service puts on <html>) swaps the palette, `[data-theme="light"]`
@@ -161,6 +162,18 @@
   --hydro-text: #1f7ca3;
   --pyro-text: #a83a22;
   --cryo-text: #4f8996;
+
+  // Minesweeper's tiles (features/games/minesweeper): a covered tile a press
+  // acts on, the same under the pointer, a covered one dimmed (nothing next
+  // to it to reason from yet, or the game over), and a revealed one (the
+  // opening patch - a revealed element wears its element's fill). Light is
+  // the board as it was first drawn: the tooltip's slate, dimmed by opacity,
+  // and the active grey, 10.31:1 apart.
+  --minesweeper-covered: #2b3441;
+  --minesweeper-covered-hover: #2b3441;
+  --minesweeper-dimmed: #2b3441;
+  --minesweeper-dimmed-opacity: 0.7;
+  --minesweeper-revealed: #e4e9f1;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -278,6 +291,19 @@
   --hydro-text: #4cc2f1;
   --pyro-text: #ef674a;
   --cryo-text: #9fd6e3;
+
+  // Minesweeper's tiles, apart at a glance: the dark board once drew a covered
+  // tile (#39434f) and a revealed one (#2c3441) 1.25:1 apart. A covered tile
+  // is a lifted slate here and a revealed one the surface, still a tile
+  // against the page (1.20:1), 5.01:1 apart; a dimmed one 3.22:1 from a
+  // revealed one (WCAG 1.4.11 asks 3:1) and 1.56:1 from a covered one,
+  // opaque, so the wallpaper never decides how far apart they stand; under
+  // the pointer a covered tile lightens, 1.37:1.
+  --minesweeper-covered: #8a96a3;
+  --minesweeper-covered-hover: #a3b0bf;
+  --minesweeper-dimmed: #6a7582;
+  --minesweeper-dimmed-opacity: 1;
+  --minesweeper-revealed: #1f2731;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -390,40 +416,53 @@
   --story-color: #78a9db;
   --combat-color: #e07a5f;
 
+  /* Each element's shades, and the words on its secondary one
+     (`-fill-text`, Minesweeper's reaction line): a near-black, or white on
+     electro's purple, whichever reads 4.5:1 there at least (WCAG 1.4.3) -
+     neither does on pyro's red but the near-black, 4.68:1. The others: anemo
+     6.91, geo 7.95, electro 6.25, dendro 6.39, hydro 6.97, cryo 9.31. */
+
   /* Anemo (Wind) - Green */
   --anemo-primary-white: hsl(160, 100%, 50%);
   --anemo-secondary-white: #59a990;
   --anemo-accent-white: #3d7d69;
+  --anemo-fill-text: #0b0e12;
 
   /* Geo (Earth) - Yellow/Brown */
   --geo-primary-white: hsl(40, 100%, 50%);
   --geo-secondary-white: #d89b20;
   --geo-accent-white: #9e6e17;
+  --geo-fill-text: #0b0e12;
 
   /* Electro (Lightning) - Purple */
   --electro-primary-white: hsl(281, 100%, 50%);
   --electro-secondary-white: #8445a3;
   --electro-accent-white: #62317a;
+  --electro-fill-text: #ffffff;
 
   /* Dendro (Nature) - Green */
   --dendro-primary-white: hsl(89, 100%, 50%);
   --dendro-secondary-white: #68a42b;
   --dendro-accent-white: #4e7a20;
+  --dendro-fill-text: #0b0e12;
 
   /* Hydro (Water) - Blue */
   --hydro-primary-white: hsl(210, 100%, 50%);
   --hydro-secondary-white: #30a6d8;
   --hydro-accent-white: #1f7ca3;
+  --hydro-fill-text: #0b0e12;
 
   /* Pyro (Fire) - Red */
   --pyro-primary-white: hsl(11, 100%, 50%);
   --pyro-secondary-white: #d94e2f;
   --pyro-accent-white: #a83a22;
+  --pyro-fill-text: #0b0e12;
 
   /* Cryo (Ice) - Light Blue */
   --cryo-primary-white: hsl(180, 100%, 50%);
   --cryo-secondary-white: #7bbecf;
   --cryo-accent-white: #5a9cab;
+  --cryo-fill-text: #0b0e12;
 
   /* Podium places in the tournament game. Fixed in both themes, the same way
      the element colours are - a silver medal is silver wherever it is shown. */
