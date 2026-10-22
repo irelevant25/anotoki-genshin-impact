@@ -162,8 +162,8 @@
 }
 
 // A tile's fills are design-tokens.scss's --minesweeper-*: in the light theme
-// the board as it was first drawn, in the dark one far enough apart to tell a
-// covered tile from a revealed one at a glance.
+// the board as it was first drawn, in the dark one far enough apart to tell
+// the tiles apart at a glance.
 .cell {
   aspect-ratio: 1;
   display: flex;
@@ -176,14 +176,16 @@
   color: var(--text-tooltip);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  box-shadow: var(--shadow-small);
+  box-shadow: var(--minesweeper-dimmed-ring), var(--shadow-small);
   transition: transform var(--transition-base);
 
   // Dimmed until there is something to reason from - a cell you cannot yet
   // work out is a cell the game does not want you clicking - and once the
   // game is over. The light theme dims the slate by opacity; the dark one
-  // gives the tile a fill of its own, opaque, so the wallpaper behind the
-  // board never decides how far it stands from a revealed one.
+  // gives the tile a dark fill of its own, far from the slate of a tile a
+  // press acts on, and a ring, which its fill alone would not keep apart
+  // from a revealed one - opaque, so the wallpaper behind the board never
+  // decides how far apart they stand.
   opacity: var(--minesweeper-dimmed-opacity);
 
   // The pointer only where a press acts - isClickable(): any tile before the
@@ -193,6 +195,7 @@
 
   &.clickable {
     background-color: var(--minesweeper-covered);
+    box-shadow: var(--shadow-small);
     opacity: 1;
     cursor: pointer;
 

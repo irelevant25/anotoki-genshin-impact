@@ -245,7 +245,7 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 ## Current state
 
-- Version 1.2.0 (the changelog has what each version brought). Since 1.1.0 a
+- Version 1.4.1 (the changelog has what each version brought). Since 1.1.0 a
   version has three numbers, MAJOR.MINOR.PATCH - big changes, new features, bug
   fixes - and `frontend/package.json` carries the same one.
 - Public database pages for characters, weapons, materials and banners. The admin
@@ -466,7 +466,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
   `users/064` takes the panel's date and clock words away. In Minesweeper the
   dangerous reaction reads in both themes - each element a chip in its tiles'
   colour -, only a tile a press acts on shows the pointer, and the dark board
-  tells a covered tile from a revealed one at a glance.
+  tells its tiles apart at a glance: those a press acts on, those it cannot
+  reach yet (dark, ringed) and those revealed. Version 1.4.1.
 
 ## More
 

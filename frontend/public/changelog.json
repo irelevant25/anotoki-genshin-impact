@@ -1,5 +1,19 @@
 [
   {
+    "version": "1.4.1",
+    "date": "2026-10-22",
+    "changes": {
+      "fixed": [
+        "Minesweeper's dangerous reaction is easier to read — each element on its own colour, as on the board",
+        "In the dark theme, Minesweeper's tiles are easy to tell apart — the ones you can press, the ones you cannot reach yet and the ones already turned over",
+        "In Minesweeper, the pointer turns into a hand only over a tile you can press"
+      ],
+      "updated": [
+        "The Account window no longer sets how dates and the clock are written — they follow your anotoki account's settings, chosen on its account page"
+      ]
+    }
+  },
+  {
     "version": "1.4.0",
     "date": "2026-10-21",
     "changes": {

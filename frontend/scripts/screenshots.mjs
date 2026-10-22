@@ -260,7 +260,8 @@ function contrastOf(first, second) {
  * first tile a press acts on, again and again). What a picture cannot be trusted with is said, and what was measured
  * kept in report.json: a tile shows the pointer exactly when a press acts on it (`.clickable` - none once the game is
  * over); the reaction line's name and each element's word read 4.5:1 on what is behind them (WCAG 1.4.3); a covered
- * tile's fill and the cleared patch's 3:1 apart (1.4.11), the dimmed tiles' too where they are opaque.
+ * tile a press acts on 3:1 from the cleared patch (1.4.11), and where the dimmed tiles are opaque, 3:1 from them too,
+ * and a dimmed tile 3:1 from the cleared patch by its fill or by the ring round it.
  */
 const minesweeperBoard =
   ({ playedOut }) =>
@@ -308,7 +309,7 @@ const minesweeperBoard =
       };
       const tile = (selector) => {
         const cell = board.querySelector(selector);
-        return cell ? { fill: style(cell).backgroundColor, opacity: Number(style(cell).opacity) } : null;
+        return cell ? { fill: style(cell).backgroundColor, opacity: Number(style(cell).opacity), shadow: style(cell).boxShadow } : null;
       };
       const cells = [...board.querySelectorAll('.cell')];
       const name = board.querySelector('.reaction-name');
@@ -331,14 +332,23 @@ const minesweeperBoard =
     const words = facts.words.map((word) => ({ word: word.word, ratio: contrastOf(word.text, word.ground) }));
     if (name < 4.5) wrong.push(`the reaction's name ${name}:1`);
     if (words.length !== 2 || words.some((word) => word.ratio < 4.5)) wrong.push(`the reaction's words ${words.map((word) => `${word.word} ${word.ratio}:1`).join(', ')}`);
-    // A dimmed tile is measured only where it is opaque: through one that is not, the wallpaper shows.
+    // A dimmed tile is measured only where it is opaque: through one that is not, the wallpaper shows. Its ring is the
+    // inset one of its box-shadow, where it has one.
+    const opaque = facts.dimmed?.opacity === 1;
+    const ring = (opaque && facts.dimmed.shadow.match(/(rgba?\([^)]*\))[^,]*\binset\b/)?.[1]) || null;
     const tiles = [
-      ...(facts.covered && facts.revealed ? [{ kind: 'covered', ratio: contrastOf(facts.covered.fill, facts.revealed.fill) }] : []),
-      ...(facts.dimmed && facts.revealed && facts.dimmed.opacity === 1 ? [{ kind: 'dimmed', ratio: contrastOf(facts.dimmed.fill, facts.revealed.fill) }] : []),
+      ...(facts.covered && facts.revealed ? [{ pair: 'covered/revealed', ratio: contrastOf(facts.covered.fill, facts.revealed.fill) }] : []),
+      ...(facts.covered && opaque ? [{ pair: 'covered/dimmed', ratio: contrastOf(facts.covered.fill, facts.dimmed.fill) }] : []),
+      ...(opaque && facts.revealed ? [{ pair: 'dimmed/revealed', ratio: contrastOf(facts.dimmed.fill, facts.revealed.fill), apart: true }] : []),
+      ...(ring && facts.revealed ? [{ pair: "dimmed's ring/revealed", ratio: contrastOf(ring, facts.revealed.fill), apart: true }] : []),
     ];
-    const against = tiles.map((tile) => `${tile.kind} ${tile.ratio}:1`).join(', ') || 'nothing covered to measure';
-    if (tiles.some((tile) => tile.ratio < 3)) wrong.push(`against the cleared patch: ${against}`);
-    noted.push(`the reaction's name ${name}:1, its words ${words.map((word) => `${word.word} ${word.ratio}:1`).join(', ')}; against the cleared patch: ${against}`);
+    const measuredTiles = tiles.map((tile) => `${tile.pair} ${tile.ratio}:1`).join(', ') || 'nothing covered to measure';
+    // The dimmed tile and the cleared patch: apart by the fill or by the ring - either one 3:1 is enough.
+    const dimmedApart = tiles.filter((tile) => tile.apart);
+    if (tiles.some((tile) => !tile.apart && tile.ratio < 3) || (dimmedApart.length > 0 && Math.max(...dimmedApart.map((tile) => tile.ratio)) < 3)) {
+      wrong.push(`the tiles: ${measuredTiles}`);
+    }
+    noted.push(`the reaction's name ${name}:1, its words ${words.map((word) => `${word.word} ${word.ratio}:1`).join(', ')}; the tiles: ${measuredTiles}`);
     if (wrong.length) {
       heard.push(`Minesweeper: ${wrong.join('; ')}`);
     }

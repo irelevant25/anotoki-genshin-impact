@@ -165,13 +165,14 @@
 
   // Minesweeper's tiles (features/games/minesweeper): a covered tile a press
   // acts on, the same under the pointer, a covered one dimmed (nothing next
-  // to it to reason from yet, or the game over), and a revealed one (the
-  // opening patch - a revealed element wears its element's fill). Light is
-  // the board as it was first drawn: the tooltip's slate, dimmed by opacity,
-  // and the active grey, 10.31:1 apart.
+  // to it to reason from yet, or the game over) with the ring round it, and
+  // a revealed one (the opening patch - a revealed element wears its
+  // element's fill). Light is the board as it was first drawn: the tooltip's
+  // slate, dimmed by opacity and no ring, and the active grey, 10.31:1 apart.
   --minesweeper-covered: #2b3441;
   --minesweeper-covered-hover: #2b3441;
   --minesweeper-dimmed: #2b3441;
+  --minesweeper-dimmed-ring: 0 0 transparent;
   --minesweeper-dimmed-opacity: 0.7;
   --minesweeper-revealed: #e4e9f1;
 }
@@ -294,14 +295,17 @@
 
   // Minesweeper's tiles, apart at a glance: the dark board once drew a covered
   // tile (#39434f) and a revealed one (#2c3441) 1.25:1 apart. A covered tile
-  // is a lifted slate here and a revealed one the surface, still a tile
-  // against the page (1.20:1), 5.01:1 apart; a dimmed one 3.22:1 from a
-  // revealed one (WCAG 1.4.11 asks 3:1) and 1.56:1 from a covered one,
-  // opaque, so the wallpaper never decides how far apart they stand; under
-  // the pointer a covered tile lightens, 1.37:1.
+  // a press acts on is a lifted slate here and a revealed one the surface,
+  // still a tile against the page (1.20:1), 5.01:1 apart; under the pointer
+  // the slate lightens, 1.37:1. A dimmed one is dark, 3.38:1 from the slate
+  // (WCAG 1.4.11 asks 3:1) - too near a revealed one by its fill alone
+  // (1.48:1), so a ring tells the two apart, 3.22:1 from a revealed one and
+  // 2.17:1 from its own fill. Opaque, so the wallpaper never decides how far
+  // apart they stand.
   --minesweeper-covered: #8a96a3;
   --minesweeper-covered-hover: #a3b0bf;
-  --minesweeper-dimmed: #6a7582;
+  --minesweeper-dimmed: #39424e;
+  --minesweeper-dimmed-ring: inset 0 0 0 1px #6a7582;
   --minesweeper-dimmed-opacity: 1;
   --minesweeper-revealed: #1f2731;
 }
