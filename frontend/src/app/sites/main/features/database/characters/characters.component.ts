@@ -7,7 +7,7 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { Character, Expanded } from '../../../../../api';
-import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityStars, rarityValues } from '../shared/database-helpers';
+import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -48,8 +48,6 @@ export class DatabaseCharactersComponent {
   filterName = signal('');
 
   groupBy = signal<GroupKey>(GROUPINGS[0]);
-
-  rarityStars = rarityStars;
 
   /** The elements in the game's order, each with its glyph, its count and its own colours; 'Adaptive' is the Traveler's placeholder, not an element. */
   elementOptions = computed<FacetOption[]>(() => {

@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 88px minmax(0, 1fr);
   gap: var(--spacing-sm);
-  align-items: center;
+  // align-items: center;
   min-height: 118px;
   padding: var(--spacing-sm);
   background: var(--bg-card);
