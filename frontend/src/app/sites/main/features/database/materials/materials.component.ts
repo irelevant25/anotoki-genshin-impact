@@ -6,7 +6,7 @@ import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { Expanded, Material } from '../../../../../api';
-import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, pluralTail, rarityStars, rarityValues } from '../shared/database-helpers';
+import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, pluralTail, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOneOf, asText, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -47,8 +47,6 @@ export class DatabaseMaterialsComponent {
   filterName = signal('');
 
   groupBy = signal<GroupKey>(GROUPINGS[0]);
-
-  rarityStars = rarityStars;
 
   /** The rarities present, the highest first, each as its stars with its count; a material without one counts under All alone. */
   rarityOptions = computed<FacetOption[]>(() => {

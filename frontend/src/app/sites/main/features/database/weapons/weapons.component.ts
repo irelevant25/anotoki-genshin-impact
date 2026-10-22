@@ -7,7 +7,7 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { Expanded, Weapon } from '../../../../../api';
-import { buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityStars, rarityValues } from '../shared/database-helpers';
+import { buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
 import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -46,8 +46,6 @@ export class DatabaseWeaponsComponent {
   filterName = signal('');
 
   groupBy = signal<GroupKey>(GROUPINGS[0]);
-
-  rarityStars = rarityStars;
 
   /** The types in the game's order, each with its coin and its count. */
   typeOptions = computed<FacetOption[]>(() => {

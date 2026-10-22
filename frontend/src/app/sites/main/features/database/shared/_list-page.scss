@@ -128,7 +128,6 @@
   padding: 0 var(--spacing-xs);
   border-radius: var(--border-radius-large);
   background: var(--text-primary);
-  filter: brightness(var(--brightness));
   color: var(--bg-card);
   font-size: 14px;
   font-weight: 800;
@@ -139,6 +138,7 @@
     width: 24px;
     height: 24px;
     object-fit: contain;
+    filter: brightness(var(--brightness));
   }
 
   .star {
