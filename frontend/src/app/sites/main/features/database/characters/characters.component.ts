@@ -17,7 +17,7 @@ import { GameListsService } from '../../../game-lists.service';
 type CharacterRow = Expanded<Character, 'created_by' | 'updated_by'>;
 
 /** How this list can be grouped, the first the default. */
-const GROUPINGS: readonly GroupKey[] = ['region', 'version', 'none'];
+const GROUPINGS: readonly GroupKey[] = ['version', 'region', 'none'];
 
 /**
  * The characters list (the owner's choice "E" of 2026-10-21 among the

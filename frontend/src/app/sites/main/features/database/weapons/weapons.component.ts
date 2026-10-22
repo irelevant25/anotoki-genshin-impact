@@ -17,7 +17,7 @@ import { GameListsService } from '../../../game-lists.service';
 type WeaponRow = Expanded<Weapon, 'created_by' | 'updated_by'>;
 
 /** How this list can be grouped, the first the default. */
-const GROUPINGS: readonly GroupKey[] = ['rarity', 'version', 'none'];
+const GROUPINGS: readonly GroupKey[] = ['version', 'rarity', 'none'];
 
 /**
  * The weapons list, in the characters list's system (the owner's choice "E"

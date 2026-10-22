@@ -17,7 +17,7 @@ import { GameListsService } from '../../../game-lists.service';
 type MaterialRow = Expanded<Material, 'created_by' | 'updated_by'>;
 
 /** How this list can be grouped, the first the default (never by category - the owner's word of 2026-10-21). */
-const GROUPINGS: readonly GroupKey[] = ['region', 'version', 'none'];
+const GROUPINGS: readonly GroupKey[] = ['version', 'region', 'none'];
 
 /**
  * The materials list, in the characters list's system (the owner's choice
