@@ -43,7 +43,9 @@
 // reads over any rarity's colour.
 .tile-count {
   position: absolute;
-  right: -6px;
+  right: auto;
+  left: 50%;
+  transform: translate(-50%);
   bottom: -7px;
   padding: 1px 6px;
   border-radius: var(--border-radius-pill);
