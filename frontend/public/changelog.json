@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.5.0",
+    "date": "2026-10-22",
+    "changes": {
+      "added": [
+        "A new look for your Profile — your name over the namecard of the character you meet most, your figures under it, and four tabs: an overview, each quiz by difficulty with who you do best and worst against in it, every character you have met as cards you can filter, search and sort, and your history day by day",
+        "Before your first question the Profile shows the six quizzes to start with, and what it will show once you have played"
+      ]
+    }
+  },
+  {
     "version": "1.4.1",
     "date": "2026-10-22",
     "changes": {
@@ -117,25 +127,40 @@
         "Mobile device optimization for databases",
         "Lazy loading for images and database filters and details"
       ],
-      "fixed": ["Element generation in minesweeper game"],
-      "updated": ["Build tab design in character detail with material ascension design."]
+      "fixed": [
+        "Element generation in minesweeper game"
+      ],
+      "updated": [
+        "Build tab design in character detail with material ascension design."
+      ]
     }
   },
   {
     "version": "0.7.0",
     "date": "2025-04-17",
     "changes": {
-      "added": ["Implemented minesweeper game", "Added feedback section", "Added GitHub icon with redirect on the bottom menu"],
+      "added": [
+        "Implemented minesweeper game",
+        "Added feedback section",
+        "Added GitHub icon with redirect on the bottom menu"
+      ],
       "fixed": [],
-      "updated": ["Major refactoring to Vue 3 (no build framework) for future optimizations and new features."]
+      "updated": [
+        "Major refactoring to Vue 3 (no build framework) for future optimizations and new features."
+      ]
     }
   },
   {
     "version": "0.6.0",
     "date": "2025-04-06",
     "changes": {
-      "added": ["New quiz: character special dish", "new quiz: character voice over"],
-      "fixed": ["Issue with daily after difficulty change."],
+      "added": [
+        "New quiz: character special dish",
+        "new quiz: character voice over"
+      ],
+      "fixed": [
+        "Issue with daily after difficulty change."
+      ],
       "updated": [
         "Big optimization of all assets by reducing their size about 85%.",
         "Loading backgrounds only when needed.",
@@ -155,7 +180,9 @@
         "Add new tab Build to the Database with infographic.",
         "Data migrations after visiting the website after new updates."
       ],
-      "fixed": ["Disable 'click' event in Mismatch after result."],
+      "fixed": [
+        "Disable 'click' event in Mismatch after result."
+      ],
       "updated": [
         "Change design/visibility of the custom music player.",
         "Optimizing big characters data. Split to two (characters and database) and load database only if needed.",
@@ -167,9 +194,18 @@
     "version": "0.4.0",
     "date": "2025-03-12",
     "changes": {
-      "added": ["Music quiz.", "Database for characters information."],
-      "fixed": ["Not showing content after manual opening What's new modal."],
-      "updated": ["Wider modals.", "Change margins and sizes of the images in quizzes so there are not scrollbar anymore.", "Adding responsiveness for lower resolution for bottom menu."]
+      "added": [
+        "Music quiz.",
+        "Database for characters information."
+      ],
+      "fixed": [
+        "Not showing content after manual opening What's new modal."
+      ],
+      "updated": [
+        "Wider modals.",
+        "Change margins and sizes of the images in quizzes so there are not scrollbar anymore.",
+        "Adding responsiveness for lower resolution for bottom menu."
+      ]
     }
   },
   {
@@ -184,7 +220,9 @@
         "Notification for new versions.",
         "Bottom menu item called “What's New”."
       ],
-      "fixed": ["Issue with incrementing tries in the mismatch quiz."],
+      "fixed": [
+        "Issue with incrementing tries in the mismatch quiz."
+      ],
       "updated": [
         "Removed “rarity” as an indicator in the mismatch quiz.",
         "Tweaked the UI and changed how backgrounds are previewed.",
@@ -198,16 +236,25 @@
     "version": "0.2.0",
     "date": "2025-02-26",
     "changes": {
-      "added": ["Score display. Characters tries display.", "Difficulties per try in banner quiz.", "Character pixelate quiz.", "Character mismatch quiz."],
+      "added": [
+        "Score display. Characters tries display.",
+        "Difficulties per try in banner quiz.",
+        "Character pixelate quiz.",
+        "Character mismatch quiz."
+      ],
       "fixed": [],
-      "updated": ["Beautified the UI of the change log."]
+      "updated": [
+        "Beautified the UI of the change log."
+      ]
     }
   },
   {
     "version": "0.1.0",
     "date": "2025-02-22",
     "changes": {
-      "added": ["Initial release of the quiz website."],
+      "added": [
+        "Initial release of the quiz website."
+      ],
       "fixed": [],
       "updated": []
     }

@@ -4,287 +4,309 @@
     @if (!loader.loadingCtrl.loading()) {
         <div class="profile">
             @if (user() || visiting()) {
-                @if (user(); as user) {
-                    <!-- No role badge. This page is about how somebody plays,
-                         and whether they can also edit the database is not part of
-                         that - it belongs where it means something, which is the
-                         account panel. -->
-                    <header class="profile-header">
-                        <h1>{{ user.username }}</h1>
-                        <p class="profile-meta">
-                            @if (user.created_at) {
-                                <span>{{ "profile.memberSince" | translate }} {{ user.created_at | appDate }}</span>
-                            }
-                            @if (lastPlayed(); as when) {
-                                <span>{{ "profile.lastPlayed" | translate }} {{ when | appDate: "datetime" }}</span>
-                            }
-                        </p>
-                    </header>
-                } @else {
-                    <!-- A visitor: playing without signing in. Their figures are
-                         kept by the server for this browser; the notice says for
-                         how long, and that signing in keeps them. Always here,
-                         even before the first played question: this is the page
-                         somebody opens to see what is kept of them. -->
-                    <header class="profile-header">
-                        <h1>{{ "profile.title" | translate }}</h1>
-                    </header>
+                <!-- The character pages' hero, worn by the player: the namecard of
+                     the character they meet most behind their name, that character's
+                     art, the headline figures as the strip of facts. No role badge:
+                     this page is about how somebody plays, and whether they can also
+                     edit the database belongs in the account panel. A visitor reads
+                     "Profile" here, and under it how long their games are kept. -->
+                <app-detail-hero
+                    [name]="heroName()"
+                    [subtitle]="heroSubtitle()"
+                    [rarity]="heroCharacter()?.rarity ?? null"
+                    [showStars]="false"
+                    [backdrop]="heroBackdrop()"
+                    [splash]="heroSplash()"
+                    [stats]="heroStats()" />
+
+                @if (!user()) {
                     <app-visitor-notice></app-visitor-notice>
                 }
 
                 <!-- A read that failed is said out loud: the rest of the page is
                      real, and a quietly missing section reads as a zero. -->
                 @if (failed()) {
-                    <p class="profile-warning">{{ "profile.failed" | translate }}</p>
+                    <anotoki-alert class="profile-warning" tone="warning">{{ "profile.failed" | translate }}</anotoki-alert>
                 }
 
                 @if (empty()) {
-                    <div class="profile-empty">
-                        <h2>{{ "profile.empty.title" | translate }}</h2>
-                        <p>{{ "profile.empty.text" | translate }}</p>
-                        <a class="link" [routerLink]="['/', 'quizzes']">{{ "profile.empty.action" | translate }}</a>
-                    </div>
+                    <!-- Before the first played question the page is the way in:
+                         the six quizzes as the hub draws them, and a preview of the
+                         figures that will fill. -->
+                    <anotoki-card class="detail-card" [heading]="'profile.empty.start' | translate" [subheading]="'profile.empty.startLead' | translate">
+                        <div class="start-cards">
+                            @for (quiz of quizCards; track quiz.id) {
+                                <a class="card start-card" [routerLink]="['/', 'quizzes', quiz.path]">
+                                    <img [src]="quiz.image" [alt]="quiz.title | translate" loading="lazy" />
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{ quiz.title | translate }}</h3>
+                                        <p class="card-text">{{ quiz.info | translate }}</p>
+                                    </div>
+                                    <span class="start-card-play">{{ "profile.quizzes.play" | translate }}</span>
+                                </a>
+                            }
+                        </div>
+                    </anotoki-card>
+
+                    <anotoki-card class="detail-card profile-preview" [heading]="'profile.empty.preview' | translate" [subheading]="'profile.empty.previewLead' | translate">
+                        <anotoki-stat-tiles>
+                            @for (label of figureLabels; track label) {
+                                <anotoki-stat-tile [label]="label | translate" value="—" />
+                            }
+                        </anotoki-stat-tiles>
+                    </anotoki-card>
                 } @else {
-                    <!-- ── The headline figures ──────────────────────────── -->
-                    <section class="profile-section">
-                        <div class="figures">
-                            <div class="figure">
-                                <span class="figure-value">{{ totals().played }}</span>
-                                <span class="figure-label">{{ "profile.overview.played" | translate }}</span>
-                            </div>
-                            <div class="figure">
-                                <span class="figure-value">{{ totals().winRate | number: "1.0-0" }}%</span>
-                                <span class="figure-label">{{ "profile.overview.winRate" | translate }}</span>
-                            </div>
-                            <div class="figure">
-                                <span class="figure-value">{{ totals().averageAttempts | number: "1.0-1" }}</span>
-                                <span class="figure-label">{{ "profile.overview.attempts" | translate }}</span>
-                            </div>
-                            <div class="figure">
-                                <span class="figure-value">{{ characters().length }}</span>
-                                <span class="figure-label">{{ "profile.overview.characters" | translate }}</span>
-                            </div>
-                            <div class="figure">
-                                <span class="figure-value">{{ quizzesPlayed() }} / {{ quizzes().length }}</span>
-                                <span class="figure-label">{{ "profile.overview.quizzes" | translate }}</span>
-                            </div>
-                            <div class="figure">
-                                <span class="figure-value">{{ activity().current }}</span>
-                                <span class="figure-label">{{ "profile.overview.streak" | translate }}</span>
-                            </div>
-                        </div>
-                    </section>
+                    <anotoki-tabs #profileTabs="anotokiTabs" class="profile-tabs" [label]="'nav.profile' | translate" [tabs]="tabItems()" [(active)]="activeTab" />
 
-                    <!-- ── Per quiz ──────────────────────────────────────── -->
-                    <section class="profile-section">
-                        <h2>{{ "profile.quizzes.title" | translate }}</h2>
-
-                        <ul class="rows">
-                            @for (entry of quizzes(); track entry.id) {
-                                <li class="row" [class.row-untouched]="entry.totals.played === 0">
-                                    <span class="row-name">
-                                        @if (quizLink(entry.id); as link) {
-                                            <a class="link" [routerLink]="link">{{ quizTitle(entry.id) | translate }}</a>
-                                        } @else {
-                                            {{ quizTitle(entry.id) }}
+                    <!-- One view at a time, built only while it is shown: the
+                         Characters tab is a grid of pictures, and the others
+                         need not be in the page while it is. -->
+                    <div class="profile-panel" role="tabpanel" [id]="profileTabs.panelId(activeTab())" [attr.aria-labelledby]="profileTabs.tabId(activeTab())">
+                        @switch (activeTab()) {
+                            @case ("quizzes") {
+                                <anotoki-card class="detail-card" [heading]="'profile.tabs.quizzes' | translate" [subheading]="'profile.quizzes.lead' | translate">
+                                    <div class="quiz-cards">
+                                        @for (report of quizReports(); track report.id) {
+                                            <app-profile-quiz-card [report]="report" />
                                         }
-                                    </span>
-
-                                    <!-- Width against the busiest quiz, so the bars say
-                                         how much of the playing each one accounts for;
-                                         the split inside says how it went. -->
-                                    <span class="row-bar" [title]="entry.totals.wins + ' / ' + entry.totals.played">
-                                        <span class="bar-track">
-                                            <span class="bar-fill" [style.width.%]="(entry.totals.played * 100) / busiestQuiz()">
-                                                <span class="bar-won" [style.width.%]="entry.totals.winRate"></span>
-                                            </span>
-                                        </span>
-                                    </span>
-
-                                    <span class="row-figure">{{ entry.totals.played }}</span>
-                                    <span class="row-figure row-rate">
-                                        @if (entry.totals.played) {
-                                            {{ entry.totals.winRate | number: "1.0-0" }}%
-                                        } @else {
-                                            &mdash;
-                                        }
-                                    </span>
-                                </li>
-                            }
-                        </ul>
-
-                        <p class="rows-legend">
-                            <span class="swatch swatch-won"></span>
-                            {{ "profile.legend.won" | translate }}
-                            <span class="swatch swatch-lost"></span>
-                            {{ "profile.legend.lost" | translate }}
-                        </p>
-                    </section>
-
-                    <!-- ── Per difficulty ────────────────────────────────── -->
-                    <section class="profile-section">
-                        <h2>{{ "profile.difficulty.title" | translate }}</h2>
-
-                        @if (difficulties().length) {
-                            <ul class="rows">
-                                @for (entry of difficulties(); track entry.difficulty) {
-                                    <li class="row">
-                                        <span class="row-name">{{ difficultyLabel(entry.difficulty) | translate }}</span>
-                                        <span class="row-bar" [title]="entry.totals.wins + ' / ' + entry.totals.played">
-                                            <span class="bar-track">
-                                                <span class="bar-fill" [style.width.%]="100">
-                                                    <span class="bar-won" [style.width.%]="entry.totals.winRate"></span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                        <span class="row-figure">{{ entry.totals.played }}</span>
-                                        <span class="row-figure row-rate">{{ entry.totals.winRate | number: "1.0-0" }}%</span>
-                                    </li>
-                                }
-                            </ul>
-                        } @else {
-                            <p class="section-empty">{{ "profile.difficulty.none" | translate }}</p>
-                        }
-                    </section>
-
-                    <!-- ── Activity ──────────────────────────────────────── -->
-                    <section class="profile-section">
-                        <h2>{{ "profile.activity.title" | translate }}</h2>
-
-                        <p class="section-note">
-                            {{ "profile.activity.summary" | translate: { days: activity().days, longest: activity().longest } }}
-                        </p>
-
-                        <app-activity-grid [cells]="activityCells()"></app-activity-grid>
-                    </section>
-
-                    <!-- ── By character, and the last twenty ─────────────── -->
-                    <!-- Two tabs rather than two sections stacked. The
-                         character table is one row per character met, which
-                         for anybody who has played for a while is a hundred
-                         rows of scrolling before the recent list is reached at
-                         all. Neither is the answer to the other's question, so
-                         only one needs to be on screen. -->
-                    <section class="profile-section profile-tabs">
-                        <anotoki-tabs #profileTabs="anotokiTabs" [label]="'nav.profile' | translate" [tabs]="tabItems()" [(active)]="activeTab" />
-                        <div
-                            class="profile-tab-panel"
-                            role="tabpanel"
-                            [id]="profileTabs.panelId('characters')"
-                            [attr.aria-labelledby]="profileTabs.tabId('characters')"
-                            [hidden]="activeTab() !== 'characters'">
-                            @if (highlights(); as picks) {
-                                <div class="highlights">
-                                    @if (picks.mostMet; as character) {
-                                        <div class="highlight">
-                                            <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
-                                            <span class="highlight-label">{{ "profile.characters.mostMet" | translate }}</span>
-                                            <span class="highlight-name">{{ character.name }}</span>
-                                            <span class="highlight-value">{{ "profile.characters.times" | translate: { count: character.totals.played } }}</span>
-                                        </div>
-                                    }
-                                    @if (picks.best; as character) {
-                                        <div class="highlight highlight-best">
-                                            <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
-                                            <span class="highlight-label">{{ "profile.characters.best" | translate }}</span>
-                                            <span class="highlight-name">{{ character.name }}</span>
-                                            <span class="highlight-value">{{ character.totals.winRate | number: "1.0-0" }}%</span>
-                                        </div>
-                                    }
-                                    @if (picks.toughest; as character) {
-                                        <div class="highlight highlight-toughest">
-                                            <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
-                                            <span class="highlight-label">{{ "profile.characters.toughest" | translate }}</span>
-                                            <span class="highlight-name">{{ character.name }}</span>
-                                            <span class="highlight-value">{{ character.totals.winRate | number: "1.0-0" }}%</span>
-                                        </div>
-                                    }
-                                    @if (!picks.best) {
-                                        <p class="section-note">{{ "profile.characters.needMore" | translate: { count: minPlayed } }}</p>
-                                    }
-                                </div>
+                                    </div>
+                                </anotoki-card>
                             }
 
-                            <table class="characters">
-                                <thead>
-                                    <tr>
-                                        <th class="sortable" scope="col" tabindex="0" (click)="toggleSort('name')" (keydown.enter)="toggleSort('name')" (keydown.space)="toggleSort('name')">
-                                            {{ "profile.characters.column.character" | translate }}
-                                            @if (sort() === "name") {
-                                                <span class="sort-mark">{{ sortDescending() ? "▾" : "▴" }}</span>
+                            @case ("characters") {
+                                <anotoki-card class="detail-card" [heading]="'profile.tabs.characters' | translate" [subheading]="'profile.characters.listLead' | translate">
+                                    <!-- The database list's filter card: the elements as a wide
+                                         track with the player's counts, the search, the order. -->
+                                    <div class="list-bar">
+                                        <div class="list-bar-row">
+                                            <app-facet-track
+                                                class="facet--main"
+                                                wide
+                                                [label]="'database.filters.element' | translate"
+                                                [options]="elementOptions()"
+                                                [allLabel]="'database.filters.all' | translate"
+                                                [allTotal]="characters().length"
+                                                [(value)]="filterElement" />
+                                            <div class="facet facet--search">
+                                                <span class="facet-label">{{ "database.filters.search" | translate }}</span>
+                                                <anotoki-text-field
+                                                    hideLabel
+                                                    type="search"
+                                                    [label]="'profile.characters.search' | translate"
+                                                    [placeholder]="'profile.characters.search' | translate"
+                                                    [(value)]="search">
+                                                    <anotoki-icon fieldPrefix name="search" [size]="16" />
+                                                </anotoki-text-field>
+                                            </div>
+                                            <div class="facet">
+                                                <span class="facet-label">{{ "profile.characters.sort" | translate }}</span>
+                                                <anotoki-segmented [label]="'profile.characters.sort' | translate" [options]="sortChoices()" [value]="sort()" (valueChange)="setSort($event)" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="list-meta">
+                                        <span>{{ countKey(filteredCharacters().length) | translate: { n: filteredCharacters().length } }}</span>
+                                        <button anotokiButton variant="ghost" size="sm" type="button" (click)="resetFilters()">
+                                            <anotoki-icon name="x" [size]="14" />
+                                            {{ "database.filters.reset" | translate }}
+                                        </button>
+                                    </div>
+
+                                    @if (shownCharacters().length) {
+                                        <div class="list-grid">
+                                            @for (character of shownCharacters(); track character.characterId) {
+                                                <app-list-tile
+                                                    [link]="['/', 'database', 'characters', character.characterId]"
+                                                    [name]="character.name"
+                                                    [picture]="{ name: character.icon, folder: 'character.icon' }"
+                                                    [rarity]="character.rarity"
+                                                    [backdrop]="character.namecard ? { name: character.namecard, folder: 'character.namecard_background' } : null"
+                                                    tint="element"
+                                                    [element]="character.element"
+                                                    [badge]="badgeFor(character)"
+                                                    [badgeTone]="badgeToneFor(character)">
+                                                    @if (character.element) {
+                                                        <span class="fact fact--element">
+                                                            <img [appMaterialIcon]="character.element" [appAssetFolder]="'elements'" alt="" loading="lazy" />
+                                                            {{ character.element }}
+                                                        </span>
+                                                    }
+                                                    <span class="fact fact--rate">
+                                                        <anotoki-progress-bar [label]="'profile.overview.winRate' | translate" [value]="character.totals.winRate" [max]="100" format="percent" />
+                                                        <span class="fact-rate-figure">{{ character.totals.winRate | number: "1.0-0" }}%</span>
+                                                    </span>
+                                                    <span class="fact fact--muted fact--figures">
+                                                        {{ "profile.quizzes.playedCount" | translate: { count: character.totals.played } }}
+                                                        · {{ "profile.overview.wonHint" | translate: { count: character.totals.wins } }} ·
+                                                        {{ "profile.quizzes.tries" | translate: { tries: (character.totals.averageAttempts | number: "1.0-1") } }}
+                                                    </span>
+                                                </app-list-tile>
                                             }
-                                        </th>
-                                        <th
-                                            class="sortable numeric"
-                                            scope="col"
-                                            tabindex="0"
-                                            (click)="toggleSort('played')"
-                                            (keydown.enter)="toggleSort('played')"
-                                            (keydown.space)="toggleSort('played')">
-                                            {{ "profile.characters.column.played" | translate }}
-                                            @if (sort() === "played") {
-                                                <span class="sort-mark">{{ sortDescending() ? "▾" : "▴" }}</span>
-                                            }
-                                        </th>
-                                        <th class="numeric" scope="col">{{ "profile.characters.column.won" | translate }}</th>
-                                        <th class="numeric" scope="col">{{ "profile.characters.column.lost" | translate }}</th>
-                                        <th
-                                            class="sortable numeric"
-                                            scope="col"
-                                            tabindex="0"
-                                            (click)="toggleSort('winRate')"
-                                            (keydown.enter)="toggleSort('winRate')"
-                                            (keydown.space)="toggleSort('winRate')">
-                                            {{ "profile.characters.column.winRate" | translate }}
-                                            @if (sort() === "winRate") {
-                                                <span class="sort-mark">{{ sortDescending() ? "▾" : "▴" }}</span>
-                                            }
-                                        </th>
-                                        <th class="numeric" scope="col">{{ "profile.characters.column.attempts" | translate }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (character of sortedCharacters(); track character.characterId) {
-                                        <tr>
-                                            <td>
-                                                <a class="character-cell" [routerLink]="['/', 'database', 'characters', character.characterId]">
-                                                    <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
-                                                    <span>{{ character.name }}</span>
+                                        </div>
+                                        @if (hiddenCount() > 0) {
+                                            <div class="list-more">
+                                                <button anotokiButton type="button" (click)="showMore()">
+                                                    {{ "profile.characters.showMore" | translate: { count: nextPage(), left: hiddenCount() } }}
+                                                </button>
+                                            </div>
+                                        }
+                                    } @else {
+                                        <div class="no-results">{{ "profile.characters.none" | translate }}</div>
+                                    }
+                                </anotoki-card>
+                            }
+
+                            @case ("history") {
+                                <anotoki-card class="detail-card" [heading]="'profile.activity.title' | translate">
+                                    <ng-container *ngTemplateOutlet="activitySection" />
+                                </anotoki-card>
+                                <anotoki-card class="detail-card" [heading]="'profile.recent.title' | translate">
+                                    <app-profile-recent-list [results]="recent()" />
+                                </anotoki-card>
+                            }
+
+                            @default {
+                                <!-- ── The three characters worth naming ─────────── -->
+                                <anotoki-card class="detail-card" [heading]="'profile.characters.title' | translate" [subheading]="'profile.characters.lead' | translate">
+                                    @if (highlights(); as picks) {
+                                        <div class="highlights">
+                                            @if (picks.mostMet; as character) {
+                                                <a class="highlight highlight--met" [routerLink]="['/', 'database', 'characters', character.characterId]" [attr.data-rarity]="character.rarity">
+                                                    <span class="highlight-art">
+                                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                                    </span>
+                                                    <span class="highlight-label">
+                                                        <anotoki-icon name="eye" [size]="14" />
+                                                        {{ "profile.characters.mostMet" | translate }}
+                                                    </span>
+                                                    <span class="highlight-name">{{ character.name }}</span>
+                                                    <span class="highlight-value">{{ "profile.characters.times" | translate: { count: character.totals.played } }}</span>
                                                 </a>
-                                            </td>
-                                            <td class="numeric">{{ character.totals.played }}</td>
-                                            <td class="numeric">{{ character.totals.wins }}</td>
-                                            <td class="numeric">{{ character.totals.losses }}</td>
-                                            <td class="numeric">{{ character.totals.winRate | number: "1.0-0" }}%</td>
-                                            <td class="numeric">{{ character.totals.averageAttempts | number: "1.0-1" }}</td>
-                                        </tr>
+                                            }
+                                            @if (picks.best; as character) {
+                                                <a class="highlight highlight--best" [routerLink]="['/', 'database', 'characters', character.characterId]" [attr.data-rarity]="character.rarity">
+                                                    <span class="highlight-art">
+                                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                                    </span>
+                                                    <span class="highlight-label">
+                                                        <anotoki-icon name="checkCircle" [size]="14" />
+                                                        {{ "profile.characters.best" | translate }}
+                                                    </span>
+                                                    <span class="highlight-name">{{ character.name }}</span>
+                                                    <span class="highlight-value">
+                                                        {{ character.totals.winRate | number: "1.0-0" }}% · {{ "profile.characters.times" | translate: { count: character.totals.played } }}
+                                                    </span>
+                                                </a>
+                                            }
+                                            @if (picks.toughest; as character) {
+                                                <a class="highlight highlight--toughest" [routerLink]="['/', 'database', 'characters', character.characterId]" [attr.data-rarity]="character.rarity">
+                                                    <span class="highlight-art">
+                                                        <img [appMaterialIcon]="character.icon" [appAssetFolder]="'character.icon'" [alt]="character.name" loading="lazy" />
+                                                    </span>
+                                                    <span class="highlight-label">
+                                                        <anotoki-icon name="xCircle" [size]="14" />
+                                                        {{ "profile.characters.toughest" | translate }}
+                                                    </span>
+                                                    <span class="highlight-name">{{ character.name }}</span>
+                                                    <span class="highlight-value">
+                                                        {{ character.totals.winRate | number: "1.0-0" }}% · {{ "profile.characters.times" | translate: { count: character.totals.played } }}
+                                                    </span>
+                                                </a>
+                                            }
+                                        </div>
+                                        @if (!picks.best) {
+                                            <p class="section-note">{{ "profile.characters.needMore" | translate: { count: minPlayed } }}</p>
+                                        }
                                     }
-                                </tbody>
-                            </table>
-                        </div>
+                                </anotoki-card>
 
-                        <div class="profile-tab-panel" role="tabpanel" [id]="profileTabs.panelId('recent')" [attr.aria-labelledby]="profileTabs.tabId('recent')" [hidden]="activeTab() !== 'recent'">
-                            @if (recent().length) {
-                                <ul class="recent">
-                                    @for (result of recent(); track result.id) {
-                                        <li class="recent-item" [class.recent-lost]="!result.win">
-                                            <img [appMaterialIcon]="result.icon_name ?? result.character_name" [appAssetFolder]="'character.icon'" [alt]="result.character_name" loading="lazy" />
-                                            <span class="recent-outcome">
-                                                {{ (result.win ? "profile.legend.won" : "profile.legend.lost") | translate }}
-                                            </span>
-                                            <span class="recent-character">{{ result.character_name }}</span>
-                                            <span class="recent-quiz">{{ quizTitle(result.quiz) | translate }}</span>
-                                            <span class="recent-difficulty">{{ difficultyLabel(result.difficulty) | translate }}</span>
-                                            <span class="recent-attempts">{{ "profile.recent.attempts" | translate: { count: result.attempts } }}</span>
-                                            <span class="recent-when">{{ result.created_at | appDate: "datetime" }}</span>
-                                        </li>
-                                    }
-                                </ul>
-                            } @else {
-                                <p class="section-empty">{{ "profile.recent.none" | translate }}</p>
+                                <!-- ── Per quiz and per difficulty, side by side ──── -->
+                                <div class="detail-columns">
+                                    <anotoki-card [heading]="'profile.quizzes.title' | translate">
+                                        <ul class="quiz-rows">
+                                            @for (entry of quizzes(); track entry.id) {
+                                                <li class="quiz-row" [class.quiz-row--untouched]="!entry.totals.played">
+                                                    <span class="quiz-row-picture" aria-hidden="true">
+                                                        @if (quizPicture(entry.id); as picture) {
+                                                            <img [src]="picture" alt="" loading="lazy" />
+                                                        }
+                                                    </span>
+                                                    <span class="quiz-row-name">
+                                                        @if (quizLink(entry.id); as link) {
+                                                            <a [routerLink]="link">{{ quizTitle(entry.id) | translate }}</a>
+                                                        } @else {
+                                                            {{ quizTitle(entry.id) }}
+                                                        }
+                                                    </span>
+                                                    <anotoki-progress-bar
+                                                        class="quiz-row-meter"
+                                                        [label]="'profile.overview.winRate' | translate"
+                                                        [value]="entry.totals.winRate"
+                                                        [max]="100"
+                                                        format="percent" />
+                                                    <span class="quiz-row-rate">
+                                                        @if (entry.totals.played) {
+                                                            {{ entry.totals.winRate | number: "1.0-0" }}%
+                                                        } @else {
+                                                            &mdash;
+                                                        }
+                                                    </span>
+                                                    <span class="quiz-row-count">{{ "profile.quizzes.playedCount" | translate: { count: entry.totals.played } }}</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </anotoki-card>
+
+                                    <anotoki-card [heading]="'profile.difficulty.title' | translate">
+                                        @if (difficulties().length) {
+                                            <ul class="quiz-rows">
+                                                @for (entry of difficulties(); track entry.difficulty) {
+                                                    <li class="quiz-row quiz-row--level" [attr.data-level]="entry.difficulty">
+                                                        <span class="level-dot" aria-hidden="true"></span>
+                                                        <span class="quiz-row-name">{{ difficultyLabel(entry.difficulty) | translate }}</span>
+                                                        <anotoki-progress-bar
+                                                            class="quiz-row-meter"
+                                                            [label]="'profile.overview.winRate' | translate"
+                                                            [value]="entry.totals.winRate"
+                                                            [max]="100"
+                                                            format="percent" />
+                                                        <span class="quiz-row-rate">{{ entry.totals.winRate | number: "1.0-0" }}%</span>
+                                                        <span class="quiz-row-count">{{ "profile.quizzes.playedCount" | translate: { count: entry.totals.played } }}</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        } @else {
+                                            <p class="section-empty">{{ "profile.difficulty.none" | translate }}</p>
+                                        }
+                                    </anotoki-card>
+                                </div>
+
+                                <anotoki-card class="detail-card" [heading]="'profile.activity.title' | translate">
+                                    <ng-container *ngTemplateOutlet="activitySection" />
+                                </anotoki-card>
                             }
-                        </div>
-                    </section>
+                        }
+                    </div>
+
+                    <!-- The year of playing, drawn on the Overview and again under History: three figures over the grid. -->
+                    <ng-template #activitySection>
+                        <dl class="activity-figures">
+                            <div class="activity-figure">
+                                <dt>{{ "profile.activity.days" | translate }}</dt>
+                                <dd>{{ activity().days }}</dd>
+                            </div>
+                            <div class="activity-figure">
+                                <dt>{{ "profile.activity.longest" | translate }}</dt>
+                                <dd>{{ activity().longest }}</dd>
+                            </div>
+                            <div class="activity-figure">
+                                <dt>{{ "profile.overview.streak" | translate }}</dt>
+                                <dd>{{ activity().current }}</dd>
+                            </div>
+                        </dl>
+                        <app-activity-grid [cells]="activityCells()"></app-activity-grid>
+                    </ng-template>
                 }
             } @else {
                 <!-- Signed out while nobody plays as a visitor here (the site

@@ -1,6 +1,7 @@
-import { QuizActivityDay, QuizDifficultyRow, QuizStatsRow } from '../../../../api';
+import { Character, QuizActivityDay, QuizDifficultyRow, QuizRecentResult, QuizStatsRow } from '../../../../api';
 import { QUIZ_CATALOG, QuizCard } from '../quizzes/shared/quiz-catalog';
-import { QuizId } from '../quizzes/shared/quiz.types';
+import { QUIZ_DIFFICULTIES, QuizId } from '../quizzes/shared/quiz.types';
+import { matchesTerm } from '../database/shared/database-helpers';
 
 /**
  * Turning the four quiz reads into the numbers the profile page draws.
@@ -13,7 +14,10 @@ import { QuizId } from '../quizzes/shared/quiz.types';
  * lifetime table, one row per character per quiz, which is where the per-quiz
  * and per-character breakdowns come from. `QuizDifficultyRow` and
  * `QuizActivityDay` are aggregated from the per-question log, because neither
- * difficulty nor the date survives into the lifetime totals.
+ * difficulty nor the date survives into the lifetime totals. The game's own list
+ * of characters (`Character`, cached by GameListsService) is joined in by id for
+ * what the tiles and the hero draw - the element, the rarity, the namecard -
+ * and is optional: without it the page still has every number.
  */
 
 /** Anything counted the same way, whether it covers one quiz or a whole account. */
@@ -51,6 +55,34 @@ export interface CharacterBreakdown {
   /** What the icon is filed under; the name is the fallback, as elsewhere. */
   icon: string;
   totals: Totals;
+  /** From the game's list, where it still has the character; null where it does not (a deleted one keeps its numbers). */
+  element: string | null;
+  rarity: number | null;
+  /** The namecard's stored path - the tile's backdrop, the hero's picture - or null for a character without one (the Traveler). */
+  namecard: string | null;
+  /** The splash art's name, for the hero. */
+  splash: string | null;
+}
+
+/** One quiz with everything the Quizzes tab says of it. */
+export interface QuizReport extends QuizBreakdown {
+  /** Easy, medium, hard - always the three, zeroes where nothing was played - and after them "not recorded" where there is any. */
+  difficulties: DifficultyBreakdown[];
+  /** The best and the toughest character in this quiz alone, by `highlights()`' rule. */
+  best?: CharacterBreakdown;
+  toughest?: CharacterBreakdown;
+}
+
+/** How the Characters tab can be ordered. */
+export type CharacterSort = 'played' | 'best' | 'toughest' | 'name';
+
+/** The last results of one day, for the History tab. */
+export interface RecentDay {
+  /** YYYY-MM-DD, by the browser's calendar. */
+  day: string;
+  /** Said as a word rather than a date, where there is one. */
+  relative: 'today' | 'yesterday' | null;
+  results: QuizRecentResult[];
 }
 
 export interface DifficultyBreakdown {
@@ -162,8 +194,26 @@ export function byQuiz(rows: readonly QuizStatsRow[]): QuizBreakdown[] {
   return [...known, ...unknown];
 }
 
-/** One entry per character met, busiest first, then alphabetically. */
-export function byCharacter(rows: readonly QuizStatsRow[]): CharacterBreakdown[] {
+function breakdownOf(characterId: number, row: QuizStatsRow, totals: Totals, character: CharacterDetails | undefined): CharacterBreakdown {
+  return {
+    characterId,
+    name: row.character_name,
+    // Same fallback the rest of the site uses: some rows have no icon
+    // filed, and the name is what the asset is named after anyway.
+    icon: row.icon_name ?? row.character_name,
+    totals,
+    element: character?.element ?? null,
+    rarity: character ? Number(character.rarity) || null : null,
+    namecard: character?.namecard_background ?? null,
+    splash: character?.wish_icon_name ?? null,
+  };
+}
+
+/**
+ * One entry per character met, busiest first, then alphabetically - with what
+ * the game's list knows of each (`details`), for the tiles and the hero.
+ */
+export function byCharacter(rows: readonly QuizStatsRow[], details: ReadonlyMap<number, CharacterDetails> = new Map()): CharacterBreakdown[] {
   const buckets = new Map<number, Counted>();
   const names = new Map<number, QuizStatsRow>();
 
@@ -173,17 +223,7 @@ export function byCharacter(rows: readonly QuizStatsRow[]): CharacterBreakdown[]
   });
 
   return [...buckets.entries()]
-    .map(([characterId, counted]) => {
-      const row = names.get(characterId)!;
-      return {
-        characterId,
-        name: row.character_name,
-        // Same fallback the rest of the site uses: some rows have no icon
-        // filed, and the name is what the asset is named after anyway.
-        icon: row.icon_name ?? row.character_name,
-        totals: complete(counted),
-      };
-    })
+    .map(([characterId, counted]) => breakdownOf(characterId, names.get(characterId)!, complete(counted), details.get(characterId)))
     .sort((a, b) => b.totals.played - a.totals.played || a.name.localeCompare(b.name));
 }
 
@@ -217,6 +257,103 @@ export function highlights(characters: readonly CharacterBreakdown[]): Character
     // No threshold on this one: it is a count, not a judgement.
     mostMet: characters[0],
   };
+}
+
+/** What the join reads of a character: the game's list in full or without the editors' columns, either will do. */
+export type CharacterDetails = Pick<Character, 'id' | 'element' | 'rarity' | 'namecard_background' | 'wish_icon_name'>;
+
+/** The game's characters by id, as `byCharacter` and `quizReports` want them. */
+export function characterDetails(list: readonly CharacterDetails[]): Map<number, CharacterDetails> {
+  return new Map(list.map((character) => [character.id, character]));
+}
+
+/**
+ * Every quiz with its own difficulties and its own best and toughest
+ * character, in `byQuiz`'s order. The difficulty rows arrive per quiz and
+ * are summed across them for the Overview; here each quiz keeps its own, the
+ * three numbered ones always present so the three bars line up card to card.
+ */
+export function quizReports(rows: readonly QuizStatsRow[], difficultyRows: readonly QuizDifficultyRow[], details: ReadonlyMap<number, CharacterDetails> = new Map()): QuizReport[] {
+  const perQuiz = new Map<string, Map<number, { row: QuizStatsRow; counted: Counted }>>();
+  rows.forEach((row) => {
+    let characters = perQuiz.get(row.quiz);
+    if (!characters) {
+      characters = new Map();
+      perQuiz.set(row.quiz, characters);
+    }
+    const entry = characters.get(row.character_id);
+    if (entry) {
+      entry.counted.wins += row.wins;
+      entry.counted.losses += row.losses;
+      entry.counted.attempts += row.attempts;
+    } else {
+      characters.set(row.character_id, { row, counted: { wins: row.wins, losses: row.losses, attempts: row.attempts } });
+    }
+  });
+
+  return byQuiz(rows).map((quiz) => {
+    const characters = [...(perQuiz.get(quiz.id)?.entries() ?? [])]
+      .map(([characterId, { row, counted }]) => breakdownOf(characterId, row, complete(counted), details.get(characterId)))
+      .sort((a, b) => b.totals.played - a.totals.played || a.name.localeCompare(b.name));
+    const picks = highlights(characters);
+
+    const recorded = byDifficulty(difficultyRows.filter((row) => row.quiz === quiz.id));
+    const numbered: DifficultyBreakdown[] = QUIZ_DIFFICULTIES.map(
+      (difficulty) => recorded.find((entry) => entry.difficulty === difficulty) ?? { difficulty, totals: complete({ wins: 0, losses: 0, attempts: 0 }) },
+    );
+    const unknown = recorded.find((entry) => entry.difficulty === null);
+
+    return { ...quiz, difficulties: unknown ? [...numbered, unknown] : numbered, best: picks.best, toughest: picks.toughest };
+  });
+}
+
+/**
+ * The character the hero is drawn with: the one met most often that has a
+ * namecard to put behind the name - the Traveler, often the most met, has
+ * none - or, failing any namecard, simply the one met most.
+ */
+export function heroCharacter(characters: readonly CharacterBreakdown[]): CharacterBreakdown | undefined {
+  return characters.find((character) => character.namecard) ?? characters[0];
+}
+
+/** How many of the characters met are of each element, in the order the rows came. */
+export function elementCounts(characters: readonly CharacterBreakdown[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  characters.forEach((character) => {
+    if (character.element) {
+      counts.set(character.element, (counts.get(character.element) ?? 0) + 1);
+    }
+  });
+  return counts;
+}
+
+/** The characters of one element whose name contains the term - either filter empty for all. */
+export function filterCharacters(characters: readonly CharacterBreakdown[], element: string | null, term: string): CharacterBreakdown[] {
+  const lowered = term.trim().toLowerCase();
+  return characters.filter((character) => (!element || character.element === element) && (!lowered || matchesTerm(character.name, lowered)));
+}
+
+/**
+ * The characters in the chosen order. Best and toughest put the characters
+ * met `HIGHLIGHT_MIN_PLAYED` times or more first, for the same reason the
+ * headline does: one lucky guess is a 100 % that would otherwise top the list.
+ */
+export function sortCharacters(characters: readonly CharacterBreakdown[], sort: CharacterSort): CharacterBreakdown[] {
+  const byName = (a: CharacterBreakdown, b: CharacterBreakdown): number => a.name.localeCompare(b.name);
+  const eligibleFirst = (a: CharacterBreakdown, b: CharacterBreakdown): number => Number(b.totals.played >= HIGHLIGHT_MIN_PLAYED) - Number(a.totals.played >= HIGHLIGHT_MIN_PLAYED);
+
+  return [...characters].sort((a, b) => {
+    switch (sort) {
+      case 'name':
+        return byName(a, b);
+      case 'best':
+        return eligibleFirst(a, b) || b.totals.winRate - a.totals.winRate || b.totals.played - a.totals.played || byName(a, b);
+      case 'toughest':
+        return eligibleFirst(a, b) || a.totals.winRate - b.totals.winRate || b.totals.played - a.totals.played || byName(a, b);
+      default:
+        return b.totals.played - a.totals.played || byName(a, b);
+    }
+  });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -309,6 +446,29 @@ export function activityGrid(days: readonly QuizActivityDay[], weeks: number, to
   }
 
   return cells;
+}
+
+/**
+ * The last results in groups of a day each, newest first as the server hands
+ * them over, each day by the browser's own calendar - a question finished at
+ * one in the morning belongs to the night it was played, not to the server's
+ * date - and today and yesterday named as such.
+ */
+export function recentByDay(results: readonly QuizRecentResult[], today: string): RecentDay[] {
+  const yesterday = dayString(dayNumber(today) - 1);
+  const days: RecentDay[] = [];
+
+  for (const result of results) {
+    const day = localToday(new Date(result.created_at));
+    const last = days[days.length - 1];
+    if (last && last.day === day) {
+      last.results.push(result);
+    } else {
+      days.push({ day, relative: day === today ? 'today' : day === yesterday ? 'yesterday' : null, results: [result] });
+    }
+  }
+
+  return days;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

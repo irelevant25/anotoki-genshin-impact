@@ -37,6 +37,9 @@ export class ListTileComponent {
   tint = input<'element' | 'rarity'>('rarity');
   /** The element whose colour the tint and the projected element fact take. */
   element = input<string | null>(null);
+  /** A short word in the version's corner - what the tile is to its page ("Met most"); where both are given, this one shows. */
+  badge = input<string | null>(null);
+  badgeTone = input<'neutral' | 'primary' | 'success' | 'danger'>('neutral');
 
   readonly rarityAttr = computed(() => {
     const rarity = Number(this.rarity() ?? 0);

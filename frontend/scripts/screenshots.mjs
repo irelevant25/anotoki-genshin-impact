@@ -84,8 +84,8 @@ const php = process.env.PHP ?? 'php';
 // The pages. `then` runs once the page has settled - a dialog opened, a tab
 // chosen - before its screenshots; `focus` is how many presses of Tab the
 // focus shot takes; `data` is where the page shows dotted names that are not
-// words to translate (measure()); `widths`, the only widths it is taken at; `levels`, what the browser answers
-// GET /api/quiz/levels with ({status, body} - answerLevels()).
+// words to translate (measure()); `widths`, the only widths it is taken at; `answers`, what the browser answers
+// API paths with ({'/api/...': {status, body}} - answerApi()) in place of the throwaway database.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Clicks the first element under `scope` whose own words match `words` (a RegExp source). */
@@ -603,19 +603,25 @@ const MAIN = [
   { name: 'main-daily-banners', path: '/daily/banners' },
   // The quizzes play the levels in force (QuizLevelsService): saved ones as the API answers them - Mismatch's count, the
   // difficulty dialog's numbers, in a Voice sentence too - and the built-in ones when asking for them fails.
-  { name: 'main-quiz-levels-saved', path: '/quizzes/mismatch', widths: [1280], levels: { status: 200, body: { levels: SAVED_LEVELS } }, then: mismatchChoices({ easy: 4, medium: 4, hard: 4 }) },
+  {
+    name: 'main-quiz-levels-saved',
+    path: '/quizzes/mismatch',
+    widths: [1280],
+    answers: { '/api/quiz/levels': { status: 200, body: { levels: SAVED_LEVELS } } },
+    then: mismatchChoices({ easy: 4, medium: 4, hard: 4 }),
+  },
   {
     name: 'main-quiz-levels-dialog',
     path: '/quizzes/pixelate',
     widths: [1280],
-    levels: { status: 200, body: { levels: SAVED_LEVELS } },
+    answers: { '/api/quiz/levels': { status: 200, body: { levels: SAVED_LEVELS } } },
     then: steps(press('app-quiz-difficulty button'), dialogSays(['A 9 × 9 grid to start', 'up to 27 × 27'])),
   },
   {
     name: 'main-quiz-levels-voice',
     path: '/quizzes/voice',
     widths: [1280],
-    levels: { status: 200, body: { levels: SAVED_LEVELS } },
+    answers: { '/api/quiz/levels': { status: 200, body: { levels: SAVED_LEVELS } } },
     then: steps(
       press('app-quiz-difficulty button'),
       dialogSays(['then 0.5 s of the recording, then 1.5 s, then 3 s.', 'Part of the line or of its recording to start, and more with each wrong guess.']),
@@ -625,7 +631,7 @@ const MAIN = [
     name: 'main-quiz-levels-failed',
     path: '/quizzes/mismatch',
     widths: [1280],
-    levels: { status: 500, body: { error: 'Internal Server Error' } },
+    answers: { '/api/quiz/levels': { status: 500, body: { error: 'Internal Server Error' } } },
     then: mismatchChoices({ easy: 3, medium: 4, hard: 5 }),
   },
   // The top bar: an item closes its section from the section's own page, goes to it from inside it, opens it from
@@ -966,10 +972,79 @@ const ADMIN_FOOTER = [
   { name: 'admin-footer-feedback', path: '/admin/settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-open-feedback]'), dialogOpen) },
 ];
 
+/**
+ * A season of games for the profile, answered by the browser in place of the four reads of /api/quiz/* (the throwaway
+ * database holds no games): every quiz and every difficulty, the six characters browser-env.php seeds (ids 1 to 6, in
+ * its order), a year of days and the last twenty - so the page is seen with its tabs full (the owner's choice "D" of
+ * 2026-10-22). Its pictures are not there, as on every page of this run; the game's list the page joins is the real one.
+ */
+function profileAnswers() {
+  const characters = [
+    [1, 'Hu Tao'],
+    [2, 'Xiangling'],
+    [3, 'Furina'],
+    [4, 'Bennett'],
+    [5, 'Nahida'],
+    [6, 'Kaeya'],
+  ];
+  const quizzes = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice'];
+  const stats = [];
+  characters.forEach(([id, name], c) =>
+    quizzes.forEach((quiz, q) => {
+      const wins = 2 + ((c * 5 + q * 3) % 9);
+      const losses = 1 + ((c * 3 + q * 7) % 8);
+      stats.push({ quiz, character_id: id, character_name: name, icon_name: null, wins, losses, attempts: wins + losses * 2 + ((c + q) % 4) });
+    }),
+  );
+  const difficulty = quizzes.flatMap((quiz, q) => [1, 2, 3].map((level) => ({ quiz, difficulty: level, wins: 12 - level * 2 + q, losses: 4 + level * 2 + (q % 3), attempts: 30 + level * 6 + q })));
+  const noon = new Date();
+  noon.setHours(12, 0, 0, 0);
+  const daysAgo = (back) => {
+    const day = new Date(noon);
+    day.setDate(day.getDate() - back);
+    return day;
+  };
+  const activity = [];
+  for (let back = 0; back < 200; back++) {
+    if ((back * 7) % 10 < 6) {
+      const played = 1 + ((back * 13) % 9);
+      activity.push({ day: daysAgo(back).toISOString().slice(0, 10), played, wins: Math.floor(played / 2) });
+    }
+  }
+  const recent = Array.from({ length: 20 }, (_, i) => {
+    const [id, name] = characters[i % 6];
+    const when = daysAgo(Math.floor(i / 4));
+    when.setHours(21, 55 - i * 2, 0, 0);
+    return {
+      id: 1000 - i,
+      quiz: quizzes[i % 6],
+      character_id: id,
+      character_name: name,
+      icon_name: null,
+      win: i % 3 !== 1,
+      attempts: 1 + (i % 5),
+      difficulty: 1 + (i % 3),
+      created_at: when.toISOString(),
+    };
+  });
+  return {
+    '/api/quiz/stats': { status: 200, body: stats },
+    '/api/quiz/stats/difficulty': { status: 200, body: difficulty },
+    '/api/quiz/activity': { status: 200, body: activity },
+    '/api/quiz/results': { status: 200, body: recent },
+  };
+}
+
 /** After the admin panel: the public site for somebody signed in. */
 const SIGNED_IN = [
   { name: 'main-home-signed-in', path: '/' },
   { name: 'main-profile-signed-in', path: '/profile' },
+  // The profile with games in it, tab by tab, and its Characters tab filtered and reordered from the address.
+  { name: 'main-profile-filled', path: '/profile', answers: profileAnswers() },
+  { name: 'main-profile-quizzes', path: '/profile?tab=quizzes', answers: profileAnswers() },
+  { name: 'main-profile-characters', path: '/profile?tab=characters', answers: profileAnswers() },
+  { name: 'main-profile-characters-filtered', path: '/profile?tab=characters&element=Pyro&sort=best', widths: [1280], answers: profileAnswers() },
+  { name: 'main-profile-history', path: '/profile?tab=history', answers: profileAnswers() },
   { name: 'main-privacy-signed-in', path: '/privacy' },
 ];
 
@@ -1168,32 +1243,34 @@ const ANSWERS = {
 };
 
 /**
- * What the browser answers GET /api/quiz/levels with while an entry's `levels` ({status, body}) says - levels saved, or
- * a failure - so that the quizzes' pages are seen at levels the throwaway database does not hold. Null: the API answers.
+ * What the browser answers API paths with while an entry's `answers` ({'/api/...': {status, body}}) says - the quizzes'
+ * levels saved, or a failure; a profile full of games - so that a page is seen with what the throwaway database does
+ * not hold. Null: the API answers everything.
  */
-let levelsAnswer = null;
+let apiAnswers = null;
 
-async function answerLevels(answer) {
-  levelsAnswer = answer;
-  if (answer !== null) {
-    await page.send('Fetch.enable', { patterns: [{ urlPattern: `${origin}/api/quiz/levels*`, requestStage: 'Request' }] });
+async function answerApi(answers) {
+  apiAnswers = answers;
+  if (answers !== null) {
+    await page.send('Fetch.enable', { patterns: Object.keys(answers).map((path) => ({ urlPattern: `${origin}${path}*`, requestStage: 'Request' })) });
   } else if (siteAnswers === null) {
     await page.send('Fetch.disable').catch(() => undefined);
   }
 }
 
-/** A paused API request (Fetch.requestPaused): answered as the site's state says, or passed on to the API. */
+/** A paused API request (Fetch.requestPaused): answered as the entry or the site's state says, or passed on to the API. */
 async function answerPaused(event) {
-  if (levelsAnswer !== null && new URL(event.request.url).pathname === '/api/quiz/levels') {
+  const stubbed = apiAnswers === null ? null : apiAnswers[new URL(event.request.url).pathname];
+  if (stubbed) {
     await page
       .send('Fetch.fulfillRequest', {
         requestId: event.requestId,
-        responseCode: levelsAnswer.status,
+        responseCode: stubbed.status,
         responseHeaders: [
           { name: 'Content-Type', value: 'application/json' },
           { name: 'Cache-Control', value: 'no-store' },
         ],
-        body: Buffer.from(JSON.stringify(levelsAnswer.body)).toString('base64'),
+        body: Buffer.from(JSON.stringify(stubbed.body)).toString('base64'),
       })
       .catch(() => undefined);
     return;
@@ -1404,8 +1481,8 @@ async function visitAs(entry, width) {
     if (entry.closed) {
       await closeSite(entry.closed);
     }
-    if (entry.levels) {
-      await answerLevels(entry.levels);
+    if (entry.answers) {
+      await answerApi(entry.answers);
     }
     try {
       await page.send('Page.navigate', { url: origin + entry.path });
@@ -1438,8 +1515,8 @@ async function visitAs(entry, width) {
       if (entry.closed) {
         await openSite();
       }
-      if (entry.levels) {
-        await answerLevels(null);
+      if (entry.answers) {
+        await answerApi(null);
       }
     }
     problems.push(...heard.filter((line) => !problems.includes(line)));

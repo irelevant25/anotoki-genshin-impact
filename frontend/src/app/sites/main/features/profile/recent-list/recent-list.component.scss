@@ -1,0 +1,149 @@
+// The last twenty as a timeline: the day's name in a narrow column, its rows
+// beside it, each row a quiet tile. On a phone the day stands above its rows
+// and the result's badges drop under the name.
+
+:host {
+  display: block;
+}
+
+.recent-days,
+.recent-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recent-days {
+  display: grid;
+  gap: 14px;
+}
+
+.recent-day {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.recent-day-label {
+  margin: 0;
+  padding-top: 9px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.recent-rows {
+  display: grid;
+  gap: 6px;
+}
+
+.recent-row {
+  display: grid;
+  grid-template-columns: 44px 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--color-secondary-light);
+}
+
+.recent-time {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.recent-quiz-picture {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-hover);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+.recent-who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: inherit;
+  font-weight: var(--font-weight-bold);
+
+  &:hover .recent-name {
+    color: var(--color-primary);
+  }
+}
+
+.recent-portrait {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex: none;
+  object-fit: contain;
+  background: var(--bg-hover);
+}
+
+.recent-name {
+  white-space: nowrap;
+}
+
+.recent-quiz {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-facts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.recent-none {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 700px) {
+  .recent-day {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .recent-day-label {
+    padding-top: 0;
+  }
+
+  .recent-row {
+    grid-template-columns: 44px 28px minmax(0, 1fr);
+  }
+
+  .recent-facts {
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .recent-quiz {
+    display: none;
+  }
+}

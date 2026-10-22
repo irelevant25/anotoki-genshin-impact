@@ -1,0 +1,168 @@
+// A quiz's card on the Profile's Quizzes tab: the picture on the left, the
+// words and the meters on the right, on the same quiet ground the detail hero's
+// fact tiles stand on. Every meter and bar is the site's blue on a track one
+// step off the surface - one colour for one kind of thing, the win rate.
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.quiz-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  height: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--color-secondary-light);
+}
+
+.quiz-card-picture {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-hover);
+  box-shadow: 0 0 0 2px var(--bg-card);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+.quiz-card-body {
+  min-width: 0;
+}
+
+.quiz-card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.quiz-card-rate {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.quiz-card-facts {
+  margin: 6px 0 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+// The three difficulties: a hairline above, each a name, a bar and a figure.
+.quiz-card-levels {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.quiz-level {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.quiz-level-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Square at the baseline, rounded at the data end, as a bar should be.
+.quiz-level-track {
+  position: relative;
+  display: block;
+  height: 8px;
+  border-radius: 0 4px 4px 0;
+  background: var(--bg-hover);
+}
+
+.quiz-level-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 0 4px 4px 0;
+  background: var(--color-primary);
+}
+
+.quiz-level-rate {
+  text-align: right;
+}
+
+// Who the player does best and worst against in this quiz: a mark, a face, a name, a figure - each a link.
+.quiz-card-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 10px 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.quiz-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+
+  img {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: var(--bg-hover);
+  }
+
+  &:hover .quiz-face-name {
+    color: var(--color-primary);
+  }
+}
+
+.quiz-face--best anotoki-icon {
+  color: var(--color-success);
+}
+
+.quiz-face--toughest anotoki-icon {
+  color: var(--color-danger);
+}
+
+.quiz-face-name {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.quiz-card-untouched {
+  margin: 2px 0 8px;
+  color: var(--text-secondary);
+}

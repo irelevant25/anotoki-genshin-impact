@@ -569,7 +569,9 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # levels (the browser answering /api/quiz/levels) and at the built-in ones
                                      # when that fails; the Quiz levels page (problems as typed, the words levels
                                      # leave behind, a save and back); the
-                                     # admin panel's footer, its two dialogs, and Migrations while an update waits.
+                                     # admin panel's footer, its two dialogs, and Migrations while an update waits;
+                                     # the Profile filled for somebody signed in (the browser answering its four
+                                     # reads), tab by tab.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
                                      # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
@@ -1207,6 +1209,29 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`quiz-level-words.ts`) - a new kind of step, or a sentence that names one,
   needs a warning there too. The page shows what the server's rules say (`POST
   /api/admin/quiz-levels/check`, as it is typed), never rules of its own.
+- **The Profile** (`features/profile/`, the owner's choice "D" of 2026-10-22 among
+  the mockups): the detail pages' hero worn by the player (`app-detail-hero` - the
+  namecard of the character they meet most that has one behind the name, the
+  Traveler having none, that character's art, the headline figures as the strip
+  of facts; `heroCharacter()` in `profile-stats.ts`), then the kit's tabs:
+  Overview (the three highlights, each quiz and each difficulty as a meter, the
+  year's activity), Quizzes (`app-profile-quiz-card`: each quiz by difficulty and
+  its own best and toughest character, `quizReports()`), Characters (the list
+  page's pieces inside a card - the element `app-facet-track`, the kit's search
+  field and segmented sort, `app-list-tile`s with a `badge` for Met most / Best /
+  Toughest - 24 at a time with Show more: a tile is two pictures) and History
+  (the activity and `app-profile-recent-list`, the last twenty by day). The tab
+  and the filters are in the address through one `bindFiltersToUrl` call (`tab`,
+  `element`, `q`, `sort` - one call, as the binding writes only its own keys).
+  Every win rate is the kit's progress bar in the site's blue, and so is the
+  heatmap (`app-activity-grid`, its columns stretching to the container's
+  width); won and lost are words with a mark, never a colour alone. The four
+  reads are joined to `GameListsService.charactersMinimal()` for the elements,
+  rarities and namecards (`characterDetails()`); the list failing costs only
+  pictures. Before the first played question the page offers the six quizzes
+  and a preview of the figures. Its words are `users/016`'s and `users/064`'s;
+  `profile.tabs.`, `profile.sort.` and `profile.characters.count.` are in
+  `dynamic-keys.ts`.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
   library's, `@anotoki/lib/translations`, as is `TranslationService` - *The
   words*); proper

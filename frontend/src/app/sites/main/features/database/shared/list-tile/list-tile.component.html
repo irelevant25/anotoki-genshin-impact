@@ -10,7 +10,9 @@
         <img class="tile-backdrop" [appMaterialIcon]="backdrop.name" [appAssetFolder]="backdrop.folder" alt="" loading="lazy" />
     }
     <span class="tile-veil" aria-hidden="true"></span>
-    @if (version(); as version) {
+    @if (badge(); as badge) {
+        <span class="tile-version tile-badge" [attr.data-tone]="badgeTone()">{{ badge }}</span>
+    } @else if (version(); as version) {
         <span class="tile-version">{{ version }}</span>
     }
     <span class="tile-art">

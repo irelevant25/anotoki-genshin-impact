@@ -1,0 +1,48 @@
+@if (days().length) {
+    <ol class="recent-days">
+        @for (group of days(); track group.day) {
+            <li class="recent-day">
+                <h3 class="recent-day-label">
+                    @switch (group.relative) {
+                        @case ("today") {
+                            {{ "profile.history.today" | translate }}
+                        }
+                        @case ("yesterday") {
+                            {{ "profile.history.yesterday" | translate }}
+                        }
+                        @default {
+                            {{ group.day | appDate }}
+                        }
+                    }
+                </h3>
+                <ul class="recent-rows">
+                    @for (result of group.results; track result.id) {
+                        <li class="recent-row">
+                            <span class="recent-time">{{ result.created_at | appDate: "time" }}</span>
+                            <span class="recent-quiz-picture" aria-hidden="true">
+                                @if (quizPicture(result.quiz); as picture) {
+                                    <img [src]="picture" alt="" loading="lazy" />
+                                }
+                            </span>
+                            <a class="recent-who" [routerLink]="['/', 'database', 'characters', result.character_id]">
+                                <img class="recent-portrait" [appMaterialIcon]="result.icon_name ?? result.character_name" [appAssetFolder]="'character.icon'" alt="" loading="lazy" />
+                                <span class="recent-name">{{ result.character_name }}</span>
+                                <span class="recent-quiz">· {{ quizTitle(result.quiz) | translate }}</span>
+                            </a>
+                            <span class="recent-facts">
+                                <anotoki-badge [tone]="result.win ? 'success' : 'danger'">
+                                    <anotoki-icon [name]="result.win ? 'check' : 'x'" [size]="12" />
+                                    {{ (result.win ? "profile.legend.won" : "profile.legend.lost") | translate }}
+                                </anotoki-badge>
+                                <anotoki-badge>{{ difficultyLabel(result.difficulty) | translate }}</anotoki-badge>
+                                <span class="recent-attempts">{{ "profile.recent.attempts" | translate: { count: result.attempts } }}</span>
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ol>
+} @else {
+    <p class="recent-none">{{ "profile.recent.none" | translate }}</p>
+}

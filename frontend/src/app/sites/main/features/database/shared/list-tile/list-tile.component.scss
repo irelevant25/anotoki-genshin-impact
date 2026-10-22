@@ -109,6 +109,22 @@
   white-space: nowrap;
 }
 
+// A badge in the version's place takes a tone's soft colours, so "Best" and "Toughest" read apart.
+.tile-badge[data-tone="primary"] {
+  background: var(--color-primary-light);
+  color: var(--color-primary-light-text);
+}
+
+.tile-badge[data-tone="success"] {
+  background: var(--color-success-light);
+  color: var(--color-success-light-text);
+}
+
+.tile-badge[data-tone="danger"] {
+  background: var(--color-danger-light);
+  color: var(--color-danger-light-text);
+}
+
 .tile-body {
   display: flex;
   flex-direction: column;

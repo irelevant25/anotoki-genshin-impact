@@ -56,22 +56,24 @@
   background-color: var(--bg-hover);
 }
 
-// Four shades of the one green, so a busy day reads as more of the same thing
-// rather than as a different thing.
+// Four shades of the one blue - the site's primary, the colour every meter and
+// bar of the profile is drawn in since its redesign (the owner's choice of
+// 2026-10-22) - so a busy day reads as more of the same thing rather than as a
+// different thing, and the grid as part of the page rather than a chart of its own.
 .activity-level-1 {
-  background-color: color-mix(in srgb, var(--color-success) 30%, var(--bg-hover));
+  background-color: color-mix(in srgb, var(--color-primary) 30%, var(--bg-hover));
 }
 
 .activity-level-2 {
-  background-color: color-mix(in srgb, var(--color-success) 55%, var(--bg-hover));
+  background-color: color-mix(in srgb, var(--color-primary) 55%, var(--bg-hover));
 }
 
 .activity-level-3 {
-  background-color: color-mix(in srgb, var(--color-success) 78%, var(--bg-hover));
+  background-color: color-mix(in srgb, var(--color-primary) 78%, var(--bg-hover));
 }
 
 .activity-level-4 {
-  background-color: var(--color-success);
+  background-color: var(--color-primary);
 }
 
 // Still inside this week, but not yet happened. Drawn faintly rather than left

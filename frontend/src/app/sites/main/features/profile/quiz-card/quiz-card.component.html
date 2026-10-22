@@ -1,0 +1,69 @@
+<article class="quiz-card" [class.quiz-card--untouched]="!played()">
+    <span class="quiz-card-picture" aria-hidden="true">
+        @if (report().card; as card) {
+            <img [src]="card.image" alt="" loading="lazy" />
+        }
+    </span>
+
+    <div class="quiz-card-body">
+        <h3 class="quiz-card-title">
+            @if (link(); as link) {
+                <a [routerLink]="link">{{ title() | translate }}</a>
+            } @else {
+                {{ title() | translate }}
+            }
+        </h3>
+
+        @if (played()) {
+            <p class="quiz-card-rate">{{ report().totals.winRate | number: "1.0-0" }}%</p>
+            <anotoki-progress-bar [label]="'profile.overview.winRate' | translate" [value]="report().totals.winRate" [max]="100" format="percent" />
+            <p class="quiz-card-facts">
+                {{ "profile.quizzes.playedCount" | translate: { count: report().totals.played } }}
+                · {{ "profile.quizzes.tries" | translate: { tries: (report().totals.averageAttempts | number: "1.0-1") } }}
+            </p>
+
+            <!-- Easy, medium, hard: how much of the playing each took, against the busiest of the three, and how it went. -->
+            <ul class="quiz-card-levels">
+                @for (level of levels(); track level.key) {
+                    <li class="quiz-level">
+                        <span class="quiz-level-name">{{ level.label | translate }}</span>
+                        <span class="quiz-level-track" aria-hidden="true"><span class="quiz-level-bar" [style.width.%]="level.share"></span></span>
+                        <span class="quiz-level-rate">
+                            @if (level.entry.totals.played) {
+                                {{ level.entry.totals.winRate | number: "1.0-0" }}%
+                            } @else {
+                                &mdash;
+                            }
+                        </span>
+                    </li>
+                }
+            </ul>
+
+            @if (report().best || report().toughest) {
+                <p class="quiz-card-faces">
+                    @if (report().best; as best) {
+                        <a class="quiz-face quiz-face--best" [routerLink]="['/', 'database', 'characters', best.characterId]" [title]="'profile.characters.best' | translate">
+                            <anotoki-icon name="checkCircle" [size]="14" />
+                            <img [appMaterialIcon]="best.icon" [appAssetFolder]="'character.icon'" alt="" loading="lazy" />
+                            <span class="quiz-face-name">{{ best.name }}</span>
+                            <span>{{ best.totals.winRate | number: "1.0-0" }}%</span>
+                        </a>
+                    }
+                    @if (report().toughest; as toughest) {
+                        <a class="quiz-face quiz-face--toughest" [routerLink]="['/', 'database', 'characters', toughest.characterId]" [title]="'profile.characters.toughest' | translate">
+                            <anotoki-icon name="xCircle" [size]="14" />
+                            <img [appMaterialIcon]="toughest.icon" [appAssetFolder]="'character.icon'" alt="" loading="lazy" />
+                            <span class="quiz-face-name">{{ toughest.name }}</span>
+                            <span>{{ toughest.totals.winRate | number: "1.0-0" }}%</span>
+                        </a>
+                    }
+                </p>
+            }
+        } @else {
+            <p class="quiz-card-untouched">{{ "profile.quizzes.notPlayed" | translate }}</p>
+            @if (link(); as link) {
+                <a anotokiButton variant="primary" size="sm" [routerLink]="link">{{ "profile.quizzes.play" | translate }}</a>
+            }
+        }
+    </div>
+</article>

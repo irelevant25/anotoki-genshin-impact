@@ -46,4 +46,9 @@ export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   'game.tournament.format.': ['single', 'double', 'roundRobin'],
   // A quiz question's difficulty (the quizzes, the Profile's history).
   'quiz.difficulty.': ['easy', 'medium', 'hard'],
+  // The Profile's tabs, the order of its Characters tab, and how many characters its filters left - the same three
+  // forms (users/064).
+  'profile.tabs.': ['overview', 'quizzes', 'characters', 'history'],
+  'profile.sort.': ['played', 'best', 'toughest', 'name'],
+  'profile.characters.count.': ['one', 'few', 'other'],
 };

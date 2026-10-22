@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { booleanAttribute, Component, computed, inject, input } from '@angular/core';
 import { TranslationService } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
 import { AppDatePipe } from '../../../../../../shared/local-lib/pipes/date.pipe';
@@ -45,7 +45,10 @@ export class DetailHeroComponent {
   private readonly _i18n = inject(TranslationService);
 
   name = input.required<string>();
+  /** The rarity: the ground's colour without a backdrop, the tint at the left, and - with `showStars` - the stars under the name. */
   rarity = input<number | null>(null);
+  /** Off where the rarity colours the hero but is not the thing's own (the Profile's, borrowed from a character). */
+  showStars = input(true, { transform: booleanAttribute });
   /** The line under the name: a character's title, a weapon's type. */
   subtitle = input<string | null>(null);
   /** The element whose colour the name and the backdrop's tint take ("Hydro"); none for a weapon or a material. */
@@ -60,7 +63,7 @@ export class DetailHeroComponent {
   stats = input<HeroStat[]>([]);
 
   elementKey = computed(() => this.element()?.toLowerCase() ?? null);
-  stars = computed(() => rarityStars(this.rarity()));
+  stars = computed(() => (this.showStars() ? rarityStars(this.rarity()) : ''));
   /** The tiles that say something, each with its label in the reader's language; one with nothing to say is not drawn. */
   tiles = computed(() =>
     this.stats()
