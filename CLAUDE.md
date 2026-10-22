@@ -355,8 +355,11 @@ page and the admin pages for accounts all live there.
   `language`), the dates the device's way (`auto`). The language follows that
   rule too, though the IAM always had it: following it while a choice made here
   could not be saved back would undo the choice at the next load. The choosers
-  (the account panel, the admin panel's theme button) show a choice at once and
-  save it after; a refusal puts the account's theme or format back and says so,
+  (the account panel's appearance and language, the admin panel's theme button)
+  show a choice at once and save it after; the dates and the clock have none
+  here - the IAM's account page alone sets them (the owner's decision of
+  2026-10-22), and the site writes every date by them all the same
+  (`DateFormatService`, `AppDatePipe`). A refusal puts the account's theme back and says so,
   keeps a refused language for the visit and says so (the public shell's toast,
   on the library's `languageNotSaved`), and a language the IAM does not offer
   (`invalid_request`) stays this site's for the visit, silently. The language's
@@ -364,7 +367,8 @@ page and the admin pages for accounts all live there.
   (`shared/site-translations.ts` hands it `AccountPreferences`'s language and
   save). `ThemeToggleService`, `DateFormatService` and
   `TranslationService` follow the account's values whenever they change (another
-  site, another tab), but not while a choice of the same one is on its way. The
+  site, another tab), the first and the last not while a choice of the same one
+  is on its way. The
   API keeps no copy: `/api/me` answers no preference, the `PUT /api/me/theme`,
   `/language` and `/formats` routes are gone, and `users.theme_main`,
   `theme_admin`, `language`, `date_format` and `time_format` (with the
@@ -556,7 +560,11 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # thrown in a page, read back from the error log, scrubbed - the Errors
                                      # page's row, and that row opened; the status page alone in its three
                                      # states (light English, dark Slovak) and the frame back after; the public
-                                     # footer (light English, dark Slovak) and the account panel's wallpapers; the
+                                     # footer (light English, dark Slovak) and the account panel's wallpapers, and
+                                     # the panel of an account whose preferences the IAM keeps (no dates or clock
+                                     # to choose, its dates in the account's order); Minesweeper's board opened and
+                                     # played out (the pointer only where a press acts, the reaction's words 4.5:1,
+                                     # its tiles 3:1 apart, by fill or ring - report.json's `measured`); the
                                      # top bar's items opening and closing their sections; the quizzes at saved
                                      # levels (the browser answering /api/quiz/levels) and at the built-in ones
                                      # when that fails; the Quiz levels page (problems as typed, the words levels
