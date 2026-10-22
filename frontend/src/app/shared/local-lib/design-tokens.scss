@@ -36,7 +36,7 @@
   --bg-input: #ffffff;
   --bg-active: #e4e9f1;
   --bg-table-header-text: #55616f;
-  --brightness: 0;
+  --brightness: 100;
 
   // Row washes for the game data's tables (general.scss). Translucent rather
   // than solid so they also work on the main site's veiled panels, where a
@@ -174,7 +174,7 @@
   --bg-input: #12161c;
   --bg-active: #2c3441;
   --bg-table-header-text: #97a3b2;
-  --brightness: 100;
+  --brightness: 0;
 
   // Lightening washes here, for the same reason the surfaces step up rather
   // than down in this palette.
