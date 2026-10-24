@@ -207,11 +207,11 @@ So, since 0.3.0, are the site's words - *The words* below.
   setup page; installed once: "not available right now", never the setup page. Both
   are drawn with the library's kit in the site's colours, as every page is (*The
   kit and the palette*, under Frontend conventions). The admin panel has no
-  anotoki top bar: `.admin-main` sets `--anotoki-topbar-height` to minus its
-  padding (on a phone, to its own 56 px row), so the library's sticky heads stick
-  flush with its top.
+  anotoki top bar: it is in the family's admin frame (*The admin frame*, under
+  Frontend conventions), which keeps the library's sticky heads at the top of
+  its page column.
 - **Updating the library**: both halves together, to one version - the constraint
-  in `backend/composer.json` (`"anotoki/lib": "^0.9.0"`, from the GitHub VCS
+  in `backend/composer.json` (`"anotoki/lib": "^0.10.0"`, from the GitHub VCS
   repository; on 0.x a caret takes no next minor) and `composer update anotoki/lib
   --prefer-dist` in `backend/`; the release's tarball URL in
   `frontend/package.json`, then `bun install` (bun.lock), and package-lock.json's
@@ -219,7 +219,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.9.2 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.10.0 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -355,7 +355,8 @@ page and the admin pages for accounts all live there.
   `language`), the dates the device's way (`auto`). The language follows that
   rule too, though the IAM always had it: following it while a choice made here
   could not be saved back would undo the choice at the next load. The choosers
-  (the account panel's appearance and language, the admin panel's theme button)
+  (the account panel's appearance and language; the admin frame's theme switch,
+  the family's `<anotoki-theme-toggle>` - light, dark, or as the device is set)
   show a choice at once and save it after; the dates and the clock have none
   here - the IAM's account page alone sets them (the owner's decision of
   2026-10-22), and the site writes every date by them all the same
@@ -568,7 +569,9 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # top bar's items opening and closing their sections; the quizzes at saved
                                      # levels (the browser answering /api/quiz/levels) and at the built-in ones
                                      # when that fails; the Quiz levels page (problems as typed, the words levels
-                                     # leave behind, a save and back); the
+                                     # leave behind, a save and back); the admin panel's frame (its column at 1280,
+                                     # the Menu's drawer at 390: the name, the person, Back, Sign out, the theme's
+                                     # three choices, the pages under their headings); the
                                      # admin panel's footer, its two dialogs, and Migrations while an update waits;
                                      # the Profile filled for somebody signed in (the browser answering its four
                                      # reads), tab by tab.
@@ -975,7 +978,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   What a visitor is told is drawn from their facts in one place each - the
   notice component, the shell's toasts - never a sentence in a service.
 - **The kit and the palette**: the pages are drawn with the anotoki family's UI
-  kit (anotoki-lib 0.9.2), each piece imported from its own entry point -
+  kit (anotoki-lib 0.10.0), each piece imported from its own entry point -
   `@anotoki/lib/ui/button` (`anotokiButton`), `ui/forms`, `ui/dialog`
   (`AnotokiDialog`, `ConfirmService`), `ui/toast`, `ui/tabs`, `ui/pagination`,
   `ui/segmented`, `ui/tooltip`, `ui/menu` (menus, popovers), `ui/drawer`,
@@ -1029,7 +1032,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   the kit's `link()`; a paste comes in as plain text; a stored text loads
   through the page's allow-list); rich text (the allow-list's renderer,
   `rich-html.ts`); the waypoint loader, the audio
-  players, the theme toggle. Every file an editor uploads is checked again on
+  players, the theme's service (`theme-toggle/`: `ThemeToggleService`, and
+  `SiteShellTheme`, its face for the family's switch). Every file an editor uploads is checked again on
   the server by its bytes and its size (`uploadFileAcceptable()`,
   `api/upload_guard.php`: anotoki-lib's `UploadPolicy::contentRefusal()`, the
   family's rule - the picture or sound its name says, no markup at its start
@@ -1040,15 +1044,25 @@ node docs/security/build-report.mjs                            # after re-runnin
   `dialogHeading()`, `notificationService` = the kit's `ToastService`),
   `AbstractRolesComponent`. A piece the kit lacks is built here from the kit's
   pieces and tokens, and goes to the library when another site wants it.
-- **The admin frame**: the kit's side navigation (`<anotoki-side-nav>`,
-  `@anotoki/lib/ui/side-nav`): the dashboard, then Database, Lookup Tables,
-  Localization and System under their headings, the feedback nobody has opened
-  beside Feedback, in a 220 px column beside the page; up to 860 px (its
-  `phoneMax`) the page has the whole width under a row with the brand, the
-  theme and a Menu button (`[anotokiSideNavTrigger]`) that opens the same
-  navigation in the kit's drawer - the column is `display: contents` there,
-  never `display: none`, for the drawer opens from it
-  (`sites/admin/app.component.*`). Under every page, the anotoki family's footer
+- **The admin frame** is the family's, `<anotoki-admin-frame>`
+  (`@anotoki/lib/admin/frame`, anotoki-lib 0.10.0: this panel's own frame, made
+  every anotoki admin panel's at the owner's request of 2026-10-24, so a panel is
+  never mistaken for its site), in `sites/admin/app.component.*`. On a computer a
+  column beside the page, each scrolling on its own, never the window: the
+  panel's name ("Genshin Admin", to `/admin`), who is signed in (the name and
+  address `SecurityService` knows), "Back to the site" (to `/`), Sign out
+  (`SecurityService.logout()`, the Account window's - everywhere at once), the
+  theme (the family's switch, `<anotoki-theme-toggle adminFrameTheme />`: light,
+  dark, or as the device is set - the account's; it reads the shell's
+  `ThemeService`, which the panel provides as `SiteShellTheme`,
+  `shared/local-lib/theme-toggle/shell-theme.ts`, over genshin's one theme service,
+  `ThemeToggleService`: the shell's own never runs here), then `navGroups()` - the
+  dashboard, then Database, Lookup Tables, Localization and System under their
+  headings, the IAM's console, the ADMIN's tools, the feedback nobody has opened
+  beside Feedback. Up to 860 px (its `phoneMax`) a row with the name and Menu,
+  which opens all of the column in the kit's drawer. The page that tells somebody
+  the panel is not theirs (`allowed()`, `<app-admin-no-access>`) is drawn without
+  it. Under every page, in its `[adminFrameFooter]`, the anotoki family's footer
   (`<anotoki-site-footer>`, `@anotoki/lib/footer`, anotoki-lib 0.6.3 - the
   owner's choice of 2026-10-18 for every admin panel; the public site keeps its
   own, which he calls "completely different"): the version (`public/changelog.json`'s
@@ -1058,9 +1072,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   an update waits - `SiteStatus.blocked()` - when the server would refuse it),
   About · Support · Terms · Privacy · Contact (the public site's pages, the
   legal configuration's paths) and the fan clause (`fan="hoyoverse"`). A landmark
-  of its own beside the panel's `<main>` (`.admin-page`), both in the column
-  that scrolls (`.admin-main`, its padding and sticky offsets as they were), at
-  its foot on a short page. Every page works at 390 px.
+  of its own beside the frame's `<main>`, both in the page's column, at its foot
+  on a short page. Every page works at 390 px.
 - **Admin CRUD** for an entity lives in `sites/admin/<entity>/<entity>-list/`
   and `<entity>-form/`, wired in `sites/admin/admin.routes.ts` with a nav entry
   in `sites/admin/app.component.ts`. Simple lookup tables use the shared
@@ -1249,8 +1262,10 @@ node docs/security/build-report.mjs                            # after re-runnin
   its prefix and every tail in `shared/dynamic-keys.ts`. A guide's body is no
   key: it is `guide_contents`, read through `GET /api/guides/{guide}`.
 - **Theming**: the site has light/dark - one theme for the whole site, the admin
-  panel included, the signed-in account's or this device's (`ThemeToggleService`);
-  never hard-code a colour that only works in one theme.
+  panel included, the signed-in account's or this device's (`ThemeToggleService`:
+  light, dark or `auto`, as the device is set; a device that never chose, light);
+  the admin frame's family switch reaches it through `SiteShellTheme`, never a
+  second theme service. Never hard-code a colour that only works in one theme.
 
 ## Deployment
 

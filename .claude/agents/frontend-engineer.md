@@ -29,9 +29,12 @@ first. This file adds frontend-specific detail.
   failed sign-in, not while `holdsSession()` - see `admin-access.guard.ts`).
 - Admin: `frontend/src/app/sites/admin/` — one folder per entity with
   `<entity>-list/` and `<entity>-form/`; routes in `admin.routes.ts`; nav in
-  `app.component.ts`, the family's footer under every page in
-  `app.component.html` (`@anotoki/lib/footer` - the public site keeps its own
-  `common/footer`); simple lookup tables via the shared `lookup-table`
+  `app.component.ts` (`navGroups()`), drawn by the family's admin frame in
+  `app.component.html` (`<anotoki-admin-frame>`, `@anotoki/lib/admin/frame`,
+  0.10.0: the panel's name, the person, Back, Sign out, the theme's switch -
+  `SiteShellTheme` over genshin's own theme service - and the pages), the
+  family's footer under every page in its footer slot (`@anotoki/lib/footer` -
+  the public site keeps its own `common/footer`); simple lookup tables via the shared `lookup-table`
   component, one line each in `LOOKUP_PAGES` (`pages/pages.ts`) and a
   `lookupRoute(...)` in `admin.routes.ts`.
 - The UI kit is the anotoki family's (`@anotoki/lib/ui/*`, each piece from its own
@@ -109,7 +112,7 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   segmented, tooltips, menus and popovers, drawer, cards, page header, empty and
   error states, badges, alerts, icons, spinner, and 0.6's side navigation,
   disclosure and accordion, combobox, date field, slider, chips, file picker,
-  colour field and rich-text toolbar - imported from their own entry
+  colour field and rich-text toolbar, and 0.10's admin frame - imported from their own entry
   points (`@anotoki/lib/ui/button`, `ui/forms`, `ui/dialog`, ...). A piece the
   kit lacks is built in local-lib from the kit's pieces and tokens (and noted for
   the library), never a copy of one it has; the site keeps its look through the
