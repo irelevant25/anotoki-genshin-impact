@@ -12,7 +12,7 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
 - **Profile**: quiz history and statistics. English and Slovak throughout.
 - **Appearance, dates, clock and language** are the reader's anotoki account's
   and apply on every anotoki site: the appearance and the language chosen in the
-  account panel (or the admin panel's theme button), the dates and the clock on
+  account panel (or the admin panel's theme switch), the dates and the clock on
   the IAM's account page. Without signing in, the theme and the language are this
   device's and dates are written the device's way.
 - **Admin panel**: every piece of game content and its media, the site's words
@@ -468,6 +468,12 @@ not drift; [docs/README.md](docs/README.md) lists them.
   colour -, only a tile a press acts on shows the pointer, and the dark board
   tells its tiles apart at a glance: those a press acts on, those it cannot
   reach yet (dark, ringed) and those revealed. Version 1.4.1.
+- Since 2026-10-24, at the owner's word, this admin panel's frame is the anotoki
+  family's, in every anotoki admin panel alike (anotoki-lib 0.10.0,
+  `<anotoki-admin-frame>`): the pages in a column on the left as before, and at
+  its top who is signed in, "Back to the site", Sign out and the theme - now
+  light, dark or as the device is set, the account's, as the Account window
+  chooses it.
 
 ## More
 

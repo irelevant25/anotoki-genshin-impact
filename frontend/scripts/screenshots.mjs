@@ -739,7 +739,90 @@ const lookups = [
   'stats',
 ];
 
+/**
+ * The admin panel in the family's frame (anotoki-lib 0.10.0, `<anotoki-admin-frame>` - the owner's request of
+ * 2026-10-24): on a computer its column, on a phone the Menu's drawer, holding the panel's name ("Genshin Admin", to
+ * /admin), who is signed in (the owner's name and address), Back to the site (/), Sign out, the theme's three choices
+ * (light, dark, as the device is set - genshin's one theme, through shell-theme.ts) and the pages under their headings,
+ * the ADMIN's tools among them. On a computer the switch is pressed too - dark, as the device is set, light, then the
+ * round's own again: each drawn at once and kept as genshin's theme service keeps it, `auto` under its key. Anything
+ * missing or else is said; how many pages, kept in report.json.
+ */
+const adminFrame =
+  ({ drawer }) =>
+  async (page) => {
+    if (!(await waitFor(page, "!!document.querySelector('app-admin-root anotoki-admin-frame anotoki-side-nav')", 15000))) {
+      heard.push('the admin panel is not in the family frame');
+      return true;
+    }
+    if (drawer) {
+      const opened =
+        (await click('app-admin-root anotoki-admin-frame button', '^Menu$')(page)) && (await waitFor(page, "!!document.querySelector('dialog[open] .anotoki-admin-frame__account')", 10000));
+      if (!opened) {
+        heard.push("the frame's Menu did not open the drawer with the column's top in it");
+        return true;
+      }
+    }
+    const facts = await page.evaluate(`(() => {
+      const scope = ${drawer ? "document.querySelector('dialog[open]')" : "document.querySelector('app-admin-root .anotoki-admin-frame__column')"};
+      const words = (element) => (element?.textContent ?? '').replace(/\\s+/g, ' ').trim();
+      const brand = document.querySelector('app-admin-root .anotoki-admin-frame__brand');
+      const back = scope.querySelector('.anotoki-admin-frame__back');
+      return {
+        brand: [words(brand), brand?.getAttribute('href') ?? null],
+        person: words(scope.querySelector('.anotoki-admin-frame__who')),
+        back: [words(back), back?.getAttribute('href') ?? null],
+        signOut: words(scope.querySelector('.anotoki-admin-frame__sign-out')),
+        theme: [scope.querySelectorAll('anotoki-theme-toggle [role=radio]').length, scope.querySelectorAll('anotoki-theme-toggle [role=radio][aria-checked=true]').length],
+        headings: [...scope.querySelectorAll('.anotoki-side-nav__heading')].map(words),
+        links: [...scope.querySelectorAll('a.anotoki-side-nav__link')].map(words),
+      };
+    })()`);
+    const wanted = {
+      brand: ['Genshin Admin', '/admin'],
+      person: 'owner owner@example.test',
+      back: ['Back to the site', '/'],
+      signOut: 'Sign out',
+      theme: [3, 1],
+      headings: ['Database', 'Lookup Tables', 'Localization', 'System'],
+    };
+    const tools = ['People', 'Feedback', 'Audit Logs', 'Error Log', 'Files Explorer', 'Migrations', 'Backups'];
+    const { links, ...said } = facts;
+    if (JSON.stringify(said) !== JSON.stringify(wanted) || links[0] !== 'Dashboard' || tools.some((tool) => !links.some((link) => link.startsWith(tool)))) {
+      heard.push(`the admin frame: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)} with the Dashboard first and the ADMIN's tools`);
+    }
+    noted.push(`the frame: ${links.length} pages under ${facts.headings.length} headings`);
+    if (!drawer) {
+      // The switch's choices, in its order: light, dark, as the device is set.
+      const pressed = await page.evaluate(`(async () => {
+        const choices = [...document.querySelectorAll('app-admin-root .anotoki-admin-frame__column anotoki-theme-toggle [role=radio]')];
+        const before = choices.findIndex((choice) => choice.getAttribute('aria-checked') === 'true');
+        const seen = [];
+        for (const index of [1, 2, 0, before]) {
+          choices[index]?.click();
+          await new Promise((done) => setTimeout(done, 200));
+          seen.push([document.documentElement.getAttribute('data-theme'), localStorage.getItem('anotoki-genshin-impact-theme')]);
+        }
+        return { before, seen, device: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' };
+      })()`);
+      const own = ['light', 'dark'][pressed.before] ?? null;
+      const expected = [
+        ['dark', 'dark'],
+        [pressed.device, 'auto'],
+        ['light', 'light'],
+        [own, own],
+      ];
+      if (own === null || JSON.stringify(pressed.seen) !== JSON.stringify(expected)) {
+        heard.push(`the frame's theme switch: ${JSON.stringify(pressed)}, not ${JSON.stringify(expected)} (the theme drawn, and kept)`);
+      }
+    }
+    return true;
+  };
+
 const ADMIN = [
+  // The family's admin frame - its column at 1280, the Menu's drawer at 390 (adminFrame) - on the Quiz levels page.
+  { name: 'admin-frame', path: '/admin/quiz-levels', widths: [1280], then: adminFrame({ drawer: false }) },
+  { name: 'admin-frame-drawer', path: '/admin/quiz-levels', widths: [390], then: adminFrame({ drawer: true }) },
   { name: 'admin-home', path: '/admin', focus: 5 },
   // The activity feed names an action about nothing in particular by itself (migrations.applied).
   { name: 'admin-dashboard', path: '/admin/dashboard', data: '.feed-title' },

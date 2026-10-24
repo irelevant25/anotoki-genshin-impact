@@ -1,41 +1,16 @@
 @if (allowed()) {
-    <div class="admin-layout">
-        <!-- A phone's row (the side navigation's phone width, up to 860 px): the brand, the theme and the button
-             that opens the navigation in the kit's drawer. A desktop has the navigation beside the page. -->
-        @if (nav.phone()) {
-            <header class="admin-phone-bar">
-                <a routerLink="." class="sidebar-logo">Genshin Admin</a>
-                <app-theme-toggle></app-theme-toggle>
-                <button anotokiButton size="sm" [anotokiSideNavTrigger]="nav">
-                    <anotoki-icon name="menu" [size]="18" />
-                    Menu
-                </button>
-            </header>
-        }
-
-        <!-- On a phone the column is gone but its navigation stays in the page (never display: none): its drawer
-             opens from it. -->
-        <aside class="admin-sidebar">
-            @if (!nav.phone()) {
-                <div class="sidebar-header">
-                    <app-theme-toggle></app-theme-toggle>
-                    <a routerLink="." class="sidebar-logo">Genshin Admin</a>
-                </div>
-            }
-            <anotoki-side-nav #nav="anotokiSideNav" class="sidebar-nav" label="Admin panel" heading="Genshin Admin" [groups]="navGroups()" [phoneMax]="860" />
-        </aside>
-
-        <!-- The page and, under it, the family's footer, in one column that scrolls (on a phone, the page does):
-             the footer after the page, at the column's foot on a short one - a landmark of its own, beside the
-             <main>, never inside it. Version, What's new and Feedback, About · Support · Terms · Privacy · Contact (the
-             public site's pages: the links leave the panel), the fan clause. -->
-        <div class="admin-main">
-            <main class="admin-page" id="main">
-                <router-outlet></router-outlet>
-            </main>
-            <anotoki-site-footer class="admin-footer" [version]="version()" [whatsNew]="!!version()" (whatsNew)="openWhatsNew()" [feedback]="feedbackOffered()" fan="hoyoverse" />
-        </div>
-    </div>
+    <!-- The family's admin frame (@anotoki/lib/admin/frame): the column - the panel's name, who is signed in, Back,
+         Sign out, the theme, the pages - beside the page; on a phone a row with the name and Menu, the column in the
+         kit's drawer. The theme's switch is the family's: light, dark or as the device is set, the account's
+         (shell-theme.ts). -->
+    <anotoki-admin-frame [brand]="brand" [person]="person()" [back]="back" [signOut]="signOut" [groups]="navGroups()">
+        <anotoki-theme-toggle adminFrameTheme />
+        <router-outlet />
+        <!-- After the page, a landmark of its own beside the <main>, never inside it: version, What's new and Feedback,
+             About · Support · Terms · Privacy · Contact (the public site's pages: the links leave the panel), the fan
+             clause. -->
+        <anotoki-site-footer adminFrameFooter [version]="version()" [whatsNew]="!!version()" (whatsNew)="openWhatsNew()" [feedback]="feedbackOffered()" fan="hoyoverse" />
+    </anotoki-admin-frame>
 } @else {
     <app-admin-no-access></app-admin-no-access>
 }

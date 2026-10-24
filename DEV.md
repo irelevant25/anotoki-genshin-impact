@@ -260,15 +260,17 @@ People page, on the admin panel's route) - their pages on lazy routes,
 `frontend/src/app/app.config.ts` and `app.component.html` (the pages as the
 gate's `<ng-template anotokiSitePages>`), the admin routes `/admin/migrations`,
 `/admin/translations` and `/admin/languages` (the pages from their own entry
-points), and the `--anotoki-*` colours in `design-tokens.scss` (every colour the
-kit reads, its controls' edge at 3:1 or more) - with `--anotoki-topbar-height` at
-minus its padding on the admin panel's `.admin-main`, which has no anotoki top bar.
+points), the admin panel's frame (`frontend/src/app/sites/admin/app.component.*`:
+the library's `<anotoki-admin-frame>`, 0.10.0, its theme switch reading genshin's
+own theme service through `shared/local-lib/theme-toggle/shell-theme.ts`), and the
+`--anotoki-*` colours in `design-tokens.scss` (every colour the kit reads, its
+controls' edge at 3:1 or more).
 
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.9.2 now
+sequences that count down, then the origin secret): both halves are 0.10.0 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.9.0` never brings 0.10, which needs its constraint
 written. A piece of the library's kit is
@@ -758,7 +760,7 @@ along. The admin dashboard's *visitors* card counts them against
 
 **The account's preferences** (the local IAM with its migration 015). Signed
 in, the account panel's choosers - appearance, language - and the
-admin panel's theme button each show the choice at once and send one
+admin panel's theme switch (light, dark, as the device is set) each show the choice at once and send one
 `POST {issuer}/api/oidc/preferences` (the Network tab; never a request to this
 site's API), one at a time when clicked quickly; the IAM's account page shows
 the same choice, and a choice made there reaches this site with its next token

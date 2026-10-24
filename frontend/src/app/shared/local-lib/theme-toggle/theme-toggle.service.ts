@@ -32,8 +32,10 @@ const OLD_STORAGE_KEYS = { main: 'theme-main', admin: 'theme-admin' };
  * Signed in, it is the anotoki account's (AccountPreferences): one choice
  * every anotoki site follows, shown the moment it is known - at sign-in, and
  * whenever it changes, on another site or in another tab - and saved to the
- * account from the toggles here. Signed out, or from an IAM that keeps no
- * preferences, it is this device's, as it always was.
+ * account from the choosers here: the Account window's, and the admin panel
+ * frame's family switch, which reaches this through SiteShellTheme
+ * (shell-theme.ts). Signed out, or from an IAM that keeps no preferences, it
+ * is this device's, as it always was.
  *
  * A choice is shown at once, and saved after: one save at a time, the latest
  * choice last (AccountPreferences). A refused save puts the account's theme
@@ -61,9 +63,6 @@ export class ThemeToggleService {
     }
     return this._systemPrefersDark() ? 'dark' : 'light';
   });
-
-  readonly isDarkMode = computed(() => this.effectiveTheme() === 'dark');
-  readonly isLightMode = computed(() => this.effectiveTheme() === 'light');
 
   constructor() {
     if (this._browser) {
@@ -106,11 +105,6 @@ export class ThemeToggleService {
       }
       return result;
     });
-  }
-
-  /** Flips to the opposite of what is on screen, which also leaves `auto`. */
-  toggleTheme(): Promise<PreferenceSave> {
-    return this.setTheme(this.isDarkMode() ? 'light' : 'dark');
   }
 
   // ── Wiring ──────────────────────────────────────────────────────────────────

@@ -37,8 +37,11 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         (/admin/people, configured in people.ts) and admin tools - Feedback, Audit
                         Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
                         feedback counted beside Feedback in the navigation); app.component the
-                        frame: the kit's side navigation beside the page, in the kit's drawer on a
-                        phone (admin-icons.ts: its icons and the forms' tabs'), and the family's
+                        frame: the family's <anotoki-admin-frame> (@anotoki/lib/admin/frame,
+                        anotoki-lib 0.10.0) - the panel's name, who is signed in, Back to the site,
+                        Sign out, the theme's switch (light / dark / as the device is set) and the
+                        pages beside the page, all of it in the kit's drawer on a phone
+                        (admin-icons.ts: its icons and the forms' tabs') - and the family's
                         footer under every page (@anotoki/lib/footer: the version, What's new - the
                         public footer's dialog -, Feedback, Terms · Privacy · Contact, the fan clause)
 src/app/shared/         local-lib (what the family's kit has no piece for: the field adapters over
@@ -46,7 +49,8 @@ src/app/shared/         local-lib (what the family's kit has no piece for: the f
                         stored-dates.ts -, the site's own fields (the folder chooser, the HTML editor
                         on the kit's rich-text toolbar), the waypoint loader; the abstract
                         bases; components.scss, the own fields drawn as the kit's; design-tokens.scss,
-                        the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/;
+                        the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/
+                        (the one theme service, and shell-theme.ts, its face for the family's switch);
                         services/: security.service.ts - this site's view of the library's sign-in
                         and its own record of the person (/api/me), visitor-key.service.ts (this
                         browser's visitor key and the move at sign-in), http.interceptor.ts (the
