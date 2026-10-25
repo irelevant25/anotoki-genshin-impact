@@ -81,9 +81,9 @@ host by hand; every value is type- and range-checked, a bad one keeps its
 default and is logged once, so a typo such as `keep_days => 0` never sweeps
 everybody), `cloudflare.local.php` (the origin secret, the same file in every
 anotoki site - see `config/cloudflare.php` and *Visitors* below; never written
-or read by setup.php, put on a host by hand; no secret without it). A leftover
-`app.local.php` (this site's address, from when the dev frontend called the API
-cross-origin) is no longer read.
+or read by setup.php, put on a host by hand; no secret without it), `app.local.php`
+(this site's address for robots.txt and sitemap.xml, only where it is not the one
+the code's place gives - *Deployment*; never written by setup.php).
 
 **Every one of them is read cleanly or not at all** (`localConfigFileRead()`,
 `config/local.php` - the anotoki family's rule; Japanese Academy's review of
@@ -229,7 +229,7 @@ So, since 0.3.0, are the site's words - *The words* below.
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
   half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.11.0 now (never 0.4.0, whose PHP
+  0.5.2 the PHP half alone): both halves are 0.11.1 now (never 0.4.0, whose PHP
   failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
@@ -1075,11 +1075,12 @@ node docs/security/build-report.mjs                            # after re-runnin
   `[value]="x.selected()" [none]="null"`: the option's key in its own type, null
   for the empty option, a value the list lacks becoming its first option - what
   is seen is what is saved -, `chosen()` for a material's picture). Dates go
-  through `stored-dates.ts` (a birthday `dayMonth`, kept as a DATE in year 4;
-  `fieldFormatOf()` the order the lists beside the form write a date in - the
-  account's, else the page's locale's, en-GB's day first in the panel - never
-  left to the kit's field, which by itself reads an English day the way the
-  United States writes one). A list column (JSONB, an array of strings, which the API
+  through `stored-dates.ts` (a birthday `dayMonth`, kept as a DATE in year 4),
+  the kit's field given no `format`: since anotoki-lib 0.11.1 it types a date in
+  the order the lists beside the form write one - the account's
+  (`provideAnotokiUi`'s `dateChoices`, `app.config.ts`), else the page's
+  locale's, en-GB's day first in the panel (genshin's `fieldFormatOf()` said so
+  until then). A list column (JSONB, an array of strings, which the API
   sends as its raw JSON text) goes through `admin-full-resource.model.ts` alone:
   `listFromColumn()` decodes it once and the form holds what came,
   `listText()` shows it an item a line, `toLines()` takes an edit back as a plain
@@ -1392,10 +1393,13 @@ robots.txt and sitemap.xml are the PHP's (anotoki-lib 0.11.0's Robots,
 `api/robots.php`: robots kept out of `/admin`, `/api`, `/auth` and `/staff`; the
 sitemap the public pages Page access leaves open and the database's entries
 with pages of their own): the front controller is given both
-(`extra["anotoki-deploy"]`'s routes), and their address comes from the optional
-`config/app.local.php` (`['url' => 'https://genshin.anotoki.eu']`, put there by
-hand on a host installed since 2026-10-05) - without it robots.txt names no
-sitemap and `/sitemap.xml` answers 404 `not_configured`.
+(`extra["anotoki-deploy"]`'s routes), and their address is where the code runs
+(`siteAddress()`, `config/app.php`, as the survey's - no file to upload): a
+release (`backend/release.json`) `https://genshin.anotoki.eu`, the deploy
+tool's `url`; a checkout `http://localhost:4200`; never a request's Host. The
+optional `config/app.local.php` (`['url' => ...]`, by hand) names another; one
+that cannot be read cleanly or names no usable url is passed over, said once in
+the PHP log, and the code's place's address holds (`tests/settings-files.test.php`).
 
 Full steps — the upload map, the installer, a checkout that still has two databases, the
 constraints — are in `DEV.md` (*Deploying to the hosting*). The **deploy**

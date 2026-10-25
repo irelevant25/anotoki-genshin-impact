@@ -132,7 +132,9 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   multiselect is the kit's `<anotoki-multiselect>`, an HTML text its
   `<anotoki-html-editor>` (`shared/rich-text.ts`'s fonts, swatches and
   classes); a date goes through `stored-dates.ts` (a birthday a DATE
-  in year 4); a list column (JSONB, sent by the API as its raw JSON text) only
+  in year 4), the kit's date field given no `format` - it follows the account's
+  order (`provideAnotokiUi`'s `dateChoices`), else the page's locale's
+  (anotoki-lib 0.11.1); a list column (JSONB, sent by the API as its raw JSON text) only
   through `admin-full-resource.model.ts` - `listFromColumn()` on load,
   `listText()` to show it, `toLines()` for an edit, `listToSend()` on save -,
   never a helper of the form's own, so an untouched list goes back exactly as it

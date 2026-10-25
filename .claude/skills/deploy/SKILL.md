@@ -279,13 +279,16 @@ database up first); never before the upload, and no older build on the host
 afterwards: 066 moves the site settings into the library's tables and drops
 genshin's own, 067 and 033 drop the old copies, 068 the old multiselect's
 words. Then, as the ADMIN: System → **Site settings** shows the switches and
-pages as they were. For robots.txt and sitemap.xml (the PHP's now - the
+pages as they were. robots.txt and sitemap.xml are the PHP's now (the
 release's routes give the front controller both, and the old
-`frontend/robots.txt` is gone from the build), the site's address in
-`config/app.local.php` - `<?php return ['url' => 'https://genshin.anotoki.eu'];`
-- by hand, unless the host has it already (setup wrote it from 2026-09-29 to
-2026-10-05); `/robots.txt` then ends with its `Sitemap:` line. Every guide and
-voice line saved from now on is kept through the family's allow-list.
+`frontend/robots.txt` is gone from the build). Every guide and voice line saved
+from now on is kept through the family's allow-list.
+
+anotoki-lib 0.11.1 (2026-10-25; no migration): upload both builds together,
+nothing to Apply. robots.txt and sitemap.xml need no file for the site's
+address: a release names `https://genshin.anotoki.eu` (`config/app.php`, where
+the deploy tool puts it); a host's `config/app.local.php`, if it has one, still
+names its own. `/robots.txt` ends with its `Sitemap:` line.
 
 ## Copying local data up to production
 
