@@ -6,7 +6,7 @@ import { VisitorApiService, VisitorMoveResult } from '../../../api';
 import { signedInSilently } from '../../silent-sign-in';
 import { VISITOR_KEY_CARRIED } from './http.interceptor';
 import { SecurityService } from './security.service';
-import { SiteSettingsService } from './site-settings.service';
+import { PublicSettingsService } from './public-settings.service';
 
 /** Where this browser keeps its visitor key (localStorage: every tab of the site shares it). */
 export const VISITOR_STORAGE_KEY = 'genshin-visitor';
@@ -39,7 +39,7 @@ export const MOVE_RETRY_MS: readonly number[] = [2_000, 10_000, 30_000];
  *   carries its games into the first (QuizProgressService), and the second
  *   visitor is left for the sweep.
  * - **Kept, not sent, while the site requires a sign-in** (the IAM's switch,
- *   `SiteSettingsService.loginRequired`): a 401 `sign_in_required` never
+ *   `PublicSettingsService.loginRequired`): a 401 `sign_in_required` never
  *   forgets it, so the next sign-in still moves what it holds, and switching
  *   the requirement off again within the days a visitor is kept brings it back.
  * - **Forgotten** when the server no longer knows it (401 `visitor_unknown`:
@@ -70,14 +70,14 @@ export const MOVE_RETRY_MS: readonly number[] = [2_000, 10_000, 30_000];
  *
  * A private window that refuses storage: the key lives in memory for the tab.
  *
- * This service reads SecurityService and SiteSettingsService, never the other
+ * This service reads SecurityService and PublicSettingsService, never the other
  * way round: the move is started here, by an effect. The library's sign-in
  * reads it only as a request leaves.
  */
 @Injectable({ providedIn: 'root' })
 export class VisitorKey implements VisitorKeyStore {
   private readonly _security = inject(SecurityService);
-  private readonly _settings = inject(SiteSettingsService);
+  private readonly _settings = inject(PublicSettingsService);
   private readonly _api = inject(VisitorApiService);
   private readonly _auth = inject(AnotokiAuth);
 

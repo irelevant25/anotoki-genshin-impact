@@ -16,10 +16,12 @@ import { siteLegalPagesConfig } from './legal-facts';
  * Anybody may read them, signed in or not, a visitor or not, while the IAM
  * requires signing in and while the site is closed for maintenance: what the
  * site keeps, and how to reach whoever runs it, is said before anybody signs
- * in. So no page switch governs them (no routeAccessGuard; the API refuses a
- * row for them, api/site_routes.php), the public shell draws them in place of
- * its sign-in card and closed sign (sites/main/app.component.ts), and the app
- * initializer never sends somebody opening one to the IAM (app.config.ts).
+ * in. So no page switch governs them (no pageAccessGuard; the site settings
+ * refuse a row for them - the library's reserved pages), the root gate lets
+ * them through the closed sign (the library's openWhileClosed), the public
+ * shell draws them in place of its sign-in card (sites/main/app.component.ts),
+ * and the app initializer never sends somebody opening one to the IAM
+ * (app.config.ts).
  * While the site is not ready, the family's status page stands instead of
  * them, as instead of every page.
  */

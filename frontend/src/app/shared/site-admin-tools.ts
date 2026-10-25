@@ -1,5 +1,6 @@
 import { Injector, inject, runInInjectionContext } from '@angular/core';
 import { AnotokiAdminConfig } from '@anotoki/lib/admin';
+import { TranslationService } from '@anotoki/lib/translations';
 import { ConfigService } from './local-lib/services/config.service';
 import { SecurityService } from './local-lib/services/security.service';
 import { AppDatePipe } from './local-lib/pipes/date.pipe';
@@ -17,8 +18,9 @@ export function accountDates(injector: Injector): (iso: string) => string {
 /**
  * What the site tells the anotoki library's admin tools (@anotoki/lib/admin;
  * anotoki-lib 0.4.0, "Admin tools"): the error log, the audit log, feedback,
- * backups and the file explorer - each the library's page on a lazy route of
- * the admin panel (sites/admin/admin.routes.ts), each replacing this site's own.
+ * backups, the file explorer and - since 0.11.0 - the site settings, each the
+ * library's page on a lazy route of the admin panel (sites/admin/admin.routes.ts),
+ * each replacing this site's own.
  *
  *  - for this site's ADMIN alone, as the token says (the owner's decision:
  *    EDITORs see none of them - the server refuses them too); anybody else
@@ -28,6 +30,10 @@ export function accountDates(injector: Injector): (iso: string) => string {
  *    through the IAM's sign-in, asked for the password again, and back;
  *  - feedback's extra fields named as the site names them (the old columns,
  *    shared/site-feedback.ts);
+ *  - the languages the Site settings page gives the maintenance page's and the
+ *    announcement's words a field each: the site's, as the pages' words came
+ *    with them - a message in a language nobody can read the site in is one
+ *    nobody sees;
  *  - a download's or a preview's link through the site's API address, and
  *    the dates in the account's order and clock.
  *
@@ -43,13 +49,20 @@ export function accountDates(injector: Injector): (iso: string) => string {
 export function siteAdminToolsConfig(): AnotokiAdminConfig {
   const security = inject(SecurityService);
   const config = inject(ConfigService);
+  const injector = inject(Injector);
 
   return {
     isAdmin: () => security.role() === 'ADMIN',
     signInAgain: () => security.login({ prompt: 'login' }).catch(() => undefined),
     migrationsRoute: MIGRATIONS_ROUTE,
     resolveUrl: (path) => `${config.backendUrl}${path}`,
-    formatDate: accountDates(inject(Injector)),
+    formatDate: accountDates(injector),
     feedbackFields: FEEDBACK_FIELD_NAMES,
+    // Looked up when the page asks: the translation service is built after this configuration is.
+    languages: () =>
+      injector
+        .get(TranslationService)
+        .languages()
+        .map((language) => ({ code: language.code, name: language.native_name })),
   };
 }

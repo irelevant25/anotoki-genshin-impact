@@ -379,15 +379,13 @@ same(
 );
 same('a signed-in reader reads it as anybody does', 200, send('GET', '/api/catalog/artifacts', EDITOR)->getStatusCode());
 
-$pdo->exec("UPDATE site_settings SET value = 'true' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("INSERT INTO anotoki_site_settings (name, value) VALUES ('maintenance_mode', 'true') ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value");
 same(
     'closed for maintenance: 503 maintenance - an ADMIN past it',
     [503, 'maintenance', 200],
     [send('GET', '/api/catalog/characters')->getStatusCode(), body(send('GET', '/api/catalog/characters'))['code'] ?? null, send('GET', '/api/catalog/characters', ADMIN)->getStatusCode()],
 );
-$pdo->exec("UPDATE site_settings SET value = 'false' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("UPDATE anotoki_site_settings SET value = 'false' WHERE name = 'maintenance_mode'");
 
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => true]));
 same(
@@ -397,16 +395,13 @@ same(
 );
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => false]));
 
-$route = (int) $pdo->query("INSERT INTO site_routes (site, path, visibility, blocked) VALUES ('genshin_impact', '/catalog-locked', 'PUBLIC', TRUE) RETURNING id")->fetchColumn();
-$pdo->exec("INSERT INTO site_route_endpoints (route_id, prefix) VALUES ($route, '/api/catalog')");
-siteRoutesForget();
+$route = (int) $pdo->query("INSERT INTO anotoki_page_access (path, visibility, blocked, api_paths) VALUES ('/catalog-locked', 'PUBLIC', TRUE, '{/api/catalog}') RETURNING id")->fetchColumn();
 same(
-    'a page\'s row locking /api/catalog: 423 route_locked - its ADMIN past it',
-    [423, 'route_locked', 200],
+    'a page\'s row locking /api/catalog: 423 page_locked - its ADMIN past it',
+    [423, 'page_locked', 200],
     [send('GET', '/api/catalog/artifacts')->getStatusCode(), body(send('GET', '/api/catalog/artifacts'))['code'] ?? null, send('GET', '/api/catalog/artifacts', ADMIN)->getStatusCode()],
 );
-$pdo->exec("DELETE FROM site_routes WHERE id = $route");
-siteRoutesForget();
+$pdo->exec("DELETE FROM anotoki_page_access WHERE id = $route");
 
 file_put_contents("$backend/migrations/genshin_impact/999_test_waiting.sql", "SELECT 1;\n");
 same(

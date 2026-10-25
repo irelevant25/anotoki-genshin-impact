@@ -3,63 +3,15 @@
 // Regenerate: php ../backend/generate-api-spec.php && node generate-api.mjs
 
 /**
- * One switch, as the admin form sees it.
- *
- * `type` is what makes the form generic: a new setting is a row in a migration
- * and two translation keys, not a new field on this class and a new control in
- * that template. `value` is text whatever the type says, because that is how
- * the column stores it - the form parses on the way in and the API validates
- * on the way back.
- */
-export interface AdminSiteSetting {
-  name: string;
-  /** Which panel of the form it belongs under. */
-  group_name: string;
-  /** boolean, text, i18n, choice or routes. */
-  type: string;
-  /** For a 'choice', the values it may take. Empty otherwise. */
-  options: string[];
-  value: string | null;
-  updated_at: string | null;
-  /** Who threw the switch last, or null if nobody has since it was seeded. */
-  updated_by: string | null;
-}
-
-/**
- * One page, as the site itself needs to know about it.
- *
- * No endpoints: those are the gate's business, the front end has no use for
- * them, and a list of which API paths are locked is a map nobody browsing the
- * site needs. Everything here is already in the router in the bundle.
- */
-export interface PublicSiteRoute {
-  /** As the router declares it. A ':id' segment matches any one segment. */
-  path: string;
-  /** PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for. */
-  visibility: string;
-  /** Off for everybody who is not an admin. */
-  blocked: boolean;
-}
-
-/**
  * The shape of the site, before anybody has signed in.
  *
- * Open on purpose. A page cannot ask whether it should draw a maintenance
- * notice instead of itself after it has drawn itself, and it cannot ask who is
- * reading it before it knows whether reading is allowed. Nothing here is a
- * secret: it is what any visitor is about to see anyway.
+ * Open on purpose. A page cannot ask who is reading it before it knows where
+ * reading is signed in. Nothing here is a secret: it is what any visitor's
+ * sign-in button is about to use anyway.
  */
 export interface PublicSiteSettings {
-  /** Whether everything but the closed sign is switched off. */
-  maintenance: boolean;
-  /** The closed sign, one message per language. */
-  maintenance_message: Record<string, string>;
   /** Where the site's sign-in lives. */
   auth: SiteAuthConfig;
-  /** Null when there is nothing to announce. */
-  announcement: SiteAnnouncement | null;
-  /** Which pages exist, and who they are drawn for. */
-  routes: PublicSiteRoute[];
   /** Playing without signing in: whether it can, and for how long a browser's games are kept. */
   visitors: PublicVisitorSettings;
 }
@@ -76,16 +28,6 @@ export interface PublicVisitorSettings {
   available: boolean;
   /** Days a visitor's games are kept after their last visit (config/visitors.php's keep_days). */
   keep_days: number;
-}
-
-/**
- * A message across the top of every page, and how loudly it is saying it.
- */
-export interface SiteAnnouncement {
-  /** info, warning or danger - which decides the colour of the bar. */
-  level: string;
-  /** One message per language code. */
-  message: Record<string, string>;
 }
 
 /**
@@ -108,11 +50,4 @@ export interface SiteAuthConfig {
   login_required: boolean;
   /** Whether signing in is on offer at all: false once the IAM has said it does not know this site (or switched it off) - then the pages offer no sign-in, and the IAM's sign-in hint sends nobody there (the anotoki library's AuthRoutes::configBody()). */
   sign_in_available: boolean;
-}
-
-/**
- * Every switch, in the order the form draws them.
- */
-export interface SiteSettingList {
-  settings: AdminSiteSetting[];
 }

@@ -2,7 +2,7 @@ import { EnvironmentProviders, Injector, inject } from '@angular/core';
 import { AnotokiAuth } from '@anotoki/lib/auth';
 import { AnotokiPeopleConfig, PeopleDeleteQuestion, PeoplePerson, provideAnotokiPeople } from '@anotoki/lib/people';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
-import { SiteSettingsService } from '../../shared/local-lib/services/site-settings.service';
+import { PublicSettingsService } from '../../shared/local-lib/services/public-settings.service';
 import { accountDates, MIGRATIONS_ROUTE } from '../../shared/site-admin-tools';
 import { QuizProgressService } from '../main/features/quizzes/shared/quiz-progress.service';
 
@@ -30,7 +30,7 @@ function countOf(person: PeoplePerson, column: string): number {
 function peopleConfig(): AnotokiPeopleConfig {
   const security = inject(SecurityService);
   const auth = inject(AnotokiAuth);
-  const settings = inject(SiteSettingsService);
+  const settings = inject(PublicSettingsService);
 
   return {
     isAdmin: () => security.role() === 'ADMIN',

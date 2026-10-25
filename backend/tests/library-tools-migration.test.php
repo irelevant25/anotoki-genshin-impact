@@ -83,10 +83,11 @@ $pdo = testPdo($base);
 $built = testMigrate($pdo, ['users' => '051_guide_strings.sql', 'genshin_impact' => '027_visitor_history_index.sql', 'anotoki_translations' => '002_library_words.sql']);
 check('built by the site\'s engine', $built['error'] === null, (string) $built['error']);
 same(
-    'what waits: the admin set, users/052-065, genshin_impact/028-032, the words\' 003-013, the people set',
+    'what waits: the admin set, users/052-066, genshin_impact/028-032, the words\' 003-015, the people set',
     [
         'anotoki_admin/001_audit_log.sql',
         'anotoki_admin/002_feedback.sql',
+        'anotoki_admin/003_site_settings.sql',
         'users/052_people.sql',
         'users/053_drop_old_feedback_and_callback_strings.sql',
         'users/054_visitor_starts_hashed.sql',
@@ -101,6 +102,7 @@ same(
         'users/063_database_lists_strings.sql',
         'users/064_drop_account_dates_and_clock_strings.sql',
         'users/065_profile_redesign_strings.sql',
+        'users/066_site_settings_into_the_library.sql',
         'genshin_impact/028_audit_into_library.sql',
         'genshin_impact/029_feedback_into_library.sql',
         'genshin_impact/030_game_ids.sql',
@@ -117,6 +119,8 @@ same(
         'anotoki_translations/011_privacy_words_made_true.sql',
         'anotoki_translations/012_footer_words.sql',
         'anotoki_translations/013_about_and_support_words.sql',
+        'anotoki_translations/014_editor_and_piece_words.sql',
+        'anotoki_translations/015_site_settings_words.sql',
         'anotoki_people/001_people.sql',
     ],
     array_map(fn($file) => $file['set'] . '/' . $file['name'], siteMigrator($pdo)->applicable()),
@@ -287,11 +291,11 @@ $name = testDatabase('tools', $base);
 $pdo = testPdo($name);
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
-same('everything that waited ran, the admin set first and the people set last', 33, count($result['applied']));
+same('everything that waited ran, the admin set first and the people set last', 37, count($result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
 same(
     'the library\'s files are recorded under their sets\' names',
-    [['001_audit_log.sql', '002_feedback.sql'], ['001_people.sql']],
+    [['001_audit_log.sql', '002_feedback.sql', '003_site_settings.sql'], ['001_people.sql']],
     [recordedMigrations($pdo)['anotoki_admin'], recordedMigrations($pdo)['anotoki_people']],
 );
 
@@ -502,8 +506,8 @@ same('the next message after the last one moved', 42, (int) $pdo->query("INSERT 
 echo "The library's other sets\n";
 
 same(
-    'the words: 003 to 009, 012 and 013 brought the sign-in page\'s, the feedback form\'s, the legal pages\', the top bar\'s, the kit\'s newer pieces\', the tabs\', the inputs\', the footer\'s and the About and Support pages\' (010 and 011 reword some), 288 library keys in all',
-    288,
+    'the words: 003 to 009, 012 to 015 brought the sign-in page\'s, the feedback form\'s, the legal pages\', the top bar\'s, the kit\'s newer pieces\', the tabs\', the inputs\', the footer\'s, the About and Support pages\', the kit\'s pieces of 0.11.0\' and the site settings\' (010 and 011 reword some), 357 library keys in all',
+    357,
     (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn(),
 );
 same(

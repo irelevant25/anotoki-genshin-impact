@@ -25,7 +25,8 @@ export interface ApiError {
    *   reauth_required   the action wants a sign-in at the IAM from the last ten
    *                     minutes, and this one is older (403)
    *   maintenance       the site is closed to everybody but its admins (503)
-   *   route_locked      an admin has switched that part of the site off (423)
+   *   page_locked       an admin has switched that part of the site off (423;
+   *                     the anotoki library's Page access)
    */
   code?: string;
 }

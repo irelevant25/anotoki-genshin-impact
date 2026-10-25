@@ -1029,15 +1029,13 @@ $pdo->exec('ALTER TABLE quiz_levels_away RENAME TO quiz_levels');
 
 echo "The public read under the site's switches, as every quiz route\n";
 
-$pdo->exec("UPDATE site_settings SET value = 'true' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("INSERT INTO anotoki_site_settings (name, value) VALUES ('maintenance_mode', 'true') ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value");
 same(
     'closed for maintenance: 503 maintenance - an ADMIN past it',
     [503, 'maintenance', 200],
     [send('GET', '/api/quiz/levels')->getStatusCode(), body(send('GET', '/api/quiz/levels'))['code'] ?? null, send('GET', '/api/quiz/levels', ADMIN)->getStatusCode()],
 );
-$pdo->exec("UPDATE site_settings SET value = 'false' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("UPDATE anotoki_site_settings SET value = 'false' WHERE name = 'maintenance_mode'");
 
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => true]));
 same(
@@ -1047,16 +1045,13 @@ same(
 );
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => false]));
 
-$route = (int) $pdo->query("INSERT INTO site_routes (site, path, visibility, blocked) VALUES ('genshin_impact', '/levels-locked', 'PUBLIC', TRUE) RETURNING id")->fetchColumn();
-$pdo->exec("INSERT INTO site_route_endpoints (route_id, prefix) VALUES ($route, '/api/quiz/levels')");
-siteRoutesForget();
+$route = (int) $pdo->query("INSERT INTO anotoki_page_access (path, visibility, blocked, api_paths) VALUES ('/levels-locked', 'PUBLIC', TRUE, '{/api/quiz/levels}') RETURNING id")->fetchColumn();
 same(
-    'a page\'s row locking it: 423 route_locked - its ADMIN past it',
-    [423, 'route_locked', 200],
+    'a page\'s row locking it: 423 page_locked - its ADMIN past it',
+    [423, 'page_locked', 200],
     [send('GET', '/api/quiz/levels')->getStatusCode(), body(send('GET', '/api/quiz/levels'))['code'] ?? null, send('GET', '/api/quiz/levels', ADMIN)->getStatusCode()],
 );
-$pdo->exec("DELETE FROM site_routes WHERE id = $route");
-siteRoutesForget();
+$pdo->exec("DELETE FROM anotoki_page_access WHERE id = $route");
 
 file_put_contents("$backend/migrations/users/999_test_waiting.sql", "SELECT 1;\n");
 same('an update waiting: 503 update_pending', [503, 'update_pending'], [send('GET', '/api/quiz/levels')->getStatusCode(), body(send('GET', '/api/quiz/levels'))['code'] ?? null]);

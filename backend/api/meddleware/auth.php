@@ -9,13 +9,14 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 /**
  * The paths that never read who is asking, whatever the request sends: the
- * site's status, the words' bundle and the boot settings (what a page needs
- * before anybody can be signed in), the asset previews an <img> loads (no
- * header can go with one), and the two links the admin tools hand out to be
- * opened by the browser itself - a backup's download, its single-use ticket
- * its only check, and a file's preview, its signature its only check. Each
- * entry is a path with everything under it, or a pattern starting with `~`
- * (gatePathOpen(), meddleware/maintenance.php).
+ * site's status, the words' bundle, the boot settings and the site settings
+ * every page is told (what a page needs before anybody can be signed in - the
+ * same answer to everybody), the asset previews an <img> loads (no header can
+ * go with one), and the two links the admin tools hand out to be opened by the
+ * browser itself - a backup's download, its single-use ticket its only check,
+ * and a file's preview, its signature its only check. Each entry is a path
+ * with everything under it, or a pattern starting with `~` (gatePathOpen(),
+ * api/helpers.php).
  *
  * A token sent to one of them is not looked at - so one that has run out
  * cannot turn the boot or the words into a 401 - as before the library judged
@@ -25,6 +26,7 @@ define('TOKENLESS_PATHS', [
     '/api/site-status',
     TranslationsRoutes::openPath(),
     '/api/settings/public',
+    '/api/site-settings',
     '/api/files/raw',
     '/api/admin/files/raw',
     '~^/api/admin/backups/' . Backups::ID_PATTERN . '/file$~D',
@@ -268,8 +270,9 @@ function requireRole(string ...$roles): callable
 //                   Migrations page are ADMIN's alone (the owner's decision:
 //                   EDITORs see none of them), judged from the token
 //                   (RequireRole::admin(), api/index.php), so they need no
-//                   table a waiting update may change. The site's settings
-//                   and page switches are ADMIN's; the dashboard is ADMIN's
+//                   table a waiting update may change. The site settings -
+//                   the library's page, maintenance, the announcement and
+//                   Page access - are ADMIN's too; the dashboard is ADMIN's
 //                   and EDITOR's, without the feedback and the audit figures
 //                   for an EDITOR. (Accounts used to be here too; they are
 //                   the IAM's now.)

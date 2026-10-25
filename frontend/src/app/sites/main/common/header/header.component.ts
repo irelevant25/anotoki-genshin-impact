@@ -2,11 +2,11 @@ import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs';
+import { SiteSettings } from '@anotoki/lib/site-settings';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { GuideIconComponent } from '../guide/guide-icon.component';
 import { GuideId } from '../guide/guide-catalog';
 import { DailyProgressService } from '../../features/quizzes/shared/daily-progress.service';
-import { SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
 
 interface TopMenuItem {
   readonly id: string;
@@ -44,7 +44,8 @@ export class HeaderComponent {
   /** Read by the count on the Daily item; see DailyProgressService. */
   readonly daily = inject(DailyProgressService);
 
-  private readonly _settings = inject(SiteSettingsService);
+  /** Page access (@anotoki/lib/site-settings): which pages this reader may have, and what an admin is told of each. */
+  private readonly _settings = inject(SiteSettings);
   private readonly _router = inject(Router);
 
   private readonly _allItems: readonly TopMenuItem[] = [

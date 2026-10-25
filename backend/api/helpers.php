@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * An answer decided deep inside the work of a request - a limit reached
@@ -135,4 +136,43 @@ function respondJson(Response $response, mixed $data, int $status = 200): Respon
     $response = $response->withStatus($status)->withHeader('Content-Type', 'application/json');
     $response->getBody()->write($json);
     return $response;
+}
+
+/**
+ * The path a gate judges: the one the router will route on, never the one the
+ * request arrived with.
+ *
+ * The request keeps its path percent-encoded, as the browser sent it; Slim's
+ * router decodes it once (rawurldecode) and puts a slash in front when there
+ * is none, and only then picks the route (RouteResolver::computeRoutingResults).
+ * A gate that read the raw path would let `/%61pi/characters` past every
+ * `/api/` check and still be routed to `/api/characters` - so every list of
+ * this site's that a path is looked up in (TOKENLESS_PATHS, the links open
+ * while the site is closed) is asked with this, which does exactly what the
+ * router does. The anotoki library's gates read the path the same way.
+ */
+function gatePath(ServerRequestInterface $request): string
+{
+    $path = rawurldecode($request->getUri()->getPath());
+
+    return $path === '' || $path[0] !== '/' ? '/' . $path : $path;
+}
+
+/**
+ * Whether a list leaves a path open: an entry starting with `~` is a pattern
+ * the decoded path must match whole (end it with D); any other is a path that
+ * is open itself, with everything under it - not every path that merely
+ * begins with the same letters, so /api/me does not open a future /api/media.
+ *
+ * @param list<string> $open
+ */
+function gatePathOpen(string $path, array $open): bool
+{
+    foreach ($open as $entry) {
+        if (str_starts_with($entry, '~') ? preg_match($entry, $path) === 1 : $path === $entry || str_starts_with($path, rtrim($entry, '/') . '/')) {
+            return true;
+        }
+    }
+
+    return false;
 }

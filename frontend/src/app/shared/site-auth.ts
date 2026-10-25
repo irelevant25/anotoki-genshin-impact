@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { AnotokiAuthConfig } from '@anotoki/lib/auth';
 import { TranslationService } from '@anotoki/lib/translations';
-import { SiteSettingsService } from './local-lib/services/site-settings.service';
+import { PublicSettingsService } from './local-lib/services/public-settings.service';
 import { VisitorKey } from './local-lib/services/visitor-key.service';
 
 /**
@@ -25,11 +25,13 @@ export const OWNER_PATHS: readonly string[] = ['/api/quiz/progress', '/api/quiz/
  * What is this site's:
  *
  *  - where the IAM is: the public settings' `auth` (GET /api/settings/public,
- *    read first at boot - SiteSettingsService), never asked of the IAM by the
+ *    read first at boot - PublicSettingsService), never asked of the IAM by the
  *    page; it carries whether the IAM requires signing in here, and whether
  *    it knows the site at all (`sign_in_available`);
  *  - the boot's settings read goes bare - no token, no key - like the
- *    library's own boot route: it must answer whoever is asking;
+ *    library's own boot route, and so does the site settings' (what every
+ *    page is told, @anotoki/lib/site-settings): each must answer whoever is
+ *    asking, the same answer to everybody;
  *  - the visitor's key (VisitorKey, localStorage `genshin-visitor`) goes only
  *    on a player's own routes (OWNER_PATHS), and only while the server keeps
  *    visitors (users/045 applied - `visitors.available`): otherwise a
@@ -44,12 +46,12 @@ export const OWNER_PATHS: readonly string[] = ['/api/quiz/progress', '/api/quiz/
  */
 export function siteAuthConfig(): AnotokiAuthConfig {
   return {
-    config: () => inject(SiteSettingsService).auth(),
+    config: () => inject(PublicSettingsService).auth(),
     api: {
-      skip: ['/api/site-status', '/api/auth/config', '/api/translations/', '/api/settings/public'],
+      skip: ['/api/site-status', '/api/auth/config', '/api/translations/', '/api/settings/public', '/api/site-settings'],
       visitorPrefixes: [...OWNER_PATHS],
     },
-    visitors: () => (inject(SiteSettingsService).visitorsAvailable() ? inject(VisitorKey) : null),
+    visitors: () => (inject(PublicSettingsService).visitorsAvailable() ? inject(VisitorKey) : null),
     language: () => inject(TranslationService).language(),
     translate: (key) => inject(TranslationService).libraryWord(key),
   };

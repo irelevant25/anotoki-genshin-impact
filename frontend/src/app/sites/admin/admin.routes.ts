@@ -21,7 +21,6 @@ import { FilesManagerComponent } from './files/files-manager/files-manager.compo
 import { BannersListComponent } from './banners/banners-list/banners-list.component';
 import { BannerFormComponent } from './banners/banner-form/banner-form.component';
 import { BackgroundsListComponent } from './backgrounds/backgrounds-list/backgrounds-list.component';
-import { SettingsComponent } from './settings/settings.component';
 import { FileCategoriesComponent } from './file-categories/file-categories.component';
 import { GuidesComponent } from './localization/guides/guides.component';
 import { QuizLevelsComponent } from './quiz-levels/quiz-levels.component';
@@ -110,7 +109,13 @@ export const routes: Routes = [
       // it is the one page of the site that still opens - for an ADMIN. Its own entry
       // point, so it lands in this lazy chunk and never in the first load.
       { path: 'migrations', component: MigrationsPageComponent },
-      { path: 'settings', component: SettingsComponent },
+      // The site settings (@anotoki/lib/admin/site-settings, anotoki-lib 0.11.0 - genshin's own page made the
+      // family's): Getting in, the Announcement and Page access, each a card opening its dialog - for this site's
+      // ADMIN alone. Loaded when opened.
+      {
+        path: 'site-settings',
+        loadComponent: () => import('@anotoki/lib/admin/site-settings').then((m) => m.SiteSettingsPageComponent),
+      },
 
       // The anotoki library's admin tools (@anotoki/lib/admin/*, shared/site-admin-tools.ts)
       // and its People page (people.ts), at the addresses this panel's own pages had: for this

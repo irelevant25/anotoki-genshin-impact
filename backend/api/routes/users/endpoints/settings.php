@@ -1,197 +1,65 @@
 <?php
 
+use Anotoki\Lib\Auth\Http\AuthRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
- * The switches an admin can throw without a deploy.
+ * What the site itself is told, before anybody has signed in.
  *
- *   GET /api/settings/public   what the site needs before it can draw itself
- *   GET /api/settings          the whole table, for the form
- *   PUT /api/settings          save whatever changed
+ *   GET /api/settings/public   where the site signs people in, and the visitors
  *
- * The reads are split because the audiences are. A visitor needs to know
- * whether there is a site to draw and gets exactly that; an admin needs the
- * table with its types and its history and has to be an admin to see it.
- * Keeping them apart is what makes the first one safe to serve to anybody.
+ * Open by necessity: the page has to know where its sign-in lives before it
+ * can ask who is reading it. Nothing here is a secret - the IAM's address and
+ * this site's client id are exactly what the frontend's sign-in button needs,
+ * and both are public by design (every token names them).
  *
- * The write is one request for the whole form rather than one per switch.
- * Maintenance mode and the message on the maintenance page are one decision
- * made in one place, and saving them separately means a window - however
- * short - where the site is closed and the sign is blank.
+ * The switches an admin throws without a deploy - the site closed for
+ * maintenance, the announcement, who sees each page - were here too until
+ * anotoki-lib 0.11.0 made genshin's own the family's: they are the library's
+ * site settings now (api/site_state.php's siteSettings()), told at
+ * GET /api/site-settings and set at /api/admin/site-settings (api/index.php).
+ * This answer keeps the rest of the boot.
  */
-
-/** Reads every switch, with the name of whoever last touched it. */
-function adminSettingRows(): array
+function publicSiteSettings(): array
 {
-    $statement = usersDb()->prepare(
-        'SELECT s.name, s.group_name, s.type, s.options, s.value, s.sort_order, s.updated_at, u.username AS updated_by
-           FROM site_settings s
-           LEFT JOIN users u ON u.id = s.updated_by
-          WHERE s.site = ?
-          ORDER BY s.sort_order ASC, s.name ASC',
-    );
-    $statement->execute([currentSite()]);
+    $iam = siteIam();
+    // Asked here first for its log line (an IAM that does not know this site,
+    // or could not be asked); the answer below is the same, kept for the request.
+    signInRequired();
 
-    return array_map(
-        static fn(array $row): array => [
-            'name' => $row['name'],
-            'group_name' => $row['group_name'],
-            'type' => $row['type'],
-            // Split here rather than in the browser: the comma is this column's
-            // business, and a form should be handed a list.
-            'options' => $row['options'] === null || $row['options'] === '' ? [] : array_map('trim', explode(',', (string) $row['options'])),
-            'value' => $row['value'],
-            'updated_at' => $row['updated_at'],
-            'updated_by' => $row['updated_by'],
+    return [
+        // What the pages need to sign in, the anotoki library's boot
+        // configuration (AuthRoutes::configBody()): the IAM, this site's id
+        // there, the IAM's switch relayed - the page learns it here, from its
+        // own server, and never asks the IAM itself - and sign_in_available,
+        // false once the IAM has said it does not know this site (then no
+        // sign-in is offered, and the sign-in hint sends nobody to the IAM).
+        // Beside them this site's two links into the IAM.
+        'auth' => AuthRoutes::configBody(siteSignInRule(), $iam) + [
+            'account_url' => $iam->accountUrl(),
+            'admin_url' => $iam->issuer . '/admin',
         ],
-        $statement->fetchAll(PDO::FETCH_ASSOC),
-    );
-}
-
-/**
- * Why this value is not allowed for this setting, or null when it is.
- *
- * The column is text and the type is a declaration beside it, so this is the
- * only thing standing between the form and a `disabled_routes` of "yes". It
- * checks shape rather than meaning: a route name nothing recognises is a
- * section that is off and does not exist, which is harmless, but a value that
- * will not parse would have every reader of the table falling back to its
- * default and wondering why the switch does nothing.
- */
-function settingValueRefusal(array $setting, string $value): ?string
-{
-    switch ($setting['type']) {
-        case 'boolean':
-            return in_array($value, ['true', 'false'], true) ? null : "{$setting['name']} is a switch - expected 'true' or 'false'";
-
-        case 'choice':
-            return in_array($value, $setting['options'], true) ? null : "{$setting['name']} must be one of: " . implode(', ', $setting['options']);
-
-        case 'i18n':
-            $decoded = json_decode($value, true);
-            // `{}` and `[]` decode to the same empty PHP array, and array_is_list()
-            // calls that a list - so an empty one has to be allowed through by
-            // name, or a message cleared in every language could never be saved.
-            if (!is_array($decoded) || ($decoded !== [] && array_is_list($decoded))) {
-                return "{$setting['name']} is one message per language - expected an object keyed by language code";
-            }
-            foreach ($decoded as $text) {
-                if (!is_string($text)) {
-                    return "{$setting['name']} holds text, and one of those was not text";
-                }
-            }
-            return null;
-
-        case 'routes':
-            $decoded = json_decode($value, true);
-            if (!is_array($decoded) || !array_is_list($decoded)) {
-                return "{$setting['name']} is a list of sections";
-            }
-            foreach ($decoded as $section) {
-                if (!is_string($section)) {
-                    return "{$setting['name']} is a list of section names";
-                }
-            }
-            return null;
-
-        default:
-            return null;
-    }
+        // Playing without signing in (api/visitors.php): whether the server
+        // can keep a visitor's games yet - not until users/045 is applied, so
+        // an upload before "Apply pending" behaves as before - and for how
+        // long, the server's own number, so the page's notice and the sweep
+        // agree. Whether visitors are welcome at all is auth.login_required.
+        'visitors' => [
+            'available' => visitorsReady(),
+            'keep_days' => visitorSetting('keep_days'),
+        ],
+    ];
 }
 
 // ── GET /api/settings/public ─────────────────────────────────────────────────
 //
-// Open, and asked once at start-up before anything else. It has to be: the
-// first decision the site makes is whether to draw itself at all, and it
-// cannot make that after drawing itself. This is also why it survives
-// maintenance mode - see maintenanceGate(), which lets it through.
+// Open, and asked once at start-up before anything else: where the IAM is
+// comes from here. It answers while an update waits, while the site is closed
+// for maintenance (a reserved path of the site settings, SITE_RESERVED_API_PATHS)
+// and while the IAM requires sign-in (SIGN_IN_OPEN_PATHS), and never reads a
+// token (TOKENLESS_PATHS).
 
 $app->get('/api/settings/public', function (Request $request, Response $response) {
     return respondJson($response, publicSiteSettings());
 })->add(responds(PublicSiteSettings::class));
-
-// ── GET /api/settings ────────────────────────────────────────────────────────
-
-$app->get('/api/settings', function (Request $request, Response $response) {
-    return respondJson($response, ['settings' => adminSettingRows()]);
-})
-    ->add(responds(SiteSettingList::class))
-    ->add(requireRole('ADMIN'))
-    ->add(requireAuth());
-
-// ── PUT /api/settings ────────────────────────────────────────────────────────
-//
-// Takes only the switches that changed, and takes them together. A name that
-// has no row is refused rather than inserted: the settings that exist are
-// declared in a migration, so an unknown one is a typo or a client from a
-// different version, and quietly creating it would leave a switch in the table
-// that nothing reads.
-
-$app->put('/api/settings', function (Request $request, Response $response) {
-    $body = $request->getParsedBody() ?? [];
-    $incoming = $body['settings'] ?? null;
-
-    if (!is_array($incoming)) {
-        return respondJson($response, ['error' => 'settings must be a list of { name, value }'], 422);
-    }
-
-    $pdo = usersDb();
-    $user = $request->getAttribute('user');
-
-    $known = [];
-    foreach (adminSettingRows() as $row) {
-        $known[$row['name']] = $row;
-    }
-
-    // Everything is checked before anything is written. Half a saved form is
-    // worse than a refused one: these switches are read together, and
-    // "maintenance on, message rejected" is the one combination that must not
-    // reach the table.
-    $changes = [];
-    foreach ($incoming as $entry) {
-        $name = (string) ($entry['name'] ?? '');
-
-        if (!isset($known[$name])) {
-            return respondJson($response, ['error' => "There is no setting called '$name'"], 422);
-        }
-
-        $value = (string) ($entry['value'] ?? '');
-
-        if ($refusal = settingValueRefusal($known[$name], $value)) {
-            return respondJson($response, ['error' => $refusal], 422);
-        }
-
-        // Unchanged values are dropped here rather than written and
-        // overwritten, so `updated_at` keeps saying when the switch was
-        // actually last thrown instead of when somebody last pressed Save.
-        if ($value !== (string) $known[$name]['value']) {
-            $changes[$name] = $value;
-        }
-    }
-
-    if ($changes !== []) {
-        $pdo->beginTransaction();
-        try {
-            $statement = $pdo->prepare('UPDATE site_settings SET value = ?, updated_at = CURRENT_TIMESTAMP, updated_by = ? WHERE site = ? AND name = ?');
-
-            foreach ($changes as $name => $value) {
-                $statement->execute([$value, (int) $user['id'], currentSite(), $name]);
-            }
-
-            $pdo->commit();
-        } catch (\Throwable $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
-
-        // This request has already read the old values once, and is about to
-        // answer with the new ones.
-        siteSettingsForget();
-    }
-
-    return respondJson($response, ['settings' => adminSettingRows()]);
-})
-    ->add(responds(SiteSettingList::class))
-    ->add(requireRole('ADMIN'))
-    ->add(requireAuth());

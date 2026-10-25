@@ -1,9 +1,0 @@
-@if (visible()) {
-    <!-- The kit's callout in the announcement's tone: "know this", "watch out", "something is wrong". -->
-    <anotoki-alert class="announcement" [tone]="level()" announce="polite">
-        <span class="announcement-text">{{ text() }}</span>
-        <div alertActions>
-            <button anotokiButton variant="ghost" size="sm" (click)="dismiss()">{{ "site.announcement.hide" | translate }}</button>
-        </div>
-    </anotoki-alert>
-}

@@ -790,10 +790,28 @@ const adminFrame =
       theme: [3, 1],
       headings: ['Database', 'Lookup Tables', 'Localization', 'System'],
     };
-    const tools = ['People', 'Feedback', 'Audit Logs', 'Error Log', 'Files Explorer', 'Migrations', 'Backups'];
+    // The one shape of every anotoki admin menu (the owner's request of 2026-10-25): Localization's three, then System -
+    // the site's own (Accounts & access, Quiz levels, Files Explorer) before the family's, in the family's order and
+    // words. Feedback may carry the count of the new beside it.
+    const tail = [
+      'Translations',
+      'Languages',
+      'Guides',
+      'Accounts & access',
+      'Quiz levels',
+      'Files Explorer',
+      'Site settings',
+      'People',
+      'Feedback',
+      'Error log',
+      'Audit log',
+      'Backups',
+      'Migrations',
+    ];
     const { links, ...said } = facts;
-    if (JSON.stringify(said) !== JSON.stringify(wanted) || links[0] !== 'Dashboard' || tools.some((tool) => !links.some((link) => link.startsWith(tool)))) {
-      heard.push(`the admin frame: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)} with the Dashboard first and the ADMIN's tools`);
+    const end = links.slice(-tail.length);
+    if (JSON.stringify(said) !== JSON.stringify(wanted) || links[0] !== 'Dashboard' || end.length !== tail.length || tail.some((name, index) => !end[index].startsWith(name))) {
+      heard.push(`the admin frame: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)} with the Dashboard first and ${JSON.stringify(tail)} last`);
     }
     noted.push(`the frame: ${links.length} pages under ${facts.headings.length} headings`);
     if (!drawer) {
@@ -896,9 +914,11 @@ const ADMIN = [
     ),
   },
   { name: 'admin-quiz-levels-saved', path: '/admin/quiz-levels', widths: [1280], then: steps(editLevels(['"choicesAmount": 3', '"choicesAmount": 4']), savedAndBack) },
-  { name: 'admin-settings', path: '/admin/settings' },
-  { name: 'admin-settings-group', path: '/admin/settings', then: press('button.card') },
-  { name: 'admin-settings-routes', path: '/admin/settings', then: click('button.card', '^Parts of the site') },
+  // The site settings: the library's page (@anotoki/lib/admin/site-settings), a card a part, each opening its dialog.
+  { name: 'admin-site-settings', path: '/admin/site-settings' },
+  { name: 'admin-site-settings-getting-in', path: '/admin/site-settings', then: press('[data-card="getting_in"]') },
+  { name: 'admin-site-settings-announcement', path: '/admin/site-settings', then: press('[data-card="announcement"]') },
+  { name: 'admin-site-settings-pages', path: '/admin/site-settings', then: press('[data-card="page_access"]') },
   { name: 'admin-files-trash', path: '/admin/files', then: click('button', '^Trash$') },
   { name: 'admin-translations', path: '/admin/translations' },
   { name: 'admin-languages', path: '/admin/languages' },
@@ -1406,8 +1426,8 @@ const FRAME = [
   '[role=contentinfo]',
   'app-header',
   'app-footer',
-  'app-announcement',
-  'app-route-notice',
+  'anotoki-announcement',
+  'anotoki-page-notice',
   'app-admin-root',
   'anotoki-side-nav',
   'anotoki-site-footer',
@@ -1504,9 +1524,9 @@ const ADMIN_STATUS = [
 
 /** The admin panel's footer, and the two dialogs it opens: the site's What's new, the library's feedback form. */
 const ADMIN_FOOTER = [
-  { name: 'admin-footer', path: '/admin/settings', then: adminFooter({ feedback: true }) },
-  { name: 'admin-footer-whats-new', path: '/admin/settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-whats-new]'), dialogOpen) },
-  { name: 'admin-footer-feedback', path: '/admin/settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-open-feedback]'), dialogOpen) },
+  { name: 'admin-footer', path: '/admin/site-settings', then: adminFooter({ feedback: true }) },
+  { name: 'admin-footer-whats-new', path: '/admin/site-settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-whats-new]'), dialogOpen) },
+  { name: 'admin-footer-feedback', path: '/admin/site-settings', then: steps(adminFooter({ feedback: true }), press('app-admin-root anotoki-site-footer [data-open-feedback]'), dialogOpen) },
 ];
 
 /**

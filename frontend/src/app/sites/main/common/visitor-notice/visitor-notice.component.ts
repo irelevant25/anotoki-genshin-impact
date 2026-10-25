@@ -3,7 +3,7 @@ import { AlertComponent } from '@anotoki/lib/ui/alert';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
-import { SiteSettingsService } from '../../../../shared/local-lib/services/site-settings.service';
+import { PublicSettingsService } from '../../../../shared/local-lib/services/public-settings.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 
 /**
@@ -31,7 +31,7 @@ export class VisitorNoticeComponent {
   private readonly _i18n = inject(TranslationService);
 
   /** Days a visitor's games are kept after their last visit - the server's number. */
-  readonly keepDays = inject(SiteSettingsService).visitorKeepDays;
+  readonly keepDays = inject(PublicSettingsService).visitorKeepDays;
 
   /** Whether there is an IAM to send anybody to. */
   readonly available = this._security.available;

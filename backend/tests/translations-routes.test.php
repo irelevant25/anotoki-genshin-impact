@@ -386,14 +386,16 @@ same(
 
 echo "The gates leave the words open, and nothing else they did not\n";
 
-$pdo->exec("UPDATE site_settings SET value = 'true' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("INSERT INTO anotoki_site_settings (name, value) VALUES ('maintenance_mode', 'true') ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value");
 same('closed for maintenance: the words answer anybody', 200, send('GET', '/api/translations/sk')->getStatusCode());
 same('...a guide does not (503 maintenance)', [503, 'maintenance'], [send('GET', '/api/guides/daily')->getStatusCode(), body(send('GET', '/api/guides/daily'))['code'] ?? null]);
-same('...nor anything under the words\' path', 503, send('GET', '/api/translations/sk/export')->getStatusCode());
+same(
+    '...and under the words\' path nothing else answers: 404 - the site settings keep the whole of /api/translations open, and no route is there',
+    404,
+    send('GET', '/api/translations/sk/export')->getStatusCode(),
+);
 same('...an ADMIN gets past to the admin pages', 200, send('GET', '/api/admin/translations', ADMIN)->getStatusCode());
-$pdo->exec("UPDATE site_settings SET value = 'false' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("UPDATE anotoki_site_settings SET value = 'false' WHERE name = 'maintenance_mode'");
 
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => true]));
 same('sign-in required: the words answer anybody', 200, send('GET', '/api/translations/sk')->getStatusCode());

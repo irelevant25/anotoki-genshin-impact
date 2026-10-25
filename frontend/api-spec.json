@@ -938,7 +938,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/backend/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 59
+                "line": 61
             },
             "expanded": [],
             "payload": null,
@@ -959,7 +959,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/backend/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 98
+                "line": 100
             },
             "expanded": [],
             "payload": null,
@@ -980,7 +980,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/backend/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 74
+                "line": 76
             },
             "expanded": [],
             "payload": null,
@@ -1163,6 +1163,116 @@
                 "ADMIN",
                 "EDITOR"
             ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/api/admin/site-settings",
+            "args": [],
+            "file": "SiteSettingsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 65
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/site-settings",
+            "args": [],
+            "file": "SiteSettingsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 88
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "POST",
+            "path": "/api/admin/site-settings/pages",
+            "args": [],
+            "file": "SiteSettingsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 117
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "PUT",
+            "path": "/api/admin/site-settings/pages",
+            "args": [],
+            "file": "SiteSettingsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 140
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/admin/site-settings/pages/{id}",
+            "args": [
+                {
+                    "name": "id",
+                    "constraint": "[0-9]{1,18}"
+                }
+            ],
+            "file": "SiteSettingsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 161
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
             "owner": false,
             "visitor_key": false
         },
@@ -11162,63 +11272,6 @@
         },
         {
             "method": "GET",
-            "path": "/api/settings",
-            "args": [],
-            "file": "settings.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "SiteSettingList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/settings.php",
-                "line": 121
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/settings",
-            "args": [],
-            "file": "settings.php",
-            "tables": [],
-            "success": 200,
-            "statuses": [
-                200,
-                422
-            ],
-            "responds": {
-                "shape": "SiteSettingList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/settings.php",
-                "line": 197
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "GET",
             "path": "/api/settings/public",
             "args": [],
             "file": "settings.php",
@@ -11233,7 +11286,7 @@
             },
             "source": {
                 "file": "backend/api/routes/users/endpoints/settings.php",
-                "line": 112
+                "line": 65
             },
             "expanded": [],
             "payload": null,
@@ -11245,128 +11298,22 @@
         },
         {
             "method": "GET",
-            "path": "/api/site-routes",
+            "path": "/api/site-settings",
             "args": [],
-            "file": "routes.php",
+            "file": "SiteSettingsRoutes.php",
             "tables": [],
             "success": 200,
-            "statuses": [
-                200
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
+            "statuses": [],
+            "responds": null,
             "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 46
+                "file": "backend/vendor/anotoki/lib/backend/src/SiteSettings/Http/SiteSettingsRoutes.php",
+                "line": 51
             },
             "expanded": [],
             "payload": null,
             "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "POST",
-            "path": "/api/site-routes",
-            "args": [],
-            "file": "routes.php",
-            "tables": [
-                "site_routes"
-            ],
-            "success": 201,
-            "statuses": [
-                201,
-                409,
-                422
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 103
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "PUT",
-            "path": "/api/site-routes",
-            "args": [],
-            "file": "routes.php",
-            "tables": [
-                "site_route_endpoints"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                422
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 259
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
-            "owner": false,
-            "visitor_key": false
-        },
-        {
-            "method": "DELETE",
-            "path": "/api/site-routes/{id}",
-            "args": [
-                {
-                    "name": "id",
-                    "constraint": "[0-9]+"
-                }
-            ],
-            "file": "routes.php",
-            "tables": [
-                "site_routes"
-            ],
-            "success": 200,
-            "statuses": [
-                200,
-                404
-            ],
-            "responds": {
-                "shape": "SiteRouteList",
-                "list": false
-            },
-            "source": {
-                "file": "backend/api/routes/users/endpoints/routes.php",
-                "line": 131
-            },
-            "expanded": [],
-            "payload": null,
-            "partial": false,
-            "auth": true,
-            "roles": [
-                "ADMIN"
-            ],
+            "auth": false,
+            "roles": [],
             "owner": false,
             "visitor_key": false
         },
@@ -11381,7 +11328,7 @@
             "responds": null,
             "source": {
                 "file": "backend/vendor/anotoki/lib/backend/src/Migrations/Http/MigrationsRoutes.php",
-                "line": 36
+                "line": 38
             },
             "expanded": [],
             "payload": null,
@@ -16134,162 +16081,6 @@
     ],
     "shapes": [
         {
-            "name": "AdminSiteRoute",
-            "file": "setting.php",
-            "merges": null,
-            "description": "One page, as the admin form sees it - the row plus what it claims.",
-            "fields": [
-                {
-                    "name": "id",
-                    "types": [
-                        "int"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "visibility",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "blocked",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "endpoints",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": "API paths this page claims. Empty means its data is not locked."
-                },
-                {
-                    "name": "updated_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "updated_by",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                }
-            ]
-        },
-        {
-            "name": "AdminSiteSetting",
-            "file": "setting.php",
-            "merges": null,
-            "description": "One switch, as the admin form sees it.\n\n`type` is what makes the form generic: a new setting is a row in a migration\nand two translation keys, not a new field on this class and a new control in\nthat template. `value` is text whatever the type says, because that is how\nthe column stores it - the form parses on the way in and the API validates\non the way back.",
-            "fields": [
-                {
-                    "name": "name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "group_name",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Which panel of the form it belongs under."
-                },
-                {
-                    "name": "type",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "boolean, text, i18n, choice or routes."
-                },
-                {
-                    "name": "options",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": "For a 'choice', the values it may take. Empty otherwise."
-                },
-                {
-                    "name": "value",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "updated_at",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": null
-                },
-                {
-                    "name": "updated_by",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": null,
-                    "description": "Who threw the switch last, or null if nobody has since it was seeded."
-                }
-            ]
-        },
-        {
             "name": "ApiMessage",
             "file": "common.php",
             "merges": null,
@@ -19512,69 +19303,11 @@
             ]
         },
         {
-            "name": "PublicSiteRoute",
-            "file": "setting.php",
-            "merges": null,
-            "description": "One page, as the site itself needs to know about it.\n\nNo endpoints: those are the gate's business, the front end has no use for\nthem, and a list of which API paths are locked is a map nobody browsing the\nsite needs. Everything here is already in the router in the bundle.",
-            "fields": [
-                {
-                    "name": "path",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "As the router declares it. A ':id' segment matches any one segment."
-                },
-                {
-                    "name": "visibility",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for."
-                },
-                {
-                    "name": "blocked",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Off for everybody who is not an admin."
-                }
-            ]
-        },
-        {
             "name": "PublicSiteSettings",
             "file": "setting.php",
             "merges": null,
-            "description": "The shape of the site, before anybody has signed in.\n\nOpen on purpose. A page cannot ask whether it should draw a maintenance\nnotice instead of itself after it has drawn itself, and it cannot ask who is\nreading it before it knows whether reading is allowed. Nothing here is a\nsecret: it is what any visitor is about to see anyway.",
+            "description": "The shape of the site, before anybody has signed in.\n\nOpen on purpose. A page cannot ask who is reading it before it knows where\nreading is signed in. Nothing here is a secret: it is what any visitor's\nsign-in button is about to use anyway.",
             "fields": [
-                {
-                    "name": "maintenance",
-                    "types": [
-                        "bool"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "Whether everything but the closed sign is switched off."
-                },
-                {
-                    "name": "maintenance_message",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, string>",
-                    "description": "The closed sign, one message per language."
-                },
                 {
                     "name": "auth",
                     "types": [
@@ -19584,26 +19317,6 @@
                     "optional": false,
                     "of": "SiteAuthConfig",
                     "description": "Where the site's sign-in lives."
-                },
-                {
-                    "name": "announcement",
-                    "types": [
-                        "object"
-                    ],
-                    "nullable": true,
-                    "optional": false,
-                    "of": "SiteAnnouncement|null",
-                    "description": "Null when there is nothing to announce."
-                },
-                {
-                    "name": "routes",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "PublicSiteRoute[]",
-                    "description": "Which pages exist, and who they are drawn for."
                 },
                 {
                     "name": "visitors",
@@ -20434,34 +20147,6 @@
             ]
         },
         {
-            "name": "SiteAnnouncement",
-            "file": "setting.php",
-            "merges": null,
-            "description": "A message across the top of every page, and how loudly it is saying it.",
-            "fields": [
-                {
-                    "name": "level",
-                    "types": [
-                        "string"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": null,
-                    "description": "info, warning or danger - which decides the colour of the bar."
-                },
-                {
-                    "name": "message",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "array<string, string>",
-                    "description": "One message per language code."
-                }
-            ]
-        },
-        {
             "name": "SiteAuthConfig",
             "file": "setting.php",
             "merges": null,
@@ -20526,52 +20211,6 @@
                     "optional": false,
                     "of": null,
                     "description": "Whether signing in is on offer at all: false once the IAM has said it\ndoes not know this site (or switched it off) - then the pages offer\nno sign-in, and the IAM's sign-in hint sends nobody there\n(the anotoki library's AuthRoutes::configBody())."
-                }
-            ]
-        },
-        {
-            "name": "SiteRouteList",
-            "file": "setting.php",
-            "merges": null,
-            "description": "Every page, in the order the form draws them.",
-            "fields": [
-                {
-                    "name": "routes",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "AdminSiteRoute[]",
-                    "description": null
-                },
-                {
-                    "name": "levels",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "string[]",
-                    "description": "The visibility levels, most open first."
-                }
-            ]
-        },
-        {
-            "name": "SiteSettingList",
-            "file": "setting.php",
-            "merges": null,
-            "description": "Every switch, in the order the form draws them.",
-            "fields": [
-                {
-                    "name": "settings",
-                    "types": [
-                        "array"
-                    ],
-                    "nullable": false,
-                    "optional": false,
-                    "of": "AdminSiteSetting[]",
-                    "description": null
                 }
             ]
         },
@@ -25016,164 +24655,6 @@
                     "name": "name",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "site_route_endpoints",
-            "database": "users",
-            "interface": null,
-            "columns": [
-                {
-                    "name": "id",
-                    "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "route_id",
-                    "sqlType": "INTEGER",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "prefix",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "site_routes",
-            "database": "users",
-            "interface": null,
-            "columns": [
-                {
-                    "name": "id",
-                    "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "site",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "path",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "visibility",
-                    "sqlType": "VARCHAR(10)",
-                    "nullable": false,
-                    "enum": [
-                        "PUBLIC",
-                        "USER",
-                        "EDITOR",
-                        "ADMIN"
-                    ]
-                },
-                {
-                    "name": "blocked",
-                    "sqlType": "BOOLEAN",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "sort_order",
-                    "sqlType": "SMALLINT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "updated_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "updated_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "site_settings",
-            "database": "users",
-            "interface": null,
-            "columns": [
-                {
-                    "name": "id",
-                    "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "site",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "group_name",
-                    "sqlType": "VARCHAR(50)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "name",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "type",
-                    "sqlType": "VARCHAR(20)",
-                    "nullable": false,
-                    "enum": [
-                        "boolean",
-                        "text",
-                        "i18n",
-                        "choice",
-                        "routes"
-                    ]
-                },
-                {
-                    "name": "options",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "value",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "sort_order",
-                    "sqlType": "SMALLINT",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "updated_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "updated_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
                     "enum": null
                 }
             ]

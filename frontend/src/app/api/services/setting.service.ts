@@ -5,11 +5,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PublicSiteSettings, SiteSettingList } from '../models';
-import { SiteSettingsSaveRequest } from '../types';
+import { PublicSiteSettings } from '../models';
 
 /**
- * The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in.
+ * What the site is told before anybody signs in: where its sign-in lives, and the visitors. The switches an admin throws without a deploy are the anotoki library's site settings, outside this client.
  */
 @Injectable({ providedIn: 'root' })
 export class SettingApiService {
@@ -20,23 +19,5 @@ export class SettingApiService {
    */
   getPublicSettings(): Observable<PublicSiteSettings> {
     return this._http.get<PublicSiteSettings>('/api/settings/public');
-  }
-
-  /**
-   * `GET /api/settings`
-   *
-   * Requires the `ADMIN` role.
-   */
-  getSettings(): Observable<SiteSettingList> {
-    return this._http.get<SiteSettingList>('/api/settings');
-  }
-
-  /**
-   * `PUT /api/settings`
-   *
-   * Requires the `ADMIN` role.
-   */
-  saveSettings(body: SiteSettingsSaveRequest): Observable<SiteSettingList> {
-    return this._http.put<SiteSettingList>('/api/settings', body);
   }
 }

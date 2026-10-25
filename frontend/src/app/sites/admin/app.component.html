@@ -5,6 +5,9 @@
          (shell-theme.ts). -->
     <anotoki-admin-frame [brand]="brand" [person]="person()" [back]="back" [signOut]="signOut" [groups]="navGroups()">
         <anotoki-theme-toggle adminFrameTheme />
+        <!-- Above every page: while the site is closed for maintenance, the line that says so - the panel shows as it
+             is to its ADMIN, and the public site to nobody else (@anotoki/lib/site-settings; no row governs /admin). -->
+        <anotoki-page-notice adminFrameNotice />
         <router-outlet />
         <!-- After the page, a landmark of its own beside the <main>, never inside it: version, What's new and Feedback,
              About · Support · Terms · Privacy · Contact (the public site's pages: the links leave the panel), the fan

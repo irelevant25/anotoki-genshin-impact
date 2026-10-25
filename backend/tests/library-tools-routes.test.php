@@ -911,12 +911,18 @@ echo "The gates around them\n";
 
 $ticket = body(send('POST', '/api/admin/backups/' . $backup['id'] . '/ticket', FRESH_ADMIN));
 $preview = (string) (body(send('GET', '/api/admin/files/assets?path=character/icon', ADMIN))['files'][0]['url'] ?? '');
-$pdo->exec("UPDATE site_settings SET value = 'true' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("INSERT INTO anotoki_site_settings (name, value) VALUES ('maintenance_mode', 'true') ON CONFLICT (name) DO UPDATE SET value = EXCLUDED.value");
+// The error log and the backups answer through the library's closed sign as they do while an update waits (the
+// SiteGate's open paths): for their ADMIN alone, so an EDITOR is refused by the route itself; the audit log is closed.
 same(
-    'closed for maintenance: the admin tools are the ADMIN\'s, an EDITOR is told it is closed',
-    [200, 503],
-    [send('GET', '/api/admin/errors', ADMIN)->getStatusCode(), send('GET', '/api/admin/errors', EDITOR)->getStatusCode()],
+    'closed for maintenance: the admin tools are the ADMIN\'s - an EDITOR refused at the error log (403), told it is closed at the audit log (503)',
+    [200, 403, 200, 503],
+    [
+        send('GET', '/api/admin/errors', ADMIN)->getStatusCode(),
+        send('GET', '/api/admin/errors', EDITOR)->getStatusCode(),
+        send('GET', '/api/admin/audit', ADMIN)->getStatusCode(),
+        send('GET', '/api/admin/audit', EDITOR)->getStatusCode(),
+    ],
 );
 same(
     '...the two links an admin\'s browser opens answer, their ticket and signature the check',
@@ -930,8 +936,7 @@ same(
     [send('POST', '/api/client-errors', null, ['message' => 'While closed'])->getStatusCode(), send('POST', '/api/client-errors', ADMIN, ['message' => 'While closed, the ADMIN'])->getStatusCode()],
 );
 same('...and the error log writes none of those 503 maintenance answers: a state the owner put the site in, not a failure', 0, linesSaying($backend, 'maintenance'));
-$pdo->exec("UPDATE site_settings SET value = 'false' WHERE name = 'maintenance_mode' AND site = 'genshin_impact'");
-siteSettingsForget();
+$pdo->exec("UPDATE anotoki_site_settings SET value = 'false' WHERE name = 'maintenance_mode'");
 
 $ticket = body(send('POST', '/api/admin/backups/' . $backup['id'] . '/ticket', FRESH_ADMIN));
 file_put_contents($applicationFile, json_encode(['client_id' => 'genshin', 'name' => 'Genshin', 'login_required' => true]));
@@ -996,17 +1001,17 @@ unlink("$backend/migrations/users/999_test_waiting.sql");
 same('applied: everything answers again', 200, send('GET', '/api/admin/audit', ADMIN)->getStatusCode());
 same('...and the error log wrote none of the 503 update_pending answers meanwhile: a state, not a failure', 0, linesSaying($backend, 'update_pending'));
 
-// The legal pages are anybody's: the page switches never govern them (anotoki-lib 0.6's Terms, Privacy, Contact),
-// nor the About and Support pages beside them (0.8.0).
+// The legal pages are anybody's: Page access never governs them (anotoki-lib 0.6's Terms, Privacy, Contact), nor the
+// About and Support pages beside them (0.8.0) - the library's site settings refuse them (0.11.0).
 $governed = array_map(
     fn(string $path) => [
-        send('POST', '/api/site-routes', ADMIN, ['path' => $path, 'visibility' => 'ADMIN'])->getStatusCode(),
-        (int) $pdo->query('SELECT count(*) FROM site_routes WHERE path = ' . $pdo->quote($path))->fetchColumn(),
+        send('POST', '/api/admin/site-settings/pages', ADMIN, ['path' => $path, 'visibility' => 'ADMIN'])->getStatusCode(),
+        (int) $pdo->query('SELECT count(*) FROM anotoki_page_access WHERE path = ' . $pdo->quote($path))->fetchColumn(),
     ],
     ['/about', '/support', '/terms', '/privacy', '/contact'],
 );
 same('the page switches refuse About, Support and the legal pages - 422, no row: they are anybody\'s', [[422, 0], [422, 0], [422, 0], [422, 0], [422, 0]], $governed);
-check('...saying why', str_contains((string) (body(send('POST', '/api/site-routes', ADMIN, ['path' => '/privacy/']))['error'] ?? ''), 'legal pages'));
+check('...saying why', str_contains((string) (body(send('POST', '/api/admin/site-settings/pages', ADMIN, ['path' => '/privacy/']))['error'] ?? ''), 'legal pages'));
 
 echo "What the error log leaves out (a state the site is in) and what it writes (a failure, a 503 among them)\n";
 

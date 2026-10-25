@@ -16,10 +16,11 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
   the IAM's account page. Without signing in, the theme and the language are this
   device's and dates are written the device's way.
 - **Admin panel**: every piece of game content and its media, the site's words
-  (translations, languages and the guides' pages), site switches (maintenance,
-  announcements, which pages are open to whom), the quizzes' levels, migrations, backups, the audit
-  log, errors, feedback, the file explorer and the people the site keeps a
-  record of - the last seven the anotoki library's pages, for the ADMIN alone.
+  (translations, languages and the guides' pages), the quizzes' levels, and the
+  site settings (maintenance, the announcement, which pages are open to whom),
+  migrations, backups, the audit log, errors, feedback, the file explorer and
+  the people the site keeps a record of - the last eight the anotoki library's
+  pages, for the ADMIN alone.
 - **What's new**: the version at the bottom of the site opens the changelog
   (`frontend/public/changelog.json`).
 - **Terms, Privacy and Contact**: the anotoki sites' shared pages with this
@@ -88,7 +89,8 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
 
 - **One database** holds everything, in two halves with their own migration
   folders: the game content (`genshin_impact`) and the site's own half (`users` -
-  translations, languages, settings, page switches, people's records).
+  translations, languages, people's records); the site settings are in the
+  shared library's own tables beside them.
 - **The content** is entered and changed in the admin panel. A character's talents, ascensions,
   constellations and voice-overs belong to shared sets, so the Traveler's forms
   share one copy.
@@ -113,11 +115,12 @@ step, and the everyday commands: **[DEV.md](DEV.md)**.
   as on every anotoki site): an EDITOR rewords a string, adds or hides a
   language on the admin panel's Translations and Languages pages, and rewrites
   a guide on its Guides page. A new key comes only with a migration.
-- **Site switches**: an admin can close the site for maintenance, show an
-  announcement, and decide per page who sees it (everyone, signed in, editors,
-  admins) or switch it off. The site hides what is closed, and the API refuses
-  it too - everything during maintenance, and a page's data once its API paths
-  are named. `/staff` is the way back in while the site is closed.
+- **Site settings** (the anotoki library's since 0.11.0 - this site's own were
+  the model for every site's): an admin can close the site for maintenance,
+  show an announcement, and decide per page who sees it (everyone, signed in,
+  editors, admins) or switch it off. The site hides what is closed, and the API
+  refuses it too - everything during maintenance, and a page's data once its API
+  paths are named. `/staff` is the way back in while the site is closed.
 - **Migrations are the schema**: SQL files in `backend/migrations/` (and the
   shared library's own, around them), applied in order - by `php migration.php`
   here, and from the admin panel's Migrations page on the hosting; both back the
@@ -183,11 +186,12 @@ hosting:
 ```text
 backend/
   api/                  index.php (the Slim app); routes/genshin_impact/ and routes/users/, each with
-                        endpoints/, models/ and responses/; meddleware/ (sign-in and roles, maintenance,
-                        page gates, validation); the query builder, the asset code; admin_tools.php and
+                        endpoints/, models/ and responses/; meddleware/ (sign-in and roles, the
+                        sign-in gate, validation); the query builder, the asset code; admin_tools.php and
                         audit_log.php (the shared library's sign-in, people and admin tools, set up for
-                        this site); migration_runner.php and site_state.php (the migrations and
-                        where the site stands, on the shared library); translations.php and guides.php
+                        this site); migration_runner.php and site_state.php (the migrations, where the
+                        site stands and its site settings - maintenance, the announcement, Page access -
+                        on the shared library); translations.php and guides.php
                         (the words, on the shared library; the guides' pages); quiz_levels.php (the
                         quizzes' levels the admin panel saves, and their rules)
   config/               one module per concern; *.local.php per installation (written by setup.php)
@@ -474,6 +478,19 @@ not drift; [docs/README.md](docs/README.md) lists them.
   its top who is signed in, "Back to the site", Sign out and the theme - now
   light, dark or as the device is set, the account's, as the Account window
   chooses it.
+- Since 2026-10-25, at the owner's word ("I would like the projects to use the
+  library primarily"), this site's settings are the anotoki library's
+  (anotoki-lib 0.11.0) - its own were the model the library's were made from,
+  and every anotoki site has them now: Getting in (the site closed for
+  maintenance to all but its ADMIN, with what the maintenance page says),
+  the Announcement and Page access, on the library's Site settings page
+  (`/admin/site-settings`), behind the library's gates (the SiteGate's closed
+  sign, 423 `page_locked` for a page's refused API paths) and on its pages (the
+  bar, the guard, the administrators' notice, the closed sign with Sign in at
+  `/staff`). `users/066` moved every switch and page across and dropped the
+  old tables. Every admin menu has one shape: the site's own pages, then
+  Localization, then System - the site's own system pages before the family's,
+  Site settings, People, Feedback, Error log, Audit log, Backups, Migrations.
 
 ## More
 

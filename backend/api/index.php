@@ -50,8 +50,6 @@ require_once __DIR__ . '/site_user.php';
 require_once __DIR__ . '/client_address.php';
 require_once __DIR__ . '/after_response.php';
 require_once __DIR__ . '/visitors.php';
-require_once __DIR__ . '/site_settings.php';
-require_once __DIR__ . '/site_routes.php';
 // The words, through anotoki/lib's translations - this site's part of them -
 // and the guides behind the question marks.
 require_once __DIR__ . '/translations.php';
@@ -63,7 +61,8 @@ require_once __DIR__ . '/quiz_levels.php';
 require_once __DIR__ . '/game_versions.php';
 require_once __DIR__ . '/catalog.php';
 // The migrations (on anotoki/lib's engine), and where the site stands: not set
-// up, a database update waiting, or ready.
+// up, a database update waiting, closed for maintenance (the library's site
+// settings), or ready.
 require_once __DIR__ . '/migration_runner.php';
 require_once __DIR__ . '/site_state.php';
 
@@ -82,6 +81,8 @@ use Anotoki\Lib\Migrations\Http\SiteState;
 use Anotoki\Lib\Migrations\Migrator;
 use Anotoki\Lib\People\Http\PeopleRoutes;
 use Anotoki\Lib\People\Http\PeopleUpkeep;
+use Anotoki\Lib\SiteSettings\Http\PageAccessGate;
+use Anotoki\Lib\SiteSettings\Http\SiteSettingsRoutes;
 use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
@@ -100,9 +101,7 @@ if (!defined('ANOTOKI_ROUTES_ONLY')) {
 // meddleware
 require_once __DIR__ . '/meddleware/validation.php';
 require_once __DIR__ . '/meddleware/auth.php';
-require_once __DIR__ . '/meddleware/maintenance.php';
 require_once __DIR__ . '/meddleware/sign_in.php';
-require_once __DIR__ . '/meddleware/route_gate.php';
 
 ///////////////////
 // USERS
@@ -121,7 +120,6 @@ require_once __DIR__ . '/routes/users/responses/visitor.php';
 // endpoints
 require_once __DIR__ . '/routes/users/endpoints/me.php';
 require_once __DIR__ . '/routes/users/endpoints/settings.php';
-require_once __DIR__ . '/routes/users/endpoints/routes.php';
 // The strings and the languages: the anotoki library's routes, behind this
 // site's checks (api/translations.php is the site's part of them).
 require_once __DIR__ . '/routes/users/endpoints/translations.php';
@@ -341,11 +339,23 @@ PeopleRoutes::admin(
     context: siteAdminContext(),
 )->add(RequireRole::admin());
 
+// The site settings (anotoki-lib 0.11.0, genshin's own made the family's -
+// api/site_state.php's siteSettings()): what every page is told before anybody
+// signs in, GET /api/site-settings (whether the site is closed, the
+// announcement, the pages Page access governs - never their API paths), and
+// the admin Site settings page's routes under /api/admin/site-settings - the
+// switches, and the pages added, changed and removed - for this site's ADMIN
+// alone, judged by the token like the other tools (the AdminContext's ADMIN
+// check, and this site's own first), every change in the audit log
+// (site_settings.changed, page_access.added|changed|removed).
+SiteSettingsRoutes::public($app, siteSettings());
+SiteSettingsRoutes::admin($app, siteSettings(), siteAdminContext(), siteAudit())->add(RequireRole::admin());
+
 // Two links the browser opens by itself, with no token to send - deliberately
 // outside every admin check: a backup's download, its single-use ticket (handed
 // to an ADMIN, by the route above, for one backup and a minute) the check; a
 // file's preview, its five-minute signature the check. The gates leave both
-// open (TOKENLESS_PATHS, MAINTENANCE_OPEN_PREFIXES, SIGN_IN_OPEN_PATHS).
+// open (TOKENLESS_PATHS, MAINTENANCE_SIGNED_LINKS, SIGN_IN_OPEN_PATHS).
 BackupsRoutes::file($app, '/api/admin/backups', siteBackups(), siteAdminContext());
 FilesRoutes::raw($app, '/api/admin/files/raw', siteFileExplorer(), siteAdminContext());
 
@@ -372,11 +382,15 @@ ErrorLogRoutes::client($app, '/api/client-errors', $errorLog, siteAdminContext()
 // Added before the error and header middleware, which means they run inside
 // both: a 503 or 401 from here still carries the security headers, and
 // anything they throw is still handled. The last added runs first: where the
-// site stands (site_state.php - not set up, or a database update waiting),
-// then who the request is (the library's Identify, meddleware/auth.php - a
-// token that does not verify is 401 invalid_token here), then the closed sign
-// (maintenance.php), then sign-in required (sign_in.php), then the per-page
-// locks (route_gate.php) - each file says what it leaves open.
+// site stands (site_state.php - not set up, a database update waiting, or
+// closed for maintenance: the library's SiteGate, which lets this site's ADMIN
+// past the closed sign by the token, maintenanceExempt()), then who the
+// request is (the library's Identify, meddleware/auth.php - a token that does
+// not verify is 401 invalid_token here), then sign-in required (sign_in.php),
+// then Page access (the library's PageAccessGate: 423 page_locked for the API
+// paths a page's row refuses with it, to everybody that page is not shown to
+// - never this site's ADMIN, never a reserved path; inside Identify, whose
+// person it reads) - each says what it leaves open.
 //
 // Inside the SiteGate, so a site that is not set up never runs them: the
 // people's scrub (at most hourly, after an answer, while the site is ready),
@@ -385,9 +399,8 @@ ErrorLogRoutes::client($app, '/api/client-errors', $errorLog, siteAdminContext()
 // And the audit log holds who acts for as long as a request is answered (the
 // person and their IAM session), so every entry it writes meanwhile names
 // them.
-$app->add(routeGate());
+$app->add(new PageAccessGate(siteSettings(), $app->getResponseFactory()));
 $app->add(signInGate());
-$app->add(maintenanceGate());
 $app->add(
     AuditContextMiddleware::fromRequest(siteAudit(), static function (\Psr\Http\Message\ServerRequestInterface $request): array {
         $person = Identify::person($request);
@@ -404,7 +417,7 @@ $app->add(function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http
     return $response;
 });
 $app->add(new PeopleUpkeep(sitePeople(), static fn(): bool => siteState()->state() === SiteState::READY, afterResponse(...)));
-$app->add(new SiteGate(siteState(), $app->getResponseFactory(), SITE_OPEN_WHILE_UPDATING, setupPath: SETUP_PATH));
+$app->add(new SiteGate(siteState(), $app->getResponseFactory(), SITE_OPEN_WHILE_UPDATING, setupPath: SETUP_PATH, exempt: maintenanceExempt(...)));
 
 $errorMiddleware = $app->addErrorMiddleware(false, true, true);
 // The site's answer to what was thrown, and the line in the error log for it

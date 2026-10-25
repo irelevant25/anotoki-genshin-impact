@@ -10,7 +10,7 @@ one origin either way, so the API sends no CORS headers.
 ```text
 api/            index.php - the Slim app, every request to /api lands here
   routes/       genshin_impact/ (the game content) and users/ (the site's own half:
-                translations, languages, settings, page switches, people's records),
+                translations, languages, the boot's settings, people's records),
                 each with endpoints/, models/ (DbModel) and responses/ (ResponseShape)
   meddleware/   who a request is and what they may (auth.php: the anotoki library's
                 Identify in front of everything - a token that does not verify is 401
@@ -18,8 +18,8 @@ api/            index.php - the Slim app, every request to /api lands here
                 requireOwner() - a player's own data, the signed-in person or this
                 browser's visitor; requireVisitorKey() - the visitor's key beside a token,
                 for the move at sign-in in users/endpoints/visitor.php; the role groups),
-                the global gates - maintenance, sign-in required (the library's SignInGate
-                over the IAM's switch, sign_in.php), page locks - validation
+                the sign-in gate - sign-in required (the library's SignInGate over the
+                IAM's switch, sign_in.php) - validation
                 admin_tools.php (anotoki-lib 0.5.0 set up for this site: the IAM and its
                 switch - AccessTokens, SignInRule, Identify, in place of the IAM's PHP SDK -
                 the people module, and the admin tools: the error log (the pages' own
@@ -34,16 +34,20 @@ api/            index.php - the Slim app, every request to /api lands here
                 anotoki_admin first, the two folders, its anotoki_translations and
                 anotoki_people after them; the lock, the order guard, the backup before an
                 Apply), site_state.php (where the site stands - not set up, an update
-                waiting, ready - and the shared library's gate in front of every route,
-                with GET /api/site-status and the admin Migrations page's /api/admin/
-                migrations), asset_*.php and
+                waiting, closed for maintenance, ready - and the shared library's gate in
+                front of every route, with GET /api/site-status and the admin Migrations
+                page's /api/admin/migrations; and the site settings, the library's
+                SiteSettings - Getting in, the Announcement, Page access - with their
+                reserved paths and the ADMIN's way past the closed sign; their routes,
+                GET /api/site-settings and /api/admin/site-settings, and the library's
+                PageAccessGate are put up in index.php), asset_*.php and
                 media_convert.php (the asset tree; explorer.php its snapshot for the Files
                 page's figures), upload_guard.php (nothing uploaded
                 may run: the names, the folders' .htaccess - no script, nosniff,
                 anything but a picture as a download; and an upload is kept only when
                 its bytes are what its name says, 50 MB at most -
                 uploadFileAcceptable(), anotoki-lib's UploadPolicy), site_user.php (this site's
-                record of a person, from the token), site_settings.php; translations.php
+                record of a person, from the token); translations.php
                 (the words: anotoki/lib's Translations set up for this site - the released
                 languages, the guides counted per language, the audit log) and guides.php
                 (the guides' pages, guide_contents); catalog.php (the game catalog the

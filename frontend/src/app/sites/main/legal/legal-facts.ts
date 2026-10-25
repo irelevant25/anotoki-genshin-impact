@@ -3,13 +3,13 @@ import { AnotokiAuth } from '@anotoki/lib/auth';
 import { ANOTOKI_LEGAL_CONFIG, AnotokiLegalConfig, LegalFacts, LegalProcessor } from '@anotoki/lib/legal';
 import { TranslationService } from '@anotoki/lib/translations';
 import { LOCAL_STORAGE_PREFIX } from '../../../shared/local-lib/services/local-storage.service';
-import { SiteSettingsService } from '../../../shared/local-lib/services/site-settings.service';
+import { PublicSettingsService } from '../../../shared/local-lib/services/public-settings.service';
 import { VISITOR_STORAGE_KEY } from '../../../shared/local-lib/services/visitor-key.service';
 import { THEME_STORAGE_KEY } from '../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { SILENT_SIGN_IN_KEY } from '../../../shared/silent-sign-in';
+import { ANNOUNCEMENT_STORAGE_KEY } from '../../../shared/site-settings';
 import { LANGUAGE_STORAGE_KEYS } from '../../../shared/site-translations';
 import { StorageKeys } from '../../../shared/state-manager.service';
-import { ANNOUNCEMENT_DISMISSED_KEY } from '../common/announcement/announcement.component';
 
 /**
  * The day genshin's facts last changed: the pages show the later of it and the
@@ -17,7 +17,7 @@ import { ANNOUNCEMENT_DISMISSED_KEY } from '../common/announcement/announcement.
  * site keeps or for how long - and the strings that say so (`legal.*`,
  * migration users/055 and whatever rewords them after it).
  */
-export const SITE_LEGAL_UPDATED = '2026-10-18';
+export const SITE_LEGAL_UPDATED = '2026-10-25';
 
 /**
  * The anotoki account's cookie for every anotoki site (the IAM's
@@ -55,9 +55,10 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  *   VISITOR_PERSON_TABLES; nothing deletes them by age; the People page's
  *   Delete takes them (peopleDeleteGames()); the scrub leaves them, nameless;
  * - who changed what (`legal.staff.*`): created_by / updated_by on every
- *   content table, files.created_by, guide_contents, translations,
- *   site_settings and site_routes updated_by - the staff's ids, as long as the
- *   row; their name shown from the record;
+ *   content table, files.created_by, guide_contents, translations, the site
+ *   settings' anotoki_site_settings and anotoki_page_access updated_by (the
+ *   library's tables since users/066) - the staff's ids, as long as the row;
+ *   their name shown from the record;
  * - the limits' counts (`legal.limits.*`): visitor_starts (a keyed HMAC of the
  *   address bucket, deleted after an hour: api/visitors.php, users/054); the
  *   library's feedback limits (storage/cache, keyed hashes, a day) and the
@@ -74,7 +75,7 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  *   sign-in): users with a negative id, visitor_key_hash (the key's SHA-256),
  *   created_at and last_seen_at, their games under that id; swept keep_days
  *   after the last visit (visitorSweep(), the server's number relayed in
- *   /api/settings/public: SiteSettingsService.visitorKeepDays); moved into an
+ *   /api/settings/public: PublicSettingsService.visitorKeepDays); moved into an
  *   account at a sign-in (visitorMove()) - after a silent one only into an
  *   account with nothing here yet (personHasData());
  * - feedback (the library's, siteFeedback(): its keep - spam 30 days, resolved
@@ -108,7 +109,9 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  *   the tab under the language's key in sessionStorage), the visitor's key
  *   (VISITOR_STORAGE_KEY), the browser's own games and the difficulty
  *   (StorageKeys.STORAGE_KEY, app_data, no prefix), the version What's new
- *   showed, the wallpaper, the announcement closed, the admin Translations
+ *   showed, the wallpaper, the announcement hidden (the library's bar keeps a
+ *   mark of it - its kind and words as a fingerprint - never the words:
+ *   ANNOUNCEMENT_STORAGE_KEY, the library's preset), the admin Translations
  *   page's unsaved words (sessionStorage);
  * - counting visits: the family's Umami (src/index.html: umami.anotoki.eu, the
  *   query and the fragment left out) - the library's words;
@@ -126,7 +129,7 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  * Translations page can never change where a link goes (the 0.6.0 review). So
  * are the cookie's and the stored items' names.
  */
-export function siteLegalFacts(i18n: TranslationService, auth: AnotokiAuth, settings: SiteSettingsService): LegalFacts {
+export function siteLegalFacts(i18n: TranslationService, auth: AnotokiAuth, settings: PublicSettingsService): LegalFacts {
   const iam = (auth.issuer() || settings.auth()?.issuer || '').replace(/\/+$/, '');
   const client = auth.clientId() || settings.auth()?.client_id || 'genshin';
   const days = settings.visitorKeepDays();
@@ -164,7 +167,7 @@ export function siteLegalFacts(i18n: TranslationService, auth: AnotokiAuth, sett
       { name: StorageKeys.STORAGE_KEY, kind: 'local', purpose: i18n.t('legal.storage.browserGames.purpose'), kept: i18n.t('legal.storage.browserGames.kept') },
       { name: local(StorageKeys.VERSION), kind: 'local', purpose: i18n.t('legal.storage.version.purpose'), kept: i18n.t('legal.storage.untilCleared') },
       { name: local(StorageKeys.BACKGROUND), kind: 'local', purpose: i18n.t('legal.storage.background.purpose'), kept: i18n.t('legal.storage.untilChosenAgain') },
-      { name: local(ANNOUNCEMENT_DISMISSED_KEY), kind: 'local', purpose: i18n.t('legal.storage.announcement.purpose'), kept: i18n.t('legal.storage.announcement.kept') },
+      { preset: 'announcement', name: ANNOUNCEMENT_STORAGE_KEY },
       { name: LANGUAGE_STORAGE_KEYS.drafts, kind: 'session', purpose: i18n.t('legal.storage.drafts.purpose'), kept: i18n.t('legal.storage.drafts.kept') },
     ],
     processors: [GENSHIN_HOSTING, { preset: 'cloudflare' }],
@@ -182,6 +185,6 @@ export function siteLegalPagesConfig(): AnotokiLegalConfig {
   const root = inject(ANOTOKI_LEGAL_CONFIG, { skipSelf: true });
   const i18n = inject(TranslationService);
   const auth = inject(AnotokiAuth);
-  const settings = inject(SiteSettingsService);
+  const settings = inject(PublicSettingsService);
   return { ...root, facts: () => siteLegalFacts(i18n, auth, settings) };
 }

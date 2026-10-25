@@ -19,8 +19,6 @@
 export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   // The account panel's role, from the token (site-account-modal).
   'account.roleName.': ['admin', 'editor', 'user'],
-  // Who a page is drawn for, when it is not everybody (route-notice; site_routes' visibility).
-  'route.audience.': ['PUBLIC', 'USER', 'EDITOR', 'ADMIN'],
   // A daily quiz's state on the Daily page (a new one has no badge).
   'daily.status.': ['won', 'lost', 'started'],
   // A voice-over's type, the filter of the character page's voice-over tab (characters_voice_overs.type).

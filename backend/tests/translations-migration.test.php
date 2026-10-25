@@ -81,8 +81,10 @@ echo "A database as its owner left it (users/001-049, genshin_impact/001-027)\n"
 // words' shape, the kit's, the sign-in page's and the feedback form's words),
 // 005-009 (the legal pages', the top bar's, the kit's newer pieces', the tabs'
 // and the inputs' words), 010-011 (the Privacy page's sentences made true),
-// 012 (the family's footer's words) and 013 (the About and Support pages' and
-// the footer's two links to them).
+// 012 (the family's footer's words), 013 (the About and Support pages' and
+// the footer's two links to them), and anotoki-lib 0.11.0's 014 (the kit's
+// pieces' of 0.11.0: the dates', the editor's and more) and 015 (the site
+// settings': the closed sign's, the announcement bar's, the notice's).
 const LIBRARY_WORDS_FILES = [
     '001_languages_and_strings.sql',
     '002_library_words.sql',
@@ -97,6 +99,8 @@ const LIBRARY_WORDS_FILES = [
     '011_privacy_words_made_true.sql',
     '012_footer_words.sql',
     '013_about_and_support_words.sql',
+    '014_editor_and_piece_words.sql',
+    '015_site_settings_words.sql',
 ];
 
 // Everything after users/049 and genshin_impact/027 came with this release or
@@ -111,13 +115,16 @@ const LIBRARY_WORDS_FILES = [
 // levels - tests/quiz-levels.test.php), users/062 (the detail pages' and the
 // banners' new look's words), users/063 (the lists' new look's words) and
 // users/064 (the account panel's date and clock words gone), users/065 (the
-// Profile's new look's words),
+// Profile's new look's words), users/066 (genshin's site settings into the
+// library's tables - anotoki-lib 0.11.0's anotoki_admin/003 - and the words of
+// its old closed sign, bar and notice gone),
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
 // catalog) and 032 (the lists the character form saved in one layer of JSON
 // too many, unwrapped), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
+    'anotoki_admin/003_site_settings.sql',
     'users/050_translations_into_the_library.sql',
     'users/051_guide_strings.sql',
     'users/052_people.sql',
@@ -134,6 +141,7 @@ const WORDS_AND_AFTER = [
     'users/063_database_lists_strings.sql',
     'users/064_drop_account_dates_and_clock_strings.sql',
     'users/065_profile_redesign_strings.sql',
+    'users/066_site_settings_into_the_library.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -152,6 +160,8 @@ const WORDS_AND_AFTER = [
     'anotoki_translations/011_privacy_words_made_true.sql',
     'anotoki_translations/012_footer_words.sql',
     'anotoki_translations/013_about_and_support_words.sql',
+    'anotoki_translations/014_editor_and_piece_words.sql',
+    'anotoki_translations/015_site_settings_words.sql',
     'anotoki_people/001_people.sql',
 ];
 
@@ -313,6 +323,25 @@ const GONE_BY_065 = [
     'profile.characters.column.won',
     'profile.empty.action',
 ];
+// What users/066 takes away with genshin's own site settings: the old closed sign's, bar's and notice's words (034's,
+// 035's - all there before) and the Privacy page's two lines for the old bar's storage (055's, which came after).
+const GONE_BY_066 = [
+    'legal.storage.announcement.kept',
+    'legal.storage.announcement.purpose',
+    'route.audience.ADMIN',
+    'route.audience.EDITOR',
+    'route.audience.PUBLIC',
+    'route.audience.USER',
+    'route.blockedText',
+    'route.blockedTitle',
+    'route.restrictedText',
+    'route.restrictedTitle',
+    'site.announcement.hide',
+    'site.maintenance.signIn',
+    'site.maintenance.staffLead',
+    'site.maintenance.text',
+    'site.maintenance.title',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -439,9 +468,10 @@ foreach ($before as $row) {
         in_array($row['key_name'], MULTISELECT_SUMMARY_KEYS, true) ||
         in_array($row['key_name'], GONE_BY_062_063, true) ||
         in_array($row['key_name'], GONE_BY_064, true) ||
-        in_array($row['key_name'], GONE_BY_065, true)
+        in_array($row['key_name'], GONE_BY_065, true) ||
+        in_array($row['key_name'], GONE_BY_066, true)
     ) {
-        // users/053's, 056's, 062's, 063's, 064's and 065's to take away - looked at below.
+        // users/053's, 056's, 062's, 063's, 064's, 065's and 066's to take away - looked at below.
         continue;
     }
     if (preg_match('/\S/', $row['value']) !== 1) {
@@ -472,16 +502,17 @@ same('the three blanks are gone', 3, $blank);
 
 // 002's 54, 003's nine (the sign-in page's), 004's 31 (the feedback form's), 005's 122 (the legal pages'), 006's
 // one (the top bar's), 007's four (the kit's newer pieces'), 008's two (the tabs'), 009's 34 (the inputs'), 012's
-// four (the footer's) and 013's 27 (the About and Support pages' 23, the footer's two links to them, the feedback
-// form's Clear and its name); 010 and 011 reword only.
+// four (the footer's), 013's 27 (the About and Support pages' 23, the footer's two links to them, the feedback
+// form's Clear and its name), 014's 49 (the kit's pieces of 0.11.0) and 015's 20 (the site settings'); 010 and 011
+// reword only.
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
-same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
+same('the library\'s own keys came, 357 of them', 357, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
 $came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS);
-$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064) + count(GONE_BY_065);
+$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064) + count(GONE_BY_065) + count(GONE_BY_066);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s and 065\'s out: the keys but the guides\' bodies, kept',
-    count($keysBefore) - $guideBodies + $came - $went + 288,
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s and 066\'s out: the keys but the guides\' bodies, kept',
+    count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
 $inList = "'" . implode("', '", DIFFICULTY_NEW_KEYS) . "'";
@@ -515,9 +546,10 @@ same(
         ),
     ),
 );
+// Less the two lines for the old announcement bar's storage, which 066 took away (the library's preset says it now).
 same(
-    '055: the legal pages\' facts and the footer\'s fan line, in English and Slovak',
-    [LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS, LEGAL_PAGE_KEYS],
+    '055: the legal pages\' facts and the footer\'s fan line, in English and Slovak - but the two 066 took away',
+    [LEGAL_PAGE_KEYS - 2, LEGAL_PAGE_KEYS - 2, LEGAL_PAGE_KEYS - 2],
     [
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'legal.%' OR name = 'footer.fanDisclaimer'")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
@@ -670,6 +702,17 @@ same(
         count(array_intersect(GONE_BY_065, array_keys($keysBefore))),
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+$inList = "'" . implode("', '", GONE_BY_066) . "'";
+same(
+    '066: the old closed sign\'s, bar\'s and notice\'s words, 13 of them there before, and the Privacy page\'s two for the old bar\'s storage, gone - with every string under them; the menu\'s mark kept',
+    [count(GONE_BY_066) - 2, 0, 0, true],
+    [
+        count(array_intersect(GONE_BY_066, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+        (bool) $pdo->query("SELECT 1 FROM translation_keys WHERE name = 'route.hiddenBadge'")->fetchColumn(),
     ],
 );
 $inList = "'" . implode("', '", PROFILE_NEW_KEYS) . "'";
@@ -933,7 +976,7 @@ check(
 );
 same(
     '...nor anything after it - only the library\'s admin set, which runs first',
-    ['anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql'],
+    ['anotoki_admin/001_audit_log.sql', 'anotoki_admin/002_feedback.sql', 'anotoki_admin/003_site_settings.sql'],
     array_map(fn($file) => $file['set'] . '/' . $file['name'], $result['applied']),
 );
 $pdo = null;

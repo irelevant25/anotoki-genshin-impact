@@ -20,7 +20,6 @@ export * from './material.service';
 export * from './me.service';
 export * from './quiz.service';
 export * from './quizLevel.service';
-export * from './route.service';
 export * from './setting.service';
 export * from './stat.service';
 export * from './talentSet.service';

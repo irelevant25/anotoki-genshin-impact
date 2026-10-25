@@ -25,12 +25,17 @@ use Anotoki\Lib\Translations\Http\TranslationsRoutes;
  * drawn or worded:
  *
  *   /api/settings/public      is how the page learns that sign-in is required
- *                             (and where the IAM is, and whether the site is closed)
+ *                             (and where the IAM is)
  *   /api/translations/{code}  is the words on it, with the languages it can be
  *                             read in beside them - that path exactly
  *   /api/site-status          is whether the site is there at all (site_state.php):
  *                             the pages ask it before anything else, and a 401
  *                             would read as a site that is down
+ *   /api/site-settings        is the announcement and the pages Page access
+ *                             governs (the library's site settings), read once
+ *                             at boot before anybody is signed in - the same
+ *                             answer to everybody, and a person who signs in
+ *                             afterwards reads the announcement from it too
  *
  * and three more, because a browser cannot send them a token:
  *
@@ -63,13 +68,15 @@ use Anotoki\Lib\Translations\Http\TranslationsRoutes;
  * API, open here by name or behind the switch. `/%61pi/characters` is routed
  * to /api/characters, so it is refused like it.
  *
- * Registered between the maintenance gate and the route gate: the closed sign
- * (503) is still the first answer, then this, then the per-page locks (423).
+ * Registered between Identify and Page access (api/index.php): the SiteGate's
+ * closed sign (503) is still the first answer, then this, then the per-page
+ * locks (423 page_locked).
  */
 define('SIGN_IN_OPEN_PATHS', [
     '/api/settings/public',
     TranslationsRoutes::openPath(),
     '/api/site-status',
+    '/api/site-settings',
     '/api/files/raw',
     '/api/admin/files/raw',
     '~^/api/admin/backups/' . Backups::ID_PATTERN . '/file$~D',

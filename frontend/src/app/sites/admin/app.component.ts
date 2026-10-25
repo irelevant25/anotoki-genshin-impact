@@ -5,6 +5,7 @@ import { FeedbackUnread } from '@anotoki/lib/admin';
 import { AdminFrameAction, AdminFrameBrand, AdminFrameComponent, AdminFrameLink, AdminFramePerson, SideNavGroup, SideNavLink } from '@anotoki/lib/admin/frame';
 import { SiteFooterComponent } from '@anotoki/lib/footer';
 import { SiteStatus } from '@anotoki/lib/migrations';
+import { PageNoticeComponent } from '@anotoki/lib/site-settings';
 import { ThemeService, ThemeToggleComponent } from '@anotoki/lib/shell';
 import { AnotokiDialog, ConfirmHostComponent } from '@anotoki/lib/ui/dialog';
 import { AnotokiIcons } from '@anotoki/lib/ui/icon';
@@ -32,7 +33,7 @@ import { ADMIN_ICONS } from './admin-icons';
   selector: 'app-admin-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, AdminFrameComponent, ThemeToggleComponent, SiteFooterComponent, ToastHostComponent, ConfirmHostComponent, AdminNoAccessComponent],
+  imports: [RouterOutlet, AdminFrameComponent, ThemeToggleComponent, PageNoticeComponent, SiteFooterComponent, ToastHostComponent, ConfirmHostComponent, AdminNoAccessComponent],
   // The family's theme switch reads the shell's ThemeService: in this panel, genshin's one theme service behind it.
   providers: [{ provide: ThemeService, useExisting: SiteShellTheme }],
 })
@@ -99,11 +100,16 @@ export class AppComponent {
   readonly allowed = this._security.isStaff;
 
   /**
-   * The panel's pages for the frame's side navigation (@anotoki/lib/ui/side-nav):
-   * the dashboard alone, then the groups under their headings. A read-only page
-   * says so in its own header (the lookup tables' "Read-only" badge), so the
-   * navigation marks only what waits for somebody: the feedback nobody has
-   * opened, heard "Feedback, 3 new".
+   * The panel's pages for the frame's side navigation (@anotoki/lib/ui/side-nav),
+   * in the one shape every anotoki admin panel has (the owner's request of
+   * 2026-10-25): the site's own pages at the top with no heading - the
+   * dashboard, then the Database and Lookup Tables groups -, then Localization,
+   * then System: the site's own system pages first (Accounts & access, Quiz
+   * levels, Files Explorer), then the family's, in the family's order and words
+   * - Site settings, People, Feedback, Error log, Audit log, Backups,
+   * Migrations. A read-only page says so in its own header (the lookup tables'
+   * "Read-only" badge), so the navigation marks only what waits for somebody:
+   * the feedback nobody has opened, heard "Feedback, 3 new".
    */
   readonly navGroups = computed<SideNavGroup[]>(() => {
     // Accounts, who may do what here, and where everybody is signed in are the
@@ -112,20 +118,21 @@ export class AppComponent {
     const adminUrl = this._security.adminUrl();
     const accounts: SideNavLink[] = adminUrl ? [{ label: 'Accounts & access', href: adminUrl, newTab: true, icon: 'admin-user-group' }] : [];
     // The anotoki library's pages are the ADMIN's alone, and so are their APIs:
-    // the Migrations page (@anotoki/lib/migrations), the admin tools
-    // (shared/site-admin-tools.ts) and the People page (people.ts) - the
-    // owner's decision: EDITORs see none
-    // of them.
+    // the file explorer, the site settings and the other admin tools
+    // (shared/site-admin-tools.ts), the People page (people.ts) and the
+    // Migrations page (@anotoki/lib/migrations) - the owner's decision:
+    // EDITORs see none of them (the server refuses them too).
     const admin = this._security.role() === 'ADMIN';
-    const people: SideNavLink[] = admin ? [{ label: 'People', path: 'people', icon: 'admin-user-check' }] : [];
-    const tools: SideNavLink[] = admin
+    const explorer: SideNavLink[] = admin ? [{ label: 'Files Explorer', path: 'files-explorer', icon: 'admin-computer' }] : [];
+    const family: SideNavLink[] = admin
       ? [
+          { label: 'Site settings', path: 'site-settings', icon: 'admin-settings' },
+          { label: 'People', path: 'people', icon: 'admin-user-check' },
           { label: 'Feedback', path: 'feedback', icon: 'admin-mail', badge: this._unread.count() || null },
-          { label: 'Audit Logs', path: 'audit-logs', icon: 'admin-history' },
-          { label: 'Error Log', path: 'errors', icon: 'admin-triangle-alert' },
-          { label: 'Files Explorer', path: 'files-explorer', icon: 'admin-computer' },
-          { label: 'Migrations', path: 'migrations', icon: 'admin-database' },
+          { label: 'Error log', path: 'errors', icon: 'admin-triangle-alert' },
+          { label: 'Audit log', path: 'audit-logs', icon: 'admin-history' },
           { label: 'Backups', path: 'backups', icon: 'admin-download' },
+          { label: 'Migrations', path: 'migrations', icon: 'admin-database' },
         ]
       : [];
 
@@ -171,15 +178,16 @@ export class AppComponent {
       {
         label: 'Localization',
         links: [
-          { label: 'Languages', path: 'languages', icon: 'admin-globe' },
           { label: 'Translations', path: 'translations', icon: 'admin-list' },
+          { label: 'Languages', path: 'languages', icon: 'admin-globe' },
           { label: 'Guides', path: 'guides', icon: 'admin-book' },
         ],
       },
       {
         label: 'System',
-        // The quiz levels beside the site's settings: how the site plays, for whoever may change its content.
-        links: [...accounts, ...people, { label: 'Site Settings', path: 'settings', icon: 'admin-settings' }, { label: 'Quiz levels', path: 'quiz-levels', icon: 'admin-levels' }, ...tools],
+        // The site's own first - the quiz levels, how the site plays, for whoever may change its content -, then the
+        // family's.
+        links: [...accounts, { label: 'Quiz levels', path: 'quiz-levels', icon: 'admin-levels' }, ...explorer, ...family],
       },
     ];
   });

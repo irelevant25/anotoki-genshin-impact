@@ -26,7 +26,7 @@ import { DatabaseMaterialDetailComponent } from './features/database/materials/d
 import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { StaffSignInPageComponent } from './features/account/staff/staff.component';
-import { routeAccessGuard } from './route-access.guard';
+import { pageAccessGuard } from '@anotoki/lib/site-settings';
 
 /** The legal pages' frame, loaded with the first of them that is opened (and the site's facts with it, out of the first load). */
 const legalFrame = (): Promise<Type<unknown>> => import('./legal/legal-frame.component').then((m) => m.LegalFrameComponent);
@@ -36,13 +36,13 @@ export const routes: Routes = [
     path: '',
     component: AppComponent,
     children: [
-      { path: '', component: HomeComponent, canMatch: [routeAccessGuard] },
+      { path: '', component: HomeComponent, canMatch: [pageAccessGuard] },
       // The daily run is the same six quizzes, told through the route data that
       // they are today's question rather than a fresh one. That flag is what
       // sends their saved game to the daily slot and stamps it with the date.
       {
         path: ROUTE_MAP.map['daily'].path,
-        canMatch: [routeAccessGuard],
+        canMatch: [pageAccessGuard],
         children: [
           { path: '', component: DailyComponent },
           { path: ROUTE_MAP.map['daily'].banners.path, component: QuizzesBannersComponent, data: { daily: true } },
@@ -55,7 +55,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['quizzes'].path,
-        canMatch: [routeAccessGuard],
+        canMatch: [pageAccessGuard],
         children: [
           { path: '', component: QuizzesComponent },
           {
@@ -86,7 +86,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['games'].path,
-        canMatch: [routeAccessGuard],
+        canMatch: [pageAccessGuard],
         children: [
           { path: '', component: GamesComponent },
           { path: ROUTE_MAP.map['games'].tournament.path, component: GamesTournamentComponent },
@@ -95,7 +95,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTE_MAP.map['database'].path,
-        canMatch: [routeAccessGuard],
+        canMatch: [pageAccessGuard],
         children: [
           { path: '', component: DatabaseComponent },
           {
@@ -127,13 +127,14 @@ export const routes: Routes = [
       },
       // No auth guard: the page is reachable from the header whether or not
       // anybody is signed in, and it says so itself rather than bouncing a
-      // visitor to a login they may not want. The guard below is the route
-      // table, which is a different question - and which is where somebody
-      // would set this page to "anybody with an account" if they wanted that.
+      // visitor to a login they may not want. The guard below is Page access
+      // (the site settings, @anotoki/lib/site-settings), which is a different
+      // question - and which is where somebody would set this page to
+      // "anybody signed in" if they wanted that.
       {
         path: ROUTE_MAP.map['profile'].path,
         component: ProfileComponent,
-        canMatch: [routeAccessGuard],
+        canMatch: [pageAccessGuard],
       },
 
       // Where the IAM hands a sign-in back: the library's page
@@ -148,15 +149,17 @@ export const routes: Routes = [
         component: AuthCallbackComponent,
       },
 
-      // Never switchable: it is where the sign-in button goes when there is
-      // no sign-in button.
+      // Never switchable (a reserved page of the site settings): where an
+      // administrator signs in - while the site is closed the library's closed
+      // sign stands here with its Sign in, and while it is open this page does.
       { path: ROUTE_MAP.map['staff'].path, component: StaffSignInPageComponent },
 
       // The legal pages - Terms, Privacy, Contact: the anotoki family's
       // (@anotoki/lib/legal/pages) with genshin's facts, which their frame
       // gives them (legal/), each loaded when it is opened. Anybody's: no page
-      // switch (no routeAccessGuard - the API refuses a row for them), and the
-      // shell draws them in place of its closed sign and sign-in card. Each is
+      // switch (no pageAccessGuard - the site settings refuse a row for them),
+      // the root gate lets them through the closed sign, and the shell draws them
+      // in place of its sign-in card. Each is
       // a path of its own with the frame as its parent - never one parent with
       // an empty path holding the three: the router takes an address it has
       // read whole for such a parent when none of its children match, and

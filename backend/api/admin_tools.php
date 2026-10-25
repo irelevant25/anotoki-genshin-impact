@@ -127,12 +127,45 @@ function siteAccessTokens(): AccessTokens
     return $tokens ??= new AccessTokens(siteIam());
 }
 
-/** The IAM's switch "Sign-in required" for this site: off by default, failing closed (api/site_settings.php). */
+/** The IAM's switch "Sign-in required" for this site: off by default, failing closed (signInRequired() below). */
 function siteSignInRule(): SignInRule
 {
     static $rule = null;
 
     return $rule ??= new SignInRule(siteIam());
+}
+
+/**
+ * Whether the IAM says everybody must sign in before using this site.
+ *
+ * The IAM's switch, on this site's page in its admin console ("Sign-in
+ * required"): read by the anotoki library's SignInRule (siteSignInRule()) from
+ * the IAM's public answer about the application, kept for a minute in the
+ * cache folder (config/iam.php's cache_dir, beside the key set - a folder only
+ * this site writes, since the kept answer is what opens the site to people who
+ * have not signed in), and true whenever nothing better is known: an IAM that
+ * does not know `genshin` or has switched it off answers 404, which means
+ * required; an IAM out of reach leaves the last answer standing, or required
+ * when there never was one. One answer for the whole request (the library's
+ * Identify asks it afresh for each), so the gate and the public settings agree.
+ *
+ * Off is what this site has always been - a reference work anyone can read -
+ * and the IAM's default for it. Only somebody who has not signed in is ever
+ * affected, so the gate asks only for them. Asked here by the boot's answer
+ * (GET /api/settings/public), for the line it logs when the answer is odd.
+ */
+function signInRequired(): bool
+{
+    $rule = siteSignInRule();
+    $required = $rule->required();
+
+    // An answer from the IAM, or the last one kept, is routine; these are not -
+    // an IAM that does not know this site, or one that could not be asked.
+    if (in_array($rule->reason(), ['unknown_application', 'stale', 'never_read', 'not_configured'], true)) {
+        error_log('[iam] sign-in required: ' . ($required ? 'yes' : 'no') . ' (' . $rule->reason() . ')');
+    }
+
+    return $required;
 }
 
 /**

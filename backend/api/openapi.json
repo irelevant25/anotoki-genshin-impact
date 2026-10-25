@@ -3,7 +3,7 @@
   "info": {
     "title": "Genshin Impact API",
     "version": "1.0.0",
-    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n50 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
+    "description": "The Genshin Impact API, as it is actually registered.\nGenerated from the running route table by backend/generate-api-spec.php and\nfrontend/generate-openapi.mjs - not maintained by hand, and not annotated\nonto the handlers. Regenerate with `npm run api` in frontend/.\n56 registered routes are left out: they reference tables and model classes that do not exist, and answer 500."
   },
   "servers": [
     {
@@ -90,11 +90,7 @@
     },
     {
       "name": "setting",
-      "description": "The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in."
-    },
-    {
-      "name": "route",
-      "description": "Which pages of the site exist, who they are drawn for, and which API paths go dark with them."
+      "description": "What the site is told before anybody signs in: where its sign-in lives, and the visitors. The switches an admin throws without a deploy are the anotoki library's site settings, outside this client."
     },
     {
       "name": "dashboard",
@@ -16878,96 +16874,6 @@
         "security": []
       }
     },
-    "/api/settings": {
-      "get": {
-        "tags": [
-          "setting"
-        ],
-        "operationId": "getSettings",
-        "summary": "Get settings",
-        "description": "Requires the `ADMIN` role.",
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteSettingList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "setting"
-        ],
-        "operationId": "saveSettings",
-        "summary": "Save settings",
-        "description": "Requires the `ADMIN` role.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SiteSettingsSaveRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteSettingList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "422": {
-            "description": "The body was understood but will not do.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
     "/api/settings/public": {
       "get": {
         "tags": [
@@ -16992,216 +16898,6 @@
           }
         },
         "security": []
-      }
-    },
-    "/api/site-routes": {
-      "get": {
-        "tags": [
-          "route"
-        ],
-        "operationId": "getRoutes",
-        "summary": "Get routes",
-        "description": "Requires the `ADMIN` role.",
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteRouteList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "route"
-        ],
-        "operationId": "addRoute",
-        "summary": "Add route",
-        "description": "Requires the `ADMIN` role. Reads `site_routes`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SiteRouteCreateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteRouteList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "409": {
-            "description": "That would collide with something that already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "The body was understood but will not do.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "route"
-        ],
-        "operationId": "saveRoutes",
-        "summary": "Save routes",
-        "description": "Requires the `ADMIN` role. Reads `site_route_endpoints`.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SiteRoutesSaveRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteRouteList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "422": {
-            "description": "The body was understood but will not do.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/site-routes/{id}": {
-      "delete": {
-        "tags": [
-          "route"
-        ],
-        "operationId": "deleteRoute",
-        "summary": "Delete route",
-        "description": "Requires the `ADMIN` role. Reads `site_routes`.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SiteRouteList"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Forbidden"
-          },
-          "404": {
-            "description": "No such record.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
       }
     },
     "/api/stats": {
@@ -19748,128 +19444,6 @@
       }
     },
     "schemas": {
-      "AdminSiteRoute": {
-        "title": "AdminSiteRoute",
-        "description": "One page, as the admin form sees it - the row plus what it claims.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "path": {
-            "type": "string"
-          },
-          "visibility": {
-            "type": "string"
-          },
-          "blocked": {
-            "type": "boolean"
-          },
-          "endpoints": {
-            "description": "API paths this page claims. Empty means its data is not locked.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_by": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "path",
-          "visibility",
-          "blocked",
-          "endpoints",
-          "updated_at",
-          "updated_by"
-        ],
-        "additionalProperties": false
-      },
-      "AdminSiteSetting": {
-        "title": "AdminSiteSetting",
-        "description": "One switch, as the admin form sees it. `type` is what makes the form generic: a new setting is a row in a migration and two translation keys, not a new field on this class and a new control in that template. `value` is text whatever the type says, because that is how the column stores it - the form parses on the way in and the API validates on the way back.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "group_name": {
-            "description": "Which panel of the form it belongs under.",
-            "type": "string"
-          },
-          "type": {
-            "description": "boolean, text, i18n, choice or routes.",
-            "type": "string"
-          },
-          "options": {
-            "description": "For a 'choice', the values it may take. Empty otherwise.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "value": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "updated_by": {
-            "description": "Who threw the switch last, or null if nobody has since it was seeded.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
-        "required": [
-          "name",
-          "group_name",
-          "type",
-          "options",
-          "value",
-          "updated_at",
-          "updated_by"
-        ],
-        "additionalProperties": false
-      },
       "ApiError": {
         "title": "ApiError",
         "description": "What a failed request carries, whatever the status.",
@@ -19879,7 +19453,7 @@
             "type": "string"
           },
           "code": {
-            "description": "A stable name for the refusal, on the few that the caller has to tell apart rather than merely show. `error` is prose meant for a person and may be reworded at any time, so a page that has to *do* something different - send somebody to sign in again rather than just say no - reads this instead. Absent on every refusal where the message is the whole answer. invalid_token     no access token, or one that is expired or not ours (401) reauth_required   the action wants a sign-in at the IAM from the last ten minutes, and this one is older (403) maintenance       the site is closed to everybody but its admins (503) route_locked      an admin has switched that part of the site off (423)",
+            "description": "A stable name for the refusal, on the few that the caller has to tell apart rather than merely show. `error` is prose meant for a person and may be reworded at any time, so a page that has to *do* something different - send somebody to sign in again rather than just say no - reads this instead. Absent on every refusal where the message is the whole answer. invalid_token     no access token, or one that is expired or not ours (401) reauth_required   the action wants a sign-in at the IAM from the last ten minutes, and this one is older (403) maintenance       the site is closed to everybody but its admins (503) page_locked       an admin has switched that part of the site off (423; the anotoki library's Page access)",
             "type": "string"
           }
         },
@@ -40949,68 +40523,14 @@
         ],
         "additionalProperties": false
       },
-      "PublicSiteRoute": {
-        "title": "PublicSiteRoute",
-        "description": "One page, as the site itself needs to know about it. No endpoints: those are the gate's business, the front end has no use for them, and a list of which API paths are locked is a map nobody browsing the site needs. Everything here is already in the router in the bundle.",
-        "type": "object",
-        "properties": {
-          "path": {
-            "description": "As the router declares it. A ':id' segment matches any one segment.",
-            "type": "string"
-          },
-          "visibility": {
-            "description": "PUBLIC, USER, EDITOR or ADMIN - the lowest reader it is drawn for.",
-            "type": "string"
-          },
-          "blocked": {
-            "description": "Off for everybody who is not an admin.",
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "path",
-          "visibility",
-          "blocked"
-        ],
-        "additionalProperties": false
-      },
       "PublicSiteSettings": {
         "title": "PublicSiteSettings",
-        "description": "The shape of the site, before anybody has signed in. Open on purpose. A page cannot ask whether it should draw a maintenance notice instead of itself after it has drawn itself, and it cannot ask who is reading it before it knows whether reading is allowed. Nothing here is a secret: it is what any visitor is about to see anyway.",
+        "description": "The shape of the site, before anybody has signed in. Open on purpose. A page cannot ask who is reading it before it knows where reading is signed in. Nothing here is a secret: it is what any visitor's sign-in button is about to use anyway.",
         "type": "object",
         "properties": {
-          "maintenance": {
-            "description": "Whether everything but the closed sign is switched off.",
-            "type": "boolean"
-          },
-          "maintenance_message": {
-            "description": "The closed sign, one message per language.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
           "auth": {
             "description": "Where the site's sign-in lives.",
             "$ref": "#/components/schemas/SiteAuthConfig"
-          },
-          "announcement": {
-            "description": "Null when there is nothing to announce.",
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/SiteAnnouncement"
-              }
-            ]
-          },
-          "routes": {
-            "description": "Which pages exist, and who they are drawn for.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PublicSiteRoute"
-            }
           },
           "visitors": {
             "description": "Playing without signing in: whether it can, and for how long a browser's games are kept.",
@@ -41018,11 +40538,7 @@
           }
         },
         "required": [
-          "maintenance",
-          "maintenance_message",
           "auth",
-          "announcement",
-          "routes",
           "visitors"
         ],
         "additionalProperties": false
@@ -42087,29 +41603,6 @@
         ],
         "additionalProperties": false
       },
-      "SiteAnnouncement": {
-        "title": "SiteAnnouncement",
-        "description": "A message across the top of every page, and how loudly it is saying it.",
-        "type": "object",
-        "properties": {
-          "level": {
-            "description": "info, warning or danger - which decides the colour of the bar.",
-            "type": "string"
-          },
-          "message": {
-            "description": "One message per language code.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "level",
-          "message"
-        ],
-        "additionalProperties": false
-      },
       "SiteAuthConfig": {
         "title": "SiteAuthConfig",
         "description": "Where the site's sign-in lives: the anotoki IAM, and this site's name there. Public by design - every token the IAM signs names both - and served from here rather than baked into the build, so moving the IAM is a config change on the server and not a rebuild of the frontend.",
@@ -42147,156 +41640,6 @@
           "admin_url",
           "login_required",
           "sign_in_available"
-        ],
-        "additionalProperties": false
-      },
-      "SiteRouteCreateRequest": {
-        "title": "SiteRouteCreateRequest",
-        "description": "A page the migration did not seed. The seeded rows are every route the router declared at the time, so this is for one written since - or for a page somebody wants governed before its route exists, which is the useful order when the point is that it should not be reachable yet. Nothing checks the path against the router: the API has no idea what the front end declares. `visibility` defaults to ADMIN, because the safe default for a page nobody has thought about is that nobody sees it.",
-        "type": "object",
-        "properties": {
-          "path": {
-            "type": "string"
-          },
-          "visibility": {
-            "type": "string"
-          },
-          "blocked": {
-            "anyOf": [
-              {
-                "type": "boolean",
-                "const": false
-              },
-              {
-                "type": "boolean",
-                "const": true
-              }
-            ]
-          }
-        },
-        "required": [
-          "path"
-        ],
-        "additionalProperties": false
-      },
-      "SiteRouteChange": {
-        "title": "SiteRouteChange",
-        "description": "What the pages form sends back. One row per page that changed, addressed by id rather than by path: the path is what the router declares and this form cannot invent one, so sending it back would only be a second name for the same row and a second thing to get wrong. `endpoints` is the whole list for that page, not a diff. There are never more than a handful, they have no identity of their own worth keeping, and the API replaces them wholesale.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "visibility": {
-            "type": "string"
-          },
-          "blocked": {
-            "type": "boolean"
-          },
-          "endpoints": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "id",
-          "visibility",
-          "blocked",
-          "endpoints"
-        ],
-        "additionalProperties": false
-      },
-      "SiteRouteList": {
-        "title": "SiteRouteList",
-        "description": "Every page, in the order the form draws them.",
-        "type": "object",
-        "properties": {
-          "routes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AdminSiteRoute"
-            }
-          },
-          "levels": {
-            "description": "The visibility levels, most open first.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "routes",
-          "levels"
-        ],
-        "additionalProperties": false
-      },
-      "SiteRoutesSaveRequest": {
-        "title": "SiteRoutesSaveRequest",
-        "type": "object",
-        "properties": {
-          "routes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SiteRouteChange"
-            }
-          }
-        },
-        "required": [
-          "routes"
-        ],
-        "additionalProperties": false
-      },
-      "SiteSettingChange": {
-        "title": "SiteSettingChange",
-        "description": "What the site settings form sends back. The whole form in one request rather than a request per switch. Maintenance mode and the words on the maintenance page are one decision, and saving them separately leaves a window - however short - where the site is closed and the sign is blank. Every value travels as text, whatever the setting's declared type says, because that is the shape of the column it lands in. A boolean is the word 'true' or the word 'false'; an i18n message and a list of sections are JSON. The API checks each against its type and refuses the whole request if any one of them does not fit.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "value"
-        ],
-        "additionalProperties": false
-      },
-      "SiteSettingList": {
-        "title": "SiteSettingList",
-        "description": "Every switch, in the order the form draws them.",
-        "type": "object",
-        "properties": {
-          "settings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AdminSiteSetting"
-            }
-          }
-        },
-        "required": [
-          "settings"
-        ],
-        "additionalProperties": false
-      },
-      "SiteSettingsSaveRequest": {
-        "title": "SiteSettingsSaveRequest",
-        "type": "object",
-        "properties": {
-          "settings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SiteSettingChange"
-            }
-          }
-        },
-        "required": [
-          "settings"
         ],
         "additionalProperties": false
       },

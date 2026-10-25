@@ -232,20 +232,25 @@ same on every anotoki site: one library, `anotoki-lib`
 
 | Half | Here | Installed from |
 | --- | --- | --- |
-| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.7.0"`) |
+| `anotoki/lib` (PHP) | `backend/vendor/anotoki/lib`, committed with the rest of `vendor/` | the GitHub repository, a VCS entry in `backend/composer.json` (`"anotoki/lib": "^0.11.0"`) |
 | `@anotoki/lib` (Angular) | `frontend/node_modules/@anotoki/lib` | the release's tarball, its URL in `frontend/package.json` |
 
 Where the site uses it: `backend/api/migration_runner.php` (the engine, set up
 for the two folders with the library's own sets around them - `anotoki_admin`
 first, `anotoki_translations` and `anotoki_people` after), `backend/api/site_state.php` (the site's state and the
-gate in front of every route), `backend/api/index.php` (the status and admin
-migrations routes, the admin tools' routes, the gates), `backend/api/admin_tools.php`
+gate in front of every route, and the site settings - maintenance, the
+announcement, Page access - since 0.11.0), `backend/api/index.php` (the status and admin
+migrations routes, the admin tools' and the site settings' routes, the gates -
+the library's PageAccessGate among them), `backend/api/admin_tools.php`
 (signing in, people and the admin tools set up for this site) and
 `backend/api/audit_log.php` (the audit log), `backend/api/translations.php` and
 `routes/users/endpoints/translations.php` (the words: the library's
 `Translations` and its routes, set up for this site), `backend/translations.php`
 (its command line), `frontend/src/app/shared/site-status.ts` (the pages'
-gate, the "being updated" page and the Migrations page, set up for this site),
+gate, the "being updated" page, the closed sign with Sign in at `/staff` and the
+Migrations page, set up for this site), `frontend/src/app/shared/site-settings.ts`
+(the site settings on the pages: the announcement bar, Page access's guard, the
+administrators' notice; the admin Site settings page on its lazy route),
 `frontend/src/app/shared/site-translations.ts` (the words in the pages: the
 language, the `translate` pipe, the admin Translations and Languages pages),
 `frontend/src/app/shared/site-auth.ts` (signing in: the IAM from the public
@@ -270,9 +275,9 @@ controls' edge at 3:1 or more).
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.10.0 now
+sequences that count down, then the origin secret): both halves are 0.11.0 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
-takes no next minor: `^0.9.0` never brings 0.10, which needs its constraint
+takes no next minor: `^0.10.0` never brings 0.11, which needs its constraint
 written. A piece of the library's kit is
 imported from its own entry point (`@anotoki/lib/ui/config`, `ui/button`, ...),
 never from `@anotoki/lib/ui`, which would pull every piece into the first load.
@@ -810,12 +815,17 @@ rebuilt by their own scripts; `docs/README.md` has the commands.
 
 ### Site settings
 
-Admin panel → System → Site Settings. A card per group; each opens a modal.
+Admin panel → System → Site settings (`/admin/site-settings`, the ADMIN's
+alone): the anotoki library's page (anotoki-lib 0.11.0 - this site's own page,
+made every anotoki site's), a card a part, each opening its dialog. Every
+switch takes effect the moment it is saved, for everybody, and the server keeps
+it too; the site's ADMIN is never shut out of anything.
 
-| Switch | What it does |
+| Part | What it does |
 | --- | --- |
-| Maintenance mode | The site draws a closed sign instead of itself, and the API answers 503 to everything but who is signed in (`/api/me`), the public settings, the strings on the sign (with the languages beside them) and the site's status (`/api/site-status`). Admins are exempt. |
-| Announcement | A dismissable bar above the header, one message per language, at one of three levels. |
+| Getting in | Maintenance mode: the library's closed sign ("Back shortly" and what you wrote, in the reader's language, else English, else the library's sentence) stands instead of the site for everybody but this site's ADMIN, who uses the site as it is with a line above every page; the API answers 503 `maintenance` to everything but the reserved paths - who is signed in (`/api/me`), the boot's settings, the words, the site's status, the site settings themselves - the error log and the backups (for their ADMIN), and the two links an ADMIN's browser opens by itself (`site_state.php`). The legal pages, About and Support stay open to anybody. |
+| Announcement | A bar above the header, one message per language, information, a warning or something wrong; Hide keeps a mark of it in the browser until its words change. |
+| Page access | Who sees each page, a page switched off, and the API paths refused with it (below). |
 
 Whether anybody may sign in at all, and whether Google is offered, are the IAM's
 switches - in its admin console, for every site at once. So is **Sign-in
@@ -842,20 +852,21 @@ results per visitor, the days kept) are `config/visitors.php`'s, changed in an
 optional `config/visitors.local.php`; the dashboard's *visitors* card shows how
 full it is.
 
-**Getting back in after switching the site off**: `/staff`. It is a sign-in button
-(to the IAM, as everywhere) at an address the closed site still draws; the API
-lets nobody but an admin past, so the path grants nothing on its own.
+**Getting back in after switching the site off**: `/staff`. The closed sign
+offers Sign in there alone (to the IAM, as everywhere), back to the home page;
+the API lets nobody but an admin past, so the path grants nothing on its own.
+While the site is open, `/staff` is a page with the same button.
 
-The switches live in `site_settings`, one row each, scoped by site. Adding another
-is a row in a migration - `name`, a `type` out of `boolean | text | i18n | choice`,
-and a default - plus an entry in `SETTING_WORDS` in
-`sites/admin/settings/settings-words.ts` if it deserves a sentence. The form draws
-whatever it finds, so a new switch is editable before anybody writes about it.
+The switches live in the library's `anotoki_site_settings` (a row per switch,
+its value JSON; a switch with no row is at its default) - `users/066` brought
+this site's rows across from its own `site_settings` and dropped it. The
+switches are the library's: a new one is a change to anotoki-lib.
 
-### Parts of the site
+### Page access
 
-The third card. A row per page in `site_routes`, seeded from the router by a
-migration, carrying two separate decisions:
+The third card. A row per page in the library's `anotoki_page_access` (`users/066`
+brought the 27 rows the router's pages were seeded with in `users/035`, and any
+added since, across from `site_routes`), carrying two separate decisions:
 
 - **Visible to** - `PUBLIC`, `USER`, `EDITOR` or `ADMIN`: the lowest kind of reader
   the page is drawn for. Everything is seeded `PUBLIC`; `ADMIN` is the default for
@@ -864,24 +875,27 @@ migration, carrying two separate decisions:
 - **Off** - takes it away from everybody who is not an admin, whatever the first
   says. "Members only" and "off this week" are different things.
 
-Either one takes the page out of the menu and stops it matching in the router, so
-its address answers as not found. Admins keep every page, with a badge in the menu
-and a bar on the page saying which of the two it is.
+Either one takes the page out of the menu and stops it matching in the router
+(the library's `pageAccessGuard`), so its address answers as not found. Admins
+keep every page, with a badge in the menu and the library's notice above the
+page saying which of the two it is.
 
 A page's **API paths** are optional and empty by default, so switching a page off
 leaves its data being served - right for "that page is not finished", wrong for
-"nobody may have this". Naming a path is what turns the sign into a lock:
-`api/meddleware/route_gate.php` then answers 423 to anybody the page is not drawn
-for. Paths are matched from the start, so `/api/quiz` covers `/api/quizzes` and
-`/api/quiz/stats` alike. Where two pages claim the same path the more open one
-wins, and a path covering `/api/me`, `/api/settings`, `/api/site-routes`,
-`/api/site-status` or `/api/translations` is refused on save
-(the site's status is never locked whatever a row says).
+"nobody may have this". Naming a path is what turns the sign into a lock: the
+library's `PageAccessGate` then answers 423 `page_locked` to anybody the page is
+not drawn for. Paths are matched from the start, so `/api/quiz` covers
+`/api/quizzes` and `/api/quiz/stats` alike. Where two pages claim the same path
+the more open one wins, and a path that touches a reserved one either way - who
+is signed in (`/api/me`), the boot's settings (`/api/settings/public`), the
+site's status, the words, the site settings' own two - is refused on save, and
+passed over in a row put in by hand.
 
-**Add a page** takes a path the migration did not seed. The **×** on a row stops
-governing that page rather than removing it from the site. `/auth/callback` and
-`/staff` have no row and cannot be given one: the first is where the IAM sends
-people back, the second the way back in when the site is closed.
+**Add a page** takes a path the migration did not seed. Removing a row stops
+governing that page rather than removing it from the site. The sign-in's way
+back (`/auth`), `/staff`, the admin panel, the legal pages, About and Support
+have no row and cannot be given one: the first is where the IAM sends people
+back, the second the way back in when the site is closed.
 
 Everything above is enforced twice on purpose: the site draws the closed sign and
 hides the menu item, and the API means it.

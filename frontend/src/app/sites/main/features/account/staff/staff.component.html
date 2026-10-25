@@ -1,6 +1,7 @@
 <div class="container w-100">
     <div class="account-landing">
-        <h1>{{ "site.maintenance.signIn" | translate }}</h1>
-        <app-staff-sign-in></app-staff-sign-in>
+        <h1>{{ "anotoki.maintenance.signIn" | translate }}</h1>
+        <p class="staff-lead">{{ "anotoki.maintenance.staffLead" | translate }}</p>
+        <button anotokiButton variant="primary" [disabled]="!available()" (click)="signIn()">{{ "anotoki.maintenance.signIn" | translate }}</button>
     </div>
 </div>

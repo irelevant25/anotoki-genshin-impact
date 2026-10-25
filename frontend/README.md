@@ -9,9 +9,11 @@ api` - and never edited by hand.
 ```text
 src/app/sites/main/     the public site: database, quizzes, daily, games, profile; /auth/callback
                         is the shared library's page (@anotoki/lib/auth: "Signing you in…", or why a
-                        sign-in did not work); common/ the closed sign (maintenance) and the
-                        sign-in card (sign-in-required, while the IAM requires signing in), each
-                        drawn instead of the site; the visitor notice (visitor-notice: how long a
+                        sign-in did not work); common/ the sign-in card (sign-in-required, while the
+                        IAM requires signing in), drawn instead of the site - the closed sign
+                        (maintenance) is the root gate's, the library's; the library's announcement
+                        bar above the header and its notice for the ADMIN under it; /staff the
+                        administrators' sign-in (features/account/staff); the visitor notice (visitor-notice: how long a
                         visitor's games are kept, and Sign in) on the Profile, the quizzes hub and
                         the Daily page; the footer under every page (footer/: the version, What's
                         new, Feedback - the library's form, loaded when opened -, the account with
@@ -28,19 +30,23 @@ src/app/sites/main/     the public site: database, quizzes, daily, games, profil
                         banners, foods) - each asked once a page load and shared by every page that
                         needs it, a failure not kept, all forgotten when the admin panel opens; the
                         public site's alone: the admin panel asks every time
-src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words, settings;
+src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the words;
                         /admin/translations and /admin/languages are the shared library's pages
                         (@anotoki/lib/translations/admin), localization/guides/ the guides' pages;
                         quiz-levels/ the Quiz levels page (the levels as JSON, what the server's
                         rules say of them as they are typed, the words they leave behind);
                         for the ADMIN alone, the library's /admin/migrations, People
-                        (/admin/people, configured in people.ts) and admin tools - Feedback, Audit
-                        Logs, Error Log, Files Explorer, Backups (@anotoki/lib/admin/*; the new
-                        feedback counted beside Feedback in the navigation); app.component the
+                        (/admin/people, configured in people.ts) and admin tools - Site settings
+                        (/admin/site-settings: maintenance, the announcement, Page access),
+                        Feedback, Error log, Audit log, Files Explorer, Backups (@anotoki/lib/admin/*;
+                        the new feedback counted beside Feedback in the navigation); app.component the
                         frame: the family's <anotoki-admin-frame> (@anotoki/lib/admin/frame,
                         anotoki-lib 0.10.0) - the panel's name, who is signed in, Back to the site,
                         Sign out, the theme's switch (light / dark / as the device is set) and the
-                        pages beside the page, all of it in the kit's drawer on a phone
+                        pages beside the page in every anotoki admin menu's one shape (the
+                        dashboard and the content's groups, Localization, then System - the site's
+                        own system pages before the family's), all of it in the kit's drawer on a
+                        phone, the maintenance line above the page while the site is closed
                         (admin-icons.ts: its icons and the forms' tabs') - and the family's
                         footer under every page (@anotoki/lib/footer: the version, What's new - the
                         public footer's dialog -, Feedback, Terms · Privacy · Contact, the fan clause)
@@ -56,7 +62,8 @@ src/app/shared/         local-lib (what the family's kit has no piece for: field
                         the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/
                         (the one theme service, and shell-theme.ts, its face for the family's switch);
                         services/: security.service.ts - this site's view of the library's sign-in
-                        and its own record of the person (/api/me), visitor-key.service.ts (this
+                        and its own record of the person (/api/me), public-settings.service.ts (the
+                        boot's answer: where the IAM is, the visitors), visitor-key.service.ts (this
                         browser's visitor key and the move at sign-in), http.interceptor.ts (the
                         site's part of a request, before the library's)); site-auth.ts
                         (@anotoki/lib/auth set up for this site: the IAM from the public settings,
@@ -66,12 +73,15 @@ src/app/shared/         local-lib (what the family's kit has no piece for: field
                         browser's games' carry at sign-in say so, and the server then brings them
                         only into an account with nothing here yet); site-feedback.ts
                         (@anotoki/lib/feedback: the visitors' form's
-                        sections and extra fields); site-legal.ts (@anotoki/lib/legal: the legal
+                        sections and extra fields); site-settings.ts (@anotoki/lib/site-settings:
+                        who the reader is for Page access, the announcement's storage name);
+                        site-legal.ts (@anotoki/lib/legal: the legal
                         pages' language and words, their paths); site-admin-tools.ts (@anotoki/lib/admin: the
                         admin tools' configuration, at the app's root, where the library's pages
                         and the feedback count read it); site-status.ts (@anotoki/lib/migrations set up
                         for this site: the gate the root component puts around both sites, its
-                        "being updated" and "not set up" pages, the Migrations page -
+                        "being updated", "not set up" and closed pages - the closed sign's Sign in
+                        at /staff -, the Migrations page -
                         @anotoki/lib/migrations/page, in admin.routes.ts); site-translations.ts
                         (@anotoki/lib/translations set up for this site: the `translate` pipe and
                         TranslationService everywhere, the account's language, the admin pages'

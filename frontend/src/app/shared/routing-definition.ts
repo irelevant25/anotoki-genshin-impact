@@ -170,25 +170,10 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
 export const ROUTE_MAP = new AlfRoutingMap(ROUTE_MAP_DATA);
 
 /**
- * The staff path on its own, for the two things that compare against a URL
- * rather than navigate to it.
+ * The staff path on its own, for what names it rather than navigating to it:
+ * the closed sign's one door (shared/site-status.ts's staffRoute).
  */
 export const STAFF_PATH: string = ROUTE_MAP_DATA['staff'].path;
 
 /** The sign-in callback as an absolute path, for the pages that look for it (the redirect URI is the library's same default). */
 export const AUTH_CALLBACK_PATH = `/${ROUTE_MAP_DATA['authCallback'].path}`;
-
-/**
- * The sections of the site an admin can switch off.
- *
- * The top-level entries that appear in the menu, which is exactly the set that
- * makes sense to remove: switching off the sign-in callback would strand people
- * signed in at the IAM and unable to arrive here, and switching off a single
- * quiz is a question for the quiz table rather than for this.
- *
- * Kept here rather than in the admin form so that the list an admin is offered
- * and the list the router honours are the same list.
- */
-export const SWITCHABLE_SECTIONS: readonly string[] = Object.entries(ROUTE_MAP_DATA)
-  .filter(([, node]) => node && typeof node === 'object' && 'path' in node && !(node as AlfRoutingNode).notInMenu)
-  .map(([key]) => key);

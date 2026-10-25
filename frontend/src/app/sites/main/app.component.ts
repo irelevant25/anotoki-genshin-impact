@@ -4,11 +4,9 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
-import { AnnouncementComponent } from './common/announcement/announcement.component';
-import { MaintenanceComponent } from './common/maintenance/maintenance.component';
-import { RouteNoticeComponent } from './common/route-notice/route-notice.component';
 import { SignInRequiredComponent } from './common/sign-in-required/sign-in-required.component';
-import { SiteSettingsService } from '../../shared/local-lib/services/site-settings.service';
+import { AnnouncementComponent, PageNoticeComponent } from '@anotoki/lib/site-settings';
+import { PublicSettingsService } from '../../shared/local-lib/services/public-settings.service';
 import { SecurityService } from '../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../shared/local-lib/services/visitor-key.service';
 import { isLegalPage } from '../../shared/site-legal';
@@ -20,11 +18,11 @@ import { QuizProgressService } from './features/quizzes/shared/quiz-progress.ser
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, MaintenanceComponent, RouteNoticeComponent, SignInRequiredComponent],
+  imports: [RouterOutlet, ToastHostComponent, HeaderComponent, FooterComponent, AnnouncementComponent, PageNoticeComponent, SignInRequiredComponent],
   providers: [],
 })
 export class AppComponent {
-  private readonly _settings = inject(SiteSettingsService);
+  private readonly _settings = inject(PublicSettingsService);
   private readonly _security = inject(SecurityService);
   private readonly _visitorKey = inject(VisitorKey);
   private readonly _progress = inject(QuizProgressService);
@@ -43,25 +41,15 @@ export class AppComponent {
   /**
    * Whether the page is one of the legal pages (Terms, Privacy, Contact) - or
    * About or Support beside them (anotoki-lib 0.8.0): anybody's - drawn in
-   * place of the closed sign and the sign-in card, as what the site keeps is
-   * said before anybody signs in (legal/legal-frame).
+   * place of the sign-in card, as what the site keeps is said before anybody
+   * signs in (legal/legal-frame). While the site is closed for maintenance the
+   * root gate lets them through too (the library's openWhileClosed): the shell
+   * drawn around them asks for more (the menu's Daily count, the footer's
+   * dialogs), which the closed API refuses - those parts stay empty, nothing of
+   * the closed site is shown, and Contact's feedback form cannot send until the
+   * site opens again.
    */
   readonly legalPage = computed(() => isLegalPage(this._path()));
-
-  /**
-   * Whether to draw the closed sign instead of the site.
-   *
-   * Admins are exempt, which is what makes maintenance mode usable: whoever
-   * closed the site has to be able to look at it while it is closed, and to
-   * open it again. It follows the session rather than reading it once, so the
-   * sign goes up again the moment an admin signs out in another tab. The legal
-   * pages are exempt too: what the page itself needs - its words, the public
-   * settings - the closed API still answers. The shell drawn around it asks
-   * for more (the menu's Daily count, the footer's dialogs), which the closed
-   * API refuses: those parts stay empty, nothing of the closed site is shown,
-   * and Contact's feedback form cannot send until the site opens again.
-   */
-  readonly closed = computed(() => this._settings.maintenance() && !this._settings.isAdmin() && !this.legalPage());
 
   /**
    * Whether to draw the sign-in card instead of the site: the IAM wants
@@ -72,7 +60,8 @@ export class AppComponent {
    * sign-in that came back without working, a session this site's API refuses,
    * a browser that would not start it. Followed
    * rather than read once, so a sign-out in another tab puts the card up here
-   * too. The closed sign comes first: maintenance outranks it, as on the API.
+   * too. The closed sign comes first: maintenance outranks it, as on the API -
+   * the root gate draws it in place of this whole shell.
    * Never on a legal page: the API answers what the page itself needs (its
    * words, the public settings) to anybody. The shell around it asks for more
    * (the menu's Daily count, the footer's dialogs), which the API refuses

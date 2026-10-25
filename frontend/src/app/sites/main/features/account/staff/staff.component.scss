@@ -1,2 +1,6 @@
 // The stand-alone account page's panel: see ../account-landing.scss.
 @use "../account-landing";
+
+.staff-lead {
+  color: var(--text-secondary);
+}

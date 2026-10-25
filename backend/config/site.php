@@ -3,11 +3,12 @@
 // ---------------------------------------------------------------------------
 // config/site.php — which site this deployment is
 // ---------------------------------------------------------------------------
-// The site settings and the page switches are kept per site, in a `site`
-// column (site_settings, site_routes): a request reads the rows marked with
-// this code. (The translation keys were scoped the same way until users/050:
-// every key is this site's now, and the words are the anotoki library's
-// business - api/translations.php.)
+// The generated API document names the site by this code (generate-api-spec.php).
+// Nothing in the database is scoped by it any more: the translation keys were
+// until users/050, and the site settings and the page switches (site_settings,
+// site_routes, a `site` column each) until users/066 moved genshin's rows into
+// the anotoki library's tables, which hold one site's switches - every
+// anotoki site has a database of its own.
 //
 // It is this codebase's identity rather than anything about where it runs,
 // which is why it is the one thing in config/ with a default.
@@ -17,8 +18,7 @@
 // site.local.php is gitignored, like the other .local.php files, and read
 // cleanly or not at all (config/local.php): one that cannot be read cleanly,
 // or names no site, leaves the site not set up (localConfigProblems()) -
-// never genshin_impact's switches read in another site's database, which
-// would find none of them (no maintenance, no page locked).
+// never a site guessed.
 // ---------------------------------------------------------------------------
 
 require_once __DIR__ . '/local.php';

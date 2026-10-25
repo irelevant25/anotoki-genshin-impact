@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { SiteSettingsService } from '../../../../../shared/local-lib/services/site-settings.service';
 import { SecurityService } from '../../../../../shared/local-lib/services/security.service';
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { AccountPreferences } from '@anotoki/lib/auth';
+import { SiteSettings } from '@anotoki/lib/site-settings';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
@@ -48,7 +48,8 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
   /** Whether the choices here are the anotoki account's - see the template. */
   readonly account = inject(AccountPreferences);
 
-  private readonly _settings = inject(SiteSettingsService);
+  /** The site settings every page is told (@anotoki/lib/site-settings): whether the site is closed. */
+  private readonly _settings = inject(SiteSettings);
 
   private readonly _storage = inject(LocalStorageService);
 
@@ -70,8 +71,9 @@ export class SiteAccountModalComponent extends AbstractModalComponent {
    * Whether to offer signing in at all.
    *
    * Not while the site is closed - the API would refuse whoever arrived, and
-   * a door that opens onto a closed sign reads as a fault. An admin still has
-   * /staff. And not when the site could not learn where its IAM is.
+   * a door that opens onto a closed sign reads as a fault (only the legal
+   * pages, About and Support show this shell then). An admin still has /staff.
+   * And not when the site could not learn where its IAM is.
    */
   readonly signInOffered = computed(() => this.security.available() && !this._settings.maintenance());
 

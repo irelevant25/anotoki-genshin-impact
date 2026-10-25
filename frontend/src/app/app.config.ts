@@ -9,6 +9,7 @@ import { provideAnotokiErrorReport } from '@anotoki/lib/error-report';
 import { provideAnotokiFeedback } from '@anotoki/lib/feedback';
 import { provideAnotokiLegal } from '@anotoki/lib/legal';
 import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from '@anotoki/lib/migrations';
+import { provideAnotokiSiteSettings, SiteSettings } from '@anotoki/lib/site-settings';
 import { provideAnotokiTranslations, TranslationService } from '@anotoki/lib/translations';
 import { provideAnotokiUi } from '@anotoki/lib/ui/config';
 
@@ -16,7 +17,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ConfigService } from './shared/local-lib/services/config.service';
 import { SecurityService } from './shared/local-lib/services/security.service';
-import { SiteSettingsService } from './shared/local-lib/services/site-settings.service';
+import { PublicSettingsService } from './shared/local-lib/services/public-settings.service';
 import { httpInterceptor } from './shared/local-lib/services/http.interceptor';
 import { ThemeToggleService } from './shared/local-lib/theme-toggle/theme-toggle.service';
 import { AUTH_CALLBACK_PATH } from './shared/routing-definition';
@@ -24,6 +25,7 @@ import { siteAdminToolsConfig } from './shared/site-admin-tools';
 import { siteAuthConfig } from './shared/site-auth';
 import { siteFeedbackConfig } from './shared/site-feedback';
 import { isLegalPage, siteLegalConfig } from './shared/site-legal';
+import { siteSettingsConfig } from './shared/site-settings';
 import { siteStatusConfig } from './shared/site-status';
 import { siteTranslationsConfig } from './shared/site-translations';
 import { clientNotingSilentSignIns } from './shared/silent-sign-in';
@@ -50,20 +52,19 @@ export const BASE_PATH = new InjectionToken<string>('basePath');
  * panel's gate keeps: not while the library still holds a session this site's
  * API refuses (the IAM would hand the same tokens straight back), not after a
  * sign-in that has just come back without working (it is to be explained, not
- * repeated), not on the callback's own address, and not while maintenance mode
- * has the site closed (the closed sign says so; an admin signs in at /staff).
- * Nor while the site is not ready - a database update waiting, not set up, or
- * not answering: the page that says so is all there is to see, and it has its
- * own Sign in for an administrator. Without an IAM to go to there is nothing to
- * start. Whatever is not started here meets the sign-in card in the site's
- * shell, with the button on it. Never on a legal page (Terms, Privacy,
- * Contact), nor on About or Support: they are anybody's, read before signing
- * in (shared/site-legal.ts).
+ * repeated), and not on the callback's own address. Nor while the site is not
+ * ready - closed for maintenance (the library's closed sign says so; an admin
+ * signs in at /staff), a database update waiting, not set up, or not
+ * answering: the page that says so is all there is to see, and it has its own
+ * Sign in for an administrator (SiteStatus.blocked()). Without an IAM to go to
+ * there is nothing to start. Whatever is not started here meets the sign-in
+ * card in the site's shell, with the button on it. Never on a legal page
+ * (Terms, Privacy, Contact), nor on About or Support: they are anybody's, read
+ * before signing in (shared/site-legal.ts).
  */
-function mustSignInFirst(siteSettings: SiteSettingsService, security: SecurityService, siteStatus: SiteStatus): boolean {
+function mustSignInFirst(publicSettings: PublicSettingsService, security: SecurityService, siteStatus: SiteStatus): boolean {
   return (
-    siteSettings.loginRequired() &&
-    !siteSettings.maintenance() &&
+    publicSettings.loginRequired() &&
     !siteStatus.blocked() &&
     !security.isLoggedIn() &&
     security.available() &&
@@ -79,27 +80,34 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const injector = inject(Injector);
       const configService = inject(ConfigService);
-      const siteSettings = inject(SiteSettingsService);
+      const publicSettings = inject(PublicSettingsService);
+      const siteSettings = inject(SiteSettings);
       const auth = inject(AnotokiAuth);
       const securityService = inject(SecurityService);
       const siteStatus = inject(SiteStatus);
 
       return (async (): Promise<void> => {
         await configService.init();
-        // Where the site stands - ready, or not set up, or a database update
-        // waiting (@anotoki/lib/migrations) - asked beside the settings, so the
-        // first page drawn is the right one: the gate in the root component
-        // draws "The site is being updated" instead of the site, and an ADMIN
-        // the way to the Migrations page. It never stops the boot: while an
-        // update waits the API keeps the settings, the session and the strings
-        // open, so everything below still runs and a sign-in still works.
+        // Where the site stands - ready, closed for maintenance, not set up, or
+        // a database update waiting (@anotoki/lib/migrations) - asked beside the
+        // settings, so the first page drawn is the right one: the gate in the
+        // root component draws "The site is being updated" or the closed sign
+        // instead of the site, and an ADMIN the way to the Migrations page, or
+        // the site as it is. It never stops the boot: while an update waits the
+        // API keeps the settings, the session and the strings open, so
+        // everything below still runs and a sign-in still works.
         const status = siteStatus.check();
-        // Before the session and before the strings: whether the site is open
-        // at all is the first thing anything needs to know, and it is the one
-        // answer that decides whether the rest is worth having. It is also
-        // where the IAM's address comes from.
-        await siteSettings.init();
+        // The site settings every page is told (@anotoki/lib/site-settings,
+        // shared/site-settings.ts): the announcement and the pages Page access
+        // governs, before the router's first navigation asks the guard. Never
+        // rejects: a read that fails leaves no announcement and every page
+        // anybody's - the server refuses a hidden page's API paths itself.
+        const pages = siteSettings.load();
+        // Before the session and before the strings: where the IAM's address
+        // comes from.
+        await publicSettings.init();
         await status;
+        await pages;
         // Before the router's first navigation (@anotoki/lib/auth,
         // shared/site-auth.ts): a sign-in coming back from the IAM is finished
         // here and the address it started from put back; a stored session is
@@ -119,7 +127,7 @@ export const appConfig: ApplicationConfig = {
         }
         // This site's own record of whoever is signed in (/api/me), so the
         // first page is drawn for them.
-        await securityService.init(siteSettings.auth());
+        await securityService.init(publicSettings.auth());
         // Built only now, after the session: the theme is the signed-in
         // account's, which is known from here on, and the strings read the
         // address bar once to tell the site from the admin panel, which a
@@ -139,7 +147,7 @@ export const appConfig: ApplicationConfig = {
         // language this reader would have read the site in: when the IAM wants
         // everybody signed in here, somebody who is not goes there before
         // anything is drawn, and comes back to the address they opened.
-        if (mustSignInFirst(siteSettings, securityService, siteStatus)) {
+        if (mustSignInFirst(publicSettings, securityService, siteStatus)) {
           await securityService
             .login({ returnTo: location.pathname + location.search + location.hash })
             // The browser would not start it. The site's sign-in card is
@@ -151,7 +159,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     // The site's status first: it hears an API answer saying the site is not
-    // ready (503 update_pending or not_set_up) after the rest of the handling
+    // ready (503 update_pending, not_set_up or maintenance) after the rest of the handling
     // of the request - its token, its one retry - is done. Then this site's
     // own (the base URL, the multipart override, the move's key), and last the
     // sign-in's (@anotoki/lib/auth): who each request of the API is, its token
@@ -168,6 +176,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideAnotokiErrorReport(),
     provideAnotokiMigrations(siteStatusConfig),
+    // The site settings on the pages (shared/site-settings.ts): what every page
+    // is told - the announcement bar, Page access's guard, the administrators'
+    // notice above a page - read at boot above.
+    provideAnotokiSiteSettings(siteSettingsConfig),
     // Signing in through the anotoki IAM (shared/site-auth.ts), and its
     // screens' words - the library's anotoki.signIn.*. Its IAM client notes
     // whether each sign-in was the hint's silent one (shared/silent-sign-in.ts):

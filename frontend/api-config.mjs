@@ -56,7 +56,6 @@ export const GROUPS = [
   ['fileCategory', ['/api/file-categories']],
   ['file', ['/api/files', '/api/uploads']],
   ['setting', ['/api/settings']],
-  ['route', ['/api/site-routes']],
   ['dashboard', ['/api/dashboard']],
   ['visitor', ['/api/visitor']],
   ['catalog', ['/api/catalog']],
@@ -84,8 +83,8 @@ export const GROUP_DOCS = {
   stat: 'The stat names the rest of the data refers to.',
   file: 'The asset tree on disk: browsing it, adding to it, and undoing a deletion.',
   fileCategory: 'The kinds of asset there are, and which folder each kind lives in.',
-  setting: 'The switches an admin can throw without a deploy - maintenance and the announcement bar - and where the site signs people in.',
-  route: 'Which pages of the site exist, who they are drawn for, and which API paths go dark with them.',
+  setting:
+    "What the site is told before anybody signs in: where its sign-in lives, and the visitors. The switches an admin throws without a deploy are the anotoki library's site settings, outside this client.",
   dashboard: 'The counts on the admin landing page.',
   visitor: "This browser's visitor - somebody playing without signing in - and moving what it played into an account at sign-in.",
   catalog: "The game catalog the build analyzer reads, server to server: every live character, weapon and artifact set with the game's own id, public and read-only. No page calls it.",
@@ -109,9 +108,6 @@ export const RESPONSES = {};
  * that does. A `FormData` entry means the endpoint takes multipart, not JSON.
  */
 export const BODIES = {
-  'PUT /api/settings': 'SiteSettingsSaveRequest',
-  'PUT /api/site-routes': 'SiteRoutesSaveRequest',
-  'POST /api/site-routes': 'SiteRouteCreateRequest',
   'PUT /api/admin/guides/{guide}': 'GuideSaveRequest',
   'POST /api/admin/quiz-levels/check': 'QuizLevelsSaveRequest',
   'PUT /api/admin/quiz-levels': 'QuizLevelsSaveRequest',
@@ -196,12 +192,6 @@ export const NAMES = {
   // The mechanical rule reads `/api/me` as a collection of "mes".
   'GET /api/me': 'getMe',
   'GET /api/settings/public': 'getPublicSettings',
-  'GET /api/settings': 'getSettings',
-  'PUT /api/settings': 'saveSettings',
-  'GET /api/site-routes': 'getRoutes',
-  'PUT /api/site-routes': 'saveRoutes',
-  'POST /api/site-routes': 'addRoute',
-  'DELETE /api/site-routes/{id}': 'deleteRoute',
 
   'GET /api/quizzes': 'getQuizzes',
   'GET /api/quiz/progress': 'getQuizProgress',
@@ -245,7 +235,11 @@ export const NAMES = {
  * api/index.php): their client is @anotoki/lib/admin/*, @anotoki/lib/people/page
  * and @anotoki/lib/feedback/form. Since 0.5.0 the pages' error reports too -
  * `client-errors` (ErrorLogRoutes::client()), whose client is the library's
- * ErrorHandler, @anotoki/lib/error-report. Its README says what they answer.
+ * ErrorHandler, @anotoki/lib/error-report. And since 0.11.0 the site settings -
+ * `site-settings` (what every page is told) and `admin/site-settings` (the admin
+ * Site settings page's), the library's SiteSettingsRoutes put up in
+ * api/index.php - whose client is @anotoki/lib/site-settings and
+ * @anotoki/lib/admin/site-settings. Its README says what they answer.
  */
 export const SKIP_PREFIXES = [
   '/api/affiliations',
@@ -263,6 +257,8 @@ export const SKIP_PREFIXES = [
   '/api/admin/files',
   '/api/admin/people',
   '/api/client-errors',
+  '/api/site-settings',
+  '/api/admin/site-settings',
 ];
 
 /**
