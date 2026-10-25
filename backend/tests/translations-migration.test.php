@@ -110,7 +110,8 @@ const LIBRARY_WORDS_FILES = [
 // quizzes' levels' table; Voice's levels' seconds, 058's words, from the
 // levels - tests/quiz-levels.test.php), users/062 (the detail pages' and the
 // banners' new look's words), users/063 (the lists' new look's words) and
-// users/064 (the account panel's date and clock words gone), and
+// users/064 (the account panel's date and clock words gone), users/065 (the
+// Profile's new look's words), and
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
 // catalog), which one Apply brings along.
 const WORDS_AND_AFTER = [
@@ -131,6 +132,7 @@ const WORDS_AND_AFTER = [
     'users/062_database_pages_redesign_strings.sql',
     'users/063_database_lists_strings.sql',
     'users/064_drop_account_dates_and_clock_strings.sql',
+    'users/065_profile_redesign_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -262,6 +264,53 @@ const GONE_BY_064 = [
     'account.formats.ymdDash',
     'account.timeFormat',
 ];
+// What users/065 brings and takes away: the Profile's new look's 32 words (its tabs, its Quizzes and
+// Characters tabs, its sorts, its history and its empty page's), and the table of characters' column names and the
+// sentence over the activity grid, which the new page no longer says.
+const PROFILE_NEW_KEYS = [
+    'profile.activity.days',
+    'profile.activity.longest',
+    'profile.characters.count.few',
+    'profile.characters.count.one',
+    'profile.characters.count.other',
+    'profile.characters.lead',
+    'profile.characters.listLead',
+    'profile.characters.none',
+    'profile.characters.search',
+    'profile.characters.showMore',
+    'profile.characters.sort',
+    'profile.empty.preview',
+    'profile.empty.previewLead',
+    'profile.empty.start',
+    'profile.empty.startLead',
+    'profile.history.today',
+    'profile.history.yesterday',
+    'profile.overview.longestHint',
+    'profile.overview.wonHint',
+    'profile.quizzes.lead',
+    'profile.quizzes.notPlayed',
+    'profile.quizzes.play',
+    'profile.quizzes.playedCount',
+    'profile.quizzes.tries',
+    'profile.sort.best',
+    'profile.sort.name',
+    'profile.sort.played',
+    'profile.sort.toughest',
+    'profile.tabs.characters',
+    'profile.tabs.history',
+    'profile.tabs.overview',
+    'profile.tabs.quizzes',
+];
+const GONE_BY_065 = [
+    'profile.activity.summary',
+    'profile.characters.column.attempts',
+    'profile.characters.column.character',
+    'profile.characters.column.lost',
+    'profile.characters.column.played',
+    'profile.characters.column.winRate',
+    'profile.characters.column.won',
+    'profile.empty.action',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -387,9 +436,10 @@ foreach ($before as $row) {
         in_array($row['key_name'], OLD_FORM_KEYS, true) ||
         in_array($row['key_name'], MULTISELECT_SUMMARY_KEYS, true) ||
         in_array($row['key_name'], GONE_BY_062_063, true) ||
-        in_array($row['key_name'], GONE_BY_064, true)
+        in_array($row['key_name'], GONE_BY_064, true) ||
+        in_array($row['key_name'], GONE_BY_065, true)
     ) {
-        // users/053's, 056's, 062's, 063's and 064's to take away - looked at below.
+        // users/053's, 056's, 062's, 063's, 064's and 065's to take away - looked at below.
         continue;
     }
     if (preg_match('/\S/', $row['value']) !== 1) {
@@ -425,10 +475,10 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 288 of them', 288, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS;
-$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064);
+$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS);
+$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064) + count(GONE_BY_065);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s and 063\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s and 064\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s and 065\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 288,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -607,6 +657,28 @@ same(
         count(array_intersect(GONE_BY_062_063, array_keys($keysBefore))),
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+
+$inList = "'" . implode("', '", GONE_BY_065) . "'";
+same(
+    '065: the Profile\'s old table\'s column names and the activity grid\'s sentence, all there before, gone - with every string under them',
+    [count(GONE_BY_065), 0, 0],
+    [
+        count(array_intersect(GONE_BY_065, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+$inList = "'" . implode("', '", PROFILE_NEW_KEYS) . "'";
+same(
+    '...and its 32 new words, none there before, each in English and Slovak',
+    [0, count(PROFILE_NEW_KEYS), count(PROFILE_NEW_KEYS), count(PROFILE_NEW_KEYS)],
+    [
+        count(array_intersect(PROFILE_NEW_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND key_name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND key_name IN ($inList)")->fetchColumn(),
     ],
 );
 

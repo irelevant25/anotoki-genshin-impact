@@ -1242,7 +1242,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   reads are joined to `GameListsService.charactersMinimal()` for the elements,
   rarities and namecards (`characterDetails()`); the list failing costs only
   pictures. Before the first played question the page offers the six quizzes
-  and a preview of the figures. Its words are `users/016`'s and `users/064`'s;
+  and a preview of the figures. Its words are `users/016`'s and `users/065`'s;
   `profile.tabs.`, `profile.sort.` and `profile.characters.count.` are in
   `dynamic-keys.ts`.
 - **i18n**: user copy goes through the `translate` pipe with a key (the
