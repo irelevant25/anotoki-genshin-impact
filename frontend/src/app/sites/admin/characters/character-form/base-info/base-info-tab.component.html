@@ -72,12 +72,7 @@
             [value]="arkheField.selected()"
             [none]="null" />
         <!-- A birthday is a day and a month, kept as a DATE in year 4 (stored-dates.ts). -->
-        <anotoki-date-field
-            label="Birthday"
-            dayMonth
-            [format]="dateFormat()"
-            [value]="storedToFieldDayMonth(character().data.birthday)"
-            (valueChange)="character().data.birthday = fieldDayMonthToStored($event)" />
+        <anotoki-date-field label="Birthday" dayMonth [value]="storedToFieldDayMonth(character().data.birthday)" (valueChange)="character().data.birthday = fieldDayMonthToStored($event)" />
         <anotoki-text-field
             label="Version *"
             placeholder="e.g. 1.0"
@@ -87,11 +82,7 @@
             [error]="versionField.error()"
             [value]="fieldText(character().data.version)"
             (valueChange)="character().data.version = $event" />
-        <anotoki-date-field
-            label="Release Date"
-            [format]="dateFormat()"
-            [value]="storedToFieldDate(character().data.release_date)"
-            (valueChange)="character().data.release_date = fieldDateToStored($event)" />
+        <anotoki-date-field label="Release Date" [value]="storedToFieldDate(character().data.release_date)" (valueChange)="character().data.release_date = fieldDateToStored($event)" />
         <anotoki-text-field label="Introduced" placeholder="e.g. 1.1" [value]="fieldText(character().data.introduced)" (valueChange)="character().data.introduced = $event" />
         <anotoki-select
             label="Special Dish"

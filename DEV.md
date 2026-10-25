@@ -104,8 +104,9 @@ then `migrations/genshin_impact/`, the site's half and the game content - and wr
 | `iam.local.php` | the IAM's address and this site's client id there |
 
 An `app.local.php` from an older checkout (this site's address, from when the
-API answered the dev frontend cross-origin) is no longer read; delete it if you
-like.
+API answered the dev frontend cross-origin) names the address robots.txt and
+sitemap.xml give - `http://localhost:4200`, which a checkout gives without it
+(`config/app.php`); delete it if you like.
 
 The **Test connection** answers are the family's, word for word the same on every
 anotoki setup page. The database's:
@@ -275,7 +276,7 @@ controls' edge at 3:1 or more).
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
 Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.11.0 now
+sequences that count down, then the origin secret): both halves are 0.11.1 now
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.10.0` never brings 0.11, which needs its constraint
 written. A piece of the library's kit is
@@ -1589,12 +1590,18 @@ was saved before is drawn through it as ever, and cleaned the next time it is
 saved. Never before the
 upload, and no older build on the host afterwards: it would read tables that are
 gone. Then, signed in as the ADMIN: System → **Site settings** shows the switches
-and pages as they were. For robots.txt and sitemap.xml, the site's address:
-`config/app.local.php` - `<?php return ['url' => 'https://genshin.anotoki.eu'];`
-- by hand, unless the host has it already (the setup page wrote it from
-2026-09-29 to 2026-10-05); `https://genshin.anotoki.eu/robots.txt` then ends with
-its `Sitemap:` line. The old `frontend/robots.txt` goes with the release
-(the front controller answers both before any file).
+and pages as they were. robots.txt and sitemap.xml are the PHP's from this
+release on: the old `frontend/robots.txt` goes with the release (the front
+controller answers both before any file), and since 0.11.1 their address needs
+no file (below).
+
+**anotoki-lib 0.11.1 on the host** (2026-10-25; no migration): upload both
+builds together - nothing to Apply. robots.txt and sitemap.xml name the address
+a release is put at, `https://genshin.anotoki.eu` (`config/app.php`), with no
+`config/app.local.php` to upload; one a host has (the setup page wrote
+`https://genshin.anotoki.eu` there from 2026-09-29 to 2026-10-05) still names
+its own, and may go. `https://genshin.anotoki.eu/robots.txt` ends with its
+`Sitemap:` line.
 
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's

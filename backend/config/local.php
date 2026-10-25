@@ -23,10 +23,11 @@
 // config/cloudflare.php; setup.php never writes or reads it, and there is no
 // secret without it).
 // app.local.php (this site's own public address, robots.txt's Sitemap line
-// and every address of sitemap.xml - config/app.php; setup.php never writes it,
-// and without it robots.txt names no sitemap; written by the setup page of
-// 2026-09-29 to 2026-10-05, for the CORS allowlist the API no longer has, whose
-// cors_origins are not read).
+// and every address of sitemap.xml, where it is not the one the code's place
+// gives - a release's https://genshin.anotoki.eu, a checkout's
+// http://localhost:4200: config/app.php; setup.php never writes it; written by
+// the setup page of 2026-09-29 to 2026-10-05, for the CORS allowlist the API
+// no longer has, whose cors_origins are not read).
 //
 // Nothing committed stands in for any of them. A default is how a development
 // value ends up serving production - an allowlist of origins once named a
@@ -68,6 +69,16 @@ const SETUP_PATH = '/setup.php';
 final class NotSetUpException extends RuntimeException {}
 
 /**
+ * Whether the code runs from a release: anotoki-deploy puts release.json in a release's backend/, never in a checkout
+ * (nor in a copy of the code, the tests'). Where the state is (siteStateRoot()) and the site's own address
+ * (siteAddress(), config/app.php) follow from it.
+ */
+function siteIsRelease(): bool
+{
+    return is_file(dirname(__DIR__) . '/release.json');
+}
+
+/**
  * The folder this installation's state is in - config/*.local.php and storage/; and on the host the uploads too. On
  * the host a release's backend/ carries release.json (anotoki-deploy) and the state is beside it, in the site's
  * folder, never part of an upload; in a checkout (and a copy of the code, the tests') it is backend/ itself.
@@ -76,7 +87,7 @@ function siteStateRoot(): string
 {
     $backend = dirname(__DIR__);
 
-    return is_file($backend . '/release.json') ? dirname($backend) : $backend;
+    return siteIsRelease() ? dirname($backend) : $backend;
 }
 
 /**

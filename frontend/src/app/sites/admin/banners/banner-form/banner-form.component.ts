@@ -8,12 +8,11 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
-import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
 import { FieldCheckDirective } from '../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../shared/local-lib/fields/field-text';
 import { ChoiceFieldDirective } from '../../../../shared/local-lib/fields/choice-field.directive';
-import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../shared/local-lib/stored-dates';
+import { fieldDateToStored, storedToFieldDate } from '../../../../shared/local-lib/stored-dates';
 import { BannerApiService, CharacterApiService, WeaponApiService, BannerFull } from '../../../../api';
 import { BannerFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
@@ -51,11 +50,7 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
   readonly entityLabel = 'Banner';
   protected readonly listRoute = '/admin/banners';
 
-  private readonly _dates = inject(AnotokiDates);
-
   readonly fieldText = fieldText;
-  /** The order the dates are typed in: the one the lists beside the form write them in (stored-dates.ts). */
-  readonly dateFormat = computed(() => fieldFormatOf(this._dates));
   /** A run's day as the kit's date field reads it, and back as the API keeps it (stored-dates.ts). */
   readonly storedToFieldDate = storedToFieldDate;
   readonly fieldDateToStored = fieldDateToStored;

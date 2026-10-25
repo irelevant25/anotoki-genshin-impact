@@ -177,10 +177,11 @@ hosting:
     byte-order mark, a line before `<?php`) or that names no usable secret (blank, a misspelt key) it believes
     it from nobody - every visitor counts as their edge until the file is mended. Set the rule first, then the
     file, saved as UTF-8 without a BOM and starting with `<?php` - every `config/*.local.php` likewise.
-- **The site's address** for robots.txt and sitemap.xml: `backend/config/app.local.php` -
-  `<?php return ['url' => 'https://genshin.anotoki.eu'];` - put there by hand (setup.php never writes it; a host
-  installed between 2026-09-29 and 2026-10-05 has it already). Without it robots.txt names no sitemap and
-  `/sitemap.xml` answers 404.
+- **The site's address** for robots.txt and sitemap.xml needs no file: a release names `https://genshin.anotoki.eu`,
+  where the deploy tool puts it (`backend/config/app.php`; a checkout names `http://localhost:4200`). A host served
+  at another address names it in `backend/config/app.local.php` - `<?php return ['url' => 'https://...'];` - by
+  hand (setup.php never writes it; the one it wrote between 2026-09-29 and 2026-10-05 names
+  `https://genshin.anotoki.eu`); one the site cannot read cleanly is passed over, said once in the PHP log.
 - **After an upload**: the private folders (`storage/`, `config/`) answer 403 in a browser; the host check's
   "Who connects" says Cloudflare, not a proxy of the host's (behind one, every visitor would share one
   address); pending database updates are applied on the admin panel's Migrations page.
@@ -498,7 +499,8 @@ not drift; [docs/README.md](docs/README.md) lists them.
   And robots.txt and sitemap.xml are answered by the PHP (the library's Robots):
   robots kept out of the admin panel, the API, the sign-in's way back and
   `/staff`, and every public page and every character, weapon and material's
-  page listed at the site's configured address, without what Page access hides
+  page listed at the site's own address (a release's `https://genshin.anotoki.eu`,
+  with no file to upload), without what Page access hides
   - the static `frontend/public/robots.txt` is gone. And no leftover tables:
   `users/067` and `genshin_impact/033` drop the old copies kept when the
   words, the audit log and feedback moved into the library's tables, and the

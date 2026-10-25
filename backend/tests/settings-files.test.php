@@ -139,7 +139,7 @@ file_put_contents(
     $out = ['boot' => (string) ob_get_clean(), 'answers' => [], 'addresses' => []];
     $asks = json_decode((string) file_get_contents($argv[1]), true);
     $request = static function (array $ask): Psr\Http\Message\ServerRequestInterface {
-        $request = (new ServerRequestFactory())->createServerRequest($ask['method'] ?? 'GET', 'http://localhost' . ($ask['path'] ?? '/api/regions'), ['REMOTE_ADDR' => $ask['from'] ?? '127.0.0.1']);
+        $request = (new ServerRequestFactory())->createServerRequest($ask['method'] ?? 'GET', 'http://' . ($ask['host'] ?? 'localhost') . ($ask['path'] ?? '/api/regions'), ['REMOTE_ADDR' => $ask['from'] ?? '127.0.0.1']);
         foreach ($ask['headers'] ?? [] as $name => $value) {
             $request = $request->withHeader($name, $value);
         }
@@ -171,19 +171,21 @@ file_put_contents(
 
 /**
  * Runs one case with config/{name}.local.php holding $contents (the copy's own put back after it): what the case
- * printed, its exit code, what it answered and PHP's log of it.
+ * printed, its exit code, what it answered and PHP's log of it. The settings are where the code looks for them: in
+ * backend/ for a checkout, beside it for a release (releaseOf(), config/local.php's siteStateRoot()).
  *
  * @return array{code: int, output: string, run: ?array, log: string}
  */
 function settingsCase(string $backend, string $name, ?string $contents, array $asks): array
 {
-    $file = "$backend/config/$name.local.php";
+    $state = is_file("$backend/release.json") ? dirname($backend) : $backend;
+    $file = "$state/config/$name.local.php";
     $kept = is_file($file) ? (string) file_get_contents($file) : null;
     if ($contents !== null) {
         file_put_contents($file, $contents);
     }
     // Each case says its file afresh: what was said once is not said again (the stamps in storage/cache).
-    array_map('unlink', glob("$backend/storage/cache/*-reported*") ?: []);
+    array_map('unlink', glob("$state/storage/cache/*-reported*") ?: []);
     $dir = testTempDir('settings-case');
     file_put_contents("$dir/asks.json", json_encode($asks));
     try {
@@ -317,45 +319,124 @@ same('...one that names the site: set up', [[], 'ready'], [$case['run']['problem
 
 // ── app.local.php: this site's address, for robots.txt and sitemap.xml ──────
 
-echo "app.local.php: the site's address - optional; passed over, robots.txt names no sitemap\n";
+echo "app.local.php: the site's address - where the code runs, unless the file names another; one passed over leaves it\n";
 
-$robotsAsks = ['requests' => [['path' => '/api/site-status'], ['path' => '/robots.txt'], ['path' => '/sitemap.xml']]];
-$address = 'https://genshin-' . bin2hex(random_bytes(6)) . '.example';
-foreach (
-    [
-        'none at all' => null,
-        'with a byte-order mark' => BOM . "<?php return ['url' => '$address'];\n",
-        'text after a closing tag' => "<?php ?>\n$address\n<?php return ['url' => '$address'];\n",
-        'whose url is no origin (a path after it)' => "<?php\n\nreturn ['url' => '$address/genshin'];\n",
-        'that names no url' => "<?php\n\nreturn ['address' => '$address'];\n",
-    ]
-    as $what => $contents
-) {
-    $case = settingsCase($backend, 'app', $contents, $robotsAsks);
-    $answers = $case['run']['answers'] ?? [];
-    same(
-        "app.local.php $what: still set up and ready, robots.txt answered with no Sitemap line, sitemap.xml 404 not_configured - nothing printed",
-        [0, [], 'ready', 200, false, 404, 'not_configured', ''],
-        [
-            $case['code'],
-            $case['run']['problems'] ?? null,
-            json_decode($answers[0]['body'] ?? '{}', true)['state'] ?? null,
-            $answers[1]['status'] ?? null,
-            str_contains($answers[1]['body'] ?? 'Sitemap:', 'Sitemap:'),
-            $answers[2]['status'] ?? null,
-            json_decode($answers[2]['body'] ?? '{}', true)['code'] ?? null,
-            ($case['run']['boot'] ?? '?') . implode('', array_column($answers, 'printed')),
-        ],
-    );
-    check('...the address in no answer, the sitemap\'s line included', !str_contains(implode("\n", array_column($answers, 'body')), $address));
-}
-$case = settingsCase($backend, 'app', "<?php\n\nreturn ['url' => '$address/', 'cors_origins' => ['https://other.example']];\n", $robotsAsks);
-$answers = $case['run']['answers'] ?? [];
+/** Where a checkout is served (ng serve), and where the deploy tool puts a release (composer.json's extra["anotoki-deploy"]). */
+const CHECKOUT_ADDRESS = 'http://localhost:4200';
+const RELEASE_ADDRESS = 'https://genshin.anotoki.eu';
+
+$deploy = json_decode((string) file_get_contents(TEST_BACKEND . '/composer.json'), true)['extra']['anotoki-deploy'];
 same(
-    '...one that names it (an old file\'s cors_origins beside it, unread): the sitemap named there, and served',
-    [true, 200],
-    [str_contains($answers[1]['body'] ?? '', "Sitemap: $address/sitemap.xml"), $answers[2]['status'] ?? null],
+    'a release is served where the deploy tool puts it, its front controller given robots.txt and sitemap.xml',
+    [RELEASE_ADDRESS, true, true],
+    [$deploy['url'], in_array('robots.txt', $deploy['routes'], true), in_array('sitemap.xml', $deploy['routes'], true)],
 );
+
+/**
+ * The same code as a release runs it, made from the backend copy: backend/ carrying release.json (anotoki-deploy's),
+ * the settings and storage/ beside it, where config/local.php's siteStateRoot() looks for them - the IAM's cache
+ * among them.
+ */
+function releaseOf(string $backend): string
+{
+    $release = testTempDir('release');
+    foreach (['api', 'vendor', 'migrations'] as $folder) {
+        testCopyTree("$backend/$folder", "$release/backend/$folder");
+    }
+    mkdir("$release/backend/config", 0777, true);
+    mkdir("$release/config", 0777, true);
+    mkdir("$release/storage/cache", 0777, true);
+    foreach (glob("$backend/config/*.php") ?: [] as $file) {
+        copy($file, (str_ends_with($file, '.local.php') ? "$release/config/" : "$release/backend/config/") . basename($file));
+    }
+    copy("$backend/settings-case.php", "$release/backend/settings-case.php");
+    file_put_contents("$release/backend/release.json", json_encode(['site' => 'genshin']));
+    $iam = require "$release/config/iam.local.php";
+    file_put_contents("$release/config/iam.local.php", "<?php\n\nreturn " . var_export(['cache_dir' => "$release/storage/cache"] + $iam, true) . ";\n");
+
+    return "$release/backend";
+}
+
+// The status, robots.txt, sitemap.xml - and robots.txt asked under another name, its Host anybody's to write.
+$robotsAsks = ['requests' => [['path' => '/api/site-status'], ['path' => '/robots.txt'], ['path' => '/sitemap.xml'], ['path' => '/robots.txt', 'host' => 'evil.example']]];
+
+/** What a case's robots.txt and sitemap.xml say of the address - the same shape as served() - beside what was printed. */
+function robotsAnswered(array $case): array
+{
+    $answers = $case['run']['answers'] ?? [];
+    $line = static fn(int $at): ?string => preg_match('~^Sitemap: (\S+)$~m', $answers[$at]['body'] ?? '', $m) ? $m[1] : null;
+
+    return [
+        $case['code'],
+        $case['run']['problems'] ?? null,
+        json_decode($answers[0]['body'] ?? '{}', true)['state'] ?? null,
+        $answers[1]['status'] ?? null,
+        $line(1),
+        $answers[2]['status'] ?? null,
+        preg_match('~<loc>([^<]*)</loc>~', $answers[2]['body'] ?? '', $m) ? $m[1] : null,
+        $line(3),
+        ($case['run']['boot'] ?? '?') . implode('', array_column($answers, 'printed')),
+    ];
+}
+
+/** Set up and ready, robots.txt naming the sitemap at $address - asked under another name too - and the sitemap served there, nothing printed. */
+function served(string $address): array
+{
+    return [0, [], 'ready', 200, "$address/sitemap.xml", 200, "$address/", "$address/sitemap.xml", ''];
+}
+
+$address = 'https://genshin-' . bin2hex(random_bytes(6)) . '.example';
+$passedOver = [
+    'with a byte-order mark' => BOM . "<?php return ['url' => '$address'];\n",
+    'text after a closing tag' => "<?php ?>\n$address\n<?php return ['url' => '$address'];\n",
+    'whose url is no origin (a path after it)' => "<?php\n\nreturn ['url' => '$address/genshin'];\n",
+    'whose url is no web address' => "<?php\n\nreturn ['url' => 'javascript:alert(1)//$address'];\n",
+    'that names no url (a misspelt key)' => "<?php\n\nreturn ['address' => '$address'];\n",
+    'that returns no array' => "<?php\n\nreturn '$address';\n",
+];
+
+$case = settingsCase($backend, 'app', null, $robotsAsks);
+same('a checkout without the file: its own address (ng serve\'s) - asked under another name too, never that name', served(CHECKOUT_ADDRESS), robotsAnswered($case));
+check('...nothing said of it in PHP\'s log', !str_contains($case['log'], '[app]'), $case['log']);
+
+foreach ($passedOver as $what => $contents) {
+    $case = settingsCase($backend, 'app', $contents, $robotsAsks);
+    same("a checkout, app.local.php $what: passed over - still set up and ready, the checkout's address holds", served(CHECKOUT_ADDRESS), robotsAnswered($case));
+    check(
+        '...said in PHP\'s log, the address that holds with it',
+        str_contains($case['log'], '[app] config/app.local.php ') && str_contains($case['log'], 'robots.txt and sitemap.xml name ' . CHECKOUT_ADDRESS . ', where the code runs'),
+        $case['log'],
+    );
+    check('...the file\'s address nowhere: not in an answer, not in the log', !str_contains(settingsCaseText($case), $address));
+}
+
+$folder = "$backend/config/app.local.php";
+mkdir($folder);
+try {
+    $case = settingsCase($backend, 'app', null, $robotsAsks);
+} finally {
+    rmdir($folder);
+}
+same('a checkout, a folder where app.local.php would be: passed over, the checkout\'s address holds', served(CHECKOUT_ADDRESS), robotsAnswered($case));
+check('...said in PHP\'s log', str_contains($case['log'], '[app] config/app.local.php is not a file'), $case['log']);
+
+$case = settingsCase($backend, 'app', "<?php\n\nreturn ['url' => '$address/', 'cors_origins' => ['https://other.example']];\n", $robotsAsks);
+same('a checkout whose app.local.php names an address (an old file\'s cors_origins beside it, unread): that one, as its origin', served($address), robotsAnswered($case));
+check('...nothing said of it in PHP\'s log', !str_contains($case['log'], '[app]'), $case['log']);
+
+$release = releaseOf($backend);
+$case = settingsCase($release, 'app', null, $robotsAsks);
+same('a release without the file: the address the deploy tool puts it at - asked under another name too, never that name', served(RELEASE_ADDRESS), robotsAnswered($case));
+check('...nothing said of it in PHP\'s log', !str_contains($case['log'], '[app]'), $case['log']);
+$case = settingsCase($release, 'app', $passedOver['with a byte-order mark'], $robotsAsks);
+same('a release, app.local.php with a byte-order mark: passed over, the release\'s address holds', served(RELEASE_ADDRESS), robotsAnswered($case));
+check(
+    '...said in PHP\'s log, the address that holds with it - never the file\'s',
+    str_contains($case['log'], 'robots.txt and sitemap.xml name ' . RELEASE_ADDRESS . ', where the code runs') && !str_contains(settingsCaseText($case), $address),
+    $case['log'],
+);
+$case = settingsCase($release, 'app', "<?php\n\nreturn ['url' => '$address'];\n", $robotsAsks);
+same('a release whose app.local.php names another address: that one', served($address), robotsAnswered($case));
 
 // ── cloudflare.local.php: a file that cannot be read cleanly fails closed ───
 

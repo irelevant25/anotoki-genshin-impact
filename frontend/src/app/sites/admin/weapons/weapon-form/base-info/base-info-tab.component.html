@@ -50,11 +50,7 @@
             [value]="secondaryStatField.selected()"
             [none]="null" />
         <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(weapon().data.version)" (valueChange)="weapon().data.version = $event" />
-        <anotoki-date-field
-            label="Release Date"
-            [format]="dateFormat()"
-            [value]="storedToFieldDate(weapon().data.release_date)"
-            (valueChange)="weapon().data.release_date = fieldDateToStored($event)" />
+        <anotoki-date-field label="Release Date" [value]="storedToFieldDate(weapon().data.release_date)" (valueChange)="weapon().data.release_date = fieldDateToStored($event)" />
         <anotoki-number-field
             label="Game ID"
             placeholder="e.g. 12502"

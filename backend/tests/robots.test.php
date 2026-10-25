@@ -16,7 +16,7 @@ declare(strict_types=1);
  *     hiding every character's page); otherwise kept an hour;
  *   - both behind every gate: 503 while the site is closed for maintenance, 401 while the IAM requires signing in.
  *
- * Without the address (no app.local.php, or one that cannot be read cleanly): tests/settings-files.test.php.
+ * Without app.local.php - a checkout's address, a release's - and with one passed over: tests/settings-files.test.php.
  */
 
 use Psr\Http\Message\ResponseInterface;

@@ -590,10 +590,11 @@ const savedAndBack = async (page) => {
 const ANNOUNCEMENT_MESSAGE = { en: 'New banners arrive on Wednesday - the Daily keeps your streak meanwhile.', sk: 'Nové bannery prídu v stredu - Denný kvíz ti dovtedy drží sériu.' };
 
 /**
- * robots.txt and sitemap.xml, as the throwaway site's PHP answers them (backend/api/robots.php - the copy has the
- * site's address in config/app.local.php, as the host must): robots.txt keeping crawlers out of /staff and naming
- * the sitemap at the site's own address; the sitemap listing the public pages and the database's entries with their
- * own pages, each at that address. Both kept beside the screenshots; anything else is said.
+ * robots.txt and sitemap.xml, as the throwaway site's PHP answers them (backend/api/robots.php - the copy names the
+ * throwaway site's address in config/app.local.php, as a host served at another address would): robots.txt keeping
+ * crawlers out of /staff and naming the sitemap at the site's own address; the sitemap listing the public pages and
+ * the database's entries with their own pages, each at that address. Both kept beside the screenshots; anything else
+ * is said.
  */
 const robotsAndSitemap = async (page) => {
   const read = await page.evaluate(

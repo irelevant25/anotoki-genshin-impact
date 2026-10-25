@@ -11,8 +11,10 @@
  *
  * - robots.txt keeps every robot out of the admin panel, the API and the
  *   sign-in's way back (the library's /admin, /api, /auth) and out of /staff,
- *   the administrators' sign-in; then names the sitemap at this installation's
- *   configured address (config/app.php) - no line while none is configured.
+ *   the administrators' sign-in; then names the sitemap at this site's own
+ *   address (config/app.php: config/app.local.php's url, else where the code
+ *   runs - a release's https://genshin.anotoki.eu, a checkout's
+ *   http://localhost:4200; never the request's Host).
  * - sitemap.xml lists the public pages below and every character, weapon and
  *   material the database pages show (each has a page of its own), with the
  *   day it last changed - leaving out a deleted row, what Page access hides (a
@@ -76,7 +78,7 @@ function siteRobots(): Robots
     static $robots = null;
 
     return $robots ??= new Robots(
-        address: static fn(): ?string => siteAddress(),
+        address: static fn(): string => siteAddress(),
         // The administrators' sign-in, which the closed sign's Sign in stands at: nothing there to find.
         disallow: ['/staff'],
         pages: SITEMAP_PAGES,

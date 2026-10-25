@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { CheckboxComponent, SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
@@ -11,8 +11,7 @@ import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
 import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
-import { AnotokiDates } from '@anotoki/lib/ui/dates';
-import { fieldDateToStored, fieldFormatOf, fieldDayMonthToStored, storedToFieldDate, storedToFieldDayMonth } from '../../../../../shared/local-lib/stored-dates';
+import { fieldDateToStored, fieldDayMonthToStored, storedToFieldDate, storedToFieldDayMonth } from '../../../../../shared/local-lib/stored-dates';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { characterImageName, CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
@@ -65,11 +64,7 @@ export class BaseInfoTabComponent {
   relationships = model<RelationshipFormData[]>([]);
   selectedRoles = model<string[]>([]);
 
-  private readonly _dates = inject(AnotokiDates);
-
   readonly fieldText = fieldText;
-  /** The order the dates are typed in: the one the lists beside the form write them in (stored-dates.ts). */
-  readonly dateFormat = computed(() => fieldFormatOf(this._dates));
   /** The dates as the kit's date field reads them, and back as the API keeps them (stored-dates.ts). */
   readonly storedToFieldDate = storedToFieldDate;
   readonly fieldDateToStored = fieldDateToStored;

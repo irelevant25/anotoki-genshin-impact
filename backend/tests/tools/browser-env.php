@@ -19,7 +19,8 @@ declare(strict_types=1);
  * with settings of its own - that database, a secret, the IAM at <issuer> (the
  * anotoki library's stand-in, which the screenshot pass starts) and, given, the
  * site's own address (config/app.local.php: robots.txt's sitemap and its
- * addresses, as on the host) - applies
+ * addresses - the throwaway site is served at neither a release's address nor a
+ * checkout's, config/app.php) - applies
  * every migration with the copy's own migration.php, and puts a handful of
  * characters, weapons, materials, foods, banners, artifacts and enemies in, so
  * the pages have something to draw. No pictures: the asset tree is not there.

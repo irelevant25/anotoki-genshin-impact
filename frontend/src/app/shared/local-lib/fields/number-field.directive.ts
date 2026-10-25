@@ -19,7 +19,7 @@ export type NumberValue = string | number | null | undefined;
  * which gives way to the field's own words while the box holds a text that is no number), counted as left when the
  * field is.
  */
-@Directive({ selector: 'anotoki-number-field[appNumber]', exportAs: 'appNumber', host: { '(input)': 'onInput($event)' } })
+@Directive({ selector: 'anotoki-number-field[appNumber]', exportAs: 'appNumber' })
 export class NumberFieldDirective extends FieldCheck {
   readonly value = model<NumberValue>(undefined, { alias: 'appNumber' });
 
@@ -28,8 +28,9 @@ export class NumberFieldDirective extends FieldCheck {
   private readonly _field = inject(NumberFieldComponent, { self: true });
 
   /**
-   * What the box holds, as last typed; null until the person typed. Every keystroke, not only those that change the
-   * field's value: from an emptied box to a number out of range the value stays null, and says nothing.
+   * What the box holds, as last typed; null until the person typed. The field tells every input (anotoki-lib 0.11.1),
+   * not only those that change its value - from an emptied box to a number out of range it stays null, and is told
+   * again all the same.
    */
   private readonly _text = signal<string | null>(null);
 
@@ -64,12 +65,5 @@ export class NumberFieldDirective extends FieldCheck {
       }
     });
     this._field.blurred.subscribe(() => this.touch());
-  }
-
-  /** The box typed in (its input event, after the field's own has read it). */
-  protected onInput(event: Event): void {
-    if (event.target instanceof HTMLInputElement) {
-      this._text.set(event.target.value);
-    }
   }
 }

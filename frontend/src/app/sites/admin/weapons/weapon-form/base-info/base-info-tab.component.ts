@@ -1,13 +1,12 @@
-import { Component, computed, inject, input, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
-import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
 import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
-import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../../shared/local-lib/stored-dates';
+import { fieldDateToStored, storedToFieldDate } from '../../../../../shared/local-lib/stored-dates';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { listText, revokePicked, toLines } from '../../../shared/admin-full-resource.model';
@@ -22,11 +21,7 @@ import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, We
 export class BaseInfoTabComponent {
   weapon = model<WeaponWrapper>(emptyWeapon());
 
-  private readonly _dates = inject(AnotokiDates);
-
   readonly fieldText = fieldText;
-  /** The order the dates are typed in: the one the lists beside the form write them in (stored-dates.ts). */
-  readonly dateFormat = computed(() => fieldFormatOf(this._dates));
   /** A date as the kit's date field reads it, and back as the API keeps it (stored-dates.ts). */
   readonly storedToFieldDate = storedToFieldDate;
   readonly fieldDateToStored = fieldDateToStored;
