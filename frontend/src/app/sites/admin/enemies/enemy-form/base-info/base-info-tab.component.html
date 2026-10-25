@@ -1,22 +1,36 @@
 <div class="form-section">
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
-        <app-text [label]="'Name'" [placeholder]="'e.g. Pyro Slime'" [(value)]="enemy().data.name" [required]="true"></app-text>
-        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="enemy().data.version"></app-text>
-        <app-text [label]="'Interactive Map Link'" class="col-span-2" [(value)]="enemy().data.interactive_map_link"></app-text>
+        <anotoki-text-field
+            label="Name *"
+            placeholder="e.g. Pyro Slime"
+            required
+            appCheck
+            #nameField="appCheck"
+            [error]="nameField.error()"
+            [value]="fieldText(enemy().data.name)"
+            (valueChange)="enemy().data.name = $event" />
+        <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(enemy().data.version)" (valueChange)="enemy().data.version = $event" />
+        <anotoki-text-field label="Interactive Map Link" class="col-span-2" [value]="fieldText(enemy().data.interactive_map_link)" (valueChange)="enemy().data.interactive_map_link = $event" />
     </div>
 </div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Icon</h3>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        <app-entity-image [label]="'Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="enemy().pending.icon" (picked)="onPicked($event)" (cleared)="onCleared()" />
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Icon</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                <app-entity-image [label]="'Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="enemy().pending.icon" (picked)="onPicked($event)" (cleared)="onCleared()" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="form-section">
     <h3 class="section-title">Description</h3>
-    <app-field-container [cols]="1">
-        <app-textarea [label]="'Description'" [(value)]="enemy().data.description" [rows]="4"></app-textarea>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 cols-1">
+            <anotoki-textarea label="Description" [rows]="4" [value]="fieldText(enemy().data.description)" (valueChange)="enemy().data.description = $event" />
+        </div>
+    </div>
 </div>

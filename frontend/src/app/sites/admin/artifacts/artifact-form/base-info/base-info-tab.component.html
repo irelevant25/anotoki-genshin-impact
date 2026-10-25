@@ -1,28 +1,53 @@
 <div class="form-section">
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
-        <app-text [label]="'Name'" [placeholder]="'e.g. Blizzard Strayer'" [(value)]="artifact().data.name" [required]="true"></app-text>
-        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="artifact().data.version"></app-text>
-        <app-number [label]="'Game ID'" [placeholder]="'e.g. 14001'" [description]="'The set&#8217;s own id in the game.'" [min]="1" [(value)]="artifact().data.game_id"></app-number>
+        <anotoki-text-field
+            label="Name *"
+            placeholder="e.g. Blizzard Strayer"
+            required
+            appCheck
+            #nameField="appCheck"
+            [error]="nameField.error()"
+            [value]="fieldText(artifact().data.name)"
+            (valueChange)="artifact().data.name = $event" />
+        <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(artifact().data.version)" (valueChange)="artifact().data.version = $event" />
+        <anotoki-text-field
+            label="Game ID"
+            placeholder="e.g. 14001"
+            hint="The set&#8217;s own id in the game."
+            [min]="1"
+            [(appNumber)]="artifact().data.game_id"
+            #gameIdField="appNumber"
+            [value]="gameIdField.text()"
+            [inputmode]="gameIdField.inputmode()"
+            [error]="gameIdField.error()" />
     </div>
 </div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Icon</h3>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        <app-entity-image [label]="'Set Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="artifact().pending" (picked)="onPicked($event)" (cleared)="onCleared()" />
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Icon</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                <app-entity-image [label]="'Set Icon'" [required]="true" [path]="iconPath()" [name]="iconName()" [pending]="artifact().pending" (picked)="onPicked($event)" (cleared)="onCleared()" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="form-section">
     <h3 class="section-title">Set Bonuses</h3>
-    <app-field-container [cols]="2">
-        <app-textarea [label]="'2-Piece'" [(value)]="artifact().data.two_piece" [rows]="3"></app-textarea>
-        <app-textarea [label]="'4-Piece'" [(value)]="artifact().data.four_piece" [rows]="3"></app-textarea>
-    </app-field-container>
-    <app-field-container [class]="'mt-3'" [cols]="2">
-        <app-textarea [label]="'Effects'" [description]="'One tag per line, e.g. Healing.'" [value]="effectsText()" (inputChange)="onEffectsChange($event)" [rows]="3"></app-textarea>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 cols-2">
+            <anotoki-textarea label="2-Piece" [rows]="3" [value]="fieldText(artifact().data.two_piece)" (valueChange)="artifact().data.two_piece = $event" />
+            <anotoki-textarea label="4-Piece" [rows]="3" [value]="fieldText(artifact().data.four_piece)" (valueChange)="artifact().data.four_piece = $event" />
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 mt-3 cols-2">
+            <anotoki-textarea label="Effects" hint="One tag per line, e.g. Healing." [rows]="3" [value]="effectsText()" (valueChange)="onEffectsChange($event)" />
+        </div>
+    </div>
 </div>
 
 <div class="form-section">
@@ -30,14 +55,9 @@
     <div class="rarity-grid">
         @for (rarity of rarities; track rarity) {
             <div class="rarity-block" [class.enabled]="hasRarity(rarity)">
-                <app-checkbox [label]="rarity + '★'" [inline]="true" [value]="hasRarity(rarity)" (inputChange)="setRarity(rarity, $event)"></app-checkbox>
+                <anotoki-checkbox [checked]="hasRarity(rarity)" (checkedChange)="setRarity(rarity, $event)">{{ rarity }}★</anotoki-checkbox>
                 @if (hasRarity(rarity)) {
-                    <app-textarea
-                        [label]="'How to obtain'"
-                        [description]="'One source per line.'"
-                        [value]="obtainText(rarity)"
-                        (inputChange)="onObtainChange(rarity, $event)"
-                        [rows]="3"></app-textarea>
+                    <anotoki-textarea label="How to obtain" hint="One source per line." [rows]="3" [value]="obtainText(rarity)" (valueChange)="onObtainChange(rarity, $event)" />
                 }
             </div>
         }

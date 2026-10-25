@@ -205,7 +205,7 @@ frontend/
   src/app/sites/main/   the public site: database, quizzes, daily, games, profile; legal/ (Terms, Privacy and
                         Contact: their frame and this site's facts)
   src/app/sites/admin/  the admin panel
-  src/app/shared/       local-lib (what the family's UI kit has no piece for, abstract bases),
+  src/app/shared/       local-lib (what the family's UI kit has no piece for, the admin forms' checks, abstract bases),
                         site-auth.ts (the shared library's
                         sign-in, set up for this site), site-feedback.ts (its feedback form), site-legal.ts (its
                         legal pages), site-status.ts (its gate and Migrations page), site-translations.ts (its

@@ -19,21 +19,82 @@
                 <button anotokiButton variant="danger" (click)="removeAscension(item.wrapper)">Delete</button>
             </div>
             <div class="form-grid">
-                <app-number [label]="'Phase'" [(value)]="item.wrapper.ascension.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
-                <app-dropdown
-                    [label]="'Primary Stat'"
-                    [options]="stats()"
-                    [(value)]="item.wrapper.ascension.primary_stat"
-                    [required]="true"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— select stat —'"></app-dropdown>
-                <app-number [label]="'Primary Stat Value'" [(value)]="item.wrapper.ascension.primary_stat_value" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start HP'" [(value)]="item.wrapper.ascension.start_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start ATK'" [(value)]="item.wrapper.ascension.start_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start DEF'" [(value)]="item.wrapper.ascension.start_level_def" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End HP'" [(value)]="item.wrapper.ascension.end_level_hp" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End ATK'" [(value)]="item.wrapper.ascension.end_level_atk" [allowDecimal]="true"></app-number>
-                <app-number [label]="'End DEF'" [(value)]="item.wrapper.ascension.end_level_def" [allowDecimal]="true"></app-number>
+                <anotoki-text-field
+                    label="Phase *"
+                    required
+                    [min]="0"
+                    [max]="maxPhase"
+                    [(appNumber)]="item.wrapper.ascension.phase"
+                    #phaseField="appNumber"
+                    [value]="phaseField.text()"
+                    [inputmode]="phaseField.inputmode()"
+                    [error]="phaseField.error()" />
+                <anotoki-select
+                    label="Primary Stat *"
+                    required
+                    placeholder="— select stat —"
+                    [(appChoice)]="item.wrapper.ascension.primary_stat"
+                    [choices]="stats()"
+                    #primaryStatField="appChoice"
+                    [options]="primaryStatField.options()"
+                    [value]="primaryStatField.text()"
+                    [error]="primaryStatField.error()" />
+                <anotoki-text-field
+                    label="Primary Stat Value"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.primary_stat_value"
+                    #primaryStatValueField="appNumber"
+                    [value]="primaryStatValueField.text()"
+                    [inputmode]="primaryStatValueField.inputmode()"
+                    [error]="primaryStatValueField.error()" />
+                <anotoki-text-field
+                    label="Start HP"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.start_level_hp"
+                    #startHpField="appNumber"
+                    [value]="startHpField.text()"
+                    [inputmode]="startHpField.inputmode()"
+                    [error]="startHpField.error()" />
+                <anotoki-text-field
+                    label="Start ATK"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.start_level_atk"
+                    #startAtkField="appNumber"
+                    [value]="startAtkField.text()"
+                    [inputmode]="startAtkField.inputmode()"
+                    [error]="startAtkField.error()" />
+                <anotoki-text-field
+                    label="Start DEF"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.start_level_def"
+                    #startDefField="appNumber"
+                    [value]="startDefField.text()"
+                    [inputmode]="startDefField.inputmode()"
+                    [error]="startDefField.error()" />
+                <anotoki-text-field
+                    label="End HP"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.end_level_hp"
+                    #endHpField="appNumber"
+                    [value]="endHpField.text()"
+                    [inputmode]="endHpField.inputmode()"
+                    [error]="endHpField.error()" />
+                <anotoki-text-field
+                    label="End ATK"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.end_level_atk"
+                    #endAtkField="appNumber"
+                    [value]="endAtkField.text()"
+                    [inputmode]="endAtkField.inputmode()"
+                    [error]="endAtkField.error()" />
+                <anotoki-text-field
+                    label="End DEF"
+                    decimal
+                    [(appNumber)]="item.wrapper.ascension.end_level_def"
+                    #endDefField="appNumber"
+                    [value]="endDefField.text()"
+                    [inputmode]="endDefField.inputmode()"
+                    [error]="endDefField.error()" />
             </div>
 
             @if (item.wrapper.ascension.phase !== 0) {
@@ -45,27 +106,45 @@
                     <div class="cost-cards">
                         @for (cost of item.cost; track cost) {
                             <div class="cost-card">
-                                <app-number
-                                    [label]="'Order'"
-                                    [value]="cost.order"
-                                    [required]="true"
+                                <anotoki-text-field
+                                    label="Order *"
+                                    required
                                     [min]="1"
                                     [max]="item.cost.length"
-                                    (inputChange)="onCostOrderChange(item.wrapper, cost, $event)"></app-number>
-                                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
-                                    @if (materialDropdown.computedOption(); as option) {
+                                    [appNumber]="cost.order"
+                                    (appNumberChange)="onCostOrderChange(item.wrapper, cost, $event)"
+                                    #orderField="appNumber"
+                                    [value]="orderField.text()"
+                                    [inputmode]="orderField.inputmode()"
+                                    [error]="orderField.error()" />
+                                <div class="cost-card-img rarity-{{ materialField.chosen()?.data?.['rarity'] ?? 1 }}-bg">
+                                    @if (materialField.chosen(); as option) {
                                         <img [appMaterialIcon]="option.value" [alt]="option.value" />
                                     }
                                 </div>
-                                <app-dropdown
-                                    #materialDropdown
-                                    [options]="materialOptions()"
-                                    [(value)]="cost.material_id"
-                                    [required]="true"
-                                    [emptyOption]="true"
-                                    [emptyOptionText]="'— material —'"></app-dropdown>
+                                <anotoki-select
+                                    label=""
+                                    hideLabel
+                                    required
+                                    placeholder="— material —"
+                                    [(appChoice)]="cost.material_id"
+                                    [choices]="materialOptions()"
+                                    #materialField="appChoice"
+                                    [options]="materialField.options()"
+                                    [value]="materialField.text()"
+                                    [error]="materialField.error()" />
                                 <div class="cost-card-footer">
-                                    <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
+                                    <anotoki-text-field
+                                        label="Qty"
+                                        hideLabel
+                                        placeholder="Qty"
+                                        required
+                                        [min]="1"
+                                        [(appNumber)]="cost.quantity"
+                                        #quantityField="appNumber"
+                                        [value]="quantityField.text()"
+                                        [inputmode]="quantityField.inputmode()"
+                                        [error]="quantityField.error()" />
                                     <button
                                         anotokiButton
                                         variant="danger-ghost"

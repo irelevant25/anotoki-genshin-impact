@@ -4,9 +4,8 @@ import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dial
 import { AbstractModalComponent } from '../../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextareaComponent } from '../../../../../../shared/local-lib/components/textarea/textarea.component';
-import { CheckboxComponent } from '../../../../../../shared/local-lib/components/checkbox/checkbox.component';
-import { DropdownComponent } from '../../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { CheckboxComponent, SelectComponent, TextareaComponent } from '@anotoki/lib/ui/forms';
+import { ChoiceFieldDirective } from '../../../../../../shared/local-lib/fields/choice-field.directive';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
@@ -36,7 +35,8 @@ export interface VoiceOverImportData {
     ButtonComponent,
     TextareaComponent,
     CheckboxComponent,
-    DropdownComponent,
+    SelectComponent,
+    ChoiceFieldDirective,
     FileComponent,
     FilePickerComponent,
     DisclosureComponent,

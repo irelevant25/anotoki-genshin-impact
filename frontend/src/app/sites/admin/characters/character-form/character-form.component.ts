@@ -2,7 +2,7 @@ import { Component, computed, ElementRef, inject, OnDestroy, OnInit, signal, Vie
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { ToastService } from '@anotoki/lib/ui/toast';
-import { AbstractInputComponent } from '../../../../shared/local-lib/abstract-input.class';
+import { FormChecks } from '../../../../shared/local-lib/fields/form-checks';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { IconComponent } from '@anotoki/lib/ui/icon';
 import { PageHeaderComponent } from '@anotoki/lib/ui/page-header';
@@ -105,6 +105,7 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
+  private readonly _checks = inject(FormChecks);
 
   ngOnInit(): void {
     this._loadLookups();
@@ -264,16 +265,12 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  /** Touches every input in the form so errors become visible, then reports validity. */
+  /** Touches every field the form checks, so each says what is wrong with it, then reports validity. */
   private _validate(): boolean {
-    const root = this._elementRef.nativeElement as HTMLElement;
-    const inputs = Array.from(AbstractInputComponent.registry).filter((input) => root.contains(input.elementRef.nativeElement));
-    inputs.forEach((input) => input.markAsTouched());
-
-    const invalid = inputs.filter((input) => !input.isValid());
+    const invalid = this._checks.check(this._elementRef.nativeElement as HTMLElement);
     if (invalid.length > 0) {
       this._notify.error(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
-      this._revealInput(invalid[0].elementRef.nativeElement);
+      this._revealInput(invalid[0].element);
       return false;
     }
 

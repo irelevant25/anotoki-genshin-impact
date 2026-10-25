@@ -9,7 +9,7 @@
 
 <div class="files-layout">
     <aside class="folder-pane">
-        <app-text [placeholder]="'Filter folders…'" [(value)]="folderFilter"></app-text>
+        <anotoki-text-field label="Filter folders…" hideLabel placeholder="Filter folders…" [(value)]="folderFilter" />
         <div class="folder-list">
             @for (entry of visibleFolders(); track entry.folder) {
                 <button type="button" class="folder-item" [class.active]="entry.folder === selectedFolder()" (click)="selectFolder(entry.folder)">
@@ -26,7 +26,7 @@
         <div class="file-toolbar">
             <h2 class="pane-title">{{ selectedFolder() || "Pick a folder" }}</h2>
             <div class="toolbar-right">
-                <app-text [placeholder]="'Search files…'" [value]="search()" (inputChange)="onSearchChange($event)"></app-text>
+                <anotoki-text-field label="Search files…" hideLabel placeholder="Search files…" [value]="search()" (valueChange)="onSearchChange($event)" />
                 <app-file #uploader [buttonText]="'Upload'" [buttonOutline]="true" [multiple]="true" [disabled]="!selectedFolder()" (inputChange)="onUpload($event)"></app-file>
             </div>
         </div>

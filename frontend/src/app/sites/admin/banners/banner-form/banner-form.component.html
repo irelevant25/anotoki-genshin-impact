@@ -8,26 +8,30 @@
     <div class="form-section">
         <h3 class="section-title">Run</h3>
         <div class="form-grid">
-            <app-text class="col-span-2" [label]="'Name'" [placeholder]="'e.g. Ballad in Goblets 2020-09-28'" [(value)]="banner().name" [required]="true"></app-text>
-            <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="banner().version" [required]="true"></app-text>
-            <app-calendar [label]="'From'" [(value)]="banner().duration_from" [required]="true"></app-calendar>
-            <app-calendar [label]="'To'" [(value)]="banner().duration_to"></app-calendar>
+            <anotoki-text-field class="col-span-2" label="Name *" placeholder="e.g. Ballad in Goblets 2020-09-28" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(banner().name)" (valueChange)="banner().name = $event" />
+            <anotoki-text-field label="Version *" placeholder="e.g. 1.0" required appCheck #versionField="appCheck" [error]="versionField.error()" [value]="fieldText(banner().version)" (valueChange)="banner().version = $event" />
+            <anotoki-date-field label="From *" required appCheck #fromField="appCheck" [error]="fromField.error()" [format]="dateFormat()" [value]="storedToFieldDate(banner().duration_from)" (valueChange)="onFromChange($event)" />
+            <anotoki-date-field label="To" [format]="dateFormat()" [value]="storedToFieldDate(banner().duration_to)" (valueChange)="banner().duration_to = fieldDateToStored($event)" />
         </div>
     </div>
 
-    <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-        <h3 class="section-title mb-0">Art</h3>
-        <app-field-container [class]="'gap-5'" [cols]="4">
-            <app-entity-image
-                [label]="'Banner Art'"
-                [path]="banner().icon"
-                [name]="artName()"
-                [pending]="pendingArt()"
-                (picked)="onArtPicked($event)"
-                (cleared)="onArtCleared()"
-            />
-        </app-field-container>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 mb-3 cols-1">
+            <h3 class="section-title mb-0">Art</h3>
+            <div class="container-wrap">
+                <div class="d-grid gap-5 cols-4">
+                    <app-entity-image
+                        [label]="'Banner Art'"
+                        [path]="banner().icon"
+                        [name]="artName()"
+                        [pending]="pendingArt()"
+                        (picked)="onArtPicked($event)"
+                        (cleared)="onArtCleared()"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-section">
         <h3 class="section-title">Featured Characters</h3>
@@ -35,7 +39,7 @@
             @for (entry of characters(); track entry.uid; let i = $index; let first = $first; let last = $last) {
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
-                    <app-dropdown class="featured-picker" [options]="characterOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— character —'"></app-dropdown>
+                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— character —" [(appChoice)]="entry.id" [choices]="characterOptions()" #characterField="appChoice" [options]="characterField.options()" [value]="characterField.text()" [error]="characterField.error()" />
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('characters', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('characters', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('characters', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
@@ -51,7 +55,7 @@
             @for (entry of weapons(); track entry.uid; let i = $index; let first = $first; let last = $last) {
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
-                    <app-dropdown class="featured-picker" [options]="weaponOptions()" [(value)]="entry.id" [required]="true" [emptyOption]="true" [emptyOptionText]="'— weapon —'"></app-dropdown>
+                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— weapon —" [(appChoice)]="entry.id" [choices]="weaponOptions()" #weaponField="appChoice" [options]="weaponField.options()" [value]="weaponField.text()" [error]="weaponField.error()" />
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('weapons', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('weapons', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('weapons', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { EnemyApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
@@ -15,13 +15,13 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-enemies-list',
   templateUrl: './enemies-list.component.html',
   styleUrls: ['./enemies-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
 })
 export class EnemiesListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'enemies';
 
-  filterId = signal<string | number | null | undefined>('');
-  filterName = signal<string | number | null | undefined>('');
+  filterId = signal('');
+  filterName = signal('');
   filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
 
   versionOptions = this.distinct('version', compareVersionsDesc);

@@ -1,6 +1,5 @@
 import { Component, model } from '@angular/core';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { TextareaComponent } from '@anotoki/lib/ui/forms';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { revokePicked } from '../../../shared/admin-full-resource.model';
@@ -10,7 +9,7 @@ import { emptyFood, FOOD_QUALITIES, foodImageName, FoodImageField, FoodQuality, 
   selector: 'app-food-qualities-tab',
   templateUrl: './qualities-tab.component.html',
   styleUrls: ['./qualities-tab.component.scss'],
-  imports: [TextareaComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [TextareaComponent, EntityImageComponent],
 })
 export class QualitiesTabComponent {
   food = model<FoodWrapper>(emptyFood());

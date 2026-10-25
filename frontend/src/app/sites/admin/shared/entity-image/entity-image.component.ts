@@ -1,9 +1,8 @@
-import { Component, computed, effect, inject, input, output } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnDestroy, output, signal } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TooltipComponent } from '../../../../shared/local-lib/components/tooltip/tooltip.component';
 import { AnotokiDialog } from '@anotoki/lib/ui/dialog';
-import { AbstractInputComponent } from '../../../../shared/local-lib/abstract-input.class';
+import { CheckedField, FormChecks, isMissing, REQUIRED_WORDS } from '../../../../shared/local-lib/fields/form-checks';
 import { ImageUploadComponent, ImageUploadData, PickedImage } from '../image-upload/image-upload.component';
 
 /**
@@ -17,22 +16,21 @@ import { ImageUploadComponent, ImageUploadData, PickedImage } from '../image-upl
  * Picking does not upload. The form holds the file and sends it when saved, so
  * this works on an entity that does not exist yet.
  *
- * It is an input like any other - a required slot with no picture fails
- * validation and the form points at it, the same as an empty text field.
+ * It is a field like any other to its form's save (FormChecks) - a required
+ * slot with no picture is wrong, says so once it has been used or a save has
+ * asked, and the form points at it, the same as an empty text field.
  */
 @Component({
   selector: 'app-entity-image',
   templateUrl: './entity-image.component.html',
   styleUrls: ['./entity-image.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TooltipComponent],
-  providers: [
-    {
-      provide: AbstractInputComponent,
-      useExisting: EntityImageComponent,
-    },
-  ],
+  imports: [TooltipDirective, ButtonComponent],
 })
-export class EntityImageComponent extends AbstractInputComponent<string> {
+export class EntityImageComponent implements CheckedField, OnDestroy {
+  /** What the slot is called, over it and in the picker's heading. */
+  label = input<string>('');
+  /** A picture must be in the slot, stored or picked. */
+  required = input<boolean>(false);
   /** Stored path, used as the image source once saved. */
   path = input<string | null | undefined>(undefined);
   /** The name the file is stored under, derived from the entity's own name. */
@@ -45,18 +43,41 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   picked = output<PickedImage>();
   cleared = output<void>();
 
+  readonly element: HTMLElement = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+
   private readonly _dialogs = inject(AnotokiDialog);
+  private readonly _checks = inject(FormChecks);
+  private readonly _touched = signal(false);
 
   /** A pending pick wins over the stored image, so the user sees their choice. */
   src = computed(() => this.pending()?.preview ?? this.path() ?? undefined);
   displayName = computed(() => this.name() ?? '');
   hasImage = computed(() => !!this.src());
 
+  /**
+   * The picture's tooltip (the kit's, which holds words): the file it shows - a fresh pick by its own name, a file
+   * chosen from the catalogue by its name, a stored one by where it is kept.
+   */
+  readonly fileWords = computed(() => {
+    const pending = this.pending();
+    return pending?.file?.name ?? pending?.existing?.name ?? this.path()?.replace(/^(\.\.\/)+/, '') ?? null;
+  });
+
+  /** What it is worth to its form's save: whether there is a picture, stored or about to be. */
+  readonly wrong = computed(() => this.required() && isMissing(this.src()));
+  /** Said under the slot once it has been used or a save asked, while it is wrong. */
+  readonly error = computed(() => (this._touched() && this.wrong() ? REQUIRED_WORDS : null));
+
   constructor() {
-    super();
-    // The slot holds no text of its own; what it is worth to validation is
-    // whether there is a picture, stored or about to be.
-    effect(() => this.value.set(this.src()));
+    this._checks.add(this);
+  }
+
+  ngOnDestroy(): void {
+    this._checks.remove(this);
+  }
+
+  touch(): void {
+    this._touched.set(true);
   }
 
   open(): void {
@@ -73,7 +94,7 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
     });
 
     void modal.closed.then((result) => {
-      this.markAsTouched();
+      this.touch();
       if (result) {
         this.picked.emit(result);
       }
@@ -91,7 +112,7 @@ export class EntityImageComponent extends AbstractInputComponent<string> {
   }
 
   clear(): void {
-    this.markAsTouched();
+    this.touch();
     this.cleared.emit();
   }
 }

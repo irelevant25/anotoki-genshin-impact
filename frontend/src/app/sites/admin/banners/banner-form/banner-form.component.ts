@@ -6,11 +6,14 @@ import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { CalendarComponent } from '../../../../shared/local-lib/components/calendar/calendar.component';
-import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
 import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
+import { FieldCheckDirective } from '../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../shared/local-lib/fields/field-text';
+import { ChoiceFieldDirective } from '../../../../shared/local-lib/fields/choice-field.directive';
+import { DateFormatService } from '../../../../shared/local-lib/i18n/date-format.service';
+import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../shared/local-lib/stored-dates';
 import { BannerApiService, CharacterApiService, WeaponApiService, BannerFull } from '../../../../api';
 import { BannerFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
@@ -36,16 +39,34 @@ interface FeaturedWrapper {
     TooltipDirective,
     RouterLink,
     ButtonComponent,
-    TextComponent,
-    CalendarComponent,
-    DropdownComponent,
-    FieldContainerComponent,
+    TextFieldComponent,
+    SelectComponent,
+    DateFieldComponent,
+    FieldCheckDirective,
+    ChoiceFieldDirective,
     EntityImageComponent,
   ],
 })
 export class BannerFormComponent extends AdminFormComponent<BannerFull> implements OnInit {
   readonly entityLabel = 'Banner';
   protected readonly listRoute = '/admin/banners';
+
+  private readonly _dates = inject(DateFormatService);
+
+  readonly fieldText = fieldText;
+  /** The order the dates are typed in: the one the site writes them in for this reader (the account's, else the device's). */
+  readonly dateFormat = computed(() => fieldFormatOf(this._dates.pattern().date));
+  /** A run's day as the kit's date field reads it, and back as the API keeps it (stored-dates.ts). */
+  readonly storedToFieldDate = storedToFieldDate;
+  readonly fieldDateToStored = fieldDateToStored;
+
+  /**
+   * The run's first day as the field says it, as the API keeps it - null once the field holds no date, which the
+   * required check then says (the column's type has no null, but a cleared date is kept and sent as null, as ever).
+   */
+  onFromChange(field: string): void {
+    (this.banner() as { duration_from: string | null }).duration_from = fieldDateToStored(field);
+  }
 
   banner = signal<BannerFormData>({ name: '', version: '', duration_from: '' });
   characters = signal<FeaturedWrapper[]>([]);

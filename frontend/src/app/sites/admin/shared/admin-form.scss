@@ -37,6 +37,17 @@
   }
 }
 
+// The kit's checkbox in the grid above, beside fields whose labels sit over
+// them: level with their bottoms.
+.grid-checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.375rem;
+  height: 100%;
+  min-height: var(--anotoki-control-height);
+}
+
 // ── Sub-resource cards ────────────────────────────────────────────────────────
 
 .sub-list {
@@ -131,7 +142,7 @@
   gap: var(--spacing-xs);
   align-items: flex-end;
 
-  app-number {
+  anotoki-text-field {
     flex: 1;
     min-width: 0;
   }

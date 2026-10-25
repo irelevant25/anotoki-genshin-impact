@@ -1,44 +1,106 @@
 <div class="form-section">
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
-        <app-text [label]="'Name'" [placeholder]="'e.g. Wolf&#8217;s Gravestone'" [(value)]="weapon().data.name" [required]="true"></app-text>
-        <app-dropdown [label]="'Type'" [options]="weaponTypes()" [(value)]="weapon().data.type" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="weapon().data.rarity" [suffix]="' ★'" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Primary Stat'" [options]="stats()" [(value)]="weapon().data.primary_stat" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-dropdown [label]="'Secondary Stat'" [options]="stats()" [(value)]="weapon().data.secondary_stat" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="weapon().data.version"></app-text>
-        <app-calendar [label]="'Release Date'" [(value)]="weapon().data.release_date"></app-calendar>
-        <app-number [label]="'Game ID'" [placeholder]="'e.g. 12502'" [description]="'The game&#8217;s own id.'" [min]="1" [(value)]="weapon().data.game_id"></app-number>
+        <anotoki-text-field
+            label="Name *"
+            placeholder="e.g. Wolf&#8217;s Gravestone"
+            required
+            appCheck
+            #nameField="appCheck"
+            [error]="nameField.error()"
+            [value]="fieldText(weapon().data.name)"
+            (valueChange)="weapon().data.name = $event" />
+        <anotoki-select
+            label="Type *"
+            required
+            [(appChoice)]="weapon().data.type"
+            [choices]="weaponTypes()"
+            #typeField="appChoice"
+            [options]="typeField.options()"
+            [value]="typeField.text()"
+            [error]="typeField.error()" />
+        <anotoki-select
+            label="Rarity *"
+            required
+            [(appChoice)]="weapon().data.rarity"
+            [choices]="rarities()"
+            [suffix]="' ★'"
+            #rarityField="appChoice"
+            [options]="rarityField.options()"
+            [value]="rarityField.text()"
+            [error]="rarityField.error()" />
+        <anotoki-select
+            label="Primary Stat"
+            placeholder="— none —"
+            [(appChoice)]="weapon().data.primary_stat"
+            [choices]="stats()"
+            #primaryStatField="appChoice"
+            [options]="primaryStatField.options()"
+            [value]="primaryStatField.text()" />
+        <anotoki-select
+            label="Secondary Stat"
+            placeholder="— none —"
+            [(appChoice)]="weapon().data.secondary_stat"
+            [choices]="stats()"
+            #secondaryStatField="appChoice"
+            [options]="secondaryStatField.options()"
+            [value]="secondaryStatField.text()" />
+        <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(weapon().data.version)" (valueChange)="weapon().data.version = $event" />
+        <anotoki-date-field
+            label="Release Date"
+            [format]="dateFormat()"
+            [value]="storedToFieldDate(weapon().data.release_date)"
+            (valueChange)="weapon().data.release_date = fieldDateToStored($event)" />
+        <anotoki-text-field
+            label="Game ID"
+            placeholder="e.g. 12502"
+            hint="The game&#8217;s own id."
+            [min]="1"
+            [(appNumber)]="weapon().data.game_id"
+            #gameIdField="appNumber"
+            [value]="gameIdField.text()"
+            [inputmode]="gameIdField.inputmode()"
+            [error]="gameIdField.error()" />
     </div>
 </div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Icons</h3>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        @for (image of imageFields; track image.field) {
-            <app-entity-image
-                [label]="image.label"
-                [required]="image.required"
-                [path]="imagePath(image.field)"
-                [name]="imageName(image.field)"
-                [pending]="pendingFor(image.field)"
-                (picked)="onPicked(image.field, $event)"
-                (cleared)="onCleared(image.field)" />
-        }
-    </app-field-container>
-    <app-field-container [cols]="3">
-        <app-text [label]="'Icon Name'" [(value)]="weapon().data.icon_name"></app-text>
-        <app-text [label]="'Icon 2 Name'" [(value)]="weapon().data.icon_2_name"></app-text>
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Icons</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                @for (image of imageFields; track image.field) {
+                    <app-entity-image
+                        [label]="image.label"
+                        [required]="image.required"
+                        [path]="imagePath(image.field)"
+                        [name]="imageName(image.field)"
+                        [pending]="pendingFor(image.field)"
+                        (picked)="onPicked(image.field, $event)"
+                        (cleared)="onCleared(image.field)" />
+                }
+            </div>
+        </div>
+        <div class="container-wrap">
+            <div class="d-grid gap-3 cols-3">
+                <anotoki-text-field label="Icon Name" [value]="fieldText(weapon().data.icon_name)" (valueChange)="weapon().data.icon_name = $event" />
+                <anotoki-text-field label="Icon 2 Name" [value]="fieldText(weapon().data.icon_2_name)" (valueChange)="weapon().data.icon_2_name = $event" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="form-section">
     <h3 class="section-title">Details</h3>
-    <app-field-container [cols]="1">
-        <app-textarea [label]="'Description'" [(value)]="weapon().data.description" [rows]="3"></app-textarea>
-    </app-field-container>
-    <app-field-container [class]="'mt-3'" [cols]="2">
-        <app-textarea [label]="'How To Obtain'" [description]="'One source per line.'" [value]="howToObtainText()" (inputChange)="onHowToObtainChange($event)" [rows]="3"></app-textarea>
-        <app-textarea [label]="'Effects'" [description]="'One tag per line, e.g. ATK.'" [value]="effectsText()" (inputChange)="onEffectsChange($event)" [rows]="3"></app-textarea>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 cols-1">
+            <anotoki-textarea label="Description" [rows]="3" [value]="fieldText(weapon().data.description)" (valueChange)="weapon().data.description = $event" />
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 mt-3 cols-2">
+            <anotoki-textarea label="How To Obtain" hint="One source per line." [rows]="3" [value]="howToObtainText()" (valueChange)="onHowToObtainChange($event)" />
+            <anotoki-textarea label="Effects" hint="One tag per line, e.g. ATK." [rows]="3" [value]="effectsText()" (valueChange)="onEffectsChange($event)" />
+        </div>
+    </div>
 </div>

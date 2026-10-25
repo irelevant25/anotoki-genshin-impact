@@ -39,8 +39,8 @@
             <p class="browse-hint">Pick a file already in the library. The same file can sit on many entities — nothing is copied.</p>
 
             <div class="browse-controls">
-                <app-dropdown [label]="'Folder'" [options]="folders()" [(value)]="folder" (inputChange)="onFolderChange()"></app-dropdown>
-                <app-text [label]="'Search'" [placeholder]="'file name'" [(value)]="search" (inputChange)="onSearchInput()"></app-text>
+                <anotoki-select label="Folder" [options]="folders()" [value]="folder()" (valueChange)="folder.set($event); onFolderChange()" />
+                <anotoki-text-field label="Search" placeholder="file name" [value]="search()" (valueChange)="search.set($event); onSearchInput()" />
             </div>
 
             @if (browsing()) {

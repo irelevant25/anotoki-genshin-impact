@@ -5,7 +5,6 @@ import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
 import { FileComponent, FileItemType } from '../../../../shared/local-lib/components/file/file.component';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { ToastService } from '@anotoki/lib/ui/toast';
@@ -20,18 +19,18 @@ import { ConfigService } from '../../../../shared/local-lib/services/config.serv
   selector: 'app-files-manager',
   templateUrl: './files-manager.component.html',
   styleUrls: ['./files-manager.component.scss'],
-  imports: [PageHeaderComponent, PaginationComponent, TextFieldComponent, SelectComponent, SpinnerComponent, TooltipDirective, ButtonComponent, TextComponent, FileComponent, AssetStatsComponent],
+  imports: [PageHeaderComponent, PaginationComponent, TextFieldComponent, SelectComponent, SpinnerComponent, TooltipDirective, ButtonComponent, FileComponent, AssetStatsComponent],
 })
 export class FilesManagerComponent extends AbstractModalComponent implements OnInit {
   folders = signal<AssetFolder[]>([]);
-  folderFilter = signal<string | number | null | undefined>('');
+  folderFilter = signal('');
   selectedFolder = signal<string>('');
 
   files = signal<AssetFile[]>([]);
   total = signal(0);
   page = signal(1);
   pageSize = signal(60);
-  search = signal<string | number | null | undefined>('');
+  search = signal('');
 
   loadingFolders = signal(false);
   loadingFiles = signal(false);
@@ -202,7 +201,7 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     });
   }
 
-  onSearchChange(value: string | number | null | undefined): void {
+  onSearchChange(value: string): void {
     this.search.set(value);
     this.page.set(1);
     this.loadFiles();

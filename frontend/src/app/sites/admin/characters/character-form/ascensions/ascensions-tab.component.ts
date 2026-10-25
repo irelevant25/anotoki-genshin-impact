@@ -2,9 +2,10 @@ import { Component, computed, inject, input, model, output, signal } from '@angu
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { AscensionSetApiService, Audited, Material } from '../../../../../api';
 import { AscensionCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
@@ -18,7 +19,7 @@ const MAX_ASCENSIONS = 7;
   selector: 'app-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, NumberComponent, DropdownComponent, MaterialIconDirective],
+  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, SelectComponent, NumberFieldDirective, ChoiceFieldDirective, MaterialIconDirective],
 })
 export class AscensionsTabComponent extends AbstractModalComponent {
   ascensions = model<AscensionWrapper[]>([]);

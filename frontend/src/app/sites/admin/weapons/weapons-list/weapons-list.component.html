@@ -6,17 +6,10 @@
     <anotoki-spinner class="page-spinner" label />
 } @else {
     <div class="filter-bar">
-        <app-text [label]="'ID'" [placeholder]="'contains'" [(value)]="filterId"></app-text>
-        <app-text [label]="'Name'" [placeholder]="'contains'" [(value)]="filterName"></app-text>
+        <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
+        <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
         <app-multiselect [label]="'Type'" [options]="typeOptions()" [(value)]="filterTypes"></app-multiselect>
-        <app-dropdown
-            [label]="'Rarity'"
-            [options]="rarityOptions()"
-            [(value)]="filterRarity"
-            [suffix]="' ★'"
-            [emptyOption]="true"
-            [emptyOptionText]="'— any —'"
-        ></app-dropdown>
+        <anotoki-select label="Rarity" placeholder="— any —" [options]="rarityChoices()" [(value)]="filterRarity" />
         <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>

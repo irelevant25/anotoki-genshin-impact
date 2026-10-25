@@ -6,20 +6,34 @@
     <div class="cost-cards">
         @for (entry of recipe(); track entry.uid) {
             <div class="cost-card">
-                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
-                    @if (materialDropdown.computedOption(); as option) {
+                <div class="cost-card-img rarity-{{ materialField.chosen()?.data?.['rarity'] ?? 1 }}-bg">
+                    @if (materialField.chosen(); as option) {
                         <img [appMaterialIcon]="option.value" [alt]="option.value" />
                     }
                 </div>
-                <app-dropdown
-                    #materialDropdown
-                    [options]="materialOptions()"
-                    [(value)]="entry.data.material_id"
-                    [required]="true"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— material —'"></app-dropdown>
+                <anotoki-select
+                    label=""
+                    hideLabel
+                    required
+                    placeholder="— material —"
+                    [(appChoice)]="entry.data.material_id"
+                    [choices]="materialOptions()"
+                    #materialField="appChoice"
+                    [options]="materialField.options()"
+                    [value]="materialField.text()"
+                    [error]="materialField.error()" />
                 <div class="cost-card-footer">
-                    <app-number [placeholder]="'Qty'" [(value)]="entry.data.quantity" [required]="true" [min]="1"></app-number>
+                    <anotoki-text-field
+                        label="Qty"
+                        hideLabel
+                        placeholder="Qty"
+                        required
+                        [min]="1"
+                        [(appNumber)]="entry.data.quantity"
+                        #quantityField="appNumber"
+                        [value]="quantityField.text()"
+                        [inputmode]="quantityField.inputmode()"
+                        [error]="quantityField.error()" />
                     <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove this ingredient" anotokiTooltip="Remove this ingredient" (click)="removeIngredient(entry)">
                         <span class="icon icon-delete" aria-hidden="true"></span>
                     </button>

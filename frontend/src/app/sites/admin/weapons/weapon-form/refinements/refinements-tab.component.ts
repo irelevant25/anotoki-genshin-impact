@@ -1,11 +1,12 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { Audited, Material } from '../../../../../api';
 import { emptyRefinement, RefinementWrapper } from '../weapon-form.model';
 
@@ -16,9 +17,11 @@ const MAX_REFINEMENTS = 5;
   selector: 'app-weapon-refinements-tab',
   templateUrl: './refinements-tab.component.html',
   styleUrls: ['./refinements-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextareaComponent, NumberComponent, DropdownComponent, FieldContainerComponent],
+  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, TextareaComponent, SelectComponent, FieldCheckDirective, NumberFieldDirective, ChoiceFieldDirective],
 })
 export class RefinementsTabComponent {
+  readonly fieldText = fieldText;
+
   refinements = model<RefinementWrapper[]>([]);
   materials = input<Audited<Material>[]>([]);
 

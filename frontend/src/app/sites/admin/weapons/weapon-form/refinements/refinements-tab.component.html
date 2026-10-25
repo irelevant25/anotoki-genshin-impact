@@ -15,19 +15,41 @@
                     <button anotokiButton variant="danger" (click)="removeRefinement(refinement)">Delete</button>
                 </div>
             </div>
-            <app-field-container [cols]="4">
-                <app-dropdown
-                    [label]="'Material'"
-                    [options]="materialOptions()"
-                    [(value)]="refinement.data.material_id"
-                    [required]="true"
-                    [emptyOption]="true"
-                    [emptyOptionText]="'— material —'"></app-dropdown>
-                <app-number [label]="'Quantity'" [(value)]="refinement.data.quantity" [min]="0"></app-number>
-            </app-field-container>
-            <app-field-container [cols]="1">
-                <app-textarea [label]="'Description'" [(value)]="refinement.data.description" [rows]="3" [required]="true"></app-textarea>
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-4">
+                    <anotoki-select
+                        label="Material *"
+                        required
+                        placeholder="— material —"
+                        [(appChoice)]="refinement.data.material_id"
+                        [choices]="materialOptions()"
+                        #materialField="appChoice"
+                        [options]="materialField.options()"
+                        [value]="materialField.text()"
+                        [error]="materialField.error()" />
+                    <anotoki-text-field
+                        label="Quantity"
+                        [min]="0"
+                        [(appNumber)]="refinement.data.quantity"
+                        #quantityField="appNumber"
+                        [value]="quantityField.text()"
+                        [inputmode]="quantityField.inputmode()"
+                        [error]="quantityField.error()" />
+                </div>
+            </div>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-1">
+                    <anotoki-textarea
+                        label="Description *"
+                        required
+                        appCheck
+                        #descriptionField="appCheck"
+                        [error]="descriptionField.error()"
+                        [rows]="3"
+                        [value]="fieldText(refinement.data.description)"
+                        (valueChange)="refinement.data.description = $event" />
+                </div>
+            </div>
         </div>
     }
 

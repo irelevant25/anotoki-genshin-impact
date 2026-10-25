@@ -3,10 +3,10 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { ConstellationSetApiService } from '../../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ConstellationWrapper, createUid, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
 import { ConstellationSetSelectorComponent } from './set-selector/set-selector.component';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
@@ -19,10 +19,12 @@ const MAX_CONSTELLATIONS = 6;
   selector: 'app-constellations-tab',
   templateUrl: './constellations-tab.component.html',
   styleUrls: ['./constellations-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextComponent, TextareaComponent, NumberComponent, EntityImageComponent, FieldContainerComponent],
+  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, TextareaComponent, FieldCheckDirective, NumberFieldDirective, EntityImageComponent],
 })
 export class ConstellationsTabComponent extends AbstractModalComponent {
   constellations = model<ConstellationWrapper[]>([]);
+
+  readonly fieldText = fieldText;
   /** The character's current constellation set, marked in the picker. */
   constellationSetId = input<number | null | undefined>();
   /** Emitted with the chosen set id, so the form points the character at it. */

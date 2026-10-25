@@ -18,7 +18,8 @@
 // the status page while the site is not ready (STATUS: alone, with nothing of either site's frame round it, and
 // the frame back once the site is), then the admin panel as its ADMIN (the Errors page with that error as its
 // row, and the row opened; the Quiz levels page - what the rules say as levels are typed, the words they leave
-// behind, a save and back; the family's footer under its pages and what it opens), and last the account panel of
+// behind, a save and back; the admin forms filled and saved, what each sent kept - FORM_SAVES -; the family's footer
+// under its pages and what it opens), and last the account panel of
 // an account whose preferences the IAM keeps. Then it stops all of it and
 // drops the database - also when something fails. Nothing here touches your database, your settings, your
 // browser or a real IAM.
@@ -26,8 +27,9 @@
 // The screenshots go to --out (default: a folder under the system's temporary one, named at the end), one
 // per page, width and theme: `main-home--1280-light.png`, `admin-characters-form--390-dark.png` - the whole
 // page, as tall as it is - with `focus-*` ones of the keyboard's focus, and `report.json`, what each page
-// said and measured. A page taken in the two pairings (light in English, dark in Slovak) says its language
-// too: `status-update-waiting--390-dark-sk.png`. --only keeps the pages whose name holds the text (`--only admin-`).
+// said and measured, and `form-bodies.json`, what each form stage sent. A page taken in the two pairings (light
+// in English, dark in Slovak) says its language too: `status-update-waiting--390-dark-sk.png`. --only keeps the
+// pages whose name holds the text, or one of several, comma-separated (`--only admin-`, `--only admin-form-,admin-banners-edit`).
 //
 // Needs: PHP 8.2 or later (PHP=<its command>, where `php` is an older one), config/database.local.php in
 // backend/ (setup.php writes it: its PostgreSQL server and user are borrowed, never its database), and Edge
@@ -74,7 +76,9 @@ const OWNER = { id: 1, username: 'owner', roles: ['MEMBER', 'ADMIN'] };
 
 const work = mkdtempSync(join(tmpdir(), 'genshin-shots-'));
 const out = resolve(option('--out', join(tmpdir(), `genshin-screenshots-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}`)));
-const only = option('--only');
+// --only: the pages whose name holds one of the comma-separated texts.
+const only = option('--only')?.split(',').filter(Boolean) ?? null;
+const wanted = (name) => only === null || only.some((text) => name.includes(text));
 const widths = (option('--widths', '1280,390') ?? '').split(',').map(Number).filter(Boolean);
 // --from: a production build made elsewhere (its folder, which holds browser/), taken as it is.
 const build = option('--from') ? resolve(option('--from')) : join(frontend, 'dist', 'screenshots');
@@ -853,7 +857,7 @@ const ADMIN = [
   { name: 'admin-menu', path: '/admin/dashboard', data: '.feed-title', widths: [390], then: click('button', '^Menu$') },
   { name: 'admin-image-upload', path: '/admin/characters/1/edit', then: click('button', '^(Upload|Replace)$') },
   // The kit's date field: a birthday's calendar, a day and a month without a year.
-  { name: 'admin-characters-edit-birthday', path: '/admin/characters/1/edit', then: press('app-calendar .anotoki-date-field__toggle') },
+  { name: 'admin-characters-edit-birthday', path: '/admin/characters/1/edit', then: press('anotoki-date-field .anotoki-date-field__toggle') },
   // The voice-over import: the kit's file picker for its JSON, and the example under the kit's disclosure.
   { name: 'admin-voice-overs-import', path: '/admin/characters/1/edit', then: steps(click('[role=tab]', '^Voice Overs$'), click('button', 'Import from files')) },
   ...lookups.map((lookup) => ({ name: `admin-lookup-${lookup}`, path: `/admin/${lookup}` })),
@@ -916,6 +920,419 @@ const ADMIN = [
   { name: 'admin-backups', path: '/admin/backups' },
   { name: 'admin-people', path: '/admin/people' },
   { name: 'admin-not-found', path: '/admin/no-such-page' },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// The admin forms filled and saved (the owner's request of 2026-10-25, as their
+// fields moved from local-lib's adapters onto the kit's own: the forms' saving
+// is what matters most). Each stage edits a form as a person would - types into
+// the kit's fields, found by the words of their labels (the required mark among
+// them), chooses, ticks, adds a row, opens a tab - and presses Save. What came of
+// it goes to form-bodies.json: the body the form sent (its FormData's `data`,
+// read in the page as it went), the toasts, the words under the fields, the tab
+// open, and what a step noted on the way. The save is never sent on - the
+// browser answers it as the API would - and the form's own read can be given
+// what the throwaway site lacks (`read`: a picture in each slot a save needs), so
+// nothing a stage does stays in the database. A run before a change to the forms
+// and one after must keep the same file but for the rows' times (`created_at`,
+// `updated_at`: each run seeds its database anew).
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** What the form stages kept, one entry a round: written to form-bodies.json at the end. */
+const formBodies = [];
+
+/** The form stage under way - its entry's `form`, which formPaused() answers for - or null. */
+let formTraffic = null;
+
+/** A stored picture as the API answers one: its path (the file is not there, as no picture is in this run). */
+const picture = (folder, name) => `../assets/${folder}/${name}.avif`;
+
+/**
+ * The page's half of a form stage, run in it once the form has loaded: the saves as they go (each FormData body
+ * with its `data`), and the steps. A field is the kit's, found by its label's words - whether genshin's own adapter
+ * drew it or the page draws it itself -, the nth of that label in the page's order; a field with no label of its
+ * own is found by ''. A step answers true, a note (words), or false when it found nothing to act on.
+ */
+function formStepsInPage() {
+  const words = (element) => (element?.textContent ?? '').replace(/\s+/g, ' ').trim();
+  const pause = (ms) => new Promise((done) => setTimeout(done, ms));
+  const FIELDS = 'anotoki-text-field, anotoki-textarea, anotoki-select, anotoki-date-field, anotoki-chip-group';
+  const labelOf = (host) => words(host.querySelector('.anotoki-field__label'));
+  const field = (label, nth) => [...document.querySelectorAll(FIELDS)].filter((host) => labelOf(host) === label)[nth ?? 0] ?? null;
+  const press = (element) => {
+    element.scrollIntoView({ block: 'center' });
+    element.click();
+  };
+  const saves = [];
+  const open = XMLHttpRequest.prototype.open;
+  const send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+    this.formSave = { method: String(method).toUpperCase(), path: new URL(String(url), location.href).pathname };
+    return open.call(this, method, url, ...rest);
+  };
+  XMLHttpRequest.prototype.send = function (body) {
+    if (this.formSave && this.formSave.method !== 'GET' && body instanceof FormData && body.has('data')) {
+      saves.push({ ...this.formSave, parts: [...body.keys()], data: JSON.parse(String(body.get('data'))) });
+    }
+    return send.call(this, body);
+  };
+  window.__formSteps = {
+    /** Types `text` into the field (its input or textarea), as typed - then leaves it. */
+    async type(label, text, nth) {
+      const control = field(label, nth)?.querySelector('input, textarea');
+      if (!control) {
+        return false;
+      }
+      control.scrollIntoView({ block: 'center' });
+      control.focus();
+      control.value = text;
+      control.dispatchEvent(new Event('input', { bubbles: true }));
+      await pause(150);
+      control.blur();
+      await pause(150);
+      return true;
+    },
+    /** Chooses the select's option at `index` - its empty one first, where it has one - then leaves it. */
+    async choose(label, index, nth) {
+      const select = field(label, nth)?.querySelector('select');
+      if (!select || index >= select.options.length) {
+        return false;
+      }
+      select.scrollIntoView({ block: 'center' });
+      select.focus();
+      select.selectedIndex = index;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      await pause(150);
+      select.blur();
+      await pause(150);
+      return true;
+    },
+    /** Ticks (or unticks) the checkbox whose words are `text`. */
+    async check(text, nth) {
+      const box = [...document.querySelectorAll('anotoki-checkbox')].filter((element) => words(element) === text)[nth ?? 0]?.querySelector('input');
+      if (!box) {
+        return false;
+      }
+      press(box);
+      await pause(150);
+      return true;
+    },
+    /** Ticks the checkbox whose words are `text`, where it is not ticked yet. */
+    async tick(text, nth) {
+      const box = [...document.querySelectorAll('anotoki-checkbox')].filter((element) => words(element) === text)[nth ?? 0]?.querySelector('input');
+      if (!box) {
+        return false;
+      }
+      if (!box.checked) {
+        press(box);
+        await pause(150);
+      }
+      return true;
+    },
+    /** Presses the chip at `index` of the chip group. */
+    async chip(label, index, nth) {
+      const chip = field(label, nth)?.querySelectorAll('button')[index];
+      if (!chip) {
+        return false;
+      }
+      press(chip);
+      await pause(150);
+      return true;
+    },
+    /** Presses the button whose words are `text`. */
+    async button(text, nth) {
+      const button = [...document.querySelectorAll('button')].filter((element) => words(element) === text)[nth ?? 0];
+      if (!button) {
+        return false;
+      }
+      press(button);
+      await pause(300);
+      return true;
+    },
+    /** Opens the form's tab whose words are `text`. */
+    async tab(text) {
+      const tab = [...document.querySelectorAll('[role=tab]')].find((element) => words(element) === text);
+      if (!tab) {
+        return false;
+      }
+      press(tab);
+      await pause(300);
+      return true;
+    },
+    /** Opens (or closes) the nth of the kit's disclosures. */
+    async disclosure(nth) {
+      const button = document.querySelectorAll('anotoki-disclosure .anotoki-disclosure__button')[nth ?? 0];
+      if (!button) {
+        return false;
+      }
+      press(button);
+      await pause(300);
+      return true;
+    },
+    /** What the field says under itself now, noted. */
+    said(label, nth) {
+      const host = field(label, nth);
+      return host ? `${label}: ${words(host.querySelector('.anotoki-field__error')) || '-'}` : false;
+    },
+    /** The form's own button: the last in its footer. */
+    save() {
+      const buttons = document.querySelectorAll('.form-footer button');
+      press(buttons[buttons.length - 1]);
+      return true;
+    },
+    /** A body sent, or a toast said why not. */
+    answered() {
+      return saves.length > 0 || document.querySelectorAll('.anotoki-toast-host__toast').length > 0;
+    },
+    outcome() {
+      return {
+        saves,
+        toasts: [...document.querySelectorAll('.anotoki-toast-host__toast')].map((toast) => `${toast.dataset.tone}: ${words(toast.querySelector('.anotoki-toast-host__message'))}`),
+        errors: [...document.querySelectorAll('.anotoki-field__error, .entity-image .error-message')].map((error) => {
+          const host = error.closest(FIELDS);
+          return `${host ? labelOf(host) : words(error.closest('.entity-image')?.querySelector('.entity-image-label'))}: ${words(error)}`;
+        }),
+        tab: words(document.querySelector('[role=tab][aria-selected=true]')),
+      };
+    },
+  };
+}
+
+/**
+ * A form stage's `then`: each step done in the page in turn - [action, ...its arguments], formStepsInPage()'s -, a
+ * moment between for the form to answer, then Save; what came of it kept (formBodies). A step that finds nothing to
+ * act on is said, and ends the stage.
+ */
+const formSaved = (actions) => async (page) => {
+  if (!(await waitFor(page, "!!document.querySelector('.form-footer button') && !document.querySelector('anotoki-spinner.page-spinner')", 20000))) {
+    return false;
+  }
+  await page.evaluate(`(${formStepsInPage.toString()})(); true`);
+  const notes = [];
+  for (const [action, ...args] of actions) {
+    const done = await page.evaluate(`window.__formSteps.${action}(...${JSON.stringify(args)})`);
+    if (done === false) {
+      heard.push(`the form stage found nothing to ${action}: ${JSON.stringify(args)}`);
+      return true;
+    }
+    if (typeof done === 'string') {
+      notes.push(done);
+    }
+    await sleep(200);
+  }
+  await page.evaluate('window.__formSteps.save()');
+  await waitFor(page, 'window.__formSteps.answered()', 15000);
+  await sleep(800);
+  formBodies.push({ stage: formTraffic.stage, notes, ...(await page.evaluate('window.__formSteps.outcome()')) });
+  return true;
+};
+
+const FORM_SAVES = [
+  // Hu Tao - her four required pictures in their slots, and an element the list has not, which the select makes its
+  // first - edited in every kind of field the form has: text emptied, choices (a typed key, "none"), a birthday kept in
+  // year 4 and a release date, a number refused as typed and then taken, a checkbox, lines of a textarea, a chip, and a
+  // relationship added (its type the select's first).
+  {
+    name: 'admin-form-save-character',
+    path: '/admin/characters/1/edit',
+    widths: [1280],
+    form: {
+      id: 1,
+      read: (row) =>
+        Object.assign(row.character, {
+          icon: picture('character/icon', 'HU_TAO'),
+          card_icon: picture('character/card_icon', 'HU_TAO'),
+          wish_icon: picture('character/wish_icon', 'HU_TAO'),
+          ingame_icon: picture('character/ingame_icon', 'HU_TAO'),
+          element: 'Nowhere',
+        }),
+    },
+    then: formSaved([
+      ['type', 'Name *', 'Hu Tao II'],
+      ['type', 'Title', ''],
+      ['choose', 'Rarity *', 1],
+      ['choose', 'Region', 0],
+      ['choose', 'Special Dish', 3],
+      ['type', 'Birthday', '29/02'],
+      ['type', 'Release Date', '15/06/2024'],
+      ['type', 'Game ID', 'x'],
+      ['said', 'Game ID'],
+      ['type', 'Game ID', '10000046'],
+      ['check', 'Is Traveler'],
+      ['type', 'How To Obtain', 'Wish\nStarglitter Exchange'],
+      ['type', 'English *', 'Sample EN'],
+      ['chip', 'Roles', 0],
+      ['button', 'Add'],
+      ['type', 'Name *', 'Zhongli', 1],
+      ['choose', 'State', 1],
+      ['check', 'Biological'],
+    ]),
+  },
+  // Hu Tao as the throwaway site keeps her - no pictures, so her required slots are empty -, her name taken away and a
+  // new ascension's phase emptied, then typed out of its range: the save is refused, the toast counts the wrong fields,
+  // each says why, and the form opens the tab holding the first of them.
+  {
+    name: 'admin-form-check-character',
+    path: '/admin/characters/1/edit',
+    widths: [1280],
+    form: { id: 1 },
+    then: formSaved([
+      ['type', 'Name *', ''],
+      ['tab', 'Ascensions'],
+      ['button', 'Add', 2],
+      ['type', 'Phase *', ''],
+      ['said', 'Phase *'],
+      ['type', 'Phase *', '9'],
+      ['said', 'Phase *'],
+      ['tab', 'Talents'],
+    ]),
+  },
+  // Staff of Homa - its icon in its slot and a type the list has not - with a refinement and two ascension phases added:
+  // whole and decimal numbers, a decimal comma, numbers refused as typed (said, and the last one taken kept), a cost.
+  {
+    name: 'admin-form-save-weapon',
+    path: '/admin/weapons/1/edit',
+    widths: [1280],
+    form: { id: 1, read: (row) => Object.assign(row.weapon, { icon: picture('weapons', 'STAFF_OF_HOMA'), type: 'Nowhere' }) },
+    then: formSaved([
+      ['choose', 'Rarity *', 1],
+      ['choose', 'Primary Stat', 2],
+      ['type', 'Release Date', '01/03/2024'],
+      ['type', 'Game ID', '13501'],
+      ['type', 'Description', 'A polearm of crimson.'],
+      ['type', 'Effects', 'ATK\nCRIT Rate'],
+      ['tab', 'Refinements'],
+      ['button', 'Add'],
+      ['choose', 'Material *', 1],
+      ['type', 'Quantity', '5,5'],
+      ['said', 'Quantity'],
+      ['type', 'Quantity', '5'],
+      ['type', 'Description *', 'Increases ATK by 20%.'],
+      ['tab', 'Ascensions'],
+      ['button', 'Add', 1],
+      ['type', 'Primary Stat Value', ',5'],
+      ['type', 'Secondary Stat Value', '12.345'],
+      ['said', 'Secondary Stat Value'],
+      ['type', 'Start Level From', '1'],
+      ['button', 'Add', 1],
+      ['button', 'Add', 1],
+      ['choose', '', 1],
+      ['type', 'Qty', '3'],
+    ]),
+  },
+  // Moment of Bloom: its run's dates (a day typed, an end emptied), a featured character changed and a weapon added.
+  {
+    name: 'admin-form-save-banner',
+    path: '/admin/banners/1/edit',
+    widths: [1280],
+    form: { id: 1 },
+    then: formSaved([
+      ['type', 'Name *', 'Moment of Bloom II'],
+      ['type', 'From *', '02/01/2024'],
+      ['type', 'To', ''],
+      ['choose', '', 2, 1],
+      ['button', 'Add weapon'],
+      ['choose', '', 1, 2],
+    ]),
+  },
+  // A new banner with a day that is none and a featured character not picked: refused, every wrong field saying why.
+  {
+    name: 'admin-form-check-banner',
+    path: '/admin/banners/create',
+    widths: [1280],
+    form: { id: 2 },
+    then: formSaved([
+      ['type', 'Version *', '1.3'],
+      ['button', 'Add character'],
+      ['type', 'From *', '31/02/2024'],
+      ['said', 'From *'],
+    ]),
+  },
+  // Sweet Madame: "none" chosen, a typed key, a number, lines, a quality's words and an ingredient added.
+  {
+    name: 'admin-form-save-food',
+    path: '/admin/foods/1/edit',
+    widths: [1280],
+    form: { id: 1 },
+    then: formSaved([
+      ['choose', 'Rarity', 0],
+      ['choose', 'Type', 2],
+      ['type', 'Proficiency', '15'],
+      ['choose', 'Base Dish', 2],
+      ['type', 'Effect Tags', 'Healing'],
+      ['tab', 'Qualities'],
+      ['type', 'Description', 'Very tasty.', 1],
+      ['type', 'Effect', '', 2],
+      ['tab', 'Recipe'],
+      ['button', 'Add'],
+      ['choose', '', 1],
+      ['type', 'Qty', '2'],
+    ]),
+  },
+  // A Hilichurl - its icon, and a phase with its icon - with the phase's choices, checkbox and chips, and its drops'
+  // numbers to four decimals.
+  {
+    name: 'admin-form-save-enemy',
+    path: '/admin/enemies/1/edit',
+    widths: [1280],
+    form: {
+      id: 1,
+      read: (row) => {
+        row.enemy.icon = picture('enemies', 'HILICHURL');
+        row.phases = [{ title: 'Hilichurl', icon: picture('enemies', 'HILICHURL - phase1'), has_weakpoint: false, damage_type_elements: [{ damage_type_element: 'Pyro', order: 1 }] }];
+      },
+    },
+    then: formSaved([
+      ['type', 'Version', '1.1'],
+      ['tab', 'Phases'],
+      ['type', 'Secondary Title', 'Hilichurl tribe'],
+      ['choose', 'Type', 1],
+      ['check', 'Has Weakpoint'],
+      ['chip', 'Damage type elements', 0],
+      ['tab', 'Drops'],
+      ['disclosure', 0],
+      ['type', 'Level from', '2'],
+      ['type', 'Drop rate', '0.1234'],
+      ['type', 'Average', '1.5'],
+      ['choose', 'Domain level', 1],
+    ]),
+  },
+  // Mora: its choices, version and words.
+  {
+    name: 'admin-form-save-material',
+    path: '/admin/materials/1/edit',
+    widths: [1280],
+    form: { id: 1 },
+    then: formSaved([
+      ['choose', 'Type', 1],
+      ['choose', 'Rarity', 2],
+      ['type', 'Version', '1.2'],
+      ['type', 'Description', 'Common currency.'],
+      ['type', 'How To Obtain', 'Chests\nQuests'],
+    ]),
+  },
+  // Gladiator's Finale - its icon, and a piece with its icon and a type the list has not, which the select makes its
+  // first - with a rarity ticked and its sources, the effects, and the piece renamed.
+  {
+    name: 'admin-form-save-artifact',
+    path: '/admin/artifacts/1/edit',
+    widths: [1280],
+    form: {
+      id: 1,
+      read: (row) => {
+        row.artifact.icon = picture('artifacts', 'GLADIATORS_FINALE');
+        row.pieces = [{ type: 'Nowhere', name: "Gladiator's Nostalgia", icon: picture('artifacts', 'GLADIATORS_NOSTALGIA') }];
+      },
+    },
+    then: formSaved([
+      ['type', 'Game ID', '15001'],
+      ['tick', '5★'],
+      ['type', 'How to obtain', 'Domain of Blessing'],
+      ['type', 'Effects', 'Normal Attack'],
+      ['tab', 'Pieces'],
+      ['type', 'Name *', "Gladiator's Nostalgia II", 1],
+    ]),
+  },
 ];
 
 /**
@@ -1341,8 +1758,59 @@ async function answerApi(answers) {
   }
 }
 
+/**
+ * A form stage's traffic (FORM_SAVES), on while its page is shown: the form's read of its row (`/api/.../full`) given
+ * what the stage's `read` adds, and its save answered as the API answers one - `{id}` - without being sent on.
+ */
+async function formTrafficOn(entry) {
+  formTraffic = { ...entry.form, stage: entry.name };
+  // The steps focus and leave fields: as a person's browser, whose window has the focus.
+  await page.send('Emulation.setFocusEmulationEnabled', { enabled: true });
+  await page.send('Fetch.enable', {
+    patterns: [
+      { urlPattern: `${origin}/api/*/full`, requestStage: 'Request' },
+      { urlPattern: `${origin}/api/*/full`, requestStage: 'Response' },
+    ],
+  });
+}
+
+async function formTrafficOff() {
+  formTraffic = null;
+  await page.send('Emulation.setFocusEmulationEnabled', { enabled: false }).catch(() => undefined);
+  await page.send('Fetch.disable').catch(() => undefined);
+}
+
+/** A form stage's request, paused: the read passed on and its answer amended, a save answered here. */
+async function formPaused(event) {
+  const headers = [
+    { name: 'Content-Type', value: 'application/json' },
+    { name: 'Cache-Control', value: 'no-store' },
+  ];
+  const encoded = (value) => Buffer.from(JSON.stringify(value)).toString('base64');
+  if (event.responseStatusCode === undefined) {
+    if (event.request.method === 'GET') {
+      await page.send('Fetch.continueRequest', { requestId: event.requestId }).catch(() => undefined);
+    } else {
+      await page.send('Fetch.fulfillRequest', { requestId: event.requestId, responseCode: 200, responseHeaders: headers, body: encoded({ id: formTraffic.id }) }).catch(() => undefined);
+    }
+    return;
+  }
+  try {
+    const { body, base64Encoded } = await page.send('Fetch.getResponseBody', { requestId: event.requestId });
+    const row = JSON.parse(base64Encoded ? Buffer.from(body, 'base64').toString('utf8') : body);
+    formTraffic.read?.(row);
+    await page.send('Fetch.fulfillRequest', { requestId: event.requestId, responseCode: event.responseStatusCode, responseHeaders: headers, body: encoded(row) });
+  } catch {
+    await page.send('Fetch.continueRequest', { requestId: event.requestId }).catch(() => undefined);
+  }
+}
+
 /** A paused API request (Fetch.requestPaused): answered as the entry or the site's state says, or passed on to the API. */
 async function answerPaused(event) {
+  if (formTraffic !== null && /\/full$/.test(new URL(event.request.url).pathname)) {
+    await formPaused(event);
+    return;
+  }
   const stubbed = apiAnswers === null ? null : apiAnswers[new URL(event.request.url).pathname];
   if (stubbed) {
     await page
@@ -1567,6 +2035,9 @@ async function visitAs(entry, width) {
     if (entry.answers) {
       await answerApi(entry.answers);
     }
+    if (entry.form) {
+      await formTrafficOn(entry);
+    }
     try {
       await page.send('Page.navigate', { url: origin + entry.path });
       await settle();
@@ -1601,6 +2072,9 @@ async function visitAs(entry, width) {
       if (entry.answers) {
         await answerApi(null);
       }
+      if (entry.form) {
+        await formTrafficOff();
+      }
     }
     problems.push(...heard.filter((line) => !problems.includes(line)));
     measured.push(...noted.map((line) => `${themeName}${lang ? ` ${lang}` : ''}: ${line}`));
@@ -1619,7 +2093,7 @@ async function pass(entries) {
   for (const width of widths) {
     await viewport(width);
     for (const entry of entries) {
-      if ((only && !entry.name.includes(only)) || (entry.widths && !entry.widths.includes(width))) {
+      if (!wanted(entry.name) || (entry.widths && !entry.widths.includes(width))) {
         continue;
       }
       try {
@@ -1729,7 +2203,7 @@ try {
   // a page outside Angular's own code - with an address in it, which the report must not carry - is read
   // back from the backend's log, the page's own (source client). Also run for the Errors page's shots, whose
   // row it is.
-  if (!only || 'error-report'.includes(only) || 'admin-errors-row'.includes(only)) {
+  if (only === null || only.some((text) => 'error-report'.includes(text) || 'admin-errors-row'.includes(text))) {
     await viewport(1280);
     await boot('light', false);
     await page.send('Page.navigate', { url: `${origin}/quizzes` });
@@ -1762,12 +2236,16 @@ try {
   }
   await settle();
   await pass(ADMIN);
+  await pass(FORM_SAVES);
   await pass(ADMIN_FOOTER);
   await pass(ADMIN_STATUS);
   await pass(SIGNED_IN);
   await pass(ACCOUNT_KEPT);
 
   writeFileSync(join(out, 'report.json'), JSON.stringify(report, null, 2));
+  if (formBodies.length) {
+    writeFileSync(join(out, 'form-bodies.json'), JSON.stringify(formBodies, null, 2));
+  }
   const looked = report.filter((entry) => entry.problems.length);
   console.log(`\n${report.length} pages, ${looked.length} to look at. ${out}`);
   site.close();

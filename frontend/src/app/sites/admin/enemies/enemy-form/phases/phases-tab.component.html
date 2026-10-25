@@ -6,36 +6,72 @@
                 <button anotokiButton variant="danger" (click)="removePhase(phase)">Delete</button>
             </div>
 
-            <app-field-container [cols]="2">
-                <app-text [label]="'Title'" [(value)]="phase.data.title" [required]="true"></app-text>
-                <app-text [label]="'Secondary Title'" [(value)]="phase.data.secondary_title"></app-text>
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-2">
+                    <anotoki-text-field
+                        label="Title *"
+                        required
+                        appCheck
+                        #titleField="appCheck"
+                        [error]="titleField.error()"
+                        [value]="fieldText(phase.data.title)"
+                        (valueChange)="phase.data.title = $event" />
+                    <anotoki-text-field label="Secondary Title" [value]="fieldText(phase.data.secondary_title)" (valueChange)="phase.data.secondary_title = $event" />
+                </div>
+            </div>
 
-            <app-field-container [cols]="4">
-                <app-dropdown [label]="'Type'" [options]="enemyTypes()" [(value)]="phase.data.living_being_type" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-                <app-dropdown [label]="'Family'" [options]="enemyFamilies()" [(value)]="phase.data.living_being_family" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-                <app-dropdown [label]="'Group'" [options]="enemyGroups()" [(value)]="phase.data.living_being_group" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-                <app-checkbox [label]="'Has Weakpoint'" [inline]="false" [(value)]="phase.data.has_weakpoint"></app-checkbox>
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-4">
+                    <anotoki-select
+                        label="Type"
+                        placeholder="— none —"
+                        [(appChoice)]="phase.data.living_being_type"
+                        [choices]="enemyTypes()"
+                        #typeField="appChoice"
+                        [options]="typeField.options()"
+                        [value]="typeField.text()" />
+                    <anotoki-select
+                        label="Family"
+                        placeholder="— none —"
+                        [(appChoice)]="phase.data.living_being_family"
+                        [choices]="enemyFamilies()"
+                        #familyField="appChoice"
+                        [options]="familyField.options()"
+                        [value]="familyField.text()" />
+                    <anotoki-select
+                        label="Group"
+                        placeholder="— none —"
+                        [(appChoice)]="phase.data.living_being_group"
+                        [choices]="enemyGroups()"
+                        #groupField="appChoice"
+                        [options]="groupField.options()"
+                        [value]="groupField.text()" />
+                    <div class="grid-checkbox">
+                        <anotoki-checkbox [checked]="!!phase.data.has_weakpoint" (checkedChange)="phase.data.has_weakpoint = $event">Has Weakpoint</anotoki-checkbox>
+                    </div>
+                </div>
+            </div>
 
-            <app-field-container [class]="'gap-5 mt-2'" [cols]="5">
-                @for (image of imageFields; track image.field) {
-                    <app-entity-image
-                        [label]="image.label"
-                        [required]="image.required"
-                        [path]="imagePath(phase, image.field)"
-                        [name]="imageName(phase, image.field)"
-                        [pending]="phase.pending[image.field]"
-                        (picked)="onPicked(phase, image.field, $event)"
-                        (cleared)="onCleared(phase, image.field)" />
-                }
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-5 mt-2 cols-5">
+                    @for (image of imageFields; track image.field) {
+                        <app-entity-image
+                            [label]="image.label"
+                            [required]="image.required"
+                            [path]="imagePath(phase, image.field)"
+                            [name]="imageName(phase, image.field)"
+                            [pending]="phase.pending[image.field]"
+                            (picked)="onPicked(phase, image.field, $event)"
+                            (cleared)="onCleared(phase, image.field)" />
+                    }
+                </div>
+            </div>
 
             <div class="cost-section">
                 <div class="cost-header">
                     <span class="cost-label">Damage type elements</span>
                 </div>
-                <app-chips [placeholder]="'Damage type elements'" [options]="elements()" [(value)]="phase.elements"></app-chips>
+                <anotoki-chip-group label="Damage type elements" hideLabel multiple [options]="elementChips()" [values]="phase.elements" (valuesChange)="phase.elements = [...$event]" />
             </div>
         </div>
     }

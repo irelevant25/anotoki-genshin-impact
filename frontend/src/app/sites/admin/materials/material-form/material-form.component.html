@@ -8,66 +8,72 @@
     <div class="form-section">
         <h3 class="section-title">Identity</h3>
         <div class="form-grid">
-            <app-text [label]="'Name'" [placeholder]="'e.g. Dandelion Seed'" [(value)]="material().name" [required]="true"></app-text>
-            <app-dropdown [label]="'Type'" [options]="materialTypes()" [(value)]="material().type" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-            <app-dropdown
-                [label]="'Primary Group'"
-                [options]="materialGroups()"
-                [(value)]="material().group"
-                [emptyOption]="true"
-                [emptyOptionText]="'— none —'"
-            ></app-dropdown>
-            <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="material().region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-            <app-dropdown
-                [label]="'Rarity'"
-                [options]="rarities()"
-                [(value)]="material().rarity"
+            <anotoki-text-field label="Name *" placeholder="e.g. Dandelion Seed" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(material().name)" (valueChange)="material().name = $event" />
+            <anotoki-select label="Type" placeholder="— none —" [(appChoice)]="material().type" [choices]="materialTypes()" #typeField="appChoice" [options]="typeField.options()" [value]="typeField.text()" />
+            <anotoki-select
+                label="Primary Group"
+                placeholder="— none —"
+                [(appChoice)]="material().group"
+                [choices]="materialGroups()"
+                #groupField="appChoice"
+                [options]="groupField.options()"
+                [value]="groupField.text()"
+            />
+            <anotoki-select label="Region" placeholder="— none —" [(appChoice)]="material().region" [choices]="regions()" #regionField="appChoice" [options]="regionField.options()" [value]="regionField.text()" />
+            <anotoki-select
+                label="Rarity"
+                placeholder="— none —"
+                [(appChoice)]="material().rarity"
+                [choices]="rarities()"
                 [suffix]="' ★'"
-                [emptyOption]="true"
-                [emptyOptionText]="'— none —'"
-            ></app-dropdown>
-            <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="material().version"></app-text>
+                #rarityField="appChoice"
+                [options]="rarityField.options()"
+                [value]="rarityField.text()"
+            />
+            <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(material().version)" (valueChange)="material().version = $event" />
         </div>
     </div>
 
-    <app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-        <h3 class="section-title mb-0">Icon</h3>
-        <app-field-container [class]="'gap-5'" [cols]="5">
-            <app-entity-image
-                [label]="'Icon'"
-                [path]="material().icon"
-                [name]="iconName()"
-                [pending]="pendingIcon()"
-                (picked)="onIconPicked($event)"
-                (cleared)="onIconCleared()"
-            />
-        </app-field-container>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 mb-3 cols-1">
+            <h3 class="section-title mb-0">Icon</h3>
+            <div class="container-wrap">
+                <div class="d-grid gap-5 cols-5">
+                    <app-entity-image
+                        [label]="'Icon'"
+                        [path]="material().icon"
+                        [name]="iconName()"
+                        [pending]="pendingIcon()"
+                        (picked)="onIconPicked($event)"
+                        (cleared)="onIconCleared()"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-section">
         <h3 class="section-title">Additional Groups</h3>
-        <app-field-container [cols]="2">
-            <app-multiselect
-                [label]="'Groups'"
-                [description]="'Extra groups this material belongs to, beyond the primary one.'"
-                [options]="materialGroups()"
-                [(value)]="groups"
-            ></app-multiselect>
-        </app-field-container>
+        <div class="container-wrap">
+            <div class="d-grid gap-3 cols-2">
+                <app-multiselect
+                    [label]="'Groups'"
+                    [description]="'Extra groups this material belongs to, beyond the primary one.'"
+                    [options]="materialGroups()"
+                    [(value)]="groups"
+                ></app-multiselect>
+            </div>
+        </div>
     </div>
 
     <div class="form-section">
         <h3 class="section-title">Details</h3>
-        <app-field-container [cols]="2">
-            <app-textarea [label]="'Description'" [(value)]="material().description" [rows]="4"></app-textarea>
-            <app-textarea
-                [label]="'How To Obtain'"
-                [description]="'One source per line.'"
-                [value]="howToObtainText()"
-                (inputChange)="onHowToObtainChange($event)"
-                [rows]="4"
-            ></app-textarea>
-        </app-field-container>
+        <div class="container-wrap">
+            <div class="d-grid gap-3 cols-2">
+                <anotoki-textarea label="Description" [rows]="4" [value]="fieldText(material().description)" (valueChange)="material().description = $event" />
+                <anotoki-textarea label="How To Obtain" hint="One source per line." [rows]="4" [value]="howToObtainText()" (valueChange)="onHowToObtainChange($event)" />
+            </div>
+        </div>
     </div>
 
     <div class="form-footer">

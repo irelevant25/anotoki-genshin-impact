@@ -1,140 +1,300 @@
 <div class="form-section">
     <h3 class="section-title">Identity</h3>
     <div class="form-grid">
-        <app-text [label]="'Name'" [placeholder]="'e.g. Hu Tao'" [(value)]="character().data.name" [required]="true"></app-text>
-        <app-text [label]="'Title'" class="col-span-2" [placeholder]="'e.g. Fragrance in Thaw'" [(value)]="character().data.title"></app-text>
-        <app-text [label]="'Secondary Title'" [(value)]="character().data.secondary_title"></app-text>
-        <app-dropdown [label]="'Element'" [options]="elements()" [(value)]="character().data.element" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Weapon Type'" [options]="weaponTypes()" [(value)]="character().data.weapon_type" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Rarity'" [options]="rarities()" [(value)]="character().data.rarity" [suffix]="' ★'" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Model'" [options]="models()" [(value)]="character().data.model" [required]="true"></app-dropdown>
-        <app-dropdown [label]="'Region'" [options]="regions()" [(value)]="character().data.region" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-dropdown [label]="'Arkhe'" [options]="arkheOptions" [(value)]="character().data.arkhe" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-calendar [label]="'Birthday'" [(value)]="character().data.birthday" [hideYear]="true"></app-calendar>
-        <app-text [label]="'Version'" [placeholder]="'e.g. 1.0'" [(value)]="character().data.version" [required]="true"></app-text>
-        <app-calendar [label]="'Release Date'" [(value)]="character().data.release_date"></app-calendar>
-        <app-text [label]="'Introduced'" [placeholder]="'e.g. 1.1'" [(value)]="character().data.introduced"></app-text>
-        <app-dropdown [label]="'Special Dish'" [options]="foodOptions()" [(value)]="character().data.special_dish" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-        <app-number
-            [label]="'Game ID'"
-            [placeholder]="'e.g. 10000046'"
-            [description]="'The game&#8217;s own id. Every Aether row is 10000005, every Lumine row 10000007.'"
+        <anotoki-text-field
+            label="Name *"
+            placeholder="e.g. Hu Tao"
+            required
+            appCheck
+            #nameField="appCheck"
+            [error]="nameField.error()"
+            [value]="fieldText(character().data.name)"
+            (valueChange)="character().data.name = $event" />
+        <anotoki-text-field label="Title" class="col-span-2" placeholder="e.g. Fragrance in Thaw" [value]="fieldText(character().data.title)" (valueChange)="character().data.title = $event" />
+        <anotoki-text-field label="Secondary Title" [value]="fieldText(character().data.secondary_title)" (valueChange)="character().data.secondary_title = $event" />
+        <anotoki-select
+            label="Element *"
+            required
+            [(appChoice)]="character().data.element"
+            [choices]="elements()"
+            #elementField="appChoice"
+            [options]="elementField.options()"
+            [value]="elementField.text()"
+            [error]="elementField.error()" />
+        <anotoki-select
+            label="Weapon Type *"
+            required
+            [(appChoice)]="character().data.weapon_type"
+            [choices]="weaponTypes()"
+            #weaponTypeField="appChoice"
+            [options]="weaponTypeField.options()"
+            [value]="weaponTypeField.text()"
+            [error]="weaponTypeField.error()" />
+        <anotoki-select
+            label="Rarity *"
+            required
+            [(appChoice)]="character().data.rarity"
+            [choices]="rarities()"
+            [suffix]="' ★'"
+            #rarityField="appChoice"
+            [options]="rarityField.options()"
+            [value]="rarityField.text()"
+            [error]="rarityField.error()" />
+        <anotoki-select
+            label="Model *"
+            required
+            [(appChoice)]="character().data.model"
+            [choices]="models()"
+            #modelField="appChoice"
+            [options]="modelField.options()"
+            [value]="modelField.text()"
+            [error]="modelField.error()" />
+        <anotoki-select
+            label="Region"
+            placeholder="— none —"
+            [(appChoice)]="character().data.region"
+            [choices]="regions()"
+            #regionField="appChoice"
+            [options]="regionField.options()"
+            [value]="regionField.text()" />
+        <anotoki-select
+            label="Arkhe"
+            placeholder="— none —"
+            [(appChoice)]="character().data.arkhe"
+            [choices]="arkheOptions"
+            #arkheField="appChoice"
+            [options]="arkheField.options()"
+            [value]="arkheField.text()" />
+        <!-- A birthday is a day and a month, kept as a DATE in year 4 (stored-dates.ts). -->
+        <anotoki-date-field
+            label="Birthday"
+            dayMonth
+            [format]="dateFormat()"
+            [value]="storedToFieldDayMonth(character().data.birthday)"
+            (valueChange)="character().data.birthday = fieldDayMonthToStored($event)" />
+        <anotoki-text-field
+            label="Version *"
+            placeholder="e.g. 1.0"
+            required
+            appCheck
+            #versionField="appCheck"
+            [error]="versionField.error()"
+            [value]="fieldText(character().data.version)"
+            (valueChange)="character().data.version = $event" />
+        <anotoki-date-field
+            label="Release Date"
+            [format]="dateFormat()"
+            [value]="storedToFieldDate(character().data.release_date)"
+            (valueChange)="character().data.release_date = fieldDateToStored($event)" />
+        <anotoki-text-field label="Introduced" placeholder="e.g. 1.1" [value]="fieldText(character().data.introduced)" (valueChange)="character().data.introduced = $event" />
+        <anotoki-select
+            label="Special Dish"
+            placeholder="— none —"
+            [(appChoice)]="character().data.special_dish"
+            [choices]="foodOptions()"
+            #specialDishField="appChoice"
+            [options]="specialDishField.options()"
+            [value]="specialDishField.text()" />
+        <anotoki-text-field
+            label="Game ID"
+            placeholder="e.g. 10000046"
+            hint="The game&#8217;s own id. Every Aether row is 10000005, every Lumine row 10000007."
             [min]="1"
-            [(value)]="character().data.game_id"></app-number>
-        <app-checkbox [label]="'Is Traveler'" [inline]="false" [(value)]="character().data.is_traveler"></app-checkbox>
+            [(appNumber)]="character().data.game_id"
+            #gameIdField="appNumber"
+            [value]="gameIdField.text()"
+            [inputmode]="gameIdField.inputmode()"
+            [error]="gameIdField.error()" />
+        <div class="grid-checkbox">
+            <anotoki-checkbox [checked]="!!character().data.is_traveler" (checkedChange)="character().data.is_traveler = $event">Is Traveler</anotoki-checkbox>
+        </div>
     </div>
-    <app-field-container [class]="'mt-3'" [cols]="2">
-        <app-textarea
-            [label]="'How To Obtain'"
-            [description]="'One source per line.'"
-            [placeholder]="'e.g. Wanderlust Invocation'"
-            [value]="howToObtainText()"
-            (inputChange)="onHowToObtainChange($event)"
-            [rows]="3"></app-textarea>
-        <app-textarea [label]="'Affiliations'" [description]="'One affiliation per line.'" [value]="affiliationsText()" (inputChange)="onAffiliationsChange($event)" [rows]="3"></app-textarea>
-    </app-field-container>
+    <div class="container-wrap">
+        <div class="d-grid gap-3 mt-3 cols-2">
+            <anotoki-textarea
+                label="How To Obtain"
+                hint="One source per line."
+                placeholder="e.g. Wanderlust Invocation"
+                [rows]="3"
+                [value]="howToObtainText()"
+                (valueChange)="onHowToObtainChange($event)" />
+            <anotoki-textarea label="Affiliations" hint="One affiliation per line." [rows]="3" [value]="affiliationsText()" (valueChange)="onAffiliationsChange($event)" />
+        </div>
+    </div>
 </div>
 
 <div class="form-section">
     <h3 class="section-title">Voice Actors</h3>
     <div class="form-grid">
-        <app-text [label]="'English'" [(value)]="character().data.voice_actor_english" [required]="true"></app-text>
-        <app-text [label]="'Japanese'" [(value)]="character().data.voice_actor_japanese" [required]="true"></app-text>
-        <app-text [label]="'Korean'" [(value)]="character().data.voice_actor_korean" [required]="true"></app-text>
-        <app-text [label]="'Chinese'" [(value)]="character().data.voice_actor_chinese" [required]="true"></app-text>
+        <anotoki-text-field
+            label="English *"
+            required
+            appCheck
+            #englishField="appCheck"
+            [error]="englishField.error()"
+            [value]="fieldText(character().data.voice_actor_english)"
+            (valueChange)="character().data.voice_actor_english = $event" />
+        <anotoki-text-field
+            label="Japanese *"
+            required
+            appCheck
+            #japaneseField="appCheck"
+            [error]="japaneseField.error()"
+            [value]="fieldText(character().data.voice_actor_japanese)"
+            (valueChange)="character().data.voice_actor_japanese = $event" />
+        <anotoki-text-field
+            label="Korean *"
+            required
+            appCheck
+            #koreanField="appCheck"
+            [error]="koreanField.error()"
+            [value]="fieldText(character().data.voice_actor_korean)"
+            (valueChange)="character().data.voice_actor_korean = $event" />
+        <anotoki-text-field
+            label="Chinese *"
+            required
+            appCheck
+            #chineseField="appCheck"
+            [error]="chineseField.error()"
+            [value]="fieldText(character().data.voice_actor_chinese)"
+            (valueChange)="character().data.voice_actor_chinese = $event" />
     </div>
 </div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Namecard</h3>
-    <app-field-container [cols]="1">
-        <app-text [label]="'Namecard Name'" [placeholder]="'e.g. Furina: Banquet'" [(value)]="character().data.namecard_name"></app-text>
-        <app-textarea [label]="'Namecard Description'" [(value)]="character().data.namecard_description" [rows]="2" [required]="true"></app-textarea>
-        <app-textarea [label]="'Namecard Sources'" [description]="'One source per line.'" [value]="namecardSourcesText()" (inputChange)="onNamecardSourcesChange($event)" [rows]="2"></app-textarea>
-    </app-field-container>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        @for (image of namecardImages; track image.field) {
-            <app-entity-image
-                [label]="image.label"
-                [required]="image.required"
-                [path]="imagePath(image.field)"
-                [name]="imageName(image.field)"
-                [pending]="pendingFor(image.field)"
-                (picked)="onPicked(image.field, $event)"
-                (cleared)="onCleared(image.field)" />
-        }
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Namecard</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-3 cols-1">
+                <anotoki-text-field
+                    label="Namecard Name"
+                    placeholder="e.g. Furina: Banquet"
+                    [value]="fieldText(character().data.namecard_name)"
+                    (valueChange)="character().data.namecard_name = $event" />
+                <anotoki-textarea
+                    label="Namecard Description *"
+                    required
+                    appCheck
+                    #namecardDescriptionField="appCheck"
+                    [error]="namecardDescriptionField.error()"
+                    [rows]="2"
+                    [value]="fieldText(character().data.namecard_description)"
+                    (valueChange)="character().data.namecard_description = $event" />
+                <anotoki-textarea label="Namecard Sources" hint="One source per line." [rows]="2" [value]="namecardSourcesText()" (valueChange)="onNamecardSourcesChange($event)" />
+            </div>
+        </div>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                @for (image of namecardImages; track image.field) {
+                    <app-entity-image
+                        [label]="image.label"
+                        [required]="image.required"
+                        [path]="imagePath(image.field)"
+                        [name]="imageName(image.field)"
+                        [pending]="pendingFor(image.field)"
+                        (picked)="onPicked(image.field, $event)"
+                        (cleared)="onCleared(image.field)" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Constellation</h3>
-    <app-text [label]="'Constellation Name'" [placeholder]="'e.g. Animula Choragi'" [(value)]="character().data.constellation_name"></app-text>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        <app-entity-image
-            [label]="'Constellation'"
-            [required]="false"
-            [path]="imagePath('constellation')"
-            [name]="imageName('constellation')"
-            [pending]="pendingFor('constellation')"
-            (picked)="onPicked('constellation', $event)"
-            (cleared)="onCleared('constellation')" />
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Constellation</h3>
+        <anotoki-text-field
+            label="Constellation Name"
+            placeholder="e.g. Animula Choragi"
+            [value]="fieldText(character().data.constellation_name)"
+            (valueChange)="character().data.constellation_name = $event" />
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                <app-entity-image
+                    [label]="'Constellation'"
+                    [required]="false"
+                    [path]="imagePath('constellation')"
+                    [name]="imageName('constellation')"
+                    [pending]="pendingFor('constellation')"
+                    (picked)="onPicked('constellation', $event)"
+                    (cleared)="onCleared('constellation')" />
+            </div>
+        </div>
+    </div>
+</div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Icons</h3>
-    <app-field-container [class]="'gap-5'" [cols]="5">
-        @for (image of characterImages; track image.field) {
-            <app-entity-image
-                [label]="image.label"
-                [required]="image.required"
-                [path]="imagePath(image.field)"
-                [name]="imageName(image.field)"
-                [pending]="pendingFor(image.field)"
-                (picked)="onPicked(image.field, $event)"
-                (cleared)="onCleared(image.field)" />
-        }
-        <app-entity-image
-            [label]="'In-game Icon'"
-            [required]="true"
-            [path]="imagePath('ingame_icon')"
-            [name]="imageName('ingame_icon')"
-            [pending]="pendingFor('ingame_icon')"
-            (picked)="onPicked('ingame_icon', $event)"
-            (cleared)="onCleared('ingame_icon')" />
-        <app-entity-image
-            [label]="'In-game Icon 2'"
-            [required]="false"
-            [path]="imagePath('ingame_icon_2')"
-            [name]="imageName('ingame_icon_2')"
-            [pending]="pendingFor('ingame_icon_2')"
-            (picked)="onPicked('ingame_icon_2', $event)"
-            (cleared)="onCleared('ingame_icon_2')" />
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Icons</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-5">
+                @for (image of characterImages; track image.field) {
+                    <app-entity-image
+                        [label]="image.label"
+                        [required]="image.required"
+                        [path]="imagePath(image.field)"
+                        [name]="imageName(image.field)"
+                        [pending]="pendingFor(image.field)"
+                        (picked)="onPicked(image.field, $event)"
+                        (cleared)="onCleared(image.field)" />
+                }
+                <app-entity-image
+                    [label]="'In-game Icon'"
+                    [required]="true"
+                    [path]="imagePath('ingame_icon')"
+                    [name]="imageName('ingame_icon')"
+                    [pending]="pendingFor('ingame_icon')"
+                    (picked)="onPicked('ingame_icon', $event)"
+                    (cleared)="onCleared('ingame_icon')" />
+                <app-entity-image
+                    [label]="'In-game Icon 2'"
+                    [required]="false"
+                    [path]="imagePath('ingame_icon_2')"
+                    [name]="imageName('ingame_icon_2')"
+                    [pending]="pendingFor('ingame_icon_2')"
+                    (picked)="onPicked('ingame_icon_2', $event)"
+                    (cleared)="onCleared('ingame_icon_2')" />
+            </div>
+        </div>
+    </div>
+</div>
 
-<app-field-container [class]="'gap-2 mb-3'" [cols]="1">
-    <h3 class="section-title mb-0">Demo</h3>
-    <app-field-container [cols]="2">
-        <app-text [label]="'Demo Video'" [placeholder]="'e.g. https://www.youtube.com/watch?v=EN79SfbcvIE'" [(value)]="character().data.demo_video"></app-text>
-        <app-text [label]="'Demo Music Name'" [placeholder]="'e.g. Se mettre sur son trente-et-un !'" [(value)]="character().data.demo_music_name"></app-text>
-    </app-field-container>
-    <app-field-container [class]="'gap-5'" [cols]="3">
-        <app-entity-image
-            [label]="'Demo Music'"
-            [kind]="'audio'"
-            [required]="false"
-            [path]="imagePath('demo_music')"
-            [name]="imageName('demo_music')"
-            [pending]="pendingFor('demo_music')"
-            (picked)="onPicked('demo_music', $event)"
-            (cleared)="onCleared('demo_music')" />
-    </app-field-container>
-</app-field-container>
+<div class="container-wrap">
+    <div class="d-grid gap-3 mb-3 cols-1">
+        <h3 class="section-title mb-0">Demo</h3>
+        <div class="container-wrap">
+            <div class="d-grid gap-3 cols-2">
+                <anotoki-text-field
+                    label="Demo Video"
+                    placeholder="e.g. https://www.youtube.com/watch?v=EN79SfbcvIE"
+                    [value]="fieldText(character().data.demo_video)"
+                    (valueChange)="character().data.demo_video = $event" />
+                <anotoki-text-field
+                    label="Demo Music Name"
+                    placeholder="e.g. Se mettre sur son trente-et-un !"
+                    [value]="fieldText(character().data.demo_music_name)"
+                    (valueChange)="character().data.demo_music_name = $event" />
+            </div>
+        </div>
+        <div class="container-wrap">
+            <div class="d-grid gap-5 cols-3">
+                <app-entity-image
+                    [label]="'Demo Music'"
+                    [kind]="'audio'"
+                    [required]="false"
+                    [path]="imagePath('demo_music')"
+                    [name]="imageName('demo_music')"
+                    [pending]="pendingFor('demo_music')"
+                    (picked)="onPicked('demo_music', $event)"
+                    (cleared)="onCleared('demo_music')" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="form-section">
     <h3 class="section-title">Roles</h3>
-    <app-chips [placeholder]="'Roles'" [options]="roles()" [(value)]="selectedRoles" [required]="true"></app-chips>
+    <anotoki-chip-group label="Roles" hideLabel multiple required [options]="roleChips()" [values]="selectedRoles()" (valuesChange)="selectedRoles.set([...$event])" />
 </div>
 
 <div class="form-section">
@@ -147,10 +307,34 @@
                     <button anotokiButton variant="danger" (click)="removeRelationship(relationship)">Delete</button>
                 </div>
                 <div class="form-grid">
-                    <app-text [label]="'Name'" [(value)]="relationship.name" [required]="true"></app-text>
-                    <app-dropdown [label]="'Type'" [options]="relationshipTypes()" [(value)]="relationship.type" [required]="true"></app-dropdown>
-                    <app-dropdown [label]="'State'" [options]="characterStates()" [(value)]="relationship.state" [emptyOption]="true" [emptyOptionText]="'— none —'"></app-dropdown>
-                    <app-checkbox [label]="'Biological'" [inline]="false" [(value)]="relationship.is_biological"></app-checkbox>
+                    <anotoki-text-field
+                        label="Name *"
+                        required
+                        appCheck
+                        #relationshipNameField="appCheck"
+                        [error]="relationshipNameField.error()"
+                        [value]="fieldText(relationship.name)"
+                        (valueChange)="relationship.name = $event" />
+                    <anotoki-select
+                        label="Type *"
+                        required
+                        [(appChoice)]="relationship.type"
+                        [choices]="relationshipTypes()"
+                        #relationshipTypeField="appChoice"
+                        [options]="relationshipTypeField.options()"
+                        [value]="relationshipTypeField.text()"
+                        [error]="relationshipTypeField.error()" />
+                    <anotoki-select
+                        label="State"
+                        placeholder="— none —"
+                        [(appChoice)]="relationship.state"
+                        [choices]="characterStates()"
+                        #relationshipStateField="appChoice"
+                        [options]="relationshipStateField.options()"
+                        [value]="relationshipStateField.text()" />
+                    <div class="grid-checkbox">
+                        <anotoki-checkbox [checked]="!!relationship.is_biological" (checkedChange)="relationship.is_biological = $event">Biological</anotoki-checkbox>
+                    </div>
                 </div>
             </div>
         }

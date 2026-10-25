@@ -1,8 +1,9 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { revokePicked } from '../../../shared/admin-full-resource.model';
@@ -13,9 +14,11 @@ import { emptyPiece, PieceWrapper } from '../artifact-form.model';
   selector: 'app-artifact-pieces-tab',
   templateUrl: './pieces-tab.component.html',
   styleUrls: ['./pieces-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, DropdownComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [ButtonComponent, TextFieldComponent, SelectComponent, FieldCheckDirective, ChoiceFieldDirective, EntityImageComponent],
 })
 export class PiecesTabComponent {
+  readonly fieldText = fieldText;
+
   pieces = model<PieceWrapper[]>([]);
   pieceTypes = input<string[]>([]);
 

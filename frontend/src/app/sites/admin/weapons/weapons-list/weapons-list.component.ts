@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 import { WeaponApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, SelectOption, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
@@ -16,19 +15,21 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-weapons-list',
   templateUrl: './weapons-list.component.html',
   styleUrls: ['./weapons-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
 })
 export class WeaponsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'weapons';
 
-  filterId = signal<string | number | null | undefined>('');
-  filterName = signal<string | number | null | undefined>('');
+  filterId = signal('');
+  filterName = signal('');
   filterTypes = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterRarity = signal<string | number | boolean | null | undefined>(undefined);
+  /** A rarity as the select holds it, '' for any. */
+  filterRarity = signal('');
   filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
 
   typeOptions = this.distinct('type');
   rarityOptions = computed(() => this.distinct('rarity')().sort().reverse());
+  rarityChoices = computed<SelectOption[]>(() => this.rarityOptions().map((rarity) => ({ value: rarity, label: `${rarity} ★` })));
   versionOptions = this.distinct('version', compareVersionsDesc);
 
   sorted = computed(() => [...this.rows()].sort((a, b) => String(a.name).localeCompare(String(b.name))));
@@ -73,7 +74,7 @@ export class WeaponsListComponent extends AdminListComponent<any> implements OnI
     this.filterId.set('');
     this.filterName.set('');
     this.filterTypes.set([]);
-    this.filterRarity.set(undefined);
+    this.filterRarity.set('');
     this.filterVersions.set([]);
   }
 }

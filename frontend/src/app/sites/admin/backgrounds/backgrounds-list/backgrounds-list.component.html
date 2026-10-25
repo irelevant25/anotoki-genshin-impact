@@ -1,7 +1,7 @@
 <anotoki-page-header heading="Backgrounds" lead="Site wallpapers. Each has a full image and a thumbnail, both filed under the background's name." />
 
 <div class="add-row">
-    <app-text class="add-name" [placeholder]="'New background name…'" [(value)]="newName"></app-text>
+    <anotoki-text-field class="add-name" label="New background name…" hideLabel placeholder="New background name…" [(value)]="newName" />
     <button anotokiButton variant="primary" [disabled]="!newName()" (click)="add()"><span class="icon icon-plus" aria-hidden="true"></span> Add</button>
 </div>
 
@@ -14,7 +14,7 @@
 
                 <div class="background-head">
                     @if (renaming() === entry.id) {
-                        <app-text class="rename-input" [(value)]="renameValue"></app-text>
+                        <anotoki-text-field class="rename-input" label="" hideLabel [(value)]="renameValue" />
                         <button anotokiButton variant="primary" size="sm" [loading]="busy() === entry.id" (click)="saveRename(entry)">Save</button>
                         <button anotokiButton size="sm" (click)="cancelRename()">Cancel</button>
                     } @else {

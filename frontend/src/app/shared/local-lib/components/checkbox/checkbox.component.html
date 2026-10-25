@@ -1,8 +1,0 @@
-@if (!hidden()) {
-    <div class="checkbox-field" [class]="class()" [class.in-grid]="!inline()">
-        <anotoki-checkbox [checked]="!!value()" [disabled]="disabled()" [hint]="kitHint()" (checkedChange)="onKitChange($event)">{{ kitLabel() }}</anotoki-checkbox>
-        @if (kitError(); as error) {
-            <p class="error-message" role="alert">{{ error }}</p>
-        }
-    </div>
-}

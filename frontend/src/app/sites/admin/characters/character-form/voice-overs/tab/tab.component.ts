@@ -1,9 +1,9 @@
 import { Component, computed, input, model, OnDestroy } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextComponent } from '../../../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { HtmlEditorComponent } from '../../../../../../shared/local-lib/components/html-editor/html-editor.component';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
-import { FieldContainerComponent } from '../../../../../../shared/local-lib/components/field-container/field-container.component';
+import { fieldText } from '../../../../../../shared/local-lib/fields/field-text';
 import { AUDIO_EXTENSIONS, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
 import { VoiceOverFormData } from '../../../../../../sites/admin/shared/admin-form.model';
 
@@ -11,7 +11,7 @@ import { VoiceOverFormData } from '../../../../../../sites/admin/shared/admin-fo
   selector: 'app-voice-overs-tab-item',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, HtmlEditorComponent, FileComponent, FieldContainerComponent],
+  imports: [ButtonComponent, TextFieldComponent, HtmlEditorComponent, FileComponent],
 })
 export class VoiceOversTabItemComponent implements OnDestroy {
   entry = input.required<VoiceOverWrapper>();
@@ -25,6 +25,15 @@ export class VoiceOversTabItemComponent implements OnDestroy {
 
   titleKey = computed(() => `title_${this.language()}` as keyof VoiceOverFormData);
   textKey = computed(() => `text_${this.language()}` as keyof VoiceOverFormData);
+
+  /** The line's title in this language, as its field shows it - read afresh, as typing writes it into the row. */
+  titleText(): string {
+    return fieldText(this.entry().data[this.titleKey()]);
+  }
+
+  onTitleChange(value: string): void {
+    (this.entry().data as unknown as Record<string, unknown>)[this.titleKey()] = value;
+  }
 
   /** The text as the HTML editor takes it - a string, where the form data's field union allows a number. */
   text = computed(() => (this.entry().data[this.textKey()] as string | null | undefined) ?? '');

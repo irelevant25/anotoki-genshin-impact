@@ -1,10 +1,12 @@
-import { Component, computed, input, model } from '@angular/core';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { CalendarComponent } from '../../../../../shared/local-lib/components/calendar/calendar.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { Component, computed, inject, input, model } from '@angular/core';
+import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
+import { DateFormatService } from '../../../../../shared/local-lib/i18n/date-format.service';
+import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../../shared/local-lib/stored-dates';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { revokePicked, toLines, toStringArray } from '../../../shared/admin-full-resource.model';
@@ -14,10 +16,19 @@ import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, We
   selector: 'app-weapon-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, NumberComponent, DropdownComponent, CalendarComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [TextFieldComponent, TextareaComponent, SelectComponent, DateFieldComponent, FieldCheckDirective, NumberFieldDirective, ChoiceFieldDirective, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   weapon = model<WeaponWrapper>(emptyWeapon());
+
+  private readonly _dates = inject(DateFormatService);
+
+  readonly fieldText = fieldText;
+  /** The order the dates are typed in: the one the site writes them in for this reader (the account's, else the device's). */
+  readonly dateFormat = computed(() => fieldFormatOf(this._dates.pattern().date));
+  /** A date as the kit's date field reads it, and back as the API keeps it (stored-dates.ts). */
+  readonly storedToFieldDate = storedToFieldDate;
+  readonly fieldDateToStored = fieldDateToStored;
 
   weaponTypes = input<string[]>([]);
   rarities = input<string[]>([]);

@@ -16,10 +16,37 @@
  * Year 4 is a leap year, so the 29th of February is a birthday like any other
  * (Kirara's). Anything that is no date reads as no date (''), and the field
  * says so once it is left.
+ *
+ * The admin forms draw the kit's field and map its value through these: a
+ * birthday `dayMonth`, its value `storedToFieldDayMonth(...)` and what the field
+ * says back `fieldDayMonthToStored(...)`; any other date `storedToFieldDate(...)`
+ * and `fieldDateToStored(...)` - null while the field holds no date, so a cleared
+ * date is sent as null and clears. The field's `format` is the order the site
+ * writes dates in for this reader (fieldFormatOf, DateFormatService), so a date
+ * is typed as the lists beside the form show it.
  */
+
+import type { DateFieldFormat } from '@anotoki/lib/ui/date-field';
 
 /** The year the birthdays are kept in (characters.birthday, a DATE). */
 export const BIRTHDAY_YEAR = 4;
+
+/**
+ * The order a date pattern of DateFormatService writes in, as one of the kit date field's: the account's four come
+ * back as themselves ('d.M.yyyy' is dmy_dot), a device's own by which number comes first and what stands between
+ * them ('dd/MM/yyyy' in Britain is dmy_slash, 'dd. MM. yyyy' in Slovakia dmy_dot). The field reads any separator
+ * typed; this is how it writes the date.
+ */
+export function fieldFormatOf(pattern: string): DateFieldFormat {
+  const first = pattern.trimStart().charAt(0);
+  if (first === 'y') {
+    return 'ymd_dash';
+  }
+  if (first === 'M') {
+    return 'mdy_slash';
+  }
+  return pattern.includes('.') ? 'dmy_dot' : 'dmy_slash';
+}
 
 const ISO_DAY = /^(\d{4})-(\d{2})-(\d{2})/;
 

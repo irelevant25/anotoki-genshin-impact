@@ -4,7 +4,7 @@ import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { Background, BackgroundApiService, FileApiService, toFormData } from '../../../../api';
@@ -24,16 +24,16 @@ import { assetSuffix, toAssetLiteralName } from '../../shared/asset-name';
   selector: 'app-backgrounds-list',
   templateUrl: './backgrounds-list.component.html',
   styleUrls: ['./backgrounds-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, ButtonComponent, TextComponent, EntityImageComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, ButtonComponent, TextFieldComponent, EntityImageComponent],
 })
 export class BackgroundsListComponent implements OnInit {
   backgrounds = signal<Background[]>([]);
   loading = signal(false);
   busy = signal<number | undefined>(undefined);
 
-  newName = signal<string | number | null | undefined>('');
+  newName = signal('');
   renaming = signal<number | undefined>(undefined);
-  renameValue = signal<string | number | null | undefined>('');
+  renameValue = signal('');
 
   /** Shown until the reload lands, so a replaced picture is visible at once. */
   picked = signal<Record<string, PickedImage>>({});

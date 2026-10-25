@@ -1,7 +1,7 @@
 import { Component, model } from '@angular/core';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { revokePicked } from '../../../shared/admin-full-resource.model';
@@ -12,10 +12,12 @@ import { emptyEnemy, EnemyWrapper } from '../enemy-form.model';
   selector: 'app-enemy-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextComponent, TextareaComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [TextFieldComponent, TextareaComponent, FieldCheckDirective, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   enemy = model<EnemyWrapper>(emptyEnemy());
+
+  readonly fieldText = fieldText;
 
   /** Stored path; the slot shows a pending pick when there is one. */
   iconPath(): string | undefined {

@@ -18,21 +18,43 @@
                 <span class="sub-card-index">C{{ item.data.level }} · {{ item.data.name || "Unnamed" }}</span>
                 <button anotokiButton variant="danger" (click)="removeConstellation(item)">Delete</button>
             </div>
-            <app-field-container [cols]="4">
-                <app-number [label]="'Level'" [value]="item.data.level" [required]="true" [min]="1" [max]="maxConstellations" (inputChange)="onLevelChange(item, $event)"></app-number>
-                <app-text class="col-span-3" [label]="'Name'" [(value)]="item.data.name" [required]="true"></app-text>
-            </app-field-container>
-            <app-field-container [cols]="4">
-                <app-entity-image
-                    [label]="'Icon'"
-                    [required]="true"
-                    [path]="iconPath(item)"
-                    [name]="iconName(item)"
-                    [pending]="item.pending"
-                    (picked)="onPicked(item, $event)"
-                    (cleared)="onCleared(item)" />
-                <app-textarea class="col-span-3" [label]="'Description'" [(value)]="item.data.description" [rows]="4"></app-textarea>
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-4">
+                    <anotoki-text-field
+                        label="Level *"
+                        required
+                        [min]="1"
+                        [max]="maxConstellations"
+                        [appNumber]="item.data.level"
+                        (appNumberChange)="onLevelChange(item, $event)"
+                        #levelField="appNumber"
+                        [value]="levelField.text()"
+                        [inputmode]="levelField.inputmode()"
+                        [error]="levelField.error()" />
+                    <anotoki-text-field
+                        label="Name *"
+                        class="col-span-3"
+                        required
+                        appCheck
+                        #nameField="appCheck"
+                        [error]="nameField.error()"
+                        [value]="fieldText(item.data.name)"
+                        (valueChange)="item.data.name = $event" />
+                </div>
+            </div>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-4">
+                    <app-entity-image
+                        [label]="'Icon'"
+                        [required]="true"
+                        [path]="iconPath(item)"
+                        [name]="iconName(item)"
+                        [pending]="item.pending"
+                        (picked)="onPicked(item, $event)"
+                        (cleared)="onCleared(item)" />
+                    <anotoki-textarea label="Description" class="col-span-3" [rows]="4" [value]="fieldText(item.data.description)" (valueChange)="item.data.description = $event" />
+                </div>
+            </div>
         </div>
     }
 

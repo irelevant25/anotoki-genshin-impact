@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
+import { REQUIRED_WORDS } from '../fields/form-checks';
 
 export interface ErrorMessageConfig {
   [errorKey: string]: string | ((error: any) => string);
@@ -10,7 +11,7 @@ export interface ErrorMessageConfig {
 })
 export class ValidationErrorService {
   private _defaultErrorMessages: ErrorMessageConfig = {
-    required: () => 'Toto pole je povinné',
+    required: () => REQUIRED_WORDS,
     min: (min: any) => `Minimálna hodnota je ${min}`,
     max: (max: any) => `Maximálna hodnota je ${max}`,
     minlength: (requiredLength: any) => {

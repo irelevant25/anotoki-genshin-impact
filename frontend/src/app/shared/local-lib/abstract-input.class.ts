@@ -3,9 +3,9 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorF
 import { Subject } from 'rxjs';
 import { ValidationErrorService } from './services/validation.service';
 import { AbstractRolesComponent } from './abstract-roles.class';
-import { requiredValidator } from './validators/required.class';
 import { DomSanitizer } from '@angular/platform-browser';
 import { isNullOrEmpty } from './helper.class';
+import { CheckedField, FormChecks, isMissing } from './fields/form-checks';
 
 @Directive({
   providers: [
@@ -17,23 +17,16 @@ import { isNullOrEmpty } from './helper.class';
   ],
 })
 /**
- * What every field of the site's forms shares: its value (any type - a number,
- * a date, a choice's key - where the kit's fields hold text), `required` and
- * `validators`, and the error said once the field is touched. The admin forms
- * find every field in them through `registry` to check them all before a save
- * and to open the tab holding the first wrong one.
+ * What the fields local-lib still draws itself share - the filters' multiselect, the button that chooses files or a
+ * folder, the HTML editor, which anotoki-lib 0.11.0 brings to the kit (the owner's request of 2026-10-25), and genshin
+ * then binds the kit's: its value (any type - a list of keys, files, markup), `required` and `validators`, and the
+ * error said once the field is touched. Each is one of the fields its form checks before a save (FormChecks), as the
+ * kit's fields are through FieldCheck's directives.
  *
- * Most of them are drawn by the anotoki kit (@anotoki/lib/ui/forms): their
- * templates are one kit field each, given the label, the hint and the error
- * worked out here (`kitLabel`, `kitHint`, `kitError`) and turning its text
- * back into this field's type. The kit has no multiselect, date picker, chips,
- * file picker, slider or search with pictures: those draw themselves, in the
- * kit's look (components.scss).
+ * Drawn in the kit's look (components.scss), each with the label, the hint and the error worked out here (`kitLabel`,
+ * `kitHint`, `kitError`).
  */
-export abstract class AbstractInputComponent<T = string> extends AbstractRolesComponent implements Validator {
-  static readonly registry = new Set<AbstractInputComponent<any>>();
-  static readonly registryVersion = signal(0);
-
+export abstract class AbstractInputComponent<T = string> extends AbstractRolesComponent implements Validator, CheckedField {
   @ViewChild('inputElement') inputElement?: ElementRef<HTMLInputElement | HTMLSelectElement>;
   @ViewChild('labelElement') labelElement?: ElementRef<HTMLLabelElement>;
 
@@ -100,11 +93,22 @@ export abstract class AbstractInputComponent<T = string> extends AbstractRolesCo
   readonly sanitizer = inject(DomSanitizer);
   protected readonly validationErrorService$ = inject(ValidationErrorService);
   protected skipAfterValueChange = false;
+  private readonly _formChecks = inject(FormChecks);
+
+  /** As its form's save checks it (FormChecks): where it is, whether it is wrong, and its error shown. */
+  get element(): HTMLElement {
+    return this.elementRef.nativeElement;
+  }
+
+  readonly wrong = computed(() => !this.isValid());
+
+  touch(): void {
+    this.markAsTouched();
+  }
 
   constructor() {
     super();
-    AbstractInputComponent.registry.add(this);
-    AbstractInputComponent.registryVersion.update((v) => v + 1);
+    this._formChecks.add(this);
     effect(() => {
       const value = this.value();
 
@@ -136,8 +140,7 @@ export abstract class AbstractInputComponent<T = string> extends AbstractRolesCo
   }
 
   ngOnDestroy(): void {
-    AbstractInputComponent.registry.delete(this);
-    AbstractInputComponent.registryVersion.update((v) => v + 1);
+    this._formChecks.remove(this);
     this.unsubscriber.next();
     this.unsubscriber.complete();
   }
@@ -164,13 +167,8 @@ export abstract class AbstractInputComponent<T = string> extends AbstractRolesCo
     const isRequired = this.required();
     const currentValidators = this.validators();
 
-    // Use requiredValidator if required is true
-    if (isRequired) {
-      const requiredValidatorFn = requiredValidator(this);
-      const requiredResult = requiredValidatorFn(control);
-      if (requiredResult) {
-        Object.assign(errors, requiredResult);
-      }
+    if (isRequired && isMissing(this.value())) {
+      errors['required'] = true;
     }
 
     if (currentValidators && currentValidators.length > 0) {

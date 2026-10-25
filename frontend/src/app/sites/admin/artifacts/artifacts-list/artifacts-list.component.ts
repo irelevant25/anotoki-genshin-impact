@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { ArtifactApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
 import { toBoolean } from '../../shared/admin-full-resource.model';
@@ -16,13 +16,13 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-artifacts-list',
   templateUrl: './artifacts-list.component.html',
   styleUrls: ['./artifacts-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
 })
 export class ArtifactsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'artifacts';
 
-  filterId = signal<string | number | null | undefined>('');
-  filterName = signal<string | number | null | undefined>('');
+  filterId = signal('');
+  filterName = signal('');
   filterRarities = signal<(string | number | boolean)[] | null | undefined>([]);
   filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
 

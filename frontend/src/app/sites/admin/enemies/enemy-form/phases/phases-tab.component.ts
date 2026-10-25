@@ -1,10 +1,10 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { CheckboxComponent } from '../../../../../shared/local-lib/components/checkbox/checkbox.component';
-import { ChipsComponent } from '../../../../../shared/local-lib/components/chips/chips.component';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
+import { CheckboxComponent, SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { ChipGroupComponent, ChipOption } from '@anotoki/lib/ui/chips';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { revokeAllPicked, revokePicked } from '../../../shared/admin-full-resource.model';
@@ -14,9 +14,11 @@ import { emptyPhase, phaseImageName, PhaseImageField, PhaseWrapper } from '../en
   selector: 'app-enemy-phases-tab',
   templateUrl: './phases-tab.component.html',
   styleUrls: ['./phases-tab.component.scss'],
-  imports: [ButtonComponent, TextComponent, DropdownComponent, CheckboxComponent, ChipsComponent, FieldContainerComponent, EntityImageComponent],
+  imports: [ButtonComponent, TextFieldComponent, SelectComponent, CheckboxComponent, ChipGroupComponent, FieldCheckDirective, ChoiceFieldDirective, EntityImageComponent],
 })
 export class PhasesTabComponent {
+  readonly fieldText = fieldText;
+
   phases = model<PhaseWrapper[]>([]);
 
   /** Phase art is named after the enemy, so the tab needs to know it. */
@@ -25,6 +27,9 @@ export class PhasesTabComponent {
   enemyFamilies = input<string[]>([]);
   enemyGroups = input<string[]>([]);
   elements = input<string[]>([]);
+
+  /** The elements as the kit's chips take them. */
+  readonly elementChips = computed<ChipOption[]>(() => this.elements().map((element) => ({ value: element, label: element })));
 
   readonly imageFields: { field: PhaseImageField; label: string; required: boolean }[] = [
     { field: 'icon', label: 'Icon', required: true },

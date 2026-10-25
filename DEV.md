@@ -621,6 +621,11 @@ and that row opened; the Quiz levels page - what the rules say as levels are
 typed, a text that is no JSON, the words levels leave behind, a save and back
 to the defaults; the kit's pieces opened - what folds, a birthday's
 calendar, the editor's link dialog and colour panel, the voice-over import; the
+admin forms filled and saved - every kind of field typed into, chosen, ticked,
+a row added, numbers refused as typed, a save refused and the tab of its first
+wrong field opened -, the body each sent kept in `form-bodies.json` (the save
+answered by the browser, so nothing is written): a run before a change to the
+forms and one after must keep the same file but for the rows' times; the
 family's footer and the two dialogs it opens, the status page while an update
 waits, and Migrations then in the panel's frame, its footer without Feedback),
 and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
@@ -638,7 +643,8 @@ the tests' PostgreSQL server, never its database), the anotoki library's
 stand-in IAM, the build and the API on one origin on ports 8592-8595 - and stops
 all of it and drops the database when it ends, also when something fails. It
 needs PHP 8.2 or later (`PHP=` names one where `php` is older); `--only admin-`
-keeps some pages, `--no-build` takes the last build.
+keeps some pages (`--only admin-form-,admin-banners-edit`: several),
+`--no-build` takes the last build.
 
 Then run both servers and use the thing: the page you changed, both themes, a
 phone-width window, and the API's failure answers (401/403/404/409/422) with

@@ -1,8 +1,9 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { AccordionComponent, DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
@@ -14,7 +15,18 @@ import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyD
   selector: 'app-enemy-drops-tab',
   templateUrl: './drops-tab.component.html',
   styleUrls: ['./drops-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, NumberComponent, DropdownComponent, SegmentedComponent, AccordionComponent, DisclosureComponent, MaterialIconDirective],
+  imports: [
+    TooltipDirective,
+    ButtonComponent,
+    TextFieldComponent,
+    SelectComponent,
+    NumberFieldDirective,
+    ChoiceFieldDirective,
+    SegmentedComponent,
+    AccordionComponent,
+    DisclosureComponent,
+    MaterialIconDirective,
+  ],
 })
 export class DropsTabComponent {
   groups = model<DropGroupWrapper[]>([]);

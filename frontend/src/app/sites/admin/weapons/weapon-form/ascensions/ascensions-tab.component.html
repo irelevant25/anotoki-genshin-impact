@@ -6,13 +6,64 @@
                 <button anotokiButton variant="danger" (click)="removeAscension(item)">Delete</button>
             </div>
             <div class="form-grid">
-                <app-number [label]="'Phase'" [(value)]="item.data.phase" [required]="true" [min]="0" [max]="maxPhase"></app-number>
-                <app-number [label]="'Primary Stat Value'" [(value)]="item.data.primary_stat_value" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Secondary Stat Value'" [(value)]="item.data.secondary_stat_value" [allowDecimal]="true"></app-number>
-                <app-number [label]="'Start Level From'" [(value)]="item.data.start_level_from" [min]="1"></app-number>
-                <app-number [label]="'Start Level To'" [(value)]="item.data.start_level_to" [min]="1"></app-number>
-                <app-number [label]="'End Level From'" [(value)]="item.data.end_level_from" [min]="1"></app-number>
-                <app-number [label]="'End Level To'" [(value)]="item.data.end_level_to" [min]="1"></app-number>
+                <anotoki-text-field
+                    label="Phase *"
+                    required
+                    [min]="0"
+                    [max]="maxPhase"
+                    [(appNumber)]="item.data.phase"
+                    #phaseField="appNumber"
+                    [value]="phaseField.text()"
+                    [inputmode]="phaseField.inputmode()"
+                    [error]="phaseField.error()" />
+                <anotoki-text-field
+                    label="Primary Stat Value"
+                    decimal
+                    [(appNumber)]="item.data.primary_stat_value"
+                    #primaryStatValueField="appNumber"
+                    [value]="primaryStatValueField.text()"
+                    [inputmode]="primaryStatValueField.inputmode()"
+                    [error]="primaryStatValueField.error()" />
+                <anotoki-text-field
+                    label="Secondary Stat Value"
+                    decimal
+                    [(appNumber)]="item.data.secondary_stat_value"
+                    #secondaryStatValueField="appNumber"
+                    [value]="secondaryStatValueField.text()"
+                    [inputmode]="secondaryStatValueField.inputmode()"
+                    [error]="secondaryStatValueField.error()" />
+                <anotoki-text-field
+                    label="Start Level From"
+                    [min]="1"
+                    [(appNumber)]="item.data.start_level_from"
+                    #startLevelFromField="appNumber"
+                    [value]="startLevelFromField.text()"
+                    [inputmode]="startLevelFromField.inputmode()"
+                    [error]="startLevelFromField.error()" />
+                <anotoki-text-field
+                    label="Start Level To"
+                    [min]="1"
+                    [(appNumber)]="item.data.start_level_to"
+                    #startLevelToField="appNumber"
+                    [value]="startLevelToField.text()"
+                    [inputmode]="startLevelToField.inputmode()"
+                    [error]="startLevelToField.error()" />
+                <anotoki-text-field
+                    label="End Level From"
+                    [min]="1"
+                    [(appNumber)]="item.data.end_level_from"
+                    #endLevelFromField="appNumber"
+                    [value]="endLevelFromField.text()"
+                    [inputmode]="endLevelFromField.inputmode()"
+                    [error]="endLevelFromField.error()" />
+                <anotoki-text-field
+                    label="End Level To"
+                    [min]="1"
+                    [(appNumber)]="item.data.end_level_to"
+                    #endLevelToField="appNumber"
+                    [value]="endLevelToField.text()"
+                    [inputmode]="endLevelToField.inputmode()"
+                    [error]="endLevelToField.error()" />
             </div>
 
             @if (item.data.phase !== 0) {
@@ -24,20 +75,34 @@
                     <div class="cost-cards">
                         @for (cost of item.costs; track cost) {
                             <div class="cost-card">
-                                <div class="cost-card-img rarity-{{ materialDropdown.computedOption()?.data?.['rarity'] ?? 1 }}-bg">
-                                    @if (materialDropdown.computedOption(); as option) {
+                                <div class="cost-card-img rarity-{{ materialField.chosen()?.data?.['rarity'] ?? 1 }}-bg">
+                                    @if (materialField.chosen(); as option) {
                                         <img [appMaterialIcon]="option.value" [alt]="option.value" />
                                     }
                                 </div>
-                                <app-dropdown
-                                    #materialDropdown
-                                    [options]="materialOptions()"
-                                    [(value)]="cost.material_id"
-                                    [required]="true"
-                                    [emptyOption]="true"
-                                    [emptyOptionText]="'— material —'"></app-dropdown>
+                                <anotoki-select
+                                    label=""
+                                    hideLabel
+                                    required
+                                    placeholder="— material —"
+                                    [(appChoice)]="cost.material_id"
+                                    [choices]="materialOptions()"
+                                    #materialField="appChoice"
+                                    [options]="materialField.options()"
+                                    [value]="materialField.text()"
+                                    [error]="materialField.error()" />
                                 <div class="cost-card-footer">
-                                    <app-number [placeholder]="'Qty'" [(value)]="cost.quantity" [required]="true" [min]="1"></app-number>
+                                    <anotoki-text-field
+                                        label="Qty"
+                                        hideLabel
+                                        placeholder="Qty"
+                                        required
+                                        [min]="1"
+                                        [(appNumber)]="cost.quantity"
+                                        #quantityField="appNumber"
+                                        [value]="quantityField.text()"
+                                        [inputmode]="quantityField.inputmode()"
+                                        [error]="quantityField.error()" />
                                     <button
                                         anotokiButton
                                         variant="danger-ghost"

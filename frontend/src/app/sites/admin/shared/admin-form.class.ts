@@ -1,7 +1,7 @@
 import { computed, Directive, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { AbstractInputComponent } from '../../../shared/local-lib/abstract-input.class';
+import { FormChecks } from '../../../shared/local-lib/fields/form-checks';
 import { PickedImage } from './image-upload/image-upload.component';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
@@ -58,6 +58,7 @@ export abstract class AdminFormComponent<TFull> {
   protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
+  private readonly _checks = inject(FormChecks);
 
   /** Where the list lives, e.g. `/admin/enemies`. Used after a create. */
   protected abstract readonly listRoute: string;
@@ -168,16 +169,12 @@ export abstract class AdminFormComponent<TFull> {
     );
   }
 
-  /** Touches every input in the form so errors become visible, then reports validity. */
+  /** Touches every field the form checks, so each says what is wrong with it, then reports validity. */
   protected validate(): boolean {
-    const root = this._elementRef.nativeElement as HTMLElement;
-    const inputs = Array.from(AbstractInputComponent.registry).filter((input) => root.contains(input.elementRef.nativeElement));
-    inputs.forEach((input) => input.markAsTouched());
-
-    const invalid = inputs.filter((input) => !input.isValid());
+    const invalid = this._checks.check(this._elementRef.nativeElement as HTMLElement);
     if (invalid.length > 0) {
       this.notify.error(`Please fix ${invalid.length} invalid field${invalid.length === 1 ? '' : 's'} before saving.`);
-      this.revealInput(invalid[0].elementRef.nativeElement);
+      this.revealInput(invalid[0].element);
       return false;
     }
 

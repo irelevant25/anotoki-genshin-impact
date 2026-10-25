@@ -5,9 +5,7 @@ import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
-import { DropdownOption } from '../../../../shared/local-lib/services/options-helper.service';
+import { SelectComponent, SelectOption, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
 import { AssetFile, FileApiService } from '../../../../api';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
@@ -64,7 +62,7 @@ export interface ImageUploadData {
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss'],
-  imports: [SegmentedComponent, PaginationComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, TextComponent, DropdownComponent, FilePickerComponent],
+  imports: [SegmentedComponent, PaginationComponent, SpinnerComponent, DialogFooterDirective, ButtonComponent, TextFieldComponent, SelectComponent, FilePickerComponent],
 })
 export class ImageUploadComponent extends AbstractModalComponent {
   /** What the slot hands over (ImageUploadData). */
@@ -106,9 +104,11 @@ export class ImageUploadComponent extends AbstractModalComponent {
   // ── Choose existing ───────────────────────────────────────────────────────────
   private readonly _files = inject(FileApiService);
   private readonly _config = inject(ConfigService);
-  folders = signal<DropdownOption[]>([]);
-  folder = signal<string | number | boolean | null | undefined>(undefined);
-  search = signal<string | number | null | undefined>('');
+  /** The asset folders as the kit's select takes them: each with how many files it holds. */
+  folders = signal<SelectOption[]>([]);
+  /** The folder browsed, '' until the folders are known. */
+  folder = signal('');
+  search = signal('');
   browsing = signal(false);
   results = signal<AssetFile[]>([]);
   total = signal(0);
@@ -178,7 +178,7 @@ export class ImageUploadComponent extends AbstractModalComponent {
   private _loadFolders(): void {
     this._files.getAssetFolders().subscribe({
       next: (folders) => {
-        this.folders.set(folders.map((f) => ({ key: f.folder, value: `${f.folder} (${f.files})` })));
+        this.folders.set(folders.map((f) => ({ value: f.folder, label: `${f.folder} (${f.files})` })));
         // Default to the folder the form suggested, if that folder exists.
         const hint = this.folderHint();
         if (hint && folders.some((f) => f.folder === hint)) {

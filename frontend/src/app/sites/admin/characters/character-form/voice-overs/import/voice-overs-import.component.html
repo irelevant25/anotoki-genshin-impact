@@ -4,14 +4,13 @@
         <h4 class="import-step-title"><span class="import-step-number">1</span> Voice over data</h4>
         <!-- The kit's file picker: read here, in the browser - nothing of it is uploaded. -->
         <anotoki-file-picker label="JSON file" accept=".json,application/json" [files]="jsonFiles()" (filesChange)="onJsonFilesChosen($event)" />
-        <app-textarea
-            [label]="'…or paste it here'"
-            [description]="'A flat array, an object keyed by type, or a voice_overs wrapper. Order is filled per type when absent.'"
-            [value]="json()"
-            (inputChange)="onJsonChange($event)"
+        <anotoki-textarea
+            label="…or paste it here"
+            hint="A flat array, an object keyed by type, or a voice_overs wrapper. Order is filled per type when absent."
             [rows]="6"
-            [resize]="true"
-        ></app-textarea>
+            [value]="json()"
+            (valueChange)="onJsonChange($event)"
+        />
 
         <anotoki-disclosure class="import-example" heading="Expected structure">
             <pre>{{ jsonExample }}</pre>
@@ -94,20 +93,28 @@
                                 <span class="unmatched-path">{{ match.audio.relativePath }}</span>
                                 <span class="unmatched-reason">{{ match.reason }}</span>
                             </div>
-                            <app-dropdown
-                                [options]="languageOptions"
-                                [value]="match.audio.language"
-                                [emptyOption]="true"
-                                [emptyOptionText]="'— language —'"
-                                (inputChange)="assignLanguage(match, $event)"
-                            ></app-dropdown>
-                            <app-dropdown
-                                [options]="voiceOverOptions()"
-                                [value]="match.target?.uid"
-                                [emptyOption]="true"
-                                [emptyOptionText]="'— skip this file —'"
-                                (inputChange)="assignTarget(match, $event)"
-                            ></app-dropdown>
+                            <anotoki-select
+                                label=""
+                                hideLabel
+                                placeholder="— language —"
+                                [appChoice]="match.audio.language"
+                                (appChoiceChange)="assignLanguage(match, $event)"
+                                [choices]="languageOptions"
+                                #languageField="appChoice"
+                                [options]="languageField.options()"
+                                [value]="languageField.text()"
+                            />
+                            <anotoki-select
+                                label=""
+                                hideLabel
+                                placeholder="— skip this file —"
+                                [appChoice]="match.target?.uid"
+                                (appChoiceChange)="assignTarget(match, $event)"
+                                [choices]="voiceOverOptions()"
+                                #targetField="appChoice"
+                                [options]="targetField.options()"
+                                [value]="targetField.text()"
+                            />
                             <button
                                 anotokiButton
                                 variant="danger-ghost"
@@ -123,12 +130,7 @@
         </section>
     }
     <!-- What happens to the lines the character has: said beside the import, before it is pressed. -->
-    <app-checkbox
-        class="import-replace"
-        [label]="existingCount() ? 'Replace the ' + existingCount() + ' existing voice overs' : 'Replace existing voice overs '"
-        [inline]="true"
-        [(value)]="replaceExisting"
-    ></app-checkbox>
+    <anotoki-checkbox class="import-replace" [(checked)]="replaceExisting">{{ existingCount() ? 'Replace the ' + existingCount() + ' existing voice overs' : 'Replace existing voice overs ' }}</anotoki-checkbox>
 </div>
 
 <ng-template anotokiDialogFooter>

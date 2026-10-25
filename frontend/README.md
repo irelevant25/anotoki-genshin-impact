@@ -44,10 +44,14 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         (admin-icons.ts: its icons and the forms' tabs') - and the family's
                         footer under every page (@anotoki/lib/footer: the version, What's new - the
                         public footer's dialog -, Feedback, Terms · Privacy · Contact, the fan clause)
-src/app/shared/         local-lib (what the family's kit has no piece for: the field adapters over
-                        the kit's fields - a birthday mapped to the kit's date field in
-                        stored-dates.ts -, the site's own fields (the folder chooser, the HTML editor
-                        on the kit's rich-text toolbar), the waypoint loader; the abstract
+src/app/shared/         local-lib (what the family's kit has no piece for: fields/ - the admin
+                        forms' checks on the kit's fields (form-checks.ts, appCheck: a required
+                        field's words and the save's count of the wrong ones) and, until
+                        anotoki-lib 0.11.0, a number typed into the kit's text field (appNumber)
+                        and the kit's select keeping a typed key (appChoice); stored-dates.ts, the
+                        dates mapped to the kit's date field - a birthday a DATE in year 4 -; the
+                        site's own fields (the folder chooser, the multiselect, the HTML editor on
+                        the kit's rich-text toolbar), the waypoint loader; the abstract
                         bases; components.scss, the own fields drawn as the kit's; design-tokens.scss,
                         the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/
                         (the one theme service, and shell-theme.ts, its face for the family's switch);
@@ -85,7 +89,9 @@ scripts/                prepare-deploy.mjs (the production config.json - anotoki
                         screens; a thrown error read back from the error log; the status page
                         alone while the site is not ready, and the frame back once it is; the
                         top bar's items opening and closing their sections; the quizzes at
-                        saved levels and at the built-in ones; the Quiz levels page)
+                        saved levels and at the built-in ones; the Quiz levels page; the admin
+                        forms filled and saved, what each sent kept in form-bodies.json - a run
+                        before a change to the forms and one after keep the same)
 src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
                         dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs
@@ -98,7 +104,10 @@ inline template or styles.
 The pages are drawn with the anotoki family's UI kit (`@anotoki/lib/ui/*`, each
 piece from its own entry point, never `@anotoki/lib/ui`) in genshin's colours,
 which `styles.scss` gives the family's tokens; `local-lib` keeps only what the
-kit has no piece for. See CLAUDE.md, *The kit and the palette*.
+kit has no piece for. The admin forms draw the kit's fields themselves - their
+state the form's own model, their checks `appCheck` (FormChecks counts the
+wrong ones at a save and opens the tab holding the first). See CLAUDE.md, *The
+kit and the palette*.
 
 A player's saved games and results go through
 `sites/main/features/quizzes/shared/quiz-progress.service.ts`: the account's, this

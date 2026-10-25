@@ -5,18 +5,36 @@
                 <span class="sub-card-index">{{ piece.data.type }} · {{ piece.data.name || "Unnamed" }}</span>
                 <button anotokiButton variant="danger" (click)="removePiece(piece)">Delete</button>
             </div>
-            <app-field-container [cols]="4">
-                <app-dropdown [label]="'Type'" [options]="typeOptionsFor(piece)" [(value)]="piece.data.type" [required]="true"></app-dropdown>
-                <app-text class="col-span-2" [label]="'Name'" [(value)]="piece.data.name" [required]="true"></app-text>
-                <app-entity-image
-                    [label]="'Icon'"
-                    [required]="true"
-                    [path]="iconPath(piece)"
-                    [name]="iconName(piece)"
-                    [pending]="piece.pending"
-                    (picked)="onPicked(piece, $event)"
-                    (cleared)="onCleared(piece)" />
-            </app-field-container>
+            <div class="container-wrap">
+                <div class="d-grid gap-3 cols-4">
+                    <anotoki-select
+                        label="Type *"
+                        required
+                        [(appChoice)]="piece.data.type"
+                        [choices]="typeOptionsFor(piece)"
+                        #typeField="appChoice"
+                        [options]="typeField.options()"
+                        [value]="typeField.text()"
+                        [error]="typeField.error()" />
+                    <anotoki-text-field
+                        label="Name *"
+                        class="col-span-2"
+                        required
+                        appCheck
+                        #nameField="appCheck"
+                        [error]="nameField.error()"
+                        [value]="fieldText(piece.data.name)"
+                        (valueChange)="piece.data.name = $event" />
+                    <app-entity-image
+                        [label]="'Icon'"
+                        [required]="true"
+                        [path]="iconPath(piece)"
+                        [name]="iconName(piece)"
+                        [pending]="piece.pending"
+                        (picked)="onPicked(piece, $event)"
+                        (cleared)="onCleared(piece)" />
+                </div>
+            </div>
         </div>
     }
 

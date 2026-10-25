@@ -2,13 +2,13 @@ import { Component, computed, inject, input, model, output, signal } from '@angu
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../../shared/local-lib/components/textarea/textarea.component';
-import { DropdownComponent } from '../../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
-import { FieldContainerComponent } from '../../../../../shared/local-lib/components/field-container/field-container.component';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
+import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
+import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { TalentCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
 import { Audited, Material, TalentSetApiService } from '../../../../../api';
 import { MaterialIconDirective } from '../../../shared/material-icon.directive';
@@ -35,16 +35,19 @@ const MAX_COST_LEVEL = 10;
     TooltipDirective,
     EntityImageComponent,
     ButtonComponent,
-    TextComponent,
+    TextFieldComponent,
     TextareaComponent,
-    DropdownComponent,
+    SelectComponent,
     TabsComponent,
-    FieldContainerComponent,
-    NumberComponent,
+    FieldCheckDirective,
+    NumberFieldDirective,
+    ChoiceFieldDirective,
     MaterialIconDirective,
   ],
 })
 export class TalentsTabComponent extends AbstractModalComponent {
+  readonly fieldText = fieldText;
+
   talents = model<TalentWrapper[]>([]);
   talentCost = model<TalentCostFormData[]>([]);
   talentTypes = input<string[]>([]);

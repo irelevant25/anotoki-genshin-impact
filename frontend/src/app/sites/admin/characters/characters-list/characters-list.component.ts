@@ -7,8 +7,7 @@ import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, SelectOption, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
 
@@ -29,18 +28,19 @@ function compareVersionsDesc(a: string, b: string): number {
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
   styleUrls: ['./characters-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextComponent, DropdownComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
 })
 export class CharactersListComponent implements OnInit {
   characters = signal<any[]>([]);
   loading = signal(false);
 
   // ── Filters ─────────────────────────────────────────────────────────────────
-  filterId = signal<string | number | null | undefined>('');
-  filterName = signal<string | number | null | undefined>('');
+  filterId = signal('');
+  filterName = signal('');
   filterElements = signal<(string | number | boolean)[] | null | undefined>([]);
   filterWeapons = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterRarity = signal<string | number | boolean | null | undefined>(undefined);
+  /** A rarity as the select holds it, '' for any. */
+  filterRarity = signal('');
   filterRegions = signal<(string | number | boolean)[] | null | undefined>([]);
   filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
 
@@ -49,6 +49,7 @@ export class CharactersListComponent implements OnInit {
   weaponOptions = computed(() => this._distinct('weapon_type'));
   regionOptions = computed(() => this._distinct('region'));
   rarityOptions = computed(() => this._distinct('rarity').sort().reverse());
+  rarityChoices = computed<SelectOption[]>(() => this.rarityOptions().map((rarity) => ({ value: rarity, label: `${rarity} ★` })));
   versionOptions = computed(() => this._distinct('version').sort(compareVersionsDesc));
 
   sortedCharacters = computed(() => [...this.characters()].sort((a, b) => compareVersionsDesc(a.version, b.version)));
@@ -134,7 +135,7 @@ export class CharactersListComponent implements OnInit {
     this.filterName.set('');
     this.filterElements.set([]);
     this.filterWeapons.set([]);
-    this.filterRarity.set(undefined);
+    this.filterRarity.set('');
     this.filterRegions.set([]);
     this.filterVersions.set([]);
   }

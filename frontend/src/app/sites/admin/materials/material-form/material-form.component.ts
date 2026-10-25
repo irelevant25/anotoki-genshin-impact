@@ -5,11 +5,11 @@ import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
-import { TextareaComponent } from '../../../../shared/local-lib/components/textarea/textarea.component';
-import { DropdownComponent } from '../../../../shared/local-lib/components/dropdown/dropdown.component';
+import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
-import { FieldContainerComponent } from '../../../../shared/local-lib/components/field-container/field-container.component';
+import { FieldCheckDirective } from '../../../../shared/local-lib/fields/field-check';
+import { fieldText } from '../../../../shared/local-lib/fields/field-text';
+import { ChoiceFieldDirective } from '../../../../shared/local-lib/fields/choice-field.directive';
 import { LookupApiService, MaterialApiService, MaterialFull } from '../../../../api';
 import { MaterialFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
@@ -28,17 +28,20 @@ import { toAssetLiteralName } from '../../shared/asset-name';
     SpinnerComponent,
     RouterLink,
     ButtonComponent,
-    TextComponent,
+    TextFieldComponent,
     TextareaComponent,
-    DropdownComponent,
+    SelectComponent,
     MultiselectComponent,
-    FieldContainerComponent,
+    FieldCheckDirective,
+    ChoiceFieldDirective,
     EntityImageComponent,
   ],
 })
 export class MaterialFormComponent extends AdminFormComponent<MaterialFull> implements OnInit {
   readonly entityLabel = 'Material';
   protected readonly listRoute = '/admin/materials';
+
+  readonly fieldText = fieldText;
 
   material = signal<MaterialFormData>({ name: '' });
   /** Picked but not uploaded yet; sent when the form is saved. */

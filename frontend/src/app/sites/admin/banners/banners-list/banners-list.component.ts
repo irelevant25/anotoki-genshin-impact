@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { BannerApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { TextComponent } from '../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
 import { AdminListComponent, contains, includedIn } from '../../shared/admin-list.class';
 import { MaterialIconDirective } from '../../shared/material-icon.directive';
@@ -16,14 +16,14 @@ import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
   selector: 'app-banners-list',
   templateUrl: './banners-list.component.html',
   styleUrls: ['./banners-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, RouterLink, AppDatePipe, ButtonComponent, TextComponent, MultiselectComponent, MaterialIconDirective],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, RouterLink, AppDatePipe, ButtonComponent, TextFieldComponent, MultiselectComponent, MaterialIconDirective],
   providers: [AppDatePipe],
 })
 export class BannersListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'banners';
 
-  filterId = signal<string | number | null | undefined>('');
-  filterName = signal<string | number | null | undefined>('');
+  filterId = signal('');
+  filterName = signal('');
   filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
 
   versionOptions = this.distinct('version');

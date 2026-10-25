@@ -2,8 +2,9 @@ import { Component, computed, inject, input, model, output, QueryList, signal, V
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { NumberComponent } from '../../../../../shared/local-lib/components/number/number.component';
-import { TextComponent } from '../../../../../shared/local-lib/components/text/text.component';
+import { TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { AccordionComponent, DisclosureComponent, DisclosurePanelDirective } from '@anotoki/lib/ui/disclosure';
 import { createUid, emptyVoiceOver, reorder, resequence, VOICE_OVER_TYPES, VoiceOverWrapper } from '../character-form.model';
@@ -21,9 +22,11 @@ interface VoiceOverGroup {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, NumberComponent, TextComponent, TabsComponent, AccordionComponent, DisclosureComponent, DisclosurePanelDirective, VoiceOversTabItemComponent],
+  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, NumberFieldDirective, TabsComponent, AccordionComponent, DisclosureComponent, DisclosurePanelDirective, VoiceOversTabItemComponent],
 })
 export class VoiceOversTabComponent extends AbstractModalComponent {
+  readonly fieldText = fieldText;
+
   /** The four languages a line is voiced in, as the kit's tabs take them. */
   readonly languageTabs = [
     { id: 'english', label: 'English' },
