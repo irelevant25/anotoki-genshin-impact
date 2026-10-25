@@ -177,6 +177,10 @@ hosting:
     byte-order mark, a line before `<?php`) or that names no usable secret (blank, a misspelt key) it believes
     it from nobody - every visitor counts as their edge until the file is mended. Set the rule first, then the
     file, saved as UTF-8 without a BOM and starting with `<?php` - every `config/*.local.php` likewise.
+- **The site's address** for robots.txt and sitemap.xml: `backend/config/app.local.php` -
+  `<?php return ['url' => 'https://genshin.anotoki.eu'];` - put there by hand (setup.php never writes it; a host
+  installed between 2026-09-29 and 2026-10-05 has it already). Without it robots.txt names no sitemap and
+  `/sitemap.xml` answers 404.
 - **After an upload**: the private folders (`storage/`, `config/`) answer 403 in a browser; the host check's
   "Who connects" says Cloudflare, not a proxy of the host's (behind one, every visitor would share one
   address); pending database updates are applied on the admin panel's Migrations page.
@@ -491,6 +495,11 @@ not drift; [docs/README.md](docs/README.md) lists them.
   old tables. Every admin menu has one shape: the site's own pages, then
   Localization, then System - the site's own system pages before the family's,
   Site settings, People, Feedback, Error log, Audit log, Backups, Migrations.
+  And robots.txt and sitemap.xml are answered by the PHP (the library's Robots):
+  robots kept out of the admin panel, the API, the sign-in's way back and
+  `/staff`, and every public page and every character, weapon and material's
+  page listed at the site's configured address, without what Page access hides
+  - the static `frontend/public/robots.txt` is gone.
 
 ## More
 

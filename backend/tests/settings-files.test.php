@@ -315,6 +315,48 @@ foreach (
 $case = settingsCase($backend, 'site', "<?php\n\nreturn 'genshin_impact';\n", ['requests' => [['path' => '/api/site-status']]]);
 same('...one that names the site: set up', [[], 'ready'], [$case['run']['problems'] ?? null, json_decode($case['run']['answers'][0]['body'] ?? '{}', true)['state'] ?? null]);
 
+// ── app.local.php: this site's address, for robots.txt and sitemap.xml ──────
+
+echo "app.local.php: the site's address - optional; passed over, robots.txt names no sitemap\n";
+
+$robotsAsks = ['requests' => [['path' => '/api/site-status'], ['path' => '/robots.txt'], ['path' => '/sitemap.xml']]];
+$address = 'https://genshin-' . bin2hex(random_bytes(6)) . '.example';
+foreach (
+    [
+        'none at all' => null,
+        'with a byte-order mark' => BOM . "<?php return ['url' => '$address'];\n",
+        'text after a closing tag' => "<?php ?>\n$address\n<?php return ['url' => '$address'];\n",
+        'whose url is no origin (a path after it)' => "<?php\n\nreturn ['url' => '$address/genshin'];\n",
+        'that names no url' => "<?php\n\nreturn ['address' => '$address'];\n",
+    ]
+    as $what => $contents
+) {
+    $case = settingsCase($backend, 'app', $contents, $robotsAsks);
+    $answers = $case['run']['answers'] ?? [];
+    same(
+        "app.local.php $what: still set up and ready, robots.txt answered with no Sitemap line, sitemap.xml 404 not_configured - nothing printed",
+        [0, [], 'ready', 200, false, 404, 'not_configured', ''],
+        [
+            $case['code'],
+            $case['run']['problems'] ?? null,
+            json_decode($answers[0]['body'] ?? '{}', true)['state'] ?? null,
+            $answers[1]['status'] ?? null,
+            str_contains($answers[1]['body'] ?? 'Sitemap:', 'Sitemap:'),
+            $answers[2]['status'] ?? null,
+            json_decode($answers[2]['body'] ?? '{}', true)['code'] ?? null,
+            ($case['run']['boot'] ?? '?') . implode('', array_column($answers, 'printed')),
+        ],
+    );
+    check('...the address in no answer, the sitemap\'s line included', !str_contains(implode("\n", array_column($answers, 'body')), $address));
+}
+$case = settingsCase($backend, 'app', "<?php\n\nreturn ['url' => '$address/', 'cors_origins' => ['https://other.example']];\n", $robotsAsks);
+$answers = $case['run']['answers'] ?? [];
+same(
+    '...one that names it (an old file\'s cors_origins beside it, unread): the sitemap named there, and served',
+    [true, 200],
+    [str_contains($answers[1]['body'] ?? '', "Sitemap: $address/sitemap.xml"), $answers[2]['status'] ?? null],
+);
+
 // ── cloudflare.local.php: a file that cannot be read cleanly fails closed ───
 
 echo "cloudflare.local.php: passed over, it fails closed - a secret no request carries\n";

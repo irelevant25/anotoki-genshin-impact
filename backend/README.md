@@ -40,7 +40,9 @@ api/            index.php - the Slim app, every request to /api lands here
                 SiteSettings - Getting in, the Announcement, Page access - with their
                 reserved paths and the ADMIN's way past the closed sign; their routes,
                 GET /api/site-settings and /api/admin/site-settings, and the library's
-                PageAccessGate are put up in index.php), asset_*.php and
+                PageAccessGate are put up in index.php), robots.php (robots.txt and
+                sitemap.xml: the library's Robots - the public pages, every live
+                character, weapon and material, at config/app.php's address), asset_*.php and
                 media_convert.php (the asset tree; explorer.php its snapshot for the Files
                 page's figures), upload_guard.php (nothing uploaded
                 may run: the names, the folders' .htaccess - no script, nosniff,

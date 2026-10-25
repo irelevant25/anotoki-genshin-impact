@@ -1567,6 +1567,22 @@ the PHP log once (`[settings] ...` and `[cloudflare] ...`) - never its value,
 nor what PHP said of it - and never makes the site "not set up"
 (`config/cloudflare.php`).
 
+**anotoki-lib 0.11.0 on the host** (2026-10-25): upload both builds - `vendor/anotoki/lib`
+and the frontend's build go together - and Apply pending at once (the Apply
+backs the database up first): the library's `anotoki_admin/003` (the site
+settings' tables), `users/066` (genshin's switches and pages moved into them,
+its own tables and the fifteen words nothing asks for any more gone),
+`genshin_impact/032` (the lists the character form wrapped, unwrapped), and
+the library's words `anotoki_translations/014` and `015`. Never before the
+upload, and no older build on the host afterwards: it would read tables that are
+gone. Then, signed in as the ADMIN: System → **Site settings** shows the switches
+and pages as they were. For robots.txt and sitemap.xml, the site's address:
+`config/app.local.php` - `<?php return ['url' => 'https://genshin.anotoki.eu'];`
+- by hand, unless the host has it already (the setup page wrote it from
+2026-09-29 to 2026-10-05); `https://genshin.anotoki.eu/robots.txt` then ends with
+its `Sitemap:` line. The old `frontend/robots.txt` goes with the release
+(the front controller answers both before any file).
+
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's
 sign-in hint signs a visitor in with a silent hop to the IAM and back, and the

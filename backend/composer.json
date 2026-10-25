@@ -24,6 +24,11 @@
       "site": "genshin",
       "remote": "/anotoki.eu/sub/genshin",
       "url": "https://genshin.anotoki.eu",
+      "routes": [
+        "api",
+        "robots.txt",
+        "sitemap.xml"
+      ],
       "include": [
         "api",
         "config",

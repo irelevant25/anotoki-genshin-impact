@@ -22,8 +22,11 @@
 // (the origin secret the owner's Cloudflare zone adds to every request -
 // config/cloudflare.php; setup.php never writes or reads it, and there is no
 // secret without it).
-// An app.local.php from before (this site's address, which the API once
-// answered cross-origin calls from) is no longer read.
+// app.local.php (this site's own public address, robots.txt's Sitemap line
+// and every address of sitemap.xml - config/app.php; setup.php never writes it,
+// and without it robots.txt names no sitemap; written by the setup page of
+// 2026-09-29 to 2026-10-05, for the CORS allowlist the API no longer has, whose
+// cors_origins are not read).
 //
 // Nothing committed stands in for any of them. A default is how a development
 // value ends up serving production - an allowlist of origins once named a

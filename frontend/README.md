@@ -90,9 +90,10 @@ src/app/shared/         local-lib (what the family's kit has no piece for: field
 src/app/api/            the generated API client - services, models, types (a player's own
                         routes take a trailing `context?: HttpContext`: whom it is issued as)
 public/                 config.json (where the API is: empty - its own origin, here as in
-                        production), changelog.json, robots.txt (crawlers kept off /auth/),
-                        favicon.png
-proxy.conf.json         ng serve hands /api, /.well-known and /setup.php to the PHP server on :8000
+                        production), changelog.json, favicon.png - never robots.txt or sitemap.xml,
+                        which the PHP answers (the library's Robots), and the build would refuse
+proxy.conf.json         ng serve hands /api, /.well-known, /setup.php, /robots.txt and /sitemap.xml to the
+                        PHP server on :8000
 scripts/                prepare-deploy.mjs (the production config.json - anotoki-deploy's build runs it);
                         screenshots.mjs + cdp.mjs (every page in headless Edge, light and dark,
                         1280 and 390 px, on a throwaway site of its own; a refused sign-in's

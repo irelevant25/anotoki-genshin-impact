@@ -12875,6 +12875,90 @@
             ],
             "owner": false,
             "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/robots.txt",
+            "args": [],
+            "file": "RobotsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/Robots/Http/RobotsRoutes.php",
+                "line": 42
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "HEAD",
+            "path": "/robots.txt",
+            "args": [],
+            "file": "RobotsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/Robots/Http/RobotsRoutes.php",
+                "line": 42
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "GET",
+            "path": "/sitemap.xml",
+            "args": [],
+            "file": "RobotsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/Robots/Http/RobotsRoutes.php",
+                "line": 57
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
+            "method": "HEAD",
+            "path": "/sitemap.xml",
+            "args": [],
+            "file": "RobotsRoutes.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [],
+            "responds": null,
+            "source": {
+                "file": "backend/vendor/anotoki/lib/backend/src/Robots/Http/RobotsRoutes.php",
+                "line": 57
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": false,
+            "roles": [],
+            "owner": false,
+            "visitor_key": false
         }
     ],
     "models": [

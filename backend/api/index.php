@@ -17,6 +17,7 @@ require_once __DIR__ . '/../config/site.php';
 require_once __DIR__ . '/../config/backup.php';
 require_once __DIR__ . '/../config/visitors.php';
 require_once __DIR__ . '/../config/cloudflare.php';
+require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/helpers.php';
 
 // Nothing here needs the config/*.local.php files to load: without them the
@@ -65,6 +66,8 @@ require_once __DIR__ . '/catalog.php';
 // settings), or ready.
 require_once __DIR__ . '/migration_runner.php';
 require_once __DIR__ . '/site_state.php';
+// robots.txt and sitemap.xml (the library's Robots), at this installation's address.
+require_once __DIR__ . '/robots.php';
 
 use Anotoki\Lib\Audit\AuditContextMiddleware;
 use Anotoki\Lib\Audit\Http\AuditRoutes;
@@ -81,6 +84,7 @@ use Anotoki\Lib\Migrations\Http\SiteState;
 use Anotoki\Lib\Migrations\Migrator;
 use Anotoki\Lib\People\Http\PeopleRoutes;
 use Anotoki\Lib\People\Http\PeopleUpkeep;
+use Anotoki\Lib\Robots\Http\RobotsRoutes;
 use Anotoki\Lib\SiteSettings\Http\PageAccessGate;
 use Anotoki\Lib\SiteSettings\Http\SiteSettingsRoutes;
 use Slim\Factory\AppFactory;
@@ -350,6 +354,11 @@ PeopleRoutes::admin(
 // (site_settings.changed, page_access.added|changed|removed).
 SiteSettingsRoutes::public($app, siteSettings());
 SiteSettingsRoutes::admin($app, siteSettings(), siteAdminContext(), siteAudit())->add(RequireRole::admin());
+
+// What search engines' robots read (anotoki-lib 0.11.0, api/robots.php): GET|HEAD /robots.txt and /sitemap.xml,
+// outside /api - the front controller is given both - and behind every gate, as any route.
+RobotsRoutes::robots($app, siteRobots());
+RobotsRoutes::sitemap($app, siteRobots());
 
 // Two links the browser opens by itself, with no token to send - deliberately
 // outside every admin check: a backup's download, its single-use ticket (handed

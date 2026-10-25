@@ -239,7 +239,9 @@ export const NAMES = {
  * `site-settings` (what every page is told) and `admin/site-settings` (the admin
  * Site settings page's), the library's SiteSettingsRoutes put up in
  * api/index.php - whose client is @anotoki/lib/site-settings and
- * @anotoki/lib/admin/site-settings. Its README says what they answer.
+ * @anotoki/lib/admin/site-settings. And robots.txt and sitemap.xml (the
+ * library's RobotsRoutes, outside /api): their client is a search engine's
+ * robot. Its README says what they answer.
  */
 export const SKIP_PREFIXES = [
   '/api/affiliations',
@@ -259,6 +261,8 @@ export const SKIP_PREFIXES = [
   '/api/client-errors',
   '/api/site-settings',
   '/api/admin/site-settings',
+  '/robots.txt',
+  '/sitemap.xml',
 ];
 
 /**
