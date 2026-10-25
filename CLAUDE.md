@@ -571,13 +571,16 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # when that fails; the Quiz levels page (problems as typed, the words levels
                                      # leave behind, a save and back); the admin panel's frame (its column at 1280,
                                      # the Menu's drawer at 390: the name, the person, Back, Sign out, the theme's
-                                     # three choices, the pages under their headings); the
+                                     # three choices, the pages under their headings); the admin forms filled and
+                                     # saved (FORM_SAVES: what each sent kept in form-bodies.json - a change to the
+                                     # forms keeps that file, but for the rows' times); the
                                      # admin panel's footer, its two dialogs, and Migrations while an update waits;
                                      # the Profile filled for somebody signed in (the browser answering its four
                                      # reads), tab by tab.
                                      # A production build, a throwaway database and backend copy
                                      # (backend/tests/tools/browser-env.php) and the library's stand-in IAM, all
-                                     # removed after; --out, --only admin-, --no-build. PHP=<a PHP 8.2+> where php is older
+                                     # removed after; --out, --only admin- (or several, comma-separated), --no-build.
+                                     # PHP=<a PHP 8.2+> where php is older
 
 # Production build (see Deployment)
 cd frontend && bun run anotoki-deploy build   # → dist/frontend/ + dist/backend/: the release (deploy skill)
@@ -1013,17 +1016,41 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`design-tokens.scss`); its own colours - the wallpaper's veils, the
   elements, the rarities - stay its own. A colour a page needs is one of these
   custom properties (*Theming*).
+- **The admin forms draw the kit's fields themselves** (the owner's request of
+  2026-10-25: genshin uses the library first): `<anotoki-text-field>`,
+  `<anotoki-textarea>`, `<anotoki-select>`, `<anotoki-checkbox>`,
+  `<anotoki-date-field>` and `<anotoki-chip-group>` on the form's own model -
+  its rows written in place, `[value]="fieldText(row.name)"` (`''` for a column
+  a new row has not got yet, never "undefined") and
+  `(valueChange)="row.name = $event"` -, a required field labelled with " *"
+  and marked `required`. What is right is the form's, held in signals
+  (`shared/local-lib/fields/`): `appCheck` on a required text field, textarea or
+  date field says "Toto pole je povinné" (Slovak, as the site's fields always
+  said it) under it once it has been left, through the field's `[error]`, and
+  every field a form checks - the picture slots (`app-entity-image`) and the
+  three fields local-lib still draws included - is one of `FormChecks`, which a
+  save asks (`check()`: each says what is wrong, the toast counts them, the tab
+  holding the first opens). Until anotoki-lib 0.11.0 brings them to the kit, two
+  thin helpers stand in, each a directive on the kit's own field and a check of
+  its own: `appNumber` (a number typed into the text field: refused as typed
+  with its words under the field - `decimal`, `decimalPlaces`, `negative`,
+  `min`, `max` -, else kept as typed with a point for a comma, NaN once emptied;
+  the save makes it a number) and `appChoice` (the select keeping the option's
+  key in its own type, null for the empty option, a value the list lacks
+  becoming its first option, `chosen()` for a material's picture). Dates go
+  through `stored-dates.ts` (a birthday `dayMonth`, kept as a DATE in year 4;
+  `fieldFormatOf()` the order the site writes dates in for the reader,
+  DateFormatService). Fields side by side are `container-wrap` round `d-grid
+  gap-3 cols-N` (general.scss), a checkbox among them in `.grid-checkbox`
+  (admin-form.scss). `scripts/screenshots.mjs`'s FORM_SAVES fill and save every
+  form, keeping what each sent in `form-bodies.json`: a change to the forms
+  keeps that file as it was, but for the rows' times.
 - **local-lib** (`src/app/shared/local-lib/`) holds what the kit has no piece
-  for and the bases the pages build on: the field adapters `app-text`,
-  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown`, `app-calendar`
-  (the kit's date field; a birthday, kept as a DATE in year 4, is mapped at
-  the boundary to the field's day and month, `stored-dates.ts`; its order is
-  the one the site writes dates in for the reader - the account's
-  `date_format`, else the device's, DateFormatService) and `app-chips` (the kit's choice
-  chips) - the kit's fields, keeping the typed values and the validation the
-  admin forms run through `AbstractInputComponent` - and `app-multiselect` (the
-  kit's popover of its checkboxes: a filter's compact trigger, kept beside the
-  kit's combobox); the site's own fields, drawn as the kit draws its fields
+  for and the bases the pages build on: the forms' checks (`fields/`, above);
+  until anotoki-lib 0.11.0 brings the library's own (the owner's request of
+  2026-10-25), `app-multiselect` (the kit's popover of its checkboxes: a
+  filter's compact trigger, kept beside the kit's combobox) and the site's own
+  fields, drawn as the kit draws its fields
   (`components.scss`): `app-file` (a button that chooses a folder or files -
   the kit's file picker, which the pages that choose one file to look at
   first use, has no folder) and the HTML editor (the kit's rich-text toolbar
@@ -1031,18 +1058,21 @@ node docs/security/build-report.mjs                            # after re-runnin
   of the kit's colour field, a link asked in its own dialog and set through
   the kit's `link()`; a paste comes in as plain text; a stored text loads
   through the page's allow-list); rich text (the allow-list's renderer,
-  `rich-html.ts`); the waypoint loader, the audio
-  players, the theme's service (`theme-toggle/`: `ThemeToggleService`, and
+  `rich-html.ts`), the audio players; the waypoint loader, the theme's service
+  (`theme-toggle/`: `ThemeToggleService`, and
   `SiteShellTheme`, its face for the family's switch). Every file an editor uploads is checked again on
   the server by its bytes and its size (`uploadFileAcceptable()`,
   `api/upload_guard.php`: anotoki-lib's `UploadPolicy::contentRefusal()`, the
   family's rule - the picture or sound its name says, no markup at its start
   nor a page's tags in its first kilobyte): the browser's check is a
-  convenience. The bases:
-  `AbstractInputComponent`, `AbstractModalComponent` (`openModal()` over the
+  convenience. A tooltip is the kit's (`anotokiTooltip`, words only: a picture
+  slot's names the file it shows). The bases:
+  `AbstractModalComponent` (`openModal()` over the
   kit's `AnotokiDialog`, data through `ANOTOKI_DIALOG_DATA`, `closeModal()`,
   `dialogHeading()`, `notificationService` = the kit's `ToastService`),
-  `AbstractRolesComponent`. A piece the kit lacks is built here from the kit's
+  `AbstractRolesComponent`, and `AbstractInputComponent` - the base of the three
+  fields local-lib still draws (the multiselect, the file button, the HTML
+  editor) until 0.11.0. A piece the kit lacks is built here from the kit's
   pieces and tokens, and goes to the library when another site wants it.
 - **The admin frame** is the family's, `<anotoki-admin-frame>`
   (`@anotoki/lib/admin/frame`, anotoki-lib 0.10.0: this panel's own frame, made

@@ -90,10 +90,12 @@ every component is three files) and `<name>-form/<name>-form.component.ts` (+ it
 - register the routes in `sites/admin/admin.routes.ts`,
 - add a nav entry in `sites/admin/app.component.ts` (right section, correct
   role/`readOnly` flag).
-Follow the **frontend-engineer** conventions (signals, the kit and local-lib's
-adapters and bases, generated
+Follow the **frontend-engineer** conventions (signals, the kit's fields drawn by
+the form with local-lib's checks - `appCheck`, and `appNumber` / `appChoice`
+until anotoki-lib 0.11.0 -, local-lib's bases, generated
 services, both themes, `translate` pipe, `AppDatePipe`). Upload assets through the
-existing image/audio flow.
+existing image/audio flow. A new form gets its stage in the screenshot run's
+FORM_SAVES (fill, save, what it sent kept in `form-bodies.json`).
 
 ## 7. Public database page (only if player-facing)
 

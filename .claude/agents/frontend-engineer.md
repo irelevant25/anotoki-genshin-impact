@@ -5,8 +5,8 @@ description: >
   admin CRUD pages and public database pages, drawn with the anotoki family's UI
   kit. Use for "add a page", "build the admin screen for X", "fix the frontend",
   "wire this up to the API", "new component". Knows the zoneless/signals
-  conventions, the kit and the palette, the local-lib adapters and abstract
-  bases, and the generated API client.
+  conventions, the kit and the palette, the kit's fields with local-lib's form
+  checks, the abstract bases, and the generated API client.
 tools: Read, Write, Edit, Grep, Glob, Bash
 model: opus
 ---
@@ -39,9 +39,9 @@ first. This file adds frontend-specific detail.
   `lookupRoute(...)` in `admin.routes.ts`.
 - The UI kit is the anotoki family's (`@anotoki/lib/ui/*`, each piece from its own
   entry point); `frontend/src/app/shared/local-lib/` keeps what it has no piece
-  for (the field adapters, the site's own fields, the waypoint loader) and the
-  abstract bases; the palette is `frontend/src/styles.scss` (CLAUDE.md, *The kit
-  and the palette*).
+  for (the forms' checks in `fields/`, the site's own fields until anotoki-lib
+  0.11.0 brings the library's, the waypoint loader) and the abstract bases; the
+  palette is `frontend/src/styles.scss` (CLAUDE.md, *The kit and the palette*).
 - The anotoki library's modules, each set up in one file: signing in
   (`@anotoki/lib/auth`, `shared/site-auth.ts` - `AnotokiAuth`, its interceptor,
   `issuedAs()`, `SavesInFlight`, `AccountPreferences`, the callback and the
@@ -116,15 +116,26 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   points (`@anotoki/lib/ui/button`, `ui/forms`, `ui/dialog`, ...). A piece the
   kit lacks is built in local-lib from the kit's pieces and tokens (and noted for
   the library), never a copy of one it has; the site keeps its look through the
-  palette in `styles.scss`, never by re-styling a kit piece. **Build on the
-  abstract bases** in local-lib: extend `AbstractModalComponent` for anything
-  that opens a dialog (`openModal()` over `AnotokiDialog` with its data in
-  `ANOTOKI_DIALOG_DATA`, `closeModal()`, `dialogHeading()`,
-  `notificationService` = the kit's `ToastService`), `AbstractInputComponent`
-  for form inputs (the admin forms' fields are local-lib's adapters `app-text`,
-  `app-number`, `app-textarea`, `app-checkbox`, `app-dropdown`,
-  `app-multiselect`, which keep the typed values and the validation the forms
-  run), `AbstractRolesComponent` for role-gated UI.
+  palette in `styles.scss`, never by re-styling a kit piece. **A form draws the
+  kit's fields itself** - `<anotoki-text-field>`, `<anotoki-textarea>`,
+  `<anotoki-select>`, `<anotoki-checkbox>`, `<anotoki-date-field>`,
+  `<anotoki-chip-group>` - on the form's own model
+  (`[value]="fieldText(row.name)" (valueChange)="row.name = $event"`), never
+  through a wrapper component: a required field is labelled " *", marked
+  `required` and checked by `appCheck` (its `error()` in the field's `[error]`;
+  `FormChecks` counts the wrong ones at a save and opens the tab holding the
+  first); a number is `[(appNumber)]` on the kit's text field and a typed choice
+  `[(appChoice)]` on its select (local-lib's `fields/`, until anotoki-lib 0.11.0
+  gives the kit both); a date goes through `stored-dates.ts` (a birthday a DATE
+  in year 4). A change to the admin forms keeps the screenshot run's
+  `form-bodies.json` as it was (FORM_SAVES: run it before and after).
+  **Build on the abstract bases** in local-lib: extend `AbstractModalComponent`
+  for anything that opens a dialog (`openModal()` over `AnotokiDialog` with its
+  data in `ANOTOKI_DIALOG_DATA`, `closeModal()`, `dialogHeading()`,
+  `notificationService` = the kit's `ToastService`), `AbstractRolesComponent`
+  for role-gated UI; `AbstractInputComponent` is only the base of the fields
+  local-lib still draws (the multiselect, the file button, the HTML editor)
+  until 0.11.0.
 - **i18n**: user-facing copy goes through the `translate` pipe with a key; proper
   nouns - character names, usernames, version numbers - are shown as they are,
   not through the pipe (the footer's version number and username, the
