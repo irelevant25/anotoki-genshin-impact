@@ -16,8 +16,8 @@ import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
 import { StatTileComponent, StatTilesComponent } from '@anotoki/lib/ui/stat-tiles';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { ToastService } from '@anotoki/lib/ui/toast';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { LoaderComponent } from '../../../../shared/local-lib/components/loader/loader.component';
-import { DateFormatService, formatWith } from '../../../../shared/local-lib/i18n/date-format.service';
 import { SecurityService } from '../../../../shared/local-lib/services/security.service';
 import { VisitorKey } from '../../../../shared/local-lib/services/visitor-key.service';
 import { MaterialIconDirective } from '../../../admin/shared/material-icon.directive';
@@ -165,7 +165,7 @@ export class ProfileComponent {
   private readonly _notifications = inject(ToastService);
   private readonly _i18n = inject(TranslationService);
   private readonly _locale = inject(LOCALE_ID);
-  private readonly _dates = inject(DateFormatService);
+  private readonly _dates = inject(AnotokiDates);
   private readonly _progress = inject(QuizProgressService);
   private readonly _visitorKey = inject(VisitorKey);
 
@@ -506,14 +506,12 @@ export class ProfileComponent {
   }
 
   /**
-   * A moment written the reader's way - the date pipe's rule, for a sentence
-   * the hero takes whole. A bare day ("2026-05-16") is that day where the
-   * reader is, as the pipe reads one, never UTC midnight.
+   * A moment written the reader's way - the date pipe's (@anotoki/lib/ui/dates), for a sentence the hero takes
+   * whole: the day in numbers, and its time after it. A bare day ("2026-05-16") is that day where the reader is,
+   * never UTC midnight.
    */
   private _when(iso: string, withTime = false): string {
-    const bareDay = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-    const date = bareDay ? new Date(Number(bareDay[1]), Number(bareDay[2]) - 1, Number(bareDay[3])) : new Date(iso);
-    const day = formatWith(date, this._dates.pattern().date);
-    return withTime ? `${day} ${this._dates.time(date)}` : day;
+    const day = this._dates.format(iso, 'numeric');
+    return withTime ? `${day} ${this._dates.format(iso, 'time')}` : day;
   }
 }

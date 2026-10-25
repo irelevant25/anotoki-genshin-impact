@@ -6,6 +6,7 @@ import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ConstellationWrapper, createUid, emptyConstellation, reorder, revokePicked, resequence } from '../character-form.model';
 import { ConstellationSetSelectorComponent } from './set-selector/set-selector.component';
@@ -19,7 +20,7 @@ const MAX_CONSTELLATIONS = 6;
   selector: 'app-constellations-tab',
   templateUrl: './constellations-tab.component.html',
   styleUrls: ['./constellations-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, TextareaComponent, FieldCheckDirective, NumberFieldDirective, EntityImageComponent],
+  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, TextareaComponent, FieldCheckDirective, NumberFieldComponent, NumberFieldDirective, EntityImageComponent],
 })
 export class ConstellationsTabComponent extends AbstractModalComponent {
   constellations = model<ConstellationWrapper[]>([]);

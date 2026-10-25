@@ -52,8 +52,10 @@ require_once __DIR__ . '/client_address.php';
 require_once __DIR__ . '/after_response.php';
 require_once __DIR__ . '/visitors.php';
 // The words, through anotoki/lib's translations - this site's part of them -
-// and the guides behind the question marks.
+// and the guides behind the question marks; the texts kept as HTML (the
+// guides, the voice lines) through the family's allow-list.
 require_once __DIR__ . '/translations.php';
+require_once __DIR__ . '/rich_text.php';
 require_once __DIR__ . '/guides.php';
 // The quizzes' levels, as the admin panel's Quiz levels page keeps them.
 require_once __DIR__ . '/quiz_levels.php';

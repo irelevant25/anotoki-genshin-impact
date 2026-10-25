@@ -1,7 +1,8 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
-import { RichTextComponent } from '../../../../../../../../shared/local-lib/components/rich-text/rich-text.component';
+import { RichHtmlComponent } from '@anotoki/lib/ui/rich-html';
+import { RICH_TEXT_CLASSES } from '../../../../../../../../shared/rich-text';
 import { CharacterVoiceOver } from '../../../../../../../../api';
 
 /** The four languages the voice-over columns are keyed by. */
@@ -16,10 +17,11 @@ const VOICE_LANGUAGES = [
   selector: 'app-character-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [TranslatePipe, SegmentedComponent, RichTextComponent],
+  imports: [TranslatePipe, SegmentedComponent, RichHtmlComponent],
 })
 export class CharacterVoiceOversTabComponent {
   private readonly _i18n = inject(TranslationService);
+  readonly richTextClasses = RICH_TEXT_CLASSES;
 
   voiceOvers = input<any[]>([]);
 

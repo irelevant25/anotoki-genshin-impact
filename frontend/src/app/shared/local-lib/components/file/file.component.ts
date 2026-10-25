@@ -12,14 +12,13 @@ export interface FileItemType {
 type Type<T extends FileItemType = FileItemType> = T[];
 
 /**
- * A button that opens the device's chooser - one file, several, or a whole
- * folder - and hands what was chosen to the page at once: the Files page's
- * Upload and Replace, a voice-over line's sound, the voice-over import's
- * folder. What the kit's file picker (@anotoki/lib/ui/file-picker) does not
- * do: a folder, and a chooser with no list or drop area of its own. Where a
- * person chooses a file to look at before anything happens with it (an
- * entity's picture, the import's JSON) the page draws the kit's picker
- * instead. The kinds offered (`acceptedExtensions`) are a convenience: the
+ * A button that opens the device's chooser - one file or several - and hands
+ * what was chosen to the page at once: the Files page's Upload and Replace, a
+ * voice-over line's sound. What the kit's file picker
+ * (@anotoki/lib/ui/file-picker) does not do: a chooser with no list or drop
+ * area of its own. Where a person chooses a file or a folder to look at before
+ * anything happens with it (an entity's picture, the import's JSON and its
+ * audio folder) the page draws the kit's picker instead. The kinds offered (`acceptedExtensions`) are a convenience: the
  * server checks every file again, by its bytes (backend api/upload_guard.php).
  */
 @Component({
@@ -36,8 +35,6 @@ type Type<T extends FileItemType = FileItemType> = T[];
 })
 export class FileComponent<T extends FileItemType = FileItemType> extends AbstractInputComponent<Type<T>> {
   multiple = model<boolean>(false);
-  /** Pick a whole folder; each File then carries its `webkitRelativePath`. */
-  directory = model<boolean>(false);
   acceptedExtensions = model<string[] | undefined>(undefined);
   buttonText = model<string | undefined>(undefined);
   buttonOutline = model<boolean>(false);
@@ -45,7 +42,7 @@ export class FileComponent<T extends FileItemType = FileItemType> extends Abstra
   /** The kit's button: an outlined one is its quiet (secondary) button. */
   readonly kitVariant = computed<ButtonVariant>(() => (this.buttonOutline() ? 'secondary' : this.buttonVariant()));
   /** The button's words: the page's, or what it chooses. */
-  readonly buttonWords = computed(() => this.buttonText() ?? (this.directory() ? 'Choose a folder' : this.multiple() ? 'Choose files' : 'Choose a file'));
+  readonly buttonWords = computed(() => this.buttonText() ?? (this.multiple() ? 'Choose files' : 'Choose a file'));
 
   onButtonClick(): void {
     if (!this.disabled()) {

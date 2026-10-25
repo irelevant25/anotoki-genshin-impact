@@ -920,8 +920,12 @@ the library's too, `backend/api/translations.php` the site's part of it):
   language can, after the page offers to export its strings first - its guides
   go with it.
 - **Guides** - the pages behind the question marks, a page of markup each,
-  edited with a preview beside it, every language at once; empty, a language
-  reads the English. The site's own page (`sites/admin/localization/guides/`).
+  edited in the family's HTML editor (`<anotoki-html-editor>`, anotoki-lib
+  0.11.0) with a preview beside it, every language at once; empty, a language
+  reads the English. Kept through the family's allow-list as it is saved
+  (`backend/api/rich_text.php`: paragraphs, headings h2-h4, lists, the words'
+  formats, links to the web and to mail, five inline styles, the "tag" class -
+  nothing else survives). The site's own page (`sites/admin/localization/guides/`).
 
 What the panel no longer does (since `users/050`): make, rename or delete a key,
 or edit its description - keys come from migrations with their descriptions;
@@ -1574,10 +1578,15 @@ backs the database up first): the library's `anotoki_admin/003` (the site
 settings' tables), `users/066` (genshin's switches and pages moved into them,
 its own tables and the fifteen words nothing asks for any more gone),
 `users/067` (the words' old copies and the Privacy page's "Older copies"
-line gone), `genshin_impact/032` (the lists the character form wrapped,
-unwrapped), `genshin_impact/033` (the audit log's and feedback's old copies
-gone - no leftover tables, at the owner's word), and the library's words
-`anotoki_translations/014` and `015`. Never before the
+line gone), `users/068` (the old multiselect's three "+2 more" words gone:
+the admin panel's multiselect is the library's), `genshin_impact/032` (the
+lists the character form wrapped, unwrapped), `genshin_impact/033` (the audit
+log's and feedback's old copies gone - no leftover tables, at the owner's
+word), and the library's words `anotoki_translations/014` and `015`. From
+this release on, every guide and voice line saved is kept through the
+family's allow-list (`backend/api/rich_text.php`), as the pages draw it; what
+was saved before is drawn through it as ever, and cleaned the next time it is
+saved. Never before the
 upload, and no older build on the host afterwards: it would read tables that are
 gone. Then, signed in as the ADMIN: System → **Site settings** shows the switches
 and pages as they were. For robots.txt and sitemap.xml, the site's address:

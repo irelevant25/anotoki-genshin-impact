@@ -1,6 +1,7 @@
 @use "design-tokens" as *;
 @use "components" as *;
 @use "icons" as *;
+@use "rich-text" as *;
 
 .link {
   color: var(--color-link);

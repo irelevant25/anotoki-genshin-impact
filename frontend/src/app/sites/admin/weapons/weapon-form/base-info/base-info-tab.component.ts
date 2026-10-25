@@ -1,11 +1,12 @@
 import { Component, computed, inject, input, model } from '@angular/core';
 import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { DateFieldComponent } from '@anotoki/lib/ui/date-field';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
-import { DateFormatService } from '../../../../../shared/local-lib/i18n/date-format.service';
 import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../../shared/local-lib/stored-dates';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
@@ -16,16 +17,16 @@ import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, We
   selector: 'app-weapon-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextFieldComponent, TextareaComponent, SelectComponent, DateFieldComponent, FieldCheckDirective, NumberFieldDirective, ChoiceFieldDirective, EntityImageComponent],
+  imports: [TextFieldComponent, TextareaComponent, SelectComponent, DateFieldComponent, FieldCheckDirective, NumberFieldComponent, NumberFieldDirective, ChoiceFieldDirective, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   weapon = model<WeaponWrapper>(emptyWeapon());
 
-  private readonly _dates = inject(DateFormatService);
+  private readonly _dates = inject(AnotokiDates);
 
   readonly fieldText = fieldText;
-  /** The order the dates are typed in: the one the site writes them in for this reader (the account's, else the device's). */
-  readonly dateFormat = computed(() => fieldFormatOf(this._dates.pattern().date));
+  /** The order the dates are typed in: the one the lists beside the form write them in (stored-dates.ts). */
+  readonly dateFormat = computed(() => fieldFormatOf(this._dates));
   /** A date as the kit's date field reads it, and back as the API keeps it (stored-dates.ts). */
   readonly storedToFieldDate = storedToFieldDate;
   readonly fieldDateToStored = fieldDateToStored;

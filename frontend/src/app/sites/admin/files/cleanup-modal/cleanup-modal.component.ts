@@ -8,7 +8,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
-import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /** Files per request while the deletion runs. The server also stops on a clock. */
 const CLEANUP_BATCH = 400;

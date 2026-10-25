@@ -5,7 +5,7 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { sameVersion } from '../versions';
 
 export interface ChangelogEntry {
@@ -24,7 +24,6 @@ export interface ChangelogEntry {
   templateUrl: './site-version-modal.component.html',
   styleUrls: ['./site-version-modal.component.scss'],
   imports: [BadgeComponent, TranslatePipe],
-  providers: [AppDatePipe],
 })
 export class SiteVersionModalComponent extends AbstractModalComponent {
   /** The changelog, newest first: the footer hands over what it has read. */
@@ -53,10 +52,10 @@ export class SiteVersionModalComponent extends AbstractModalComponent {
     }
   }
 
-  private readonly _dates = inject(AppDatePipe);
+  private readonly _dates = inject(AnotokiDates);
 
   /** The reader's own date order, like every other date on the site. */
   formatDate(dateString: string): string {
-    return this._dates.transform(dateString);
+    return this._dates.format(dateString, 'numeric');
   }
 }

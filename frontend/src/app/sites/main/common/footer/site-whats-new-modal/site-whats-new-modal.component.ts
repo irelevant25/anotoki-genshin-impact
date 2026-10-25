@@ -5,7 +5,7 @@ import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract
 import { LocalStorageService } from '../../../../../shared/local-lib/services/local-storage.service';
 import { StorageKeys } from '../../../../../shared/state-manager.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { ChangelogEntry, SiteVersionModalComponent } from '../site-version-modal/site-version-modal.component';
 import { sameVersion } from '../versions';
 
@@ -54,7 +54,7 @@ const KINDS: { kind: ChangeKind; icon: string; label: string }[] = [
   selector: 'app-site-whats-new-modal',
   templateUrl: './site-whats-new-modal.component.html',
   styleUrls: ['./site-whats-new-modal.component.scss'],
-  imports: [ButtonComponent, DialogFooterDirective, TranslatePipe, AppDatePipe],
+  imports: [ButtonComponent, DialogFooterDirective, TranslatePipe, AnotokiDatePipe],
 })
 export class SiteWhatsNewModalComponent extends AbstractModalComponent {
   private readonly _storage = inject(LocalStorageService);

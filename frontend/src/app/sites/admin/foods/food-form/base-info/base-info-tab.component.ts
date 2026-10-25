@@ -3,6 +3,7 @@ import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { listText, toLines } from '../../../shared/admin-full-resource.model';
@@ -12,7 +13,7 @@ import { emptyFood, FoodWrapper } from '../food-form.model';
   selector: 'app-food-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextFieldComponent, TextareaComponent, SelectComponent, FieldCheckDirective, NumberFieldDirective, ChoiceFieldDirective],
+  imports: [TextFieldComponent, TextareaComponent, SelectComponent, FieldCheckDirective, NumberFieldComponent, NumberFieldDirective, ChoiceFieldDirective],
 })
 export class BaseInfoTabComponent {
   food = model<FoodWrapper>(emptyFood());

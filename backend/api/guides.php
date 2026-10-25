@@ -9,12 +9,13 @@
  * is markup, which the library's Translations page edits as one line of text.
  *
  * Read by the pages from GET /api/guides/{guide} in the reader's language,
- * English where that language has none, and drawn by <app-rich-text>, which
- * keeps only what its allow-list lets through (frontend
- * shared/local-lib/rich-html.ts) - so the markup is kept as the editor wrote
- * it. Edited on the admin panel's Guides page, around the HTML editor the
- * Translations page used to open for them, by ADMIN or EDITOR - who may
- * reword the strings. Guides are made by migrations, like the keys: the page
+ * English where that language has none, and drawn by the family's
+ * <anotoki-rich-html>, which keeps only what its allow-list lets through; kept
+ * through the same allow-list as it is saved (anotoki-lib 0.11.0's
+ * RichHtml::clean(), api/rich_text.php - whoever sent it), the guides' "tag"
+ * class with it. Edited on the admin panel's Guides page, in the family's
+ * HTML editor (<anotoki-html-editor>), by ADMIN or EDITOR - who may reword the
+ * strings. Guides are made by migrations, like the keys: the page
  * changes the ones there are. Their titles stay strings (guide.<guide>.title).
  *
  * The routes are routes/users/endpoints/guides.php; what is checked and kept
@@ -170,6 +171,8 @@ function guideSave(PDO $pdo, string $guide, mixed $values, ?int $userId): array|
 
                 return Refusal::invalid('invalid_value', "The markup for \"$code\" is not text", ['language' => $code]);
             }
+            // Through the family's allow-list, as the pages draw it: a text with no words left is a blank one.
+            $clean = Text::blank($clean) ? '' : cleanRichText($clean) ?? '';
             $blank = Text::blank($clean);
             if ($blank && $code === Translations::FALLBACK) {
                 $pdo->rollBack();

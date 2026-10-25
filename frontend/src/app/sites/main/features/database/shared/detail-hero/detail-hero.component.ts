@@ -1,7 +1,7 @@
 import { booleanAttribute, Component, computed, inject, input } from '@angular/core';
 import { TranslationService } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../../admin/shared/material-icon.directive';
-import { AppDatePipe } from '../../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { rarityStars } from '../database-helpers';
 
 /** A picture of the asset tree: its name - or a stored path, which names its own folder - and the folder to look in. */
@@ -39,7 +39,7 @@ export interface HeroStat {
   selector: 'app-detail-hero',
   templateUrl: './detail-hero.component.html',
   styleUrls: ['./detail-hero.component.scss'],
-  imports: [AppDatePipe, MaterialIconDirective],
+  imports: [AnotokiDatePipe, MaterialIconDirective],
 })
 export class DetailHeroComponent {
   private readonly _i18n = inject(TranslationService);

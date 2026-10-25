@@ -52,14 +52,15 @@ src/app/sites/admin/    the admin panel (ADMIN / EDITOR): content, files, the wo
                         public footer's dialog -, Feedback, Terms · Privacy · Contact, the fan clause)
 src/app/shared/         local-lib (what the family's kit has no piece for: fields/ - the admin
                         forms' checks on the kit's fields (form-checks.ts, appCheck: a required
-                        field's words and the save's count of the wrong ones) and, until
-                        anotoki-lib 0.11.0, a number typed into the kit's text field (appNumber)
-                        and the kit's select keeping a typed key (appChoice); stored-dates.ts, the
-                        dates mapped to the kit's date field - a birthday a DATE in year 4 -; the
-                        site's own fields (the folder chooser, the multiselect, the HTML editor on
-                        the kit's rich-text toolbar), the waypoint loader; the abstract
-                        bases; components.scss, the own fields drawn as the kit's; design-tokens.scss,
-                        the site's colour names over the kit's tokens; i18n/ (dates), theme-toggle/
+                        field's words and the save's count of the wrong ones), the kit's number
+                        field keeping the form's number (appNumber) and the kit's select its
+                        typed key (appChoice: a value the list has not becomes its first);
+                        stored-dates.ts, the dates mapped to the kit's date field - a birthday a
+                        DATE in year 4 -; the site's one own field, app-file (a button that
+                        chooses files: Upload, Replace, a voice line's sound), the waypoint
+                        loader; the abstract bases; components.scss, app-file drawn as the kit's;
+                        rich-text.scss, the guides' "tag" over the family's typography;
+                        design-tokens.scss, the site's colour names over the kit's tokens; theme-toggle/
                         (the one theme service, and shell-theme.ts, its face for the family's switch);
                         services/: security.service.ts - this site's view of the library's sign-in
                         and its own record of the person (/api/me), public-settings.service.ts (the
@@ -117,8 +118,14 @@ The pages are drawn with the anotoki family's UI kit (`@anotoki/lib/ui/*`, each
 piece from its own entry point, never `@anotoki/lib/ui`) in genshin's colours,
 which `styles.scss` gives the family's tokens; `local-lib` keeps only what the
 kit has no piece for. The admin forms draw the kit's fields themselves - their
-state the form's own model, their checks `appCheck` (FormChecks counts the
-wrong ones at a save and opens the tab holding the first). See CLAUDE.md, *The
+state the form's own model, their checks `appCheck`, `appNumber` and
+`appChoice` (FormChecks counts the wrong ones at a save and opens the tab
+holding the first). Since anotoki-lib 0.11.0 the dates (`anotokiDate`,
+`AnotokiDates` - `shared/site-dates.ts` reads the API's times without a zone
+as this site always did), the multiselect, the HTML editor and the texts it
+writes (`<anotoki-rich-html>`, the guides' "tag" named in `shared/rich-text.ts`),
+the audio player, file sizes, the folder's chooser, the number field, the
+picture slots' preview and the search are the library's. See CLAUDE.md, *The
 kit and the palette*.
 
 A player's saved games and results go through

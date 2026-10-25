@@ -7,7 +7,8 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { Character, Expanded } from '../../../../../api';
-import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
+import { buildValueOptions, buildVersionOptions, distinctValues, isChosen, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -105,7 +106,7 @@ export class DatabaseCharactersComponent {
         if (isChosen(version) && character.version !== version) {
           return false;
         }
-        return !name || matchesTerm(character.name, name);
+        return !name || matchesSearch(String(character.name ?? ''), name);
       })
       .sort((a, b) => {
         const releasedA = a.release_date ?? '';

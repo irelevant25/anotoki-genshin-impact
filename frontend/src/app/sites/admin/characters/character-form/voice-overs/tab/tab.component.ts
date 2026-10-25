@@ -1,7 +1,8 @@
 import { Component, computed, input, model, OnDestroy } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { HtmlEditorComponent } from '../../../../../../shared/local-lib/components/html-editor/html-editor.component';
+import { HtmlEditorComponent } from '@anotoki/lib/ui/html-editor';
+import { EDITOR_FONTS, EDITOR_SWATCHES, RICH_TEXT_CLASSES } from '../../../../../../shared/rich-text';
 import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { fieldText } from '../../../../../../shared/local-lib/fields/field-text';
 import { AUDIO_EXTENSIONS, VoiceOverLanguage, VoiceOverWrapper } from '../../character-form.model';
@@ -22,6 +23,10 @@ export class VoiceOversTabItemComponent implements OnDestroy {
   playingKey = model.required<string | null>();
 
   readonly audioExtensions = AUDIO_EXTENSIONS;
+  /** The text's editor (@anotoki/lib/ui/html-editor): the sizes, the fonts and the colours it always had, its HTML source, the guides' "tag". */
+  readonly editorFonts = EDITOR_FONTS;
+  readonly editorSwatches = EDITOR_SWATCHES;
+  readonly richTextClasses = RICH_TEXT_CLASSES;
 
   titleKey = computed(() => `title_${this.language()}` as keyof VoiceOverFormData);
   textKey = computed(() => `text_${this.language()}` as keyof VoiceOverFormData);

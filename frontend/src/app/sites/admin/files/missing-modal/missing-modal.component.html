@@ -11,7 +11,7 @@
         <p class="missing-summary">
             <strong>{{ total() | number }}</strong>
             row{{ total() === 1 ? '' : 's' }} name a file that is gone, together holding
-            <strong>{{ bytes() | fileSize }}</strong>
+            <strong>{{ bytes() | anotokiFileSize }}</strong>
             of recorded size.
         </p>
 
@@ -44,8 +44,8 @@
                             @for (file of group.files; track file.id) {
                                 <tr [class.is-used]="file.used_by > 0">
                                     <td><code>{{ file.path }}</code></td>
-                                    <td class="col-number">{{ file.size ? (file.size | fileSize) : "—" }}</td>
-                                    <td>{{ file.modified_at ? (file.modified_at | appDate: "datetime") : "—" }}</td>
+                                    <td class="col-number">{{ file.size ? (file.size | anotokiFileSize) : "—" }}</td>
+                                    <td>{{ file.modified_at ? (file.modified_at | anotokiDate: "datetime") : "—" }}</td>
                                     <td class="col-number">{{ file.used_by || "—" }}</td>
                                     <td class="col-actions">
                                         <button

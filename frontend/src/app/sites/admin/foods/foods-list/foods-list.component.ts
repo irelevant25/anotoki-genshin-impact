@@ -7,32 +7,32 @@ import { FoodApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { SelectComponent, SelectOption, TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
+import { MultiselectComponent } from '@anotoki/lib/ui/multiselect';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 
 @Component({
   selector: 'app-foods-list',
   templateUrl: './foods-list.component.html',
   styleUrls: ['./foods-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AnotokiDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
 })
 export class FoodsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'foods';
 
   filterId = signal('');
   filterName = signal('');
-  filterTypes = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterRegions = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterTypes = signal<readonly string[]>([]);
+  filterRegions = signal<readonly string[]>([]);
   /** A rarity as the select holds it, '' for any. */
   filterRarity = signal('');
-  filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterVersions = signal<readonly string[]>([]);
 
-  typeOptions = this.distinct('type');
-  regionOptions = this.distinct('region');
+  typeOptions = this.choicesOf('type');
+  regionOptions = this.choicesOf('region');
   rarityOptions = computed(() => this.distinct('rarity')().sort().reverse());
   rarityChoices = computed<SelectOption[]>(() => this.rarityOptions().map((rarity) => ({ value: rarity, label: `${rarity} ★` })));
-  versionOptions = this.distinct('version', compareVersionsDesc);
+  versionOptions = this.choicesOf('version', compareVersionsDesc);
 
   sorted = computed(() => [...this.rows()].sort((a, b) => String(a.name).localeCompare(String(b.name))));
 

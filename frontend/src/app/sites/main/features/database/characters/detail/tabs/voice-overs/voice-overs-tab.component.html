@@ -12,8 +12,8 @@
                     <div [class]="type() + '-badge'">{{ "database.detail." + type() | translate }}</div>
                 </div>
                 <div class="voiceline-content">
-                    <!-- A dialogue's text carries its speakers in <b>; rendered through the sanitising component. -->
-                    <app-rich-text class="voiceline-text" [html]="line.text"></app-rich-text>
+                    <!-- A dialogue's text carries its speakers in <b>; drawn through the family's allow-list. -->
+                    <anotoki-rich-html class="voiceline-text" [html]="line.text" [classes]="richTextClasses" />
                     @if (line.audio) {
                         <div class="audio-container">
                             <audio preload="none" controls [src]="line.audio"></audio>

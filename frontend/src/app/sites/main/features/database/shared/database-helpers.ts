@@ -106,13 +106,6 @@ export function isChosen(value: unknown): boolean {
   return value !== undefined && value !== null && value !== '';
 }
 
-/** Case-insensitive "contains", with the term already lowered by the caller. */
-export function matchesTerm(value: unknown, loweredTerm: string): boolean {
-  return String(value ?? '')
-    .toLowerCase()
-    .includes(loweredTerm);
-}
-
 /**
  * A jsonb column read as a list of lines. The dumps are not consistent - some
  * columns hold an array, some a single string, some an object keyed by anything

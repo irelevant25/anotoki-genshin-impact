@@ -8,10 +8,10 @@
     <div class="filter-bar">
         <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
         <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
-        <app-multiselect [label]="'Type'" [options]="typeOptions()" [(value)]="filterTypes"></app-multiselect>
-        <app-multiselect [label]="'Region'" [options]="regionOptions()" [(value)]="filterRegions"></app-multiselect>
+        <anotoki-multiselect label="Type" placeholder="— any —" [options]="typeOptions()" [(values)]="filterTypes" />
+        <anotoki-multiselect label="Region" placeholder="— any —" [options]="regionOptions()" [(values)]="filterRegions" />
         <anotoki-select label="Rarity" placeholder="— any —" [options]="rarityChoices()" [(value)]="filterRarity" />
-        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <anotoki-multiselect label="Version" placeholder="— any —" [options]="versionOptions()" [(values)]="filterVersions" />
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
             @if (hasActiveFilter()) {
@@ -59,7 +59,7 @@
                         <td>{{ food.version ?? '—' }}</td>
                         <td class="col-stamp">
                             @if (food.created_at) {
-                                {{ food.created_at | appDate: 'datetime' }}
+                                {{ food.created_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ food.created_by?.username ?? 'system' }}</span>
                             } @else {
                                 —
@@ -67,7 +67,7 @@
                         </td>
                         <td class="col-stamp">
                             @if (food.updated_at) {
-                                {{ food.updated_at | appDate: 'datetime' }}
+                                {{ food.updated_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ food.updated_by?.username ?? 'system' }}</span>
                             } @else {
                                 —

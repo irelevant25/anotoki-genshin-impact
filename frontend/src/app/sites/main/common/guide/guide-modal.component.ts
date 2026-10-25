@@ -3,7 +3,8 @@ import { ANOTOKI_DIALOG_DATA } from '@anotoki/lib/ui/dialog';
 import { SpinnerComponent } from '@anotoki/lib/ui/spinner';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { GuideApiService } from '../../../../api';
-import { RichTextComponent } from '../../../../shared/local-lib/components/rich-text/rich-text.component';
+import { RichHtmlComponent } from '@anotoki/lib/ui/rich-html';
+import { RICH_TEXT_CLASSES } from '../../../../shared/rich-text';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { GUIDES, Guide, GuideId } from './guide-catalog';
 
@@ -16,16 +17,18 @@ import { GUIDES, Guide, GuideId } from './guide-catalog';
  * They were translations for a while; since users/050 they are content of
  * their own, edited on the admin panel's Guides page and asked for here, in the
  * reader's language - GET /api/guides/{id}, English where the guide has none in
- * it. Markup, which is why the body goes through app-rich-text instead of the
- * pipe. The heading is still a string.
+ * it. Markup, which is why the body goes through the family's <anotoki-rich-html>
+ * (its allow-list, and the guides' "tag") instead of the pipe. The heading is
+ * still a string.
  */
 @Component({
   selector: 'app-guide-modal',
   templateUrl: './guide-modal.component.html',
   styleUrls: ['./guide-modal.component.scss'],
-  imports: [RichTextComponent, SpinnerComponent, TranslatePipe],
+  imports: [RichHtmlComponent, SpinnerComponent, TranslatePipe],
 })
 export class GuideModalComponent extends AbstractModalComponent {
+  readonly richTextClasses = RICH_TEXT_CLASSES;
   private readonly _i18n = inject(TranslationService);
   private readonly _guides = inject(GuideApiService);
 

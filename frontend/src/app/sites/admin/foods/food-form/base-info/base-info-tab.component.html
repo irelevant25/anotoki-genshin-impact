@@ -17,7 +17,8 @@
             [choices]="foodTypes()"
             #typeField="appChoice"
             [options]="typeField.options()"
-            [value]="typeField.text()" />
+            [value]="typeField.selected()"
+            [none]="null" />
         <anotoki-select
             label="Region"
             placeholder="— none —"
@@ -25,7 +26,8 @@
             [choices]="regions()"
             #regionField="appChoice"
             [options]="regionField.options()"
-            [value]="regionField.text()" />
+            [value]="regionField.selected()"
+            [none]="null" />
         <anotoki-select
             label="Rarity"
             placeholder="— none —"
@@ -34,14 +36,14 @@
             [suffix]="' ★'"
             #rarityField="appChoice"
             [options]="rarityField.options()"
-            [value]="rarityField.text()" />
-        <anotoki-text-field
+            [value]="rarityField.selected()"
+            [none]="null" />
+        <anotoki-number-field
             label="Proficiency"
             [min]="0"
             [(appNumber)]="food().data.proficiency"
             #proficiencyField="appNumber"
-            [value]="proficiencyField.text()"
-            [inputmode]="proficiencyField.inputmode()"
+            [value]="proficiencyField.number()"
             [error]="proficiencyField.error()" />
         <anotoki-select
             label="Base Dish"
@@ -51,7 +53,8 @@
             [choices]="baseDishOptions()"
             #baseDishField="appChoice"
             [options]="baseDishField.options()"
-            [value]="baseDishField.text()" />
+            [value]="baseDishField.selected()"
+            [none]="null" />
         <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(food().data.version)" (valueChange)="food().data.version = $event" />
     </div>
 </div>

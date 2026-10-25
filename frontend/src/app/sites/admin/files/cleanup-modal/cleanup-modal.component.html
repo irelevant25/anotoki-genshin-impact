@@ -51,7 +51,7 @@
             <span class="figure-label">will be deleted</span>
         </span>
         <span class="summary-figure">
-            <span class="figure-value">{{ bytes() | fileSize }}</span>
+            <span class="figure-value">{{ bytes() | anotokiFileSize }}</span>
             <span class="figure-label">at stake in total</span>
         </span>
         <span class="summary-figure is-quiet">
@@ -88,7 +88,7 @@
                             <td class="cleanup-path">
                                 <code>{{ file.path }}</code>
                             </td>
-                            <td class="col-size">{{ file.size | fileSize }}</td>
+                            <td class="col-size">{{ file.size | anotokiFileSize }}</td>
                         </tr>
                     }
                 </tbody>

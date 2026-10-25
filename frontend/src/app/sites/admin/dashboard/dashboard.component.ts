@@ -9,8 +9,8 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardApiService, DashboardStats } from '../../../api';
 import { ToastService } from '@anotoki/lib/ui/toast';
-import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
-import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /** Formats given a card of their own before the rest are folded together. */
 const DASHBOARD_FORMAT_CARDS = 5;
@@ -27,7 +27,7 @@ const DASHBOARD_FORMAT_CARDS = 5;
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [PageHeaderComponent, CardComponent, BadgeComponent, SpinnerComponent, ButtonComponent, IconComponent, AppDatePipe, DecimalPipe, FileSizePipe, RouterLink],
+  imports: [PageHeaderComponent, CardComponent, BadgeComponent, SpinnerComponent, ButtonComponent, IconComponent, AnotokiDatePipe, DecimalPipe, FileSizePipe, RouterLink],
 })
 export class DashboardComponent implements OnInit {
   private readonly _dashboardApi = inject(DashboardApiService);

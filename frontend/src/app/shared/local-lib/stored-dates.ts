@@ -21,31 +21,41 @@
  * birthday `dayMonth`, its value `storedToFieldDayMonth(...)` and what the field
  * says back `fieldDayMonthToStored(...)`; any other date `storedToFieldDate(...)`
  * and `fieldDateToStored(...)` - null while the field holds no date, so a cleared
- * date is sent as null and clears. The field's `format` is the order the site
- * writes dates in for this reader (fieldFormatOf, DateFormatService), so a date
- * is typed as the lists beside the form show it.
+ * date is sent as null and clears. The field's `format` is fieldFormatOf(): the
+ * order the lists beside the form write a date in, so a date is typed as they
+ * show it.
  */
 
 import type { DateFieldFormat } from '@anotoki/lib/ui/date-field';
+import type { AnotokiDates } from '@anotoki/lib/ui/dates';
 
 /** The year the birthdays are kept in (characters.birthday, a DATE). */
 export const BIRTHDAY_YEAR = 4;
 
 /**
- * The order a date pattern of DateFormatService writes in, as one of the kit date field's: the account's four come
- * back as themselves ('d.M.yyyy' is dmy_dot), a device's own by which number comes first and what stands between
- * them ('dd/MM/yyyy' in Britain is dmy_slash, 'dd. MM. yyyy' in Slovakia dmy_dot). The field reads any separator
- * typed; this is how it writes the date.
+ * The order a date field types a day in: the account's (AnotokiDates.choices()), else the one the page's locale writes
+ * a day in (AnotokiDates.locale() - en-GB's 13/12/2222 is dmy_slash, sk-SK's 13. 12. 2222 dmy_dot), as the lists
+ * beside the form write their dates (@anotoki/lib/ui/dates). Never left to the field: by itself it reads an English
+ * day the way the United States writes one, 03/01/2024 the 1st of March, where the lists write the 3rd of January.
  */
-export function fieldFormatOf(pattern: string): DateFieldFormat {
-  const first = pattern.trimStart().charAt(0);
-  if (first === 'y') {
-    return 'ymd_dash';
+export function fieldFormatOf(dates: AnotokiDates): DateFieldFormat {
+  const chosen = dates.choices()?.date_format;
+  if (chosen) {
+    return chosen;
   }
-  if (first === 'M') {
-    return 'mdy_slash';
+  try {
+    const parts = new Intl.DateTimeFormat(dates.locale(), { day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(new Date(2222, 11, 13));
+    const first = parts.find((part) => part.type === 'day' || part.type === 'month' || part.type === 'year')?.type;
+    if (first === 'year') {
+      return 'ymd_dash';
+    }
+    if (first === 'month') {
+      return 'mdy_slash';
+    }
+    return parts.some((part) => part.type === 'literal' && part.value.includes('.')) ? 'dmy_dot' : 'dmy_slash';
+  } catch {
+    return 'dmy_slash';
   }
-  return pattern.includes('.') ? 'dmy_dot' : 'dmy_slash';
 }
 
 const ISO_DAY = /^(\d{4})-(\d{2})-(\d{2})/;

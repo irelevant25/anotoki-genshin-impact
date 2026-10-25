@@ -6,10 +6,11 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { IconComponent } from '@anotoki/lib/ui/icon';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
-import { buildVersionOptions, compareVersionsDesc, isChosen, matchesTerm, pluralTail, versionLabel } from '../shared/database-helpers';
+import { buildVersionOptions, compareVersionsDesc, isChosen, pluralTail, versionLabel } from '../shared/database-helpers';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 import { asText, bindFiltersToUrl } from '../shared/filter-url';
 import { Banner, Character, Expanded, Weapon } from '../../../../../api';
-import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { GameListsService } from '../../../game-lists.service';
 import { todayString } from '../../quizzes/shared/daily';
 import { BannerPhase, groupBanners, phaseNumbers } from './banner-groups';
@@ -33,7 +34,7 @@ type ShownPhase = BannerPhase<IBannerFull> & { stateKey: string; stateParams: Re
   selector: 'app-database-banners',
   templateUrl: './banners.component.html',
   styleUrls: ['./banners.component.scss'],
-  imports: [AppDatePipe, ButtonComponent, BadgeComponent, IconComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, BannerCardComponent],
+  imports: [AnotokiDatePipe, ButtonComponent, BadgeComponent, IconComponent, TranslatePipe, SelectComponent, TextFieldComponent, LoaderComponent, BannerCardComponent],
 })
 export class DatabaseBannersComponent {
   private readonly _lists = inject(GameListsService);
@@ -68,10 +69,10 @@ export class DatabaseBannersComponent {
         if (isChosen(version) && banner.version !== version) {
           return false;
         }
-        if (characterName && !(banner.characters ?? []).some((character: any) => matchesTerm(character.name, characterName))) {
+        if (characterName && !(banner.characters ?? []).some((character: any) => matchesSearch(String(character.name ?? ''), characterName))) {
           return false;
         }
-        if (weaponName && !(banner.weapons ?? []).some((weapon: any) => matchesTerm(weapon.name, weaponName))) {
+        if (weaponName && !(banner.weapons ?? []).some((weapon: any) => matchesSearch(String(weapon.name ?? ''), weaponName))) {
           return false;
         }
         return true;

@@ -31,7 +31,7 @@
                 </div>
                 <div class="container-wrap">
                     <div class="d-grid gap-3 cols-4">
-                        <anotoki-text-field
+                        <anotoki-number-field
                             label="Order *"
                             required
                             [min]="1"
@@ -39,8 +39,7 @@
                             [appNumber]="talent.data.order"
                             (appNumberChange)="onTalentOrderChange(talent, $event)"
                             #orderField="appNumber"
-                            [value]="orderField.text()"
-                            [inputmode]="orderField.inputmode()"
+                            [value]="orderField.number()"
                             [error]="orderField.error()" />
                         <anotoki-text-field
                             label="Name *"
@@ -58,7 +57,8 @@
                             [choices]="talentTypes()"
                             #typeField="appChoice"
                             [options]="typeField.options()"
-                            [value]="typeField.text()"
+                            [value]="typeField.selected()"
+                            [none]="null"
                             [error]="typeField.error()" />
                     </div>
                 </div>
@@ -86,7 +86,7 @@
         @for (group of costGroups(); track group.level) {
             <div class="sub-card">
                 <div class="sub-card-header">
-                    <anotoki-text-field
+                    <anotoki-number-field
                         label="Level *"
                         required
                         [min]="minCostLevel"
@@ -94,8 +94,7 @@
                         [appNumber]="group.level"
                         (appNumberChange)="onCostLevelChange(group, $event)"
                         #levelField="appNumber"
-                        [value]="levelField.text()"
-                        [inputmode]="levelField.inputmode()"
+                        [value]="levelField.number()"
                         [error]="levelField.error()" />
                     <button anotokiButton variant="danger" (click)="removeCostLevel(group)">Delete</button>
                 </div>
@@ -107,7 +106,7 @@
                     <div class="cost-cards">
                         @for (cost of group.cost; track cost) {
                             <div class="cost-card">
-                                <anotoki-text-field
+                                <anotoki-number-field
                                     label="Order *"
                                     required
                                     [min]="1"
@@ -115,8 +114,7 @@
                                     [appNumber]="cost.order"
                                     (appNumberChange)="onCostOrderChange(group, cost, $event)"
                                     #orderField="appNumber"
-                                    [value]="orderField.text()"
-                                    [inputmode]="orderField.inputmode()"
+                                    [value]="orderField.number()"
                                     [error]="orderField.error()" />
                                 <div class="cost-card-img rarity-{{ materialField.chosen()?.data?.['rarity'] ?? 1 }}-bg">
                                     @if (materialField.chosen(); as option) {
@@ -132,10 +130,11 @@
                                     [choices]="materialOptions()"
                                     #materialField="appChoice"
                                     [options]="materialField.options()"
-                                    [value]="materialField.text()"
+                                    [value]="materialField.selected()"
+                                    [none]="null"
                                     [error]="materialField.error()" />
                                 <div class="cost-card-footer">
-                                    <anotoki-text-field
+                                    <anotoki-number-field
                                         label="Qty"
                                         hideLabel
                                         placeholder="Qty"
@@ -143,8 +142,7 @@
                                         [min]="1"
                                         [(appNumber)]="cost.quantity"
                                         #quantityField="appNumber"
-                                        [value]="quantityField.text()"
-                                        [inputmode]="quantityField.inputmode()"
+                                        [value]="quantityField.number()"
                                         [error]="quantityField.error()" />
                                     <button
                                         anotokiButton

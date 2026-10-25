@@ -8,11 +8,11 @@
     <div class="filter-bar">
         <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
         <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
-        <app-multiselect [label]="'Element'" [options]="elementOptions()" [(value)]="filterElements"></app-multiselect>
-        <app-multiselect [label]="'Weapon'" [options]="weaponOptions()" [(value)]="filterWeapons"></app-multiselect>
+        <anotoki-multiselect label="Element" placeholder="— any —" [options]="elementOptions()" [(values)]="filterElements" />
+        <anotoki-multiselect label="Weapon" placeholder="— any —" [options]="weaponOptions()" [(values)]="filterWeapons" />
         <anotoki-select label="Rarity" placeholder="— any —" [options]="rarityChoices()" [(value)]="filterRarity" />
-        <app-multiselect [label]="'Region'" [options]="regionOptions()" [(value)]="filterRegions"></app-multiselect>
-        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <anotoki-multiselect label="Region" placeholder="— any —" [options]="regionOptions()" [(values)]="filterRegions" />
+        <anotoki-multiselect label="Version" placeholder="— any —" [options]="versionOptions()" [(values)]="filterVersions" />
         <div class="filter-summary">
             <span class="filter-count">{{ filteredCharacters().length }} / {{ characters().length }}</span>
             @if (hasActiveFilter()) {
@@ -71,7 +71,7 @@
                         <td>{{ char.version }}</td>
                         <td class="col-stamp">
                             @if (char.created_at) {
-                                {{ char.created_at | appDate: 'datetime' }}
+                                {{ char.created_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ char.created_by?.username ?? 'system' }}</span>
                             } @else {
                                 —
@@ -79,7 +79,7 @@
                         </td>
                         <td class="col-stamp">
                             @if (char.updated_at) {
-                                {{ char.updated_at | appDate: 'datetime' }}
+                                {{ char.updated_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ char.updated_by?.username ?? 'system' }}</span>
                             } @else {
                                 —

@@ -1,12 +1,13 @@
-// The body sets its own rhythm - see rich-text.component.scss - so all this
-// has to do is stop a long guide running edge to edge on a wide screen.
+// The body sets its own rhythm - the family's typography for texts
+// (@anotoki/lib/ui/rich-html) - so all this has to do is give a guide the
+// size it always read at and stop it running edge to edge on a wide screen.
 :host {
   display: block;
 }
 
-app-rich-text {
-  display: block;
+anotoki-rich-html {
   max-width: 68ch;
+  font-size: var(--font-size-lg);
 }
 
 // Room for the spinner while the guide is asked for, before there is any

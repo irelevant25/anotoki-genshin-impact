@@ -69,11 +69,11 @@
                                 <div class="rail">
                                     <span class="rail-phase">{{ "database.banners.phase" | translate: { n: phase.number } }}</span>
                                     <div class="rail-dates">
-                                        <span>{{ phase.from | appDate }}</span>
+                                        <span>{{ phase.from | anotokiDate: "numeric" }}</span>
                                         <span class="rail-to">{{ "database.banners.to" | translate }}</span>
                                         <span>
                                             @if (phase.to) {
-                                                {{ phase.to | appDate }}
+                                                {{ phase.to | anotokiDate: "numeric" }}
                                             } @else {
                                                 {{ "database.banners.noEnd" | translate }}
                                             }

@@ -16,7 +16,7 @@
                         }
                     </span>
                 } @else if (row.date) {
-                    <span>{{ row.date | appDate }}</span>
+                    <span>{{ row.date | anotokiDate: "numeric" }}</span>
                 } @else if (row.value !== null && row.value !== undefined && row.value !== "") {
                     <span>{{ row.value }}</span>
                 }

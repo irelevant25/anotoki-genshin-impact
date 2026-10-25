@@ -24,7 +24,7 @@
                             <app-detail-facts [rows]="voiceRows()" />
                             @if (demoMusicUrl(); as demoMusic) {
                                 <div class="demo-music" [class.demo-music--alone]="!voiceRows().length">
-                                    <app-audio-player [src]="demoMusic" [label]="character.demo_music_name ?? undefined" />
+                                    <anotoki-audio-player [src]="demoMusic" [label]="character.demo_music_name ?? null" />
                                 </div>
                             }
                         </anotoki-card>

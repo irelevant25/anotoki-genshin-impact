@@ -11,14 +11,14 @@
                             {{ "profile.history.yesterday" | translate }}
                         }
                         @default {
-                            {{ group.day | appDate }}
+                            {{ group.day | anotokiDate: "numeric" }}
                         }
                     }
                 </h3>
                 <ul class="recent-rows">
                     @for (result of group.results; track result.id) {
                         <li class="recent-row">
-                            <span class="recent-time">{{ result.created_at | appDate: "time" }}</span>
+                            <span class="recent-time">{{ result.created_at | anotokiDate: "time" }}</span>
                             <span class="recent-quiz-picture" aria-hidden="true">
                                 @if (quizPicture(result.quiz); as picture) {
                                     <img [src]="picture" alt="" loading="lazy" />

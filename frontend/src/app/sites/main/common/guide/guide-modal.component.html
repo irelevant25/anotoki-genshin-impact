@@ -4,6 +4,6 @@
     } @else if (failed()) {
         <p class="guide-failed" role="alert">{{ "guide.loadFailed" | translate }}</p>
     } @else {
-        <app-rich-text [html]="html()"></app-rich-text>
+        <anotoki-rich-html [html]="html()" [classes]="richTextClasses" />
     }
 </div>

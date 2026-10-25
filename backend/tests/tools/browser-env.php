@@ -8,7 +8,7 @@ declare(strict_types=1);
  * content in it, and a backend of its own to serve it - never your database,
  * your settings, your storage or your IAM.
  *
- *   php tests/tools/browser-env.php up <folder> <issuer>   prints {"database", "backend"} as JSON
+ *   php tests/tools/browser-env.php up <folder> <issuer> [<site>]   prints {"database", "backend"} as JSON
  *   php tests/tools/browser-env.php down <database>        drops it (a genshin_test_* name only)
  *
  * `up` makes genshin_test_browser_<random> on the PostgreSQL server
@@ -17,7 +17,9 @@ declare(strict_types=1);
  * file is read where it is - the copy's database.local.php requires it, so the
  * password is written nowhere), copies the backend's code into <folder>/backend
  * with settings of its own - that database, a secret, the IAM at <issuer> (the
- * anotoki library's stand-in, which the screenshot pass starts) - applies
+ * anotoki library's stand-in, which the screenshot pass starts) and, given, the
+ * site's own address (config/app.local.php: robots.txt's sitemap and its
+ * addresses, as on the host) - applies
  * every migration with the copy's own migration.php, and puts a handful of
  * characters, weapons, materials, foods, banners, artifacts and enemies in, so
  * the pages have something to draw. No pictures: the asset tree is not there.
@@ -333,12 +335,13 @@ function seedContent(PDO $pdo): void
 
     // Something for the parts of a page that fold: Hu Tao's voice-over set (two
     // story lines and a combat one) and what a Hilichurl drops (one group, a
-    // material and an artifact). Every line's text carries what anybody who may
-    // edit could have saved through the HTML source or the API straight - the
-    // server keeps a text as it was written: an image whose onerror marks the
-    // page. The screenshot run checks it never runs where a line is drawn (the
-    // admin panel's HTML editor, the character page), as every stored text
-    // reaches a live page through the allow-list (frontend rich-html.ts).
+    // material and an artifact). Every line's text carries what a database
+    // written before the server kept every text through the allow-list
+    // (api/rich_text.php, anotoki-lib 0.11.0) may still hold - seeded here
+    // straight, past it: an image whose onerror marks the page. The screenshot
+    // run checks it never runs where a line is drawn (the admin panel's HTML
+    // editor, the character page), as every stored text reaches a live page
+    // through the family's allow-list (@anotoki/lib/ui/rich-html).
     $set = seed($pdo, 'characters_voice_overs_sets', []);
     $pdo->prepare('UPDATE characters SET voice_over_set_id = ? WHERE id = ?')->execute([$set, $characters['Hu Tao']]);
     $hostile = '<img src="data:," onerror="document.documentElement.dataset.storedScript=\'ran\'">';
@@ -384,13 +387,17 @@ if ($command === 'down') {
 }
 
 if ($command !== 'up' || !isset($argv[2], $argv[3])) {
-    fail('usage: browser-env.php up <folder> <issuer> | down <database>');
+    fail('usage: browser-env.php up <folder> <issuer> [<site>] | down <database>');
 }
 
 $folder = rtrim(str_replace('\\', '/', $argv[2]), '/');
 $issuer = rtrim($argv[3], '/');
 if (!preg_match('#^http://(localhost|127\.0\.0\.1):\d+$#', $issuer)) {
     fail("the issuer is the stand-in IAM on this computer, http://localhost:<port>: $issuer");
+}
+$site = isset($argv[4]) ? rtrim($argv[4], '/') : null;
+if ($site !== null && !preg_match('#^http://(localhost|127\.0\.0\.1):\d+$#', $site)) {
+    fail("the site is the screenshot pass's own on this computer, http://localhost:<port>: $site");
 }
 
 $database = testDatabaseName('genshin_test_browser_' . bin2hex(random_bytes(4)));
@@ -422,6 +429,9 @@ file_put_contents(
 );
 file_put_contents("$backend/config/secret.local.php", "<?php\n\nreturn " . var_export(bin2hex(random_bytes(32)), true) . ";\n");
 file_put_contents("$backend/config/iam.local.php", "<?php\n\nreturn " . var_export(['issuer' => $issuer, 'client_id' => 'genshin', 'cache_dir' => "$backend/storage/cache"], true) . ";\n");
+if ($site !== null) {
+    file_put_contents("$backend/config/app.local.php", "<?php\n\nreturn " . var_export(['url' => $site], true) . ";\n");
+}
 touch("$backend/storage/installed.lock");
 
 exec(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg("$backend/migration.php") . ' 2>&1', $output, $code);

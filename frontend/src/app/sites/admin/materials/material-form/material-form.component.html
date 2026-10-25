@@ -9,7 +9,7 @@
         <h3 class="section-title">Identity</h3>
         <div class="form-grid">
             <anotoki-text-field label="Name *" placeholder="e.g. Dandelion Seed" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(material().name)" (valueChange)="material().name = $event" />
-            <anotoki-select label="Type" placeholder="— none —" [(appChoice)]="material().type" [choices]="materialTypes()" #typeField="appChoice" [options]="typeField.options()" [value]="typeField.text()" />
+            <anotoki-select label="Type" placeholder="— none —" [(appChoice)]="material().type" [choices]="materialTypes()" #typeField="appChoice" [options]="typeField.options()" [value]="typeField.selected()" [none]="null" />
             <anotoki-select
                 label="Primary Group"
                 placeholder="— none —"
@@ -17,9 +17,10 @@
                 [choices]="materialGroups()"
                 #groupField="appChoice"
                 [options]="groupField.options()"
-                [value]="groupField.text()"
+                [value]="groupField.selected()"
+                [none]="null"
             />
-            <anotoki-select label="Region" placeholder="— none —" [(appChoice)]="material().region" [choices]="regions()" #regionField="appChoice" [options]="regionField.options()" [value]="regionField.text()" />
+            <anotoki-select label="Region" placeholder="— none —" [(appChoice)]="material().region" [choices]="regions()" #regionField="appChoice" [options]="regionField.options()" [value]="regionField.selected()" [none]="null" />
             <anotoki-select
                 label="Rarity"
                 placeholder="— none —"
@@ -28,7 +29,8 @@
                 [suffix]="' ★'"
                 #rarityField="appChoice"
                 [options]="rarityField.options()"
-                [value]="rarityField.text()"
+                [value]="rarityField.selected()"
+                [none]="null"
             />
             <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(material().version)" (valueChange)="material().version = $event" />
         </div>
@@ -56,12 +58,7 @@
         <h3 class="section-title">Additional Groups</h3>
         <div class="container-wrap">
             <div class="d-grid gap-3 cols-2">
-                <app-multiselect
-                    [label]="'Groups'"
-                    [description]="'Extra groups this material belongs to, beyond the primary one.'"
-                    [options]="materialGroups()"
-                    [(value)]="groups"
-                ></app-multiselect>
+                <anotoki-multiselect label="Groups" hint="Extra groups this material belongs to, beyond the primary one." [options]="groupChoices()" [(values)]="groups" />
             </div>
         </div>
     </div>

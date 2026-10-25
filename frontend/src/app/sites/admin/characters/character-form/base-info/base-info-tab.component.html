@@ -19,7 +19,8 @@
             [choices]="elements()"
             #elementField="appChoice"
             [options]="elementField.options()"
-            [value]="elementField.text()"
+            [value]="elementField.selected()"
+            [none]="null"
             [error]="elementField.error()" />
         <anotoki-select
             label="Weapon Type *"
@@ -28,7 +29,8 @@
             [choices]="weaponTypes()"
             #weaponTypeField="appChoice"
             [options]="weaponTypeField.options()"
-            [value]="weaponTypeField.text()"
+            [value]="weaponTypeField.selected()"
+            [none]="null"
             [error]="weaponTypeField.error()" />
         <anotoki-select
             label="Rarity *"
@@ -38,7 +40,8 @@
             [suffix]="' ★'"
             #rarityField="appChoice"
             [options]="rarityField.options()"
-            [value]="rarityField.text()"
+            [value]="rarityField.selected()"
+            [none]="null"
             [error]="rarityField.error()" />
         <anotoki-select
             label="Model *"
@@ -47,7 +50,8 @@
             [choices]="models()"
             #modelField="appChoice"
             [options]="modelField.options()"
-            [value]="modelField.text()"
+            [value]="modelField.selected()"
+            [none]="null"
             [error]="modelField.error()" />
         <anotoki-select
             label="Region"
@@ -56,7 +60,8 @@
             [choices]="regions()"
             #regionField="appChoice"
             [options]="regionField.options()"
-            [value]="regionField.text()" />
+            [value]="regionField.selected()"
+            [none]="null" />
         <anotoki-select
             label="Arkhe"
             placeholder="— none —"
@@ -64,7 +69,8 @@
             [choices]="arkheOptions"
             #arkheField="appChoice"
             [options]="arkheField.options()"
-            [value]="arkheField.text()" />
+            [value]="arkheField.selected()"
+            [none]="null" />
         <!-- A birthday is a day and a month, kept as a DATE in year 4 (stored-dates.ts). -->
         <anotoki-date-field
             label="Birthday"
@@ -94,16 +100,16 @@
             [choices]="foodOptions()"
             #specialDishField="appChoice"
             [options]="specialDishField.options()"
-            [value]="specialDishField.text()" />
-        <anotoki-text-field
+            [value]="specialDishField.selected()"
+            [none]="null" />
+        <anotoki-number-field
             label="Game ID"
             placeholder="e.g. 10000046"
             hint="The game&#8217;s own id. Every Aether row is 10000005, every Lumine row 10000007."
             [min]="1"
             [(appNumber)]="character().data.game_id"
             #gameIdField="appNumber"
-            [value]="gameIdField.text()"
-            [inputmode]="gameIdField.inputmode()"
+            [value]="gameIdField.number()"
             [error]="gameIdField.error()" />
         <div class="grid-checkbox">
             <anotoki-checkbox [checked]="!!character().data.is_traveler" (checkedChange)="character().data.is_traveler = $event">Is Traveler</anotoki-checkbox>
@@ -322,7 +328,8 @@
                         [choices]="relationshipTypes()"
                         #relationshipTypeField="appChoice"
                         [options]="relationshipTypeField.options()"
-                        [value]="relationshipTypeField.text()"
+                        [value]="relationshipTypeField.selected()"
+                        [none]="null"
                         [error]="relationshipTypeField.error()" />
                     <anotoki-select
                         label="State"
@@ -331,7 +338,8 @@
                         [choices]="characterStates()"
                         #relationshipStateField="appChoice"
                         [options]="relationshipStateField.options()"
-                        [value]="relationshipStateField.text()" />
+                        [value]="relationshipStateField.selected()"
+                        [none]="null" />
                     <div class="grid-checkbox">
                         <anotoki-checkbox [checked]="!!relationship.is_biological" (checkedChange)="relationship.is_biological = $event">Biological</anotoki-checkbox>
                     </div>

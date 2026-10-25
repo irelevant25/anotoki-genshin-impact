@@ -8,8 +8,8 @@
     <div class="filter-bar">
         <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
         <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
-        <app-multiselect [label]="'Rarity'" [options]="rarityOptions" [(value)]="filterRarities"></app-multiselect>
-        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <anotoki-multiselect label="Rarity" placeholder="— any —" [options]="rarityOptions" [(values)]="filterRarities" />
+        <anotoki-multiselect label="Version" placeholder="— any —" [options]="versionOptions()" [(values)]="filterVersions" />
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
             @if (hasActiveFilter()) {
@@ -51,7 +51,7 @@
                         <td>{{ artifact.version ?? '—' }}</td>
                         <td class="col-stamp">
                             @if (artifact.created_at) {
-                                {{ artifact.created_at | appDate: 'datetime' }}
+                                {{ artifact.created_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ artifact.created_by?.username ?? 'system' }}</span>
                             } @else {
                                 —
@@ -59,7 +59,7 @@
                         </td>
                         <td class="col-stamp">
                             @if (artifact.updated_at) {
-                                {{ artifact.updated_at | appDate: 'datetime' }}
+                                {{ artifact.updated_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ artifact.updated_by?.username ?? 'system' }}</span>
                             } @else {
                                 —

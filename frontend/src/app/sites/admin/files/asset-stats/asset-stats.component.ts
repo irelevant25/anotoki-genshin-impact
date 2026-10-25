@@ -9,7 +9,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { ToastService } from '@anotoki/lib/ui/toast';
-import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /**
  * How many files to ask for per request.

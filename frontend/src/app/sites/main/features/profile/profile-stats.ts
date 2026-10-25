@@ -1,7 +1,7 @@
 import { Character, QuizActivityDay, QuizDifficultyRow, QuizRecentResult, QuizStatsRow } from '../../../../api';
 import { QUIZ_CATALOG, QuizCard } from '../quizzes/shared/quiz-catalog';
 import { QUIZ_DIFFICULTIES, QuizId } from '../quizzes/shared/quiz.types';
-import { matchesTerm } from '../database/shared/database-helpers';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 
 /**
  * Turning the four quiz reads into the numbers the profile page draws.
@@ -327,10 +327,9 @@ export function elementCounts(characters: readonly CharacterBreakdown[]): Map<st
   return counts;
 }
 
-/** The characters of one element whose name contains the term - either filter empty for all. */
+/** The characters of one element whose name holds every word of the term, accents and case aside (@anotoki/lib/ui/search) - either filter empty for all. */
 export function filterCharacters(characters: readonly CharacterBreakdown[], element: string | null, term: string): CharacterBreakdown[] {
-  const lowered = term.trim().toLowerCase();
-  return characters.filter((character) => (!element || character.element === element) && (!lowered || matchesTerm(character.name, lowered)));
+  return characters.filter((character) => (!element || character.element === element) && matchesSearch(character.name, term));
 }
 
 /**

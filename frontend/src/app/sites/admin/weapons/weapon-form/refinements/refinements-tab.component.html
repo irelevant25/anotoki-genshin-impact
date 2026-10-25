@@ -25,15 +25,15 @@
                         [choices]="materialOptions()"
                         #materialField="appChoice"
                         [options]="materialField.options()"
-                        [value]="materialField.text()"
+                        [value]="materialField.selected()"
+                        [none]="null"
                         [error]="materialField.error()" />
-                    <anotoki-text-field
+                    <anotoki-number-field
                         label="Quantity"
                         [min]="0"
                         [(appNumber)]="refinement.data.quantity"
                         #quantityField="appNumber"
-                        [value]="quantityField.text()"
-                        [inputmode]="quantityField.inputmode()"
+                        [value]="quantityField.number()"
                         [error]="quantityField.error()" />
                 </div>
             </div>

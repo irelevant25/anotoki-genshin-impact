@@ -8,7 +8,17 @@
         <div class="container-wrap">
             <div class="d-grid gap-3 cols-1">
                 <!-- Markup, not plain text: a dialogue keeps its speakers in <b>, which the site renders. -->
-                <app-html-editor [label]="'Text'" [value]="text()" (valueChange)="onTextChange($event)" [minHeight]="'120px'" [displayError]="false"></app-html-editor>
+                <anotoki-html-editor
+                    label="Text"
+                    [value]="text()"
+                    (valueChange)="onTextChange($event)"
+                    [rows]="4"
+                    sizes
+                    [fonts]="editorFonts"
+                    colors
+                    [swatches]="editorSwatches"
+                    source
+                    [classes]="richTextClasses" />
             </div>
         </div>
         <div class="audio-row">

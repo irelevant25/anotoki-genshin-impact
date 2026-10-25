@@ -11,8 +11,8 @@
             @if (kind() === "audio") {
                 <audio controls preload="none" [src]="source"></audio>
             } @else {
-                <!-- The kit's tooltip names the file the slot shows. -->
-                <img [src]="source" [alt]="label()" [anotokiTooltip]="fileWords()" />
+                <!-- Larger beside the slot on hover and on focus (the kit's picture preview), named by the file it shows. -->
+                <img [src]="source" [alt]="label()" [anotokiPicturePreview]="source" [anotokiPicturePreviewAlt]="fileWords() ?? label()" />
             }
         } @else {
             <span class="entity-image-empty">none</span>

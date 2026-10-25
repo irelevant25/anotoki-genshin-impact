@@ -7,8 +7,8 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
-import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /**
  * What has been deleted and can still be put back.
@@ -25,7 +25,7 @@ import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe'
   selector: 'app-trash-modal',
   templateUrl: './trash-modal.component.html',
   styleUrls: ['./trash-modal.component.scss'],
-  imports: [AlertComponent, SpinnerComponent, TooltipDirective, DialogFooterDirective, ButtonComponent, DecimalPipe, FileSizePipe, AppDatePipe],
+  imports: [AlertComponent, SpinnerComponent, TooltipDirective, DialogFooterDirective, ButtonComponent, DecimalPipe, FileSizePipe, AnotokiDatePipe],
 })
 export class TrashModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);

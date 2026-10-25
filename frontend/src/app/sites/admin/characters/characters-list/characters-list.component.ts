@@ -8,8 +8,10 @@ import { ToastService } from '@anotoki/lib/ui/toast';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { SelectComponent, SelectOption, TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
+import { MultiselectComponent } from '@anotoki/lib/ui/multiselect';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
+import { matchesSearch } from '@anotoki/lib/ui/search';
+import { multiselectOptions } from '../../shared/admin-list.class';
 
 /** Sorts version strings numerically ("1.10" after "1.9"), newest first. */
 function compareVersionsDesc(a: string, b: string): number {
@@ -28,7 +30,7 @@ function compareVersionsDesc(a: string, b: string): number {
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
   styleUrls: ['./characters-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AnotokiDatePipe, RouterLink, ButtonComponent, TextFieldComponent, SelectComponent, MultiselectComponent],
 })
 export class CharactersListComponent implements OnInit {
   characters = signal<any[]>([]);
@@ -37,20 +39,20 @@ export class CharactersListComponent implements OnInit {
   // ── Filters ─────────────────────────────────────────────────────────────────
   filterId = signal('');
   filterName = signal('');
-  filterElements = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterWeapons = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterElements = signal<readonly string[]>([]);
+  filterWeapons = signal<readonly string[]>([]);
   /** A rarity as the select holds it, '' for any. */
   filterRarity = signal('');
-  filterRegions = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterRegions = signal<readonly string[]>([]);
+  filterVersions = signal<readonly string[]>([]);
 
   /** Options come from the loaded rows, so they always match what is filterable. */
-  elementOptions = computed(() => this._distinct('element'));
-  weaponOptions = computed(() => this._distinct('weapon_type'));
-  regionOptions = computed(() => this._distinct('region'));
+  elementOptions = computed(() => multiselectOptions(this._distinct('element')));
+  weaponOptions = computed(() => multiselectOptions(this._distinct('weapon_type')));
+  regionOptions = computed(() => multiselectOptions(this._distinct('region')));
   rarityOptions = computed(() => this._distinct('rarity').sort().reverse());
   rarityChoices = computed<SelectOption[]>(() => this.rarityOptions().map((rarity) => ({ value: rarity, label: `${rarity} ★` })));
-  versionOptions = computed(() => this._distinct('version').sort(compareVersionsDesc));
+  versionOptions = computed(() => multiselectOptions(this._distinct('version').sort(compareVersionsDesc)));
 
   sortedCharacters = computed(() => [...this.characters()].sort((a, b) => compareVersionsDesc(a.version, b.version)));
 
@@ -69,12 +71,7 @@ export class CharactersListComponent implements OnInit {
       if (id && !String(character.id).includes(id)) {
         return false;
       }
-      if (
-        name &&
-        !String(character.name ?? '')
-          .toLowerCase()
-          .includes(name)
-      ) {
+      if (name && !matchesSearch(String(character.name ?? ''), name)) {
         return false;
       }
       if (elements.length && !elements.includes(character.element)) {
@@ -171,7 +168,7 @@ export class CharactersListComponent implements OnInit {
     return [...new Set(values)].sort();
   }
 
-  private _selected(value: (string | number | boolean)[] | null | undefined): string[] {
+  private _selected(value: readonly unknown[] | null | undefined): string[] {
     return (value ?? []).map((entry) => String(entry));
   }
 }

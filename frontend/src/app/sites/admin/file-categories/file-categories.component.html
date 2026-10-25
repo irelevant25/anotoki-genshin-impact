@@ -72,7 +72,7 @@
                         }
 
                         <td class="col-num" data-label="Files">{{ category.files | number }}</td>
-                        <td class="col-num" data-label="Size">{{ category.bytes ? (category.bytes | fileSize) : "—" }}</td>
+                        <td class="col-num" data-label="Size">{{ category.bytes ? (category.bytes | anotokiFileSize) : "—" }}</td>
 
                         <td class="cell-actions">
                             <div class="action-btns">
@@ -98,7 +98,7 @@
                 <tr>
                     <td colspan="3" data-label="All">{{ visible().length | number }} categories</td>
                     <td class="col-num" data-label="Files">{{ totals().files | number }}</td>
-                    <td class="col-num" data-label="Size">{{ totals().bytes | fileSize }}</td>
+                    <td class="col-num" data-label="Size">{{ totals().bytes | anotokiFileSize }}</td>
                     <td class="cell-actions"></td>
                 </tr>
             </tfoot>

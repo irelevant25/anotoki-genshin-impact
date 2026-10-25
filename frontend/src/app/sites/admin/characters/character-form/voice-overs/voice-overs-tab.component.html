@@ -28,7 +28,7 @@
                                     <!-- The disclosure draws the card around a line's editor. -->
                                     <div>
                                         <div class="sub-card-header">
-                                            <anotoki-text-field
+                                            <anotoki-number-field
                                                 label="Order *"
                                                 required
                                                 [min]="1"
@@ -36,8 +36,7 @@
                                                 [appNumber]="entry.wrapper.data.order"
                                                 (appNumberChange)="onOrderChange(entry.wrapper, $event)"
                                                 #orderField="appNumber"
-                                                [value]="orderField.text()"
-                                                [inputmode]="orderField.inputmode()"
+                                                [value]="orderField.number()"
                                                 [error]="orderField.error()"
                                             />
                                             <button anotokiButton variant="danger" (click)="removeVoiceOver(entry.wrapper)">Delete</button>

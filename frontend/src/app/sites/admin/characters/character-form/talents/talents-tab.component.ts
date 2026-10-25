@@ -7,6 +7,7 @@ import { DropdownOption } from '../../../../../shared/local-lib/services/options
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { TalentCostFormData } from '../../../../../sites/admin/shared/admin-form.model';
@@ -40,6 +41,7 @@ const MAX_COST_LEVEL = 10;
     SelectComponent,
     TabsComponent,
     FieldCheckDirective,
+    NumberFieldComponent,
     NumberFieldDirective,
     ChoiceFieldDirective,
     MaterialIconDirective,

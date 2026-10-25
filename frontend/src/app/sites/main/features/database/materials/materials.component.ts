@@ -6,7 +6,8 @@ import { SegmentedComponent } from '@anotoki/lib/ui/segmented';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { Expanded, Material } from '../../../../../api';
-import { buildValueOptions, buildVersionOptions, isChosen, matchesTerm, pluralTail, rarityValues } from '../shared/database-helpers';
+import { buildValueOptions, buildVersionOptions, isChosen, pluralTail, rarityValues } from '../shared/database-helpers';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 import { asNumber, asOneOf, asText, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -90,7 +91,7 @@ export class DatabaseMaterialsComponent {
       if (isChosen(version) && material.version !== version) {
         return false;
       }
-      return !name || matchesTerm(material.name, name);
+      return !name || matchesSearch(String(material.name ?? ''), name);
     });
   });
 

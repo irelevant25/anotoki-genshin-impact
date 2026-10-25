@@ -1,8 +1,9 @@
 import { Component, computed, input, model } from '@angular/core';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SelectComponent } from '@anotoki/lib/ui/forms';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { Audited, Material } from '../../../../../api';
@@ -14,7 +15,7 @@ import { AscensionWrapper, emptyAscension, MAX_WEAPON_ASCENSIONS } from '../weap
   selector: 'app-weapon-ascensions-tab',
   templateUrl: './ascensions-tab.component.html',
   styleUrls: ['./ascensions-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, SelectComponent, NumberFieldDirective, ChoiceFieldDirective, MaterialIconDirective],
+  imports: [TooltipDirective, ButtonComponent, SelectComponent, NumberFieldComponent, NumberFieldDirective, ChoiceFieldDirective, MaterialIconDirective],
 })
 export class AscensionsTabComponent {
   ascensions = model<AscensionWrapper[]>([]);

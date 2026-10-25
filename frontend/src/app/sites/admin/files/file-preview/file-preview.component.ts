@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
-import { AudioPlayerComponent } from '../../../../shared/local-lib/components/audio-player/audio-player.component';
+import { AudioPlayerComponent } from '@anotoki/lib/ui/audio-player';
 import { AssetFile } from '../../../../api';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
 

@@ -1,5 +1,6 @@
 import { Component, computed, ElementRef, inject, input, OnDestroy, output, signal } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
+import { PicturePreviewDirective } from '@anotoki/lib/ui/picture-preview';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { AnotokiDialog } from '@anotoki/lib/ui/dialog';
 import { CheckedField, FormChecks, isMissing, REQUIRED_WORDS } from '../../../../shared/local-lib/fields/form-checks';
@@ -24,7 +25,7 @@ import { ImageUploadComponent, ImageUploadData, PickedImage } from '../image-upl
   selector: 'app-entity-image',
   templateUrl: './entity-image.component.html',
   styleUrls: ['./entity-image.component.scss'],
-  imports: [TooltipDirective, ButtonComponent],
+  imports: [TooltipDirective, PicturePreviewDirective, ButtonComponent],
 })
 export class EntityImageComponent implements CheckedField, OnDestroy {
   /** What the slot is called, over it and in the picker's heading. */
@@ -55,7 +56,7 @@ export class EntityImageComponent implements CheckedField, OnDestroy {
   hasImage = computed(() => !!this.src());
 
   /**
-   * The picture's tooltip (the kit's, which holds words): the file it shows - a fresh pick by its own name, a file
+   * The picture's name in its preview (the kit's picture preview): the file it shows - a fresh pick by its own name, a file
    * chosen from the catalogue by its name, a stored one by where it is kept.
    */
   readonly fileWords = computed(() => {

@@ -11,15 +11,14 @@
             [value]="fieldText(artifact().data.name)"
             (valueChange)="artifact().data.name = $event" />
         <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(artifact().data.version)" (valueChange)="artifact().data.version = $event" />
-        <anotoki-text-field
+        <anotoki-number-field
             label="Game ID"
             placeholder="e.g. 14001"
             hint="The set&#8217;s own id in the game."
             [min]="1"
             [(appNumber)]="artifact().data.game_id"
             #gameIdField="appNumber"
-            [value]="gameIdField.text()"
-            [inputmode]="gameIdField.inputmode()"
+            [value]="gameIdField.number()"
             [error]="gameIdField.error()" />
     </div>
 </div>

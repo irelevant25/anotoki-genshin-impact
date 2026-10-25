@@ -1,10 +1,11 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SelectComponent, TextareaComponent } from '@anotoki/lib/ui/forms';
 import { DropdownOption } from '../../../../../shared/local-lib/services/options-helper.service';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { Audited, Material } from '../../../../../api';
@@ -17,7 +18,7 @@ const MAX_REFINEMENTS = 5;
   selector: 'app-weapon-refinements-tab',
   templateUrl: './refinements-tab.component.html',
   styleUrls: ['./refinements-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, TextareaComponent, SelectComponent, FieldCheckDirective, NumberFieldDirective, ChoiceFieldDirective],
+  imports: [TooltipDirective, ButtonComponent, TextareaComponent, SelectComponent, FieldCheckDirective, NumberFieldComponent, NumberFieldDirective, ChoiceFieldDirective],
 })
 export class RefinementsTabComponent {
   readonly fieldText = fieldText;

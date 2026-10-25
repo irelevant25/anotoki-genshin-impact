@@ -6,7 +6,6 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { CheckboxComponent, SelectComponent, TextareaComponent } from '@anotoki/lib/ui/forms';
 import { ChoiceFieldDirective } from '../../../../../../shared/local-lib/fields/choice-field.directive';
-import { FileComponent, FileItemType } from '../../../../../../shared/local-lib/components/file/file.component';
 import { FilePickerComponent } from '@anotoki/lib/ui/file-picker';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
@@ -37,7 +36,6 @@ export interface VoiceOverImportData {
     CheckboxComponent,
     SelectComponent,
     ChoiceFieldDirective,
-    FileComponent,
     FilePickerComponent,
     DisclosureComponent,
   ],
@@ -182,12 +180,17 @@ export class VoiceOversImportComponent extends AbstractModalComponent {
 
   private _audioFiles: File[] = [];
 
-  onAudioFolderSelect(files: FileItemType[] | undefined | null): void {
-    const picked = (files ?? []).map((item) => item.file).filter((file): file is File => !!file && isAudioFile(file.name));
+  /** The folder's files as the picker holds them (the kit's file picker, `folder`): each with its path in it. */
+  readonly audioFolder = signal<readonly File[]>([]);
 
+  /** A folder chosen - its audio files matched by title - or taken away (none: nothing to match). */
+  onAudioFolderChosen(files: readonly File[]): void {
+    const picked = files.filter((file) => isAudioFile(file.name));
+
+    this.audioFolder.set(files);
     this._audioFiles = picked;
     this.audioFileCount.set(picked.length);
-    this.audioError.set(picked.length === 0 ? 'No audio files in the selected folder.' : undefined);
+    this.audioError.set(files.length > 0 && picked.length === 0 ? 'No audio files in the selected folder.' : undefined);
     this._rematch();
   }
 

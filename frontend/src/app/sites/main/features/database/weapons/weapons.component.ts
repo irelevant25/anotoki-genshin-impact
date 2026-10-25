@@ -7,7 +7,8 @@ import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { Expanded, Weapon } from '../../../../../api';
-import { buildVersionOptions, distinctValues, isChosen, matchesTerm, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
+import { buildVersionOptions, distinctValues, isChosen, pluralTail, rarityColour, rarityValues } from '../shared/database-helpers';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 import { asNumber, asOneOf, asText, asToggle, bindFiltersToUrl } from '../shared/filter-url';
 import { FacetOption, FacetTrackComponent } from '../shared/facet-track/facet-track.component';
 import { ListTileComponent } from '../shared/list-tile/list-tile.component';
@@ -82,7 +83,7 @@ export class DatabaseWeaponsComponent {
       if (isChosen(version) && weapon.version !== version) {
         return false;
       }
-      return !name || matchesTerm(weapon.name, name);
+      return !name || matchesSearch(String(weapon.name ?? ''), name);
     });
   });
 

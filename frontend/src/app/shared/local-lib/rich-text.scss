@@ -1,0 +1,30 @@
+////
+/// genshin's own style for its texts, over the anotoki family's typography
+/// (@anotoki/lib/ui/rich-html: every rule of its as weak as one class, so this
+/// wins): the one class the guides carry (shared/rich-text.ts,
+/// RICH_TEXT_CLASSES), a badge standing in for the ones the old site borrowed
+/// from Bootstrap - on the pages (<anotoki-rich-html>) and in the admin panel's
+/// editor and its preview (<anotoki-html-editor>). Named for what it is rather
+/// than for a colour, so a theme can move underneath it.
+////
+
+.anotoki-rich-html,
+.anotoki-html-editor {
+  .tag {
+    display: inline-block;
+    padding: 0 var(--spacing-xs);
+    border: 1px solid var(--color-primary-light-border);
+    border-radius: var(--border-radius-pill);
+    background: var(--color-primary-light);
+    color: var(--color-primary-light-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+
+  // A list of steps that each start with a labelled term reads better with the label set off, as the guides do.
+  li > .tag:first-child {
+    margin-right: var(--spacing-xs);
+  }
+}

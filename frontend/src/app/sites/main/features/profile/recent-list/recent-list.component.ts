@@ -4,7 +4,7 @@ import { BadgeComponent } from '@anotoki/lib/ui/badge';
 import { IconComponent } from '@anotoki/lib/ui/icon';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { QuizRecentResult } from '../../../../../api';
-import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { difficultyName } from '../../quizzes/shared/quiz.types';
 import { cardFor, localToday, recentByDay } from '../profile-stats';
@@ -20,7 +20,7 @@ import { cardFor, localToday, recentByDay } from '../profile-stats';
   selector: 'app-profile-recent-list',
   templateUrl: './recent-list.component.html',
   styleUrls: ['./recent-list.component.scss'],
-  imports: [RouterLink, BadgeComponent, IconComponent, TranslatePipe, AppDatePipe, MaterialIconDirective],
+  imports: [RouterLink, BadgeComponent, IconComponent, TranslatePipe, AnotokiDatePipe, MaterialIconDirective],
 })
 export class ProfileRecentListComponent {
   readonly results = input.required<QuizRecentResult[]>();

@@ -1,116 +1,75 @@
-import { booleanAttribute, computed, Directive, inject, input, model, signal } from '@angular/core';
-import { TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { computed, Directive, inject, model, signal } from '@angular/core';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { FieldCheck } from './field-check';
 
-/** A number as the admin forms hold it: as the API answered it, as it was typed (the text, a point for a comma), or NaN once emptied. */
+/** A number as the admin forms hold it: as the API answered it (a NUMERIC column comes as text), as the field gave it, or NaN once emptied. */
 export type NumberValue = string | number | null | undefined;
 
 /**
- * A number typed into the kit's text field: what the kit's field lacks until anotoki-lib 0.11.0 (the library's half of
- * the owner's request of 2026-10-25 gives it one), kept here meanwhile - then this goes, and the forms bind the kit's.
+ * The kit's number field (@anotoki/lib/ui/number-field, anotoki-lib 0.11.0) as the admin forms keep a number: the
+ * field draws it, reads what is typed - a dot or a comma, its `min`, `max` and `step` (1 a whole number, 0.01 two
+ * decimals) - and says why a text is not taken ("Write a whole number.", "The largest number is 6."); this keeps the
+ * forms' side of it as it was.
  *
- * What is typed stays as it is while it is no number this field takes - a letter, a second decimal point, more than
- * `decimalPlaces` decimals, outside `min` and `max` - and says why under the field, before the form's own check. Once
- * it is one, it is the value: the text it was typed as with a point for a comma, the way the forms send it on (the
- * save turns it into a number, admin-full-resource.model.ts); emptied, it is NaN, which `required` reads as empty. The
- * value is a model - `[(appNumber)]` for a form's field, `[appNumber]` with `(appNumberChange)` where the form decides
- * what a change does (an order that moves the rows). The field binds the text shown (`[value]="x.text()"`), the
- * phone's keyboard (`[inputmode]="x.inputmode()"`) and the words under it (`[error]="x.error()"`); it is a
- * FieldCheck of its own, counted as left when its input is.
+ * The value is a model of the form's own field - `[(appNumber)]`, or `[appNumber]` with `(appNumberChange)` where the
+ * form decides what a change does (an order that moves the rows) - and the field shows it: `[value]="x.number()"`.
+ * A number the field takes is the value; the box emptied, it is NaN, which `required` reads as empty; a text the field
+ * does not take keeps the last number taken, as these forms always had it, while the field says why. It is a
+ * FieldCheck of its own (`required`, the words under the field once it is left or a save asks - `[error]="x.error()"`,
+ * which gives way to the field's own words while the box holds a text that is no number), counted as left when the
+ * field is.
  */
-@Directive({ selector: 'anotoki-text-field[appNumber]', exportAs: 'appNumber' })
+@Directive({ selector: 'anotoki-number-field[appNumber]', exportAs: 'appNumber', host: { '(input)': 'onInput($event)' } })
 export class NumberFieldDirective extends FieldCheck {
   readonly value = model<NumberValue>(undefined, { alias: 'appNumber' });
-  /** Decimals taken, up to `decimalPlaces`; a whole number otherwise. */
-  readonly decimal = input(false, { transform: booleanAttribute });
-  /** Below nought taken. */
-  readonly negative = input(false, { transform: booleanAttribute });
-  readonly decimalPlaces = input(2);
-  readonly min = input<number | undefined>(undefined);
-  readonly max = input<number | undefined>(undefined);
 
   protected readonly checked = this.value;
 
-  private readonly _field = inject(TextFieldComponent, { self: true });
+  private readonly _field = inject(NumberFieldComponent, { self: true });
 
-  /** What is in the box while it is no number this field takes; null once it is. */
-  private readonly _draft = signal<string | null>(null);
+  /**
+   * What the box holds, as last typed; null until the person typed. Every keystroke, not only those that change the
+   * field's value: from an emptied box to a number out of range the value stays null, and says nothing.
+   */
+  private readonly _text = signal<string | null>(null);
 
-  /** The text the field shows. */
-  readonly text = computed(() => {
-    const draft = this._draft();
-    if (draft !== null) {
-      return draft;
-    }
+  /** The value as the kit's field takes it: a number, or null for none. */
+  readonly number = computed<number | null>(() => {
     const value = this.value();
-    return value === null || value === undefined || (typeof value === 'number' && Number.isNaN(value)) ? '' : String(value);
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
+    const number = typeof value === 'number' ? value : Number(value);
+    return Number.isFinite(number) ? number : null;
   });
 
-  readonly inputmode = computed(() => (this.decimal() ? 'decimal' : 'numeric'));
+  /** Nothing in the box: what was typed, or - before anything was - no number to show. */
+  private readonly _blank = computed(() => {
+    const text = this._text();
+    return text === null ? this.number() === null : text.trim() === '';
+  });
 
-  /** Why what is typed is not taken - said before the form's own check. */
-  private readonly _formatError = computed(() => (this._draft() === null ? null : this._rangeWords()));
-
-  override readonly error = computed(() => this._formatError() ?? this.missingError());
+  /** The required field's words while the box is empty; a text in it that is no number is the field's own to say. */
+  override readonly error = computed(() => (this._blank() ? this.missingError() : null));
 
   constructor() {
     super();
-    this._field.value.subscribe((text) => this._typed(text));
+    this._field.value.subscribe((number) => {
+      // Read as the field tells it, inside its own input event: the box holds the new text already.
+      this._text.set(this.element.querySelector('input')?.value ?? '');
+      if (number !== null) {
+        this.value.set(number);
+      } else if (this._blank()) {
+        this.value.set(NaN);
+      }
+    });
     this._field.blurred.subscribe(() => this.touch());
   }
 
-  private _typed(text: string): void {
-    let typed = text.trim();
-    if (typed.startsWith('.') || typed.startsWith(',')) {
-      typed = `0${typed}`;
+  /** The box typed in (its input event, after the field's own has read it). */
+  protected onInput(event: Event): void {
+    if (event.target instanceof HTMLInputElement) {
+      this._text.set(event.target.value);
     }
-    if (!this._takes(typed)) {
-      this._draft.set(text);
-      return;
-    }
-    this._draft.set(null);
-    this.value.set(typed === '' ? NaN : typed.replace(',', '.'));
-  }
-
-  private _takes(value: string): boolean {
-    if (value === '') {
-      return true;
-    }
-    if (/[.,].*[.,]/.test(value) || !/^-?\d*[.,]?\d*$/.test(value)) {
-      return false;
-    }
-    if (!this.negative() && value.startsWith('-')) {
-      return false;
-    }
-    if (!this.decimal() && /[.,]/.test(value)) {
-      return false;
-    }
-    const decimals = value.split(/[.,]/)[1];
-    if (this.decimal() && this.decimalPlaces() > 0 && decimals !== undefined && decimals.length > this.decimalPlaces()) {
-      return false;
-    }
-    if (value === '-' || /[.,]$/.test(value)) {
-      return false;
-    }
-    const number = Number(value.replace(',', '.'));
-    const min = this.min();
-    const max = this.max();
-    return !Number.isNaN(number) && (min === undefined || number >= min) && (max === undefined || number <= max);
-  }
-
-  private _rangeWords(): string {
-    const min = this.min();
-    const max = this.max();
-    const kind = this.decimal() ? 'A number' : 'A whole number';
-    if (min !== undefined && max !== undefined) {
-      return `${kind} from ${min} to ${max}`;
-    }
-    if (min !== undefined) {
-      return `${kind}, ${min} or more`;
-    }
-    if (max !== undefined) {
-      return `${kind}, ${max} or less`;
-    }
-    return `${kind}`;
   }
 }

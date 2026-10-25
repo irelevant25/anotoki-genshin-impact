@@ -3,7 +3,8 @@ import { ANOTOKI_DIALOG_DATA, DialogFooterDirective } from '@anotoki/lib/ui/dial
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { GuideApiService, GuideEditorEntry, GuideEditorLanguage } from '../../../../../api';
-import { HtmlEditorComponent } from '../../../../../shared/local-lib/components/html-editor/html-editor.component';
+import { HtmlEditorComponent } from '@anotoki/lib/ui/html-editor';
+import { EDITOR_FONTS, EDITOR_SWATCHES, RICH_TEXT_CLASSES } from '../../../../../shared/rich-text';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AbstractModalComponent } from '../../../../../shared/local-lib/abstract-modal.class';
 
@@ -76,6 +77,11 @@ export class GuideEditorModalComponent extends AbstractModalComponent {
    * a signal per language, and there is only ever one pane open.
    */
   readonly draft = model<string>('');
+
+  /** The editor (@anotoki/lib/ui/html-editor): the sizes, the fonts and the colours it always had, its HTML source, the preview beside it, the guides' "tag". */
+  readonly editorFonts = EDITOR_FONTS;
+  readonly editorSwatches = EDITOR_SWATCHES;
+  readonly richTextClasses = RICH_TEXT_CLASSES;
 
   readonly dirty = computed(() => {
     const before = this.initial();

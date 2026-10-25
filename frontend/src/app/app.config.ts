@@ -4,7 +4,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeSk from '@angular/common/locales/sk';
 import { provideAnotokiAdmin } from '@anotoki/lib/admin';
-import { ANOTOKI_AUTH_CLIENT_FACTORY, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from '@anotoki/lib/auth';
+import { ANOTOKI_AUTH_CLIENT_FACTORY, AccountPreferences, AnotokiAuth, anotokiAuthInterceptor, provideAnotokiAuth } from '@anotoki/lib/auth';
 import { provideAnotokiErrorReport } from '@anotoki/lib/error-report';
 import { provideAnotokiFeedback } from '@anotoki/lib/feedback';
 import { provideAnotokiLegal } from '@anotoki/lib/legal';
@@ -12,6 +12,7 @@ import { provideAnotokiMigrations, SiteStatus, siteStatusInterceptor } from '@an
 import { provideAnotokiSiteSettings, SiteSettings } from '@anotoki/lib/site-settings';
 import { provideAnotokiTranslations, TranslationService } from '@anotoki/lib/translations';
 import { provideAnotokiUi } from '@anotoki/lib/ui/config';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -23,6 +24,7 @@ import { ThemeToggleService } from './shared/local-lib/theme-toggle/theme-toggle
 import { AUTH_CALLBACK_PATH } from './shared/routing-definition';
 import { siteAdminToolsConfig } from './shared/site-admin-tools';
 import { siteAuthConfig } from './shared/site-auth';
+import { SiteDates } from './shared/site-dates';
 import { siteFeedbackConfig } from './shared/site-feedback';
 import { isLegalPage, siteLegalConfig } from './shared/site-legal';
 import { siteSettingsConfig } from './shared/site-settings';
@@ -188,9 +190,16 @@ export const appConfig: ApplicationConfig = {
     { provide: ANOTOKI_AUTH_CLIENT_FACTORY, useValue: clientNotingSilentSignIns },
     // The site's words (shared/site-translations.ts), and the library kit's
     // own - its buttons and dialogs on the status and admin pages - in the
-    // language on the page, from the same database (anotoki.*).
+    // language on the page, from the same database (anotoki.*). The kit's
+    // dates (@anotoki/lib/ui/dates) are in the page language's locale and in
+    // the account's date order and clock where it chose them; the API's times
+    // without a zone are read as this site always read them (shared/site-dates.ts).
     provideAnotokiTranslations(siteTranslationsConfig),
-    provideAnotokiUi(() => ({ ...inject(TranslationService).forKit() })),
+    provideAnotokiUi(() => {
+      const account = inject(AccountPreferences);
+      return { ...inject(TranslationService).forKit(), dateChoices: () => account.preferences() };
+    }),
+    { provide: AnotokiDates, useClass: SiteDates },
     // The visitors' feedback form (shared/site-feedback.ts) and its words, the
     // library's anotoki.feedback.*; the form itself loads when it is opened.
     provideAnotokiFeedback(siteFeedbackConfig),

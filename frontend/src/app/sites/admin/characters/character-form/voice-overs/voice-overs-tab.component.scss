@@ -19,6 +19,8 @@
 
 .vo-toolbar-actions {
   display: flex;
+  // On a phone the three buttons take two lines rather than widen the page past the window (461 px at 390).
+  flex-wrap: wrap;
   gap: var(--spacing-sm);
 }
 

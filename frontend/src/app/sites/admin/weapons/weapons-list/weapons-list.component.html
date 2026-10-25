@@ -8,9 +8,9 @@
     <div class="filter-bar">
         <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
         <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
-        <app-multiselect [label]="'Type'" [options]="typeOptions()" [(value)]="filterTypes"></app-multiselect>
+        <anotoki-multiselect label="Type" placeholder="— any —" [options]="typeOptions()" [(values)]="filterTypes" />
         <anotoki-select label="Rarity" placeholder="— any —" [options]="rarityChoices()" [(value)]="filterRarity" />
-        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <anotoki-multiselect label="Version" placeholder="— any —" [options]="versionOptions()" [(values)]="filterVersions" />
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
             @if (hasActiveFilter()) {
@@ -56,7 +56,7 @@
                         <td>{{ weapon.version ?? '—' }}</td>
                         <td class="col-stamp">
                             @if (weapon.created_at) {
-                                {{ weapon.created_at | appDate: 'datetime' }}
+                                {{ weapon.created_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ weapon.created_by?.username ?? 'system' }}</span>
                             } @else {
                                 —
@@ -64,7 +64,7 @@
                         </td>
                         <td class="col-stamp">
                             @if (weapon.updated_at) {
-                                {{ weapon.updated_at | appDate: 'datetime' }}
+                                {{ weapon.updated_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ weapon.updated_by?.username ?? 'system' }}</span>
                             } @else {
                                 —

@@ -8,8 +8,8 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AccordionComponent, DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
-import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /**
  * The rows the catalogue keeps for files that are not there any more.
@@ -28,7 +28,7 @@ import { FileSizePipe } from '../../../../shared/local-lib/pipes/file-size.pipe'
   selector: 'app-missing-modal',
   templateUrl: './missing-modal.component.html',
   styleUrls: ['./missing-modal.component.scss'],
-  imports: [AlertComponent, SpinnerComponent, TooltipDirective, DialogFooterDirective, ButtonComponent, AccordionComponent, DisclosureComponent, DecimalPipe, FileSizePipe, AppDatePipe],
+  imports: [AlertComponent, SpinnerComponent, TooltipDirective, DialogFooterDirective, ButtonComponent, AccordionComponent, DisclosureComponent, DecimalPipe, FileSizePipe, AnotokiDatePipe],
 })
 export class MissingModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);

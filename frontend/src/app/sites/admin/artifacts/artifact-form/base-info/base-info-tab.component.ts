@@ -2,6 +2,7 @@ import { Component, model } from '@angular/core';
 import { CheckboxComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
@@ -13,7 +14,7 @@ import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-f
   selector: 'app-artifact-base-info-tab',
   templateUrl: './base-info-tab.component.html',
   styleUrls: ['./base-info-tab.component.scss'],
-  imports: [TextFieldComponent, TextareaComponent, CheckboxComponent, FieldCheckDirective, NumberFieldDirective, EntityImageComponent],
+  imports: [TextFieldComponent, TextareaComponent, CheckboxComponent, FieldCheckDirective, NumberFieldComponent, NumberFieldDirective, EntityImageComponent],
 })
 export class BaseInfoTabComponent {
   artifact = model<ArtifactWrapper>(emptyArtifact());

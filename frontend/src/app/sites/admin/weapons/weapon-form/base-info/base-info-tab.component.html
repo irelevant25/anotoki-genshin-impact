@@ -17,7 +17,8 @@
             [choices]="weaponTypes()"
             #typeField="appChoice"
             [options]="typeField.options()"
-            [value]="typeField.text()"
+            [value]="typeField.selected()"
+            [none]="null"
             [error]="typeField.error()" />
         <anotoki-select
             label="Rarity *"
@@ -27,7 +28,8 @@
             [suffix]="' ★'"
             #rarityField="appChoice"
             [options]="rarityField.options()"
-            [value]="rarityField.text()"
+            [value]="rarityField.selected()"
+            [none]="null"
             [error]="rarityField.error()" />
         <anotoki-select
             label="Primary Stat"
@@ -36,7 +38,8 @@
             [choices]="stats()"
             #primaryStatField="appChoice"
             [options]="primaryStatField.options()"
-            [value]="primaryStatField.text()" />
+            [value]="primaryStatField.selected()"
+            [none]="null" />
         <anotoki-select
             label="Secondary Stat"
             placeholder="— none —"
@@ -44,22 +47,22 @@
             [choices]="stats()"
             #secondaryStatField="appChoice"
             [options]="secondaryStatField.options()"
-            [value]="secondaryStatField.text()" />
+            [value]="secondaryStatField.selected()"
+            [none]="null" />
         <anotoki-text-field label="Version" placeholder="e.g. 1.0" [value]="fieldText(weapon().data.version)" (valueChange)="weapon().data.version = $event" />
         <anotoki-date-field
             label="Release Date"
             [format]="dateFormat()"
             [value]="storedToFieldDate(weapon().data.release_date)"
             (valueChange)="weapon().data.release_date = fieldDateToStored($event)" />
-        <anotoki-text-field
+        <anotoki-number-field
             label="Game ID"
             placeholder="e.g. 12502"
             hint="The game&#8217;s own id."
             [min]="1"
             [(appNumber)]="weapon().data.game_id"
             #gameIdField="appNumber"
-            [value]="gameIdField.text()"
-            [inputmode]="gameIdField.inputmode()"
+            [value]="gameIdField.number()"
             [error]="gameIdField.error()" />
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { decodeReferences } from '@anotoki/lib/ui/rich-html';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { QuizAudioPlayerComponent } from '../shared/audio-player/audio-player.component';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
@@ -34,12 +35,12 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
   /**
    * The line as a question, without any markup - and without what the markup wraps: a dialogue
    * keeps its speakers as `<b>Ifa:</b>`, which would give the answer away. A `<br>` becomes a
-   * space so the words on either side of it stay apart.
+   * space so the words on either side of it stay apart. The text is HTML (kept through the
+   * family's allow-list, backend api/rich_text.php), so its character references are read as
+   * the words they stand for: "Berry &amp; Mint" is "Berry & Mint".
    */
   readonly questionText = computed(() =>
-    ((this.voiceOver()?.text_english as string | null | undefined) ?? '')
-      .replace(/<([a-z][a-z0-9]*)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
-      .replace(/<[^>]*>/g, ' ')
+    decodeReferences(((this.voiceOver()?.text_english as string | null | undefined) ?? '').replace(/<([a-z][a-z0-9]*)\b[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]*>/g, ' '))
       .replace(/\s+/g, ' ')
       .trim(),
   );

@@ -37,14 +37,13 @@
             >. Files are matched by title, not uploaded — rows will point at
             <code>{{ assetRoot() }}</code>
         </p>
-        <app-file
-            [label]="'Character voice over folder'"
-            [buttonText]="'Choose folder'"
-            [buttonOutline]="true"
-            [directory]="true"
+        <!-- The kit's file picker, a folder at a time: read here, in the browser - nothing of it is uploaded. -->
+        <anotoki-file-picker
+            label="Character voice over folder"
+            folder
             [disabled]="!!folderBlockedReason()"
-            (inputChange)="onAudioFolderSelect($event)"
-        ></app-file>
+            [files]="audioFolder()"
+            (filesChange)="onAudioFolderChosen($event)" />
 
         @if (folderBlockedReason(); as reason) {
             <p class="import-message warn">{{ reason }}</p>
@@ -102,7 +101,8 @@
                                 [choices]="languageOptions"
                                 #languageField="appChoice"
                                 [options]="languageField.options()"
-                                [value]="languageField.text()"
+                                [value]="languageField.selected()"
+                                [none]="null"
                             />
                             <anotoki-select
                                 label=""
@@ -113,7 +113,8 @@
                                 [choices]="voiceOverOptions()"
                                 #targetField="appChoice"
                                 [options]="targetField.options()"
-                                [value]="targetField.text()"
+                                [value]="targetField.selected()"
+                                [none]="null"
                             />
                             <button
                                 anotokiButton

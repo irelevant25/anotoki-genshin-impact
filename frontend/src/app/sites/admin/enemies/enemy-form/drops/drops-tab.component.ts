@@ -1,7 +1,8 @@
 import { Component, computed, input, model } from '@angular/core';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { SelectComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
+import { SelectComponent } from '@anotoki/lib/ui/forms';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
 import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
@@ -18,8 +19,8 @@ import { DROP_KIND_OPTIONS, DropEntryWrapper, DropGroupWrapper, DropKind, emptyD
   imports: [
     TooltipDirective,
     ButtonComponent,
-    TextFieldComponent,
     SelectComponent,
+    NumberFieldComponent,
     NumberFieldDirective,
     ChoiceFieldDirective,
     SegmentedComponent,

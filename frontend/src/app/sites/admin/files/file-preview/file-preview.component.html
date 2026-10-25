@@ -11,7 +11,7 @@
         } @else if (isAudio()) {
             <div class="preview-audio">
                 <span class="preview-audio-icon icon icon-music icon-size-8"></span>
-                <app-audio-player [src]="src()" [label]="asset.name" />
+                <anotoki-audio-player [src]="src()" [label]="asset.name" />
             </div>
         } @else {
             <p class="preview-error">No preview available for .{{ asset.extension }} files.</p>

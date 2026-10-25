@@ -3,7 +3,7 @@
         <div>
             <h2 class="stats-title">Asset library</h2>
             @if (stats(); as data) {
-                <p class="stats-meta">{{ data.total_files | number }} files · {{ data.total_bytes | fileSize }} · surveyed {{ surveyedAgo() }}</p>
+                <p class="stats-meta">{{ data.total_files | number }} files · {{ data.total_bytes | anotokiFileSize }} · surveyed {{ surveyedAgo() }}</p>
             }
         </div>
 
@@ -40,7 +40,7 @@
                                     <code>{{ format.extension }}</code>
                                 </td>
                                 <td class="col-number">{{ format.files | number }}</td>
-                                <td class="col-number">{{ format.bytes | fileSize }}</td>
+                                <td class="col-number">{{ format.bytes | anotokiFileSize }}</td>
                                 <td class="col-number format-percent">{{ format.percent }}%</td>
                             </tr>
                         }
@@ -49,7 +49,7 @@
                         <tr>
                             <td>Total</td>
                             <td class="col-number">{{ data.total_files | number }}</td>
-                            <td class="col-number">{{ data.total_bytes | fileSize }}</td>
+                            <td class="col-number">{{ data.total_bytes | anotokiFileSize }}</td>
                             <td class="col-number"></td>
                         </tr>
                     </tfoot>

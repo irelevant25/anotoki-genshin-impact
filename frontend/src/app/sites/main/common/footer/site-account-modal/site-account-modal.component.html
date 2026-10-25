@@ -32,7 +32,7 @@
             <div class="fact">
                 <span class="icon icon-calendar icon-size-4" aria-hidden="true"></span>
                 <span class="text-muted small fact-label">{{ "account.memberSince" | translate }}</span>
-                <span class="fw-500 fs-14 fact-value">{{ user.created_at | appDate }}</span>
+                <span class="fw-500 fs-14 fact-value">{{ user.created_at | anotokiDate: "numeric" }}</span>
             </div>
         }
     </div>

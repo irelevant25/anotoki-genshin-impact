@@ -11,7 +11,7 @@
         <p class="trash-summary">
             <strong>{{ total() | number }}</strong>
             file{{ total() === 1 ? "" : "s" }} taking
-            <strong>{{ bytes() | fileSize }}</strong>
+            <strong>{{ bytes() | anotokiFileSize }}</strong>
             . Removing them for good is the only way that space comes back.
         </p>
 
@@ -31,8 +31,8 @@
                     <tr>
                         <td>{{ file.name }}</td>
                         <td><code>{{ file.folder }}</code></td>
-                        <td>{{ file.deleted_at | appDate: "datetime" }}</td>
-                        <td class="col-number">{{ file.size | fileSize }}</td>
+                        <td>{{ file.deleted_at | anotokiDate: "datetime" }}</td>
+                        <td class="col-number">{{ file.size | anotokiFileSize }}</td>
                         <td class="col-actions">
                             <button
                                 anotokiButton

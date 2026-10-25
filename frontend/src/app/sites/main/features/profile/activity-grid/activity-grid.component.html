@@ -13,7 +13,7 @@
                 class="activity-cell"
                 [class.activity-future]="cell.future"
                 [class]="'activity-level-' + cell.level"
-                [title]="(cell.day | appDate) + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"></span>
+                [title]="(cell.day | anotokiDate: 'numeric') + ': ' + ('profile.activity.cell' | translate: { played: cell.played, wins: cell.wins })"></span>
         }
     </div>
 </div>

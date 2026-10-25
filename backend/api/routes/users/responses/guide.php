@@ -18,7 +18,7 @@ class GuideResponse extends ResponseShape
     public function __construct(
         public readonly string $guide,
         public readonly string $language,
-        /** Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through. */
+        /** Markup, kept through the family's allow-list (api/rich_text.php) and drawn through it again (<anotoki-rich-html>). */
         public readonly string $html,
     ) {}
 }

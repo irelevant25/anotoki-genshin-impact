@@ -7,27 +7,27 @@ import { ArtifactApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
-import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
+import { MultiselectComponent } from '@anotoki/lib/ui/multiselect';
+import { AdminListComponent, compareVersionsDesc, contains, includedIn, multiselectOptions } from '../../shared/admin-list.class';
 import { toBoolean } from '../../shared/admin-full-resource.model';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 
 @Component({
   selector: 'app-artifacts-list',
   templateUrl: './artifacts-list.component.html',
   styleUrls: ['./artifacts-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AnotokiDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
 })
 export class ArtifactsListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'artifacts';
 
   filterId = signal('');
   filterName = signal('');
-  filterRarities = signal<(string | number | boolean)[] | null | undefined>([]);
-  filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterRarities = signal<readonly string[]>([]);
+  filterVersions = signal<readonly string[]>([]);
 
-  readonly rarityOptions = ['5', '4', '3', '2', '1'];
-  versionOptions = this.distinct('version', compareVersionsDesc);
+  readonly rarityOptions = multiselectOptions(['5', '4', '3', '2', '1']);
+  versionOptions = this.choicesOf('version', compareVersionsDesc);
 
   sorted = computed(() => [...this.rows()].sort((a, b) => String(a.name).localeCompare(String(b.name))));
 

@@ -24,13 +24,20 @@
     }
 </div>
 
-<app-html-editor
-    [(value)]="draft"
-    [preview]="true"
-    [minHeight]="'420px'"
-    [displayError]="false"
-    [placeholder]="'Nothing here yet - this language reads the English'"
-    (inputChange)="commit()"></app-html-editor>
+<anotoki-html-editor
+    label="The guide's text"
+    hideLabel
+    [value]="draft()"
+    (valueChange)="draft.set($event); commit()"
+    [rows]="16"
+    sizes
+    [fonts]="editorFonts"
+    colors
+    [swatches]="editorSwatches"
+    source
+    preview
+    [classes]="richTextClasses"
+    placeholder="Nothing here yet - this language reads the English" />
 
 @if (error()) {
     <p class="save-error" role="alert">{{ error() }}</p>

@@ -11,7 +11,7 @@ import { SelectComponent } from '@anotoki/lib/ui/forms';
 import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { Theme, ThemeToggleService } from '../../../../../shared/local-lib/theme-toggle/theme-toggle.service';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
-import { AppDatePipe } from '../../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { SiteBackgroundsModalComponent } from '../site-backgrounds/site-backgrounds-modal.component';
 import { wallpaperName } from '../site-backgrounds/wallpapers';
 
@@ -23,7 +23,7 @@ import { wallpaperName } from '../site-backgrounds/wallpapers';
  * page for it. The appearance and the language are the account's too
  * (AccountPreferences): chosen here, they are saved to it, and every anotoki
  * site follows them. So are the dates and the clock, which the site writes
- * every date by (AppDatePipe) - but they are chosen on the IAM's account page
+ * every date by (AnotokiDatePipe) - but they are chosen on the IAM's account page
  * alone (the owner's decision of 2026-10-22). Signed out, the appearance and
  * the language are this device's. What is this site's own is the name and
  * role it knows the reader by - and the wallpaper behind the site, this
@@ -33,7 +33,7 @@ import { wallpaperName } from '../site-backgrounds/wallpapers';
   selector: 'app-site-account-modal',
   templateUrl: './site-account-modal.component.html',
   styleUrls: ['./site-account-modal.component.scss'],
-  imports: [ButtonComponent, DialogFooterDirective, SegmentedComponent, SelectComponent, TranslatePipe, AppDatePipe],
+  imports: [ButtonComponent, DialogFooterDirective, SegmentedComponent, SelectComponent, TranslatePipe, AnotokiDatePipe],
   providers: [],
 })
 export class SiteAccountModalComponent extends AbstractModalComponent {

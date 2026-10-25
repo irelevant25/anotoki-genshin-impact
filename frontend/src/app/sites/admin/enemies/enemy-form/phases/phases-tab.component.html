@@ -29,7 +29,8 @@
                         [choices]="enemyTypes()"
                         #typeField="appChoice"
                         [options]="typeField.options()"
-                        [value]="typeField.text()" />
+                        [value]="typeField.selected()"
+                        [none]="null" />
                     <anotoki-select
                         label="Family"
                         placeholder="— none —"
@@ -37,7 +38,8 @@
                         [choices]="enemyFamilies()"
                         #familyField="appChoice"
                         [options]="familyField.options()"
-                        [value]="familyField.text()" />
+                        [value]="familyField.selected()"
+                        [none]="null" />
                     <anotoki-select
                         label="Group"
                         placeholder="— none —"
@@ -45,7 +47,8 @@
                         [choices]="enemyGroups()"
                         #groupField="appChoice"
                         [options]="groupField.options()"
-                        [value]="groupField.text()" />
+                        [value]="groupField.selected()"
+                        [none]="null" />
                     <div class="grid-checkbox">
                         <anotoki-checkbox [checked]="!!phase.data.has_weakpoint" (checkedChange)="phase.data.has_weakpoint = $event">Has Weakpoint</anotoki-checkbox>
                     </div>

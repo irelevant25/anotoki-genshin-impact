@@ -17,13 +17,12 @@ import { CheckedField, FormChecks, isMissing } from './fields/form-checks';
   ],
 })
 /**
- * What the fields local-lib still draws itself share - the filters' multiselect, the button that chooses files or a
- * folder, the HTML editor, which anotoki-lib 0.11.0 brings to the kit (the owner's request of 2026-10-25), and genshin
- * then binds the kit's: its value (any type - a list of keys, files, markup), `required` and `validators`, and the
- * error said once the field is touched. Each is one of the fields its form checks before a save (FormChecks), as the
- * kit's fields are through FieldCheck's directives.
+ * The base of the one field local-lib still draws itself, the button that chooses files (app-file) - the multiselect,
+ * the folder's chooser and the HTML editor are the kit's since anotoki-lib 0.11.0 (the owner's request of 2026-10-25):
+ * its value (the files chosen), `required` and `validators`, and the error said once the field is touched. It is one
+ * of the fields its form checks before a save (FormChecks), as the kit's fields are through FieldCheck's directives.
  *
- * Drawn in the kit's look (components.scss), each with the label, the hint and the error worked out here (`kitLabel`,
+ * Drawn in the kit's look (components.scss), with the label, the hint and the error worked out here (`kitLabel`,
  * `kitHint`, `kitError`).
  */
 export abstract class AbstractInputComponent<T = string> extends AbstractRolesComponent implements Validator, CheckedField {

@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { LoaderComponent } from '../../../../../../shared/local-lib/components/loader/loader.component';
-import { AudioPlayerComponent } from '../../../../../../shared/local-lib/components/audio-player/audio-player.component';
+import { AudioPlayerComponent } from '@anotoki/lib/ui/audio-player';
 import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { CardComponent } from '@anotoki/lib/ui/card';

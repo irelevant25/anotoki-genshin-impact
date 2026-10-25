@@ -20,29 +20,20 @@
 
                         <!-- Conditions shared by every drop in the group -->
                         <div class="group-conditions">
-                            <anotoki-text-field
+                            <anotoki-number-field
                                 label="Level from"
                                 [min]="1"
                                 [(appNumber)]="group.level_from"
                                 #levelFromField="appNumber"
-                                [value]="levelFromField.text()"
-                                [inputmode]="levelFromField.inputmode()"
+                                [value]="levelFromField.number()"
                                 [error]="levelFromField.error()" />
-                            <anotoki-text-field
-                                label="Level to"
-                                [min]="1"
-                                [(appNumber)]="group.level_to"
-                                #levelToField="appNumber"
-                                [value]="levelToField.text()"
-                                [inputmode]="levelToField.inputmode()"
-                                [error]="levelToField.error()" />
-                            <anotoki-text-field
+                            <anotoki-number-field label="Level to" [min]="1" [(appNumber)]="group.level_to" #levelToField="appNumber" [value]="levelToField.number()" [error]="levelToField.error()" />
+                            <anotoki-number-field
                                 label="World level"
                                 [min]="0"
                                 [(appNumber)]="group.world_level"
                                 #worldLevelField="appNumber"
-                                [value]="worldLevelField.text()"
-                                [inputmode]="worldLevelField.inputmode()"
+                                [value]="worldLevelField.number()"
                                 [error]="worldLevelField.error()" />
                             <anotoki-select
                                 label="Domain level"
@@ -51,7 +42,8 @@
                                 [choices]="domainLevels()"
                                 #domainLevelField="appChoice"
                                 [options]="domainLevelField.options()"
-                                [value]="domainLevelField.text()" />
+                                [value]="domainLevelField.selected()"
+                                [none]="null" />
                         </div>
 
                         <div class="cost-section">
@@ -75,7 +67,8 @@
                                                 [choices]="materialOptions()"
                                                 #materialField="appChoice"
                                                 [options]="materialField.options()"
-                                                [value]="materialField.text()"
+                                                [value]="materialField.selected()"
+                                                [none]="null"
                                                 [error]="materialField.error()" />
                                             <div class="drop-card-img">
                                                 @if (materialName(entry); as name) {
@@ -92,7 +85,8 @@
                                                 [choices]="artifactOptions()"
                                                 #artifactField="appChoice"
                                                 [options]="artifactField.options()"
-                                                [value]="artifactField.text()"
+                                                [value]="artifactField.selected()"
+                                                [none]="null"
                                                 [error]="artifactField.error()" />
                                             <div class="drop-card-img">
                                                 @if (artifactIcon(entry); as src) {
@@ -102,39 +96,35 @@
                                         }
 
                                         <div class="drop-card-fields">
-                                            <anotoki-text-field
+                                            <anotoki-number-field
                                                 label="Qty from"
                                                 [min]="0"
                                                 [(appNumber)]="entry.data.quantity_from"
                                                 #quantityFromField="appNumber"
-                                                [value]="quantityFromField.text()"
-                                                [inputmode]="quantityFromField.inputmode()"
+                                                [value]="quantityFromField.number()"
                                                 [error]="quantityFromField.error()" />
-                                            <anotoki-text-field
+                                            <anotoki-number-field
                                                 label="Qty to"
                                                 [min]="0"
                                                 [(appNumber)]="entry.data.quantity_to"
                                                 #quantityToField="appNumber"
-                                                [value]="quantityToField.text()"
-                                                [inputmode]="quantityToField.inputmode()"
+                                                [value]="quantityToField.number()"
                                                 [error]="quantityToField.error()" />
-                                            <anotoki-text-field
+                                            <anotoki-number-field
                                                 label="Drop rate"
-                                                decimal
-                                                [decimalPlaces]="4"
+                                                [step]="0.0001"
+                                                [min]="0"
                                                 [(appNumber)]="entry.data.drop_rate"
                                                 #dropRateField="appNumber"
-                                                [value]="dropRateField.text()"
-                                                [inputmode]="dropRateField.inputmode()"
+                                                [value]="dropRateField.number()"
                                                 [error]="dropRateField.error()" />
-                                            <anotoki-text-field
+                                            <anotoki-number-field
                                                 label="Average"
-                                                decimal
-                                                [decimalPlaces]="4"
+                                                [step]="0.0001"
+                                                [min]="0"
                                                 [(appNumber)]="entry.data.average"
                                                 #averageField="appNumber"
-                                                [value]="averageField.text()"
-                                                [inputmode]="averageField.inputmode()"
+                                                [value]="averageField.number()"
                                                 [error]="averageField.error()" />
                                         </div>
 

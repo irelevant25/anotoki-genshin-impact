@@ -15,10 +15,10 @@
                 <p>In force: the built-in levels. Nothing is saved.</p>
             } @else if (view()?.problems?.length) {
                 <p class="levels-state--broken">
-                    Saved {{ view()?.updated_at | appDate: "datetime" }}, but the rules no longer take these levels: every quiz plays the built-in levels until they are mended and saved, or reset.
+                    Saved {{ view()?.updated_at | anotokiDate: "datetime" }}, but the rules no longer take these levels: every quiz plays the built-in levels until they are mended and saved, or reset.
                 </p>
             } @else {
-                <p>In force: the levels saved {{ view()?.updated_at | appDate: "datetime" }}.</p>
+                <p>In force: the levels saved {{ view()?.updated_at | anotokiDate: "datetime" }}.</p>
             }
         </section>
 

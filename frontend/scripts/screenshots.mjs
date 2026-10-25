@@ -150,10 +150,10 @@ const hostingNamed = (page) =>
 
 /**
  * A stored text's markup never runs where it is drawn: Hu Tao's voice-over lines are seeded with an image whose
- * onerror marks the page (backend/tests/tools/browser-env.php) - what anybody who may edit could save, the server
- * keeping a text as it was written. Drawn through the allow-list (rich-html.ts: the HTML editor as it loads the line,
- * the character page's app-rich-text) it never runs; a page where it ran is one to look at. Given a moment, as an
- * image's error comes after it is drawn.
+ * onerror marks the page (backend/tests/tools/browser-env.php) - what a database written before the server kept every
+ * text through the allow-list (backend api/rich_text.php) may still hold. Drawn through the family's allow-list
+ * (@anotoki/lib/ui/rich-html: the HTML editor as it loads the line, the character page's <anotoki-rich-html>) it never
+ * runs; a page where it ran is one to look at. Given a moment, as an image's error comes after it is drawn.
  */
 const storedMarkupInert = async (page) => {
   await sleep(1500);
@@ -219,7 +219,7 @@ const accountOpen = steps(click('app-footer button', '^(Account|Účet)$'), (pag
  * The account panel of somebody signed in whose anotoki account keeps the preferences (ACCOUNT_KEPT): the appearance,
  * the language and the wallpaper to choose, and the line saying the first two are the account's - no dates or clock,
  * which only the IAM's account page sets since the owner's decision of 2026-10-22 - and the member-since date written
- * in the account's own order all the same (AppDatePipe): `ymd_dash` in English, `dmy_dot` in Slovak. Anything else is
+ * in the account's own order all the same (@anotoki/lib/ui/dates): `ymd_dash` in English, `dmy_dot` in Slovak. Anything else is
  * said.
  */
 const accountPanelKept = async (page) => {
@@ -368,23 +368,25 @@ const minesweeperBoard =
  * of July. Anything else is said.
  */
 const characterFacts = async (page) => {
-  if (!(await waitFor(page, "!!document.querySelector('app-database-character-detail .character-info')", 15000))) {
+  if (!(await waitFor(page, "!!document.querySelector('app-database-character-detail app-detail-facts .fact')", 15000))) {
     return false;
   }
   const facts = await page.evaluate(`(() => {
-    const rows = [...document.querySelectorAll('app-database-character-detail .character-info > div')];
-    const row = (label) => rows.find((div) => new RegExp(label).test(div.querySelector('.info-label')?.textContent ?? ''));
+    const rows = [...document.querySelectorAll('app-database-character-detail app-detail-facts .fact')];
+    const row = (label) => rows.find((div) => new RegExp(label).test(div.querySelector('.fact-label')?.textContent ?? ''));
     const dish = row('^(Special dish|Špeciálne jedlo)');
     return {
       lang: document.documentElement.lang,
-      dish: dish?.querySelector('.info-value')?.textContent.replace(/\\s+/g, ' ').trim() ?? null,
-      picture: decodeURIComponent(dish?.querySelector('img.dish-icon')?.getAttribute('src') ?? ''),
-      birthday: row('^(Birthday|Narodeniny)')?.querySelector('.info-value')?.textContent.trim() ?? null,
+      dish: dish?.querySelector('.fact-value')?.textContent.replace(/\\s+/g, ' ').trim() ?? null,
+      picture: decodeURIComponent(dish?.querySelector('img.fact-icon')?.getAttribute('src') ?? ''),
+      // The birthday is one of the hero's tiles since the detail pages' new look.
+      birthday: [...document.querySelectorAll('app-database-character-detail app-detail-hero .stat')].find((div) => /^(Birthday|Narodeniny)$/.test(div.querySelector('.stat-label')?.textContent.trim() ?? ''))?.querySelector('.stat-value')?.textContent.trim() ?? null,
     };
   })()`);
-  // English as the page's locale orders it: "15 July" where it is British, "July 15" where it is not.
+  // English as the page's locale orders it: "15 July" where it is British, "July 15" where it is not. The picture's
+  // address as the page writes it: the assets' folder, wherever the site's root puts it.
   const wanted = { dish: 'Ghostly March', picture: 'assets/foods/GHOSTLY_MARCH - normal.avif', birthday: { en: ['15 July', 'July 15'], sk: ['15. júla'] }[facts.lang] ?? [] };
-  if (facts.dish !== wanted.dish || facts.picture !== wanted.picture || !wanted.birthday.includes(facts.birthday)) {
+  if (facts.dish !== wanted.dish || !facts.picture.endsWith(wanted.picture) || !wanted.birthday.includes(facts.birthday)) {
     heard.push(`the character page's facts: ${JSON.stringify(facts)}, not ${JSON.stringify(wanted)}`);
   }
   return true;
@@ -584,8 +586,52 @@ const savedAndBack = async (page) => {
   return true;
 };
 
+/** What the administrators announce, in both of the site's languages. */
+const ANNOUNCEMENT_MESSAGE = { en: 'New banners arrive on Wednesday - the Daily keeps your streak meanwhile.', sk: 'Nové bannery prídu v stredu - Denný kvíz ti dovtedy drží sériu.' };
+
+/**
+ * robots.txt and sitemap.xml, as the throwaway site's PHP answers them (backend/api/robots.php - the copy has the
+ * site's address in config/app.local.php, as the host must): robots.txt keeping crawlers out of /staff and naming
+ * the sitemap at the site's own address; the sitemap listing the public pages and the database's entries with their
+ * own pages, each at that address. Both kept beside the screenshots; anything else is said.
+ */
+const robotsAndSitemap = async (page) => {
+  const read = await page.evaluate(
+    `Promise.all(['/robots.txt', '/sitemap.xml'].map((path) => fetch(path).then(async (answer) => ({ path, status: answer.status, type: answer.headers.get('Content-Type'), text: await answer.text() }))))`,
+  );
+  for (const answer of read) {
+    writeFileSync(join(out, answer.path.slice(1)), answer.text);
+    noted.push(`${answer.path}: ${answer.status} ${answer.type}, ${answer.text.length} characters`);
+  }
+  const [robots, sitemap] = read;
+  const locs = [...sitemap.text.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) => match[1]);
+  noted.push(`the sitemap's addresses: ${locs.length}, ${locs.filter((loc) => loc.includes('/database/')).length} under /database/`);
+  if (robots.status !== 200 || !/Disallow: \/staff/.test(robots.text) || !robots.text.includes(`Sitemap: ${origin}/sitemap.xml`)) {
+    heard.push(`robots.txt: ${robots.status} ${JSON.stringify(robots.text.slice(0, 300))}`);
+  }
+  if (sitemap.status !== 200 || !locs.includes(`${origin}/`) || !locs.some((loc) => /\/database\/characters\/\d+$/.test(loc)) || locs.some((loc) => !loc.startsWith(origin))) {
+    heard.push(`sitemap.xml: ${sitemap.status}, ${locs.length} addresses: ${locs.slice(0, 6).join(' ')}`);
+  }
+  return true;
+};
+
 const MAIN = [
   { name: 'main-home', path: '/', focus: 4 },
+  // The administrators' announcement (the site settings' second part): the bar over the site's header, in the
+  // reader's language - the browser answering GET /api/site-settings as the API does once one is shown.
+  {
+    name: 'main-announcement',
+    path: '/',
+    pairings: true,
+    answers: { '/api/site-settings': { status: 200, body: { maintenance: false, announcement: { level: 'info', message: ANNOUNCEMENT_MESSAGE }, pages: [] } } },
+    then: (page) =>
+      waitFor(
+        page,
+        `!!document.querySelector('anotoki-announcement') && [${JSON.stringify(ANNOUNCEMENT_MESSAGE.en)}, ${JSON.stringify(ANNOUNCEMENT_MESSAGE.sk)}].some((words) => document.querySelector('anotoki-announcement').textContent.includes(words))`,
+        15000,
+      ),
+  },
+  { name: 'main-robots-sitemap', path: '/', widths: [1280], then: robotsAndSitemap },
   { name: 'main-daily', path: '/daily' },
   { name: 'main-quizzes', path: '/quizzes' },
   { name: 'main-quiz-banners', path: '/quizzes/banners' },
@@ -870,7 +916,7 @@ const ADMIN = [
   { name: 'admin-enemies-edit-drops', path: '/admin/enemies/1/edit', then: steps(click('[role=tab]', '^Drops$'), press('anotoki-disclosure .anotoki-disclosure__button')) },
   // The overlays the panel's pages open: a list's filter of several choices, the question before a delete
   // (answered by nobody - the shot is taken with it open), and on a phone the navigation's drawer.
-  { name: 'admin-characters-filter', path: '/admin/characters', then: press('.multiselect-trigger') },
+  { name: 'admin-characters-filter', path: '/admin/characters', then: press('.anotoki-multiselect__trigger') },
   { name: 'admin-characters-delete', path: '/admin/characters', then: press('button[aria-label="Delete"]') },
   { name: 'admin-menu', path: '/admin/dashboard', data: '.feed-title', widths: [390], then: click('button', '^Menu$') },
   { name: 'admin-image-upload', path: '/admin/characters/1/edit', then: click('button', '^(Upload|Replace)$') },
@@ -978,7 +1024,7 @@ const picture = (folder, name) => `../assets/${folder}/${name}.avif`;
 function formStepsInPage() {
   const words = (element) => (element?.textContent ?? '').replace(/\s+/g, ' ').trim();
   const pause = (ms) => new Promise((done) => setTimeout(done, ms));
-  const FIELDS = 'anotoki-text-field, anotoki-textarea, anotoki-select, anotoki-date-field, anotoki-chip-group';
+  const FIELDS = 'anotoki-text-field, anotoki-number-field, anotoki-textarea, anotoki-select, anotoki-date-field, anotoki-chip-group';
   const labelOf = (host) => words(host.querySelector('.anotoki-field__label'));
   const field = (label, nth) => [...document.querySelectorAll(FIELDS)].filter((host) => labelOf(host) === label)[nth ?? 0] ?? null;
   const press = (element) => {
@@ -1500,6 +1546,18 @@ const adminFooter =
     return true;
   };
 
+/** The closed sign: the status page alone, saying what the administrators wrote - in the page's language. */
+const maintenanceSaid = (page) =>
+  steps(statusAlone, (open) =>
+    waitFor(
+      open,
+      `[MAINTENANCE_EN, MAINTENANCE_SK].some((words) => document.body.textContent.includes(words))`
+        .replace('MAINTENANCE_EN', JSON.stringify(MAINTENANCE_MESSAGE.en))
+        .replace('MAINTENANCE_SK', JSON.stringify(MAINTENANCE_MESSAGE.sk)),
+      15000,
+    ),
+  )(page);
+
 /** A dialog the footer opened, drawn. */
 const dialogOpen = (page) => waitFor(page, "!!document.querySelector('dialog[open]')", 15000);
 
@@ -1509,6 +1567,8 @@ const STATUS = [
   { name: 'status-update-waiting-privacy', path: '/privacy', closed: 'update_pending', pairings: true, then: statusAlone },
   { name: 'status-unavailable', path: '/', closed: 'unavailable', pairings: true, then: statusAlone, reopened: triesAgain(publicFrameBack) },
   { name: 'status-not-set-up', path: '/', closed: 'not_set_up', pairings: true, then: statusAlone, reopened: triesAgain(publicFrameBack) },
+  // Closed for maintenance by its administrators: the library's closed sign, alone, with what they wrote.
+  { name: 'status-maintenance', path: '/', closed: 'maintenance', pairings: true, then: maintenanceSaid },
 ];
 
 /** The site's ADMIN while an update waits: the status page alone anywhere but on Migrations, which keeps the panel's frame - its footer without Feedback. */
@@ -1697,7 +1757,7 @@ const TYPES = {
 function serveSite(root) {
   const server = createServer((req, res) => {
     const path = decodeURIComponent(new URL(req.url, origin).pathname);
-    if (/^\/(api|\.well-known|uploads)(\/|$)/.test(path)) {
+    if (/^\/(api|\.well-known|uploads)(\/|$)/.test(path) || path === '/robots.txt' || path === '/sitemap.xml') {
       const forward = request({ host: '127.0.0.1', port: API, path: req.url, method: req.method, headers: req.headers }, (answer) => {
         res.writeHead(answer.statusCode ?? 502, answer.headers);
         answer.pipe(res);
@@ -1789,6 +1849,9 @@ function errorLogLines() {
  * made so without touching its settings or its database. Null: the API answers.
  */
 let siteAnswers = null;
+/** What the administrators wrote for the maintenance page, in both of the site's languages. */
+const MAINTENANCE_MESSAGE = { en: 'We are moving the database to a new server. Back by six.', sk: 'Sťahujeme databázu na nový server. Späť do šiestej.' };
+
 const ANSWERS = {
   // The gate lets every request through to a database that does not answer: a 500 of the error handler's.
   unavailable: { state: { state: 'unavailable', installed: true }, status: 500, body: { error: 'Internal Server Error' } },
@@ -1796,6 +1859,13 @@ const ANSWERS = {
     state: { state: 'not_set_up', installed: false },
     status: 503,
     body: { code: 'not_set_up', installed: false, message: 'This site is not set up yet. Its setup page connects it to its database.', setup: '/setup.php' },
+  },
+  // Closed by its administrators (the site settings' Getting in): the status says so with what they wrote, and the
+  // gate answers everybody else 503 maintenance (the library's SiteGate).
+  maintenance: {
+    state: { state: 'maintenance', installed: true, maintenance_message: MAINTENANCE_MESSAGE },
+    status: 503,
+    body: { code: 'maintenance', message: 'The site is closed for maintenance. Try again later.', maintenance_message: MAINTENANCE_MESSAGE },
   },
 };
 
@@ -2185,7 +2255,7 @@ try {
     throw new Error(`There is no build in ${build}: run without --no-build.`);
   }
 
-  const env = JSON.parse(execFileSync(php, ['tests/tools/browser-env.php', 'up', work, issuer], { cwd: backend, encoding: 'utf8' }).trim().split('\n').pop());
+  const env = JSON.parse(execFileSync(php, ['tests/tools/browser-env.php', 'up', work, issuer, origin], { cwd: backend, encoding: 'utf8' }).trim().split('\n').pop());
   database = env.database;
   backendCopy = env.backend;
   const iamDir = join(work, 'stand-in-iam');

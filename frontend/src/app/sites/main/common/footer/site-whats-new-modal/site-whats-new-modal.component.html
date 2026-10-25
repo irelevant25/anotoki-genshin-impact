@@ -5,7 +5,7 @@
     <div class="whats-new-band">
         <span class="icon icon-stars whats-new-mark" aria-hidden="true"></span>
         <span class="whats-new-version">v{{ entry.version }}</span>
-        <time class="whats-new-date" [attr.datetime]="entry.date">{{ entry.date | appDate }}</time>
+        <time class="whats-new-date" [attr.datetime]="entry.date">{{ entry.date | anotokiDate: 'numeric' }}</time>
     </div>
 
     <!-- role="list": without its bullets, WebKit stops reading it as

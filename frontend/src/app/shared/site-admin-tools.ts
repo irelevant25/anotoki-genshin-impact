@@ -1,18 +1,20 @@
-import { Injector, inject, runInInjectionContext } from '@angular/core';
+import { Injector, inject } from '@angular/core';
 import { AnotokiAdminConfig } from '@anotoki/lib/admin';
 import { TranslationService } from '@anotoki/lib/translations';
 import { ConfigService } from './local-lib/services/config.service';
 import { SecurityService } from './local-lib/services/security.service';
-import { AppDatePipe } from './local-lib/pipes/date.pipe';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { FEEDBACK_FIELD_NAMES } from './site-feedback';
 
 /** The Migrations page (@anotoki/lib/migrations/page), offered while a table a page needs waits for an update. */
 export const MIGRATIONS_ROUTE = '/admin/migrations';
 
-/** A moment as the admin panel writes it: the account's date order and clock (AppDatePipe), as on the Migrations page. */
+/**
+ * A moment as the admin panel writes it (@anotoki/lib/ui/dates): the account's date order and clock where it chose
+ * them, else the page language's way - English in the panel - as on the Migrations page.
+ */
 export function accountDates(injector: Injector): (iso: string) => string {
-  let dates: AppDatePipe | null = null;
-  return (iso) => (dates ??= runInInjectionContext(injector, () => new AppDatePipe())).transform(iso, 'datetime');
+  return (iso) => injector.get(AnotokiDates).format(iso, 'datetime');
 }
 
 /**

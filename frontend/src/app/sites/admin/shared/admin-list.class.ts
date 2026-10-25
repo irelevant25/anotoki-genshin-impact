@@ -1,6 +1,8 @@
 import { computed, Directive, inject, signal, Signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
+import type { MultiselectOption } from '@anotoki/lib/ui/multiselect';
+import { matchesSearch } from '@anotoki/lib/ui/search';
 import { ToastService } from '@anotoki/lib/ui/toast';
 
 /** Sorts version strings numerically ("1.10" after "1.9"), newest first. */
@@ -20,23 +22,20 @@ export function compareVersionsDesc(a: string | undefined, b: string | undefined
   return 0;
 }
 
-/** Value read from a filter input, normalised for a case-insensitive "contains". */
+/** A filter's text found in a value: every word of it, anywhere, accents and case aside (@anotoki/lib/ui/search); nothing typed finds everything. */
 export function contains(haystack: unknown, needle: unknown): boolean {
-  const text = String(needle ?? '')
-    .trim()
-    .toLowerCase();
-  return (
-    !text ||
-    String(haystack ?? '')
-      .toLowerCase()
-      .includes(text)
-  );
+  return matchesSearch(String(haystack ?? ''), String(needle ?? ''));
 }
 
-/** Multiselect values arrive as mixed primitives; compare them as strings. */
-export function includedIn(value: unknown, selected: (string | number | boolean)[] | null | undefined): boolean {
+/** A value among a multiselect's chosen ones, compared as texts; nothing chosen lets every value through. */
+export function includedIn(value: unknown, selected: readonly unknown[] | null | undefined): boolean {
   const list = (selected ?? []).map((entry) => String(entry));
   return list.length === 0 || list.includes(String(value ?? ''));
+}
+
+/** A multiselect's options (@anotoki/lib/ui/multiselect) out of the texts a list offers: each its own value and name. */
+export function multiselectOptions(values: readonly string[]): MultiselectOption[] {
+  return values.map((value) => ({ value, label: value }));
 }
 
 /**
@@ -102,6 +101,12 @@ export abstract class AdminListComponent<TRow extends { id: number }> {
         .map((value) => String(value));
       return [...new Set(values)].sort(sort);
     });
+  }
+
+  /** distinct(), as a multiselect's options. */
+  protected choicesOf(field: keyof TRow & string, sort?: (a: string, b: string) => number): Signal<MultiselectOption[]> {
+    const values = this.distinct(field, sort);
+    return computed(() => multiselectOptions(values()));
   }
 
   getRarityStars(rarity: number | null | undefined): string {

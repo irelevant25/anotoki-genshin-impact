@@ -39,7 +39,7 @@
             @for (entry of characters(); track entry.uid; let i = $index; let first = $first; let last = $last) {
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
-                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— character —" [(appChoice)]="entry.id" [choices]="characterOptions()" #characterField="appChoice" [options]="characterField.options()" [value]="characterField.text()" [error]="characterField.error()" />
+                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— character —" [(appChoice)]="entry.id" [choices]="characterOptions()" #characterField="appChoice" [options]="characterField.options()" [value]="characterField.selected()" [none]="null" [error]="characterField.error()" />
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('characters', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('characters', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('characters', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>
@@ -55,7 +55,7 @@
             @for (entry of weapons(); track entry.uid; let i = $index; let first = $first; let last = $last) {
                 <div class="featured-row">
                     <span class="featured-order">{{ i + 1 }}</span>
-                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— weapon —" [(appChoice)]="entry.id" [choices]="weaponOptions()" #weaponField="appChoice" [options]="weaponField.options()" [value]="weaponField.text()" [error]="weaponField.error()" />
+                    <anotoki-select class="featured-picker" label="" hideLabel required placeholder="— weapon —" [(appChoice)]="entry.id" [choices]="weaponOptions()" #weaponField="appChoice" [options]="weaponField.options()" [value]="weaponField.selected()" [none]="null" [error]="weaponField.error()" />
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="first" aria-label="Move up" anotokiTooltip="Move up" (click)="move('weapons', entry, -1)"><span class="icon icon-chevron-up icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="ghost" size="sm" iconOnly [disabled]="last" aria-label="Move down" anotokiTooltip="Move down" (click)="move('weapons', entry, 1)"><span class="icon icon-chevron-down icon-size-3" aria-hidden="true"></span></button>
                     <button anotokiButton variant="danger-ghost" size="sm" iconOnly aria-label="Remove" anotokiTooltip="Remove" (click)="remove('weapons', entry)"><span class="icon icon-delete" aria-hidden="true"></span></button>

@@ -14,7 +14,8 @@
                         [choices]="typeOptionsFor(piece)"
                         #typeField="appChoice"
                         [options]="typeField.options()"
-                        [value]="typeField.text()"
+                        [value]="typeField.selected()"
+                        [none]="null"
                         [error]="typeField.error()" />
                     <anotoki-text-field
                         label="Name *"

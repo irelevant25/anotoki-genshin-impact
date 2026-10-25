@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { SelectComponent, TextareaComponent, TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
+import { MultiselectComponent } from '@anotoki/lib/ui/multiselect';
 import { FieldCheckDirective } from '../../../../shared/local-lib/fields/field-check';
 import { fieldText } from '../../../../shared/local-lib/fields/field-text';
 import { ChoiceFieldDirective } from '../../../../shared/local-lib/fields/choice-field.directive';
@@ -17,6 +17,7 @@ import { buildFullFormData, listFromColumn, listText, listToSend, revokePicked, 
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { toAssetLiteralName } from '../../shared/asset-name';
+import { multiselectOptions } from '../../shared/admin-list.class';
 
 @Component({
   selector: 'app-material-form',
@@ -47,10 +48,12 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   /** Picked but not uploaded yet; sent when the form is saved. */
   pendingIcon = signal<PickedImage | undefined>(undefined);
   /** Extra groups, stored in the join table alongside the primary `group`. */
-  groups = signal<(string | number | boolean)[]>([]);
+  groups = signal<readonly string[]>([]);
 
   materialTypes = signal<string[]>([]);
   materialGroups = signal<string[]>([]);
+  /** The groups as the multiselect lists them. */
+  readonly groupChoices = computed(() => multiselectOptions(this.materialGroups()));
   regions = signal<string[]>([]);
   rarities = signal<string[]>([]);
 

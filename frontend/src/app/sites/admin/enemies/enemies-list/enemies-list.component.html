@@ -8,7 +8,7 @@
     <div class="filter-bar">
         <anotoki-text-field label="ID" placeholder="contains" [(value)]="filterId" />
         <anotoki-text-field label="Name" placeholder="contains" [(value)]="filterName" />
-        <app-multiselect [label]="'Version'" [options]="versionOptions()" [(value)]="filterVersions"></app-multiselect>
+        <anotoki-multiselect label="Version" placeholder="— any —" [options]="versionOptions()" [(values)]="filterVersions" />
         <div class="filter-summary">
             <span class="filter-count">{{ filtered().length }} / {{ rows().length }}</span>
             @if (hasActiveFilter()) {
@@ -48,7 +48,7 @@
                         <td>{{ enemy.version ?? '—' }}</td>
                         <td class="col-stamp">
                             @if (enemy.created_at) {
-                                {{ enemy.created_at | appDate: 'datetime' }}
+                                {{ enemy.created_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ enemy.created_by?.username ?? 'system' }}</span>
                             } @else {
                                 —
@@ -56,7 +56,7 @@
                         </td>
                         <td class="col-stamp">
                             @if (enemy.updated_at) {
-                                {{ enemy.updated_at | appDate: 'datetime' }}
+                                {{ enemy.updated_at | anotokiDate: 'datetime' }}
                                 <span class="stamp-who">{{ enemy.updated_by?.username ?? 'system' }}</span>
                             } @else {
                                 —

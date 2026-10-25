@@ -7,7 +7,7 @@ import { FileCategory, FileCategoryApiService } from '../../../api';
 import { AbstractModalComponent } from '../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
-import { FileSizePipe } from '../../../shared/local-lib/pipes/file-size.pipe';
+import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
 /**
  * The kinds of asset there are, and which folder each kind lives in.

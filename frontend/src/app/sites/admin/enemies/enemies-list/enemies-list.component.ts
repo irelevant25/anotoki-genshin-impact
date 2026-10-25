@@ -7,24 +7,24 @@ import { EnemyApiService } from '../../../../api';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextFieldComponent } from '@anotoki/lib/ui/forms';
-import { MultiselectComponent } from '../../../../shared/local-lib/components/multiselect/multiselect.component';
+import { MultiselectComponent } from '@anotoki/lib/ui/multiselect';
 import { AdminListComponent, compareVersionsDesc, contains, includedIn } from '../../shared/admin-list.class';
-import { AppDatePipe } from '../../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 
 @Component({
   selector: 'app-enemies-list',
   templateUrl: './enemies-list.component.html',
   styleUrls: ['./enemies-list.component.scss'],
-  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AppDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
+  imports: [PageHeaderComponent, SpinnerComponent, TooltipDirective, AnotokiDatePipe, RouterLink, ButtonComponent, TextFieldComponent, MultiselectComponent],
 })
 export class EnemiesListComponent extends AdminListComponent<any> implements OnInit {
   readonly entityLabel = 'enemies';
 
   filterId = signal('');
   filterName = signal('');
-  filterVersions = signal<(string | number | boolean)[] | null | undefined>([]);
+  filterVersions = signal<readonly string[]>([]);
 
-  versionOptions = this.distinct('version', compareVersionsDesc);
+  versionOptions = this.choicesOf('version', compareVersionsDesc);
 
   sorted = computed(() => [...this.rows()].sort((a, b) => compareVersionsDesc(a.version, b.version) || String(a.name).localeCompare(String(b.name))));
 

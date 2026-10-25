@@ -9,7 +9,7 @@ import { CodeEditorComponent } from '@anotoki/lib/ui/code-editor';
 import { ConfirmService } from '@anotoki/lib/ui/dialog';
 import { ToastService } from '@anotoki/lib/ui/toast';
 import { QuizLevelApiService, QuizLevelProblem, QuizLevelsEditorView } from '../../../api';
-import { AppDatePipe } from '../../../shared/local-lib/pipes/date.pipe';
+import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { QUIZ_LEVELS, usableLevels } from '../../main/features/quizzes/shared/quiz-levels';
 import { LevelWordsWarning, levelWordsWarnings, levelsText, placeOf } from './quiz-level-words';
 
@@ -53,7 +53,7 @@ function failureText(error: unknown, otherwise: string): string {
   selector: 'app-admin-quiz-levels',
   templateUrl: './quiz-levels.component.html',
   styleUrls: ['./quiz-levels.component.scss'],
-  imports: [PageHeaderComponent, ErrorStateComponent, SpinnerComponent, ButtonComponent, CodeEditorComponent, AppDatePipe, RouterLink],
+  imports: [PageHeaderComponent, ErrorStateComponent, SpinnerComponent, ButtonComponent, CodeEditorComponent, AnotokiDatePipe, RouterLink],
 })
 export class QuizLevelsComponent implements OnInit, OnDestroy {
   private readonly _api = inject(QuizLevelApiService);

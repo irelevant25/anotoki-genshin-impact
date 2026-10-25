@@ -1,10 +1,10 @@
-import { Injector, inject, runInInjectionContext } from '@angular/core';
+import { Injector, inject } from '@angular/core';
 import { AnotokiMigrationsConfig } from '@anotoki/lib/migrations';
 import { SiteSettings } from '@anotoki/lib/site-settings';
 import { siteStatusWords, StatusWords, TranslationService } from '@anotoki/lib/translations';
 import { SecurityService } from './local-lib/services/security.service';
 import { PublicSettingsService } from './local-lib/services/public-settings.service';
-import { AppDatePipe } from './local-lib/pipes/date.pipe';
+import { AnotokiDates } from '@anotoki/lib/ui/dates';
 import { STAFF_PATH } from './routing-definition';
 
 /**
@@ -37,7 +37,6 @@ import { STAFF_PATH } from './routing-definition';
 export function siteStatusConfig(): AnotokiMigrationsConfig {
   const injector = inject(Injector);
   const security = inject(SecurityService);
-  let dates: AppDatePipe | null = null;
 
   return {
     statusUrl: '/api/site-status',
@@ -60,7 +59,7 @@ export function siteStatusConfig(): AnotokiMigrationsConfig {
       return siteStatusWords(injector.get(TranslationService));
     },
     // The Migrations page's dates, written the way this reader writes dates (the account's order and clock).
-    formatDate: (iso) => (dates ??= runInInjectionContext(injector, () => new AppDatePipe())).transform(iso, 'datetime'),
+    formatDate: (iso) => injector.get(AnotokiDates).format(iso, 'datetime'),
     // An Apply has left nothing to run: the boot's settings, the site settings and the strings a migration may have
     // brought.
     onUpToDate: (): void => {

@@ -4,6 +4,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
 import { TextFieldComponent } from '@anotoki/lib/ui/forms';
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
+import { NumberFieldComponent } from '@anotoki/lib/ui/number-field';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { TabsComponent } from '@anotoki/lib/ui/tabs';
 import { AccordionComponent, DisclosureComponent, DisclosurePanelDirective } from '@anotoki/lib/ui/disclosure';
@@ -22,7 +23,18 @@ interface VoiceOverGroup {
   selector: 'app-voice-overs-tab',
   templateUrl: './voice-overs-tab.component.html',
   styleUrls: ['./voice-overs-tab.component.scss'],
-  imports: [TooltipDirective, ButtonComponent, TextFieldComponent, NumberFieldDirective, TabsComponent, AccordionComponent, DisclosureComponent, DisclosurePanelDirective, VoiceOversTabItemComponent],
+  imports: [
+    TooltipDirective,
+    ButtonComponent,
+    TextFieldComponent,
+    NumberFieldComponent,
+    NumberFieldDirective,
+    TabsComponent,
+    AccordionComponent,
+    DisclosureComponent,
+    DisclosurePanelDirective,
+    VoiceOversTabItemComponent,
+  ],
 })
 export class VoiceOversTabComponent extends AbstractModalComponent {
   readonly fieldText = fieldText;

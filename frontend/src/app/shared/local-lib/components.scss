@@ -1,12 +1,12 @@
 ////
-/// The site's own fields - the ones it keeps beside the anotoki kit's: the
-/// filters' multiselect, the button that chooses a folder or files, the
-/// guides' HTML editor - drawn the way the kit draws its fields
-/// (@anotoki/lib/ui/forms), from the family's tokens: the label over the
-/// control, the control's 3:1 edge (`border-strong`), the ring on the edge
-/// while it has the focus, the hint and the error under it. The text, number,
-/// textarea, checkbox, select, date, chips, slider, file picker, colour and
-/// search-with-pictures fields are the kit's own.
+/// The site's own field - the one it keeps beside the anotoki kit's: the
+/// button that chooses files (app-file: the Files page's Upload and Replace,
+/// a voice line's sound) - drawn the way the kit draws its fields
+/// (@anotoki/lib/ui/forms), from the family's tokens: the label over it, the
+/// hint and the error under it; the picture slots' error too. Every other
+/// field - text, number, textarea, checkbox, select, multiselect, date,
+/// chips, slider, file picker (a folder too), colour, HTML editor - is the
+/// kit's own.
 ////
 
 .form-field {
@@ -33,56 +33,6 @@
   margin: 0;
   color: var(--anotoki-muted);
   font-size: 0.8125rem;
-}
-
-.max-length-counter {
-  color: var(--anotoki-muted);
-  font-weight: 400;
-}
-
-.form-control {
-  box-sizing: border-box;
-  min-height: var(--anotoki-control-height);
-  padding: 0 0.8rem;
-  border: 1px solid var(--anotoki-border-strong);
-  border-radius: var(--anotoki-radius);
-  background: var(--anotoki-surface);
-  color: var(--anotoki-text);
-  font: inherit;
-  // 16 px, not 15: iOS zooms the page into any field smaller than that.
-  font-size: 1rem;
-  line-height: 1.4;
-  transition:
-    border-color var(--anotoki-duration) var(--anotoki-ease),
-    box-shadow var(--anotoki-duration) var(--anotoki-ease);
-
-  &::placeholder,
-  &.placeholder {
-    color: var(--anotoki-subtle);
-  }
-
-  &:hover:not(:disabled, .disabled) {
-    border-color: color-mix(in srgb, var(--anotoki-border-strong) 60%, var(--anotoki-text) 40%);
-  }
-
-  // The ring is on the edge, as on the kit's fields.
-  &:focus,
-  &:focus-within {
-    outline: none;
-    border-color: var(--anotoki-primary);
-    box-shadow: 0 0 0 3px var(--anotoki-ring);
-  }
-
-  &.error {
-    border-color: var(--anotoki-danger);
-  }
-
-  &:disabled,
-  &.disabled {
-    background: var(--anotoki-surface-2);
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
 }
 
 .error-message {

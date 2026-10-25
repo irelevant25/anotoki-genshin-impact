@@ -47,7 +47,7 @@
                                     <span class="rarity-stars">{{ starsOf(stat.stars) }}</span>
                                 }
                                 @if (stat.date) {
-                                    <span class="stat-text">{{ stat.date | appDate }}</span>
+                                    <span class="stat-text">{{ stat.date | anotokiDate: "numeric" }}</span>
                                 } @else if (stat.value !== null && stat.value !== undefined && stat.value !== "") {
                                     <span class="stat-text">{{ stat.value }}</span>
                                 }

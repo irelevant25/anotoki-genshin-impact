@@ -118,8 +118,9 @@ const LIBRARY_WORDS_FILES = [
 // Profile's new look's words), users/066 (genshin's site settings into the
 // library's tables - anotoki-lib 0.11.0's anotoki_admin/003 - and the words of
 // its old closed sign, bar and notice gone), users/067 (050's copies of the
-// words gone, and the Privacy page's line for every old copy), genshin_impact/033
-// (028's and 029's copies gone),
+// words gone, and the Privacy page's line for every old copy), users/068 (the
+// old multiselect's last words gone, the library's multiselect in its place),
+// genshin_impact/033 (028's and 029's copies gone),
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
 // catalog) and 032 (the lists the character form saved in one layer of JSON
 // too many, unwrapped), which one Apply brings along.
@@ -145,6 +146,7 @@ const WORDS_AND_AFTER = [
     'users/065_profile_redesign_strings.sql',
     'users/066_site_settings_into_the_library.sql',
     'users/067_drop_the_old_copies.sql',
+    'users/068_drop_multiselect_more_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -348,6 +350,8 @@ const GONE_BY_066 = [
 ];
 // What users/067 takes away with the old copies: the Privacy page's line for them (055's, which came after).
 const GONE_BY_067 = ['legal.oldCopies.kept', 'legal.oldCopies.name', 'legal.oldCopies.what', 'legal.oldCopies.why'];
+// What users/068 takes away: genshin's own multiselect's "+2 more", which the library's multiselect says in its words.
+const GONE_BY_068 = ['multiselect.more.few', 'multiselect.more.one', 'multiselect.more.other'];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -475,9 +479,10 @@ foreach ($before as $row) {
         in_array($row['key_name'], GONE_BY_062_063, true) ||
         in_array($row['key_name'], GONE_BY_064, true) ||
         in_array($row['key_name'], GONE_BY_065, true) ||
-        in_array($row['key_name'], GONE_BY_066, true)
+        in_array($row['key_name'], GONE_BY_066, true) ||
+        in_array($row['key_name'], GONE_BY_068, true)
     ) {
-        // users/053's, 056's, 062's, 063's, 064's, 065's and 066's to take away - looked at below.
+        // users/053's, 056's, 062's, 063's, 064's, 065's, 066's and 068's to take away - looked at below.
         continue;
     }
     if (preg_match('/\S/', $row['value']) !== 1) {
@@ -524,9 +529,10 @@ $went =
     count(GONE_BY_064) +
     count(GONE_BY_065) +
     count(GONE_BY_066) +
-    count(GONE_BY_067);
+    count(GONE_BY_067) +
+    count(GONE_BY_068);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s and 067\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -552,14 +558,12 @@ same(
     ],
 );
 same(
-    '...multiselect.more.* kept, which the field still reads',
-    0,
-    count(
-        array_diff(
-            array_values(array_filter(array_keys($keysBefore), fn($key) => str_starts_with($key, 'multiselect.more.'))),
-            $pdo->query("SELECT name FROM translation_keys WHERE name LIKE 'multiselect.more.%'")->fetchAll(PDO::FETCH_COLUMN),
-        ),
-    ),
+    '...multiselect.more.* kept by 056 - and taken away by 068, when the field became the library\'s: no multiselect word is left',
+    [3, []],
+    [
+        count(array_filter(array_keys($keysBefore), fn($key) => str_starts_with($key, 'multiselect.more.'))),
+        $pdo->query("SELECT name FROM translation_keys WHERE name LIKE 'multiselect.%'")->fetchAll(PDO::FETCH_COLUMN),
+    ],
 );
 // Less the two lines for the old announcement bar's storage, which 066 took away (the library's preset says it now),
 // and the four of the old copies, which 067 took away with the copies.
@@ -737,6 +741,16 @@ same(
     [0, 0, 0],
     [
         count(array_intersect(GONE_BY_067, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
+    ],
+);
+$inList = "'" . implode("', '", GONE_BY_068) . "'";
+same(
+    '068: the old multiselect\'s three "+2 more", all there before, gone - with every string under them',
+    [count(GONE_BY_068), 0, 0],
+    [
+        count(array_intersect(GONE_BY_068, array_keys($keysBefore))),
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
     ],

@@ -20,7 +20,7 @@
             </div>
             <div class="container-wrap">
                 <div class="d-grid gap-3 cols-4">
-                    <anotoki-text-field
+                    <anotoki-number-field
                         label="Level *"
                         required
                         [min]="1"
@@ -28,8 +28,7 @@
                         [appNumber]="item.data.level"
                         (appNumberChange)="onLevelChange(item, $event)"
                         #levelField="appNumber"
-                        [value]="levelField.text()"
-                        [inputmode]="levelField.inputmode()"
+                        [value]="levelField.number()"
                         [error]="levelField.error()" />
                     <anotoki-text-field
                         label="Name *"
