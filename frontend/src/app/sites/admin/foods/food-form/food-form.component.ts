@@ -10,7 +10,7 @@ import { DropdownOption } from '../../../../shared/local-lib/services/options-he
 import { Audited, Material } from '../../../../api';
 import { FoodApiService, LookupApiService, MaterialApiService, FoodFull, IdNameEntry } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, revokeAllPicked, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, createUid, listFromColumn, listToSend, revokeAllPicked, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { QualitiesTabComponent } from './qualities/qualities-tab.component';
 import { RecipeTabComponent } from './recipe/recipe-tab.component';
@@ -101,9 +101,9 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
         rarity: toOptionalNumber(data.food.rarity) ?? null,
         proficiency: toOptionalNumber(data.food.proficiency) ?? null,
         base_dish_id: toOptionalNumber(data.food.base_dish_id) ?? null,
-        events: toStringArray(data.food.events),
-        how_to_obtain: toStringArray(data.food.how_to_obtain),
-        effects: toStringArray(data.food.effects),
+        events: listFromColumn(data.food.events),
+        how_to_obtain: listFromColumn(data.food.how_to_obtain),
+        effects: listFromColumn(data.food.effects),
       },
       pending: {},
     });
@@ -142,9 +142,9 @@ export class FoodFormComponent extends AdminFormComponent<FoodFull> implements O
         rarity: toOptionalNumber(food.data.rarity) ?? null,
         proficiency: toOptionalNumber(food.data.proficiency) ?? null,
         base_dish_id: toOptionalNumber(food.data.base_dish_id) ?? null,
-        events: toStringArray(food.data.events),
-        how_to_obtain: toStringArray(food.data.how_to_obtain),
-        effects: toStringArray(food.data.effects),
+        events: listToSend(food.data.events),
+        how_to_obtain: listToSend(food.data.how_to_obtain),
+        effects: listToSend(food.data.effects),
       },
       recipe: this.recipe().map((entry) => ({
         material_id: toNumber(entry.data.material_id),

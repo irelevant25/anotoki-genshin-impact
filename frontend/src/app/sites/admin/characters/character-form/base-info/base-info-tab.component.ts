@@ -15,7 +15,7 @@ import { fieldDateToStored, fieldDayMonthToStored, fieldFormatOf, storedToFieldD
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
 import { characterImageName, CharacterImageField, CharacterWrapper, emptyCharacter, revokePicked } from '../character-form.model';
-import { toStringArray } from '../../../../../sites/admin/shared/admin-full-resource.model';
+import { listText, toLines } from '../../../../../sites/admin/shared/admin-full-resource.model';
 
 interface ImageFieldConfig {
   field: CharacterImageField;
@@ -35,14 +35,6 @@ const CHARACTER_IMAGES: ImageFieldConfig[] = [
   { field: 'card_icon_2', label: 'Card Icon 2', required: false },
   { field: 'wish_icon', label: 'Wish Icon', required: true },
 ];
-
-/** Splits a textarea into the trimmed, non-empty lines a JSONB string array holds. */
-function toLines(value: string | number | undefined | null): string[] {
-  return String(value ?? '')
-    .split('\n')
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-}
 
 function emptyRelationship(): RelationshipFormData {
   return { type: '', name: '', state: '', is_biological: false };
@@ -103,9 +95,9 @@ export class BaseInfoTabComponent {
   roleChips = computed<ChipOption[]>(() => this.roles().map((role) => ({ value: role, label: role })));
 
   /** Newline-separated editing surfaces for the JSONB string-array columns. */
-  howToObtainText = computed(() => toStringArray(this.character().data.how_to_obtain).join('\n'));
-  affiliationsText = computed(() => toStringArray(this.character().data.affiliations).join('\n'));
-  namecardSourcesText = computed(() => toStringArray(this.character().data.namecard_sources).join('\n'));
+  howToObtainText = computed(() => listText(this.character().data.how_to_obtain));
+  affiliationsText = computed(() => listText(this.character().data.affiliations));
+  namecardSourcesText = computed(() => listText(this.character().data.namecard_sources));
 
   // ── Images ──────────────────────────────────────────────────────────────────
 

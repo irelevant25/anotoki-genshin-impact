@@ -189,6 +189,9 @@ function seedContent(PDO $pdo): void
     // dish that has one.
     $foodPictures = (int) $pdo->query("SELECT id FROM file_categories WHERE code = 'foods'")->fetchColumn();
 
+    // Every list column the admin forms edit holds a list - JSONB, as the site keeps one - but the artifacts'
+    // rarities other than 5★, left NULL: the screenshot run's form stages save each form untouched too
+    // (FORM_SAVES' admin-form-keep-*), and every list must go back as it came.
     $foods = [];
     foreach (
         [
@@ -213,6 +216,9 @@ function seedContent(PDO $pdo): void
                 'description_normal' => 'A dish that restores the spirits of whoever eats it.',
                 'version' => '1.0',
                 'icon_normal_file_id' => seed($pdo, 'files', ['category_id' => $foodPictures, 'name' => $icon, 'extension' => 'avif']),
+                'events' => ['Lantern Rite'],
+                'how_to_obtain' => ['A recipe from a shop', 'An event reward'],
+                'effects' => ['Restores HP'],
             ],
         );
     }
@@ -253,6 +259,7 @@ function seedContent(PDO $pdo): void
                 'voice_actor_chinese' => 'Sample',
                 'affiliations' => ['Wangsheng Funeral Parlor'],
                 'how_to_obtain' => ['Wish'],
+                'namecard_sources' => ["Friendship Lv. 10 with $name"],
             ],
         );
     }
@@ -262,7 +269,19 @@ function seedContent(PDO $pdo): void
         [['Staff of Homa', 'Polearm', 5, '1.3'], ['The Catch', 'Polearm', 4, '2.1'], ['Mistsplitter Reforged', 'Sword', 5, '2.0'], ['Favonius Sword', 'Sword', 4, '1.0']]
         as [$name, $type, $rarity, $version]
     ) {
-        $weapons[$name] = seed($pdo, 'weapons', $by + ['name' => $name, 'type' => $type, 'rarity' => $rarity, 'version' => $version, 'release_date' => '2024-01-01']);
+        $weapons[$name] = seed(
+            $pdo,
+            'weapons',
+            $by + [
+                'name' => $name,
+                'type' => $type,
+                'rarity' => $rarity,
+                'version' => $version,
+                'release_date' => '2024-01-01',
+                'how_to_obtain' => ['Wish', "Paimon's Bargains"],
+                'effects' => ['ATK'],
+            ],
+        );
     }
 
     $materials = [];
@@ -278,13 +297,33 @@ function seedContent(PDO $pdo): void
         $materials[$name] = seed(
             $pdo,
             'materials',
-            $by + ['name' => $name, 'type' => $type, 'rarity' => $rarity, 'region' => $region, 'description' => "$name, as the game describes it.", 'version' => '1.0'],
+            $by + [
+                'name' => $name,
+                'type' => $type,
+                'rarity' => $rarity,
+                'region' => $region,
+                'description' => "$name, as the game describes it.",
+                'version' => '1.0',
+                'how_to_obtain' => ['Chests', 'Commissions'],
+            ],
         );
     }
 
     $artifacts = [];
     foreach (["Gladiator's Finale", 'Noblesse Oblige'] as $name) {
-        $artifacts[$name] = seed($pdo, 'artifacts', $by + ['name' => $name, 'version' => '1.0', 'two_piece' => 'ATK +18%.', 'four_piece' => 'Normal Attack DMG +35%.']);
+        $artifacts[$name] = seed(
+            $pdo,
+            'artifacts',
+            $by + [
+                'name' => $name,
+                'version' => '1.0',
+                'two_piece' => 'ATK +18%.',
+                'four_piece' => 'Normal Attack DMG +35%.',
+                // 5★, the one rarity a set drops at by the column's default.
+                'how_to_obtain_quality_5' => ['Domain of Blessing', 'A weekly boss'],
+                'effects' => ['ATK'],
+            ],
+        );
     }
 
     $enemies = [];

@@ -111,9 +111,10 @@ const LIBRARY_WORDS_FILES = [
 // levels - tests/quiz-levels.test.php), users/062 (the detail pages' and the
 // banners' new look's words), users/063 (the lists' new look's words) and
 // users/064 (the account panel's date and clock words gone), users/065 (the
-// Profile's new look's words), and
+// Profile's new look's words),
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
-// catalog), which one Apply brings along.
+// catalog) and 032 (the lists the character form saved in one layer of JSON
+// too many, unwrapped), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -137,6 +138,7 @@ const WORDS_AND_AFTER = [
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
     'genshin_impact/031_game_ids_filled.sql',
+    'genshin_impact/032_lists_unwrapped.sql',
     'anotoki_translations/001_languages_and_strings.sql',
     'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql',

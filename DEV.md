@@ -623,10 +623,11 @@ to the defaults; the kit's pieces opened - what folds, a birthday's
 calendar, the editor's link dialog and colour panel, the voice-over import; the
 admin forms filled and saved - every kind of field typed into, chosen, ticked,
 a row added, numbers refused as typed, a save refused and the tab of its first
-wrong field opened -, the body each sent kept in `form-bodies.json` (the save
-answered by the browser, so nothing is written): a run before a change to the
-forms and one after must keep the same file but for the rows' times; the
-family's footer and the two dialogs it opens, the status page while an update
+wrong field opened -, and each form that keeps lists saved untouched (every list
+must go back as it came, the seed's own), the body each sent kept in
+`form-bodies.json` (the save answered by the browser, so nothing is written): a
+run before a change to the forms and one after must keep the same file but for
+the rows' times; the family's footer and the two dialogs it opens, the status page while an update
 waits, and Migrations then in the panel's frame, its footer without Feedback),
 and three pages signed in - in headless Edge (or Chrome, `BROWSER=`), light and dark, 1280 and 390 px
 wide: a screenshot of each, whole, with `focus-*` ones of the keyboard's focus,

@@ -81,18 +81,42 @@ export function toBoolean(value: unknown): boolean {
 /** Re-exported so the forms keep importing it from here. */
 export { parseJsonColumn };
 
-export function toStringArray(value: unknown): string[] {
-  const parsed = parseJsonColumn(value);
-  if (Array.isArray(parsed)) {
-    return parsed.map((item) => String(item)).filter((item) => item.trim().length > 0);
-  }
-  if (typeof parsed === 'string' && parsed.trim().length > 0) {
-    return [parsed];
-  }
-  return [];
+// ── List columns ──────────────────────────────────────────────────────────────
+
+/** A list column as a form holds it: what the column held (listFromColumn()), or an edit's lines (toLines()). */
+export type ListColumn = string[] | string | null;
+
+/**
+ * A list column - JSONB, an array of strings - as a form holds it. The API sends its raw JSON text
+ * (`parseJsonColumn()`): this decodes it, once, and the form keeps what came until the field is edited - so a list
+ * nobody touched goes back exactly as it was stored (NULL as null, and an old import's lone string or object as it
+ * is), never wrapped in another layer of JSON. An edit makes it a plain array of strings, `toLines()`.
+ *
+ * Every admin form loads its lists through this one function. The character form had a helper of its own that took
+ * the raw text for the list's one item, so each save sent an untouched list back wrapped once more
+ * (`affiliations: ["[\"Wangsheng Funeral Parlor\"]"]`) - from 2026-09-01, when the generated client stopped decoding
+ * the columns, to 2026-10-25; genshin_impact/032 unwrapped what those saves had stored.
+ */
+export function listFromColumn(value: unknown): ListColumn | undefined {
+  return parseJsonColumn(value) as ListColumn | undefined;
 }
 
-/** Splits a textarea into the trimmed, non-empty lines a JSONB string array holds. */
+/**
+ * A list's text for its textarea, an item a line: an array's items, a lone string, an object's values (an old
+ * import's shape); nothing for none. Never decoded again: what the form holds is decoded already, and an item that
+ * reads like JSON is the text it is.
+ */
+export function listText(list: unknown): string {
+  const items = Array.isArray(list) ? list : list === null || list === undefined ? [] : typeof list === 'object' ? Object.values(list) : [list];
+  return items.map((item) => (typeof item === 'string' ? item : JSON.stringify(item))).join('\n');
+}
+
+/** A list as a save sends it: as the form holds it, untouched or edited - [] for one a new row has not got. */
+export function listToSend(list: ListColumn | undefined): ListColumn {
+  return list === undefined ? [] : list;
+}
+
+/** A textarea's lines as a list: each trimmed, the empty ones dropped - a plain array of strings. */
 export function toLines(value: string | number | undefined | null): string[] {
   return String(value ?? '')
     .split('\n')

@@ -9,7 +9,7 @@ import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { Audited, Material } from '../../../../api';
 import { LookupApiService, MaterialApiService, StatApiService, WeaponApiService, WeaponFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, revokeAllPicked, toNullableNumber, toNumber, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, createUid, listFromColumn, listToSend, revokeAllPicked, toNullableNumber, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { RefinementsTabComponent } from './refinements/refinements-tab.component';
 import { AscensionsTabComponent } from './ascensions/ascensions-tab.component';
@@ -90,8 +90,8 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       data: {
         ...data.weapon,
         rarity: toNumber(data.weapon.rarity, 5),
-        how_to_obtain: toStringArray(data.weapon.how_to_obtain),
-        effects: toStringArray(data.weapon.effects),
+        how_to_obtain: listFromColumn(data.weapon.how_to_obtain),
+        effects: listFromColumn(data.weapon.effects),
       },
       pending: {},
     });
@@ -130,8 +130,8 @@ export class WeaponFormComponent extends AdminFormComponent<WeaponFull> implemen
       weapon: {
         ...weapon.data,
         rarity: toNumber(weapon.data.rarity, 5),
-        how_to_obtain: toStringArray(weapon.data.how_to_obtain),
-        effects: toStringArray(weapon.data.effects),
+        how_to_obtain: listToSend(weapon.data.how_to_obtain),
+        effects: listToSend(weapon.data.effects),
         game_id: toNullableNumber(weapon.data.game_id),
       },
       // Position in the list is the refinement level.

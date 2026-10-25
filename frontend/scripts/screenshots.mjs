@@ -927,7 +927,9 @@ const ADMIN = [
 // fields moved from local-lib's adapters onto the kit's own: the forms' saving
 // is what matters most). Each stage edits a form as a person would - types into
 // the kit's fields, found by the words of their labels (the required mark among
-// them), chooses, ticks, adds a row, opens a tab - and presses Save. What came of
+// them), chooses, ticks, adds a row, opens a tab - and presses Save; and each
+// form that keeps lists is saved once untouched (admin-form-keep-*), every list
+// going back exactly as it came. What came of
 // it goes to form-bodies.json: the body the form sent (its FormData's `data`,
 // read in the page as it went), the toasts, the words under the fields, the tab
 // open, and what a step noted on the way. The save is never sent on - the
@@ -1332,6 +1334,41 @@ const FORM_SAVES = [
       ['tab', 'Pieces'],
       ['type', 'Name *', "Gladiator's Nostalgia II", 1],
     ]),
+  },
+  // Each form that keeps lists, saved with nothing touched - only the pictures a save needs given: every list goes
+  // back exactly as it came, the seed's (backend/tests/tools/browser-env.php) and null for one the database holds as
+  // NULL, never wrapped in another layer of JSON (the character form's until 2026-10-25: genshin_impact/032).
+  {
+    name: 'admin-form-keep-character',
+    path: '/admin/characters/1/edit',
+    widths: [1280],
+    form: {
+      id: 1,
+      read: (row) =>
+        Object.assign(row.character, {
+          icon: picture('character/icon', 'HU_TAO'),
+          card_icon: picture('character/card_icon', 'HU_TAO'),
+          wish_icon: picture('character/wish_icon', 'HU_TAO'),
+          ingame_icon: picture('character/ingame_icon', 'HU_TAO'),
+        }),
+    },
+    then: formSaved([]),
+  },
+  {
+    name: 'admin-form-keep-weapon',
+    path: '/admin/weapons/1/edit',
+    widths: [1280],
+    form: { id: 1, read: (row) => Object.assign(row.weapon, { icon: picture('weapons', 'STAFF_OF_HOMA') }) },
+    then: formSaved([]),
+  },
+  { name: 'admin-form-keep-food', path: '/admin/foods/1/edit', widths: [1280], form: { id: 1 }, then: formSaved([]) },
+  { name: 'admin-form-keep-material', path: '/admin/materials/1/edit', widths: [1280], form: { id: 1 }, then: formSaved([]) },
+  {
+    name: 'admin-form-keep-artifact',
+    path: '/admin/artifacts/1/edit',
+    widths: [1280],
+    form: { id: 1, read: (row) => Object.assign(row.artifact, { icon: picture('artifacts', 'GLADIATORS_FINALE') }) },
+    then: formSaved([]),
   },
 ];
 

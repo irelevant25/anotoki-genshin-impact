@@ -1,6 +1,7 @@
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { assetVariant, toAssetBaseName } from '../../shared/asset-name';
 import { CharacterVoiceOver } from '../../../../api';
+import { toNumber } from '../../shared/admin-full-resource.model';
 
 export { revokePicked } from '../../shared/admin-full-resource.model';
 import { AscensionCostFormData, AscensionFormData, CharacterFormData, ConstellationFormData, TalentFormData, VoiceOverFormData } from '../../../../sites/admin/shared/admin-form.model';
@@ -139,37 +140,9 @@ export function emptyAscension(phase: number): AscensionWrapper {
 
 // ── Value coercion ────────────────────────────────────────────────────────────
 
-/**
- * Inputs hand back strings (and `NaN` when cleared), while the API is strict
- * about numeric columns - normalize before anything leaves the form.
- */
-export function toNumber(value: unknown, fallback = 0): number {
-  const parsed = typeof value === 'number' ? value : Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-}
-
-export function toOptionalNumber(value: unknown): number | undefined {
-  if (value === null || value === undefined || value === '') {
-    return undefined;
-  }
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : undefined;
-}
-
-/** PostgreSQL hands booleans back as `'t'` / `'f'`, both of which are truthy in JS. */
-export function toBoolean(value: unknown): boolean {
-  return value === true || value === 1 || value === 't' || value === 'true' || value === '1';
-}
-
-export function toStringArray(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item)).filter((item) => item.trim().length > 0);
-  }
-  if (typeof value === 'string' && value.trim().length > 0) {
-    return [value];
-  }
-  return [];
-}
+// The form's coercions are every admin form's (admin-full-resource.model.ts), never copies of them: a list helper of
+// its own here, which never decoded a list column's raw JSON text, sent every untouched list back wrapped once more at
+// each save (listFromColumn() says how a list goes now).
 
 // ── Ordering ──────────────────────────────────────────────────────────────────
 

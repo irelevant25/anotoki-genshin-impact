@@ -9,7 +9,7 @@ import { DateFormatService } from '../../../../../shared/local-lib/i18n/date-for
 import { fieldDateToStored, fieldFormatOf, storedToFieldDate } from '../../../../../shared/local-lib/stored-dates';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
-import { revokePicked, toLines, toStringArray } from '../../../shared/admin-full-resource.model';
+import { listText, revokePicked, toLines } from '../../../shared/admin-full-resource.model';
 import { emptyWeapon, WEAPON_IMAGE_FIELDS, weaponImageName, WeaponImageField, WeaponWrapper } from '../weapon-form.model';
 
 @Component({
@@ -36,8 +36,8 @@ export class BaseInfoTabComponent {
 
   readonly imageFields = WEAPON_IMAGE_FIELDS;
 
-  howToObtainText = computed(() => toStringArray(this.weapon().data.how_to_obtain).join('\n'));
-  effectsText = computed(() => toStringArray(this.weapon().data.effects).join('\n'));
+  howToObtainText = computed(() => listText(this.weapon().data.how_to_obtain));
+  effectsText = computed(() => listText(this.weapon().data.effects));
 
   /** Stored path; the slot shows a pending pick when there is one. */
   imagePath(field: WeaponImageField): string | undefined {

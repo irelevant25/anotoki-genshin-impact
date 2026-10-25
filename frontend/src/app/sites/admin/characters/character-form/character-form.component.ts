@@ -18,7 +18,7 @@ import { AscensionCostFormData, CharacterFullPayload, RelationshipFormData, Tale
 import { Audited, Material, toFormData } from '../../../../api';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { PendingImage } from '../../shared/admin-form.class';
-import { toNullableNumber } from '../../shared/admin-full-resource.model';
+import { listFromColumn, listToSend, toBoolean, toNullableNumber, toNumber, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
 import {
   AscensionWrapper,
@@ -29,11 +29,7 @@ import {
   createUid,
   emptyCharacter,
   TalentWrapper,
-  toBoolean,
-  toNumber,
-  toOptionalNumber,
   revokePicked,
-  toStringArray,
   UNNAMED_CHARACTER_FILES,
   VOICE_OVER_LANGUAGES,
   VoiceOverWrapper,
@@ -177,9 +173,9 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
             rarity: toNumber(data.character.rarity, 4),
             is_traveler: toBoolean(data.character.is_traveler),
             special_dish: toOptionalNumber(data.character.special_dish),
-            how_to_obtain: toStringArray(data.character.how_to_obtain),
-            affiliations: toStringArray(data.character.affiliations),
-            namecard_sources: toStringArray(data.character.namecard_sources),
+            how_to_obtain: listFromColumn(data.character.how_to_obtain),
+            affiliations: listFromColumn(data.character.affiliations),
+            namecard_sources: listFromColumn(data.character.namecard_sources),
           },
           pending: {},
         });
@@ -455,9 +451,9 @@ export class CharacterFormComponent implements OnInit, OnDestroy {
         rarity: toNumber(character.rarity, 4),
         is_traveler: !!character.is_traveler,
         special_dish: toOptionalNumber(character.special_dish),
-        how_to_obtain: toStringArray(character.how_to_obtain),
-        affiliations: toStringArray(character.affiliations),
-        namecard_sources: toStringArray(character.namecard_sources),
+        how_to_obtain: listToSend(character.how_to_obtain),
+        affiliations: listToSend(character.affiliations),
+        namecard_sources: listToSend(character.namecard_sources),
         game_id: toNullableNumber(character.game_id),
       },
       voice_overs: this.voiceOvers().map((voiceOver) => ({ ...this._withBoldTags(voiceOver.data), order: toNumber(voiceOver.data.order, 1) })),

@@ -9,7 +9,11 @@
  * as `"[\"Event Wish\"]"`, not as an array.
  *
  * So anything reading one of these columns has to parse it, and this is the
- * only place in the client that knows that.
+ * only place in the client that knows that. The admin forms read their lists
+ * through `listFromColumn()` (sites/admin/shared/admin-full-resource.model.ts),
+ * which sends an untouched list back as it came; the database pages through
+ * `asList()`. A value taken as text and sent back - not parsed - is stored
+ * wrapped in one layer of JSON more (genshin_impact/032).
  */
 
 /** The parsed value, or the value itself when it is not a JSON string. */

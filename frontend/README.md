@@ -90,8 +90,9 @@ scripts/                prepare-deploy.mjs (the production config.json - anotoki
                         alone while the site is not ready, and the frame back once it is; the
                         top bar's items opening and closing their sections; the quizzes at
                         saved levels and at the built-in ones; the Quiz levels page; the admin
-                        forms filled and saved, what each sent kept in form-bodies.json - a run
-                        before a change to the forms and one after keep the same)
+                        forms filled and saved, and saved untouched - every list back as it
+                        came -, what each sent kept in form-bodies.json - a run before a change
+                        to the forms and one after keep the same)
 src/styles.scss         the family's styles (@anotoki/lib/styles) in genshin's colours, light and
                         dark - the one palette - then the site's own globals
 api-config.mjs          corrections for the generator; generate-api.mjs, generate-openapi.mjs

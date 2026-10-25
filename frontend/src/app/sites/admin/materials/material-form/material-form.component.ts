@@ -13,7 +13,7 @@ import { ChoiceFieldDirective } from '../../../../shared/local-lib/fields/choice
 import { LookupApiService, MaterialApiService, MaterialFull } from '../../../../api';
 import { MaterialFormData } from '../../../../sites/admin/shared/admin-form.model';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, revokePicked, toLines, toOptionalNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, listFromColumn, listText, listToSend, revokePicked, toLines, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
 import { toAssetLiteralName } from '../../shared/asset-name';
@@ -54,7 +54,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
   regions = signal<string[]>([]);
   rarities = signal<string[]>([]);
 
-  howToObtainText = computed(() => toStringArray(this.material().how_to_obtain).join('\n'));
+  howToObtainText = computed(() => listText(this.material().how_to_obtain));
 
   private readonly _lookupApi = inject(LookupApiService);
   private readonly _materialApi = inject(MaterialApiService);
@@ -105,7 +105,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
     this.material.set({
       ...data.material,
       rarity: toOptionalNumber(data.material.rarity) ?? null,
-      how_to_obtain: toStringArray(data.material.how_to_obtain),
+      how_to_obtain: listFromColumn(data.material.how_to_obtain),
     });
     this.groups.set((data.groups ?? []).map((entry) => entry.group).filter((group): group is string => !!group));
   }
@@ -162,7 +162,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
       material: {
         ...material,
         rarity: toOptionalNumber(material.rarity) ?? null,
-        how_to_obtain: toStringArray(material.how_to_obtain),
+        how_to_obtain: listToSend(material.how_to_obtain),
       },
       groups: this.groups().map((group) => ({ group: String(group) })),
     });

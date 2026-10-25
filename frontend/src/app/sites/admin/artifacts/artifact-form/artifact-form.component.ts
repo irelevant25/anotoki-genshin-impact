@@ -8,7 +8,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { ArtifactApiService, LookupApiService, ArtifactFull } from '../../../../api';
 import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class';
-import { buildFullFormData, createUid, revokeAllPicked, toBoolean, toNullableNumber, toStringArray } from '../../shared/admin-full-resource.model';
+import { buildFullFormData, createUid, listFromColumn, listToSend, revokeAllPicked, toBoolean, toNullableNumber } from '../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../shared/asset-name';
 import { BaseInfoTabComponent } from './base-info/base-info-tab.component';
 import { PiecesTabComponent } from './pieces/pieces-tab.component';
@@ -71,9 +71,9 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
     const artifact = { ...data.artifact };
     for (const rarity of ARTIFACT_RARITIES) {
       artifact[`has_rarity_${rarity}`] = toBoolean(artifact[`has_rarity_${rarity}`]);
-      artifact[`how_to_obtain_quality_${rarity}`] = toStringArray(artifact[`how_to_obtain_quality_${rarity}`]);
+      artifact[`how_to_obtain_quality_${rarity}`] = listFromColumn(artifact[`how_to_obtain_quality_${rarity}`]);
     }
-    artifact.effects = toStringArray(artifact.effects);
+    artifact.effects = listFromColumn(artifact.effects);
 
     this.artifact.set({ data: artifact });
     this.pieces.set((data.pieces ?? []).map((piece) => ({ uid: createUid(), data: piece })));
@@ -130,9 +130,9 @@ export class ArtifactFormComponent extends AdminFormComponent<ArtifactFull> impl
     const data = { ...artifact.data };
     for (const rarity of ARTIFACT_RARITIES) {
       data[`has_rarity_${rarity}`] = !!data[`has_rarity_${rarity}`];
-      data[`how_to_obtain_quality_${rarity}`] = toStringArray(data[`how_to_obtain_quality_${rarity}`]);
+      data[`how_to_obtain_quality_${rarity}`] = listToSend(data[`how_to_obtain_quality_${rarity}`]);
     }
-    data.effects = toStringArray(data.effects);
+    data.effects = listToSend(data.effects);
     data.game_id = toNullableNumber(data.game_id);
 
     return buildFullFormData({ artifact: data, pieces: this.pieces().map((piece) => piece.data) });

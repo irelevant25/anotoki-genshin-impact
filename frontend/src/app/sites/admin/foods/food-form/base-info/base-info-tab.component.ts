@@ -5,7 +5,7 @@ import { FieldCheckDirective } from '../../../../../shared/local-lib/fields/fiel
 import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { ChoiceFieldDirective } from '../../../../../shared/local-lib/fields/choice-field.directive';
-import { toLines, toStringArray } from '../../../shared/admin-full-resource.model';
+import { listText, toLines } from '../../../shared/admin-full-resource.model';
 import { emptyFood, FoodWrapper } from '../food-form.model';
 
 @Component({
@@ -24,9 +24,9 @@ export class BaseInfoTabComponent {
   rarities = input<string[]>([]);
   baseDishOptions = input<DropdownOption[]>([]);
 
-  eventsText = computed(() => toStringArray(this.food().data.events).join('\n'));
-  howToObtainText = computed(() => toStringArray(this.food().data.how_to_obtain).join('\n'));
-  effectsText = computed(() => toStringArray(this.food().data.effects).join('\n'));
+  eventsText = computed(() => listText(this.food().data.events));
+  howToObtainText = computed(() => listText(this.food().data.how_to_obtain));
+  effectsText = computed(() => listText(this.food().data.effects));
 
   onEventsChange(value: string | number | undefined | null): void {
     this.food().data.events = toLines(value);

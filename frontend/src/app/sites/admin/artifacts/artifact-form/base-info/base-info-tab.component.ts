@@ -5,7 +5,7 @@ import { fieldText } from '../../../../../shared/local-lib/fields/field-text';
 import { NumberFieldDirective } from '../../../../../shared/local-lib/fields/number-field.directive';
 import { EntityImageComponent } from '../../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../../shared/image-upload/image-upload.component';
-import { revokePicked, toLines, toStringArray } from '../../../shared/admin-full-resource.model';
+import { listText, revokePicked, toLines } from '../../../shared/admin-full-resource.model';
 import { toAssetBaseName } from '../../../shared/asset-name';
 import { ARTIFACT_RARITIES, ArtifactWrapper, emptyArtifact } from '../artifact-form.model';
 
@@ -55,7 +55,7 @@ export class BaseInfoTabComponent {
   }
 
   effectsText(): string {
-    return toStringArray(this.artifact().data.effects).join('\n');
+    return listText(this.artifact().data.effects);
   }
 
   onEffectsChange(value: string | number | undefined | null): void {
@@ -63,7 +63,7 @@ export class BaseInfoTabComponent {
   }
 
   obtainText(rarity: number): string {
-    return toStringArray(this.artifact().data[`how_to_obtain_quality_${rarity}`] as string[] | undefined).join('\n');
+    return listText(this.artifact().data[`how_to_obtain_quality_${rarity}`]);
   }
 
   onObtainChange(rarity: number, value: string | number | undefined | null): void {
