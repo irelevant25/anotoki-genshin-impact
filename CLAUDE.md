@@ -572,8 +572,9 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # leave behind, a save and back); the admin panel's frame (its column at 1280,
                                      # the Menu's drawer at 390: the name, the person, Back, Sign out, the theme's
                                      # three choices, the pages under their headings); the admin forms filled and
-                                     # saved (FORM_SAVES: what each sent kept in form-bodies.json - a change to the
-                                     # forms keeps that file, but for the rows' times); the
+                                     # saved, and saved untouched - every list back as it came (FORM_SAVES: what
+                                     # each sent kept in form-bodies.json - a change to the forms keeps that file,
+                                     # but for the rows' times); the
                                      # admin panel's footer, its two dialogs, and Migrations while an update waits;
                                      # the Profile filled for somebody signed in (the browser answering its four
                                      # reads), tab by tab.
@@ -1040,10 +1041,22 @@ node docs/security/build-report.mjs                            # after re-runnin
   becoming its first option, `chosen()` for a material's picture). Dates go
   through `stored-dates.ts` (a birthday `dayMonth`, kept as a DATE in year 4;
   `fieldFormatOf()` the order the site writes dates in for the reader,
-  DateFormatService). Fields side by side are `container-wrap` round `d-grid
-  gap-3 cols-N` (general.scss), a checkbox among them in `.grid-checkbox`
-  (admin-form.scss). `scripts/screenshots.mjs`'s FORM_SAVES fill and save every
-  form, keeping what each sent in `form-bodies.json`: a change to the forms
+  DateFormatService). A list column (JSONB, an array of strings, which the API
+  sends as its raw JSON text) goes through `admin-full-resource.model.ts` alone:
+  `listFromColumn()` decodes it once and the form holds what came,
+  `listText()` shows it an item a line, `toLines()` takes an edit back as a plain
+  array of strings, and `listToSend()` sends what the form holds - so a list
+  nobody touched goes back exactly as it was stored (NULL as null). Never a
+  list helper of a form's own: the character form's took the raw text for the
+  list's one item, and from 2026-09-01 to 2026-10-25 every save wrapped each
+  untouched list once more (`["[\"Wangsheng Funeral Parlor\"]"]`;
+  `genshin_impact/032` unwrapped what it stored - once it is applied, no build
+  from before it goes on the host again: that form would wrap them anew).
+  Fields side by side are `container-wrap` round `d-grid gap-3 cols-N`
+  (general.scss), a checkbox among them in `.grid-checkbox` (admin-form.scss).
+  `scripts/screenshots.mjs`'s FORM_SAVES fill and save every form, and save
+  each form that keeps lists untouched (`admin-form-keep-*`, on the seed's
+  lists), keeping what each sent in `form-bodies.json`: a change to the forms
   keeps that file as it was, but for the rows' times.
 - **local-lib** (`src/app/shared/local-lib/`) holds what the kit has no piece
   for and the bases the pages build on: the forms' checks (`fields/`, above);

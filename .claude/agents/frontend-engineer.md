@@ -127,8 +127,14 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   first); a number is `[(appNumber)]` on the kit's text field and a typed choice
   `[(appChoice)]` on its select (local-lib's `fields/`, until anotoki-lib 0.11.0
   gives the kit both); a date goes through `stored-dates.ts` (a birthday a DATE
-  in year 4). A change to the admin forms keeps the screenshot run's
-  `form-bodies.json` as it was (FORM_SAVES: run it before and after).
+  in year 4); a list column (JSONB, sent by the API as its raw JSON text) only
+  through `admin-full-resource.model.ts` - `listFromColumn()` on load,
+  `listText()` to show it, `toLines()` for an edit, `listToSend()` on save -,
+  never a helper of the form's own, so an untouched list goes back exactly as it
+  came (a copy that took the raw text for an item wrapped every untouched list
+  once more per save until genshin_impact/032). A change to the admin forms
+  keeps the screenshot run's `form-bodies.json` as it was (FORM_SAVES, with its
+  untouched saves `admin-form-keep-*`: run it before and after).
   **Build on the abstract bases** in local-lib: extend `AbstractModalComponent`
   for anything that opens a dialog (`openModal()` over `AnotokiDialog` with its
   data in `ANOTOKI_DIALOG_DATA`, `closeModal()`, `dialogHeading()`,

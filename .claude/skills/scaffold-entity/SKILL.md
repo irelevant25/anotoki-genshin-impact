@@ -92,10 +92,13 @@ every component is three files) and `<name>-form/<name>-form.component.ts` (+ it
   role/`readOnly` flag).
 Follow the **frontend-engineer** conventions (signals, the kit's fields drawn by
 the form with local-lib's checks - `appCheck`, and `appNumber` / `appChoice`
-until anotoki-lib 0.11.0 -, local-lib's bases, generated
+until anotoki-lib 0.11.0 -, a JSONB list through `listFromColumn()` /
+`listText()` / `toLines()` / `listToSend()`, local-lib's bases, generated
 services, both themes, `translate` pipe, `AppDatePipe`). Upload assets through the
 existing image/audio flow. A new form gets its stage in the screenshot run's
-FORM_SAVES (fill, save, what it sent kept in `form-bodies.json`).
+FORM_SAVES (fill, save, what it sent kept in `form-bodies.json`) - and, if it
+keeps lists, an `admin-form-keep-*` one that saves it untouched, with the lists
+seeded in `backend/tests/tools/browser-env.php`.
 
 ## 7. Public database page (only if player-facing)
 
