@@ -428,7 +428,8 @@ owner's decision), the library's `anotoki_translations/003` and `004` (the
 sign-in page's and the feedback form's words) and `anotoki_people/001`. 028 and
 029 keep the old tables, renamed `audit_logs_before_library` and
 `feedback_before_library` (the latter without `ip` and `submitter_hash`), unread,
-until a later release's migration drops them - and each gate proves every row
+until a later release's migration drops them (`genshin_impact/033`, anotoki-lib
+0.11.0's release) - and each gate proves every row
 came through, field for field; a file that would lose something (a message
 longer than the library's 10,000 characters, an id already taken) stops with
 nothing of it applied. Apply makes a backup first. **Not a way back**: a build
@@ -1494,7 +1495,7 @@ words' tables into the library's shape (keyed by the language's code, no
 scopes, flags or stamps; the guides into `guide_contents`) and proves that
 every string that was not blank came through word for word, keeping full
 copies (`translation_keys_before_library`, `translations_before_library`) for
-one release; it refuses - naming it - a language code that is no code, or a
+one release (`users/067` dropped them); it refuses - naming it - a language code that is no code, or a
 table that refers to the languages besides the strings. Never before the
 upload, and no older build on the host afterwards: it reads the old shape. Then,
 signed in, the Translations page shows every string as it was (and the
@@ -1572,8 +1573,11 @@ and the frontend's build go together - and Apply pending at once (the Apply
 backs the database up first): the library's `anotoki_admin/003` (the site
 settings' tables), `users/066` (genshin's switches and pages moved into them,
 its own tables and the fifteen words nothing asks for any more gone),
-`genshin_impact/032` (the lists the character form wrapped, unwrapped), and
-the library's words `anotoki_translations/014` and `015`. Never before the
+`users/067` (the words' old copies and the Privacy page's "Older copies"
+line gone), `genshin_impact/032` (the lists the character form wrapped,
+unwrapped), `genshin_impact/033` (the audit log's and feedback's old copies
+gone - no leftover tables, at the owner's word), and the library's words
+`anotoki_translations/014` and `015`. Never before the
 upload, and no older build on the host afterwards: it would read tables that are
 gone. Then, signed in as the ADMIN: System → **Site settings** shows the switches
 and pages as they were. For robots.txt and sitemap.xml, the site's address:

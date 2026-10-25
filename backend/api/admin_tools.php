@@ -830,8 +830,8 @@ function sitePeople(): People
  * the browser the person's messages kept (the words they wrote stay, nobody's
  * now), the address and the names the audit log's entries held about them (an
  * AuditLog of that connection's: this site keeps no address and logs no
- * person, but the library's scrub is the rule) - and, while it is kept, the
- * old feedback table's copies of their name and address (genshin_impact/029).
+ * person, but the library's scrub is the rule). The old feedback table's copy
+ * it blanked too is gone (genshin_impact/033).
  */
 function peopleScrubCopies(PDO $pdo, int $sub, ?array $former): void
 {
@@ -840,12 +840,6 @@ function peopleScrubCopies(PDO $pdo, int $sub, ?array $former): void
     }
     if (AdminSchema::has($pdo, AdminSchema::AUDIT_TABLE)) {
         (new AuditLog(static fn(): PDO => $pdo))->scrubPeople([$sub]);
-    }
-    if (AdminSchema::has($pdo, 'feedback_before_library')) {
-        $pdo->prepare(
-            'UPDATE feedback_before_library SET username = ?, email = NULL, user_agent = NULL
-              WHERE user_id = ? AND (username IS DISTINCT FROM ? OR email IS NOT NULL OR user_agent IS NOT NULL)',
-        )->execute(["deleted-$sub", $sub, "deleted-$sub"]);
     }
 }
 

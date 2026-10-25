@@ -117,7 +117,9 @@ const LIBRARY_WORDS_FILES = [
 // users/064 (the account panel's date and clock words gone), users/065 (the
 // Profile's new look's words), users/066 (genshin's site settings into the
 // library's tables - anotoki-lib 0.11.0's anotoki_admin/003 - and the words of
-// its old closed sign, bar and notice gone),
+// its old closed sign, bar and notice gone), users/067 (050's copies of the
+// words gone, and the Privacy page's line for every old copy), genshin_impact/033
+// (028's and 029's copies gone),
 // genshin_impact/030-031 (the game's own ids, for the build analyzer's
 // catalog) and 032 (the lists the character form saved in one layer of JSON
 // too many, unwrapped), which one Apply brings along.
@@ -142,11 +144,13 @@ const WORDS_AND_AFTER = [
     'users/064_drop_account_dates_and_clock_strings.sql',
     'users/065_profile_redesign_strings.sql',
     'users/066_site_settings_into_the_library.sql',
+    'users/067_drop_the_old_copies.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
     'genshin_impact/031_game_ids_filled.sql',
     'genshin_impact/032_lists_unwrapped.sql',
+    'genshin_impact/033_drop_the_old_copies.sql',
     'anotoki_translations/001_languages_and_strings.sql',
     'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql',
@@ -342,6 +346,8 @@ const GONE_BY_066 = [
     'site.maintenance.text',
     'site.maintenance.title',
 ];
+// What users/067 takes away with the old copies: the Privacy page's line for them (055's, which came after).
+const GONE_BY_067 = ['legal.oldCopies.kept', 'legal.oldCopies.name', 'legal.oldCopies.what', 'legal.oldCopies.why'];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -509,9 +515,18 @@ $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE na
 same('the library\'s own keys came, 357 of them', 357, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
 $came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS);
-$went = count(OLD_FORM_KEYS) + count(MULTISELECT_SUMMARY_KEYS) + count(FOOTER_GONE_KEYS) + count(GONE_BY_060) + count(GONE_BY_062_063) + count(GONE_BY_064) + count(GONE_BY_065) + count(GONE_BY_066);
+$went =
+    count(OLD_FORM_KEYS) +
+    count(MULTISELECT_SUMMARY_KEYS) +
+    count(FOOTER_GONE_KEYS) +
+    count(GONE_BY_060) +
+    count(GONE_BY_062_063) +
+    count(GONE_BY_064) +
+    count(GONE_BY_065) +
+    count(GONE_BY_066) +
+    count(GONE_BY_067);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s and 066\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s and 067\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -546,10 +561,11 @@ same(
         ),
     ),
 );
-// Less the two lines for the old announcement bar's storage, which 066 took away (the library's preset says it now).
+// Less the two lines for the old announcement bar's storage, which 066 took away (the library's preset says it now),
+// and the four of the old copies, which 067 took away with the copies.
 same(
-    '055: the legal pages\' facts and the footer\'s fan line, in English and Slovak - but the two 066 took away',
-    [LEGAL_PAGE_KEYS - 2, LEGAL_PAGE_KEYS - 2, LEGAL_PAGE_KEYS - 2],
+    '055: the legal pages\' facts and the footer\'s fan line, in English and Slovak - but the two 066 and the four 067 took away',
+    [LEGAL_PAGE_KEYS - 6, LEGAL_PAGE_KEYS - 6, LEGAL_PAGE_KEYS - 6],
     [
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'legal.%' OR name = 'footer.fanDisclaimer'")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND (key_name LIKE 'legal.%' OR key_name = 'footer.fanDisclaimer')")->fetchColumn(),
@@ -713,6 +729,16 @@ same(
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
         (bool) $pdo->query("SELECT 1 FROM translation_keys WHERE name = 'route.hiddenBadge'")->fetchColumn(),
+    ],
+);
+$inList = "'" . implode("', '", GONE_BY_067) . "'";
+same(
+    '067: the Privacy page\'s line for the old copies, none of it there before, gone - with every string under it',
+    [0, 0, 0],
+    [
+        count(array_intersect(GONE_BY_067, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name IN ($inList)")->fetchColumn(),
     ],
 );
 $inList = "'" . implode("', '", PROFILE_NEW_KEYS) . "'";
@@ -880,20 +906,15 @@ same(
     })(),
 );
 
-echo "The copies, for one release\n";
+echo "The copies, kept for one release - and gone with users/067\n";
 
-same('translations_before_library: every string as it was, blanks and guides included', count($before), (int) $pdo->query('SELECT count(*) FROM translations_before_library')->fetchColumn());
-same('translation_keys_before_library: every key, with its scope and flag', count($keysBefore), (int) $pdo->query('SELECT count(*) FROM translation_keys_before_library')->fetchColumn());
 same(
-    '...the Star Rail scope and the mistaken flag among them',
-    ['star_rail', 'flagged'],
-    array_values(
-        $pdo
-            ->query(
-                "SELECT (SELECT site FROM translation_keys_before_library WHERE name = 'nav.starRail'), (SELECT CASE WHEN is_html THEN 'flagged' END FROM translation_keys_before_library WHERE name = 'notFound.text')",
-            )
-            ->fetch(),
-    ),
+    '050\'s full copies of the words, translations_before_library and translation_keys_before_library, dropped by users/067: no leftover tables',
+    [false, false],
+    [
+        (bool) $pdo->query("SELECT to_regclass('translations_before_library') IS NOT NULL")->fetchColumn(),
+        (bool) $pdo->query("SELECT to_regclass('translation_keys_before_library') IS NOT NULL")->fetchColumn(),
+    ],
 );
 $pdo = null;
 

@@ -499,7 +499,10 @@ not drift; [docs/README.md](docs/README.md) lists them.
   robots kept out of the admin panel, the API, the sign-in's way back and
   `/staff`, and every public page and every character, weapon and material's
   page listed at the site's configured address, without what Page access hides
-  - the static `frontend/public/robots.txt` is gone.
+  - the static `frontend/public/robots.txt` is gone. And no leftover tables:
+  `users/067` and `genshin_impact/033` drop the old copies kept when the
+  words, the audit log and feedback moved into the library's tables, and the
+  Privacy page no longer names them.
 
 ## More
 

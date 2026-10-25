@@ -64,13 +64,12 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  *   library's feedback limits (storage/cache, keyed hashes, a day) and the
  *   pages' error reports' (storage/error-log/client-errors.json, a sender's
  *   for the hour);
- * - the old copies (`legal.oldCopies.*`): feedback_before_library (without ip
- *   and submitter_hash: genshin_impact/029), audit_logs_before_library
- *   (changed_by ids: 028), translations_before_library and
- *   translation_keys_before_library (created_by / updated_by: users/050) -
- *   kept until a later migration drops them, unpruned; the scrub blanks
- *   feedback_before_library's name, address and browser
- *   (peopleScrubCopies());
+ * - no old copies: the tables kept when the feedback, the audit log and the
+ *   words moved into the library's (feedback_before_library,
+ *   audit_logs_before_library, translations_before_library,
+ *   translation_keys_before_library) were dropped by users/067 and
+ *   genshin_impact/033, and their line on the page (`legal.oldCopies.*`) with
+ *   them;
  * - visitors (`legal.visitors.*`, users/045, while the IAM requires no
  *   sign-in): users with a negative id, visitor_key_hash (the key's SHA-256),
  *   created_at and last_seen_at, their games under that id; swept keep_days
@@ -145,7 +144,6 @@ export function siteLegalFacts(i18n: TranslationService, auth: AnotokiAuth, sett
       { name: i18n.t('legal.games.name'), what: i18n.t('legal.games.what'), why: i18n.t('legal.games.why'), kept: i18n.t('legal.games.kept') },
       { name: i18n.t('legal.staff.name'), what: i18n.t('legal.staff.what'), why: i18n.t('legal.staff.why'), kept: i18n.t('legal.staff.kept') },
       { name: i18n.t('legal.limits.name'), what: i18n.t('legal.limits.what'), why: i18n.t('legal.limits.why'), kept: i18n.t('legal.limits.kept') },
-      { name: i18n.t('legal.oldCopies.name'), what: i18n.t('legal.oldCopies.what'), why: i18n.t('legal.oldCopies.why'), kept: i18n.t('legal.oldCopies.kept') },
     ],
     visitors: { what: i18n.t('legal.visitors.what'), kept: i18n.t('legal.visitors.kept', { days }) },
     feedback: { what: i18n.t('legal.feedback.what') },

@@ -83,7 +83,7 @@ $pdo = testPdo($base);
 $built = testMigrate($pdo, ['users' => '051_guide_strings.sql', 'genshin_impact' => '027_visitor_history_index.sql', 'anotoki_translations' => '002_library_words.sql']);
 check('built by the site\'s engine', $built['error'] === null, (string) $built['error']);
 same(
-    'what waits: the admin set, users/052-066, genshin_impact/028-032, the words\' 003-015, the people set',
+    'what waits: the admin set, users/052-067, genshin_impact/028-033, the words\' 003-015, the people set',
     [
         'anotoki_admin/001_audit_log.sql',
         'anotoki_admin/002_feedback.sql',
@@ -103,11 +103,13 @@ same(
         'users/064_drop_account_dates_and_clock_strings.sql',
         'users/065_profile_redesign_strings.sql',
         'users/066_site_settings_into_the_library.sql',
+        'users/067_drop_the_old_copies.sql',
         'genshin_impact/028_audit_into_library.sql',
         'genshin_impact/029_feedback_into_library.sql',
         'genshin_impact/030_game_ids.sql',
         'genshin_impact/031_game_ids_filled.sql',
         'genshin_impact/032_lists_unwrapped.sql',
+        'genshin_impact/033_drop_the_old_copies.sql',
         'anotoki_translations/003_sign_in_words.sql',
         'anotoki_translations/004_feedback_words.sql',
         'anotoki_translations/005_legal_words.sql',
@@ -291,7 +293,7 @@ $name = testDatabase('tools', $base);
 $pdo = testPdo($name);
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
-same('everything that waited ran, the admin set first and the people set last', 37, count($result['applied']));
+same('everything that waited ran, the admin set first and the people set last', 39, count($result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
 same(
     'the library\'s files are recorded under their sets\' names',
@@ -414,9 +416,9 @@ same(
 );
 same('the next entry after the last one moved', 501, (int) $pdo->query("INSERT INTO anotoki_audit_log (action) VALUES ('test.next') RETURNING id")->fetchColumn());
 same(
-    'audit_logs kept as audit_logs_before_library, whole, for one release',
-    [false, count($auditBefore)],
-    [(bool) $pdo->query("SELECT to_regclass('audit_logs') IS NOT NULL")->fetchColumn(), (int) $pdo->query('SELECT count(*) FROM audit_logs_before_library')->fetchColumn()],
+    'audit_logs gone, and the copy 028 kept of it for one release too (genshin_impact/033)',
+    [false, false],
+    [(bool) $pdo->query("SELECT to_regclass('audit_logs') IS NOT NULL")->fetchColumn(), (bool) $pdo->query("SELECT to_regclass('audit_logs_before_library') IS NOT NULL")->fetchColumn()],
 );
 
 // ── genshin_impact/029 ──────────────────────────────────────────────────────
@@ -484,7 +486,7 @@ same(
 );
 same('nobody has handled them yet', [null, null, null, null, null], array_column($messages, 'handled_by'));
 same(
-    'where they came from is kept nowhere: no ip, no submitter_hash, in either table',
+    'where they came from is kept nowhere: no ip, no submitter_hash, in the library\'s table (and the copy is gone)',
     0,
     (int) $pdo
         ->query(
@@ -493,13 +495,9 @@ same(
         ->fetchColumn(),
 );
 same(
-    'feedback kept as feedback_before_library, every message, without them',
-    [false, 5, ['Owner', null, 'Ayaka']],
-    [
-        (bool) $pdo->query("SELECT to_regclass('feedback') IS NOT NULL")->fetchColumn(),
-        (int) $pdo->query('SELECT count(*) FROM feedback_before_library')->fetchColumn(),
-        $pdo->query('SELECT username FROM feedback_before_library WHERE id IN (5, 6, 9) ORDER BY id')->fetchAll(PDO::FETCH_COLUMN),
-    ],
+    'feedback gone, and the copy 029 kept of it for one release too (genshin_impact/033)',
+    [false, false],
+    [(bool) $pdo->query("SELECT to_regclass('feedback') IS NOT NULL")->fetchColumn(), (bool) $pdo->query("SELECT to_regclass('feedback_before_library') IS NOT NULL")->fetchColumn()],
 );
 same('the next message after the last one moved', 42, (int) $pdo->query("INSERT INTO anotoki_feedback (kind, message) VALUES ('other', 'next') RETURNING id")->fetchColumn());
 
@@ -575,11 +573,11 @@ $result = siteMigrator($pdo)->apply();
 check('built without an error', $result['error'] === null, (string) $result['error']);
 same('the admin set first, the people set last', ['anotoki_admin', 'anotoki_people'], [$result['applied'][0]['set'] ?? null, end($result['applied'])['set'] ?? null]);
 same(
-    'the old tables only as their empty copies; the library\'s in their place',
-    [0, 0, false, false, true, true],
+    'the old tables gone, and the copies 028 and 029 made of them (genshin_impact/033); the library\'s in their place',
+    [false, false, false, false, true, true],
     [
-        (int) $pdo->query('SELECT count(*) FROM audit_logs_before_library')->fetchColumn(),
-        (int) $pdo->query('SELECT count(*) FROM feedback_before_library')->fetchColumn(),
+        (bool) $pdo->query("SELECT to_regclass('audit_logs_before_library') IS NOT NULL")->fetchColumn(),
+        (bool) $pdo->query("SELECT to_regclass('feedback_before_library') IS NOT NULL")->fetchColumn(),
         (bool) $pdo->query("SELECT to_regclass('audit_logs') IS NOT NULL")->fetchColumn(),
         (bool) $pdo->query("SELECT to_regclass('feedback') IS NOT NULL")->fetchColumn(),
         (bool) $pdo->query("SELECT to_regclass('anotoki_audit_log') IS NOT NULL")->fetchColumn(),
