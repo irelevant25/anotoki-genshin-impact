@@ -157,7 +157,7 @@ that has not been followed by a client regenerate.
   columns, never from its name; the family's kit used, each piece from its own entry point (never
   `@anotoki/lib/ui`), and no local copy of a piece it has; local-lib bases reused;
   colours from the tokens, both themes handled;
-  copy through the `translate` pipe; dates through `AppDatePipe`.
+  copy through the `translate` pipe; dates through the library's (`anotokiDate`, `AnotokiDates`).
 - Backend: endpoint files registered in `index.php`; `responds()` present;
   migrations additive with a verification gate, never edited in place; a closed
   set of values as a `CHECK (col IN (...))` the spec generator can read, not a
@@ -168,8 +168,9 @@ that has not been followed by a client regenerate.
   finding (keys come from `users/` migrations, owner's decision); so is a key
   under `anotoki.` in a site migration, a gate that counts every key, a string
   a migration overwrites without comparing it to the earlier words (an owner's
-  rewording), a language write open to anybody but ADMIN/EDITOR, and a guide's
-  markup drawn anywhere but `<app-rich-text>`.
+  rewording), a language write open to anybody but ADMIN/EDITOR, a guide's or
+  voice line's markup drawn anywhere but `<anotoki-rich-html>` or kept past
+  `cleanRichText()` (`api/rich_text.php`).
 - Comments explain the *why* and match the file's density — flag both missing
   rationale on something subtle and noise that just restates the code.
 

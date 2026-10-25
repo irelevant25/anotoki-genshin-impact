@@ -208,8 +208,9 @@ the library's `anotoki_translations/001`, `002`): export every language from the
 admin Translations page and take a dump (Backups page) first; then upload both
 builds and Apply at once - never before the upload, and no older build on the
 host afterwards (050 changes the shape of the words' tables, which an older build
-reads). 050's gate proves every string came through; full copies stay as
-`*_before_library` for one release. DEV.md, *Later schema changes*, has the rest.
+reads). 050's gate proves every string came through; its full copies
+(`*_before_library`) went with `users/067` (anotoki-lib 0.11.0's release). DEV.md,
+*Later schema changes*, has the rest.
 
 Signing in, people and the admin tools through the anotoki library (anotoki-lib
 0.4.1, 2026-10-11; the library's `anotoki_admin/001`-`002`, `users/052`-`053`,
@@ -218,10 +219,9 @@ Signing in, people and the admin tools through the anotoki library (anotoki-lib
 upload, and no older build on the host afterwards (052 drops `users.email`, 053
 the old feedback form's and callback page's strings, 028 and 029 move
 `audit_logs` and `feedback` into the library's tables under their ids, keeping
-the old ones as `*_before_library` until a later release drops them -
+the old ones as `*_before_library` until `genshin_impact/033` dropped them -
 `feedback`'s without `ip` and `submitter_hash`). Apply makes a backup first. Then, as the
-ADMIN: the Files explorer's **Rescan** once. `robots.txt` with `Disallow: /auth/`
-comes with the frontend's build, the asset tree's new `assets/.htaccess`
+ADMIN: the Files explorer's **Rescan** once. The asset tree's new `assets/.htaccess`
 (nosniff, anything but a picture a download) with `dist/`. Redirect every alias
 of the site (`www.`, the host's own name) to the address the IAM knows: the
 sign-in hint's silent hop dead-ends at the IAM on any other. The last step, when
@@ -270,6 +270,22 @@ and Apply at once - before it, the new footer shows two keys bare; after it, an
 older build would show `footer.backgrounds` bare. Then the public footer reads
 v1.2.0 · What's new · Feedback · Account · Terms · Privacy · Contact, the fan
 clause on its left, and the wallpapers open from the Account panel.
+
+anotoki-lib 0.11.0 (2026-10-25; the library's `anotoki_admin/003`, `users/066`,
+`067` and `068`, `genshin_impact/032` and `033`, the library's
+`anotoki_translations/014` and `015`): upload both builds - `vendor/anotoki/lib`
+and the frontend's build together - and Apply at once (the Apply backs the
+database up first); never before the upload, and no older build on the host
+afterwards: 066 moves the site settings into the library's tables and drops
+genshin's own, 067 and 033 drop the old copies, 068 the old multiselect's
+words. Then, as the ADMIN: System → **Site settings** shows the switches and
+pages as they were. For robots.txt and sitemap.xml (the PHP's now - the
+release's routes give the front controller both, and the old
+`frontend/robots.txt` is gone from the build), the site's address in
+`config/app.local.php` - `<?php return ['url' => 'https://genshin.anotoki.eu'];`
+- by hand, unless the host has it already (setup wrote it from 2026-09-29 to
+2026-10-05); `/robots.txt` then ends with its `Sitemap:` line. Every guide and
+voice line saved from now on is kept through the family's allow-list.
 
 ## Copying local data up to production
 

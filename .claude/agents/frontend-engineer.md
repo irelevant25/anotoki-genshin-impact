@@ -19,11 +19,12 @@ first. This file adds frontend-specific detail.
 
 - Public site: `frontend/src/app/sites/main/` — features under `features/`
   (database, quizzes, games, daily, profile, account), shared chrome under
-  `common/` (footer, announcement). The shell (`sites/main/app.component.*`)
-  draws one of three things: the closed sign (`maintenance/`, maintenance mode,
-  admins exempt), the sign-in card (`sign-in-required/`, while the IAM requires
-  sign-in and nobody is signed in - `SiteSettingsService.loginRequired`), or the
-  site. The app initializer (`app.config.ts`, `mustSignInFirst()`) starts the
+  `common/` (header, footer, guide). The shell (`sites/main/app.component.*`)
+  draws the sign-in card (`sign-in-required/`, while the IAM requires sign-in
+  and nobody is signed in - `PublicSettingsService.loginRequired`) or the site,
+  with the family's announcement bar and page notice (`@anotoki/lib/site-settings`,
+  `shared/site-settings.ts`); the site closed for maintenance is the root gate's
+  closed sign (the library's, admins exempt, Sign in at `/staff`). The app initializer (`app.config.ts`, `mustSignInFirst()`) starts the
   sign-in before the first page under that switch; anything that starts a
   sign-in by itself keeps its no-loop rule (not on the callback, not after a
   failed sign-in, not while `holdsSession()` - see `admin-access.guard.ts`).
@@ -124,9 +125,13 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   through a wrapper component: a required field is labelled " *", marked
   `required` and checked by `appCheck` (its `error()` in the field's `[error]`;
   `FormChecks` counts the wrong ones at a save and opens the tab holding the
-  first); a number is `[(appNumber)]` on the kit's text field and a typed choice
-  `[(appChoice)]` on its select (local-lib's `fields/`, until anotoki-lib 0.11.0
-  gives the kit both); a date goes through `stored-dates.ts` (a birthday a DATE
+  first); a number is the kit's `<anotoki-number-field>` with `[(appNumber)]`
+  (`[value]="x.number()"`, `[step]` for decimals) and a typed choice its select
+  with `[(appChoice)]` (`[value]="x.selected()" [none]="null"`) - local-lib's
+  `fields/`, the forms' side of the kit's typed fields (anotoki-lib 0.11.0); a
+  multiselect is the kit's `<anotoki-multiselect>`, an HTML text its
+  `<anotoki-html-editor>` (`shared/rich-text.ts`'s fonts, swatches and
+  classes); a date goes through `stored-dates.ts` (a birthday a DATE
   in year 4); a list column (JSONB, sent by the API as its raw JSON text) only
   through `admin-full-resource.model.ts` - `listFromColumn()` on load,
   `listText()` to show it, `toLines()` for an edit, `listToSend()` on save -,
@@ -139,13 +144,15 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   for anything that opens a dialog (`openModal()` over `AnotokiDialog` with its
   data in `ANOTOKI_DIALOG_DATA`, `closeModal()`, `dialogHeading()`,
   `notificationService` = the kit's `ToastService`), `AbstractRolesComponent`
-  for role-gated UI; `AbstractInputComponent` is only the base of the fields
-  local-lib still draws (the multiselect, the file button, the HTML editor)
-  until 0.11.0.
+  for role-gated UI; `AbstractInputComponent` is only the base of `app-file`,
+  the one field local-lib still draws.
 - **i18n**: user-facing copy goes through the `translate` pipe with a key; proper
   nouns - character names, usernames, version numbers - are shown as they are,
   not through the pipe (the footer's version number and username, the
-  wallpapers' names). Dates render through `AppDatePipe`. The pipe and
+  wallpapers' names). Dates render through the library's `anotokiDate`
+  (`AnotokiDates` in code; `shared/site-dates.ts` reads the API's zone-less
+  times on the reader's clock), texts kept as HTML through `<anotoki-rich-html>`
+  with `RICH_TEXT_CLASSES`. The translate pipe and
   `TranslationService` are the anotoki library's (`@anotoki/lib/translations`,
   configured in `shared/site-translations.ts`): `t()`, `has()`, `language()`,
   `languages()`, `effectiveLanguage()` (English in the admin panel for its
