@@ -41,6 +41,6 @@ export interface GuideEditorView {
 export interface GuideResponse {
   guide: string;
   language: string;
-  /** Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through. */
+  /** Markup, kept through the family's allow-list (api/rich_text.php) and drawn through it again (<anotoki-rich-html>). */
   html: string;
 }

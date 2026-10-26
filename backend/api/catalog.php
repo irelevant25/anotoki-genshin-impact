@@ -95,6 +95,77 @@ function catalogVersion(mixed $value): array
     return gameVersionParts($value === null ? '' : (string) $value);
 }
 
+/** A number of the ascension tables (REAL columns), as the site typed it: two decimals at most. */
+function catalogNumber(mixed $value): float
+{
+    return round((float) $value, 2);
+}
+
+/**
+ * The base stats behind the stat targets the build analyzer works out (2026-10-26,
+ * at the owner's word): per ascension set, the character's HP, ATK and DEF at
+ * level 1 (phase 0's start) and at level 80 once ascended (phase 6's start),
+ * and the stat the ascensions raise with its whole value (phase 6's). The level
+ * 90 value is the reader's to work out from these with the game's growth
+ * curve: the phases' end values are not it. A set without both phases has
+ * none.
+ *
+ * @return array<int, array<string, mixed>> set id => stats
+ */
+function catalogCharacterStats(PDO $pdo): array
+{
+    $phases = [];
+    foreach ($pdo->query('SELECT ascension_set_id, phase, primary_stat, primary_stat_value, start_level_hp, start_level_atk, start_level_def FROM characters_ascensions WHERE deleted = FALSE AND phase IN (0, 6) ORDER BY ascension_set_id, phase, id') as $row) {
+        $phases[(int) $row['ascension_set_id']][(int) $row['phase']] ??= $row;
+    }
+
+    $stats = [];
+    foreach ($phases as $set => $byPhase) {
+        if (!isset($byPhase[0], $byPhase[6])) {
+            continue;
+        }
+        $level = static fn(array $row): array => ['hp' => catalogNumber($row['start_level_hp']), 'atk' => catalogNumber($row['start_level_atk']), 'def' => catalogNumber($row['start_level_def'])];
+        $stats[$set] = [
+            'base' => $level($byPhase[0]),
+            'lv80' => $level($byPhase[6]),
+            'ascension' => ['stat' => (string) $byPhase[6]['primary_stat'], 'value' => catalogNumber($byPhase[6]['primary_stat_value'])],
+        ];
+    }
+
+    return $stats;
+}
+
+/**
+ * The same for weapons: per weapon, its base ATK at level 1 (phase 0) and at
+ * level 80 once ascended (phase 6's start - the level 90 value is the reader's
+ * to work out), and its secondary stat's value at level 1. The stat's label is
+ * the weapon row's (`weapons.secondary_stat`); a weapon without both phases
+ * has none of this.
+ *
+ * @return array<int, array<string, float>> weapon id => base_atk, lv80_atk, secondary_value
+ */
+function catalogWeaponStats(PDO $pdo): array
+{
+    $phases = [];
+    foreach ($pdo->query('SELECT weapon_id, phase, primary_stat_value, secondary_stat_value FROM weapons_ascensions WHERE deleted = FALSE AND phase IN (0, 6) ORDER BY weapon_id, phase, id') as $row) {
+        $phases[(int) $row['weapon_id']][(int) $row['phase']] ??= $row;
+    }
+
+    $stats = [];
+    foreach ($phases as $weapon => $byPhase) {
+        if (!isset($byPhase[0], $byPhase[6])) {
+            continue;
+        }
+        $stats[$weapon] = [
+            'base_atk' => catalogNumber($byPhase[0]['primary_stat_value']),
+            'lv80_atk' => catalogNumber($byPhase[6]['primary_stat_value']),
+            'secondary_value' => catalogNumber($byPhase[0]['secondary_stat_value']),
+        ];
+    }
+
+    return $stats;
+}
+
 /**
  * Every live character. The Travelers are rows like any other - a row per
  * element, each named Aether or Lumine, every one of a Traveler with the same
@@ -106,13 +177,14 @@ function catalogCharacters(PDO $pdo, string $origin): array
 {
     $rows = $pdo
         ->query(
-            'SELECT game_id, name, element, weapon_type, rarity, region, version, release_date, is_traveler, icon_file_id
+            'SELECT game_id, name, element, weapon_type, rarity, region, version, release_date, is_traveler, icon_file_id, ascension_set_id
                FROM characters
               WHERE deleted = FALSE
               ORDER BY name COLLATE "C", id',
         )
         ->fetchAll(PDO::FETCH_ASSOC);
     resolveAssetRows($pdo, 'characters', $rows);
+    $stats = catalogCharacterStats($pdo);
 
     return array_map(
         static fn(array $row): array => [
@@ -126,6 +198,7 @@ function catalogCharacters(PDO $pdo, string $origin): array
             'release_date' => catalogText($row['release_date']),
             'is_traveler' => catalogBool($row['is_traveler']),
             'icon' => catalogIconUrl($origin, $row['icon'] ?? null),
+            'stats' => $row['ascension_set_id'] === null ? null : ($stats[(int) $row['ascension_set_id']] ?? null),
         ],
         $rows,
     );
@@ -140,24 +213,36 @@ function catalogWeapons(PDO $pdo, string $origin): array
 {
     $rows = $pdo
         ->query(
-            'SELECT game_id, name, type, rarity, version, release_date, icon_file_id
+            'SELECT id, game_id, name, type, rarity, version, release_date, icon_file_id, secondary_stat
                FROM weapons
               WHERE deleted = FALSE
               ORDER BY name COLLATE "C", id',
         )
         ->fetchAll(PDO::FETCH_ASSOC);
     resolveAssetRows($pdo, 'weapons', $rows);
+    $stats = catalogWeaponStats($pdo);
 
     return array_map(
-        static fn(array $row): array => [
-            'game_id' => catalogInt($row['game_id']),
-            'name' => (string) $row['name'],
-            'type' => (string) $row['type'],
-            'rarity' => (int) $row['rarity'],
-            ...catalogVersion($row['version']),
-            'release_date' => catalogText($row['release_date']),
-            'icon' => catalogIconUrl($origin, $row['icon'] ?? null),
-        ],
+        static function (array $row) use ($origin, $stats): array {
+            $own = $stats[(int) $row['id']] ?? null;
+            $label = catalogText($row['secondary_stat']);
+
+            return [
+                'game_id' => catalogInt($row['game_id']),
+                'name' => (string) $row['name'],
+                'type' => (string) $row['type'],
+                'rarity' => (int) $row['rarity'],
+                ...catalogVersion($row['version']),
+                'release_date' => catalogText($row['release_date']),
+                'icon' => catalogIconUrl($origin, $row['icon'] ?? null),
+                'stats' => $own === null ? null : [
+                    'base_atk' => $own['base_atk'],
+                    'lv80_atk' => $own['lv80_atk'],
+                    // No label, or nought at level 1: the weapon has no secondary stat (the 1- and 2-star ones).
+                    'secondary' => $label === null || $own['secondary_value'] <= 0 ? null : ['stat' => $label, 'value' => $own['secondary_value']],
+                ],
+            ];
+        },
         $rows,
     );
 }

@@ -949,7 +949,15 @@ node docs/security/build-report.mjs                            # after re-runnin
   which `validateBody()` refuses and a create's model cannot even be built
   from), and the owner's importer sends `game_id` from now on.
   `tests/catalog-routes.test.php` covers the answers, the gates, the indexes
-  and both migrations' gates.
+  and both migrations' gates. Since 2026-10-26 (the analyzer's stat targets, at
+  the owner's word) a character and a weapon carry `stats` too - the
+  character's HP, ATK and DEF at level 1 (phase 0's start) and at level 80
+  ascended (phase 6's start) with the ascension stat and its whole value; the
+  weapon's base ATK at both and its secondary stat at level 1 under the label
+  this site stores -, null without both phases. The level 90 value is the
+  reader's to work out (the phases' end values are not it); nothing is
+  computed here (`api/catalog.php`'s `catalogCharacterStats()`,
+  `catalogWeaponStats()`).
 - **The quizzes' levels** (the owner's decision of 2026-10-21): what each level
   of each quiz shows, try by try, is data - `quiz_levels` (`users/061`: one row
   at most, the levels as JSONB and their time, no person; no row is the

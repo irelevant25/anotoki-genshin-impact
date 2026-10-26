@@ -24,6 +24,23 @@ export interface CatalogArtifact {
 }
 
 /**
+ * The stat a character's ascensions raise, under the label this site stores ("Crit DMG %"), with its whole value once every ascension is done.
+ */
+export interface CatalogAscensionStat {
+  stat: string;
+  value: number;
+}
+
+/**
+ * A character's HP, ATK and DEF at one level, as its ascension phases hold them.
+ */
+export interface CatalogBaseStats {
+  hp: number;
+  atk: number;
+  def: number;
+}
+
+/**
  * `GET /api/catalog/characters` - one live character.
  */
 export interface CatalogCharacter {
@@ -46,6 +63,17 @@ export interface CatalogCharacter {
   is_traveler: boolean;
   /** The icon's absolute address, on the host the request was made to (https; http on a loopback host). */
   icon: string | null;
+  /** The base stats behind the targets the analyzer works out; null for a character without both ascension phases. */
+  stats: CatalogCharacterStats | null;
+}
+
+/**
+ * A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat.
+ */
+export interface CatalogCharacterStats {
+  base: CatalogBaseStats;
+  lv80: CatalogBaseStats;
+  ascension: CatalogAscensionStat;
 }
 
 /**
@@ -66,4 +94,23 @@ export interface CatalogWeapon {
   release_date: string | null;
   /** The icon's absolute address, on the host the request was made to (https; http on a loopback host). */
   icon: string | null;
+  /** The base stats behind the targets the analyzer works out; null for a weapon without both ascension phases. */
+  stats: CatalogWeaponStats | null;
+}
+
+/**
+ * A weapon's secondary stat at level 1, under the label this site stores ("Crit DMG %").
+ */
+export interface CatalogWeaponSecondary {
+  stat: string;
+  value: number;
+}
+
+/**
+ * A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one.
+ */
+export interface CatalogWeaponStats {
+  base_atk: number;
+  lv80_atk: number;
+  secondary: CatalogWeaponSecondary | null;
 }

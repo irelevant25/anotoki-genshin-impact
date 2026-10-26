@@ -86,6 +86,19 @@ function body(ResponseInterface $response): mixed
     return json_decode((string) $response->getBody(), true);
 }
 
+/**
+ * A row's `stats` with every number a float: a whole number crosses the wire as "46" or "46.0" by the server's
+ * serialize_precision, and the reader takes both.
+ */
+function floats(mixed $value): mixed
+{
+    if (is_array($value)) {
+        return array_map(floats(...), $value);
+    }
+
+    return is_int($value) ? (float) $value : $value;
+}
+
 /** The SQLSTATE a statement fails with, or null when it does not. */
 function refusedWith(PDO $pdo, string $sql): ?string
 {
@@ -132,7 +145,7 @@ function made(string $table, array $row, ?PDO $into = null): int
         'weapons' => ['type' => 'Sword', 'rarity' => 4],
         'artifacts' => [],
     ];
-    $row = $row + $defaults[$table] + ['created_by' => ADMIN];
+    $row = $row + ($defaults[$table] ?? []) + ['created_by' => ADMIN];
     $values = array_map(static fn(mixed $value): mixed => is_bool($value) ? ($value ? 'true' : 'false') : $value, array_values($row));
     $statement = $into->prepare("INSERT INTO $table (" . implode(', ', array_keys($row)) . ') VALUES (' . implode(', ', array_fill(0, count($row), '?')) . ') RETURNING id');
     $statement->execute($values);
@@ -157,6 +170,26 @@ $huTao = made('characters', [
     'game_id' => 10000046,
     'icon_file_id' => $huTaoIcon,
 ]);
+// Hu Tao's ascension phases: level 1 (phase 0) and level 80 ascended (phase 6) are what the catalog hands on; a
+// phase between, and a deleted phase 6 with other numbers, are not.
+$huTaoSet = (int) $pdo->query('INSERT INTO characters_ascensions_sets DEFAULT VALUES RETURNING id')->fetchColumn();
+$pdo->prepare('UPDATE characters SET ascension_set_id = ? WHERE id = ?')->execute([$huTaoSet, $huTao]);
+$phase = static fn(int $phase, string $stat, float $value, float $hp, float $atk, float $def, array $more = []): array => $more + [
+    'ascension_set_id' => $huTaoSet,
+    'phase' => $phase,
+    'primary_stat' => $stat,
+    'primary_stat_value' => $value,
+    'start_level_hp' => $hp,
+    'start_level_atk' => $atk,
+    'start_level_def' => $def,
+    'end_level_hp' => $hp * 2,
+    'end_level_atk' => $atk * 2,
+    'end_level_def' => $def * 2,
+];
+made('characters_ascensions', $phase(0, 'Crit DMG %', 0, 1210.72, 8.29, 68.21));
+made('characters_ascensions', $phase(3, 'Crit DMG %', 19.2, 7000, 50, 400));
+made('characters_ascensions', $phase(6, 'Crit DMG %', 38.4, 14459.03, 98.95, 814.56));
+made('characters_ascensions', $phase(6, 'Crit DMG %', 99, 1, 1, 1, ['deleted' => true]));
 made('characters', ['name' => 'Nefer', 'element' => 'Dendro', 'weapon_type' => 'Catalyst', 'rarity' => 5, 'region' => 'Nod-Krai', 'version' => 'Luna II', 'game_id' => 10000122]);
 made('characters', ['name' => 'Manekin', 'element' => 'Adaptive', 'rarity' => 5, 'version' => 'Luna I', 'game_id' => 10000117]);
 made('characters', ['name' => 'Not Yet Numbered', 'version' => 'Beta']);
@@ -170,7 +203,15 @@ $homa = made('weapons', [
     'release_date' => '2021-02-23',
     'game_id' => 13501,
     'icon_file_id' => catalogued('weapons', 'STAFF_OF_HOMA', 'avif'),
+    'primary_stat' => 'ATK',
+    'secondary_stat' => 'Crit DMG %',
 ]);
+// Its phases: level 1 and level 80 ascended go out; the phase between and a deleted one do not.
+$weaponPhase = static fn(int $weapon, int $phase, float $atk, float $secondary, array $more = []): array => $more + ['weapon_id' => $weapon, 'phase' => $phase, 'primary_stat_value' => $atk, 'secondary_stat_value' => $secondary];
+made('weapons_ascensions', $weaponPhase($homa, 0, 46, 14.4));
+made('weapons_ascensions', $weaponPhase($homa, 3, 373, 28.6));
+made('weapons_ascensions', $weaponPhase($homa, 6, 563, 60.3));
+made('weapons_ascensions', $weaponPhase($homa, 6, 1, 1, ['deleted' => true]));
 made('weapons', [
     'name' => "Amos' Bow",
     'type' => 'Bow',
@@ -180,7 +221,10 @@ made('weapons', [
     'game_id' => 15502,
     'icon_file_id' => catalogued('weapons', "Amos' Bow", 'avif'),
 ]);
-made('weapons', ['name' => '"The Catch"', 'type' => 'Polearm', 'version' => '2.1', 'game_id' => 13415]);
+$catch = made('weapons', ['name' => '"The Catch"', 'type' => 'Polearm', 'version' => '2.1', 'game_id' => 13415, 'primary_stat' => 'ATK']);
+// Phases, but no secondary stat (none named, its value nought): the base ATK alone.
+made('weapons_ascensions', $weaponPhase($catch, 0, 42, 0));
+made('weapons_ascensions', $weaponPhase($catch, 6, 475, 0));
 $nameless = made('weapons', ['name' => 'Nameless Sword']);
 made('weapons', ['name' => 'Deleted Blade', 'deleted' => true, 'game_id' => 11999]);
 
@@ -225,9 +269,15 @@ same(
         'release_date' => '2021-03-02',
         'is_traveler' => false,
         'icon' => 'http://localhost/assets/character/icon/HU_TAO.avif',
+        'stats' => [
+            'base' => ['hp' => 1210.72, 'atk' => 8.29, 'def' => 68.21],
+            'lv80' => ['hp' => 14459.03, 'atk' => 98.95, 'def' => 814.56],
+            'ascension' => ['stat' => 'Crit DMG %', 'value' => 38.4],
+        ],
     ],
-    $characters[2],
+    array_replace($characters[2], ['stats' => floats($characters[2]['stats'])]),
 );
+same('a character without ascension phases: no stats', null, $characters[5]['stats']);
 same(
     'the Travelers: a row per element, each named, every Aether row 10000005, Lumine 10000007',
     [[10000005, 'Aether', 'Geo', true], [10000005, 'Aether', 'Anemo', true], [10000007, 'Lumine', 'Anemo', true]],
@@ -261,14 +311,16 @@ same(
         'version_name' => null,
         'release_date' => '2021-02-23',
         'icon' => 'http://localhost/assets/weapons/STAFF_OF_HOMA.avif',
+        'stats' => ['base_atk' => 46.0, 'lv80_atk' => 563.0, 'secondary' => ['stat' => 'Crit DMG %', 'value' => 14.4]],
     ],
-    $weapons[3],
+    array_replace($weapons[3], ['stats' => floats($weapons[3]['stats'])]),
 );
+same('a weapon with phases but no secondary stat: its base ATK alone', ['base_atk' => 42.0, 'lv80_atk' => 475.0, 'secondary' => null], floats($weapons[0]['stats']));
 same('each part of an icon\'s path encoded: "Amos\' Bow.avif"', 'http://localhost/assets/weapons/Amos%27%20Bow.avif', $weapons[1]['icon']);
 same(
-    'nothing known: no id, no version, no date, no icon',
-    [null, null, null, null, null],
-    [$weapons[2]['game_id'], $weapons[2]['version'], $weapons[2]['version_name'], $weapons[2]['release_date'], $weapons[2]['icon']],
+    'nothing known: no id, no version, no date, no icon, no stats',
+    [null, null, null, null, null, null],
+    [$weapons[2]['game_id'], $weapons[2]['version'], $weapons[2]['version_name'], $weapons[2]['release_date'], $weapons[2]['icon'], $weapons[2]['stats']],
 );
 
 echo "GET /api/catalog/artifacts\n";

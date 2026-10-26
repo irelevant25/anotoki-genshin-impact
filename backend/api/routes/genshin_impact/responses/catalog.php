@@ -30,6 +30,56 @@ class CatalogCharacter extends ResponseShape
         public readonly bool $is_traveler,
         /** The icon's absolute address, on the host the request was made to (https; http on a loopback host). */
         public readonly ?string $icon,
+        /** The base stats behind the targets the analyzer works out; null for a character without both ascension phases. */
+        public readonly ?CatalogCharacterStats $stats,
+    ) {}
+}
+
+/** A character's HP, ATK and DEF at one level, as its ascension phases hold them. */
+class CatalogBaseStats extends ResponseShape
+{
+    public function __construct(
+        public readonly float $hp,
+        public readonly float $atk,
+        public readonly float $def,
+    ) {}
+}
+
+/** The stat a character's ascensions raise, under the label this site stores ("Crit DMG %"), with its whole value once every ascension is done. */
+class CatalogAscensionStat extends ResponseShape
+{
+    public function __construct(
+        public readonly string $stat,
+        public readonly float $value,
+    ) {}
+}
+
+/** A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat. */
+class CatalogCharacterStats extends ResponseShape
+{
+    public function __construct(
+        public readonly CatalogBaseStats $base,
+        public readonly CatalogBaseStats $lv80,
+        public readonly CatalogAscensionStat $ascension,
+    ) {}
+}
+
+/** A weapon's secondary stat at level 1, under the label this site stores ("Crit DMG %"). */
+class CatalogWeaponSecondary extends ResponseShape
+{
+    public function __construct(
+        public readonly string $stat,
+        public readonly float $value,
+    ) {}
+}
+
+/** A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one. */
+class CatalogWeaponStats extends ResponseShape
+{
+    public function __construct(
+        public readonly float $base_atk,
+        public readonly float $lv80_atk,
+        public readonly ?CatalogWeaponSecondary $secondary,
     ) {}
 }
 
@@ -51,6 +101,8 @@ class CatalogWeapon extends ResponseShape
         public readonly ?string $release_date,
         /** The icon's absolute address, on the host the request was made to (https; http on a loopback host). */
         public readonly ?string $icon,
+        /** The base stats behind the targets the analyzer works out; null for a weapon without both ascension phases. */
+        public readonly ?CatalogWeaponStats $stats,
     ) {}
 }
 

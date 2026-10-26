@@ -17395,6 +17395,72 @@
             ]
         },
         {
+            "name": "CatalogAscensionStat",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "The stat a character's ascensions raise, under the label this site stores (\"Crit DMG %\"), with its whole value once every ascension is done.",
+            "fields": [
+                {
+                    "name": "stat",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "value",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "CatalogBaseStats",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "A character's HP, ATK and DEF at one level, as its ascension phases hold them.",
+            "fields": [
+                {
+                    "name": "hp",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "atk",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "def",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "CatalogCharacter",
             "file": "catalog.php",
             "merges": null,
@@ -17509,6 +17575,54 @@
                     "optional": false,
                     "of": null,
                     "description": "The icon's absolute address, on the host the request was made to (https; http on a loopback host)."
+                },
+                {
+                    "name": "stats",
+                    "types": [
+                        "CatalogCharacterStats"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The base stats behind the targets the analyzer works out; null for a character without both ascension phases."
+                }
+            ]
+        },
+        {
+            "name": "CatalogCharacterStats",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat.",
+            "fields": [
+                {
+                    "name": "base",
+                    "types": [
+                        "CatalogBaseStats"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "lv80",
+                    "types": [
+                        "CatalogBaseStats"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ascension",
+                    "types": [
+                        "CatalogAscensionStat"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
                 }
             ]
         },
@@ -17597,6 +17711,82 @@
                     "optional": false,
                     "of": null,
                     "description": "The icon's absolute address, on the host the request was made to (https; http on a loopback host)."
+                },
+                {
+                    "name": "stats",
+                    "types": [
+                        "CatalogWeaponStats"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The base stats behind the targets the analyzer works out; null for a weapon without both ascension phases."
+                }
+            ]
+        },
+        {
+            "name": "CatalogWeaponSecondary",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "A weapon's secondary stat at level 1, under the label this site stores (\"Crit DMG %\").",
+            "fields": [
+                {
+                    "name": "stat",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "value",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "CatalogWeaponStats",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one.",
+            "fields": [
+                {
+                    "name": "base_atk",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "lv80_atk",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "secondary",
+                    "types": [
+                        "CatalogWeaponSecondary"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
                 }
             ]
         },
@@ -19036,7 +19226,7 @@
                     "nullable": false,
                     "optional": false,
                     "of": null,
-                    "description": "Markup, kept as the editor wrote it: drawn by app-rich-text, which keeps what its allow-list lets through."
+                    "description": "Markup, kept through the family's allow-list (api/rich_text.php) and drawn through it again (<anotoki-rich-html>)."
                 }
             ]
         },
@@ -21058,79 +21248,6 @@
                 {
                     "name": "icon_name",
                     "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "audit_logs_before_library",
-            "database": "genshin_impact",
-            "interface": "AuditLog",
-            "columns": [
-                {
-                    "name": "id",
-                    "sqlType": "BIGSERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "table_name",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "record_id",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "action",
-                    "sqlType": "VARCHAR(10)",
-                    "nullable": false,
-                    "enum": [
-                        "INSERT",
-                        "UPDATE",
-                        "DELETE",
-                        "RECONCILE",
-                        "MOVE"
-                    ]
-                },
-                {
-                    "name": "changed_by",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "changed_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "changes",
-                    "sqlType": "JSONB",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "entity_table",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "entity_id",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "session_id",
-                    "sqlType": "VARCHAR(64)",
                     "nullable": true,
                     "enum": null
                 }
@@ -23689,148 +23806,6 @@
                     "name": "name",
                     "sqlType": "VARCHAR(50)",
                     "nullable": false,
-                    "enum": null
-                }
-            ]
-        },
-        {
-            "table": "feedback_before_library",
-            "database": "genshin_impact",
-            "interface": "Feedback",
-            "columns": [
-                {
-                    "name": "id",
-                    "sqlType": "SERIAL",
-                    "nullable": false,
-                    "enum": null
-                },
-                {
-                    "name": "type",
-                    "sqlType": "VARCHAR(20)",
-                    "nullable": false,
-                    "enum": [
-                        "Bug",
-                        "Suggestion",
-                        "Other"
-                    ]
-                },
-                {
-                    "name": "status",
-                    "sqlType": "VARCHAR(20)",
-                    "nullable": false,
-                    "enum": [
-                        "new",
-                        "read",
-                        "resolved",
-                        "spam"
-                    ]
-                },
-                {
-                    "name": "section",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "title",
-                    "sqlType": "VARCHAR(200)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "user_id",
-                    "sqlType": "INTEGER",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "username",
-                    "sqlType": "VARCHAR(100)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "email",
-                    "sqlType": "VARCHAR(255)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "message",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "steps_to_reproduce",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "expected_behavior",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "actual_behavior",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "browser_device_info",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "details",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "why_important",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "additional_info",
-                    "sqlType": "TEXT",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "page_url",
-                    "sqlType": "VARCHAR(500)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "user_agent",
-                    "sqlType": "VARCHAR(500)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "language",
-                    "sqlType": "VARCHAR(10)",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "created_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
-                    "enum": null
-                },
-                {
-                    "name": "updated_at",
-                    "sqlType": "TIMESTAMP",
-                    "nullable": true,
                     "enum": null
                 }
             ]

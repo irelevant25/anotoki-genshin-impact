@@ -1168,8 +1168,8 @@ for them, so the API still sends no CORS header.
 
 | Route | Each item |
 | --- | --- |
-| `GET /api/catalog/characters` | `game_id`, `name`, `element`, `weapon_type`, `rarity`, `region`, `version`, `version_name`, `release_date`, `is_traveler`, `icon` |
-| `GET /api/catalog/weapons` | `game_id`, `name`, `type`, `rarity`, `version`, `version_name`, `release_date`, `icon` |
+| `GET /api/catalog/characters` | `game_id`, `name`, `element`, `weapon_type`, `rarity`, `region`, `version`, `version_name`, `release_date`, `is_traveler`, `icon`, `stats` |
+| `GET /api/catalog/weapons` | `game_id`, `name`, `type`, `rarity`, `version`, `version_name`, `release_date`, `icon`, `stats` |
 | `GET /api/catalog/artifacts` | `game_id`, `name`, `two_piece`, `four_piece`, `rarities` (`[4, 5]`, lowest first), `version`, `version_name`, `icon` |
 
 ```json
@@ -1184,13 +1184,27 @@ for them, so the API still sends no CORS header.
   "version_name": null,
   "release_date": "2021-03-02",
   "is_traveler": false,
-  "icon": "https://genshin.anotoki.eu/assets/character/icon/HU_TAO.avif"
+  "icon": "https://genshin.anotoki.eu/assets/character/icon/HU_TAO.avif",
+  "stats": {
+    "base": { "hp": 1210.72, "atk": 8.29, "def": 68.21 },
+    "lv80": { "hp": 14459.03, "atk": 98.95, "def": 814.56 },
+    "ascension": { "stat": "Crit DMG %", "value": 38.4 }
+  }
 }
 ```
 
 - **Live rows only**, each list a bare JSON array, by name (byte by byte) then
   id; nothing of an editor's, no row ids. `game_id` is null where nobody knows
   it yet.
+- **The stats** (since 2026-10-26, for the analyzer's stat targets) are the
+  ascension phases' own numbers, nothing computed: a character's HP, ATK and
+  DEF at level 1 (phase 0's start) and at level 80 ascended (phase 6's start),
+  and the stat its ascensions raise with its whole value, under the label this
+  site stores ("Crit DMG %"); a weapon's `base_atk` and `lv80_atk` likewise,
+  and its `secondary` stat at level 1 (`{"stat": "Crit DMG %", "value": 9.6}`,
+  null for a weapon without one). Null for a character or weapon without both
+  phases. Level 90 is the reader's to work out with the game's growth curve:
+  the phases' end values are not it.
 - **The Travelers** are rows like any other, one per element, named Aether or
   Lumine, `is_traveler` true: every Aether row carries 10000005, every Lumine
   row 10000007. `element` is as this site keeps it: Anemo, Cryo, Dendro,
