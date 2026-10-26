@@ -17589,10 +17589,58 @@
             ]
         },
         {
+            "name": "CatalogCharacterPhase",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "One ascension phase of a character: its stats at the phase's first level (ascended) and at its last (before the next ascension), and the ascension stat's value through it. Phase 0 is levels 1-20, 1 is 20-40, 2 is 40-50, 3 is 50-60, 4 is 60-70, 5 is 70-80, 6 is 80-90 - whose end value is not level 90's.",
+            "fields": [
+                {
+                    "name": "phase",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "start",
+                    "types": [
+                        "CatalogBaseStats"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "end",
+                    "types": [
+                        "CatalogBaseStats"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "ascension",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "CatalogCharacterStats",
             "file": "catalog.php",
             "merges": null,
-            "description": "A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat.",
+            "description": "A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), the ascension stat, and every phase there is.",
             "fields": [
                 {
                     "name": "base",
@@ -17623,6 +17671,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "phases",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "CatalogCharacterPhase[]",
+                    "description": "In order of phase."
                 }
             ]
         },
@@ -17725,6 +17783,44 @@
             ]
         },
         {
+            "name": "CatalogWeaponPhase",
+            "file": "catalog.php",
+            "merges": null,
+            "description": "One ascension phase of a weapon: its base ATK and its secondary stat's value at the phase's first level (ascended).",
+            "fields": [
+                {
+                    "name": "phase",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "atk",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "secondary",
+                    "types": [
+                        "float"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "CatalogWeaponSecondary",
             "file": "catalog.php",
             "merges": null,
@@ -17756,7 +17852,7 @@
             "name": "CatalogWeaponStats",
             "file": "catalog.php",
             "merges": null,
-            "description": "A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one.",
+            "description": "A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), its secondary stat - null for a weapon without one -, and every phase there is.",
             "fields": [
                 {
                     "name": "base_atk",
@@ -17787,6 +17883,16 @@
                     "optional": false,
                     "of": null,
                     "description": null
+                },
+                {
+                    "name": "phases",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "CatalogWeaponPhase[]",
+                    "description": "In order of phase."
                 }
             ]
         },

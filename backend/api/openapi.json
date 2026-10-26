@@ -23657,9 +23657,35 @@
         ],
         "additionalProperties": false
       },
+      "CatalogCharacterPhase": {
+        "title": "CatalogCharacterPhase",
+        "description": "One ascension phase of a character: its stats at the phase's first level (ascended) and at its last (before the next ascension), and the ascension stat's value through it. Phase 0 is levels 1-20, 1 is 20-40, 2 is 40-50, 3 is 50-60, 4 is 60-70, 5 is 70-80, 6 is 80-90 - whose end value is not level 90's.",
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "number"
+          },
+          "start": {
+            "$ref": "#/components/schemas/CatalogBaseStats"
+          },
+          "end": {
+            "$ref": "#/components/schemas/CatalogBaseStats"
+          },
+          "ascension": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "phase",
+          "start",
+          "end",
+          "ascension"
+        ],
+        "additionalProperties": false
+      },
       "CatalogCharacterStats": {
         "title": "CatalogCharacterStats",
-        "description": "A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat.",
+        "description": "A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), the ascension stat, and every phase there is.",
         "type": "object",
         "properties": {
           "base": {
@@ -23670,12 +23696,20 @@
           },
           "ascension": {
             "$ref": "#/components/schemas/CatalogAscensionStat"
+          },
+          "phases": {
+            "description": "In order of phase.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatalogCharacterPhase"
+            }
           }
         },
         "required": [
           "base",
           "lv80",
-          "ascension"
+          "ascension",
+          "phases"
         ],
         "additionalProperties": false
       },
@@ -23774,6 +23808,28 @@
         ],
         "additionalProperties": false
       },
+      "CatalogWeaponPhase": {
+        "title": "CatalogWeaponPhase",
+        "description": "One ascension phase of a weapon: its base ATK and its secondary stat's value at the phase's first level (ascended).",
+        "type": "object",
+        "properties": {
+          "phase": {
+            "type": "number"
+          },
+          "atk": {
+            "type": "number"
+          },
+          "secondary": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "phase",
+          "atk",
+          "secondary"
+        ],
+        "additionalProperties": false
+      },
       "CatalogWeaponSecondary": {
         "title": "CatalogWeaponSecondary",
         "description": "A weapon's secondary stat at level 1, under the label this site stores (\"Crit DMG %\").",
@@ -23794,7 +23850,7 @@
       },
       "CatalogWeaponStats": {
         "title": "CatalogWeaponStats",
-        "description": "A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one.",
+        "description": "A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), its secondary stat - null for a weapon without one -, and every phase there is.",
         "type": "object",
         "properties": {
           "base_atk": {
@@ -23812,12 +23868,20 @@
                 "$ref": "#/components/schemas/CatalogWeaponSecondary"
               }
             ]
+          },
+          "phases": {
+            "description": "In order of phase.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatalogWeaponPhase"
+            }
           }
         },
         "required": [
           "base_atk",
           "lv80_atk",
-          "secondary"
+          "secondary",
+          "phases"
         ],
         "additionalProperties": false
       },

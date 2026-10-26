@@ -93,7 +93,8 @@ function body(ResponseInterface $response): mixed
 function floats(mixed $value): mixed
 {
     if (is_array($value)) {
-        return array_map(floats(...), $value);
+        // A phase's number stays the integer it is.
+        return array_combine(array_keys($value), array_map(fn($key, $item) => $key === 'phase' ? $item : floats($item), array_keys($value), $value));
     }
 
     return is_int($value) ? (float) $value : $value;
@@ -273,6 +274,13 @@ same(
             'base' => ['hp' => 1210.72, 'atk' => 8.29, 'def' => 68.21],
             'lv80' => ['hp' => 14459.03, 'atk' => 98.95, 'def' => 814.56],
             'ascension' => ['stat' => 'Crit DMG %', 'value' => 38.4],
+            // Every phase there is, in order - the deleted phase 6 left out -, each with its start, its end and the
+            // ascension stat's value through it.
+            'phases' => [
+                ['phase' => 0, 'start' => ['hp' => 1210.72, 'atk' => 8.29, 'def' => 68.21], 'end' => ['hp' => 2421.44, 'atk' => 16.58, 'def' => 136.42], 'ascension' => 0.0],
+                ['phase' => 3, 'start' => ['hp' => 7000.0, 'atk' => 50.0, 'def' => 400.0], 'end' => ['hp' => 14000.0, 'atk' => 100.0, 'def' => 800.0], 'ascension' => 19.2],
+                ['phase' => 6, 'start' => ['hp' => 14459.03, 'atk' => 98.95, 'def' => 814.56], 'end' => ['hp' => 28918.06, 'atk' => 197.9, 'def' => 1629.12], 'ascension' => 38.4],
+            ],
         ],
     ],
     array_replace($characters[2], ['stats' => floats($characters[2]['stats'])]),
@@ -311,11 +319,20 @@ same(
         'version_name' => null,
         'release_date' => '2021-02-23',
         'icon' => 'http://localhost/assets/weapons/STAFF_OF_HOMA.avif',
-        'stats' => ['base_atk' => 46.0, 'lv80_atk' => 563.0, 'secondary' => ['stat' => 'Crit DMG %', 'value' => 14.4]],
+        'stats' => [
+            'base_atk' => 46.0,
+            'lv80_atk' => 563.0,
+            'secondary' => ['stat' => 'Crit DMG %', 'value' => 14.4],
+            'phases' => [['phase' => 0, 'atk' => 46.0, 'secondary' => 14.4], ['phase' => 3, 'atk' => 373.0, 'secondary' => 28.6], ['phase' => 6, 'atk' => 563.0, 'secondary' => 60.3]],
+        ],
     ],
     array_replace($weapons[3], ['stats' => floats($weapons[3]['stats'])]),
 );
-same('a weapon with phases but no secondary stat: its base ATK alone', ['base_atk' => 42.0, 'lv80_atk' => 475.0, 'secondary' => null], floats($weapons[0]['stats']));
+same(
+    'a weapon with phases but no secondary stat: its base ATK alone, the phases\' secondary nought',
+    ['base_atk' => 42.0, 'lv80_atk' => 475.0, 'secondary' => null, 'phases' => [['phase' => 0, 'atk' => 42.0, 'secondary' => 0.0], ['phase' => 6, 'atk' => 475.0, 'secondary' => 0.0]]],
+    floats($weapons[0]['stats']),
+);
 same('each part of an icon\'s path encoded: "Amos\' Bow.avif"', 'http://localhost/assets/weapons/Amos%27%20Bow.avif', $weapons[1]['icon']);
 same(
     'nothing known: no id, no version, no date, no icon, no stats',

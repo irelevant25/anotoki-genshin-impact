@@ -115,7 +115,7 @@ function catalogNumber(mixed $value): float
 function catalogCharacterStats(PDO $pdo): array
 {
     $phases = [];
-    foreach ($pdo->query('SELECT ascension_set_id, phase, primary_stat, primary_stat_value, start_level_hp, start_level_atk, start_level_def FROM characters_ascensions WHERE deleted = FALSE AND phase IN (0, 6) ORDER BY ascension_set_id, phase, id') as $row) {
+    foreach ($pdo->query('SELECT ascension_set_id, phase, primary_stat, primary_stat_value, start_level_hp, start_level_atk, start_level_def, end_level_hp, end_level_atk, end_level_def FROM characters_ascensions WHERE deleted = FALSE AND phase BETWEEN 0 AND 6 ORDER BY ascension_set_id, phase, id') as $row) {
         $phases[(int) $row['ascension_set_id']][(int) $row['phase']] ??= $row;
     }
 
@@ -124,11 +124,20 @@ function catalogCharacterStats(PDO $pdo): array
         if (!isset($byPhase[0], $byPhase[6])) {
             continue;
         }
-        $level = static fn(array $row): array => ['hp' => catalogNumber($row['start_level_hp']), 'atk' => catalogNumber($row['start_level_atk']), 'def' => catalogNumber($row['start_level_def'])];
+        $start = static fn(array $row): array => ['hp' => catalogNumber($row['start_level_hp']), 'atk' => catalogNumber($row['start_level_atk']), 'def' => catalogNumber($row['start_level_def'])];
+        $end = static fn(array $row): array => ['hp' => catalogNumber($row['end_level_hp']), 'atk' => catalogNumber($row['end_level_atk']), 'def' => catalogNumber($row['end_level_def'])];
+        // Every phase there is, in order: the stats at its first level (ascended) and at its last (before the next
+        // ascension), and the ascension stat's value through it. The reader works a level inside a phase out from
+        // these - and phase 6's last level, 90, from the growth curve, since that end value is not it.
+        $list = [];
+        foreach ($byPhase as $phase => $row) {
+            $list[] = ['phase' => $phase, 'start' => $start($row), 'end' => $end($row), 'ascension' => catalogNumber($row['primary_stat_value'])];
+        }
         $stats[$set] = [
-            'base' => $level($byPhase[0]),
-            'lv80' => $level($byPhase[6]),
+            'base' => $start($byPhase[0]),
+            'lv80' => $start($byPhase[6]),
             'ascension' => ['stat' => (string) $byPhase[6]['primary_stat'], 'value' => catalogNumber($byPhase[6]['primary_stat_value'])],
+            'phases' => $list,
         ];
     }
 
@@ -147,7 +156,7 @@ function catalogCharacterStats(PDO $pdo): array
 function catalogWeaponStats(PDO $pdo): array
 {
     $phases = [];
-    foreach ($pdo->query('SELECT weapon_id, phase, primary_stat_value, secondary_stat_value FROM weapons_ascensions WHERE deleted = FALSE AND phase IN (0, 6) ORDER BY weapon_id, phase, id') as $row) {
+    foreach ($pdo->query('SELECT weapon_id, phase, primary_stat_value, secondary_stat_value FROM weapons_ascensions WHERE deleted = FALSE AND phase BETWEEN 0 AND 6 ORDER BY weapon_id, phase, id') as $row) {
         $phases[(int) $row['weapon_id']][(int) $row['phase']] ??= $row;
     }
 
@@ -156,10 +165,16 @@ function catalogWeaponStats(PDO $pdo): array
         if (!isset($byPhase[0], $byPhase[6])) {
             continue;
         }
+        // Every phase there is, in order: the base ATK and the secondary stat at its first level (ascended).
+        $list = [];
+        foreach ($byPhase as $phase => $row) {
+            $list[] = ['phase' => $phase, 'atk' => catalogNumber($row['primary_stat_value']), 'secondary' => catalogNumber($row['secondary_stat_value'])];
+        }
         $stats[$weapon] = [
             'base_atk' => catalogNumber($byPhase[0]['primary_stat_value']),
             'lv80_atk' => catalogNumber($byPhase[6]['primary_stat_value']),
             'secondary_value' => catalogNumber($byPhase[0]['secondary_stat_value']),
+            'phases' => $list,
         ];
     }
 
@@ -240,6 +255,7 @@ function catalogWeapons(PDO $pdo, string $origin): array
                     'lv80_atk' => $own['lv80_atk'],
                     // No label, or nought at level 1: the weapon has no secondary stat (the 1- and 2-star ones).
                     'secondary' => $label === null || $own['secondary_value'] <= 0 ? null : ['stat' => $label, 'value' => $own['secondary_value']],
+                    'phases' => $own['phases'],
                 ],
             ];
         },

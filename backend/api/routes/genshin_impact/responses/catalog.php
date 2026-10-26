@@ -54,13 +54,36 @@ class CatalogAscensionStat extends ResponseShape
     ) {}
 }
 
-/** A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat. */
+/** One ascension phase of a character: its stats at the phase's first level (ascended) and at its last (before the next ascension), and the ascension stat's value through it. Phase 0 is levels 1-20, 1 is 20-40, 2 is 40-50, 3 is 50-60, 4 is 60-70, 5 is 70-80, 6 is 80-90 - whose end value is not level 90's. */
+class CatalogCharacterPhase extends ResponseShape
+{
+    public function __construct(
+        public readonly int $phase,
+        public readonly CatalogBaseStats $start,
+        public readonly CatalogBaseStats $end,
+        public readonly float $ascension,
+    ) {}
+}
+
+/** A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), the ascension stat, and every phase there is. */
 class CatalogCharacterStats extends ResponseShape
 {
     public function __construct(
         public readonly CatalogBaseStats $base,
         public readonly CatalogBaseStats $lv80,
         public readonly CatalogAscensionStat $ascension,
+        /** @var CatalogCharacterPhase[] In order of phase. */
+        public readonly array $phases,
+    ) {}
+}
+
+/** One ascension phase of a weapon: its base ATK and its secondary stat's value at the phase's first level (ascended). */
+class CatalogWeaponPhase extends ResponseShape
+{
+    public function __construct(
+        public readonly int $phase,
+        public readonly float $atk,
+        public readonly float $secondary,
     ) {}
 }
 
@@ -73,13 +96,15 @@ class CatalogWeaponSecondary extends ResponseShape
     ) {}
 }
 
-/** A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one. */
+/** A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), its secondary stat - null for a weapon without one -, and every phase there is. */
 class CatalogWeaponStats extends ResponseShape
 {
     public function __construct(
         public readonly float $base_atk,
         public readonly float $lv80_atk,
         public readonly ?CatalogWeaponSecondary $secondary,
+        /** @var CatalogWeaponPhase[] In order of phase. */
+        public readonly array $phases,
     ) {}
 }
 

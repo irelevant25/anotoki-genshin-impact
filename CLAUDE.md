@@ -954,9 +954,11 @@ node docs/security/build-report.mjs                            # after re-runnin
   character's HP, ATK and DEF at level 1 (phase 0's start) and at level 80
   ascended (phase 6's start) with the ascension stat and its whole value; the
   weapon's base ATK at both and its secondary stat at level 1 under the label
-  this site stores -, null without both phases. The level 90 value is the
-  reader's to work out (the phases' end values are not it); nothing is
-  computed here (`api/catalog.php`'s `catalogCharacterStats()`,
+  this site stores -, and `phases`: every phase there is, a character's stats
+  at its first and last level with the ascension stat's value, a weapon's base
+  ATK and secondary stat at its first level; null without both phase 0 and 6.
+  The level 90 value is the reader's to work out (phase 6's end value is not
+  it); nothing is computed here (`api/catalog.php`'s `catalogCharacterStats()`,
   `catalogWeaponStats()`).
 - **The quizzes' levels** (the owner's decision of 2026-10-21): what each level
   of each quiz shows, try by try, is data - `quiz_levels` (`users/061`: one row

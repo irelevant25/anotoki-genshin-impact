@@ -1188,7 +1188,11 @@ for them, so the API still sends no CORS header.
   "stats": {
     "base": { "hp": 1210.72, "atk": 8.29, "def": 68.21 },
     "lv80": { "hp": 14459.03, "atk": 98.95, "def": 814.56 },
-    "ascension": { "stat": "Crit DMG %", "value": 38.4 }
+    "ascension": { "stat": "Crit DMG %", "value": 38.4 },
+    "phases": [
+      { "phase": 0, "start": { "hp": 1210.72, "atk": 8.29, "def": 68.21 }, "end": { "hp": 3140.1, "atk": 21.5, "def": 176.9 }, "ascension": 0 },
+      { "phase": 6, "start": { "hp": 14459.03, "atk": 98.95, "def": 814.56 }, "end": { "hp": 15552.3, "atk": 106.4, "def": 876.2 }, "ascension": 38.4 }
+    ]
   }
 }
 ```
@@ -1202,9 +1206,13 @@ for them, so the API still sends no CORS header.
   and the stat its ascensions raise with its whole value, under the label this
   site stores ("Crit DMG %"); a weapon's `base_atk` and `lv80_atk` likewise,
   and its `secondary` stat at level 1 (`{"stat": "Crit DMG %", "value": 9.6}`,
-  null for a weapon without one). Null for a character or weapon without both
-  phases. Level 90 is the reader's to work out with the game's growth curve:
-  the phases' end values are not it.
+  null for a weapon without one), and `phases` - every phase there is, in
+  order: a character's stats at the phase's first level (ascended) and at its
+  last (before the next ascension) with the ascension stat's value through it,
+  a weapon's base ATK and secondary stat at the phase's first level. Null for
+  a character or weapon without both phase 0 and phase 6. Level 90 is the
+  reader's to work out with the game's growth curve: phase 6's end value is
+  not it.
 - **The Travelers** are rows like any other, one per element, named Aether or
   Lumine, `is_traveler` true: every Aether row carries 10000005, every Lumine
   row 10000007. `element` is as this site keeps it: Anemo, Cryo, Dendro,

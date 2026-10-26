@@ -68,12 +68,24 @@ export interface CatalogCharacter {
 }
 
 /**
- * A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), and the ascension stat.
+ * One ascension phase of a character: its stats at the phase's first level (ascended) and at its last (before the next ascension), and the ascension stat's value through it. Phase 0 is levels 1-20, 1 is 20-40, 2 is 40-50, 3 is 50-60, 4 is 60-70, 5 is 70-80, 6 is 80-90 - whose end value is not level 90's.
+ */
+export interface CatalogCharacterPhase {
+  phase: number;
+  start: CatalogBaseStats;
+  end: CatalogBaseStats;
+  ascension: number;
+}
+
+/**
+ * A character's base stats: at level 1, at level 80 once ascended (the last phase's start - level 90 is the reader's to work out with the game's growth curve), the ascension stat, and every phase there is.
  */
 export interface CatalogCharacterStats {
   base: CatalogBaseStats;
   lv80: CatalogBaseStats;
   ascension: CatalogAscensionStat;
+  /** In order of phase. */
+  phases: CatalogCharacterPhase[];
 }
 
 /**
@@ -99,6 +111,15 @@ export interface CatalogWeapon {
 }
 
 /**
+ * One ascension phase of a weapon: its base ATK and its secondary stat's value at the phase's first level (ascended).
+ */
+export interface CatalogWeaponPhase {
+  phase: number;
+  atk: number;
+  secondary: number;
+}
+
+/**
  * A weapon's secondary stat at level 1, under the label this site stores ("Crit DMG %").
  */
 export interface CatalogWeaponSecondary {
@@ -107,10 +128,12 @@ export interface CatalogWeaponSecondary {
 }
 
 /**
- * A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), and its secondary stat - null for a weapon without one.
+ * A weapon's base ATK at level 1 and at level 80 once ascended (level 90 is the reader's to work out), its secondary stat - null for a weapon without one -, and every phase there is.
  */
 export interface CatalogWeaponStats {
   base_atk: number;
   lv80_atk: number;
   secondary: CatalogWeaponSecondary | null;
+  /** In order of phase. */
+  phases: CatalogWeaponPhase[];
 }
