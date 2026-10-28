@@ -5,6 +5,8 @@ import { AssetConversionCount, AssetConvertProgress, AssetStats, FileApiService 
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { CleanupModalComponent } from '../cleanup-modal/cleanup-modal.component';
 import { MissingModalComponent } from '../missing-modal/missing-modal.component';
+import { UncataloguedModalComponent } from '../uncatalogued-modal/uncatalogued-modal.component';
+import { ReconcileModalComponent } from '../reconcile-modal/reconcile-modal.component';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
@@ -191,7 +193,9 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
    *
    * Which is what FTP is: the tree changes and nothing tells the table. The
    * sweep adopts what it finds, moves anything in no category into `unfiled`,
-   * and reports rows whose file has gone rather than deleting them.
+   * and reports rows whose file has gone rather than deleting them - then says
+   * what became of each file, in a dialog of its own (it was a toast of two
+   * numbers).
    */
   check(): void {
     this.checking.set(true);
@@ -199,11 +203,7 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
     this._fileApi.reconcileCatalogue({}).subscribe({
       next: (result) => {
         this.checking.set(false);
-        this._notify.success(
-          result.adopted || result.moved_to_unfiled
-            ? `${result.adopted.toLocaleString()} added to the database, ${result.moved_to_unfiled.toLocaleString()} moved to unfiled.`
-            : 'Nothing on disk was missing from the database.',
-        );
+        this.openModal(ReconcileModalComponent, { heading: 'Add strays to database', description: 'What the sweep did, file by file', size: 'lg', data: result });
         this.load(true);
       },
       error: (error) => {
@@ -237,6 +237,11 @@ export class AssetStatsComponent extends AbstractModalComponent implements OnIni
   /** The rows naming files that are not there, and the chance to forget them. */
   showMissing(): void {
     this.openModal(MissingModalComponent, { heading: 'Recorded but gone', description: 'Catalogue rows for files that are not on disk any more', size: 'lg' }, () => this.load(true));
+  }
+
+  /** The files on disk no row names, and from there the sweep that adds them (`check()`). */
+  showUncatalogued(): void {
+    this.openModal(UncataloguedModalComponent, { heading: 'Not in the database', description: 'Files on disk that no row in the database names', size: 'lg' }, () => this.check());
   }
 
   ngOnInit(): void {

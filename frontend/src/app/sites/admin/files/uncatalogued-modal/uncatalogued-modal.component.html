@@ -1,0 +1,65 @@
+@if (loading()) {
+    <anotoki-spinner class="dialog-spinner" label />
+} @else {
+    @if (failed(); as message) {
+        <anotoki-alert class="uncatalogued-error" tone="danger" announce>{{ message }}</anotoki-alert>
+    }
+
+    @if (!total()) {
+        <p class="uncatalogued-empty">Everything on disk is in the database.</p>
+    } @else {
+        <p class="uncatalogued-summary">
+            No row in the database names
+            <strong>{{ total() | number }}</strong>
+            file{{ total() === 1 ? "" : "s" }} on disk, together
+            <strong>{{ bytes() | anotokiFileSize }}</strong>
+            in size. Adding them files each under the category whose folder holds it.
+        </p>
+
+        @if (unclaimed()) {
+            <anotoki-alert class="uncatalogued-note" tone="info">
+                {{ unclaimed() | number }} {{ unclaimed() === 1 ? "is in a folder" : "are in folders" }} no category claims: adding moves {{ unclaimed() === 1 ? "it" : "them" }} into unfiled/ first.
+            </anotoki-alert>
+        }
+
+        <!-- The kit's accordion, as "Recorded but gone" has it: a group's rows are made as it opens. -->
+        <anotoki-accordion multiple class="uncatalogued-groups">
+            @for (group of byCategory(); track group.heading) {
+                <anotoki-disclosure [heading]="group.heading + ' · ' + (group.files.length | number)" [headingLevel]="3" [open]="unfolded()">
+                    <div class="table-scroll">
+                        <table class="table table-middle uncatalogued-table">
+                            <thead>
+                                <tr>
+                                    <th>File</th>
+                                    <th class="col-number">Size</th>
+                                    <th>Changed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (file of group.files; track file.path) {
+                                    <tr>
+                                        <td>
+                                            <code>{{ file.path }}</code>
+                                        </td>
+                                        <td class="col-number">{{ file.size | anotokiFileSize }}</td>
+                                        <td>{{ file.modified_at ? (file.modified_at | anotokiDate: "datetime") : "—" }}</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </anotoki-disclosure>
+            }
+        </anotoki-accordion>
+    }
+}
+
+<ng-template anotokiDialogFooter>
+    @if (total()) {
+        <button anotokiButton variant="primary" (click)="add()">
+            <span class="icon icon-database" aria-hidden="true"></span>
+            Add them to the database
+        </button>
+    }
+    <button anotokiButton (click)="dismiss()">Close</button>
+</ng-template>

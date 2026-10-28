@@ -8040,7 +8040,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 862
+                "line": 875
             },
             "expanded": [],
             "payload": null,
@@ -8071,7 +8071,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 890
+                "line": 903
             },
             "expanded": [],
             "payload": null,
@@ -8101,7 +8101,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 903
+                "line": 916
             },
             "expanded": [],
             "payload": null,
@@ -8131,7 +8131,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 825
+                "line": 838
             },
             "expanded": [],
             "payload": null,
@@ -8161,7 +8161,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 811
+                "line": 824
             },
             "expanded": [],
             "payload": null,
@@ -8224,7 +8224,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 723
+                "line": 736
             },
             "expanded": [],
             "payload": null,
@@ -8312,7 +8312,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 784
+                "line": 797
             },
             "expanded": [],
             "payload": null,
@@ -8403,7 +8403,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/files.php",
-                "line": 768
+                "line": 781
             },
             "expanded": [],
             "payload": null,
@@ -8446,6 +8446,35 @@
             "visitor_key": false
         },
         {
+            "method": "GET",
+            "path": "/api/files/uncatalogued",
+            "args": [],
+            "file": "files.php",
+            "tables": [],
+            "success": 200,
+            "statuses": [
+                200
+            ],
+            "responds": {
+                "shape": "UncataloguedFile",
+                "list": true
+            },
+            "source": {
+                "file": "backend/api/routes/genshin_impact/endpoints/files.php",
+                "line": 669
+            },
+            "expanded": [],
+            "payload": null,
+            "partial": false,
+            "auth": true,
+            "roles": [
+                "ADMIN",
+                "EDITOR"
+            ],
+            "owner": false,
+            "visitor_key": false
+        },
+        {
             "method": "PUT",
             "path": "/api/files/{id}/category",
             "args": [
@@ -8472,7 +8501,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 529
+                "line": 552
             },
             "expanded": [],
             "payload": null,
@@ -8512,7 +8541,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/file_categories.php",
-                "line": 452
+                "line": 475
             },
             "expanded": [],
             "payload": null,
@@ -16991,10 +17020,96 @@
             ]
         },
         {
+            "name": "AssetReconcileFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "One file a sweep did something with.",
+            "fields": [
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Where it is now, relative to `assets/`."
+                },
+                {
+                    "name": "outcome",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "`added` (a row made for it where it is), `unfiled` (moved into `unfiled/` from a folder no\ncategory claims, then added), `not_moved` (that move failed: it is where it was, still with no\nrow), `known` (a row of that name was there already), `resized` (its row's size brought up to date)."
+                },
+                {
+                    "name": "from",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "Where it was before the sweep moved it: `unfiled` only."
+                },
+                {
+                    "name": "category",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The category it is filed under - null for `not_moved`."
+                },
+                {
+                    "name": "size",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "AssetReconcileLink",
+            "file": "file.php",
+            "merges": null,
+            "description": "The rows of one table's column a sweep gave their picture to.",
+            "fields": [
+                {
+                    "name": "field",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "`banners.icon`."
+                },
+                {
+                    "name": "rows",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
             "name": "AssetReconcileResult",
             "file": "file.php",
             "merges": null,
-            "description": "What one sweep did.",
+            "description": "What one sweep did - in counts, and file by file.",
             "fields": [
                 {
                     "name": "adopted",
@@ -17044,6 +17159,46 @@
                     "nullable": false,
                     "optional": false,
                     "of": null,
+                    "description": null
+                },
+                {
+                    "name": "relinked",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Rows handed the picture that was on disk for them, or moved onto its converted copy."
+                },
+                {
+                    "name": "files",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetReconcileFile[]",
+                    "description": "Each file it did something with, by path - the first thousand."
+                },
+                {
+                    "name": "files_total",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "How many files it did something with, beyond the list's cut too."
+                },
+                {
+                    "name": "linked",
+                    "types": [
+                        "array"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": "AssetReconcileLink[]",
                     "description": null
                 }
             ]
@@ -20866,6 +21021,54 @@
                         "int"
                     ],
                     "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                }
+            ]
+        },
+        {
+            "name": "UncataloguedFile",
+            "file": "file.php",
+            "merges": null,
+            "description": "A file on disk the catalogue has no row for - what the Files page counts as\n\"not in the database\": it came without the API, over FTP or from a script.",
+            "fields": [
+                {
+                    "name": "path",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": "Relative to `assets/`, as the disk spells it: `banners/7-1 - Void Star's Advent 2026-10-13.avif`."
+                },
+                {
+                    "name": "category",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": "The category whose folder holds it - null where none claims the folder: Add strays to database moves it into `unfiled/` first."
+                },
+                {
+                    "name": "size",
+                    "types": [
+                        "int"
+                    ],
+                    "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "modified_at",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
                     "optional": false,
                     "of": null,
                     "description": null

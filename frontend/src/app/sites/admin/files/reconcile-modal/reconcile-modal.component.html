@@ -1,0 +1,77 @@
+@if (nothing) {
+    <p class="reconcile-summary">Nothing on disk was missing from the database, and no row was waiting for its picture.</p>
+} @else {
+    <p class="reconcile-summary">{{ summary }}.</p>
+
+    @if (unlisted > 0) {
+        <anotoki-alert class="reconcile-note" tone="info">The list shows the first {{ result.files.length | number }} of {{ result.files_total | number }} files.</anotoki-alert>
+    }
+
+    <!-- A group of each outcome, all open with the dialog while the list is short. -->
+    <anotoki-accordion multiple class="reconcile-groups">
+        @for (group of groups; track group.outcome) {
+            <anotoki-disclosure [heading]="group.heading + ' · ' + (group.files.length | number)" [headingLevel]="3" [open]="unfolded">
+                <div class="table-scroll">
+                    <table class="table table-middle reconcile-table">
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Category</th>
+                                <th class="col-number">Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (file of group.files; track file.path) {
+                                <tr>
+                                    <td>
+                                        @if (file.from) {
+                                            <code>{{ file.from }}</code>
+                                            <span class="reconcile-moved">moved to</span>
+                                        }
+                                        <code>{{ file.path }}</code>
+                                    </td>
+                                    <td>{{ file.category ?? "—" }}</td>
+                                    <td class="col-number">{{ file.size | anotokiFileSize }}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </anotoki-disclosure>
+        }
+    </anotoki-accordion>
+
+    @if (result.linked.length) {
+        <h3 class="reconcile-heading">Rows given their picture</h3>
+        <div class="table-scroll">
+            <table class="table reconcile-table">
+                <thead>
+                    <tr>
+                        <th>Table and column</th>
+                        <th class="col-number">Rows</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (link of result.linked; track link.field) {
+                        <tr>
+                            <td>
+                                <code>{{ link.field }}</code>
+                            </td>
+                            <td class="col-number">{{ link.rows | number }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+@if (result.missing) {
+    <anotoki-alert class="reconcile-note" tone="warning">
+        {{ result.missing | number }} {{ result.missing === 1 ? "row still names a file that is" : "rows still name files that are" }} gone: Recorded but gone lists them.
+    </anotoki-alert>
+}
+
+<ng-template anotokiDialogFooter>
+    <button anotokiButton autofocus (click)="closeModal()">Close</button>
+</ng-template>

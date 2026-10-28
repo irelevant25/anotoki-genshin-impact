@@ -1,0 +1,8 @@
+<anotoki-text-field class="rename-field" label="Name" autofocus [value]="draft()" [hint]="stored()" [error]="refused()" [disabled]="saving()" (valueChange)="edit($event)" (keydown.enter)="save()">
+    <span fieldSuffix class="rename-extension">{{ extension }}</span>
+</anotoki-text-field>
+
+<ng-template anotokiDialogFooter>
+    <button anotokiButton [disabled]="saving()" (click)="closeModal()">Cancel</button>
+    <button anotokiButton variant="primary" [loading]="saving()" [disabled]="unchanged()" (click)="save()">Rename</button>
+</ng-template>

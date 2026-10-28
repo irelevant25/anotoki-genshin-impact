@@ -60,11 +60,17 @@
             @if (data.catalogue; as catalogue) {
                 <div class="catalogue" [class.is-drifted]="drifted()">
                     <div class="catalogue-figures">
-                        <span class="catalogue-figure" [class.is-gap]="catalogue.uncatalogued > 0">
+                        <!-- Each count opens its list. -->
+                        <button
+                            type="button"
+                            class="catalogue-figure catalogue-figure-button"
+                            [class.is-gap]="catalogue.uncatalogued > 0"
+                            [disabled]="!catalogue.uncatalogued"
+                            [title]="catalogue.uncatalogued ? 'Show the files on disk that no row in the database names' : 'Everything on disk is in the database'"
+                            (click)="showUncatalogued()">
                             <span class="figure-value">{{ catalogue.uncatalogued | number }}</span>
                             <span class="figure-label">not in the database</span>
-                        </span>
-                        <!-- A count nobody could act on until it opened. -->
+                        </button>
                         <button
                             type="button"
                             class="catalogue-figure catalogue-figure-button"

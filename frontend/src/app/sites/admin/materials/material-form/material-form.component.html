@@ -8,7 +8,7 @@
     <div class="form-section">
         <h3 class="section-title">Identity</h3>
         <div class="form-grid">
-            <anotoki-text-field label="Name *" placeholder="e.g. Dandelion Seed" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(material().name)" (valueChange)="material().name = $event" />
+            <anotoki-text-field label="Name *" placeholder="e.g. Dandelion Seed" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(material().name)" (valueChange)="setName($event)" />
             <anotoki-select label="Type" placeholder="— none —" [(appChoice)]="material().type" [choices]="materialTypes()" #typeField="appChoice" [options]="typeField.options()" [value]="typeField.selected()" [none]="null" />
             <anotoki-select
                 label="Primary Group"
@@ -44,7 +44,7 @@
                     <app-entity-image
                         [label]="'Icon'"
                         [path]="material().icon"
-                        [name]="iconName()"
+                        [name]="iconStoredName()"
                         [pending]="pendingIcon()"
                         (picked)="onIconPicked($event)"
                         (cleared)="onIconCleared()"

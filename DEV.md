@@ -275,8 +275,9 @@ controls' edge at 3:1 or more).
 **Updating it** - both halves together, to the same version; read the
 library's `CHANGELOG.md` first (while it is 0.x a minor version may break). A
 release that changes one half only is taken in that half (0.2.0 changed the
-Angular half alone; 0.5.1 and 0.5.2 the PHP half alone - a restore's
-sequences that count down, then the origin secret): both halves are 0.11.1 now
+Angular half alone; 0.5.1, 0.5.2 and 0.11.2 the PHP half alone - a restore's
+sequences that count down, the origin secret, then a rename that says what its
+dots became): the PHP half is 0.11.2 now, the Angular half 0.11.1
 (never 0.4.0, whose admin Feedback search fails on PHP 8.2). On 0.x a caret
 takes no next minor: `^0.10.0` never brings 0.11, which needs its constraint
 written. A piece of the library's kit is
@@ -1624,6 +1625,13 @@ a release is put at, `https://genshin.anotoki.eu` (`config/app.php`), with no
 `https://genshin.anotoki.eu` there from 2026-09-29 to 2026-10-05) still names
 its own, and may go. `https://genshin.anotoki.eu/robots.txt` ends with its
 `Sitemap:` line.
+
+**anotoki-lib 0.11.2 on the host** (2026-10-28; no migration): upload both
+builds together - nothing to Apply. The Files Explorer's rename says what a
+name's dots became ("7.1 - X" for the file called "7-1 - X" is its name
+already), and the Files page comes with it: Rename in a dialog, its two counts
+opening their lists, Add strays to database file by file, and the trash asking
+in a dialog over its own.
 
 Serve the site from one address: redirect every other name it answers to
 (`www.`, the host's own alias) to the address the IAM knows it by. The IAM's

@@ -8,8 +8,8 @@
     <div class="form-section">
         <h3 class="section-title">Run</h3>
         <div class="form-grid">
-            <anotoki-text-field class="col-span-2" label="Name *" placeholder="e.g. Ballad in Goblets 2020-09-28" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(banner().name)" (valueChange)="banner().name = $event" />
-            <anotoki-text-field label="Version *" placeholder="e.g. 1.0" required appCheck #versionField="appCheck" [error]="versionField.error()" [value]="fieldText(banner().version)" (valueChange)="banner().version = $event" />
+            <anotoki-text-field class="col-span-2" label="Name *" placeholder="e.g. Ballad in Goblets 2020-09-28" required appCheck #nameField="appCheck" [error]="nameField.error()" [value]="fieldText(banner().name)" (valueChange)="setBanner('name', $event)" />
+            <anotoki-text-field label="Version *" placeholder="e.g. 1.0" required appCheck #versionField="appCheck" [error]="versionField.error()" [value]="fieldText(banner().version)" (valueChange)="setBanner('version', $event)" />
             <anotoki-date-field label="From *" required appCheck #fromField="appCheck" [error]="fromField.error()" [value]="storedToFieldDate(banner().duration_from)" (valueChange)="onFromChange($event)" />
             <anotoki-date-field label="To" [value]="storedToFieldDate(banner().duration_to)" (valueChange)="banner().duration_to = fieldDateToStored($event)" />
         </div>
@@ -23,7 +23,7 @@
                     <app-entity-image
                         [label]="'Banner Art'"
                         [path]="banner().icon"
-                        [name]="artName()"
+                        [name]="artStoredName()"
                         [pending]="pendingArt()"
                         (picked)="onArtPicked($event)"
                         (cleared)="onArtCleared()"

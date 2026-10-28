@@ -160,7 +160,31 @@ export interface AssetFormatCount {
 }
 
 /**
- * What one sweep did.
+ * One file a sweep did something with.
+ */
+export interface AssetReconcileFile {
+  /** Where it is now, relative to `assets/`. */
+  path: string;
+  /** `added` (a row made for it where it is), `unfiled` (moved into `unfiled/` from a folder no category claims, then added), `not_moved` (that move failed: it is where it was, still with no row), `known` (a row of that name was there already), `resized` (its row's size brought up to date). */
+  outcome: string;
+  /** Where it was before the sweep moved it: `unfiled` only. */
+  from: string | null;
+  /** The category it is filed under - null for `not_moved`. */
+  category: string | null;
+  size: number;
+}
+
+/**
+ * The rows of one table's column a sweep gave their picture to.
+ */
+export interface AssetReconcileLink {
+  /** `banners.icon`. */
+  field: string;
+  rows: number;
+}
+
+/**
+ * What one sweep did - in counts, and file by file.
  */
 export interface AssetReconcileResult {
   adopted: number;
@@ -168,6 +192,13 @@ export interface AssetReconcileResult {
   resized: number;
   missing: number;
   on_disk: number;
+  /** Rows handed the picture that was on disk for them, or moved onto its converted copy. */
+  relinked: number;
+  /** Each file it did something with, by path - the first thousand. */
+  files: AssetReconcileFile[];
+  /** How many files it did something with, beyond the list's cut too. */
+  files_total: number;
+  linked: AssetReconcileLink[];
 }
 
 /**
@@ -324,4 +355,17 @@ export interface TrashedFile {
   name: string;
   deleted_at: string;
   size: number;
+}
+
+/**
+ * A file on disk the catalogue has no row for - what the Files page counts as
+ * "not in the database": it came without the API, over FTP or from a script.
+ */
+export interface UncataloguedFile {
+  /** Relative to `assets/`, as the disk spells it: `banners/7-1 - Void Star's Advent 2026-10-13.avif`. */
+  path: string;
+  /** The category whose folder holds it - null where none claims the folder: Add strays to database moves it into `unfiled/` first. */
+  category: string | null;
+  size: number;
+  modified_at: string | null;
 }

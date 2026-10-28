@@ -1,0 +1,27 @@
+.uncatalogued-summary,
+.uncatalogued-empty {
+  margin: 0 0 var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.uncatalogued-error,
+.uncatalogued-note {
+  display: block;
+  margin: 0 0 var(--spacing-md);
+}
+
+// The categories, close together, as "Recorded but gone" has them.
+.uncatalogued-groups {
+  gap: var(--spacing-xs);
+}
+
+.uncatalogued-table {
+  .col-number {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  code {
+    word-break: break-all;
+  }
+}

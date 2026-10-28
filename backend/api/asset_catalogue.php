@@ -83,7 +83,7 @@ function catalogueCompare(PDO $pdo): array
 
     $known = [];
     foreach (
-        $pdo->query('SELECT f.id, f.name, f.extension, f.size, c.path
+        $pdo->query('SELECT f.id, f.name, f.extension, f.size, c.path, c.code AS category
                           FROM files f JOIN file_categories c ON c.id = f.category_id')
         as $row
     ) {
@@ -119,7 +119,7 @@ function catalogueCompare(PDO $pdo): array
 
         if (isset($known[$relative])) {
             if ((int) $known[$relative]['size'] !== $info->getSize()) {
-                $resized[] = ['id' => (int) $known[$relative]['id'], 'size' => $info->getSize(), 'modified' => $info->getMTime()];
+                $resized[] = ['id' => (int) $known[$relative]['id'], 'size' => $info->getSize(), 'modified' => $info->getMTime(), 'path' => $relative, 'category' => $known[$relative]['category']];
             }
             continue;
         }
@@ -142,6 +142,9 @@ function catalogueCompare(PDO $pdo): array
             'extension' => $extension,
             'size' => $info->getSize(),
             'modified_at' => date('Y-m-d H:i:s', $info->getMTime()),
+            // Where it is, as the disk spells it, and what it is filed under - for the lists the Files page shows.
+            'path' => $relative,
+            'category' => $category['code'],
         ];
     }
 
@@ -162,6 +165,31 @@ function catalogueCompare(PDO $pdo): array
         'resized' => $resized,
         'vanished' => $vanished,
     ];
+}
+
+/**
+ * What the Files page counts as "not in the database", file by file: on disk
+ * with no row, in a category's folder - which Add strays to database adopts
+ * where it is - or in a folder no category claims (`category` null), which it
+ * moves into unfiled/ first. By path, as the disk spells it.
+ */
+function catalogueUncatalogued(PDO $pdo): array
+{
+    $compare = catalogueCompare($pdo);
+    $root = realpath(catalogueRoot());
+
+    $files = [];
+    foreach ($compare['adopt'] as $file) {
+        $files[] = ['path' => $file['path'], 'category' => $file['category'], 'size' => (int) $file['size'], 'modified_at' => $file['modified_at']];
+    }
+    // Strays are only paths in the walk: there are few, so each is asked for here.
+    foreach ($compare['strays'] as $relative) {
+        $modified = @filemtime($root . '/' . $relative);
+        $files[] = ['path' => $relative, 'category' => null, 'size' => (int) @filesize($root . '/' . $relative), 'modified_at' => $modified === false ? null : date('Y-m-d H:i:s', $modified)];
+    }
+    usort($files, static fn(array $a, array $b): int => strcmp($a['path'], $b['path']));
+
+    return $files;
 }
 
 /** Just the counts, for a page that only wants to say whether anything drifted. */
@@ -571,6 +599,9 @@ function catalogueRelink(PDO $pdo, ?int $by = null): array
                     continue;
                 }
 
+                // As the upload stores it: a banner's "7.1 - ..." is "7-1 - ..."
+                // on disk, but where a file is already called "7.1 - ...".
+                $name = _assetUploadStem($name, catalogueRoot() . '/' . $folder) ?? $name;
                 $lookup->execute(['category' => $category['id'], 'name' => $name]);
                 $file = $lookup->fetch(PDO::FETCH_ASSOC);
                 if (!$file) {
@@ -680,6 +711,9 @@ function _catalogueRepointToConverted(PDO $pdo, array &$byField): int
     return $repointed;
 }
 
+/** The most files one sweep's answer lists (catalogueReconcile()): the rest are counted. */
+const CATALOGUE_RECONCILE_LISTED = 1000;
+
 function catalogueReconcile(PDO $pdo, ?int $by = null): array
 {
     $compare = catalogueCompare($pdo);
@@ -692,6 +726,9 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
     $root = realpath(catalogueRoot());
     $moved = 0;
     $adopt = $compare['adopt'];
+    // What became of each file, for the Files page to show one by one - the
+    // audit entry below keeps the counts alone.
+    $files = [];
 
     // Strays first: each becomes an adoption once it is somewhere a category
     // claims, so the insert below can treat them like anything else.
@@ -701,6 +738,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         $destination = $root . '/' . $unfiled['path'] . '/' . $name;
 
         if (!is_dir(dirname($destination)) && !@mkdir(dirname($destination), 0755, true)) {
+            $files[] = ['path' => $relative, 'outcome' => 'not_moved', 'from' => null, 'category' => null, 'size' => (int) @filesize($root . '/' . $relative)];
             continue;
         }
         // Never overwrite something already sitting in unfiled.
@@ -717,7 +755,12 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
                 'extension' => $extension,
                 'size' => filesize($destination),
                 'modified_at' => date('Y-m-d H:i:s', filemtime($destination)),
+                'path' => $unfiled['path'] . '/' . $name,
+                'category' => $unfiled['code'],
+                'from' => $relative,
             ];
+        } else {
+            $files[] = ['path' => $relative, 'outcome' => 'not_moved', 'from' => null, 'category' => null, 'size' => (int) @filesize($root . '/' . $relative)];
         }
     }
 
@@ -732,7 +775,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
 
     $adopted = 0;
     foreach ($adopt as $file) {
-        $insert->execute($file);
+        $insert->execute(['category_id' => $file['category_id'], 'name' => $file['name'], 'extension' => $file['extension'], 'size' => $file['size'], 'modified_at' => $file['modified_at']]);
         $id = $insert->fetchColumn();
         // RETURNING leaves a result set behind, and re-executing a statement
         // that still has rows in it is an error on pgsql.
@@ -740,6 +783,15 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
         if ($id !== false) {
             $adopted++;
         }
+        // `known`: a row of that name was there already - the disk spells it
+        // otherwise (an extension in capitals), or a sweep beside this one won.
+        $files[] = [
+            'path' => $file['path'],
+            'outcome' => $id === false ? 'known' : (isset($file['from']) ? 'unfiled' : 'added'),
+            'from' => $file['from'] ?? null,
+            'category' => $file['category'],
+            'size' => (int) $file['size'],
+        ];
     }
 
     $touch = $pdo->prepare('UPDATE files SET size = :size, modified_at = :modified_at, updated_at = CURRENT_TIMESTAMP WHERE id = :id');
@@ -749,6 +801,7 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
             'size' => $file['size'],
             'modified_at' => date('Y-m-d H:i:s', $file['modified']),
         ]);
+        $files[] = ['path' => $file['path'], 'outcome' => 'resized', 'from' => null, 'category' => $file['category'], 'size' => (int) $file['size']];
     }
 
     // Now that everything on disk is in the catalogue, hand the rows that have
@@ -770,5 +823,14 @@ function catalogueReconcile(PDO $pdo, ?int $by = null): array
 
     $pdo->commit();
 
-    return $result;
+    // The page shows each file; the first sweep's eighty-eight thousand would
+    // be megabytes no dialog can draw, so the list stops at a thousand and says
+    // how many there were.
+    usort($files, static fn(array $a, array $b): int => strcmp($a['path'], $b['path']));
+    $linked = [];
+    foreach ($relinked['by_field'] as $field => $rows) {
+        $linked[] = ['field' => $field, 'rows' => $rows];
+    }
+
+    return $result + ['files' => array_slice($files, 0, CATALOGUE_RECONCILE_LISTED), 'files_total' => count($files), 'linked' => $linked];
 }

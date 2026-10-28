@@ -290,6 +290,11 @@ address: a release names `https://genshin.anotoki.eu` (`config/app.php`, where
 the deploy tool puts it); a host's `config/app.local.php`, if it has one, still
 names its own. `/robots.txt` ends with its `Sitemap:` line.
 
+anotoki-lib 0.11.2 (2026-10-28; no migration): upload both builds together,
+nothing to Apply. The PHP half alone moved (the file explorer's rename says
+what a name's dots became); the frontend build carries the Files page's new
+dialogs.
+
 ## Copying local data up to production
 
 Production has no shell, but the copy runs from the developer's machine against

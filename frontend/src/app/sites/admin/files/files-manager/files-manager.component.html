@@ -60,46 +60,18 @@
                                 <span class="file-ext">{{ file.extension || "file" }}</span>
                             }
                         </button>
-                        @if (renaming() === file.name) {
-                            <span class="file-rename">
-                                <anotoki-text-field
-                                    class="file-rename-input"
-                                    label="New name"
-                                    hideLabel
-                                    autofocus
-                                    [value]="draftName()"
-                                    [disabled]="busy() === file.name"
-                                    (valueChange)="draftName.set($event)"
-                                    (keydown.enter)="saveRename(file)"
-                                    (keydown.escape)="cancelRename()" />
-                                <button
-                                    anotokiButton
-                                    variant="primary"
-                                    size="sm"
-                                    iconOnly
-                                    [loading]="busy() === file.name"
-                                    aria-label="Save the name"
-                                    anotokiTooltip="Save the name"
-                                    (click)="saveRename(file)">
-                                    <span class="icon icon-check icon-size-3" aria-hidden="true"></span>
-                                </button>
-                                <button anotokiButton variant="ghost" size="sm" iconOnly aria-label="Leave it as it is" anotokiTooltip="Leave it as it is" (click)="cancelRename()">
-                                    <span class="icon icon-close icon-size-3" aria-hidden="true"></span>
-                                </button>
-                            </span>
-                        } @else {
-                            <!-- The catalogue row is what gets renamed, so a file
-                                 it does not know about cannot be. -->
-                            <button
-                                type="button"
-                                class="file-name"
-                                [class.can-rename]="!!file.file_id"
-                                [disabled]="!file.file_id"
-                                [title]="file.file_id ? 'Rename ' + file.name : file.name"
-                                (click)="startRename(file)">
-                                {{ file.name }}
-                            </button>
-                        }
+                        <!-- The catalogue row is what gets renamed, so a file
+                             it does not know about cannot be. The new name is
+                             typed in a dialog of its own (rename-modal). -->
+                        <button
+                            type="button"
+                            class="file-name"
+                            [class.can-rename]="!!file.file_id"
+                            [disabled]="!file.file_id"
+                            [title]="file.file_id ? 'Rename ' + file.name : file.name"
+                            (click)="openRename(file)">
+                            {{ file.name }}
+                        </button>
                         <span class="file-size">{{ formatSize(file.size) }}</span>
 
                         <!-- Changing this moves the file: a category's path

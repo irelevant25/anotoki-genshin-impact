@@ -121,7 +121,9 @@ tabs), `sites/main/features/database/characters/…` (public DB page + detail),
   kit's fields itself** - `<anotoki-text-field>`, `<anotoki-textarea>`,
   `<anotoki-select>`, `<anotoki-checkbox>`, `<anotoki-date-field>`,
   `<anotoki-chip-group>` - on the form's own model
-  (`[value]="fieldText(row.name)" (valueChange)="row.name = $event"`), never
+  (`[value]="fieldText(row.name)" (valueChange)="row.name = $event"`) - but a
+  field a `computed()` reads through its signal (`setBanner('name', $event)`),
+  as a signal never hears a change inside the object it holds - never
   through a wrapper component: a required field is labelled " *", marked
   `required` and checked by `appCheck` (its `error()` in the field's `[error]`;
   `FormChecks` counts the wrong ones at a save and opens the tab holding the

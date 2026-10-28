@@ -11,6 +11,7 @@ import { ToastService } from '@anotoki/lib/ui/toast';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { AssetFile, AssetFolder, FileApiService, FileCategory, FileCategoryApiService, toFormData } from '../../../../api';
 import { TrashModalComponent } from '../trash-modal/trash-modal.component';
+import { RenameModalComponent } from '../rename-modal/rename-modal.component';
 import { FilePreviewComponent, isPreviewableFile, PLAYABLE_AUDIO, PREVIEWABLE_IMAGES } from '../file-preview/file-preview.component';
 import { AssetStatsComponent } from '../asset-stats/asset-stats.component';
 import { ConfigService } from '../../../../shared/local-lib/services/config.service';
@@ -78,17 +79,6 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
   }
 
   /**
-   * Moves one file into another category, which moves it on disk.
-   *
-   * The listing is reloaded rather than patched: the file is not in this folder
-   * any more, so leaving it on screen would be showing something that is not
-   * there.
-   */
-  /** Which file's name is being edited, and what has been typed so far. */
-  readonly renaming = signal<string | undefined>(undefined);
-  readonly draftName = signal('');
-
-  /**
    * Where to actually fetch a file's bytes from.
    *
    * The listing hands back an API path, and an `<img src>` never goes through
@@ -102,41 +92,25 @@ export class FilesManagerComponent extends AbstractModalComponent implements OnI
     return base.replace(/\/$/, '') + file.url;
   }
 
-  startRename(file: AssetFile): void {
+  /**
+   * A file's new name, in a dialog of its own (rename-modal): the field on the
+   * card was as narrow as the card. Only a catalogued file is renamed - its row
+   * is what gets renamed, with the file.
+   */
+  openRename(file: AssetFile): void {
     if (!file.file_id) {
       return;
     }
-    // The extension is not part of the name: it says what the file is.
-    this.renaming.set(file.name);
-    this.draftName.set(file.name.replace(/\.[^.]+$/, ''));
+    this.openModal(RenameModalComponent, { heading: `Rename ${file.name}`, size: 'md', data: file }, () => this.loadFiles());
   }
 
-  cancelRename(): void {
-    this.renaming.set(undefined);
-    this.draftName.set('');
-  }
-
-  saveRename(file: AssetFile): void {
-    const name = this.draftName().trim();
-    if (!file.file_id || !name) {
-      return;
-    }
-
-    this.busy.set(file.name);
-    this._fileApi.updateFileName(file.file_id, { name }).subscribe({
-      next: (result) => {
-        this.busy.set(undefined);
-        this.cancelRename();
-        this._notify.success(`Renamed to ${result.name}.`);
-        this.loadFiles();
-      },
-      error: (error) => {
-        this.busy.set(undefined);
-        this._notify.error(error?.error?.error ?? 'That could not be renamed.');
-      },
-    });
-  }
-
+  /**
+   * Moves one file into another category, which moves it on disk.
+   *
+   * The listing is reloaded rather than patched: the file is not in this folder
+   * any more, so leaving it on screen would be showing something that is not
+   * there.
+   */
   moveTo(file: AssetFile, categoryId: string): void {
     if (!file.file_id || !categoryId) {
       return;

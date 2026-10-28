@@ -25,6 +25,7 @@ import {
   RecordUploadResult,
   TrashEmptied,
   TrashedFile,
+  UncataloguedFile,
 } from '../models';
 import {
   AssetCleanupQuery,
@@ -159,6 +160,15 @@ export class FileApiService {
    */
   getFilesRaw(): Observable<RawFile> {
     return this._http.get<RawFile>('/api/files/raw');
+  }
+
+  /**
+   * `GET /api/files/uncatalogued`
+   *
+   * Requires the `ADMIN` or `EDITOR` role.
+   */
+  getFilesUncatalogued(): Observable<UncataloguedFile[]> {
+    return this._http.get<UncataloguedFile[]>('/api/files/uncatalogued');
   }
 
   /**

@@ -331,10 +331,70 @@ class AssetCatalogueCounts extends ResponseShape
     ) {}
 }
 
-/** What one sweep did. */
+/**
+ * A file on disk the catalogue has no row for - what the Files page counts as
+ * "not in the database": it came without the API, over FTP or from a script.
+ */
+class UncataloguedFile extends ResponseShape
+{
+    public function __construct(
+        /** Relative to `assets/`, as the disk spells it: `banners/7-1 - Void Star's Advent 2026-10-13.avif`. */
+        public readonly string $path,
+        /** The category whose folder holds it - null where none claims the folder: Add strays to database moves it into `unfiled/` first. */
+        public readonly ?string $category,
+        public readonly int $size,
+        public readonly ?string $modified_at,
+    ) {}
+}
+
+/** One file a sweep did something with. */
+class AssetReconcileFile extends ResponseShape
+{
+    public function __construct(
+        /** Where it is now, relative to `assets/`. */
+        public readonly string $path,
+        /**
+         * `added` (a row made for it where it is), `unfiled` (moved into `unfiled/` from a folder no
+         * category claims, then added), `not_moved` (that move failed: it is where it was, still with no
+         * row), `known` (a row of that name was there already), `resized` (its row's size brought up to date).
+         */
+        public readonly string $outcome,
+        /** Where it was before the sweep moved it: `unfiled` only. */
+        public readonly ?string $from,
+        /** The category it is filed under - null for `not_moved`. */
+        public readonly ?string $category,
+        public readonly int $size,
+    ) {}
+}
+
+/** The rows of one table's column a sweep gave their picture to. */
+class AssetReconcileLink extends ResponseShape
+{
+    public function __construct(
+        /** `banners.icon`. */
+        public readonly string $field,
+        public readonly int $rows,
+    ) {}
+}
+
+/** What one sweep did - in counts, and file by file. */
 class AssetReconcileResult extends ResponseShape
 {
-    public function __construct(public readonly int $adopted, public readonly int $moved_to_unfiled, public readonly int $resized, public readonly int $missing, public readonly int $on_disk) {}
+    public function __construct(
+        public readonly int $adopted,
+        public readonly int $moved_to_unfiled,
+        public readonly int $resized,
+        public readonly int $missing,
+        public readonly int $on_disk,
+        /** Rows handed the picture that was on disk for them, or moved onto its converted copy. */
+        public readonly int $relinked,
+        /** @var AssetReconcileFile[] Each file it did something with, by path - the first thousand. */
+        public readonly array $files,
+        /** How many files it did something with, beyond the list's cut too. */
+        public readonly int $files_total,
+        /** @var AssetReconcileLink[] */
+        public readonly array $linked,
+    ) {}
 }
 
 /**

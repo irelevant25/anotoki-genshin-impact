@@ -12,7 +12,7 @@
             <strong>{{ total() | number }}</strong>
             file{{ total() === 1 ? "" : "s" }} taking
             <strong>{{ bytes() | anotokiFileSize }}</strong>
-            . Removing them for good is the only way that space comes back.
+            of space, which comes back only once they are deleted for good.
         </p>
 
         <div class="table-scroll">
@@ -45,8 +45,8 @@
                                 size="sm"
                                 iconOnly
                                 [disabled]="busy() === file.trashed"
-                                aria-label="Remove for good"
-                                anotokiTooltip="Remove for good"
+                                [attr.aria-label]="'Delete ' + file.name + ' for good'"
+                                anotokiTooltip="Delete for good"
                                 (click)="remove(file)">
                                 <span class="icon icon-trash icon-size-4" aria-hidden="true"></span>
                             </button>
@@ -59,15 +59,10 @@
     }
 }
 
+<!-- Emptying it asks in a dialog of its own over this one, as the Files Explorer's trash does. -->
 <ng-template anotokiDialogFooter>
     @if (total()) {
-        @if (confirming()) {
-            <span class="confirm-note">Remove all {{ total() | number }} for good? This cannot be undone.</span>
-            <button anotokiButton variant="danger" [loading]="busy() === 'all'" (click)="emptyAll()">Empty the trash</button>
-            <button anotokiButton (click)="confirming.set(false)">Cancel</button>
-        } @else {
-            <button anotokiButton variant="danger" (click)="confirming.set(true)"><span class="icon icon-trash" aria-hidden="true"></span> Empty the trash</button>
-        }
+        <button anotokiButton variant="danger" [loading]="busy() === 'all'" [disabled]="busy() !== undefined" (click)="emptyAll()"><span class="icon icon-trash" aria-hidden="true"></span> Empty the trash</button>
     }
     <button anotokiButton (click)="dismiss()">Close</button>
 </ng-template>

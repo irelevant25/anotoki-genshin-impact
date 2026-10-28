@@ -19,7 +19,7 @@ import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class'
 import { buildFullFormData, createUid, resequence, revokePicked, toNumber } from '../../shared/admin-full-resource.model';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
-import { toAssetLiteralName } from '../../shared/asset-name';
+import { toAssetLiteralName, toStoredAssetName } from '../../shared/asset-name';
 
 interface FeaturedWrapper {
   uid: number;
@@ -63,6 +63,15 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
     (this.banner() as { duration_from: string | null }).duration_from = fieldDateToStored(field);
   }
 
+  /**
+   * The name and the version are written through the signal, never into the object it holds: `artName` is a
+   * computed(), which runs again only when `banner` holds another object. Written in place, it kept the empty form's
+   * " - ", and a new banner's art went up as "-".
+   */
+  setBanner(field: 'name' | 'version', value: string): void {
+    this.banner.update((banner) => ({ ...banner, [field]: value }));
+  }
+
   banner = signal<BannerFormData>({ name: '', version: '', duration_from: '' });
   characters = signal<FeaturedWrapper[]>([]);
   weapons = signal<FeaturedWrapper[]>([]);
@@ -72,6 +81,8 @@ export class BannerFormComponent extends AdminFormComponent<BannerFull> implemen
 
   /** Banner art is filed as "{version} - {name}", kept as typed. */
   artName = computed(() => toAssetLiteralName(`${this.banner().version} - ${this.banner().name}`));
+  /** The name the art is stored under, as its slot says it: the server makes the version's dot a dash. */
+  artStoredName = computed(() => toStoredAssetName(this.artName(), this.banner().icon_name));
   /** Picked but not uploaded yet; sent when the form is saved. */
   pendingArt = signal<PickedImage | undefined>(undefined);
 

@@ -228,9 +228,10 @@ So, since 0.3.0, are the site's words - *The words* below.
   `@anotoki/lib` entry given bun.lock's version, address and integrity by hand -
   never `npm install`, which would rewrite the whole lock. Read its CHANGELOG.md
   first: while it is 0.x a minor version may break. A release that changes one
-  half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1 and
-  0.5.2 the PHP half alone): both halves are 0.11.1 now (never 0.4.0, whose PHP
-  failed a search on 8.2). Import a
+  half only is taken in that half (0.2.0 changed the Angular half alone; 0.5.1,
+  0.5.2 and 0.11.2 the PHP half alone): the PHP half is 0.11.2 now (the file
+  explorer's rename says what a name's dots became), the Angular half 0.11.1
+  (never 0.4.0, whose PHP failed a search on 8.2). Import a
   piece of the library's kit from its own entry point (`@anotoki/lib/ui/config`,
   `@anotoki/lib/ui/button`, ...), never from `@anotoki/lib/ui`, which would pull
   every piece into the first load.
@@ -556,7 +557,9 @@ php translations.php --export sk [f] # a language's own strings as flat JSON; --
 php game-ids.php [--from=<site>]     # the game's ids for the rows by name, a dry run (--write-migration writes
                                      # genshin_impact/031; the lists kept outside the repository, --cache=<folder>)
 php tests/run.php                    # the backend's tests: the upload rules (no database); the words' migration and
-                                     # routes, the game catalog and its ids, the quizzes' levels (every rule, the routes,
+                                     # routes, the Files page's (a rename's dots, what is not in the database, Add strays
+                                     # to database file by file), the game catalog and
+                                     # its ids, the quizzes' levels (every rule, the routes,
                                      # users/061), the library's data moves, every admin route's permissions, sign-in,
                                      # the gates, a restore doing again the deletes since its backup, the pages'
                                      # error reports, where a request comes from (Cloudflare; with the origin
@@ -598,6 +601,8 @@ node scripts/screenshots.mjs         # every page and its dialogs in headless Ed
                                      # each sent kept in form-bodies.json - a change to the forms keeps that file,
                                      # but for the rows' times); the
                                      # admin panel's footer, its two dialogs, and Migrations while an update waits;
+                                     # the Files page's dialogs on a folder the browser answers for (ADMIN_FILES:
+                                     # Rename, not in the database, Add strays to database, the trash's question);
                                      # the Profile filled for somebody signed in (the browser answering its four
                                      # reads), tab by tab.
                                      # A production build, a throwaway database and backend copy
@@ -905,7 +910,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   PHP where PHP is mapped by AddHandler. So a file keeps one extension, its own
   from the allowlist - every other dot in a new name, uploaded or renamed,
   becomes `-` (`_assetUploadStem()`: "5.0 - X" is stored as "5-0 - X"; a file
-  being replaced keeps its name unless a part of it could run) - and nothing
+  being replaced keeps its name unless a part of it could run; a rename the
+  dots land on its own name or on another's says so, in the same words on the
+  Files page, `_renameDotsSaid()`, and in the file explorer, anotoki-lib 0.11.2) - and nothing
   named like a script goes back in (`uploadNameRunsOnServer()`: the restore,
   the conversion). Every write into the tree goes through `_assetUploadDir()`
   (inside the tree by `_assetPathInside()` - realpath, with the separator - and
@@ -1067,7 +1074,15 @@ node docs/security/build-report.mjs                            # after re-runnin
   its rows written in place, `[value]="fieldText(row.name)"` (`''` for a column
   a new row has not got yet, never "undefined") and
   `(valueChange)="row.name = $event"` -, a required field labelled with " *"
-  and marked `required`. What is right is the form's, held in signals
+  and marked `required`. A field a `computed()` reads is written through its
+  signal instead (`setBanner('name', $event)`; the banner's name and version
+  and the material's name, which name their pictures): a signal hears a new
+  object, never a change inside the one it holds, so a computed over a field
+  written in place keeps its first value - until 2026-10-28 a new banner's art
+  went up as "-" and a new material's icon was refused. A picture slot says the
+  name its file is stored under (`toStoredAssetName()`, asset-name.ts: the
+  server's dashes) while the form sends the name as typed, so that a re-upload
+  over "1.0 - ..." art keeps its dots. What is right is the form's, held in signals
   (`shared/local-lib/fields/`): `appCheck` on a required text field, textarea or
   date field says "Toto pole je povinné" (Slovak, as the site's fields always
   said it) under it once it has been left, through the field's `[error]`, and
@@ -1209,7 +1224,18 @@ node docs/security/build-report.mjs                            # after re-runnin
   the data. A per-id read (`/full`, a material's usage, a voice-over round)
   stays a request of its own.
 - **Admin assets**: the **Files** page (`sites/admin/files/`) browses the
-  DB-catalogued assets, previewing through its `file-preview` modal; **Files
+  DB-catalogued assets, previewing through its `file-preview` modal. A file is
+  renamed in a dialog of its own (`rename-modal`: what the server will store,
+  its dots dashed, said under the field); its two counts open their lists -
+  recorded but gone (`missing-modal`) and not in the database
+  (`uncatalogued-modal`, `GET /api/files/uncatalogued`, from where Add strays to
+  database runs too); Add strays to database shows what it did file by file
+  (`reconcile-modal`: `POST /api/files/reconcile` answers each file's outcome -
+  the first thousand, `files_total` the rest - and the rows given a picture,
+  found by the name an upload gives it); and whatever goes for good - a trashed
+  file, the whole trash, the gone rows - asks in the kit's confirm over its
+  dialog, as the Files Explorer's trash does (the owner's preference of
+  2026-10-28: a question over the dialog, never its footer changing). **Files
   Explorer** (`/admin/files-explorer`) is the library's file explorer over the
   asset tree and `public/uploads/` (below).
 - **The admin tools and People are the anotoki library's** (since 0.4.1): Feedback,

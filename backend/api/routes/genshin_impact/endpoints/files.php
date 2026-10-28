@@ -655,6 +655,19 @@ $app->get('/api/files/missing', function (Request $request, Response $response) 
     ->add(requireRole(...ROLES_CONTENT))
     ->add(requireAuth());
 
+// ── Not in the database ───────────────────────────────────────────────────────
+//
+// The other side of the same comparison: on disk and in no row - what came
+// without the API. The Files page counted them and could not say which; this
+// is the list to read before Add strays to database adopts them.
+
+$app->get('/api/files/uncatalogued', function (Request $request, Response $response) {
+    return respondJson($response, catalogueUncatalogued(genshinDb()));
+})
+    ->add(responds(UncataloguedFile::class, list: true))
+    ->add(requireRole(...ROLES_CONTENT))
+    ->add(requireAuth());
+
 // DELETE /api/files/missing            forget every row whose file is gone
 // DELETE /api/files/missing?id=12,13   forget only these
 $app->delete('/api/files/missing', function (Request $request, Response $response) {

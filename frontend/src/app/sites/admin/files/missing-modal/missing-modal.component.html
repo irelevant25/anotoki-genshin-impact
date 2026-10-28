@@ -73,13 +73,7 @@
 
 <ng-template anotokiDialogFooter>
     @if (total()) {
-        @if (confirming()) {
-            <span class="confirm-note">Forget all {{ total() | number }}?</span>
-            <button anotokiButton variant="danger" [loading]="working()" (click)="forgetAll()">Forget them</button>
-            <button anotokiButton (click)="confirming.set(false)">Cancel</button>
-        } @else {
-            <button anotokiButton variant="danger" (click)="confirming.set(true)"><span class="icon icon-trash" aria-hidden="true"></span> Forget them all</button>
-        }
+        <button anotokiButton variant="danger" [loading]="working()" (click)="forgetAll()"><span class="icon icon-trash" aria-hidden="true"></span> Forget them all</button>
     }
     <button anotokiButton (click)="dismiss()">Close</button>
 </ng-template>

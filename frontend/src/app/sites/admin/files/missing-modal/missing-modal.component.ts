@@ -7,7 +7,7 @@ import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-mo
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { AccordionComponent, DisclosureComponent } from '@anotoki/lib/ui/disclosure';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { ConfirmService, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
 import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 
@@ -32,11 +32,11 @@ import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 })
 export class MissingModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);
+  private readonly _confirm = inject(ConfirmService);
 
   readonly files = signal<MissingFile[]>([]);
   readonly working = signal(false);
   readonly failed = signal<string | undefined>(undefined);
-  readonly confirming = signal(false);
 
   readonly total = computed(() => this.files().length);
   readonly bytes = computed(() => this.files().reduce((sum, file) => sum + (file.size ?? 0), 0));
@@ -76,12 +76,20 @@ export class MissingModalComponent extends AbstractModalComponent {
     });
   }
 
-  forgetAll(): void {
+  /** Asks in a dialog of its own over this one, as the trash does. */
+  async forgetAll(): Promise<void> {
+    const total = this.total();
+    const used = this.stillUsed().length;
+    const message = used
+      ? `${used.toLocaleString('en')} of them ${used === 1 ? 'is' : 'are'} still named by an entity, which loses ${used === 1 ? 'its' : 'their'} picture too. The files are gone either way.`
+      : 'The rows go from the database; the files are gone already.';
+    if (!(await this._confirm.ask({ title: `Forget all ${total.toLocaleString('en')} row${total === 1 ? '' : 's'}?`, message, confirmLabel: 'Forget them', tone: 'danger' }))) {
+      return;
+    }
     this.working.set(true);
     this._fileApi.deleteFilesMissing().subscribe({
       next: (result) => {
         this.working.set(false);
-        this.confirming.set(false);
         this.notificationService.success(`Forgot ${result.forgotten} row${result.forgotten === 1 ? '' : 's'}.`);
         this.closeModal(true);
       },

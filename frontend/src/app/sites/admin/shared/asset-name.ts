@@ -41,6 +41,19 @@ export function toAssetLiteralName(name: string | null | undefined): string {
 }
 
 /**
+ * What the server stores a literal name as (`_assetUploadStem()`, asset_naming.php):
+ * a file keeps only the dot before its extension, so every other dot becomes
+ * "-" - "7.1 - Void Star's Advent" lands as "7-1 - Void Star's Advent". The one
+ * exception is a re-upload over the file already called exactly that, which
+ * keeps its name (banner art was "1.0 - ..." before the rule). The form still
+ * sends the name as typed, so that the server can tell the two apart; this is
+ * only what the slot says.
+ */
+export function toStoredAssetName(name: string, current: string | null | undefined): string {
+  return name === current ? name : name.replaceAll('.', '-');
+}
+
+/**
  * A variant of the same picture, e.g. a character's second card icon.
  * Appended directly: HU_TAO -> HU_TAO2.
  */

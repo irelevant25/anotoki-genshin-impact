@@ -19,7 +19,8 @@
 // the frame back once the site is), then the admin panel as its ADMIN (the Errors page with that error as its
 // row, and the row opened; the Quiz levels page - what the rules say as levels are typed, the words they leave
 // behind, a save and back; the admin forms filled and saved, what each sent kept - FORM_SAVES -; the family's footer
-// under its pages and what it opens), and last the account panel of
+// under its pages and what it opens; the Files page's dialogs - Rename, the files not in the database, what Add
+// strays to database did, the trash's question over it - on a folder the browser answers for), and last the account panel of
 // an account whose preferences the IAM keeps. Then it stops all of it and
 // drops the database - also when something fails. Nothing here touches your database, your settings, your
 // browser or a real IAM.
@@ -126,6 +127,21 @@ const typeInto = (selector, words) => async (page) => {
     return document.activeElement === field;
   })()`);
   if (!focused) return false;
+  await page.send('Input.insertText', { text: words });
+  return true;
+};
+
+/** Types over what a field holds, as a person replaces it: all of it selected, then the words given. */
+const typeOver = (selector, words) => async (page) => {
+  const selected = await page.evaluate(`(() => {
+    const field = document.querySelector(${JSON.stringify(selector)});
+    if (!field) return false;
+    field.scrollIntoView({ block: 'center' });
+    field.focus();
+    field.select();
+    return document.activeElement === field;
+  })()`);
+  if (!selected) return false;
   await page.send('Input.insertText', { text: words });
   return true;
 };
@@ -1591,6 +1607,92 @@ const ADMIN_FOOTER = [
 ];
 
 /**
+ * The Files page's dialogs (2026-10-28), on a folder the browser answers for (filesAnswers()): a file's Rename with a
+ * dotted name typed for its dashed one - which the dialog calls its name already -, the files no row in the database
+ * names, what Add strays to database did file by file, and emptying the trash asked in a dialog over it.
+ */
+const ADMIN_FILES = [
+  {
+    name: 'admin-files-rename',
+    path: '/admin/files',
+    answers: filesAnswers(),
+    then: steps(click('.file-name', '^7-1 - Void Star'), dialogOpen, typeOver('app-rename-modal input', "7.1 - Void Star's Advent 2026-10-13")),
+  },
+  { name: 'admin-files-uncatalogued', path: '/admin/files', answers: filesAnswers(), then: steps(click('.catalogue-figure-button', 'not in the database'), dialogOpen) },
+  { name: 'admin-files-reconcile', path: '/admin/files', answers: filesAnswers(), then: steps(click('button', '^Add strays to database$'), dialogOpen) },
+  {
+    name: 'admin-files-trash-empty',
+    path: '/admin/files',
+    answers: filesAnswers(),
+    then: steps(click('button', '^Trash$'), dialogOpen, click('button', '^Empty the trash$'), (page) => waitFor(page, "document.querySelectorAll('dialog[open]').length === 2", 15000)),
+  },
+];
+
+/**
+ * The Files page's reads, answered by the browser (the throwaway site has no asset tree): a folder of banner art - one
+ * file with its version dashed, one from before the rule with its dot, one the database has no row for -, the tree's
+ * figures to match, that list, what Add strays to database answers, and a trash with a file in it. Its pictures are
+ * not there, as on every page of this run.
+ */
+function filesAnswers() {
+  const file = (name, size, fileId) => ({
+    name,
+    extension: 'avif',
+    size,
+    modified: '2026-10-28 12:59:31',
+    url: `/api/files/raw?folder=banners&name=${encodeURIComponent(name)}`,
+    file_id: fileId,
+    category: fileId === null ? null : 'banners',
+  });
+  const files = [file("7-1 - Void Star's Advent 2026-10-13.avif", 90435, 201300), file('7.1 - Surging Ballad 2026-09-23.avif', 100714, 201295), file('7-4 - Arrived Over FTP.avif', 81920, null)];
+  const counts = (sources, convertedOnly) => ({ sources, missing: 0, converted_only: convertedOnly, can_convert: true, reclaimable: 0 });
+  const stats = {
+    generated_at: '2026-10-28 13:05:00',
+    age: 0,
+    total_files: 4,
+    total_bytes: 278189,
+    formats: [
+      { extension: 'avif', files: 3, bytes: 273069 },
+      { extension: 'png', files: 1, bytes: 5120 },
+    ],
+    images: counts(1, 3),
+    audio: counts(0, 0),
+    catalogue: { on_disk: 4, catalogued: 2, uncatalogued: 2, unfiled: 1, missing: 1 },
+  };
+  const uncatalogued = [
+    { path: 'banners/7-4 - Arrived Over FTP.avif', category: 'banners', size: 81920, modified_at: '2026-10-28 12:49:58' },
+    { path: 'stray-folder/Loose.png', category: null, size: 5120, modified_at: '2026-10-27 09:12:00' },
+  ];
+  const swept = {
+    adopted: 2,
+    moved_to_unfiled: 1,
+    resized: 1,
+    missing: 1,
+    on_disk: 4,
+    relinked: 1,
+    files: [
+      { path: "banners/7-1 - Void Star's Advent 2026-10-13.avif", outcome: 'resized', from: null, category: 'banners', size: 90435 },
+      { path: 'banners/7-4 - Arrived Over FTP.avif', outcome: 'added', from: null, category: 'banners', size: 81920 },
+      { path: 'unfiled/Loose.png', outcome: 'unfiled', from: 'stray-folder/Loose.png', category: 'unfiled', size: 5120 },
+    ],
+    files_total: 3,
+    linked: [{ field: 'banners.icon', rows: 1 }],
+  };
+  const trashed = [
+    { folder: 'banners', trashed: "20261028-120438__7-1 - Void Star's Advent 2026-10-13.webp", name: "7-1 - Void Star's Advent 2026-10-13.webp", deleted_at: '20261028-120438', size: 301402 },
+  ];
+
+  return {
+    '/api/files/folders': { status: 200, body: [{ folder: 'banners', files: files.length }] },
+    '/api/files': { status: 200, body: { folder: 'banners', total: files.length, page: 1, pageSize: 60, files } },
+    '/api/files/stats': { status: 200, body: stats },
+    '/api/files/uncatalogued': { status: 200, body: uncatalogued },
+    '/api/files/reconcile': { status: 200, body: swept },
+    '/api/files/trash': { status: 200, body: trashed },
+  };
+}
+
+/**
  * A season of games for the profile, answered by the browser in place of the four reads of /api/quiz/* (the throwaway
  * database holds no games): every quiz and every difficulty, the six characters browser-env.php seeds (ids 1 to 6, in
  * its order), a year of days and the last twenty - so the page is seen with its tabs full (the owner's choice "D" of
@@ -2366,6 +2468,7 @@ try {
   await pass(ADMIN);
   await pass(FORM_SAVES);
   await pass(ADMIN_FOOTER);
+  await pass(ADMIN_FILES);
   await pass(ADMIN_STATUS);
   await pass(SIGNED_IN);
   await pass(ACCOUNT_KEPT);

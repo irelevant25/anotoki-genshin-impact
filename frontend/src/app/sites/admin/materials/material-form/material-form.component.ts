@@ -16,7 +16,7 @@ import { AdminFormComponent, PendingImage } from '../../shared/admin-form.class'
 import { buildFullFormData, listFromColumn, listText, listToSend, revokePicked, toLines, toOptionalNumber } from '../../shared/admin-full-resource.model';
 import { EntityImageComponent } from '../../shared/entity-image/entity-image.component';
 import { PickedImage } from '../../shared/image-upload/image-upload.component';
-import { toAssetLiteralName } from '../../shared/asset-name';
+import { toAssetLiteralName, toStoredAssetName } from '../../shared/asset-name';
 import { multiselectOptions } from '../../shared/admin-list.class';
 
 @Component({
@@ -115,8 +115,19 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
 
   // ── Icon ────────────────────────────────────────────────────────────────────────
 
-  /** Material art is resolved by display name, so it is stored as typed. */
+  /** Material art is resolved by display name, so it is sent as typed. */
   iconName = computed(() => toAssetLiteralName(this.material().name));
+  /** The name the icon is stored under, as its slot says it: the server makes a dot in the name a dash. */
+  iconStoredName = computed(() => toStoredAssetName(this.iconName(), this.material().icon_name));
+
+  /**
+   * The name is written through the signal, never into the object it holds: `iconName` is a computed(), which runs
+   * again only when `material` holds another object. Written in place, it kept the empty form's "", and a new
+   * material's icon was refused ("Name the material before uploading its images") however it was named.
+   */
+  setName(name: string): void {
+    this.material.update((material) => ({ ...material, name }));
+  }
 
   onIconPicked(picked: PickedImage): void {
     revokePicked(this.pendingIcon());
@@ -148,7 +159,7 @@ export class MaterialFormComponent extends AdminFormComponent<MaterialFull> impl
         field: 'icon',
         picked,
         name: this.iconName(),
-        // Written through the signal: editing a field replaces the object, so a
+        // Written through the signal: editing the name replaces the object, so a
         // reference taken here would not be the one that gets sent.
         apply: (path: string, name: string, fileId: number | null) => this.material.update((material) => ({ ...material, icon: path, icon_name: name, icon_file_id: fileId })),
       },

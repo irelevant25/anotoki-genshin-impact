@@ -6,9 +6,9 @@ import { FileApiService, toFormData, TrashedFile } from '../../../../api';
 import { AbstractModalComponent } from '../../../../shared/local-lib/abstract-modal.class';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TooltipDirective } from '@anotoki/lib/ui/tooltip';
-import { DialogFooterDirective } from '@anotoki/lib/ui/dialog';
+import { ConfirmService, DialogFooterDirective } from '@anotoki/lib/ui/dialog';
 import { AnotokiDatePipe } from '@anotoki/lib/ui/dates';
-import { FileSizePipe } from '@anotoki/lib/ui/file-size';
+import { FileSizePipe, writtenSize } from '@anotoki/lib/ui/file-size';
 
 /**
  * What has been deleted and can still be put back.
@@ -18,8 +18,9 @@ import { FileSizePipe } from '@anotoki/lib/ui/file-size';
  * browser stays where it was underneath, and closing this returns to it.
  *
  * Restoring is the ordinary thing to do here. Deleting for good is the only
- * destructive action the Files page has, so it asks first and says how much
- * space it will return.
+ * destructive action the Files page has, so it asks first - one file or the
+ * whole trash - in a question of its own over this dialog, as the Files
+ * Explorer's trash does and in its words, and says how much space comes back.
  */
 @Component({
   selector: 'app-trash-modal',
@@ -29,11 +30,11 @@ import { FileSizePipe } from '@anotoki/lib/ui/file-size';
 })
 export class TrashModalComponent extends AbstractModalComponent {
   private readonly _fileApi = inject(FileApiService);
+  private readonly _confirm = inject(ConfirmService);
 
   readonly files = signal<TrashedFile[]>([]);
   readonly busy = signal<string | undefined>(undefined);
   readonly failed = signal<string | undefined>(undefined);
-  readonly confirming = signal(false);
   /** Whether anything was restored or removed, so the page behind can reload. */
   private _changed = false;
 
@@ -78,7 +79,12 @@ export class TrashModalComponent extends AbstractModalComponent {
     });
   }
 
-  remove(file: TrashedFile): void {
+  async remove(file: TrashedFile): Promise<void> {
+    if (
+      !(await this._confirm.ask({ title: `Delete ${file.name} for good?`, message: 'It goes from the trash, and from the disk - there is no undo.', confirmLabel: 'Delete for good', tone: 'danger' }))
+    ) {
+      return;
+    }
     this.busy.set(file.trashed);
     this._fileApi.deleteFilesTrash({ trashed: file.trashed }).subscribe({
       next: () => {
@@ -93,12 +99,17 @@ export class TrashModalComponent extends AbstractModalComponent {
     });
   }
 
-  emptyAll(): void {
+  async emptyAll(): Promise<void> {
+    const total = this.total();
+    // The admin panel is English for its staff, so the size is written in English.
+    const message = `${total.toLocaleString('en')} ${total === 1 ? 'file goes' : 'files go'} for good (${writtenSize(this.bytes(), 'en')}) - there is no undo.`;
+    if (!(await this._confirm.ask({ title: 'Empty the trash?', message, confirmLabel: 'Empty the trash', tone: 'danger' }))) {
+      return;
+    }
     this.busy.set('all');
     this._fileApi.deleteFilesTrash().subscribe({
       next: (result) => {
         this.busy.set(undefined);
-        this.confirming.set(false);
         this._changed = true;
         this.files.set([]);
         this.notificationService.success(`Removed ${result.deleted} file${result.deleted === 1 ? '' : 's'} for good.`);

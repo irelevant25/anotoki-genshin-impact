@@ -12172,6 +12172,45 @@
         ]
       }
     },
+    "/api/files/uncatalogued": {
+      "get": {
+        "tags": [
+          "file"
+        ],
+        "operationId": "getFilesUncatalogued",
+        "summary": "Get files uncatalogued",
+        "description": "Requires the `ADMIN` or `EDITOR` role.",
+        "responses": {
+          "200": {
+            "description": "The request succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UncataloguedFile"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/files/{id}/category": {
       "put": {
         "tags": [
@@ -21906,9 +21945,76 @@
         ],
         "additionalProperties": false
       },
+      "AssetReconcileFile": {
+        "title": "AssetReconcileFile",
+        "description": "One file a sweep did something with.",
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "Where it is now, relative to `assets/`.",
+            "type": "string"
+          },
+          "outcome": {
+            "description": "`added` (a row made for it where it is), `unfiled` (moved into `unfiled/` from a folder no category claims, then added), `not_moved` (that move failed: it is where it was, still with no row), `known` (a row of that name was there already), `resized` (its row's size brought up to date).",
+            "type": "string"
+          },
+          "from": {
+            "description": "Where it was before the sweep moved it: `unfiled` only.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "category": {
+            "description": "The category it is filed under - null for `not_moved`.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "size": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "path",
+          "outcome",
+          "from",
+          "category",
+          "size"
+        ],
+        "additionalProperties": false
+      },
+      "AssetReconcileLink": {
+        "title": "AssetReconcileLink",
+        "description": "The rows of one table's column a sweep gave their picture to.",
+        "type": "object",
+        "properties": {
+          "field": {
+            "description": "`banners.icon`.",
+            "type": "string"
+          },
+          "rows": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "field",
+          "rows"
+        ],
+        "additionalProperties": false
+      },
       "AssetReconcileResult": {
         "title": "AssetReconcileResult",
-        "description": "What one sweep did.",
+        "description": "What one sweep did - in counts, and file by file.",
         "type": "object",
         "properties": {
           "adopted": {
@@ -21925,6 +22031,27 @@
           },
           "on_disk": {
             "type": "number"
+          },
+          "relinked": {
+            "description": "Rows handed the picture that was on disk for them, or moved onto its converted copy.",
+            "type": "number"
+          },
+          "files": {
+            "description": "Each file it did something with, by path - the first thousand.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetReconcileFile"
+            }
+          },
+          "files_total": {
+            "description": "How many files it did something with, beyond the list's cut too.",
+            "type": "number"
+          },
+          "linked": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetReconcileLink"
+            }
           }
         },
         "required": [
@@ -21932,7 +22059,11 @@
           "moved_to_unfiled",
           "resized",
           "missing",
-          "on_disk"
+          "on_disk",
+          "relinked",
+          "files",
+          "files_total",
+          "linked"
         ],
         "additionalProperties": false
       },
@@ -42092,6 +42223,48 @@
           "deleted",
           "bytes",
           "failed"
+        ],
+        "additionalProperties": false
+      },
+      "UncataloguedFile": {
+        "title": "UncataloguedFile",
+        "description": "A file on disk the catalogue has no row for - what the Files page counts as \"not in the database\": it came without the API, over FTP or from a script.",
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "Relative to `assets/`, as the disk spells it: `banners/7-1 - Void Star's Advent 2026-10-13.avif`.",
+            "type": "string"
+          },
+          "category": {
+            "description": "The category whose folder holds it - null where none claims the folder: Add strays to database moves it into `unfiled/` first.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "size": {
+            "type": "number"
+          },
+          "modified_at": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "size",
+          "modified_at"
         ],
         "additionalProperties": false
       },

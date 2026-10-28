@@ -343,6 +343,16 @@ $app->delete('/api/file-categories/{id:[0-9]+}', function (Request $request, Res
 
 // ── One file at a time ───────────────────────────────────────────────────────
 
+/**
+ * What the dots of a typed name made of it, said before what that means: a file
+ * keeps only the dot before its extension (_assetUploadStem()). The file
+ * explorer says the same rule in the same words (anotoki-lib's FileExplorer).
+ */
+function _renameDotsSaid(string $typed, string $stored, string $verb = 'is'): string
+{
+    return "A file's name keeps only the dot before its extension - every other dot becomes a dash - so \"$typed\" $verb \"$stored\"";
+}
+
 // ── PUT /api/files/{id}/name ──────────────────────────────────────────────────
 //
 // Renaming is moving without changing category: the file's name *is* where it
@@ -387,10 +397,15 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
     }
 
     // Its own name typed back - "1.0 - Ballad" for the file already called that -
-    // is no rename, not an order to dash it.
+    // is no rename, not an order to dash it. Nor is a name whose dots land on its
+    // own - "7.1 - X" for the file called "7-1 - X" - which says why.
+    $typed = (string) _assetPathSegment($wanted);
     $name = $within . $leaf;
-    if ($name === $file['name'] || $within . _assetPathSegment($wanted) === $file['name']) {
+    if ($within . $typed === $file['name']) {
         return respondJson($response, ['error' => 'It is already called that'], 409);
+    }
+    if ($name === $file['name']) {
+        return respondJson($response, ['error' => _renameDotsSaid($typed, $leaf) . ', the name it has already'], 409);
     }
 
     $suffix = $file['extension'] === '' ? '' : '.' . $file['extension'];
@@ -408,13 +423,21 @@ $app->put('/api/files/{id:[0-9]+}/name', function (Request $request, Response $r
     // Snezhnaya finds the file being renamed and refuses to rename it.
     $sameFile = is_file($source) && is_file($destination) && realpath($source) === realpath($destination);
     if (file_exists($destination) && !$sameFile) {
-        return respondJson($response, ['error' => 'Something is already called that here'], 409);
+        return respondJson(
+            $response,
+            ['error' => $typed === $leaf ? 'Something is already called that here' : _renameDotsSaid($typed, $leaf, 'would be') . ', and something is already called that here'],
+            409,
+        );
     }
 
     $taken = $pdo->prepare('SELECT id FROM files WHERE category_id = ? AND name = ? AND extension = ?');
     $taken->execute([$file['cat_id'], $name, $file['extension']]);
     if ($taken->fetchColumn()) {
-        return respondJson($response, ['error' => 'The catalogue already has that name here'], 409);
+        return respondJson(
+            $response,
+            ['error' => $typed === $leaf ? 'The catalogue already has that name here' : _renameDotsSaid($typed, $leaf, 'would be') . ', and the catalogue already has that name here'],
+            409,
+        );
     }
 
     // A row whose file has already gone still renames, the same way moving one
