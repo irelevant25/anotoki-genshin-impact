@@ -1,0 +1,10 @@
+@use "../shared/list-page" as *;
+
+// The list's skeleton is the shared one (shared/_list-page.scss); the
+// artifacts page's own is the effects on a tile.
+
+// An effect may be longer than a tile's column ("Elemental Burst DMG
+// Increase"): it wraps there rather than running under the tile's edge.
+.fact--tag {
+  white-space: normal;
+}

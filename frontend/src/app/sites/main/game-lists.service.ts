@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { isAdminArea } from '@anotoki/lib/translations';
 import { Observable, catchError, filter, shareReplay, throwError } from 'rxjs';
-import { BannerApiService, CharacterApiService, FoodApiService, MaterialApiService, WeaponApiService } from '../../api';
+import { ArtifactApiService, BannerApiService, CharacterApiService, FoodApiService, MaterialApiService, WeaponApiService } from '../../api';
 
 /**
  * The game's lists as the public site reads them: each asked once while the
@@ -26,6 +26,7 @@ export class GameListsService {
   private readonly _weaponApi = inject(WeaponApiService);
   private readonly _bannerApi = inject(BannerApiService);
   private readonly _foodApi = inject(FoodApiService);
+  private readonly _artifactApi = inject(ArtifactApiService);
 
   private readonly _asked = new Map<string, Observable<unknown>>();
 
@@ -40,12 +41,12 @@ export class GameListsService {
     return this._once('characters', () => this._characterApi.getCharacters());
   }
 
-  /** Every character without the editors' columns (`GET /api/characters/minimal`): the quizzes and the tournament. */
+  /** Every character without the editors' columns (`GET /api/characters/minimal`): the quizzes, the tournament, and the cooks on the Food pages. */
   charactersMinimal(): ReturnType<CharacterApiService['getCharactersMinimal']> {
     return this._once('charactersMinimal', () => this._characterApi.getCharactersMinimal());
   }
 
-  /** Every material (`GET /api/materials`): the Materials page, and the costs on a character's or a weapon's page. */
+  /** Every material (`GET /api/materials`): the Materials page, and the costs on a character's or a weapon's page and a food's recipe. */
   materials(): ReturnType<MaterialApiService['getMaterials']> {
     return this._once('materials', () => this._materialApi.getMaterials());
   }
@@ -60,9 +61,14 @@ export class GameListsService {
     return this._once('banners', () => this._bannerApi.getBannersFull());
   }
 
-  /** Every food (`GET /api/foods`): the dish quiz. */
+  /** Every food (`GET /api/foods`): the Food list, a dish's base dish and variants on its page, and the dish quiz. */
   foods(): ReturnType<FoodApiService['getFoods']> {
     return this._once('foods', () => this._foodApi.getFoods());
+  }
+
+  /** Every artifact set (`GET /api/artifacts`, the deleted ones too - a page leaves them out): the Artifacts page. */
+  artifacts(): ReturnType<ArtifactApiService['getArtifacts']> {
+    return this._once('artifacts', () => this._artifactApi.getArtifacts());
   }
 
   private _once<T>(list: string, ask: () => Observable<T>): Observable<T> {

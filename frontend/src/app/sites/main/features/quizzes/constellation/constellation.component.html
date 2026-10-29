@@ -1,0 +1,32 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <app-quiz-frame
+            [quizId]="quizId"
+            [difficulty]="difficulty()"
+            [chosenDifficulty]="chosenDifficulty()"
+            [isDaily]="isDaily()"
+            [isQuestionComplete]="isQuestionComplete()"
+            [tries]="displayTries()"
+            [triesCount]="tries().length"
+            [triesMax]="triesMax()"
+            [options]="searchOptions()"
+            [answer]="questionEntity()"
+            (guess)="guess($event)"
+            (next)="next()"
+            (chooseDifficulty)="chooseDifficulty($event)">
+            @if (questionEntity(); as character) {
+                <div class="constellation">
+                    <!-- The constellation's own picture, the path the characters list answers (constellation);
+                         constellation_name is the constellation's name, never a file's. -->
+                    <img class="quiz-question-image" [class]="effectClasses()" [appMaterialIcon]="character.constellation" alt="" loading="eager" />
+
+                    @if (isQuestionComplete() && character.constellation_name) {
+                        <p class="constellation-name">{{ character.constellation_name }}</p>
+                    }
+                </div>
+            }
+        </app-quiz-frame>
+    }
+</div>

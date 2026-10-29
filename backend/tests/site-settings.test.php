@@ -136,8 +136,8 @@ echo "What every page is told\n";
 $public = send('GET', '/api/site-settings');
 same('GET /api/site-settings: 200, open, closed for nobody, nothing to announce', [200, false, null], [$public->getStatusCode(), body($public)['maintenance'] ?? null, announcementOf($public)]);
 same(
-    '...the 27 pages 035 seeded, each its path, who sees it and whether it is off - never its API paths',
-    [27, ['path', 'visibility', 'blocked']],
+    '...the 35 pages - the 27 035 seeded, the four database pages of users/071 and the four quiz pages of 072 -, each its path, who sees it and whether it is off - never its API paths',
+    [35, ['path', 'visibility', 'blocked']],
     [count(body($public)['pages'] ?? []), array_keys(body($public)['pages'][0] ?? [])],
 );
 same('...read without a token: one that does not verify is not looked at (200)', 200, send('GET', '/api/site-settings', null, null, ['Authorization' => 'Bearer not.a.token'])->getStatusCode());
@@ -180,7 +180,7 @@ foreach ([EDITOR => 'an EDITOR', MEMBER => 'a MEMBER', 0 => 'nobody'] as $who =>
     $as = $who === 0 ? null : $who;
     same(
         "$name closing the site, adding a page or removing one: refused, nothing kept",
-        [true, true, true, false, 27],
+        [true, true, true, false, 35],
         [
             in_array(send('PUT', '/api/admin/site-settings', $as, ['settings' => ['maintenance_mode' => true]])->getStatusCode(), [401, 403], true),
             in_array(send('POST', '/api/admin/site-settings/pages', $as, ['path' => '/games/mine', 'visibility' => 'ADMIN'])->getStatusCode(), [401, 403], true),

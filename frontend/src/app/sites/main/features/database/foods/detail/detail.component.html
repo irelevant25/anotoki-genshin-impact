@@ -1,0 +1,151 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page food-detail">
+            @if (food(); as food) {
+                <app-detail-hero [name]="food.name" [rarity]="food.rarity ?? null" [subtitle]="food.type ?? null" [splash]="splash()" splashKind="item" [stats]="heroStats()" />
+
+                <!-- Each quality its own picture, effect and description; a food that comes in one alone is described once. -->
+                @if (qualities().length) {
+                    <anotoki-card class="detail-card" [heading]="(qualities().length > 1 ? 'database.detail.qualities' : 'database.detail.description') | translate">
+                        <div class="qualities" [class.qualities--several]="qualities().length > 1">
+                            @for (quality of qualities(); track quality.key) {
+                                <section class="quality">
+                                    @if (qualities().length > 1) {
+                                        <div class="quality-head">
+                                            <span class="quality-art" [attr.data-rarity]="food.rarity ?? 1">
+                                                @if (quality.icon) {
+                                                    <img [appMaterialIcon]="quality.icon" [appAssetFolder]="'foods'" alt="" loading="lazy" />
+                                                }
+                                            </span>
+                                            <h3 class="quality-name">{{ quality.label | translate }}</h3>
+                                        </div>
+                                    }
+                                    @if (quality.effect) {
+                                        <p class="quality-effect">{{ quality.effect }}</p>
+                                    }
+                                    @if (quality.description) {
+                                        <p class="quality-description">{{ quality.description }}</p>
+                                    }
+                                </section>
+                            }
+                        </div>
+                    </anotoki-card>
+                }
+
+                @if (recipe().length || cook() || baseDish() || variants().length || howToObtain().length || effects().length || events().length) {
+                    <div class="detail-columns">
+                        @if (recipe().length) {
+                            <anotoki-card [heading]="'database.detail.recipe' | translate">
+                                <div class="tiles tiles--lg">
+                                    @for (line of recipe(); track $index) {
+                                        @if (line.material; as material) {
+                                            <app-material-tile
+                                                size="lg"
+                                                [name]="material.name"
+                                                [icon]="material.icon_name"
+                                                [rarity]="material.rarity"
+                                                [quantity]="line.quantity"
+                                                [link]="['../../', 'materials', material.id]" />
+                                        }
+                                    }
+                                </div>
+                            </anotoki-card>
+                        }
+
+                        <!-- A special dish: whose it is and what it is made in place of; a festival's variant: that alone. -->
+                        @if (cook() || baseDish()) {
+                            <anotoki-card [heading]="(cook() ? 'database.detail.specialDish' : 'database.detail.baseDish') | translate">
+                                <div class="relations">
+                                    @if (cook(); as cook) {
+                                        <div class="relation">
+                                            <span class="relation-label">{{ "database.detail.character" | translate }}</span>
+                                            <app-material-tile
+                                                size="lg"
+                                                [name]="cook.name"
+                                                [icon]="cook.icon_name ?? cook.name"
+                                                folder="character.icon"
+                                                [rarity]="cook.rarity"
+                                                [link]="['../../', 'characters', cook.id]" />
+                                        </div>
+                                    }
+                                    @if (baseDish(); as base) {
+                                        <div class="relation">
+                                            @if (cook()) {
+                                                <span class="relation-label">{{ "database.detail.baseDish" | translate }}</span>
+                                            }
+                                            <app-material-tile
+                                                size="lg"
+                                                [name]="base.name"
+                                                [icon]="base.icon_normal ?? ''"
+                                                folder="foods"
+                                                [rarity]="base.rarity"
+                                                [link]="['../../', 'foods', base.id]" />
+                                        </div>
+                                    }
+                                </div>
+                            </anotoki-card>
+                        }
+
+                        @if (variants().length) {
+                            <anotoki-card [heading]="'database.detail.variants' | translate">
+                                <div class="tiles tiles--lg">
+                                    @for (variant of variants(); track variant.food.id) {
+                                        <div class="variant">
+                                            <app-material-tile
+                                                size="lg"
+                                                [name]="variant.food.name"
+                                                [icon]="variant.food.icon_normal ?? ''"
+                                                folder="foods"
+                                                [rarity]="variant.food.rarity"
+                                                [link]="['../../', 'foods', variant.food.id]" />
+                                            @if (variant.cook; as cook) {
+                                                <span class="variant-cook">
+                                                    <img [appMaterialIcon]="cook.icon_name ?? cook.name" [appAssetFolder]="'character.icon'" alt="" loading="lazy" />
+                                                    {{ cook.name }}
+                                                </span>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </anotoki-card>
+                        }
+
+                        @if (howToObtain().length) {
+                            <anotoki-card [heading]="'database.detail.howToObtain' | translate">
+                                <ul class="plain-list">
+                                    @for (entry of howToObtain(); track $index) {
+                                        <li>{{ entry }}</li>
+                                    }
+                                </ul>
+                            </anotoki-card>
+                        }
+
+                        @if (effects().length) {
+                            <anotoki-card [heading]="'database.detail.effects' | translate">
+                                <div class="chips">
+                                    @for (effect of effects(); track $index) {
+                                        <span class="chip">{{ effect }}</span>
+                                    }
+                                </div>
+                            </anotoki-card>
+                        }
+
+                        @if (events().length) {
+                            <anotoki-card [heading]="'database.detail.events' | translate">
+                                <ul class="plain-list">
+                                    @for (event of events(); track $index) {
+                                        <li>{{ event }}</li>
+                                    }
+                                </ul>
+                            </anotoki-card>
+                        }
+                    </div>
+                }
+            } @else {
+                <div class="not-found">{{ "database.detail.notFound" | translate }}</div>
+            }
+        </div>
+    }
+</div>

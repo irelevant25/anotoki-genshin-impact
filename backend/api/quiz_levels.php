@@ -8,32 +8,39 @@
  * No row is the built-in levels, the frontend's quiz-levels.ts (QUIZ_LEVELS):
  * what every page plays while nothing is saved, while it asks, and whenever
  * asking fails, so a quiz never breaks or waits on this. A saved row is the
- * six quizzes' three levels whole, held to the rules below before it is
+ * eight quizzes' three levels whole, held to the rules below before it is
  * written - and again as it is read: a row the rules no longer take (a later
  * release's stricter rule) is read as none, and the Quiz levels page says why.
+ * A release that adds a quiz gives a saved row the new quiz's built-in levels
+ * in a migration (users/073), so the row stays in force.
  *
  * The rules (quizLevelsChecked()) - the server's; the page shows what they say
  * before anything is saved (POST /api/admin/quiz-levels/check):
  *
- *   - exactly the six quizzes, each with exactly the levels "1", "2" and "3";
- *     no other key anywhere, and every value of its type;
- *   - the five "which character is this?" quizzes: {triesMax, triesEffects} -
- *     triesMax 5 on every level (the owner's rule of 2026-10-19: the Profile
- *     counts tries and wins across levels), triesEffects five steps, `try` 0
- *     to 4 in order;
+ *   - exactly the eight quizzes, each with exactly the levels "1", "2" and
+ *     "3"; no other key anywhere, and every value of its type;
+ *   - the seven "which character is this?" quizzes: {triesMax, triesEffects} -
+ *     triesMax the quiz's own on every level of it, 5, and 3 for Splash and
+ *     Constellation (QUIZ_LEVEL_TRIES: the owner's rule of 2026-10-19, the
+ *     Profile counting tries and wins across a quiz's levels), triesEffects a
+ *     step a try, `try` 0 up in order;
  *   - a step's `class` only the classes its quiz's CSS has, one of each kind:
  *     Banners and Dish a crop (shown-half, shown-quarter) and a filter
  *     (shown-grey, shown-grey-blurred, shown-grey-blurred-more) -
- *     quiz-question.scss -, Voice a cut of the line (half-text, quarter-text)
- *     and hidden-audio - voice.component.scss and .ts; Pixelate and Music none;
+ *     quiz-question.scss -, Splash a crop and shown-silhouette, Constellation
+ *     a crop and a colour (shown-grey, shown-misleading), Voice a cut of the
+ *     line (half-text, quarter-text) and hidden-audio - voice.component.scss
+ *     and .ts; Pixelate and Music none;
  *   - a step's `data` a number: Pixelate's grid, 3 to 60 blocks across, on
  *     every step; Music's seconds, 1 to 60, on every step but the last, which
  *     may leave it out for the whole track; Voice's seconds of the recording,
- *     0.25 to 10, never beside hidden-audio; Banners and Dish none;
+ *     0.25 to 10, never beside hidden-audio; the picture quizzes none;
  *   - each wrong guess shows more, never less - the guides say so: the grid
  *     finer and the seconds more with every step that has them, a picture or
- *     a line never cut or blurred more than the try before, the player never
- *     hidden again once shown, no seconds after the whole recording;
+ *     a line never cut, blurred or greyed more than the try before (grey
+ *     hides more than a misleading colour, which hides more than the true
+ *     one), the silhouette never back once lifted, the player never hidden
+ *     again once shown, no seconds after the whole recording;
  *   - Mismatch: {choicesAmount, properties, blend} - choicesAmount 3 to 8
  *     characters (two could never make a set with one odd one out; the grid
  *     wraps however many there are); properties what a question can be about,
@@ -51,13 +58,19 @@
 use Anotoki\Lib\Support\Refusal;
 
 /** The quizzes, in the order the levels list them (quiz-levels.ts). */
-const QUIZ_LEVEL_QUIZZES = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice'];
+const QUIZ_LEVEL_QUIZZES = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice', 'splash', 'constellation'];
 
 /** The levels, as their keys: 1 easy, 2 medium, 3 hard. */
 const QUIZ_LEVEL_NAMES = ['1' => 'Easy', '2' => 'Medium', '3' => 'Hard'];
 
-/** Every level's tries, the same everywhere (the owner's rule of 2026-10-19). */
-const QUIZ_LEVEL_TRIES = 5;
+/**
+ * Each quiz's tries, the same on every level of it (the owner's rule of
+ * 2026-10-19: the Profile counts tries and wins across a quiz's levels, and a
+ * level with fewer would pull down the figures of whoever chose it) - three
+ * for Splash and Constellation, the owner's choice of 2026-10-29. Mismatch
+ * has none: one pick ends a question.
+ */
+const QUIZ_LEVEL_TRIES = ['banners' => 5, 'pixelate' => 5, 'music' => 5, 'dish' => 5, 'voice' => 5, 'splash' => 3, 'constellation' => 3];
 
 /** How many characters a Mismatch question may show. */
 const QUIZ_LEVEL_CHOICES = [3, 8];
@@ -68,7 +81,7 @@ const QUIZ_LEVEL_PROPERTIES = ['element', 'weapon', 'region', 'era', 'affiliatio
 /** How many sets a Mismatch question may draw, to keep the one whose odd one out looks most like the others. */
 const QUIZ_LEVEL_BLEND = [1, 30];
 
-/** The largest body a save or a check takes, in bytes - the six quizzes' levels take some 2.7 KB, written tight. */
+/** The largest body a save or a check takes, in bytes - the eight quizzes' levels take some 3.5 KB, written tight. */
 const QUIZ_LEVELS_BODY_LIMIT = 16384;
 
 /** At most this many problems are said of one set of levels; a page full of them says enough. */
@@ -94,9 +107,32 @@ function quizLevelKinds(): array
         'data' => null,
     ];
 
+    // Splash's and Constellation's crops are Banners' and Dish's, from the left.
+    $crop = ['shown-quarter', 'shown-half'];
+
     return [
         'banners' => ['name' => 'Banners'] + $picture,
         'dish' => ['name' => 'Dish'] + $picture,
+        'splash' => [
+            'name' => 'Splash',
+            'keys' => ['try', 'class'],
+            // The silhouette: the wish art drawn black (white on the dark theme), lifted once for good.
+            'classes' => ['crop' => $crop, 'silhouette' => ['shown-silhouette']],
+            'kinds' => ['crop' => 'crop the picture'],
+            'example' => 'shown-half shown-silhouette',
+            'without' => 'has no data: its steps hide the wish art by their classes',
+            'data' => null,
+        ],
+        'constellation' => [
+            'name' => 'Constellation',
+            'keys' => ['try', 'class'],
+            // Grey takes the sky's colour - the element's - away; a misleading one shows another element's; none, its own.
+            'classes' => ['crop' => $crop, 'colour' => ['shown-grey', 'shown-misleading']],
+            'kinds' => ['crop' => 'crop the picture', 'colour' => 'grey or recolour the picture'],
+            'example' => 'shown-half shown-grey',
+            'without' => 'has no data: its steps hide the constellation by their classes',
+            'data' => null,
+        ],
         'pixelate' => [
             'name' => 'Pixelate',
             'keys' => ['try', 'data'],
@@ -186,14 +222,14 @@ function quizLevelsChecked(mixed $levels): array
 
     $quizzes = $levels instanceof stdClass ? get_object_vars($levels) : null;
     if ($quizzes === null) {
-        $say(null, null, null, 'The levels are one object of the six quizzes - banners, pixelate, mismatch, music, dish and voice -, each with its levels "1", "2" and "3".');
+        $say(null, null, null, 'The levels are one object of the quizzes - ' . quizLevelList(QUIZ_LEVEL_QUIZZES) . ' -, each with its levels "1", "2" and "3".');
 
         return ['levels' => null, 'problems' => $problems];
     }
 
     foreach (array_keys($quizzes) as $key) {
         if (!in_array((string) $key, QUIZ_LEVEL_QUIZZES, true)) {
-            $say(null, null, null, 'There is no quiz ' . quizLevelKey($key) . ': the quizzes are banners, pixelate, mismatch, music, dish and voice.');
+            $say(null, null, null, 'There is no quiz ' . quizLevelKey($key) . ': the quizzes are ' . quizLevelList(QUIZ_LEVEL_QUIZZES) . '.');
         }
     }
 
@@ -310,17 +346,20 @@ function quizLevelProperties(mixed $value, callable $at): ?array
 }
 
 /**
- * A level of one of the five "which character is this?" quizzes:
- * {triesMax, triesEffects}, its steps held to the quiz's rules (quizLevelKinds()).
- * Null when something is wrong, said through $say.
+ * A level of one of the seven "which character is this?" quizzes:
+ * {triesMax, triesEffects}, its steps held to the quiz's rules (quizLevelKinds())
+ * and its tries the quiz's own (QUIZ_LEVEL_TRIES). Null when something is
+ * wrong, said through $say.
  *
  * @return ?array{triesMax: int, triesEffects: list<array<string, mixed>>}
  */
 function quizLevelSteps(mixed $value, string $quiz, string $level, array $kind, callable $say): ?array
 {
+    $name = $kind['name'];
+    $tries = QUIZ_LEVEL_TRIES[$quiz];
     $fields = $value instanceof stdClass ? get_object_vars($value) : null;
     if ($fields === null) {
-        $say($quiz, $level, null, 'A level is one object: {"triesMax": 5, "triesEffects": [five steps]}.');
+        $say($quiz, $level, null, 'A level is one object: {"triesMax": ' . $tries . ', "triesEffects": [' . $tries . ' steps]}.');
 
         return null;
     }
@@ -331,18 +370,17 @@ function quizLevelSteps(mixed $value, string $quiz, string $level, array $kind, 
             $fine = false;
         }
     }
-    if (quizLevelWhole($fields['triesMax'] ?? null) !== QUIZ_LEVEL_TRIES) {
-        $say($quiz, $level, null, 'triesMax is ' . QUIZ_LEVEL_TRIES . ' on every level of every quiz: the Profile counts tries and wins across the levels.');
+    if (quizLevelWhole($fields['triesMax'] ?? null) !== $tries) {
+        $say($quiz, $level, null, "triesMax is $tries on every level of $name: the Profile counts tries and wins across a quiz's levels.");
         $fine = false;
     }
     $steps = $fields['triesEffects'] ?? null;
-    if (!is_array($steps) || count($steps) !== QUIZ_LEVEL_TRIES) {
-        $say($quiz, $level, null, 'triesEffects is a list of ' . QUIZ_LEVEL_TRIES . ' steps, one a try: try 0 (before any wrong guess) to try ' . (QUIZ_LEVEL_TRIES - 1) . '.');
+    if (!is_array($steps) || count($steps) !== $tries) {
+        $say($quiz, $level, null, "triesEffects is a list of $tries steps, one a try: try 0 (before any wrong guess) to try " . ($tries - 1) . '.');
 
         return null;
     }
 
-    $name = $kind['name'];
     $data = $kind['data'];
     $kept = [];
     // What the tries before showed, so that no step shows less: each kind's
@@ -374,7 +412,7 @@ function quizLevelSteps(mixed $value, string $quiz, string $level, array $kind, 
             $fine = false;
         }
         if (quizLevelWhole($stepFields['try'] ?? null) !== $try) {
-            $at("try is $try here: the steps go in order, try 0 to try " . (QUIZ_LEVEL_TRIES - 1) . '.');
+            $at("try is $try here: the steps go in order, try 0 to try " . ($tries - 1) . '.');
             $fine = false;
         }
         $kept[$try] = ['try' => $try];
@@ -435,14 +473,14 @@ function quizLevelSteps(mixed $value, string $quiz, string $level, array $kind, 
             continue;
         }
         $hasData = array_key_exists('data', $stepFields);
-        $last = $try === QUIZ_LEVEL_TRIES - 1;
+        $last = $try === $tries - 1;
         $hidesPlayer = in_array('hidden-audio', $classes, true);
         if (!$hasData) {
             if ($data['needed'] === 'always') {
                 $at("data is missing: every $name step has its grid - how many " . $data['what'] . '.');
                 $fine = false;
             } elseif ($data['needed'] === 'but-last' && !$last) {
-                $at('data is missing: tries 0 to ' . (QUIZ_LEVEL_TRIES - 2) . ' play some seconds of the track - only the last may leave it out, for the whole track.');
+                $at('data is missing: tries 0 to ' . ($tries - 2) . ' play some seconds of the track - only the last may leave it out, for the whole track.');
                 $fine = false;
             } elseif ($data['needed'] === 'never' && !$hidesPlayer) {
                 // A step with the player and no seconds plays the whole recording.
@@ -481,7 +519,7 @@ function quizLevelSteps(mixed $value, string $quiz, string $level, array $kind, 
         $kept[$try]['data'] = $number;
     }
 
-    return $fine ? ['triesMax' => QUIZ_LEVEL_TRIES, 'triesEffects' => array_values($kept)] : null;
+    return $fine ? ['triesMax' => $tries, 'triesEffects' => array_values($kept)] : null;
 }
 
 /** "a, b and c". */

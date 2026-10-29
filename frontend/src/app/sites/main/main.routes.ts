@@ -11,6 +11,8 @@ import { QuizzesMismatchComponent } from './features/quizzes/mismatch/mismatch.c
 import { QuizzesMusicComponent } from './features/quizzes/music/music.component';
 import { QuizzesPixelateComponent } from './features/quizzes/pixelate/pixelate.component';
 import { QuizzesVoiceComponent } from './features/quizzes/voice/voice.component';
+import { QuizzesSplashComponent } from './features/quizzes/splash/splash.component';
+import { QuizzesConstellationComponent } from './features/quizzes/constellation/constellation.component';
 import { AppComponent } from './app.component';
 import { DailyComponent } from './features/daily/daily.component';
 import { GamesComponent } from './features/games/games.component';
@@ -24,6 +26,10 @@ import { DatabaseWeaponsComponent } from './features/database/weapons/weapons.co
 import { DatabaseCharacterDetailComponent } from './features/database/characters/detail/detail.component';
 import { DatabaseMaterialDetailComponent } from './features/database/materials/detail/detail.component';
 import { DatabaseWeaponDetailComponent } from './features/database/weapons/detail/detail.component';
+import { DatabaseArtifactsComponent } from './features/database/artifacts/artifacts.component';
+import { DatabaseArtifactDetailComponent } from './features/database/artifacts/detail/detail.component';
+import { DatabaseFoodsComponent } from './features/database/foods/foods.component';
+import { DatabaseFoodDetailComponent } from './features/database/foods/detail/detail.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { StaffSignInPageComponent } from './features/account/staff/staff.component';
 import { pageAccessGuard } from '@anotoki/lib/site-settings';
@@ -37,7 +43,7 @@ export const routes: Routes = [
     component: AppComponent,
     children: [
       { path: '', component: HomeComponent, canMatch: [pageAccessGuard] },
-      // The daily run is the same six quizzes, told through the route data that
+      // The daily run is the same eight quizzes, told through the route data that
       // they are today's question rather than a fresh one. That flag is what
       // sends their saved game to the daily slot and stamps it with the date.
       {
@@ -51,6 +57,8 @@ export const routes: Routes = [
           { path: ROUTE_MAP.map['daily'].music.path, component: QuizzesMusicComponent, data: { daily: true } },
           { path: ROUTE_MAP.map['daily'].pixelate.path, component: QuizzesPixelateComponent, data: { daily: true } },
           { path: ROUTE_MAP.map['daily'].voice.path, component: QuizzesVoiceComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].splash.path, component: QuizzesSplashComponent, data: { daily: true } },
+          { path: ROUTE_MAP.map['daily'].constellation.path, component: QuizzesConstellationComponent, data: { daily: true } },
         ],
       },
       {
@@ -81,6 +89,14 @@ export const routes: Routes = [
           {
             path: ROUTE_MAP.map['quizzes'].voice.path,
             component: QuizzesVoiceComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].splash.path,
+            component: QuizzesSplashComponent,
+          },
+          {
+            path: ROUTE_MAP.map['quizzes'].constellation.path,
+            component: QuizzesConstellationComponent,
           },
         ],
       },
@@ -121,6 +137,20 @@ export const routes: Routes = [
             children: [
               { path: '', component: DatabaseWeaponsComponent },
               { path: ':id', component: DatabaseWeaponDetailComponent },
+            ],
+          },
+          {
+            path: ROUTE_MAP.map['database'].artifacts.path,
+            children: [
+              { path: '', component: DatabaseArtifactsComponent },
+              { path: ':id', component: DatabaseArtifactDetailComponent },
+            ],
+          },
+          {
+            path: ROUTE_MAP.map['database'].foods.path,
+            children: [
+              { path: '', component: DatabaseFoodsComponent },
+              { path: ':id', component: DatabaseFoodDetailComponent },
             ],
           },
         ],

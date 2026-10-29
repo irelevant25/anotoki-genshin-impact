@@ -12,7 +12,7 @@ export interface QuizCard {
 }
 
 /**
- * The six quizzes as the site presents them.
+ * The eight quizzes as the site presents them.
  *
  * Both the Quizzes page and the Daily page draw the same card, so the titles
  * and the faces on them live here rather than in whichever page was written
@@ -61,6 +61,21 @@ export const QUIZ_CATALOG: readonly QuizCard[] = [
     title: 'quiz.voice.title',
     info: 'quiz.voice.info',
     image: 'assets/character/wish_icon/YUN_JIN.avif',
+  },
+  {
+    id: 'splash',
+    path: ROUTE_MAP.map['quizzes'].splash.path,
+    title: 'quiz.splash.title',
+    info: 'quiz.splash.info',
+    image: 'assets/character/wish_icon/NEUVILLETTE.avif',
+  },
+  {
+    // The astrologist, for the quiz of the stars.
+    id: 'constellation',
+    path: ROUTE_MAP.map['quizzes'].constellation.path,
+    title: 'quiz.constellation.title',
+    info: 'quiz.constellation.info',
+    image: 'assets/character/wish_icon/MONA.avif',
   },
 ];
 

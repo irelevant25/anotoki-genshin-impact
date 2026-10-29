@@ -950,10 +950,12 @@ levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
   (`POST /api/admin/quiz-levels/check`) and lists every problem with where it
   is - the quiz, the level, the try - and what is wrong; **Save** waits until
   there is none. The server is the rule (`backend/api/quiz_levels.php`): exactly
-  the six quizzes, the levels "1", "2" and "3"; five tries on every level of every
-  quiz (`triesMax` 5 - the Profile counts tries and wins across levels) and five
-  steps, `try` 0 to 4 in order; a step's `class` only the classes its quiz's CSS
-  has, one crop and one filter for a picture, one cut of the line and
+  the eight quizzes, the levels "1", "2" and "3"; the same tries on every level
+  of a quiz - five, and three for Splash and Constellation (`triesMax` - the
+  Profile counts tries and wins across a quiz's levels) - and a step a try,
+  `try` 0 up in order; a step's `class` only the classes its quiz's CSS has, one
+  crop and one filter for a picture (Splash's filter its silhouette,
+  Constellation's grey or a misleading colour), one cut of the line and
   `hidden-audio` for Voice, none for Pixelate and Music; `data` Pixelate's grid
   (3 to 60 blocks across, every step), Music's seconds (1 to 60, every step but
   the last, which may leave it out for the whole track), Voice's seconds (0.25 to

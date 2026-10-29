@@ -132,8 +132,11 @@
 }
 
 .tile-name {
-  // Clear of the version badge in the corner, a "Luna VIII" included.
+  // Clear of the version badge in the corner, a "Luna VIII" included - and a
+  // word longer than the room beside it ("Disenchantment") broken rather than
+  // run under the badge.
   padding-right: 72px;
+  overflow-wrap: break-word;
   font-size: var(--font-size-lg);
   font-weight: 800;
   letter-spacing: -0.01em;

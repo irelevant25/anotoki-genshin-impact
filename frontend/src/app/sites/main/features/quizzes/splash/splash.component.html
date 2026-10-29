@@ -1,0 +1,28 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <app-quiz-frame
+            [quizId]="quizId"
+            [difficulty]="difficulty()"
+            [chosenDifficulty]="chosenDifficulty()"
+            [isDaily]="isDaily()"
+            [isQuestionComplete]="isQuestionComplete()"
+            [tries]="displayTries()"
+            [triesCount]="tries().length"
+            [triesMax]="triesMax()"
+            [options]="searchOptions()"
+            [answer]="questionEntity()"
+            (guess)="guess($event)"
+            (next)="next()"
+            (chooseDifficulty)="chooseDifficulty($event)">
+            @if (questionEntity(); as character) {
+                <!-- The wish art's own picture, the path the characters list answers (wish_icon), on a plate of its
+                     own: the silhouette's filter would darken a plate drawn on the picture itself. -->
+                <div class="splash-plate">
+                    <img class="splash-art" [class]="effectClasses()" [appMaterialIcon]="character.wish_icon" alt="" loading="eager" />
+                </div>
+            }
+        </app-quiz-frame>
+    }
+</div>

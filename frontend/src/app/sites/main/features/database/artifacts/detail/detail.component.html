@@ -1,0 +1,65 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page artifact-detail">
+            @if (artifact(); as artifact) {
+                <app-detail-hero [name]="artifact.name" [rarity]="rarity()" [splash]="splash()" splashKind="item" [stats]="heroStats()" />
+
+                @if (bonuses().length || effects().length) {
+                    <div class="detail-columns">
+                        @if (bonuses().length) {
+                            <anotoki-card [heading]="'database.detail.setBonuses' | translate">
+                                <dl class="bonuses">
+                                    @for (bonus of bonuses(); track bonus.label) {
+                                        <div class="bonus">
+                                            <dt class="bonus-label">{{ bonus.label | translate }}</dt>
+                                            <dd class="bonus-text">{{ bonus.text }}</dd>
+                                        </div>
+                                    }
+                                </dl>
+                            </anotoki-card>
+                        }
+
+                        @if (effects().length) {
+                            <anotoki-card [heading]="'database.detail.effects' | translate">
+                                <div class="chips">
+                                    @for (effect of effects(); track $index) {
+                                        <span class="chip">{{ effect }}</span>
+                                    }
+                                </div>
+                            </anotoki-card>
+                        }
+                    </div>
+                }
+
+                @if (pieces().length) {
+                    <anotoki-card class="detail-card" [heading]="'database.detail.pieces' | translate">
+                        <ul class="pieces">
+                            @for (piece of pieces(); track $index) {
+                                <li class="piece">
+                                    <span class="piece-art" [attr.data-rarity]="rarity() ?? 1">
+                                        <img [appMaterialIcon]="piece.icon_name ?? piece.name" [appAssetFolder]="'artifacts'" alt="" loading="lazy" />
+                                    </span>
+                                    <span class="piece-text">
+                                        <span class="piece-name">{{ piece.name }}</span>
+                                        <span class="piece-type">{{ piece.type }}</span>
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </anotoki-card>
+                }
+
+                <!-- The first way is in the hero's strip; the rest, where there are more, get their card. -->
+                @if (showSources()) {
+                    <anotoki-card class="detail-card" [heading]="'database.detail.howToObtain' | translate">
+                        <app-detail-facts [rows]="sourceRows()" />
+                    </anotoki-card>
+                }
+            } @else {
+                <div class="not-found">{{ "database.detail.notFound" | translate }}</div>
+            }
+        </div>
+    }
+</div>

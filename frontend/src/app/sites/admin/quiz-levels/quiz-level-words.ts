@@ -9,11 +9,14 @@ import { MISMATCH_PROPERTIES, MismatchProperty, QUIZ_DIFFICULTIES, QuizEffect, Q
  * The difficulty dialog's sentences (quiz.levelInfo.*) take every number from
  * the levels in force - Pixelate's grid, the seconds of a track and of a
  * recording, Mismatch's count - and the server's rules keep what else they
- * say true (five tries, each wrong guess showing more). What no number can
- * carry is written out for the built-in levels:
+ * say true (a quiz's tries the same on its every level, each wrong guess
+ * showing more). What no number can carry is written out for the built-in
+ * levels:
  *
- *   - Banners' and Dish's three (quiz.levelInfo.picture*) say what the classes
- *     uncover, guess by guess;
+ *   - Banners' and Dish's three (quiz.levelInfo.picture*), Splash's
+ *     (quiz.levelInfo.splash*) and Constellation's
+ *     (quiz.levelInfo.constellation*) say what the classes uncover, guess by
+ *     guess;
  *   - Voice's three (quiz.levelInfo.voice*) say which steps show the line and
  *     which play the recording - its seconds follow; a level playing fewer
  *     pieces than its sentence names is said in general words instead
@@ -47,6 +50,8 @@ export const QUIZ_NAMES: Readonly<Record<QuizId, string>> = {
   music: 'Music',
   dish: 'Dish',
   voice: 'Voice',
+  splash: 'Splash',
+  constellation: 'Constellation',
 };
 export const LEVEL_NAMES: Readonly<Record<string, string>> = { '1': 'Easy', '2': 'Medium', '3': 'Hard' };
 
@@ -74,7 +79,7 @@ function shape(step: QuizEffect | undefined): string {
 /** The words that no longer say what these levels do, quiz by quiz. */
 export function levelWordsWarnings(levels: QuizLevels): LevelWordsWarning[] {
   const warnings: LevelWordsWarning[] = [];
-  for (const quiz of ['banners', 'dish', 'voice'] as const) {
+  for (const quiz of ['banners', 'dish', 'voice', 'splash', 'constellation'] as const) {
     for (const level of QUIZ_DIFFICULTIES) {
       const steps = levels[quiz][level]?.triesEffects ?? [];
       const builtIn = QUIZ_LEVELS[quiz][level]?.triesEffects ?? [];

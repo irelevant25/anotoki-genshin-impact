@@ -1,5 +1,17 @@
 [
   {
+    "version": "1.7.0",
+    "date": "2026-10-29",
+    "changes": {
+      "added": [
+        "Two new quizzes, three guesses each: Splash, where you name a character from the black silhouette of their wish art, and Constellation, where you name them from their constellation — shown in grey, so its colour does not give their element away, and on Hard in a misleading colour at the last",
+        "Splash and Constellation can come up in the Daily too",
+        "Artifacts in the Database: every artifact set with its bonuses, its pieces and where to get it",
+        "Food in the Database: every dish, potion and oil with its effects at each quality, its recipe, and whose special dish it is"
+      ]
+    }
+  },
+  {
     "version": "1.6.0",
     "date": "2026-10-29",
     "changes": {

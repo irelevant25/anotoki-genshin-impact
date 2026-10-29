@@ -1,0 +1,22 @@
+@use "../shared/quiz-question" as *;
+
+.constellation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// The picture is a square of sky with the figure in its middle: rounded at the
+// corners rather than the plate's pill, which would cut it to a circle.
+.quiz-question-image {
+  width: 16rem;
+  max-width: 70vw;
+  border-radius: var(--border-radius-large);
+}
+
+// Named only once it is over, as the dish is: "Papilio Charontis".
+.constellation-name {
+  margin: var(--spacing-sm) 0 0;
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}

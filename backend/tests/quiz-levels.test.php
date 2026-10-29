@@ -26,7 +26,8 @@ declare(strict_types=1);
  *     Slovak one only beside this file's English -, and its gate.
  *
  * users/069 - Mismatch's properties and blend given to the levels saved
- * before them - is tests/quiz-levels-migration.test.php's.
+ * before them - and users/073 - Splash's and Constellation's levels, likewise -
+ * are tests/quiz-levels-migration.test.php's.
  */
 
 use Psr\Http\Message\ResponseInterface;
@@ -167,7 +168,7 @@ function takes(string $what, callable $change): void
 
 echo "The built-in levels pass the rules\n";
 
-same('quiz-levels.ts\'s QUIZ_LEVELS: the six quizzes, three levels each', ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice'], array_keys($canonical));
+same('quiz-levels.ts\'s QUIZ_LEVELS: the eight quizzes, three levels each', ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice', 'splash', 'constellation'], array_keys($canonical));
 same('...and nothing the rules say of them', [], problemsOf($builtIn));
 
 // ── Who may ─────────────────────────────────────────────────────────────────
@@ -213,7 +214,10 @@ same('the Quiz levels page: nothing saved, nothing to say', ['levels' => null, '
 echo "The rules: the shape\n";
 
 same('not an object: said once, of the whole', 1, count(problemsOf([])));
-check('...as the six quizzes and their levels', said(problemsOf([]), null, null, null, 'The levels are one object of the six quizzes'));
+check(
+    '...as the eight quizzes and their levels',
+    said(problemsOf([]), null, null, null, 'The levels are one object of the quizzes - banners, pixelate, mismatch, music, dish, voice, splash and constellation -'),
+);
 check('...nor a text', said(problemsOf('levels'), null, null, null, 'The levels are one object'));
 refuses(
     'a quiz missing',
@@ -296,7 +300,7 @@ refuses(
     'Unknown "lives"',
 );
 
-echo "The rules: five tries, five steps\n";
+echo "The rules: each quiz's tries, a step a try - five, and three for Splash and Constellation\n";
 
 refuses(
     'triesMax 4',
@@ -306,7 +310,39 @@ refuses(
     'pixelate',
     '3',
     null,
-    'triesMax is 5 on every level of every quiz',
+    'triesMax is 5 on every level of Pixelate: the Profile counts tries and wins across a quiz\'s levels',
+);
+refuses(
+    'Splash with five',
+    static function (stdClass $l): void {
+        $l->splash->{'2'}->triesMax = 5;
+    },
+    'splash',
+    '2',
+    null,
+    'triesMax is 3 on every level of Splash',
+);
+refuses(
+    'Constellation with five steps',
+    static function (stdClass $l): void {
+        $l->constellation->{'1'}->triesEffects[] = (object) ['try' => 3];
+        $l->constellation->{'1'}->triesEffects[] = (object) ['try' => 4];
+    },
+    'constellation',
+    '1',
+    null,
+    'triesEffects is a list of 3 steps, one a try: try 0 (before any wrong guess) to try 2',
+);
+refuses(
+    'Banners with three, as Splash has',
+    static function (stdClass $l): void {
+        $l->banners->{'1'}->triesMax = 3;
+        $l->banners->{'1'}->triesEffects = array_slice($l->banners->{'1'}->triesEffects, 0, 3);
+    },
+    'banners',
+    '1',
+    null,
+    'triesMax is 5 on every level of Banners',
 );
 refuses(
     '...nor 6',
@@ -543,6 +579,105 @@ refuses(
     '2',
     3,
     'shown-grey-blurred hides more than the try before',
+);
+refuses(
+    'a class Splash has not: a blur',
+    static function (stdClass $l): void {
+        $l->splash->{'1'}->triesEffects[0]->class = 'shown-grey-blurred';
+    },
+    'splash',
+    '1',
+    0,
+    '"shown-grey-blurred" is no class of Splash: they are shown-quarter, shown-half and shown-silhouette',
+);
+refuses(
+    '...nor Constellation\'s misleading colour',
+    static function (stdClass $l): void {
+        $l->splash->{'3'}->triesEffects[2]->class = 'shown-misleading';
+    },
+    'splash',
+    '3',
+    2,
+    '"shown-misleading" is no class of Splash',
+);
+refuses(
+    'a class Constellation has not: the silhouette',
+    static function (stdClass $l): void {
+        $l->constellation->{'2'}->triesEffects[0]->class = 'shown-quarter shown-silhouette';
+    },
+    'constellation',
+    '2',
+    0,
+    '"shown-silhouette" is no class of Constellation: they are shown-quarter, shown-half, shown-grey and shown-misleading',
+);
+refuses(
+    'the silhouette back after it was lifted',
+    static function (stdClass $l): void {
+        $l->splash->{'2'}->triesEffects[1]->class = 'shown-half';
+        $l->splash->{'2'}->triesEffects[2]->class = 'shown-silhouette';
+    },
+    'splash',
+    '2',
+    2,
+    'shown-silhouette hides more than the try before',
+);
+refuses(
+    'Splash cropped more than the try before',
+    static function (stdClass $l): void {
+        $l->splash->{'2'}->triesEffects[1]->class = 'shown-quarter shown-silhouette';
+    },
+    'splash',
+    '2',
+    1,
+    'shown-quarter hides more than the try before',
+);
+refuses(
+    'grey and a misleading colour in one step',
+    static function (stdClass $l): void {
+        $l->constellation->{'3'}->triesEffects[2]->class = 'shown-grey shown-misleading';
+    },
+    'constellation',
+    '3',
+    2,
+    'shown-grey and shown-misleading both grey or recolour the picture: a step names one of them',
+);
+refuses(
+    'grey after a misleading colour: grey hides more',
+    static function (stdClass $l): void {
+        $l->constellation->{'3'}->triesEffects[1]->class = 'shown-half shown-misleading';
+        $l->constellation->{'3'}->triesEffects[2]->class = 'shown-grey';
+    },
+    'constellation',
+    '3',
+    2,
+    'shown-grey hides more than the try before',
+);
+refuses(
+    '...a misleading colour after the true one',
+    static function (stdClass $l): void {
+        $l->constellation->{'1'}->triesEffects[1]->class = 'shown-half';
+        $l->constellation->{'1'}->triesEffects[2]->class = 'shown-misleading';
+    },
+    'constellation',
+    '1',
+    2,
+    'shown-misleading hides more than the try before',
+);
+takes('Splash\'s silhouette lifted on the last try, Constellation in a misleading colour from the start', static function (stdClass $l): void {
+    $l->splash->{'1'}->triesEffects[2] = (object) ['try' => 2];
+    $l->constellation->{'2'}->triesEffects[0]->class = 'shown-quarter shown-misleading';
+    $l->constellation->{'2'}->triesEffects[1]->class = 'shown-half shown-misleading';
+    $l->constellation->{'2'}->triesEffects[2]->class = 'shown-misleading';
+});
+refuses(
+    'a number on Splash',
+    static function (stdClass $l): void {
+        $l->splash->{'1'}->triesEffects[0]->data = 3;
+    },
+    'splash',
+    '1',
+    0,
+    'Splash has no data: its steps hide the wish art by their classes',
 );
 refuses(
     '...the line cut more than the try before',

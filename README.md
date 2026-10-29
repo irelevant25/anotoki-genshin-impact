@@ -5,9 +5,11 @@ keeps its data. One of the anotoki sites; like the others, it signs people in
 through the shared **anotoki IAM** rather than holding accounts of its own.
 
 - **Database**: characters (talents, ascensions, constellations, voice-overs,
-  builds), weapons, materials, banners - browsable, searchable, cross-linked.
-- **Quizzes**: a daily run and six quizzes - banners, dishes, the odd one out,
-  music, pixelated art, voice lines - with progress and statistics per person.
+  builds), weapons, artifacts, food, materials, banners - browsable, searchable,
+  cross-linked.
+- **Quizzes**: a daily run and eight quizzes - banners, dishes, the odd one out,
+  music, pixelated art, voice lines, wish-art silhouettes, constellations - with
+  progress and statistics per person.
 - **Games**: an elemental minesweeper and a tournament.
 - **Profile**: quiz history and statistics. English and Slovak throughout.
 - **Appearance, dates, clock and language** are the reader's anotoki account's
@@ -254,11 +256,11 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 ## Current state
 
-- Version 1.4.1 (the changelog has what each version brought). Since 1.1.0 a
+- Version 1.7.0 (the changelog has what each version brought). Since 1.1.0 a
   version has three numbers, MAJOR.MINOR.PATCH - big changes, new features, bug
   fixes - and `frontend/package.json` carries the same one.
-- Public database pages for characters, weapons, materials and banners. The admin
-  panel also keeps artifacts, foods and enemies; they have no public pages yet.
+- Public database pages for characters, weapons, artifacts, food, materials and
+  banners. The admin panel also keeps enemies; they have no public pages yet.
 - Since 2026-09-27 signing in is the anotoki IAM's; since 2026-09-29 the code is
   `backend/` + `frontend/`, every installation is configured by `setup.php`, and
   the site keeps one database where it used to keep two.

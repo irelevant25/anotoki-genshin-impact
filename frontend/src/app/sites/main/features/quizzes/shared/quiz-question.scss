@@ -38,3 +38,18 @@
 .shown-grey-blurred-more {
   filter: grayscale(1) blur(6px);
 }
+
+// Splash's silhouette: the wish art with every colour taken out, its outline
+// the only clue - the colours would name the character at once. Black on the
+// light theme's plate, white on the dark one's (--quiz-silhouette-invert). The
+// filter darkens the element's own background too, so the plate goes round
+// the picture, never on it (splash.component.scss).
+.shown-silhouette {
+  filter: brightness(0) invert(var(--quiz-silhouette-invert));
+}
+
+// Constellation's misleading colour: the sky turned to another element's -
+// a green one purple, a red one teal, a blue one orange - never its own.
+.shown-misleading {
+  filter: hue-rotate(150deg);
+}

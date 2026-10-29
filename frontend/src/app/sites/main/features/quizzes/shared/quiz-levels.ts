@@ -5,7 +5,7 @@ import { MISMATCH_PROPERTIES, MismatchProperty, QUIZ_DIFFICULTIES, QuizEffect, Q
 export type QuizLevels = Readonly<Record<QuizId, Readonly<Record<number, QuizLevel>>>>;
 
 /** The quizzes, in the order the levels list them (and the admin panel's Quiz levels page with them). */
-export const QUIZ_IDS: readonly QuizId[] = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice'];
+export const QUIZ_IDS: readonly QuizId[] = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice', 'splash', 'constellation'];
 
 /**
  * The quizzes' built-in difficulties: what each level of each quiz shows, try
@@ -21,19 +21,21 @@ export const QUIZ_IDS: readonly QuizId[] = ['banners', 'pixelate', 'mismatch', '
  * quiz-levels test reads them from this file), so "Back to the defaults" and
  * a first save of them always work.
  *
- * Every level of every "which character is this?" quiz has the same five
- * tries (the owner's rule of 2026-10-19, which the server holds every saved
- * level to). The Profile counts tries and wins across difficulties - one win
- * rate, one average of tries per question, the same for each quiz and each
- * character - so a level with fewer tries would pull a player's figures down
- * for having chosen it, and a lost question would count fewer tries on hard
- * than on easy. A level is harder by what it shows instead: less of the
- * picture, a coarser grid, shorter pieces of the track or the recording. On
- * every level each wrong guess shows more, until there is nothing left to hide
- * (the quizzes' guides say so). Mismatch has no tries - one pick ends a
- * question - and is harder by what its questions are about (`properties`) and
- * by how much its odd one out looks like the rest (`blend`), beside how many
- * characters it offers.
+ * Every level of a "which character is this?" quiz has the same tries as the
+ * quiz's other levels - five, and three for Splash and Constellation (the
+ * owner's rule of 2026-10-19, and the owner's choice for the two of
+ * 2026-10-29), which the server holds every saved level to. The Profile counts
+ * tries and wins across difficulties - one win rate, one average of tries per
+ * question, the same for each quiz and each character - so a level with fewer
+ * tries than another of its quiz would pull a player's figures down for having
+ * chosen it, and a lost question would count fewer tries on hard than on easy.
+ * A level is harder by what it shows instead: less of the picture, a coarser
+ * grid, shorter pieces of the track or the recording. On every level each
+ * wrong guess shows more, or as much, until there is nothing left to hide (the
+ * quizzes' guides say so). Mismatch has no tries - one pick ends a question -
+ * and is harder by what its questions are about (`properties`) and by how much
+ * its odd one out looks like the rest (`blend`), beside how many characters it
+ * offers.
  *
  * A try's step names how the question is hidden after that many wrong
  * guesses: CSS classes for a picture (quiz-question.scss) or a voice line's
@@ -188,6 +190,60 @@ export const QUIZ_LEVELS: QuizLevels = {
       ],
     },
   },
+  // The wish art as a black silhouette on every try - its colours would give
+  // the answer away at once, so they come only with it. On easy all of the
+  // silhouette, on the harder levels its left half or quarter first.
+  splash: {
+    1: {
+      triesMax: 3,
+      triesEffects: [
+        { try: 0, class: 'shown-silhouette' },
+        { try: 1, class: 'shown-silhouette' },
+        { try: 2, class: 'shown-silhouette' },
+      ],
+    },
+    2: {
+      triesMax: 3,
+      triesEffects: [
+        { try: 0, class: 'shown-half shown-silhouette' },
+        { try: 1, class: 'shown-silhouette' },
+        { try: 2, class: 'shown-silhouette' },
+      ],
+    },
+    3: {
+      triesMax: 3,
+      triesEffects: [
+        { try: 0, class: 'shown-quarter shown-silhouette' },
+        { try: 1, class: 'shown-half shown-silhouette' },
+        { try: 2, class: 'shown-silhouette' },
+      ],
+    },
+  },
+  // The constellation in grey, which hides the element its sky is coloured
+  // by, and part of it first. Easy ends in its own colours, medium in grey,
+  // hard in a misleading colour - another element's.
+  constellation: {
+    1: {
+      triesMax: 3,
+      triesEffects: [{ try: 0, class: 'shown-half shown-grey' }, { try: 1, class: 'shown-grey' }, { try: 2 }],
+    },
+    2: {
+      triesMax: 3,
+      triesEffects: [
+        { try: 0, class: 'shown-quarter shown-grey' },
+        { try: 1, class: 'shown-half shown-grey' },
+        { try: 2, class: 'shown-grey' },
+      ],
+    },
+    3: {
+      triesMax: 3,
+      triesEffects: [
+        { try: 0, class: 'shown-quarter shown-grey' },
+        { try: 1, class: 'shown-half shown-grey' },
+        { try: 2, class: 'shown-misleading' },
+      ],
+    },
+  },
 };
 
 /**
@@ -247,7 +303,7 @@ function usableSteps(level: unknown): QuizLevel | null {
 
 /**
  * The levels an answer of GET /api/quiz/levels holds, if they are levels the
- * pages can play - the six quizzes' three levels, each a level of its kind -
+ * pages can play - the eight quizzes' three levels, each a level of its kind -
  * or null, and the built-in levels stay. The server holds what it keeps to
  * its rules, before it keeps it and again as it answers (backend
  * api/quiz_levels.php); this only makes sure that an answer from anywhere
@@ -288,7 +344,7 @@ export interface LevelWords {
   readonly shared?: readonly MismatchProperty[];
 }
 
-// The picture's and the voice line's steps in words, by level - written out
+// The pictures' and the voice line's steps in words, by level - written out
 // whole, so that the key scan (php translations.php --status) sees them.
 const PICTURE_WORDS: Readonly<Record<number, string>> = {
   1: 'quiz.levelInfo.pictureEasy',
@@ -300,10 +356,29 @@ const VOICE_WORDS: Readonly<Record<number, string>> = {
   2: 'quiz.levelInfo.voiceMedium',
   3: 'quiz.levelInfo.voiceHard',
 };
+const SPLASH_WORDS: Readonly<Record<number, string>> = {
+  1: 'quiz.levelInfo.splashEasy',
+  2: 'quiz.levelInfo.splashMedium',
+  3: 'quiz.levelInfo.splashHard',
+};
+const CONSTELLATION_WORDS: Readonly<Record<number, string>> = {
+  1: 'quiz.levelInfo.constellationEasy',
+  2: 'quiz.levelInfo.constellationMedium',
+  3: 'quiz.levelInfo.constellationHard',
+};
+
+/** The quizzes whose levels are said in words written for the built-in steps: Banners and Dish share theirs. */
+const WRITTEN_WORDS: Readonly<Partial<Record<QuizId, Readonly<Record<number, string>>>>> = {
+  banners: PICTURE_WORDS,
+  dish: PICTURE_WORDS,
+  voice: VOICE_WORDS,
+  splash: SPLASH_WORDS,
+  constellation: CONSTELLATION_WORDS,
+};
 
 /** The key of the words that say a picture's or a voice line's level (the others' say only numbers, which follow). */
 export function levelWordsKey(quizId: QuizId, difficulty: number): string | null {
-  return quizId === 'banners' || quizId === 'dish' ? (PICTURE_WORDS[difficulty] ?? null) : quizId === 'voice' ? (VOICE_WORDS[difficulty] ?? null) : null;
+  return WRITTEN_WORDS[quizId]?.[difficulty] ?? null;
 }
 
 /** The seconds of the recording a level's steps play, in their order: one number a piece. */
@@ -333,7 +408,9 @@ export function levelWords(quizId: QuizId, difficulty: number, level: QuizLevel)
   switch (quizId) {
     case 'banners':
     case 'dish':
-      return { key: levelWordsKey(quizId, difficulty) ?? PICTURE_WORDS[1] };
+    case 'splash':
+    case 'constellation':
+      return { key: levelWordsKey(quizId, difficulty) ?? levelWordsKey(quizId, 1) ?? PICTURE_WORDS[1] };
     case 'voice': {
       // The seconds of the recording, in the order the steps play them: the words name the first, the second and the
       // third. A level that plays fewer pieces than its words name is said in general words - never a number missing.

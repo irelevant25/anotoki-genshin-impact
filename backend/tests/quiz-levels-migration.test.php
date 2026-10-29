@@ -21,6 +21,11 @@ declare(strict_types=1);
  *   - its statements run again find nothing to do;
  *   - its gate notices a level left without them (its update skipped), the row changed otherwise (another quiz, a
  *     level's number, the time it was saved), the row gone - and nothing of a refused run is kept.
+ *
+ * users/073 - Splash and Constellation, which this release adds, given to those levels too (they were saved without
+ * them, and the rules want every quiz): the two quizzes' built-in levels, the frontend's own; a quiz the row has left
+ * as it is; nothing to do with nothing saved, nor when run again; and its gate notices a quiz left out, the row
+ * changed otherwise, its time moved, the row gone.
  */
 
 use Anotoki\Lib\Migrations\Splitter;
@@ -33,6 +38,7 @@ require __DIR__ . '/db_lib.php';
 testNeedsDatabase();
 
 const FILE_069 = 'users/069_mismatch_levels_properties.sql';
+const FILE_073 = 'users/073_splash_and_constellation_levels.sql';
 const EDITOR = 2;
 
 $database = testDatabase('levels_069');
@@ -101,7 +107,10 @@ function keySorted(mixed $value): mixed
 
 echo "The levels saved before users/069, as the owner's are on the host\n";
 
+$builtIns = json_decode(json_encode(builtInLevels()), true);
 $saved = builtInLevels();
+// Without the two quizzes this release adds: no row saved before it has them (users/073 gives them theirs).
+unset($saved->splash, $saved->constellation);
 foreach (['1' => 3, '2' => 4, '3' => 5] as $level => $amount) {
     $saved->mismatch->{$level} = (object) ['choicesAmount' => $amount];
 }
@@ -118,7 +127,7 @@ $asSaved = $row();
 
 same('before it, they are no levels the rules take: the built-in ones are in force', null, quizLevelsInForce($pdo));
 same(
-    '...the rules say why: no level of Mismatch has properties or blend, and nothing else is wrong',
+    '...the rules say why: no level of Mismatch has properties or blend, Splash and Constellation are missing, and nothing else is wrong',
     [
         'mismatch 1: properties is a list of what a question can be about',
         'mismatch 1: blend is a whole number from 1 to 30',
@@ -126,6 +135,8 @@ same(
         'mismatch 2: blend is a whole number from 1 to 30',
         'mismatch 3: properties is a list of what a question can be about',
         'mismatch 3: blend is a whole number from 1 to 30',
+        'splash : Missing',
+        'constellation : Missing',
     ],
     array_map(static fn(array $problem): string => "{$problem['quiz']} {$problem['level']}: " . strtok($problem['message'], ':'), quizLevelsView($pdo)['problems']),
 );
@@ -144,12 +155,13 @@ check(
 );
 
 /**
- * 069's statements in a transaction, rolled back: $before made first, the statement holding $skip left out, $change
- * made just before the gate. What the gate says, and the levels as the statements left them (null: no row).
+ * A file's statements in a transaction, rolled back: $before made first, the statement holding $skip left out,
+ * $change made just before the gate. What the gate says, and the levels as the statements left them (null: no row).
  *
- * @return array{0: string, 1: ?array<string, mixed>}
+ * @param list<string> $statements
+ * @return array{0: string, 1: mixed}
  */
-$run069 = static function (string $skip = '', string $change = '', string $before = '') use ($pdo, $statements): array {
+$runStatements = static function (array $statements, string $skip = '', string $change = '', string $before = '') use ($pdo): array {
     $pdo->beginTransaction();
     try {
         if ($before !== '') {
@@ -173,6 +185,7 @@ $run069 = static function (string $skip = '', string $change = '', string $befor
         $pdo->rollBack();
     }
 };
+$run069 = static fn(string $skip = '', string $change = '', string $before = ''): array => $runStatements($statements, $skip, $change, $before);
 
 same('069 as it is: content', 'no complaint', $run069()[0]);
 $said = $run069("'{mismatch,2}'")[0];
@@ -216,9 +229,11 @@ same(
     [$said, keySorted($left['mismatch'] ?? null)],
 );
 same(
-    '...and the rules take them, the list in their order',
+    '...and the rules take them, the list in their order (beside the two quizzes users/073 gives the row)',
     ['element', 'affiliation'],
-    quizLevelsChecked(json_decode((string) json_encode($left), false))['levels']['mismatch']['3']['properties'] ?? null,
+    quizLevelsChecked(json_decode((string) json_encode(($left ?? []) + ['splash' => $builtIns['splash'], 'constellation' => $builtIns['constellation']]), false))['levels']['mismatch']['3'][
+        'properties'
+    ] ?? null,
 );
 [$said, $left] = $run069('', '', "UPDATE quiz_levels SET levels = jsonb_set(levels, '{mismatch,2}', '4')");
 same(
@@ -233,26 +248,67 @@ same('Mismatch missing: left missing', ['no complaint', false], [$said, is_array
 same('nothing saved, as on a new installation: nothing to do, no row made', ['no complaint', null], $run069('', '', 'DELETE FROM quiz_levels'));
 same('...and nothing of any run was kept', $asSaved, $row());
 
+// ── users/073: Splash and Constellation ─────────────────────────────────────
+
+echo "users/073 on those levels: Splash and Constellation given theirs\n";
+
+$statements073 = Splitter::split((string) file_get_contents(TEST_BACKEND . '/migrations/' . FILE_073));
+check(
+    'the file\'s statements: the snapshot, the built-in levels made and filled, the two quizzes\' updates, the gate',
+    count($statements073) === 6 && str_starts_with($statements073[0], 'CREATE TEMPORARY TABLE') && str_starts_with($statements073[5], 'DO $$'),
+    (string) count($statements073),
+);
+$run073 = static fn(string $skip = '', string $change = '', string $before = ''): array => $runStatements($statements073, $skip, $change, $before);
+
+[$said, $left] = $run073();
+same(
+    '073 as it is: content - the two quizzes the frontend\'s built-in levels (quiz-levels.ts), every other quiz as saved',
+    ['no complaint', keySorted($builtIns['splash']), keySorted($builtIns['constellation']), keySorted(json_decode($savedJson, true))],
+    [$said, keySorted($left['splash'] ?? null), keySorted($left['constellation'] ?? null), keySorted(array_diff_key($left ?? [], ['splash' => 0, 'constellation' => 0]))],
+);
+$said = $run073("b.quiz = 'constellation'")[0];
+check('Constellation left out (its update skipped): refused, naming it', str_contains($said, 'users/073: saved levels still without: constellation'), $said);
+$said = $run073('', "UPDATE quiz_levels SET levels = jsonb_set(levels, '{pixelate,1,triesEffects,0,data}', '12')")[0];
+check('...another quiz changed beside them: refused, naming it', str_contains($said, 'users/073: the saved levels changed other than by the quizzes they lacked: pixelate'), $said);
+$said = $run073('', "UPDATE quiz_levels SET levels = jsonb_set(levels, '{splash,1,triesMax}', '5')")[0];
+check('...Splash given other levels than the built-in ones: refused, naming it', str_contains($said, 'lacked: splash'), $said);
+$said = $run073('', 'UPDATE quiz_levels SET updated_at = CURRENT_TIMESTAMP')[0];
+check('...the time they were saved moved: refused, saying so', str_contains($said, 'users/073: the time the levels were saved moved, though nobody saved them'), $said);
+$said = $run073('', 'DELETE FROM quiz_levels')[0];
+check('...the row gone: refused, counting', str_contains($said, 'users/073: quiz_levels holds 0 rows, where it held 1'), $said);
+
+[$said, $left] = $run073('', '', 'UPDATE quiz_levels SET levels = levels || \'{"splash": {"1": {"triesMax": 3}}}\'::jsonb');
+same(
+    'a row with a Splash of its own: kept as it is, Constellation given the built-in one, the gate content',
+    ['no complaint', ['1' => ['triesMax' => 3]], keySorted($builtIns['constellation'])],
+    [$said, $left['splash'] ?? null, keySorted($left['constellation'] ?? null)],
+);
+same('nothing saved, as on a new installation: nothing to do, no row made', ['no complaint', null], $run073('', '', 'DELETE FROM quiz_levels'));
+same('...and nothing of any run was kept', $asSaved, $row());
+
 // ── Applied ─────────────────────────────────────────────────────────────────
 
 echo "Applied, as Apply does\n";
 
 $applied = siteMigrator($pdo)->apply();
+$appliedFiles = array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $applied['applied']);
 check(
-    'users/069 applied by the site\'s engine, its gate content',
-    $applied['error'] === null && in_array(FILE_069, array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $applied['applied']), true),
+    'users/069 and users/073 applied by the site\'s engine, their gates content',
+    $applied['error'] === null && in_array(FILE_069, $appliedFiles, true) && in_array(FILE_073, $appliedFiles, true),
     (string) $applied['error'],
 );
 
 $expected = json_decode($savedJson, true);
 $expected['mismatch'] = $builtInMismatch;
+$expected['splash'] = $builtIns['splash'];
+$expected['constellation'] = $builtIns['constellation'];
 $read = send('GET', '/api/quiz/levels');
 same(
-    'GET /api/quiz/levels: 200, the levels saved in force - Mismatch\'s given the built-in properties and blend, Pixelate\'s grid as the owner left it',
+    'GET /api/quiz/levels: 200, the levels saved in force - Mismatch\'s given the built-in properties and blend, Splash and Constellation their built-in levels, Pixelate\'s grid as the owner left it',
     [200, $expected],
     [$read->getStatusCode(), body($read)['levels'] ?? null],
 );
-$others = $pdo->prepare("SELECT (levels - 'mismatch') = (CAST(? AS jsonb) - 'mismatch') FROM quiz_levels");
+$others = $pdo->prepare("SELECT (levels - 'mismatch' - 'splash' - 'constellation') = (CAST(? AS jsonb) - 'mismatch') FROM quiz_levels");
 $others->execute([$savedJson]);
 same('...every other quiz in the database as it was saved', true, $others->fetchColumn());
 $view = body(send('GET', '/api/admin/quiz-levels', $iam['token'](EDITOR, ['MEMBER', 'EDITOR'])));
@@ -263,5 +319,6 @@ same(
 );
 
 $after = $row();
-same('its statements again: nothing to do, its gate content', 'no complaint', $run069()[0]);
+same('069\'s statements again: nothing to do, its gate content', 'no complaint', $run069()[0]);
+same('073\'s statements again: nothing to do, its gate content', 'no complaint', $run073()[0]);
 same('...and the row as the first run left it', $after, $row());

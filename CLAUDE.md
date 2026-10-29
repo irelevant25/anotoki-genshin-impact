@@ -560,7 +560,7 @@ php tests/run.php                    # the backend's tests: the upload rules (no
                                      # routes, the Files page's (a rename's dots, what is not in the database, Add strays
                                      # to database file by file), the game catalog and
                                      # its ids, the quizzes' levels (every rule, the routes,
-                                     # users/061, users/069), the affiliations' cleanup (genshin_impact/034),
+                                     # users/061, users/069, users/073), the affiliations' cleanup (genshin_impact/034),
                                      # the library's data moves, every admin route's permissions, sign-in,
                                      # the gates, a restore doing again the deletes since its backup, the pages'
                                      # error reports, where a request comes from (Cloudflare; with the origin
@@ -983,24 +983,33 @@ node docs/security/build-report.mjs                            # after re-runnin
   message}`, English - and keeps nothing; a check answers the same problems and
   keeps nothing; 503 `quiz_levels_unavailable` before `users/061`, one of
   `SITE_EXPECTED_ANSWERS`). The server is the rule (`quizLevelsChecked()`), held
-  to before a row is written and again as it is read: exactly the six quizzes and
-  the levels "1"-"3"; `triesMax` 5 everywhere (the owner's rule of 2026-10-19 -
-  a change to it is a decision, not a refactor) and five steps, `try` 0-4 in
-  order; a step's `class` only its quiz's CSS classes, one of each kind;
+  to before a row is written and again as it is read: exactly the eight quizzes
+  and the levels "1"-"3"; `triesMax` the quiz's own on every level of it
+  (`QUIZ_LEVEL_TRIES`: 5, and 3 for Splash and Constellation - the owner's rule
+  of 2026-10-19, the Profile counting tries and wins across a quiz's levels, and
+  the owner's choice of 2026-10-29 for the two; a change to it is a decision, not
+  a refactor) and a step a try, `try` 0 up in order; a step's `class` only its
+  quiz's CSS classes, one of each kind (Splash's `shown-silhouette`,
+  Constellation's `shown-grey` and `shown-misleading` beside the crops -
+  quiz-question.scss);
   Pixelate's grid 3-60 on every step, Music's seconds 1-60 on every step but
   the last, Voice's 0.25-10 never beside `hidden-audio`, none on a picture;
   Mismatch's `choicesAmount` 3-8, its `properties` (what a set can be about:
   one or more of element, weapon, region, era, affiliation, kept in that
   order) and its `blend` 1-30 (sets drawn, the most alike kept; since
   2026-10-29, `users/069` adding both to a row saved before); each wrong guess
-  showing more, never less; no
-  other key, no other type. The levels are kept and answered in their own order
+  showing more, never less (grey hiding more than a misleading colour, which
+  hides more than the true one); no
+  other key, no other type. A release that adds a quiz gives a saved row the
+  new quiz's built-in levels in a migration, or the rules would read the row as
+  none (`users/073`: Splash and Constellation). The levels are kept and answered in their own order
   (the quizzes, the levels, each object's keys), so a save of the same levels
   changes nothing and writes no entry. A save and a reset are
   `content.insert|update|delete` on `quiz_levels` (`auditContent()`, the levels
   before and after). `tests/quiz-levels.test.php` reads `QUIZ_LEVELS` from
   `quiz-levels.ts` - the built-in levels must pass the rules - and holds every
-  rule, the routes, the audit, the gates and `users/061`.
+  rule, the routes, the audit, the gates and `users/061`;
+  `tests/quiz-levels-migration.test.php` holds `users/069` and `users/073`.
 
 ## Frontend layout & conventions
 
@@ -1191,8 +1200,8 @@ node docs/security/build-report.mjs                            # after re-runnin
   `lookup-table` component: a line in `LOOKUP_PAGES` in `sites/admin/pages/pages.ts`
   and `lookupRoute('path')` in `admin.routes.ts`.
 - **Public DB pages** live in `sites/main/features/database/<entity>/`. The
-  three detail pages (character, weapon, material) share one skeleton since
-  the owner's choice of 2026-10-21 among the mockups ("Showcase"):
+  five detail pages (character, weapon, artifact set, food, material) share one
+  skeleton since the owner's choice of 2026-10-21 among the mockups ("Showcase"):
   `features/database/shared/` holds the hero (`app-detail-hero`: the namecard
   or the rarity's colour behind the name, the art, a strip of facts), the facts
   list (`app-detail-facts`), the material tile (`app-material-tile`) and
@@ -1200,10 +1209,11 @@ node docs/security/build-report.mjs                            # after re-runnin
   columns, the cost tables); the sections are the kit's cards. The Banners page
   is a timeline, grouped by version and phase (`banners/banner-groups.ts`, pure;
   `app-banner-card`), its states counted in days through `pluralTail()` and the
-  three plural keys of `users/062`. The three lists (characters, weapons,
-  materials) share one system since the owner's choice of 2026-10-21 among the
-  mockups ("E"): a page head, one filter card (`shared/_list-page.scss`) whose
-  main facet is a wide track with names and counts - the elements, the weapon
+  three plural keys of `users/062`. The five lists (characters, weapons,
+  artifacts, food, materials) share one system since the owner's choice of
+  2026-10-21 among the mockups ("E"): a page head, one filter card
+  (`shared/_list-page.scss`) whose main facet is a wide track with names and
+  counts - the elements, the weapon types, a set's highest rarity, the food
   types, the rarities - the search beside it and the other facets under it,
   each a track (`app-facet-track`, `shared/facet-track/`: the kit's segmented
   look carrying the site's pictures, one choice at a time, the chosen one
@@ -1217,11 +1227,18 @@ node docs/security/build-report.mjs                            # after re-runnin
   URL with the filters (`filter-url.ts`'s `asOneOf`, the default unwritten).
   The Banners page keeps its timeline under the same head and card. The words
   are `users/063`'s (the counts in three forms under `database.<list>.count.`,
-  the groupings under `database.filters.group.` - both in `dynamic-keys.ts`).
+  the groupings under `database.filters.group.` - both in `dynamic-keys.ts`),
+  and `users/071`'s for Artifacts and Food (the owner's request of 2026-10-29;
+  their Page access rows too). Both leave a deleted row out themselves - the
+  list routes and `/full` answer deleted rows -, the artifact pages work out a
+  set's qualities from `has_rarity_1..5` (`artifacts/artifact-sets.ts`), and the
+  food pages who cooks a special dish from `characters.special_dish` and a
+  variant's base dish from `base_dish_id` (`foods/food-dishes.ts`; 8 of the 127
+  variants are a festival's, nobody's special dish).
 - **The public site's lists are asked once a page load** (the owner's decision
   of 2026-10-21): `sites/main/game-lists.service.ts` (`GameListsService`) -
-  characters, the minimal characters, materials, weapons, banners (`/full`),
-  foods - one `shareReplay(1)` each, shared by every page, quiz and game that
+  characters, the minimal characters, materials, weapons, artifacts, banners
+  (`/full`), foods - one `shareReplay(1)` each, shared by every page, quiz and game that
   needs it; a failure is not kept; every list is forgotten when the admin panel
   opens (`isAdminArea()`), so a public page after an edit in the same tab asks
   again. The lists are shared: sort a copy, never one in place. The admin panel
@@ -1346,8 +1363,9 @@ node docs/security/build-report.mjs                            # after re-runnin
   Voice level playing fewer pieces of the recording than its sentence names is
   said in `quiz.levelInfo.voiceOther`'s general words - never a placeholder
   left unfilled); what no number can say -
-  `quiz.levelInfo.picture*`, the steps of `quiz.levelInfo.voice*`, Mismatch's
-  card and guide - is written for the built-in levels, and the admin Quiz
+  `quiz.levelInfo.picture*`, `quiz.levelInfo.splash*` and `constellation*`, the
+  steps of `quiz.levelInfo.voice*`, Mismatch's card and guide - is written for
+  the built-in levels, and the admin Quiz
   levels page (`sites/admin/quiz-levels/`, System in the navigation, ADMIN or
   EDITOR, `anotokiUnsavedChangesGuard`) warns when levels leave it behind
   (`quiz-level-words.ts`) - a new kind of step, or a sentence that names one,
@@ -1369,11 +1387,24 @@ node docs/security/build-report.mjs                            # after re-runnin
   the one whose odd one out looks most like the rest kept, and every shuffle
   is Fisher-Yates (`HELPER.shuffleArray`). The quiz plays by the keyboard: the
   arrows or W A S D between the characters, Enter to pick and to move on
-  (`FocusOnShowDirective` on Next, shared with the five character quizzes,
+  (`FocusOnShowDirective` on Next, shared with the seven character quizzes,
   whose search box takes the focus as a question starts - both only on a fine
   pointer). Voice plays its line in the player's choice of English, Japanese,
   Chinese or Korean (the round answers all four recordings; a line without
   the one chosen plays English).
+- **Splash and Constellation** (the owner's request of 2026-10-29: three tries on
+  every level, both in the daily draw): Splash shows a character's wish art
+  (`wish_icon`) as a silhouette on every try - `shown-silhouette`, `brightness(0)`,
+  white on the dark theme's plate through `--quiz-silhouette-invert` - its left
+  half or quarter first on Medium and Hard; Constellation their constellation
+  picture (`characters.constellation`, `character/constellation/` - the one
+  square of sky a character has, never `character/constellations/`'s six
+  icons), opaque, so it is greyed (`shown-grey` hides the element its sky is
+  coloured by) and cropped, Easy ending in its colours, Medium in grey, Hard in
+  `shown-misleading` (`hue-rotate(150deg)`: another element's colour); a
+  character without the picture is never asked (Manekin, Manekina), and the
+  constellation's name shows with the answer. Their rows in `quizzes` are
+  `genshin_impact/035`'s, their words, guides and Page access rows `users/072`'s.
 - **The Profile** (`features/profile/`, the owner's choice "D" of 2026-10-22 among
   the mockups): the detail pages' hero worn by the player (`app-detail-hero` - the
   namecard of the character they meet most that has one behind the name, the
@@ -1393,7 +1424,7 @@ node docs/security/build-report.mjs                            # after re-runnin
   width); won and lost are words with a mark, never a colour alone. The four
   reads are joined to `GameListsService.charactersMinimal()` for the elements,
   rarities and namecards (`characterDetails()`); the list failing costs only
-  pictures. Before the first played question the page offers the six quizzes
+  pictures. Before the first played question the page offers the eight quizzes
   and a preview of the figures. Its words are `users/016`'s and `users/065`'s;
   `profile.tabs.`, `profile.sort.` and `profile.characters.count.` are in
   `dynamic-keys.ts`.

@@ -36,8 +36,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // foreign key to users, and a save that waited for a move or a sweep must not
 // write rows for an id nobody has any more.
 
-/** How many games one carry may hold: six quizzes, each a free game and a daily one. */
-const QUIZ_CARRY_MAX = 12;
+/** How many games one carry may hold: eight quizzes, each a free game and a daily one. */
+const QUIZ_CARRY_MAX = 16;
 
 /** Maps a quiz name to its id, so a caller never has to know the number. */
 function quizIdByName(PDO $pdo, string $name): ?int

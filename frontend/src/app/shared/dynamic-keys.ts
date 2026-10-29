@@ -33,10 +33,13 @@ export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   'database.banners.count.': ['one', 'few', 'other'],
   // How a database list is sectioned - the Group by control's choices (users/063; list-groups.ts' GroupKey).
   'database.filters.group.': ['region', 'version', 'rarity', 'none'],
-  // How many characters, weapons or materials: a list's total and each section's count - the same three forms.
+  // How many characters, weapons, materials, artifact sets or foods: a list's total and each section's count - the
+  // same three forms (users/071 the last two).
   'database.characters.count.': ['one', 'few', 'other'],
   'database.weapons.count.': ['one', 'few', 'other'],
   'database.materials.count.': ['one', 'few', 'other'],
+  'database.artifacts.count.': ['one', 'few', 'other'],
+  'database.foods.count.': ['one', 'few', 'other'],
   // Elemental Minesweeper's difficulties, and the hint under the chosen one.
   'game.minesweeper.difficulty.': ['easy', 'medium', 'hard'],
   'game.minesweeper.difficultyHint.': ['easy', 'medium', 'hard'],

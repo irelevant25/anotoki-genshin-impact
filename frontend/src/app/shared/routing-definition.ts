@@ -4,7 +4,7 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
   title: 'root',
   path: '',
 
-  // Every quiz can come up as a daily, so all six have a path here. The two
+  // Every quiz can come up as a daily, so all eight have a path here. The two
   // that were here before were a stub, and one of them was spelled 'mismach'.
   daily: {
     title: 'Daily',
@@ -43,6 +43,18 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
     voice: {
       title: 'Voice',
       path: 'voice',
+      notInMenu: true,
+    },
+
+    splash: {
+      title: 'Splash',
+      path: 'splash',
+      notInMenu: true,
+    },
+
+    constellation: {
+      title: 'Constellation',
+      path: 'constellation',
       notInMenu: true,
     },
   },
@@ -86,6 +98,18 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
       path: 'voice',
       notInMenu: true,
     },
+
+    splash: {
+      title: 'Splash',
+      path: 'splash',
+      notInMenu: true,
+    },
+
+    constellation: {
+      title: 'Constellation',
+      path: 'constellation',
+      notInMenu: true,
+    },
   },
 
   games: {
@@ -124,6 +148,18 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
     weapons: {
       title: 'Weapons',
       path: 'weapons',
+      notInMenu: true,
+    },
+
+    artifacts: {
+      title: 'Artifacts',
+      path: 'artifacts',
+      notInMenu: true,
+    },
+
+    foods: {
+      title: 'Food',
+      path: 'foods',
       notInMenu: true,
     },
 

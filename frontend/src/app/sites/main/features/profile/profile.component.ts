@@ -126,7 +126,7 @@ const FIGURE_LABELS: readonly string[] = [
  * and the filters, and what to do when a request fails - which, for a page
  * that is only ever a report on the past, is to show the parts that did
  * arrive. Before the first played question the page is the way in instead:
- * the six quizzes, and a preview of the figures that will fill.
+ * the eight quizzes, and a preview of the figures that will fill.
  */
 @Component({
   selector: 'app-profile',
@@ -286,7 +286,7 @@ export class ProfileComponent {
     ];
   });
 
-  /** The empty page's preview of those figures, and the six quizzes it offers. */
+  /** The empty page's preview of those figures, and the eight quizzes it offers. */
   readonly figureLabels = FIGURE_LABELS;
   readonly quizCards = QUIZ_CATALOG;
 

@@ -156,6 +156,10 @@
   --minesweeper-dimmed-ring: 0 0 transparent;
   --minesweeper-dimmed-opacity: 0.7;
   --minesweeper-revealed: #e4e9f1;
+
+  // The Splash quiz's silhouette (quiz-question.scss): the wish art drawn
+  // black on the light plate behind the question; 1 draws it white instead.
+  --quiz-silhouette-invert: 0;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -276,6 +280,9 @@
   --minesweeper-dimmed-ring: inset 0 0 0 1px #6a7582;
   --minesweeper-dimmed-opacity: 1;
   --minesweeper-revealed: #1f2731;
+
+  // White on this palette's dark plate, where a black one would all but vanish.
+  --quiz-silhouette-invert: 1;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -175,7 +175,7 @@ function accumulate<K>(buckets: Map<K, Counted>, key: K, row: Counted): void {
  * Every quiz in the catalog appears whether or not it has been played: a row of
  * zeroes is the answer to "how am I doing at this one", and leaving it out
  * would quietly say the quiz does not exist. A quiz in the data that the
- * catalog has never heard of is kept too, after the six, rather than dropped -
+ * catalog has never heard of is kept too, after the eight, rather than dropped -
  * the numbers are the player's either way.
  */
 export function byQuiz(rows: readonly QuizStatsRow[]): QuizBreakdown[] {

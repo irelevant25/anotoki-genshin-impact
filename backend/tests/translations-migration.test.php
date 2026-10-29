@@ -152,6 +152,9 @@ const WORDS_AND_AFTER = [
     'users/068_drop_multiselect_more_strings.sql',
     'users/069_mismatch_levels_properties.sql',
     'users/070_mismatch_and_voice_words.sql',
+    'users/071_database_artifacts_and_food_strings.sql',
+    'users/072_splash_and_constellation_strings.sql',
+    'users/073_splash_and_constellation_levels.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -159,6 +162,7 @@ const WORDS_AND_AFTER = [
     'genshin_impact/032_lists_unwrapped.sql',
     'genshin_impact/033_drop_the_old_copies.sql',
     'genshin_impact/034_affiliations_cleaned.sql',
+    'genshin_impact/035_splash_and_constellation_quizzes.sql',
     'anotoki_translations/001_languages_and_strings.sql',
     'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql',
@@ -377,6 +381,23 @@ const MISMATCH_VOICE_NEW_KEYS = [
     'quiz.voice.languages.japanese',
     'quiz.voice.languages.korean',
 ];
+// How many keys users/071 brings - the Artifacts and Food pages' words, 27 - and users/072's, Splash's and
+// Constellation's: their cards, their guides' titles and the difficulty dialog's six sentences.
+const ARTIFACTS_FOOD_KEYS = 27;
+const SPLASH_CONSTELLATION_KEYS = [
+    'guide.constellation.title',
+    'guide.splash.title',
+    'quiz.constellation.info',
+    'quiz.constellation.title',
+    'quiz.levelInfo.constellationEasy',
+    'quiz.levelInfo.constellationHard',
+    'quiz.levelInfo.constellationMedium',
+    'quiz.levelInfo.splashEasy',
+    'quiz.levelInfo.splashHard',
+    'quiz.levelInfo.splashMedium',
+    'quiz.splash.info',
+    'quiz.splash.title',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -544,7 +565,17 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 357 of them', 357, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS) + count(MISMATCH_VOICE_NEW_KEYS);
+$came =
+    1 +
+    LEGAL_PAGE_KEYS +
+    count(FOOTER_NEW_KEYS) +
+    count(DIFFICULTY_NEW_KEYS) +
+    count(LEVELS_NEW_KEYS) +
+    DATABASE_PAGES_KEYS +
+    count(PROFILE_NEW_KEYS) +
+    count(MISMATCH_VOICE_NEW_KEYS) +
+    ARTIFACTS_FOOD_KEYS +
+    count(SPLASH_CONSTELLATION_KEYS);
 $went =
     count(OLD_FORM_KEYS) +
     count(MULTISELECT_SUMMARY_KEYS) +
@@ -557,7 +588,7 @@ $went =
     count(GONE_BY_067) +
     count(GONE_BY_068);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s, 065\'s and 070\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s, 065\'s, 070\'s, 071\'s and 072\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -859,11 +890,11 @@ check(
     'the guide cleared in Slovak, and the one blanked, read the English',
     !isset($guides['guide.dish.content|sk']) && !isset($guides['guide.voice.content|sk']) && isset($guides['guide.voice.content|en']),
 );
-same('every guide has its English', 11, (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'en'")->fetchColumn());
+same('every guide has its English - Splash\'s and Constellation\'s too (users/072)', 13, (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'en'")->fetchColumn());
 check('the minesweeper\'s 2,154 characters, whole', mb_strlen($guides['guide.minesweeper.content|en']['html'] ?? '') > 2000);
 same(
     'no guide\'s body is a key any more; the titles are',
-    [0, 11],
+    [0, 13],
     [
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.content'")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.title'")->fetchColumn(),

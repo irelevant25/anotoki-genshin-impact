@@ -1,0 +1,24 @@
+@use "../shared/quiz-question" as *;
+
+// The plate behind the art, as every picture quiz has one (quiz-question.scss) -
+// but around the picture rather than on it: a filter draws the element's own
+// background too, and the silhouette's would turn a plate on the picture as
+// black as the silhouette. So the plate stays whole while the art is cropped.
+.splash-plate {
+  // As wide as the art, in the middle - a block's own width would be the frame's.
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--bg-veil-strong);
+}
+
+// The wish art is as wide as the splash around the character, up to twice its
+// height, so it gets a cap of its own as the banner does.
+.splash-art {
+  display: block;
+  max-width: 100%;
+  max-height: 20rem;
+  height: auto;
+}

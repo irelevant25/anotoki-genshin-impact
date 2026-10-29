@@ -1,0 +1,125 @@
+<div class="container w-100">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        <div class="database-page">
+            <header class="list-head">
+                <div>
+                    <div class="list-eyebrow">{{ "nav.database" | translate }}</div>
+                    <h1 class="list-title">{{ "database.foods.title" | translate }}</h1>
+                </div>
+                <div class="list-total">{{ countKey(foods().length) | translate: { n: foods().length } }}</div>
+            </header>
+
+            <div class="list-bar">
+                <div class="list-bar-row">
+                    <app-facet-track
+                        class="facet--main"
+                        wide
+                        [label]="'database.filters.type' | translate"
+                        [options]="typeOptions()"
+                        [allLabel]="'database.filters.all' | translate"
+                        [allTotal]="foods().length"
+                        [(value)]="filterType" />
+                    <div class="facet facet--search">
+                        <span class="facet-label">{{ "database.filters.search" | translate }}</span>
+                        <anotoki-text-field hideLabel type="search" [label]="'database.filters.search' | translate" [placeholder]="'database.filters.contains' | translate" [(value)]="filterName">
+                            <anotoki-icon fieldPrefix name="search" [size]="16" />
+                        </anotoki-text-field>
+                    </div>
+                </div>
+                <div class="list-bar-row">
+                    <app-facet-track [label]="'database.filters.rarity' | translate" [options]="rarityOptions()" [(value)]="filterRarity" />
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.region" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.region' | translate"
+                            [options]="regionOptions()"
+                            [(value)]="filterRegion"
+                            [placeholder]="'database.filters.anyRegion' | translate" />
+                    </div>
+                    <div class="facet facet--select">
+                        <span class="facet-label">{{ "database.filters.version" | translate }}</span>
+                        <anotoki-select
+                            hideLabel
+                            [label]="'database.filters.version' | translate"
+                            [options]="versionOptions()"
+                            [(value)]="filterVersion"
+                            [placeholder]="'database.filters.anyVersion' | translate" />
+                    </div>
+                    <div class="facet">
+                        <span class="facet-label">{{ "database.filters.groupBy" | translate }}</span>
+                        <anotoki-segmented [label]="'database.filters.groupBy' | translate" [options]="groupChoices()" [value]="groupBy()" (valueChange)="setGroupBy($event)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-meta">
+                <span>{{ "database.results.count" | translate: { shown: filteredFoods().length, total: foods().length } }}</span>
+                <button anotokiButton variant="ghost" size="sm" type="button" (click)="resetFilters()">
+                    <anotoki-icon name="x" [size]="14" />
+                    {{ "database.filters.reset" | translate }}
+                </button>
+            </div>
+
+            @for (group of groups(); track group.key) {
+                <section class="list-section">
+                    @if (groupBy() !== "none") {
+                        <div class="list-section-head">
+                            <span class="list-emblem" aria-hidden="true">
+                                @if (group.emblem.kind === "picture") {
+                                    <img [appMaterialIcon]="group.emblem.name" [appAssetFolder]="group.emblem.folder" alt="" />
+                                } @else if (group.emblem.kind === "rarity") {
+                                    {{ group.emblem.rarity }}
+                                    <span class="star">★</span>
+                                } @else {
+                                    {{ group.emblem.text }}
+                                }
+                            </span>
+                            <h2
+                                class="list-section-title"
+                                [class.list-section-title--stars]="group.emblem.kind === 'rarity'"
+                                [attr.aria-label]="group.emblem.kind === 'rarity' ? group.emblem.rarity + '★' : null">
+                                @if (group.title === null) {
+                                    {{ "database.list.other" | translate }}
+                                } @else if (groupBy() === "version") {
+                                    {{ "database.list.version" | translate: { version: group.title } }}
+                                } @else {
+                                    {{ group.title }}
+                                }
+                            </h2>
+                            <span class="list-section-count">{{ countKey(group.items.length) | translate: { n: group.items.length } }}</span>
+                        </div>
+                    }
+                    <div class="list-grid">
+                        @for (food of group.items; track food.id) {
+                            <!-- The normal dish's own picture, its icon column: never a file named after the food. -->
+                            <app-list-tile
+                                [link]="[food.id]"
+                                [name]="food.name"
+                                [subtitle]="food.type"
+                                [picture]="{ name: food.icon_normal ?? '', folder: 'foods' }"
+                                [rarity]="food.rarity"
+                                [version]="food.version"
+                                tint="rarity">
+                                @if (food.cook; as cook) {
+                                    <span class="fact fact--cook">
+                                        <img [appMaterialIcon]="cook.icon_name ?? cook.name" [appAssetFolder]="'character.icon'" alt="" loading="lazy" />
+                                        <span class="visually-hidden">{{ "database.detail.specialDish" | translate }}:</span>
+                                        {{ cook.name }}
+                                    </span>
+                                }
+                                @if (food.region) {
+                                    <span class="fact fact--muted">{{ food.region }}</span>
+                                }
+                            </app-list-tile>
+                        }
+                    </div>
+                </section>
+            } @empty {
+                <div class="no-results">{{ "database.results.none" | translate }}</div>
+            }
+        </div>
+    }
+</div>

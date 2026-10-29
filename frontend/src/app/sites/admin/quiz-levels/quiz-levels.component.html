@@ -25,7 +25,7 @@
         <anotoki-code-editor
             label="The levels, as JSON"
             language="json"
-            hint="Six quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has five steps, try 0 to try 4 - what it hides after that many wrong guesses. A Mismatch level has choicesAmount, how many characters it shows; properties, what all but one of them can share (element, weapon, region, era, affiliation); and blend, how many sets are drawn for a question, the one whose odd one out looks most like the rest kept (1: any set, up to 30)."
+            hint="Eight quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has a step a try - five, try 0 to try 4, and three for Splash and Constellation - what it hides after that many wrong guesses. A Mismatch level has choicesAmount, how many characters it shows; properties, what all but one of them can share (element, weapon, region, era, affiliation); and blend, how many sets are drawn for a question, the one whose odd one out looks most like the rest kept (1: any set, up to 30)."
             [rows]="22"
             [disabled]="busy()"
             [error]="syntaxError()"

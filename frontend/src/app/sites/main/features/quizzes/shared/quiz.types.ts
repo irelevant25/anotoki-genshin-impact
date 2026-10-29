@@ -1,20 +1,21 @@
 /**
- * The shape the six quizzes share.
+ * The shape the eight quizzes share.
  *
- * Five of them ask the same question - "which character is this?" - and differ
- * only in what they show you: a namecard, a special dish, a pixelated portrait,
- * a demo track, a voice line. Mismatch is the odd one, asking you to pick the
- * character that does not belong.
+ * Seven of them ask the same question - "which character is this?" - and
+ * differ only in what they show you: a namecard, a special dish, a pixelated
+ * portrait, a demo track, a voice line, the silhouette of their wish art, their
+ * constellation. Mismatch is the odd one, asking you to pick the character that
+ * does not belong.
  *
  * Their levels, one per difficulty, are in quiz-levels.ts.
  */
 
-export type QuizId = 'banners' | 'dish' | 'pixelate' | 'mismatch' | 'music' | 'voice';
+export type QuizId = 'banners' | 'dish' | 'pixelate' | 'mismatch' | 'music' | 'voice' | 'splash' | 'constellation';
 
 /**
  * What the question looks like after a given number of tries.
  *
- * The two payloads are alternatives, not a pair: an image quiz hides its answer
+ * The two payloads are alternatives, not a pair: a picture quiz hides its answer
  * behind CSS (`class`), while pixelate and the two audio quizzes need a number
  * (`data`) - a pixel size, or how many seconds of the clip may be heard. An
  * entry with neither is a try where nothing is hidden any more.

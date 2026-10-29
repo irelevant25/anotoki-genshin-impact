@@ -6,11 +6,11 @@
  * One thing the rules say of a set of levels, and where it is.
  */
 export interface QuizLevelProblem {
-  /** The quiz it is about (banners, pixelate, mismatch, music, dish, voice) - null: the levels as a whole. */
+  /** The quiz it is about (banners, pixelate, mismatch, music, dish, voice, splash, constellation) - null: the levels as a whole. */
   quiz: string | null;
   /** The level: "1" (Easy), "2" (Medium) or "3" (Hard) - null: the quiz as a whole. */
   level: string | null;
-  /** The step, by its try (0 to 4: how many wrong guesses before it) - null: the level as a whole. */
+  /** The step, by its try (0 up: how many wrong guesses before it - 0 to 4, 0 to 2 in Splash and Constellation) - null: the level as a whole. */
   try: number | null;
   /** What is wrong, in English. */
   message: string;
@@ -40,6 +40,6 @@ export interface QuizLevelsEditorView {
  * `GET /api/quiz/levels` - the levels every quiz plays.
  */
 export interface QuizLevelsInForce {
-  /** The six quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in levels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved. */
+  /** The eight quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in levels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved. */
   levels: Record<string, unknown> | null;
 }

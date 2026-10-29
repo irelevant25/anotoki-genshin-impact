@@ -440,8 +440,8 @@ const topBarItem =
     return true;
   };
 
-/** Five steps of a level, try 0 to 4, each with what it hides. */
-const fiveTries = (...effects) => effects.map((effect, index) => ({ try: index, ...effect }));
+/** A level's steps, a try each from try 0 - five, or Splash's and Constellation's three -, each with what it hides. */
+const triesOf = (...effects) => effects.map((effect, index) => ({ try: index, ...effect }));
 
 /**
  * Levels as an ADMIN might save them on the Quiz levels page (the server's rules take them): Pixelate's Easy grid from
@@ -451,11 +451,11 @@ const fiveTries = (...effects) => effects.map((effect, index) => ({ try: index, 
  */
 const SAVED_LEVELS = (() => {
   const picture = {
-    1: { triesMax: 5, triesEffects: fiveTries({ class: 'shown-half' }, {}, {}, {}, {}) },
-    2: { triesMax: 5, triesEffects: fiveTries({ class: 'shown-half shown-grey-blurred' }, { class: 'shown-grey-blurred' }, { class: 'shown-grey' }, {}, {}) },
+    1: { triesMax: 5, triesEffects: triesOf({ class: 'shown-half' }, {}, {}, {}, {}) },
+    2: { triesMax: 5, triesEffects: triesOf({ class: 'shown-half shown-grey-blurred' }, { class: 'shown-grey-blurred' }, { class: 'shown-grey' }, {}, {}) },
     3: {
       triesMax: 5,
-      triesEffects: fiveTries(
+      triesEffects: triesOf(
         { class: 'shown-quarter shown-grey-blurred-more' },
         { class: 'shown-half shown-grey-blurred-more' },
         { class: 'shown-half shown-grey-blurred' },
@@ -464,7 +464,7 @@ const SAVED_LEVELS = (() => {
       ),
     },
   };
-  const seconds = (...data) => ({ triesMax: 5, triesEffects: fiveTries(...data.map((value) => (value === null ? {} : { data: value }))) });
+  const seconds = (...data) => ({ triesMax: 5, triesEffects: triesOf(...data.map((value) => (value === null ? {} : { data: value }))) });
   return {
     banners: picture,
     pixelate: { 1: seconds(9, 12, 17, 22, 27), 2: seconds(6, 10, 14, 18, 22), 3: seconds(5, 8, 11, 14, 17) },
@@ -473,9 +473,20 @@ const SAVED_LEVELS = (() => {
     music: { 1: seconds(5, 10, 15, 20, null), 2: seconds(3, 6, 9, 12, 15), 3: seconds(2, 4, 6, 8, 10) },
     dish: picture,
     voice: {
-      1: { triesMax: 5, triesEffects: fiveTries({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}, {}) },
-      2: { triesMax: 5, triesEffects: fiveTries({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, { data: 1.5 }, { data: 3 }) },
-      3: { triesMax: 5, triesEffects: fiveTries({ class: 'quarter-text hidden-audio' }, { class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}) },
+      1: { triesMax: 5, triesEffects: triesOf({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}, {}) },
+      2: { triesMax: 5, triesEffects: triesOf({ class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, { data: 1.5 }, { data: 3 }) },
+      3: { triesMax: 5, triesEffects: triesOf({ class: 'quarter-text hidden-audio' }, { class: 'half-text hidden-audio' }, { class: 'hidden-audio' }, { data: 0.5 }, {}) },
+    },
+    // As they are built in, three tries each: the rules want every quiz in saved levels.
+    splash: {
+      1: { triesMax: 3, triesEffects: triesOf({ class: 'shown-silhouette' }, { class: 'shown-silhouette' }, { class: 'shown-silhouette' }) },
+      2: { triesMax: 3, triesEffects: triesOf({ class: 'shown-half shown-silhouette' }, { class: 'shown-silhouette' }, { class: 'shown-silhouette' }) },
+      3: { triesMax: 3, triesEffects: triesOf({ class: 'shown-quarter shown-silhouette' }, { class: 'shown-half shown-silhouette' }, { class: 'shown-silhouette' }) },
+    },
+    constellation: {
+      1: { triesMax: 3, triesEffects: triesOf({ class: 'shown-half shown-grey' }, { class: 'shown-grey' }, {}) },
+      2: { triesMax: 3, triesEffects: triesOf({ class: 'shown-quarter shown-grey' }, { class: 'shown-half shown-grey' }, { class: 'shown-grey' }) },
+      3: { triesMax: 3, triesEffects: triesOf({ class: 'shown-quarter shown-grey' }, { class: 'shown-half shown-grey' }, { class: 'shown-misleading' }) },
     },
   };
 })();
@@ -660,6 +671,8 @@ const MAIN = [
   // The kit's combobox with the characters' pictures, a name begun.
   { name: 'main-quiz-pixelate-search', path: '/quizzes/pixelate', then: typeInto('anotoki-combobox input', 'a') },
   { name: 'main-quiz-voice', path: '/quizzes/voice' },
+  { name: 'main-quiz-splash', path: '/quizzes/splash' },
+  { name: 'main-quiz-constellation', path: '/quizzes/constellation' },
   // The badge above a quiz's question opens the quiz's difficulty dialog (loaded with the press): every level, what
   // each one shows - light in English, dark in Slovak.
   {
@@ -729,6 +742,10 @@ const MAIN = [
   { name: 'main-database-weapons', path: '/database/weapons' },
   { name: 'main-database-weapons-filtered', path: '/database/weapons?type=Sword&rarity=5' },
   { name: 'main-database-weapon', path: '/database/weapons/1' },
+  { name: 'main-database-artifacts', path: '/database/artifacts' },
+  { name: 'main-database-artifact', path: '/database/artifacts/1' },
+  { name: 'main-database-foods', path: '/database/foods' },
+  { name: 'main-database-food', path: '/database/foods/1' },
   { name: 'main-database-materials', path: '/database/materials' },
   { name: 'main-database-materials-filtered', path: '/database/materials?category=Local%20Specialty&group=version' },
   { name: 'main-database-material', path: '/database/materials/1' },
@@ -1708,7 +1725,7 @@ function profileAnswers() {
     [5, 'Nahida'],
     [6, 'Kaeya'],
   ];
-  const quizzes = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice'];
+  const quizzes = ['banners', 'pixelate', 'mismatch', 'music', 'dish', 'voice', 'splash', 'constellation'];
   const stats = [];
   characters.forEach(([id, name], c) =>
     quizzes.forEach((quiz, q) => {

@@ -23,6 +23,8 @@ export interface IStateTopMenu {
   music: { dailyState?: any; state?: any };
   dish: { dailyState?: any; state?: any };
   voice: { dailyState?: any; state?: any };
+  splash: { dailyState?: QuizState; state?: QuizState };
+  constellation: { dailyState?: QuizState; state?: QuizState };
   tournament: { state?: any };
   minesweeper: { state?: any };
 }
@@ -99,6 +101,10 @@ export class StateService {
       music: { dailyState: undefined, state: undefined },
       dish: { dailyState: undefined, state: undefined },
       voice: { dailyState: undefined, state: undefined },
+      // Every quiz has its slot here, the ones added since included: a browser's saved data from before them is
+      // merged over these defaults (loadData), so it gains theirs, and saveQuizState() writes into the slot.
+      splash: { dailyState: undefined, state: undefined },
+      constellation: { dailyState: undefined, state: undefined },
       tournament: { state: undefined },
       minesweeper: { state: undefined },
     },
@@ -188,8 +194,8 @@ export class StateService {
   }
 
   /**
-   * A quiz's saved question, by name rather than by a method per quiz - the six
-   * of them keep the same shape, and there is nothing for six copies to differ
+   * A quiz's saved question, by name rather than by a method per quiz - the eight
+   * of them keep the same shape, and there is nothing for eight copies to differ
    * about.
    */
   //

@@ -20081,7 +20081,7 @@
                     "nullable": true,
                     "optional": false,
                     "of": null,
-                    "description": "The quiz it is about (banners, pixelate, mismatch, music, dish, voice) - null: the levels as a whole."
+                    "description": "The quiz it is about (banners, pixelate, mismatch, music, dish, voice, splash, constellation) - null: the levels as a whole."
                 },
                 {
                     "name": "level",
@@ -20101,7 +20101,7 @@
                     "nullable": true,
                     "optional": false,
                     "of": null,
-                    "description": "The step, by its try (0 to 4: how many wrong guesses before it) - null: the level as a whole."
+                    "description": "The step, by its try (0 up: how many wrong guesses before it - 0 to 4, 0 to 2 in Splash and Constellation) - null: the level as a whole."
                 },
                 {
                     "name": "message",
@@ -20185,7 +20185,7 @@
                     "nullable": true,
                     "optional": false,
                     "of": "array<string, mixed>",
-                    "description": "The six quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in\nlevels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved."
+                    "description": "The eight quizzes' three levels as the admin panel's Quiz levels page saved them - or null: the built-in\nlevels (the frontend's QUIZ_LEVELS) are in force, as they are while nothing is saved."
                 }
             ]
         },

@@ -10,8 +10,9 @@ declare(strict_types=1);
  *
  *   - robots.txt: every robot kept out of /admin, /api, /auth and /staff; the sitemap named at the configured
  *     address - never the request's Host, which is anybody's to write; public, kept an hour;
- *   - sitemap.xml: valid XML, every public page and every live character, weapon and material - each its own page,
- *     with the day it last changed - each once, absolute; a deleted row, the Profile, the daily's six, /staff and the
+ *   - sitemap.xml: valid XML, every public page and every live character, weapon, artifact set, food and material -
+ *     each its own page, with the day it last changed - each once, absolute; a deleted row, the Profile, the daily's
+ *     eight, /staff and the
  *     admin panel left out; what Page access hides left out, and made again at once when that changes (a :id row
  *     hiding every character's page); otherwise kept an hour;
  *   - both behind every gate: 503 while the site is closed for maintenance, 401 while the IAM requires signing in.
@@ -90,7 +91,8 @@ function sitemapUrls(ResponseInterface $response): ?array
 
 $pdo = getDb();
 
-// The database's own pages: two live characters, one deleted; a weapon; a material, and one deleted.
+// The database's own pages: two live characters, one deleted; a weapon; an artifact set, and one deleted; a food; a
+// material, and one deleted.
 $character = static function (string $name, bool $deleted, string $created, ?string $updated) use ($pdo): int {
     $statement = $pdo->prepare(
         "INSERT INTO characters (name, element, weapon_type, rarity, model, namecard_description, version, voice_actor_english, voice_actor_japanese, voice_actor_korean, voice_actor_chinese, created_by, deleted, created_at, updated_at)
@@ -104,6 +106,9 @@ $amber = $character('Amber', false, '2026-01-02 10:00:00', null);
 $hutao = $character('Hu Tao', false, '2026-01-02 10:00:00', '2026-03-04 05:06:07');
 $gone = $character('Gone', true, '2026-01-02 10:00:00', null);
 $weapon = (int) $pdo->query("INSERT INTO weapons (name, type, rarity, created_by, created_at) VALUES ('Dull Blade', 'Sword', 1, 1, '2026-02-03 00:00:00') RETURNING id")->fetchColumn();
+$artifact = (int) $pdo->query("INSERT INTO artifacts (name, created_by, created_at) VALUES ('Adventurer', 1, '2026-02-05 00:00:00') RETURNING id")->fetchColumn();
+$goneArtifact = (int) $pdo->query("INSERT INTO artifacts (name, created_by, deleted) VALUES ('Old Adventurer', 1, TRUE) RETURNING id")->fetchColumn();
+$food = (int) $pdo->query("INSERT INTO foods (name, created_by, created_at, updated_at) VALUES ('Sweet Madame', 1, '2026-02-06 00:00:00', '2026-02-07 08:00:00') RETURNING id")->fetchColumn();
 $material = (int) $pdo->query("INSERT INTO materials (name, created_by, created_at) VALUES ('Mora', 1, '2026-02-04 23:59:59') RETURNING id")->fetchColumn();
 $goneMaterial = (int) $pdo->query("INSERT INTO materials (name, created_by, deleted) VALUES ('Old Mora', 1, TRUE) RETURNING id")->fetchColumn();
 
@@ -145,29 +150,42 @@ same(
 );
 $pages = array_map(static fn(string $path): string => ADDRESS . ($path === '/' ? '/' : $path), SITEMAP_PAGES);
 same(
-    'every public page, then every live character, weapon and material - absolute, at the configured address',
-    [...$pages, ADDRESS . "/database/characters/$amber", ADDRESS . "/database/characters/$hutao", ADDRESS . "/database/weapons/$weapon", ADDRESS . "/database/materials/$material"],
+    'every public page, then every live character, weapon, artifact set, food and material - absolute, at the configured address',
+    [
+        ...$pages,
+        ADDRESS . "/database/characters/$amber",
+        ADDRESS . "/database/characters/$hutao",
+        ADDRESS . "/database/weapons/$weapon",
+        ADDRESS . "/database/artifacts/$artifact",
+        ADDRESS . "/database/foods/$food",
+        ADDRESS . "/database/materials/$material",
+    ],
     array_keys($urls ?? []),
 );
 same(
     '...each entry with the day its row last changed (updated, else created); the pages with none',
-    [null, '2026-01-02', '2026-03-04', '2026-02-03', '2026-02-04'],
+    [null, '2026-01-02', '2026-03-04', '2026-02-03', '2026-02-05', '2026-02-07', '2026-02-04'],
     [
         listed($urls, ADDRESS . '/') ? $urls[ADDRESS . '/'] : 'missing',
         $urls[ADDRESS . "/database/characters/$amber"] ?? 'missing',
         $urls[ADDRESS . "/database/characters/$hutao"] ?? 'missing',
         $urls[ADDRESS . "/database/weapons/$weapon"] ?? 'missing',
+        $urls[ADDRESS . "/database/artifacts/$artifact"] ?? 'missing',
+        $urls[ADDRESS . "/database/foods/$food"] ?? 'missing',
         $urls[ADDRESS . "/database/materials/$material"] ?? 'missing',
     ],
 );
 same(
-    'never a deleted row, the Profile, the daily\'s six, /staff, the sign-in\'s way back or the admin panel',
+    'never a deleted row, the Profile, the daily\'s eight, /staff, the sign-in\'s way back or the admin panel',
     [],
     array_values(
         array_filter(
             array_keys($urls ?? []),
-            static fn(string $url): bool => in_array($url, [ADDRESS . "/database/characters/$gone", ADDRESS . "/database/materials/$goneMaterial", ADDRESS . '/profile', ADDRESS . '/staff'], true) ||
-                preg_match('~/(daily/|auth|admin)~', $url) === 1,
+            static fn(string $url): bool => in_array(
+                $url,
+                [ADDRESS . "/database/characters/$gone", ADDRESS . "/database/artifacts/$goneArtifact", ADDRESS . "/database/materials/$goneMaterial", ADDRESS . '/profile', ADDRESS . '/staff'],
+                true,
+            ) || preg_match('~/(daily/|auth|admin)~', $url) === 1,
         ),
     ),
 );

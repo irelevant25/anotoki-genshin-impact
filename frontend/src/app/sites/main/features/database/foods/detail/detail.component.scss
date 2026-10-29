@@ -1,0 +1,136 @@
+@use "../../shared/detail-page" as *;
+
+// The hero, the cards, the tiles and the chips are the shared skeleton
+// (shared/_detail-page.scss); the food page's own are the qualities side by
+// side, whose dish it is and what is made from it, and its lists.
+
+// The qualities, as many to a row as fit: three on a computer, one under
+// another on a phone; a food that comes in one alone fills the card.
+.qualities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.quality {
+  min-width: 0;
+}
+
+// Beside one another, each quality is a panel of its own.
+.qualities--several .quality {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--color-secondary-light);
+}
+
+.quality-head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+// The quality's own picture on the food's rarity's ground, as a tile draws it.
+.quality-art {
+  @include rarity-colour;
+  @include rarity-ground;
+
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--border-radius-large);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 8%);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+    object-fit: contain;
+  }
+}
+
+.quality-name {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.quality-effect {
+  margin: 0 0 var(--spacing-xs);
+  max-width: 72ch;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+}
+
+.quality-description {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+  white-space: pre-line;
+}
+
+// Whose special dish it is and the dish it is made in place of, each tile under its word.
+.relations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md) var(--spacing-xl);
+}
+
+.relation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.relation-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+// A dish made from this one, and under it the character whose it is.
+.variant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  width: 96px;
+}
+
+.variant-cook {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-align: center;
+  overflow-wrap: anywhere;
+
+  img {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: var(--anotoki-surface-3);
+  }
+}
+
+.plain-list {
+  margin: 0;
+  padding-left: var(--spacing-lg);
+
+  li {
+    margin: var(--spacing-xxs) 0;
+  }
+}

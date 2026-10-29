@@ -1,7 +1,7 @@
 import { QuizId, QuizState } from './quiz.types';
 
 /** Every quiz the daily draw can pick from. */
-export const ALL_QUIZZES: QuizId[] = ['banners', 'dish', 'pixelate', 'mismatch', 'music', 'voice'];
+export const ALL_QUIZZES: QuizId[] = ['banners', 'dish', 'pixelate', 'mismatch', 'music', 'voice', 'splash', 'constellation'];
 
 /** How many are set each day. Two, as on the old site. */
 export const DAILY_COUNT = 2;
@@ -16,7 +16,7 @@ export function todayString(): string {
  *
  * Math.random cannot be seeded, and this needs the same answer on every machine
  * for a given day. mulberry32 over a cheap string hash is plenty for choosing
- * two of six - it is picking a quiz, not protecting anything.
+ * two of eight - it is picking a quiz, not protecting anything.
  */
 function seededRandom(seed: string): () => number {
   let hash = 2166136261;
@@ -46,7 +46,9 @@ function seededRandom(seed: string): () => number {
  *
  * Deriving it from the date fixes that, and it is what a daily challenge wants
  * anyway: everyone has the same two, there is nothing to store, and clearing
- * the browser cannot reroll a bad draw.
+ * the browser cannot reroll a bad draw. (A quiz added to the pool changes the
+ * draw of every day, the day it is released included: on that day the pair
+ * can change under somebody who has already looked.)
  */
 export function dailyQuizzes(date: string = todayString()): QuizId[] {
   const random = seededRandom(date);

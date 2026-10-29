@@ -11,12 +11,16 @@ import { TranslatePipe } from '@anotoki/lib/translations';
   providers: [],
 })
 export class DatabaseComponent {
-  /** The Database's four parts, each a card linking to its list - with no help of its own (the owner, 2026-10-20). */
+  /**
+   * The Database's six parts, each a card linking to its list - with no help of its own (the owner, 2026-10-20).
+   * The four there first keep their order, which readers know, and the two added on 2026-10-29 follow Banners on
+   * the second row (the owner's word). Each card's picture is a character's wish art: Escoffier, a chef, for the Food.
+   */
   readonly DATABASE = [
     {
       path: ROUTE_MAP.map['database'].characters.path,
       title: 'database.characters.title',
-      cardImage: 'assets/character/wish_icon/NAHIDA.avif',
+      cardImage: 'assets/character/wish_icon/FURINA.avif',
       cardInfo: 'database.characters.info',
     },
     {
@@ -36,6 +40,18 @@ export class DatabaseComponent {
       title: 'database.banners.title',
       cardImage: 'assets/character/wish_icon/QIQI.avif',
       cardInfo: 'database.banners.info',
+    },
+    {
+      path: ROUTE_MAP.map['database'].artifacts.path,
+      title: 'database.artifacts.title',
+      cardImage: 'assets/character/wish_icon/NAHIDA.avif',
+      cardInfo: 'database.artifacts.info',
+    },
+    {
+      path: ROUTE_MAP.map['database'].foods.path,
+      title: 'database.foods.title',
+      cardImage: 'assets/character/wish_icon/ESCOFFIER.avif',
+      cardInfo: 'database.foods.info',
     },
   ];
 }

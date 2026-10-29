@@ -129,9 +129,14 @@
 }
 
 @media (max-width: 860px) {
-  // The wide track's segments two to a row, each starting at its left edge.
+  // The wide track's segments two to a row, each starting at its left edge -
+  // never narrower than its words, so one too long to share a row ("ATK-Boosting
+  // Dishes 100", the food's types) takes a row of its own rather than running
+  // under its neighbour. Their whole width (max-content): the automatic minimum
+  // a button gets came out short of its words.
   .seg--wide {
     flex: 1 1 42%;
     justify-content: flex-start;
+    min-width: max-content;
   }
 }
