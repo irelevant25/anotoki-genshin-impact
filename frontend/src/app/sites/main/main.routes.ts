@@ -18,6 +18,8 @@ import { DailyComponent } from './features/daily/daily.component';
 import { GamesComponent } from './features/games/games.component';
 import { GamesMinesweeperComponent } from './features/games/minesweeper/minesweeper.component';
 import { GamesTournamentComponent } from './features/games/tournament/tournament.component';
+import { GamesRecipesComponent } from './features/games/recipes/recipes.component';
+import { GamesPexesoComponent } from './features/games/pexeso/pexeso.component';
 import { DatabaseComponent } from './features/database/database.component';
 import { DatabaseBannersComponent } from './features/database/banners/banners.component';
 import { DatabaseCharactersComponent } from './features/database/characters/characters.component';
@@ -107,6 +109,8 @@ export const routes: Routes = [
           { path: '', component: GamesComponent },
           { path: ROUTE_MAP.map['games'].tournament.path, component: GamesTournamentComponent },
           { path: ROUTE_MAP.map['games'].minesweeper.path, component: GamesMinesweeperComponent },
+          { path: ROUTE_MAP.map['games'].recipes.path, component: GamesRecipesComponent },
+          { path: ROUTE_MAP.map['games'].pexeso.path, component: GamesPexesoComponent },
         ],
       },
       {

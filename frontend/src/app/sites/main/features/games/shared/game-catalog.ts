@@ -1,6 +1,6 @@
 import { ROUTE_MAP } from '../../../../../shared/routing-definition';
 
-export type GameId = 'tournament' | 'minesweeper';
+export type GameId = 'tournament' | 'minesweeper' | 'recipes' | 'pexeso';
 
 /** How a game introduces itself on the Games page. */
 export interface GameCard {
@@ -12,7 +12,7 @@ export interface GameCard {
 }
 
 /**
- * The two games, in the same shape as the quiz catalog so they can be drawn by
+ * The four games, in the same shape as the quiz catalog so they can be drawn by
  * the same card.
  *
  * Unlike a quiz, a game keeps nothing: no saved position, no result, no
@@ -33,5 +33,21 @@ export const GAME_CATALOG: readonly GameCard[] = [
     title: 'game.minesweeper.title',
     info: 'game.minesweeper.info',
     image: 'assets/character/wish_icon/CITLALI.avif',
+  },
+  {
+    // Yaoyao and her basket of vegetables, for the game of what goes into a dish.
+    id: 'recipes',
+    path: ROUTE_MAP.map['games'].recipes.path,
+    title: 'game.recipes.title',
+    info: 'game.recipes.info',
+    image: 'assets/character/wish_icon/YAOYAO.avif',
+  },
+  {
+    // The stage magician, for the game of cards.
+    id: 'pexeso',
+    path: ROUTE_MAP.map['games'].pexeso.path,
+    title: 'game.pexeso.title',
+    info: 'game.pexeso.info',
+    image: 'assets/character/wish_icon/LYNEY.avif',
   },
 ];

@@ -1,7 +1,7 @@
 {
   "name": "angular",
   "type": "module",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "engines": {
     "node": "22.15.0"
   },

@@ -162,7 +162,7 @@ same(
     ],
     $library['switches'],
 );
-same('every page came across: 27 seeded and the one added - and the eight new pages of users/071 and 072 beside them', 36, count($library['pages']));
+same('every page came across: 27 seeded and the one added - and the ten new pages of users/071, 072 and 074 beside them', 38, count($library['pages']));
 same('/quizzes/music: switched off, by the owner, its time', ['PUBLIC', true, [], 34, '2026-02-01 07:30:00', 7], $library['pages']['/quizzes/music'] ?? null);
 same(
     '/profile: for people signed in, its two API paths in one list, sorted byte by byte - at 70, where users/071 moves it from 60 (its time and writer kept)',

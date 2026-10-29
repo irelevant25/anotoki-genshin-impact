@@ -71,6 +71,15 @@ export class GameListsService {
     return this._once('artifacts', () => this._artifactApi.getArtifacts());
   }
 
+  /**
+   * Every recipe's every line (`GET /api/foods-recipe`, a food and a material
+   * and how many - the deleted ones too): Recipe Master. One query for all of
+   * them, where the foods' `/full` list asks one a food.
+   */
+  foodRecipes(): ReturnType<FoodApiService['getFoodRecipes']> {
+    return this._once('foodRecipes', () => this._foodApi.getFoodRecipes());
+  }
+
   private _once<T>(list: string, ask: () => Observable<T>): Observable<T> {
     const kept = this._asked.get(list);
     if (kept) {

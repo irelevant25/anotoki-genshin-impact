@@ -185,7 +185,7 @@ echo "The grid, and saving strings\n";
 $grid = body(send('GET', '/api/admin/translations', EDITOR));
 same('the grid: languages and keys', ['languages', 'keys'], array_keys($grid));
 same('a language as the admin pages read it, with its guides', ['code', 'name', 'native_name', 'enabled', 'sort_order', 'seeded', 'strings', 'guides'], array_keys($grid['languages'][0]));
-same('English: released, its strings and its guides counted', [true, true, 13], [$grid['languages'][0]['seeded'], $grid['languages'][0]['strings'] > 300, $grid['languages'][0]['guides']]);
+same('English: released, its strings and its guides counted', [true, true, 15], [$grid['languages'][0]['seeded'], $grid['languages'][0]['strings'] > 300, $grid['languages'][0]['guides']]);
 $daily = array_values(array_filter($grid['keys'], fn($key) => $key['name'] === 'nav.daily'))[0] ?? null;
 same('a key: its name, the code\'s description, its strings - no scope, flag or stamps', ['name', 'description', 'values'], array_keys((array) $daily));
 
@@ -328,7 +328,7 @@ same('a language that is no code: 404', 404, send('GET', '/api/guides/daily?lang
 $view = body(send('GET', '/api/admin/guides', EDITOR));
 same(
     'the Guides page: every guide, every language',
-    [13, ['en', 'sk'], ['code', 'name', 'native_name', 'enabled']],
+    [15, ['en', 'sk'], ['code', 'name', 'native_name', 'enabled']],
     [count($view['guides']), array_column($view['languages'], 'code'), array_keys($view['languages'][0])],
 );
 $put = send('PUT', '/api/admin/guides/daily', EDITOR, ['values' => ['sk' => '<h4>Nový návod</h4>']]);

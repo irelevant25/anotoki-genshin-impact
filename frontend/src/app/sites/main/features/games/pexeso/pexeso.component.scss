@@ -1,0 +1,346 @@
+// Pexeso's setup, its board of cards, and what is said after it.
+//
+// Every colour is the palette's (design-tokens.scss, and the family's tokens
+// it names), so the board reads in both themes. The figures are against the
+// page's veil - its white in light, its #12161c in dark (WCAG 1.4.11 asks 3:1
+// of what a card is and says):
+//
+//   the back     the primary blue, crossed by its hover shade and framed and
+//                starred in the game's gold: 4.63:1 light, 3.97:1 dark - a
+//                card is seen where it is;
+//   the face     the tooltip's plate, dark in both themes (--bg-tooltip), its
+//                caption the tooltip's words (12.57:1 light, 8.22:1 dark): the
+//                weapon types' and the regions' glyphs are drawn light - the
+//                detail hero puts the same plate under them -, and the
+//                elements and the characters read on it as well. Its edge is
+//                the fields' (--anotoki-border-strong: 4.62:1, 4.75:1), as the
+//                plate alone is 1.81:1 from the dark page;
+//   a state      a ring outside the card: the primary blue for the turn being
+//                played (4.63:1, 3.97:1), the success green for a group found
+//                (5.02:1, 7.41:1) and the danger red for a turn that failed
+//                (5.62:1, 5.84:1), the last two with their mark in the corner -
+//                ✓ and ✗ in the badge's own ink, 5:1 and more -, never the
+//                colour alone.
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  // Kept off the screen's edges on a phone, where a swipe from them goes back a page.
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+// ── Before the board ─────────────────────────────────────────────────────────
+
+.setup {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 0;
+}
+
+// Start at its own width in the middle, as Minesweeper's is.
+.setup-start {
+  align-self: center;
+}
+
+// ── Above the board ──────────────────────────────────────────────────────────
+
+.rule {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+}
+
+// One line high whatever it says, so the board does not move when the
+// countdown gives way to the counts.
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xs) var(--spacing-md);
+  min-height: 1.6em;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-counts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xs) var(--spacing-md);
+}
+
+.status-look {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+// ── The board ────────────────────────────────────────────────────────────────
+
+.board {
+  // The state's ring, outside the card: narrower where the gap between the cards is.
+  --ring: 3px;
+  // The turn of a card, and the delay before its face is hidden for good (below).
+  --flip: 0.35s;
+
+  display: grid;
+  gap: var(--spacing-xs);
+  width: 100%;
+  // Six columns of cards near 83 px; the four of Easy near 95 px, on a board of their own size.
+  max-width: 33rem;
+
+  &.is-small {
+    max-width: 25rem;
+  }
+}
+
+// At 390 px: six columns of cards near 56 px, no wider than the screen.
+@media (max-width: 480px) {
+  .board {
+    --ring: 2px;
+
+    gap: var(--spacing-xxs);
+  }
+}
+
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border-radius: var(--border-radius-large);
+  color: inherit;
+  perspective: 600px;
+  // The caption and the mark know the card's size, not the screen's (the queries below).
+  container-type: inline-size;
+  // No double-tap zoom between two quick presses on a phone.
+  touch-action: manipulation;
+  // The pointer only where a press acts (`is-playable`): general.scss gives every button the pointer.
+  cursor: default;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+
+  // The family's focus ring, outside the state's ring and above the cards next to it.
+  &:focus-visible {
+    z-index: 1;
+    outline-offset: calc(var(--ring) + 2px);
+  }
+
+  &.is-playable {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &.is-turned {
+    box-shadow: 0 0 0 var(--ring) var(--color-primary);
+    transform: translateY(-3px);
+  }
+
+  &.is-found {
+    box-shadow: 0 0 0 var(--ring) var(--color-success);
+  }
+
+  // A shake once the last card is face up, inside the 900 ms the turn shows for.
+  &.is-wrong {
+    box-shadow: 0 0 0 var(--ring) var(--color-danger);
+    animation: card-shake 0.35s ease var(--flip);
+  }
+}
+
+// The two sides, back to back, turned half a turn to show the face.
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--flip) ease;
+
+  .card.is-up & {
+    transform: rotateY(180deg);
+  }
+}
+
+.card-back,
+.card-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--border-radius-large);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background-color: var(--color-primary);
+  background-image: repeating-linear-gradient(45deg, transparent 0 6px, var(--color-primary-hover) 6px 8px), repeating-linear-gradient(-45deg, transparent 0 6px, var(--color-primary-hover) 6px 8px);
+  box-shadow:
+    inset 0 0 0 3px var(--color-primary),
+    inset 0 0 0 4px var(--genshin-gold);
+
+  // The four-pointed star of the game's wishes.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 30%;
+    background: var(--genshin-gold);
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  }
+}
+
+.card-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10% 8% 6%;
+  background: var(--bg-tooltip);
+  color: var(--text-tooltip);
+  box-shadow: inset 0 0 0 1px var(--anotoki-border-strong);
+  transform: rotateY(180deg);
+  // Hidden for real while the card is down - not only turned away -, so that
+  // the page's search never finds a card's name: late by a turn, so that the
+  // face is seen to go, and at once when it comes up.
+  visibility: hidden;
+  transition: visibility 0s linear var(--flip);
+
+  .card.is-up & {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  img {
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 0;
+    object-fit: contain;
+  }
+}
+
+// A group found keeps its faces up; their pictures step back, so the eye goes to the cards still in play.
+.card.is-found .card-face img {
+  opacity: 0.6;
+}
+
+.card-caption {
+  flex: none;
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.card-mark {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--border-radius-pill);
+  background: var(--color-success);
+  color: var(--color-success-text);
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  box-shadow: var(--shadow-small);
+
+  &.is-wrong {
+    background: var(--color-danger);
+    color: var(--color-danger-text);
+  }
+}
+
+// A card a phone's sixth of the board wide has no room for its words: its
+// name is still its button's, and the picture says it.
+@container (max-width: 63px) {
+  .card-caption {
+    display: none;
+  }
+
+  .card-mark {
+    top: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}
+
+@container (min-width: 96px) {
+  .card-caption {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@keyframes card-shake {
+  0%,
+  100% {
+    translate: 0;
+  }
+
+  20%,
+  60% {
+    translate: -3px 0;
+  }
+
+  40%,
+  80% {
+    translate: 3px 0;
+  }
+}
+
+// No turning, lifting or shaking where less motion is asked for: a card is
+// simply face up, or down.
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card-inner,
+  .card-face {
+    transition: none;
+  }
+
+  .card.is-playable:hover,
+  .card.is-turned {
+    transform: none;
+  }
+
+  .card.is-wrong {
+    animation: none;
+  }
+}
+
+// ── After the board ──────────────────────────────────────────────────────────
+
+.result {
+  width: 100%;
+  max-width: 33rem;
+}
+
+.board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}

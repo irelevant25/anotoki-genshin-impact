@@ -13,7 +13,22 @@
  * quoted strings out of the source. A key assembled at runtime is a key
  * nothing can tell you is missing.
  */
-export type GuideId = 'daily' | 'quizzes' | 'games' | 'banners' | 'pixelate' | 'mismatch' | 'music' | 'dish' | 'voice' | 'splash' | 'constellation' | 'tournament' | 'minesweeper';
+export type GuideId =
+  | 'daily'
+  | 'quizzes'
+  | 'games'
+  | 'banners'
+  | 'pixelate'
+  | 'mismatch'
+  | 'music'
+  | 'dish'
+  | 'voice'
+  | 'splash'
+  | 'constellation'
+  | 'tournament'
+  | 'minesweeper'
+  | 'recipes'
+  | 'pexeso';
 
 export interface Guide {
   /** The guide's name, as GET /api/guides/{id} and guide_contents.guide know it. */
@@ -38,4 +53,6 @@ export const GUIDES: Readonly<Record<GuideId, Guide>> = {
 
   tournament: { id: 'tournament', title: 'guide.tournament.title' },
   minesweeper: { id: 'minesweeper', title: 'guide.minesweeper.title' },
+  recipes: { id: 'recipes', title: 'guide.recipes.title' },
+  pexeso: { id: 'pexeso', title: 'guide.pexeso.title' },
 };

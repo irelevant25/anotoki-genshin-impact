@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.8.0",
+    "date": "2026-10-29",
+    "changes": {
+      "added": [
+        "Recipe Master, a new game: ten dishes, and for each you pick out its ingredients from among three wrong ones. A dish is worth three points and every wrong pick costs two; at the end a table shows every dish and your score out of 30",
+        "Memory, a new game of pexeso: look at the cards, then find each character's group - the character with their element, weapon type or region. Pairs on Easy, threes on Medium, fours on Hard"
+      ]
+    }
+  },
+  {
     "version": "1.7.0",
     "date": "2026-10-29",
     "changes": {

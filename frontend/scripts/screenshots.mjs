@@ -730,6 +730,9 @@ const MAIN = [
   { name: 'main-game-minesweeper', path: '/games/minesweeper', pairings: true },
   { name: 'main-game-minesweeper-board', path: '/games/minesweeper', pairings: true, then: minesweeperBoard({ playedOut: false }) },
   { name: 'main-game-minesweeper-end', path: '/games/minesweeper', pairings: true, then: minesweeperBoard({ playedOut: true }) },
+  // Recipe Master's first dish (the seed's four recipes, one ingredient each), and Memory's setup.
+  { name: 'main-game-recipes', path: '/games/recipes', pairings: true },
+  { name: 'main-game-pexeso', path: '/games/pexeso', pairings: true },
   { name: 'main-database', path: '/database' },
   { name: 'main-database-characters', path: '/database/characters', focus: 6 },
   // The lists' filter card with a choice made and the sections regrouped (the owner's choice "E" of 2026-10-21).

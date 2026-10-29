@@ -10,7 +10,8 @@ through the shared **anotoki IAM** rather than holding accounts of its own.
 - **Quizzes**: a daily run and eight quizzes - banners, dishes, the odd one out,
   music, pixelated art, voice lines, wish-art silhouettes, constellations - with
   progress and statistics per person.
-- **Games**: an elemental minesweeper and a tournament.
+- **Games**: an elemental minesweeper, a tournament, Recipe Master (a dish's
+  ingredients among wrong ones) and Memory (pexeso of characters and what they are).
 - **Profile**: quiz history and statistics. English and Slovak throughout.
 - **Appearance, dates, clock and language** are the reader's anotoki account's
   and apply on every anotoki site: the appearance and the language chosen in the
@@ -256,7 +257,7 @@ not drift; [docs/README.md](docs/README.md) lists them.
 
 ## Current state
 
-- Version 1.7.0 (the changelog has what each version brought). Since 1.1.0 a
+- Version 1.8.0 (the changelog has what each version brought). Since 1.1.0 a
   version has three numbers, MAJOR.MINOR.PATCH - big changes, new features, bug
   fixes - and `frontend/package.json` carries the same one.
 - Public database pages for characters, weapons, artifacts, food, materials and

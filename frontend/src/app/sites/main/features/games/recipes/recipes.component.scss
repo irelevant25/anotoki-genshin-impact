@@ -1,0 +1,375 @@
+@use "../../database/shared/detail-page" as detail;
+
+// Recipe Master: the dish on its plate, its options as tiles with the
+// materials' rarity grounds (the database pages' mixins), then the table. A
+// mark is a colour, a sign and a word - the word for whoever cannot see the
+// other two (.said). Everything from the theme's tokens, right in both themes.
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  // Kept off the screen's edges on a phone, where a swipe from them goes back a page.
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.empty {
+  color: var(--text-muted);
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xs) var(--spacing-md);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+// Read by a screen reader, never shown: the sign and the colour say it on the screen.
+.said {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// ── The dish ─────────────────────────────────────────────────────────────────
+
+.dish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  text-align: center;
+}
+
+// A plate behind the dish, as the Dish quiz has one: the icons are cut-outs.
+.dish-plate {
+  display: block;
+  width: 9rem;
+  height: 9rem;
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+  background-color: var(--bg-veil-strong);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.dish-name {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-xl);
+}
+
+.dish-prompt,
+.dish-found {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.dish-found {
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+// ── The options ──────────────────────────────────────────────────────────────
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--spacing-sm);
+  width: 100%;
+  max-width: 44rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing-xs);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  background: var(--bg-veil);
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base);
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &[data-mark="right"] {
+    border-color: var(--color-success-light-border);
+    background: var(--color-success-light);
+    color: var(--color-success-light-text);
+  }
+
+  &[data-mark="wrong"] {
+    border-color: var(--color-danger-light-border);
+    background: var(--color-danger-light);
+    color: var(--color-danger-light-text);
+  }
+}
+
+.option-art {
+  @include detail.rarity-colour;
+  @include detail.rarity-ground;
+
+  flex: none;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--border-radius-large);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    object-fit: contain;
+  }
+}
+
+.option-name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+.option-mark {
+  flex: none;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+// ── A dish over ──────────────────────────────────────────────────────────────
+
+.dish-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.dish-points {
+  margin: 0;
+  color: var(--color-success-light-text);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.dish-points--lost {
+  color: var(--color-danger-light-text);
+}
+
+.rule {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+// ── The table ────────────────────────────────────────────────────────────────
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 56rem;
+}
+
+.results-label {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.results-score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.results-value {
+  color: var(--genshin-purple);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+}
+
+.results-max {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xl);
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-veil);
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+
+  th,
+  td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.results-number {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.results-dish {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-weight: var(--font-weight-bold);
+
+  img {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: contain;
+  }
+}
+
+.results-points {
+  color: var(--color-success-light-text);
+  font-weight: var(--font-weight-bold);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+th.results-points {
+  color: var(--text-secondary);
+}
+
+.results-points--lost {
+  color: var(--color-danger-light-text);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xxs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// A chip and a legend item read the same marks: right, wrong and picked, or a wrong one left alone.
+.chip,
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px var(--spacing-xs);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-pill);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+
+  &[data-mark="right"] {
+    border-color: var(--color-success-light-border);
+    background: var(--color-success-light);
+    color: var(--color-success-light-text);
+  }
+
+  &[data-mark="wrong"] {
+    border-color: var(--color-danger-light-border);
+    background: var(--color-danger-light);
+    color: var(--color-danger-light-text);
+  }
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+}
+
+// On a phone a row is a block: the number, the dish and its points on one
+// line, its options under them - four columns do not fit 390 px.
+@media (max-width: 600px) {
+  .results-table {
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: var(--spacing-xxs) var(--spacing-xs);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    td {
+      padding: 0;
+      border-bottom: none;
+    }
+
+    // The options under the dish, as wide as the row.
+    td:nth-child(3) {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+}

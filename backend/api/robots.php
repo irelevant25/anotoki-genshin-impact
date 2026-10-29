@@ -52,6 +52,8 @@ const SITEMAP_PAGES = [
     '/games',
     '/games/tournament',
     '/games/minesweeper',
+    '/games/recipes',
+    '/games/pexeso',
     '/database',
     '/database/characters',
     '/database/weapons',

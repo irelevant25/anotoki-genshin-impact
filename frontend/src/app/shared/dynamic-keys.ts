@@ -45,6 +45,12 @@ export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   'game.minesweeper.difficultyHint.': ['easy', 'medium', 'hard'],
   // The character tournament's formats.
   'game.tournament.format.': ['single', 'double', 'roundRobin'],
+  // What a Recipe Master dish scored - the three forms, by the reader's language (users/074).
+  'game.recipes.points.': ['one', 'few', 'other'],
+  // Memory's difficulties, the hint under the chosen one, and the kinds of card a group can take (users/074).
+  'game.pexeso.difficulty.': ['easy', 'medium', 'hard'],
+  'game.pexeso.difficultyHint.': ['easy', 'medium', 'hard'],
+  'game.pexeso.kind.': ['element', 'weapon', 'region'],
   // A quiz question's difficulty (the quizzes, the Profile's history).
   'quiz.difficulty.': ['easy', 'medium', 'hard'],
   // What a Mismatch question can be about, as its difficulty dialog names it (quiz.types.ts' MismatchProperty; users/070).

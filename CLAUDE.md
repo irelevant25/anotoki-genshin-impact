@@ -1238,7 +1238,7 @@ node docs/security/build-report.mjs                            # after re-runnin
 - **The public site's lists are asked once a page load** (the owner's decision
   of 2026-10-21): `sites/main/game-lists.service.ts` (`GameListsService`) -
   characters, the minimal characters, materials, weapons, artifacts, banners
-  (`/full`), foods - one `shareReplay(1)` each, shared by every page, quiz and game that
+  (`/full`), foods, the recipes' lines - one `shareReplay(1)` each, shared by every page, quiz and game that
   needs it; a failure is not kept; every list is forgotten when the admin panel
   opens (`isAdminArea()`), so a public page after an edit in the same tab asks
   again. The lists are shared: sort a copy, never one in place. The admin panel
@@ -1405,6 +1405,23 @@ node docs/security/build-report.mjs                            # after re-runnin
   character without the picture is never asked (Manekin, Manekina), and the
   constellation's name shows with the answer. Their rows in `quizzes` are
   `genshin_impact/035`'s, their words, guides and Page access rows `users/072`'s.
+- **The games** (`features/games/`, the Games page's cards from
+  `shared/game-catalog.ts`) keep nothing - no saved position, no result,
+  nothing sent: the Tournament, Minesweeper and, the owner's games of
+  2026-10-29, **Recipe Master** (`recipes/`, the rules pure in
+  `recipe-questions.ts`: ten dishes, a food with a live recipe line
+  (`GameListsService.foodRecipes()`, `GET /api/foods-recipe`, one query) -
+  never two of one recipe in a game, a special dish's being its base dish's -,
+  each with three wrong ingredients drawn from what any recipe takes; a pick
+  marked for good, a dish over once all its ingredients are picked, worth 3
+  less 2 a wrong pick - 3, 1, −1, −3 -, the table after the tenth, out of 30)
+  and **Memory** (`pexeso/`, the rules pure in `pexeso-board.ts`: Easy 4×4 in
+  pairs, Medium 6×6 in threes, Hard 6×6 in fours, 3 and 5 seconds to look; a
+  group is a character and a card of each kind the board drew - one of
+  element, weapon type and region on Easy, two on Medium, all three on Hard -,
+  the same kinds for every group, so that any card that fits counts and no
+  valid group can strand another; a selection fails as soon as it can no longer
+  become a group). Their words, guides and Page access rows are `users/074`'s.
 - **The Profile** (`features/profile/`, the owner's choice "D" of 2026-10-22 among
   the mockups): the detail pages' hero worn by the player (`app-detail-hero` - the
   namecard of the character they meet most that has one behind the name, the

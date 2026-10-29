@@ -83,7 +83,7 @@ $pdo = testPdo($base);
 $built = testMigrate($pdo, ['users' => '051_guide_strings.sql', 'genshin_impact' => '027_visitor_history_index.sql', 'anotoki_translations' => '002_library_words.sql']);
 check('built by the site\'s engine', $built['error'] === null, (string) $built['error']);
 same(
-    'what waits: the admin set, users/052-073, genshin_impact/028-035, the words\' 003-015, the people set',
+    'what waits: the admin set, users/052-074, genshin_impact/028-035, the words\' 003-015, the people set',
     [
         'anotoki_admin/001_audit_log.sql',
         'anotoki_admin/002_feedback.sql',
@@ -110,6 +110,7 @@ same(
         'users/071_database_artifacts_and_food_strings.sql',
         'users/072_splash_and_constellation_strings.sql',
         'users/073_splash_and_constellation_levels.sql',
+        'users/074_recipe_master_and_memory_strings.sql',
         'genshin_impact/028_audit_into_library.sql',
         'genshin_impact/029_feedback_into_library.sql',
         'genshin_impact/030_game_ids.sql',
@@ -301,7 +302,7 @@ $name = testDatabase('tools', $base);
 $pdo = testPdo($name);
 $result = siteMigrator($pdo)->apply();
 check('applied without an error', $result['error'] === null, (string) $result['error']);
-same('everything that waited ran, the admin set first and the people set last', 47, count($result['applied']));
+same('everything that waited ran, the admin set first and the people set last', 48, count($result['applied']));
 same('nothing waits any more', [], siteMigrator($pdo)->applicable());
 same(
     'the library\'s files are recorded under their sets\' names',

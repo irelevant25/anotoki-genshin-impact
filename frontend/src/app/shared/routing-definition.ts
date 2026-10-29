@@ -127,6 +127,18 @@ export const ROUTE_MAP_DATA: AlfRoutingNode = {
       path: 'minesweeper',
       notInMenu: true,
     },
+
+    recipes: {
+      title: 'Recipe Master',
+      path: 'recipes',
+      notInMenu: true,
+    },
+
+    pexeso: {
+      title: 'Pexeso',
+      path: 'pexeso',
+      notInMenu: true,
+    },
   },
 
   database: {

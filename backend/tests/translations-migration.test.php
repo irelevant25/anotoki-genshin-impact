@@ -155,6 +155,7 @@ const WORDS_AND_AFTER = [
     'users/071_database_artifacts_and_food_strings.sql',
     'users/072_splash_and_constellation_strings.sql',
     'users/073_splash_and_constellation_levels.sql',
+    'users/074_recipe_master_and_memory_strings.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
@@ -247,6 +248,9 @@ const REWORDED_BY_059 = [
     'quiz.pixelate.info|sk',
     'quiz.voice.info|sk',
 ];
+// What users/074 rewords, where its sentence is still users/028's: the Games page's guide, which named the two games
+// there were, and names the four.
+const REWORDED_BY_074 = ['guide.games.content|en', 'guide.games.content|sk'];
 // What users/058 brings: the quizzes' difficulty badge's and dialog's words, and what each level shows.
 const DIFFICULTY_NEW_KEYS = [
     'quiz.difficulty.button',
@@ -398,6 +402,8 @@ const SPLASH_CONSTELLATION_KEYS = [
     'quiz.splash.info',
     'quiz.splash.title',
 ];
+// How many keys users/074 brings: Recipe Master's 21 and Memory's 23 words, and the two guides' titles.
+const RECIPES_MEMORY_KEYS = 21 + 23 + 2;
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -543,9 +549,10 @@ foreach ($before as $row) {
         in_array($row['key_name'], GONE_BY_060, true) ||
         $key === 'footer.feedback|en' ||
         in_array($key, REWORDED_BY_059, true) ||
-        in_array($key, REWORDED_BY_060, true)
+        in_array($key, REWORDED_BY_060, true) ||
+        in_array($key, REWORDED_BY_074, true)
     ) {
-        // users/057's and 060's to take away, and the strings 057, 059 and 060 reword - looked at below.
+        // users/057's and 060's to take away, and the strings 057, 059, 060 and 074 reword - looked at below.
         continue;
     }
     $guide = $guides[$key] ?? null;
@@ -556,6 +563,29 @@ foreach ($before as $row) {
 }
 same('every string that was not blank: word for word, with its writer and its time', [], $lost);
 same('the three blanks are gone', 3, $blank);
+
+$gamesGuide = [];
+foreach ($before as $row) {
+    if ($row['key_name'] === 'guide.games.content') {
+        $gamesGuide[$row['language_code']] = $row['value'];
+    }
+}
+same(
+    '074: the Games guide names the four games, and the rest of it is as it was',
+    [
+        str_replace(
+            '<strong>Tournament</strong> and <strong>Minesweeper</strong>',
+            '<strong>Tournament</strong>, <strong>Minesweeper</strong>, <strong>Recipe Master</strong> and <strong>Memory</strong>',
+            $gamesGuide['en'] ?? '',
+        ),
+        str_replace(
+            '<strong>Turnaj</strong> a <strong>Míny</strong>',
+            '<strong>Turnaj</strong>, <strong>Míny</strong>, <strong>Majster receptov</strong> a <strong>Pexeso</strong>',
+            $gamesGuide['sk'] ?? '',
+        ),
+    ],
+    [$guides['guide.games.content|en']['html'] ?? null, $guides['guide.games.content|sk']['html'] ?? null],
+);
 
 // 002's 54, 003's nine (the sign-in page's), 004's 31 (the feedback form's), 005's 122 (the legal pages'), 006's
 // one (the top bar's), 007's four (the kit's newer pieces'), 008's two (the tabs'), 009's 34 (the inputs'), 012's
@@ -575,7 +605,8 @@ $came =
     count(PROFILE_NEW_KEYS) +
     count(MISMATCH_VOICE_NEW_KEYS) +
     ARTIFACTS_FOOD_KEYS +
-    count(SPLASH_CONSTELLATION_KEYS);
+    count(SPLASH_CONSTELLATION_KEYS) +
+    RECIPES_MEMORY_KEYS;
 $went =
     count(OLD_FORM_KEYS) +
     count(MULTISELECT_SUMMARY_KEYS) +
@@ -588,7 +619,7 @@ $went =
     count(GONE_BY_067) +
     count(GONE_BY_068);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s, 065\'s, 070\'s, 071\'s and 072\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s, 065\'s, 070\'s, 071\'s, 072\'s and 074\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
 );
@@ -890,11 +921,15 @@ check(
     'the guide cleared in Slovak, and the one blanked, read the English',
     !isset($guides['guide.dish.content|sk']) && !isset($guides['guide.voice.content|sk']) && isset($guides['guide.voice.content|en']),
 );
-same('every guide has its English - Splash\'s and Constellation\'s too (users/072)', 13, (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'en'")->fetchColumn());
+same(
+    'every guide has its English - Splash\'s and Constellation\'s too (users/072), Recipe Master\'s and Memory\'s (074)',
+    15,
+    (int) $pdo->query("SELECT count(*) FROM guide_contents WHERE language_code = 'en'")->fetchColumn(),
+);
 check('the minesweeper\'s 2,154 characters, whole', mb_strlen($guides['guide.minesweeper.content|en']['html'] ?? '') > 2000);
 same(
     'no guide\'s body is a key any more; the titles are',
-    [0, 13],
+    [0, 15],
     [
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.content'")->fetchColumn(),
         (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'guide.%.title'")->fetchColumn(),

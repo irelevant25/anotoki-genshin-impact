@@ -358,6 +358,16 @@ function seedContent(PDO $pdo): void
         );
     }
 
+    // A recipe for four of the dishes, an ingredient each, the four materials among them: Recipe Master's game,
+    // every dish with three wrong ones among what the other recipes take. Never Sweet Madame's - the admin form
+    // stages save that food untouched, and form-bodies.json keeps what it sent (FORM_SAVES).
+    foreach (
+        [['Jade Parcels', 'Silk Flower'], ['Fontainian Onion Soup', "Hero's Wit"], ['Ghostly March', 'Mystic Enhancement Ore'], ["Wanmin Restaurant's Boiled Fish", 'Mora']]
+        as [$food, $material]
+    ) {
+        seed($pdo, 'foods_recipe', $by + ['food_id' => $foods[$food], 'material_id' => $materials[$material], 'quantity' => 1]);
+    }
+
     $banner = seed($pdo, 'banners', $by + ['name' => 'Moment of Bloom', 'version' => '1.3', 'duration_from' => '2024-01-01 00:00:00', 'duration_to' => '2024-01-22 00:00:00']);
     foreach (['Hu Tao', 'Xiangling'] as $order => $name) {
         seed($pdo, 'banners_characters', $by + ['banner_id' => $banner, 'character_id' => $characters[$name], 'order' => $order + 1]);

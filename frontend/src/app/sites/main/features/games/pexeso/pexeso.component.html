@@ -1,0 +1,85 @@
+<div class="container game-container">
+    @if (inSetup()) {
+        <div class="setup">
+            <anotoki-slider
+                class="setup-slider"
+                [label]="'game.pexeso.difficultyLabel' | translate"
+                [min]="0"
+                [max]="levels.length - 1"
+                [step]="1"
+                [ticks]="levelTicks()"
+                [showValue]="false"
+                [hint]="levelHint() | translate"
+                [(value)]="levelIndex" />
+
+            <button anotokiButton variant="primary" size="lg" class="setup-start" [loading]="loading()" (click)="start()">{{ "game.pexeso.start" | translate }}</button>
+        </div>
+    } @else if (deal(); as board) {
+        <!-- What a group is on this board: its kinds were drawn for this game,
+             so they are said above the cards for as long as it lasts. -->
+        <p class="rule">{{ groupRule() }}</p>
+
+        <div class="status">
+            @if (phase() === "look") {
+                <span class="status-look">{{ "game.pexeso.look" | translate: { seconds: lookLeft() } }}</span>
+            } @else {
+                <!-- Heard after every turn - a group found, or not -; the clock
+                     beside it is not, or it would speak every second. -->
+                <span class="status-counts" aria-live="polite" aria-atomic="true">
+                    <span>{{ "game.pexeso.found" | translate: { found: foundGroups(), total: board.groups } }}</span>
+                    <span>{{ "game.pexeso.turns" | translate: { turns: turns() } }}</span>
+                </span>
+                <span class="status-clock">{{ "game.pexeso.time" | translate: { seconds: elapsed() } }}</span>
+            }
+        </div>
+
+        <!-- Fluid, as Minesweeper's board is: six columns of cards a phone's
+             width, each card square whatever it is given. A card is named by
+             what it shows once it is face up, and only then: its picture and
+             caption are drawn for the eye alone. -->
+        <div class="board" [class.is-small]="side() === 4" [style.grid-template-columns]="columns()" (keydown)="onBoardKeydown($event)">
+            @for (view of cards(); track view.key) {
+                <button
+                    #card
+                    type="button"
+                    class="card"
+                    [class.is-up]="view.state !== 'down'"
+                    [class.is-playable]="view.playable"
+                    [class.is-turned]="view.state === 'turned'"
+                    [class.is-found]="view.state === 'found'"
+                    [class.is-wrong]="view.state === 'wrong'"
+                    [attr.aria-disabled]="view.playable ? null : 'true'"
+                    [attr.aria-label]="view.state === 'down' ? ('game.pexeso.hidden' | translate) : view.card.value"
+                    (click)="flip(view.card)">
+                    <span class="card-inner" aria-hidden="true">
+                        <span class="card-back"></span>
+                        <span class="card-face">
+                            <img [appMaterialIcon]="view.card.picture" [appAssetFolder]="view.card.folder" alt="" />
+                            <span class="card-caption">{{ view.card.value }}</span>
+                        </span>
+                    </span>
+                    @if (view.state === "found") {
+                        <span class="card-mark" aria-hidden="true">✓</span>
+                    } @else if (view.state === "wrong") {
+                        <span class="card-mark is-wrong" aria-hidden="true">✗</span>
+                    }
+                </button>
+            }
+        </div>
+
+        @if (phase() === "won") {
+            <anotoki-alert class="result" tone="success" announce="polite">{{ "game.pexeso.won" | translate: { turns: turns(), seconds: elapsed() } }}</anotoki-alert>
+        }
+
+        <div #actions class="board-actions">
+            <button #again anotokiButton variant="primary" (click)="playAgain()">{{ "game.pexeso.again" | translate }}</button>
+            <button anotokiButton (click)="backToSetup()">{{ "game.pexeso.backToSetup" | translate }}</button>
+        </div>
+    } @else {
+        <anotoki-alert class="result" tone="info">{{ "game.pexeso.notEnough" | translate }}</anotoki-alert>
+
+        <div class="board-actions">
+            <button anotokiButton (click)="backToSetup()">{{ "game.pexeso.backToSetup" | translate }}</button>
+        </div>
+    }
+</div>

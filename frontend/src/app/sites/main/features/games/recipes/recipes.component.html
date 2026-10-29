@@ -1,0 +1,124 @@
+<div class="container game-container">
+    <app-loader #loader [loading]="loading()"></app-loader>
+
+    @if (!loader.loadingCtrl.loading()) {
+        @if (!questions().length) {
+            <p class="empty">{{ "game.recipes.none" | translate }}</p>
+        } @else if (!finished()) {
+            @if (question(); as question) {
+                <div class="status">
+                    <span class="status-item">{{ "game.recipes.progress" | translate: { n: index() + 1, total: questions().length } }}</span>
+                    <span class="status-item">{{ "game.recipes.score" | translate: { points: signed(score()) } }}</span>
+                </div>
+
+                <div class="dish">
+                    <!-- The dish's own picture: its normal icon, the path the foods list answers (icon_normal). -->
+                    <span class="dish-plate">
+                        <img [appMaterialIcon]="question.dish.food.icon_normal" alt="" />
+                    </span>
+                    <h2 class="dish-name">{{ question.dish.food.name }}</h2>
+                    <p class="dish-prompt">{{ "game.recipes.prompt" | translate }}</p>
+                    <p class="dish-found">{{ "game.recipes.found" | translate: { found: found(question), total: question.dish.ingredients.length } }}</p>
+                </div>
+
+                <ul class="options">
+                    @for (id of question.options; track id) {
+                        <li>
+                            <button type="button" class="option" [attr.data-mark]="mark(question, id)" [disabled]="mark(question, id) !== 'none' || answered()" (click)="pick(id)">
+                                <span class="option-art" [attr.data-rarity]="material(id)?.rarity ?? 1">
+                                    <img [appMaterialIcon]="material(id)?.icon_name ?? material(id)?.name" alt="" />
+                                </span>
+                                <span class="option-name">{{ material(id)?.name }}</span>
+                                @if (mark(question, id) === "right") {
+                                    <span class="option-mark" aria-hidden="true">✓</span>
+                                    <span class="said">{{ "game.recipes.right" | translate }}</span>
+                                } @else if (mark(question, id) === "wrong") {
+                                    <span class="option-mark" aria-hidden="true">✗</span>
+                                    <span class="said">{{ "game.recipes.wrong" | translate }}</span>
+                                }
+                            </button>
+                        </li>
+                    }
+                </ul>
+
+                @if (answered()) {
+                    <div class="dish-result">
+                        <p class="dish-points" [class.dish-points--lost]="points(question) < 0">{{ pointsKey(points(question)) | translate: { n: signed(points(question)) } }}</p>
+                        <button anotokiButton variant="primary" appFocusOnShow (click)="next()">
+                            {{ (isLast() ? "game.recipes.finish" : "game.recipes.next") | translate }}
+                        </button>
+                    </div>
+                }
+
+                <p class="rule">{{ "game.recipes.rule" | translate }}</p>
+            }
+        } @else {
+            <div class="results">
+                <p class="results-label">{{ "game.recipes.resultsTitle" | translate }}</p>
+                <p class="results-score">
+                    <span class="results-value">{{ signed(score()) }}</span>
+                    <span class="results-max">/ {{ maxScore }}</span>
+                </p>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">{{ "game.recipes.dish" | translate }}</th>
+                            <th scope="col">{{ "game.recipes.ingredients" | translate }}</th>
+                            <th scope="col" class="results-points">{{ "game.recipes.pointsHeader" | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (done of questions(); track $index) {
+                            <tr>
+                                <td class="results-number">{{ $index + 1 }}</td>
+                                <td>
+                                    <span class="results-dish">
+                                        <img [appMaterialIcon]="done.dish.food.icon_normal" alt="" loading="lazy" />
+                                        {{ done.dish.food.name }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <!-- Every option as the dish was left: picked and right, picked and wrong, or a
+                                         wrong one left alone - each by a word and a mark as well as its colour. -->
+                                    <ul class="chips">
+                                        @for (id of done.options; track id) {
+                                            <li class="chip" [attr.data-mark]="mark(done, id)">
+                                                @if (mark(done, id) === "right") {
+                                                    <span aria-hidden="true">✓</span>
+                                                    <span class="said">{{ "game.recipes.right" | translate }}:</span>
+                                                } @else if (mark(done, id) === "wrong") {
+                                                    <span aria-hidden="true">✗</span>
+                                                    <span class="said">{{ "game.recipes.wrong" | translate }}:</span>
+                                                } @else {
+                                                    <span class="said">{{ "game.recipes.wrongLeft" | translate }}:</span>
+                                                }
+                                                {{ material(id)?.name }}
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td class="results-points" [class.results-points--lost]="points(done) < 0">{{ signed(points(done)) }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <p class="legend">
+                    <span class="legend-item" data-mark="right">
+                        <span aria-hidden="true">✓</span>
+                        {{ "game.recipes.right" | translate }}
+                    </span>
+                    <span class="legend-item" data-mark="wrong">
+                        <span aria-hidden="true">✗</span>
+                        {{ "game.recipes.wrong" | translate }}
+                    </span>
+                    <span class="legend-item" data-mark="none">{{ "game.recipes.wrongLeft" | translate }}</span>
+                </p>
+
+                <button anotokiButton variant="primary" size="lg" (click)="newGame()">{{ "game.recipes.again" | translate }}</button>
+            </div>
+        }
+    }
+</div>
