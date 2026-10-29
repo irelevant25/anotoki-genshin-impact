@@ -17,7 +17,7 @@ import { StorageKeys } from '../../../shared/state-manager.service';
  * site keeps or for how long - and the strings that say so (`legal.*`,
  * migration users/055 and whatever rewords them after it).
  */
-export const SITE_LEGAL_UPDATED = '2026-10-25';
+export const SITE_LEGAL_UPDATED = '2026-10-29';
 
 /**
  * The anotoki account's cookie for every anotoki site (the IAM's
@@ -106,8 +106,8 @@ export const GENSHIN_HOSTING: LegalProcessor = { preset: 'hosting', name: 'WebSu
  *   the theme (THEME_STORAGE_KEY under LocalStorageService's prefix), the
  *   language and its cached words (LANGUAGE_STORAGE_KEYS; a `?lang=` held for
  *   the tab under the language's key in sessionStorage), the visitor's key
- *   (VISITOR_STORAGE_KEY), the browser's own games and the difficulty
- *   (StorageKeys.STORAGE_KEY, app_data, no prefix), the version What's new
+ *   (VISITOR_STORAGE_KEY), the browser's own games, the difficulty and Voice's
+ *   language (StorageKeys.STORAGE_KEY, app_data, no prefix), the version What's new
  *   showed, the wallpaper, the announcement hidden (the library's bar keeps a
  *   mark of it - its kind and words as a fingerprint - never the words:
  *   ANNOUNCEMENT_STORAGE_KEY, the library's preset), the admin Translations

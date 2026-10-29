@@ -18,6 +18,7 @@
                 <div class="character-grid">
                     @for (character of set.options; track character.id) {
                         <button
+                            #card
                             type="button"
                             class="character-choice"
                             [class.correct]="isQuestionComplete() && character.name === set.answer.name"
@@ -31,16 +32,21 @@
                     }
                 </div>
 
+                @if (keyboardHint && !isQuestionComplete()) {
+                    <p class="mismatch-keys">{{ "quiz.mismatch.keys" | translate }}</p>
+                }
+
                 <!-- Saying what the rest had in common is the whole explanation
-                     of why that one was the answer. -->
+                     of why that one was the answer. An era is a version's
+                     number alone ("1.x"), so it is said as a version. -->
                 @if (isQuestionComplete()) {
                     <p class="mismatch-reason">
                         {{ (isSuccess() ? "quiz.mismatch.right" : "quiz.mismatch.wrong") | translate }}
-                        <span class="mismatch-common">{{ set.commonValue }}</span>
+                        <span class="mismatch-common">{{ set.property === "era" ? ("quiz.mismatch.eraValue" | translate: { era: set.commonValue }) : set.commonValue }}</span>
                     </p>
 
                     @if (!isDaily()) {
-                        <button anotokiButton variant="primary" size="lg" (click)="next()">{{ "quiz.next" | translate }}</button>
+                        <button anotokiButton appFocusOnShow variant="primary" size="lg" (click)="next()">{{ "quiz.next" | translate }}</button>
                     }
                 }
             } @else {

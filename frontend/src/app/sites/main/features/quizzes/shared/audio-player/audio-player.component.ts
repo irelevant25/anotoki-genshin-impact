@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, input, signal, viewChild } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, input, linkedSignal, signal, untracked, viewChild } from '@angular/core';
 import { TranslatePipe } from '@anotoki/lib/translations';
 
 function formatTime(seconds: number): string {
@@ -36,7 +36,9 @@ export class QuizAudioPlayerComponent {
 
   readonly isPlaying = signal(false);
   readonly currentTime = signal(0);
-  readonly duration = signal(0);
+
+  /** The clip's length, from its metadata: none from the moment the clip changes until the new one's comes, never the last one's. */
+  readonly duration = linkedSignal({ source: this.src, computation: () => 0 });
 
   /** Where the clip stops: the limit, or the end of the file if there is none. */
   readonly endTime = computed(() => {
@@ -57,15 +59,36 @@ export class QuizAudioPlayerComponent {
     // A new clip, or a longer allowance, sends the playhead back to the start:
     // the point of earning more seconds is to hear the piece again with them,
     // not to resume where the last cut-off was.
+    //
+    // The player stops here by itself rather than waiting for the element to
+    // say so. A new `src` loads the element, and loading pauses it without a
+    // `pause` event - and takes away the one restart()'s pause() had just
+    // queued (the HTML media load algorithm) - so after Next onPause() never
+    // ran: Play stayed disabled, and the playhead's loop went on.
     effect(() => {
       this.src();
       this.limit();
-      this.restart();
+      untracked(() => {
+        this._stop();
+        this.restart();
+      });
     });
+
+    // A player taken off the page mid-clip (Voice hides it again for the next
+    // question) is paused once its listeners are gone, so onPause() never
+    // hears of that either.
+    inject(DestroyRef).onDestroy(() => this._stopTracking());
   }
 
   onLoadedMetadata(): void {
     this.duration.set(this._audio()?.nativeElement.duration ?? 0);
+  }
+
+  /** Sent as a new clip loads, where no `pause` is: the element has let go of the old clip, and nothing is known of the new one yet. */
+  onEmptied(): void {
+    this._stop();
+    this.duration.set(0);
+    this.currentTime.set(0);
   }
 
   onPlay(): void {
@@ -74,13 +97,11 @@ export class QuizAudioPlayerComponent {
   }
 
   onPause(): void {
-    this.isPlaying.set(false);
-    this._stopTracking();
+    this._stop();
   }
 
   onEnded(): void {
-    this.isPlaying.set(false);
-    this._stopTracking();
+    this._stop();
     this.restart();
   }
 
@@ -94,7 +115,16 @@ export class QuizAudioPlayerComponent {
     if (audio.currentTime >= this.endTime()) {
       audio.currentTime = 0;
     }
-    void audio.play();
+    // A play() that does not get to play rejects: paused, or a new clip loaded,
+    // before its sound came (AbortError), the browser withholding its leave to
+    // play (NotAllowedError), a file it cannot read. Nothing plays then - and a
+    // rejection left unhandled would be reported to the site's error log as a
+    // failure of the page.
+    audio.play().catch(() => {
+      if (audio.paused) {
+        this._stop();
+      }
+    });
   }
 
   pause(): void {
@@ -125,7 +155,11 @@ export class QuizAudioPlayerComponent {
       }
       this.currentTime.set(audio.currentTime);
 
-      if (audio.currentTime >= this.endTime()) {
+      // An end not known yet - the whole of a clip whose metadata is still on
+      // its way (a language just changed, after the question) - is no end: it
+      // plays on until `ended`.
+      const end = this.endTime();
+      if (end > 0 && audio.currentTime >= end) {
         this.pause();
         this.restart();
         return;
@@ -134,6 +168,12 @@ export class QuizAudioPlayerComponent {
       this._frame = requestAnimationFrame(step);
     };
     this._frame = requestAnimationFrame(step);
+  }
+
+  /** Not playing, whatever the element is about to say. */
+  private _stop(): void {
+    this.isPlaying.set(false);
+    this._stopTracking();
   }
 
   private _stopTracking(): void {

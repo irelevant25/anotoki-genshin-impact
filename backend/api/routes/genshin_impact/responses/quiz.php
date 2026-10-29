@@ -87,7 +87,7 @@ class QuizStatsRow extends ResponseShape
  *
  * Only lines with both English audio and English text are drawn, and the
  * Travellers are left out - one character across twelve rows would meet
- * themselves.
+ * themselves. The other three recordings are null where the line has none.
  */
 class QuizVoiceOverRound extends ResponseShape
 {
@@ -97,6 +97,9 @@ class QuizVoiceOverRound extends ResponseShape
         public readonly string $title_english,
         public readonly string $text_english,
         public readonly string $audio_english,
+        public readonly ?string $audio_japanese,
+        public readonly ?string $audio_chinese,
+        public readonly ?string $audio_korean,
         public readonly int $character_id,
         public readonly string $character_name,
         public readonly ?string $icon_name,

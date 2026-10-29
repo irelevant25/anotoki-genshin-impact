@@ -2,7 +2,7 @@
     <!-- The browser's own controls would let the whole clip be played, which is
          the one thing this quiz cannot allow, so the element itself stays out
          of the layout and the transport below drives it. -->
-    <audio #audio preload="metadata" [src]="src()" (loadedmetadata)="onLoadedMetadata()" (play)="onPlay()" (pause)="onPause()" (ended)="onEnded()"></audio>
+    <audio #audio preload="metadata" [src]="src()" (loadedmetadata)="onLoadedMetadata()" (emptied)="onEmptied()" (play)="onPlay()" (pause)="onPause()" (ended)="onEnded()"></audio>
 
     <div class="progress-container">
         <div class="progress-bar" [style.width.%]="progress()"></div>

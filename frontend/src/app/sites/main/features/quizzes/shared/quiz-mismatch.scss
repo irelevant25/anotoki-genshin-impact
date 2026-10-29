@@ -31,6 +31,14 @@
     border-color: var(--color-primary);
   }
 
+  // The character the arrows are on: what a hover shows, and the site's focus ring round it.
+  &:focus-visible:not(:disabled) {
+    outline: none;
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--focus-ring);
+  }
+
   &:disabled {
     cursor: default;
   }

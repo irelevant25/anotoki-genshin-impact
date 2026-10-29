@@ -10704,7 +10704,7 @@
             },
             "source": {
                 "file": "backend/api/routes/genshin_impact/endpoints/quiz_voice_over.php",
-                "line": 69
+                "line": 77
             },
             "expanded": [],
             "payload": null,
@@ -20471,7 +20471,7 @@
             "name": "QuizVoiceOverRound",
             "file": "quiz.php",
             "merges": null,
-            "description": "A voice over drawn at random, with the character it belongs to.\n\nOnly lines with both English audio and English text are drawn, and the\nTravellers are left out - one character across twelve rows would meet\nthemselves.",
+            "description": "A voice over drawn at random, with the character it belongs to.\n\nOnly lines with both English audio and English text are drawn, and the\nTravellers are left out - one character across twelve rows would meet\nthemselves. The other three recordings are null where the line has none.",
             "fields": [
                 {
                     "name": "id",
@@ -20519,6 +20519,36 @@
                         "string"
                     ],
                     "nullable": false,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "audio_japanese",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "audio_chinese",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
+                    "optional": false,
+                    "of": null,
+                    "description": null
+                },
+                {
+                    "name": "audio_korean",
+                    "types": [
+                        "string"
+                    ],
+                    "nullable": true,
                     "optional": false,
                     "of": null,
                     "description": null

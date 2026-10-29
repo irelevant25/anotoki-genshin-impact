@@ -1,11 +1,32 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { TranslatePipe, TranslationService } from '@anotoki/lib/translations';
 import { decodeReferences } from '@anotoki/lib/ui/rich-html';
+import { SegmentedComponent, SegmentedOption } from '@anotoki/lib/ui/segmented';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { QuizAudioPlayerComponent } from '../shared/audio-player/audio-player.component';
 import { CharacterQuizComponent } from '../shared/character-quiz.class';
 import { QuizFrameComponent } from '../shared/quiz-frame/quiz-frame.component';
 import { QuizId } from '../shared/quiz.types';
 import { QuizApiService } from '../../../../../api';
+
+/**
+ * The languages a line is recorded in - its audio_* columns, the round's and the voice-over's alike - in the picker's
+ * order, the character page's voice-over tab's.
+ */
+const VOICE_LANGUAGES = ['english', 'japanese', 'korean', 'chinese'] as const;
+
+type VoiceLanguage = (typeof VOICE_LANGUAGES)[number];
+
+/** Each language's code, as the picker shows it - as the character page's voice-over tab does. */
+const LANGUAGE_CODES: Readonly<Record<VoiceLanguage, string>> = { english: 'EN', japanese: 'JA', korean: 'KO', chinese: 'ZH' };
+
+/** A line's recordings by language, each null (or not sent) where it has none. */
+type VoiceRecordings = Partial<Record<`audio_${VoiceLanguage}`, string | null>>;
+
+/** A language as the quiz knows it: anything else - none chosen yet, a value it does not know - is English. */
+function knownVoiceLanguage(value: unknown): VoiceLanguage {
+  return VOICE_LANGUAGES.find((language) => language === value) ?? 'english';
+}
 
 /**
  * Guess the character from one of their voice lines.
@@ -16,6 +37,9 @@ import { QuizApiService } from '../../../../../api';
  * from less of the line and give the recording a second or two at most
  * (quiz-levels.ts).
  *
+ * The recording plays in the language chosen beside the player - English,
+ * Japanese, Korean or Chinese - while the line's words and title stay English.
+ *
  * Unlike the other four, the question is not drawn from the character list:
  * there are around eight thousand lines, so the server picks one. That is also
  * why this overrides the saved-game handling - a line cannot be recovered from
@@ -25,11 +49,12 @@ import { QuizApiService } from '../../../../../api';
   selector: 'app-quizzes-voice',
   templateUrl: './voice.component.html',
   styleUrls: ['./voice.component.scss'],
-  imports: [LoaderComponent, QuizAudioPlayerComponent, QuizFrameComponent],
+  imports: [LoaderComponent, QuizAudioPlayerComponent, QuizFrameComponent, SegmentedComponent, TranslatePipe],
 })
 export class QuizzesVoiceComponent extends CharacterQuizComponent {
   protected readonly quizId: QuizId = 'voice';
 
+  /** The line drawn: the round the server picked, or the whole voice-over when a saved question is taken up again. */
   readonly voiceOver = signal<any>(null);
 
   /**
@@ -44,7 +69,39 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
       .replace(/\s+/g, ' ')
       .trim(),
   );
-  readonly audioUrl = computed(() => this.voiceOver()?.audio_english ?? '');
+
+  /**
+   * The language the recording plays in, chosen beside the player and kept in
+   * this browser (StateService) - English until another is chosen. Only the
+   * sound changes with it: the words shown are what the question is about.
+   */
+  readonly language = signal<VoiceLanguage>(knownVoiceLanguage(this.stateService.getVoiceLanguage()));
+
+  /**
+   * The picker's choices: each language by its code, so that the four fit one row on a phone (their names wrapped),
+   * its name in the reader's language heard - with the code, as it is seen - and shown on hover.
+   */
+  readonly languageChoices = computed<SegmentedOption[]>(() =>
+    VOICE_LANGUAGES.map((language) => {
+      const name = this._i18n.t(`quiz.voice.languages.${language}`);
+      return { value: language, label: LANGUAGE_CODES[language], name: `${name} (${LANGUAGE_CODES[language]})`, hint: name };
+    }),
+  );
+
+  /** The chosen language's name, for the note under the picker. */
+  readonly languageName = computed(() => this._i18n.t(`quiz.voice.languages.${this.language()}`));
+
+  /** The line's recording in the language chosen; null where it has none. */
+  private readonly _chosenRecording = computed(() => (this.voiceOver() as VoiceRecordings | null)?.[`audio_${this.language()}`] || null);
+
+  /**
+   * Whether the line has no recording in the language chosen - a few have not
+   * all four - and plays the English one instead, which the page says under
+   * the picker.
+   */
+  readonly languageMissing = computed(() => !!this.voiceOver() && this.language() !== 'english' && this._chosenRecording() === null);
+
+  readonly audioUrl = computed(() => this._chosenRecording() ?? this.voiceOver()?.audio_english ?? '');
 
   /** Whether the player is on the page at all - it is not, for the first two tries. */
   readonly isAudioHidden = computed(() => this.effectClasses().includes('hidden-audio'));
@@ -53,10 +110,22 @@ export class QuizzesVoiceComponent extends CharacterQuizComponent {
   readonly limit = computed(() => (this.isQuestionComplete() ? undefined : this.currentEffect()?.data));
 
   private readonly _quizApi = inject(QuizApiService);
+  private readonly _i18n = inject(TranslationService);
 
   constructor() {
     super();
     this.load();
+  }
+
+  /**
+   * A language chosen beside the player: the recording changes at once - from
+   * its start, as any new clip does, within the seconds the question allows -
+   * and the choice is kept for the questions after.
+   */
+  chooseLanguage(value: string): void {
+    const language = knownVoiceLanguage(value);
+    this.language.set(language);
+    this.stateService.saveVoiceLanguage(language);
   }
 
   /**

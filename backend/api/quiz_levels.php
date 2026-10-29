@@ -34,8 +34,14 @@
  *     finer and the seconds more with every step that has them, a picture or
  *     a line never cut or blurred more than the try before, the player never
  *     hidden again once shown, no seconds after the whole recording;
- *   - Mismatch: {choicesAmount}, 3 to 8 characters (two could never make a
- *     set with one odd one out; the grid wraps however many there are).
+ *   - Mismatch: {choicesAmount, properties, blend} - choicesAmount 3 to 8
+ *     characters (two could never make a set with one odd one out; the grid
+ *     wraps however many there are); properties what a question can be about,
+ *     one or more of element, weapon, region, era and affiliation, each once,
+ *     kept in that order whatever order they came in; blend 1 to 30, how many
+ *     sets are drawn for a question, the one whose odd one out looks most like
+ *     the others kept (1: the first set drawn). Levels saved before the two
+ *     were given the built-in levels' by users/069.
  *
  * Who changed them, and from what to what, is the audit log's (content.insert
  * | update | delete on quiz_levels); the routes are
@@ -56,7 +62,13 @@ const QUIZ_LEVEL_TRIES = 5;
 /** How many characters a Mismatch question may show. */
 const QUIZ_LEVEL_CHOICES = [3, 8];
 
-/** The largest body a save or a check takes, in bytes - the six quizzes' levels take some 2.5 KB, written tight. */
+/** What a Mismatch question can be about, in the order a level keeps them (the frontend's MISMATCH_PROPERTIES, quiz.types.ts). */
+const QUIZ_LEVEL_PROPERTIES = ['element', 'weapon', 'region', 'era', 'affiliation'];
+
+/** How many sets a Mismatch question may draw, to keep the one whose odd one out looks most like the others. */
+const QUIZ_LEVEL_BLEND = [1, 30];
+
+/** The largest body a save or a check takes, in bytes - the six quizzes' levels take some 2.7 KB, written tight. */
 const QUIZ_LEVELS_BODY_LIMIT = 16384;
 
 /** At most this many problems are said of one set of levels; a page full of them says enough. */
@@ -225,35 +237,76 @@ function quizLevelsChecked(mixed $levels): array
 }
 
 /**
- * A Mismatch level: {choicesAmount}, a whole number of characters a question
- * shows. Null when something is wrong, said through $say.
+ * A Mismatch level: {choicesAmount, properties, blend} - a whole number of
+ * characters a question shows; what a question can be about, one or more of
+ * QUIZ_LEVEL_PROPERTIES, each once (quizLevelProperties()); and a whole number
+ * of sets drawn for a question, the one whose odd one out looks most like the
+ * others kept - 1 is the first set drawn. Null when something is wrong, said
+ * through $say: each of the three that is.
  *
- * @return ?array{choicesAmount: int}
+ * @return ?array{choicesAmount: int, properties: list<string>, blend: int}
  */
 function quizLevelChoices(mixed $value, string $level, callable $say): ?array
 {
+    $at = static fn(string $message) => $say('mismatch', $level, null, $message);
     $fields = $value instanceof stdClass ? get_object_vars($value) : null;
     if ($fields === null) {
-        $say('mismatch', $level, null, 'A Mismatch level is one object: {"choicesAmount": 4}.');
+        $at('A Mismatch level is one object: {"choicesAmount": 4, "properties": ["element", "weapon", "region", "era"], "blend": 8}.');
 
         return null;
     }
     $fine = true;
     foreach (array_keys($fields) as $key) {
-        if ((string) $key !== 'choicesAmount') {
-            $say('mismatch', $level, null, 'Unknown ' . quizLevelKey($key) . ': a Mismatch level has choicesAmount, and nothing else.');
+        if (!in_array((string) $key, ['choicesAmount', 'properties', 'blend'], true)) {
+            $at('Unknown ' . quizLevelKey($key) . ': a Mismatch level has choicesAmount, properties and blend, and nothing else.');
             $fine = false;
         }
     }
     [$min, $max] = QUIZ_LEVEL_CHOICES;
     $amount = quizLevelWhole($fields['choicesAmount'] ?? null);
     if ($amount === null || $amount < $min || $amount > $max) {
-        $say('mismatch', $level, null, "choicesAmount is a whole number from $min to $max: how many characters a question shows.");
+        $at("choicesAmount is a whole number from $min to $max: how many characters a question shows.");
+        $fine = false;
+    }
+    $properties = quizLevelProperties($fields['properties'] ?? null, $at);
+    [$least, $most] = QUIZ_LEVEL_BLEND;
+    $blend = quizLevelWhole($fields['blend'] ?? null);
+    if ($blend === null || $blend < $least || $blend > $most) {
+        $at("blend is a whole number from $least to $most: how many sets are drawn for a question, the one whose odd one out looks most like the others kept - 1 is the first set drawn.");
+        $fine = false;
+    }
+
+    return $fine && $properties !== null ? ['choicesAmount' => $amount, 'properties' => $properties, 'blend' => $blend] : null;
+}
+
+/**
+ * A Mismatch level's properties - what its questions can be about: a list of
+ * one or more of QUIZ_LEVEL_PROPERTIES, each once. Kept in that order whatever
+ * order they came in, as every object's keys are, so that the same levels
+ * saved again change nothing. Null when something is wrong, said through $at.
+ *
+ * @return ?list<string>
+ */
+function quizLevelProperties(mixed $value, callable $at): ?array
+{
+    $known = quizLevelList(QUIZ_LEVEL_PROPERTIES);
+    // Not a list, an empty one, or one with anything but names in it: what properties is, said once.
+    if (!is_array($value) || !array_is_list($value) || $value === [] || count(array_filter($value, 'is_string')) !== count($value)) {
+        $at("properties is a list of what a question can be about: one or more of $known, each once.");
 
         return null;
     }
+    // Each name said once, however many times it is wrong.
+    $unknown = array_values(array_unique(array_diff($value, QUIZ_LEVEL_PROPERTIES)));
+    foreach ($unknown as $property) {
+        $at('Unknown property ' . quizLevelKey($property) . ": the properties are $known.");
+    }
+    $repeated = array_keys(array_filter(array_count_values(array_intersect($value, QUIZ_LEVEL_PROPERTIES)), static fn(int $times): bool => $times > 1));
+    foreach ($repeated as $property) {
+        $at('properties names ' . quizLevelKey($property) . ' more than once: each property is named once.');
+    }
 
-    return $fine ? ['choicesAmount' => $amount] : null;
+    return $unknown === [] && $repeated === [] ? array_values(array_intersect(QUIZ_LEVEL_PROPERTIES, $value)) : null;
 }
 
 /**

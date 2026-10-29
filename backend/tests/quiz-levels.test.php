@@ -24,6 +24,9 @@ declare(strict_types=1);
  *   - users/061: the table (one row, an object), Voice's three sentences
  *     made to follow the seconds - only where they are still users/058's, a
  *     Slovak one only beside this file's English -, and its gate.
+ *
+ * users/069 - Mismatch's properties and blend given to the levels saved
+ * before them - is tests/quiz-levels-migration.test.php's.
  */
 
 use Psr\Http\Message\ResponseInterface;
@@ -47,7 +50,11 @@ require "$backend/api/index.php";
 
 $built = siteMigrator(getDb())->apply();
 $applied = array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $built['applied']);
-check('a database built by every migration, users/061 among them', $built['error'] === null && in_array('users/061_quiz_levels.sql', $applied, true), (string) $built['error']);
+check(
+    'a database built by every migration, users/061 and 069 among them (069 with nothing saved: nothing to give, its gate content)',
+    $built['error'] === null && in_array('users/061_quiz_levels.sql', $applied, true) && in_array('users/069_mismatch_levels_properties.sql', $applied, true),
+    (string) $built['error'],
+);
 
 const ADMIN = 1;
 const EDITOR = 2;
@@ -58,7 +65,10 @@ $tokens = [
     MEMBER => $iam['token'](MEMBER, ['MEMBER']),
 ];
 
-/** One request through the whole app; $as is who sends it (a token), null for nobody; a string $json is sent as it is. */
+/**
+ * One request through the whole app; $as is who sends it (a token), null for nobody; a string $json is sent as it is,
+ * anything else as JSON with its numbers as written - 5.0 stays 5.0 on the wire, as a page's JSON may send it.
+ */
 function send(string $method, string $path, ?int $as = null, mixed $json = null, array $headers = []): ResponseInterface
 {
     global $app, $tokens;
@@ -67,7 +77,7 @@ function send(string $method, string $path, ?int $as = null, mixed $json = null,
         $request = $request->withHeader('Authorization', 'Bearer ' . $tokens[$as]);
     }
     if ($json !== null) {
-        $request = $request->withHeader('Content-Type', 'application/json')->withBody((new StreamFactory())->createStream(is_string($json) ? $json : json_encode($json)));
+        $request = $request->withHeader('Content-Type', 'application/json')->withBody((new StreamFactory())->createStream(is_string($json) ? $json : json_encode($json, JSON_PRESERVE_ZERO_FRACTION)));
     }
     foreach ($headers as $name => $value) {
         $request = $request->withHeader($name, $value);
@@ -780,7 +790,7 @@ refuses(
 refuses(
     '...left out',
     static function (stdClass $l): void {
-        $l->mismatch->{'2'} = new stdClass();
+        unset($l->mismatch->{'2'}->choicesAmount);
     },
     'mismatch',
     '2',
@@ -795,7 +805,7 @@ refuses(
     'mismatch',
     '2',
     null,
-    'Unknown "triesMax": a Mismatch level has choicesAmount, and nothing else',
+    'Unknown "triesMax": a Mismatch level has choicesAmount, properties and blend, and nothing else',
 );
 refuses(
     '...a level that is no object',
@@ -807,9 +817,168 @@ refuses(
     null,
     'A Mismatch level is one object',
 );
+$nothing = problemsOf(
+    variant(static function (stdClass $l): void {
+        $l->mismatch->{'2'} = new stdClass();
+    }),
+);
+check(
+    '...a level of nothing: each of the three said',
+    count($nothing) === 3 && said($nothing, 'mismatch', '2', null, 'choicesAmount is') && said($nothing, 'mismatch', '2', null, 'properties is') && said($nothing, 'mismatch', '2', null, 'blend is'),
+    json_encode($nothing, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+);
 takes('...three and eight', static function (stdClass $l): void {
     $l->mismatch->{'1'}->choicesAmount = 3;
     $l->mismatch->{'3'}->choicesAmount = 8;
+});
+
+refuses(
+    'properties left out',
+    static function (stdClass $l): void {
+        unset($l->mismatch->{'1'}->properties);
+    },
+    'mismatch',
+    '1',
+    null,
+    'properties is a list of what a question can be about: one or more of element, weapon, region, era and affiliation, each once',
+);
+refuses(
+    '...an empty list',
+    static function (stdClass $l): void {
+        $l->mismatch->{'2'}->properties = [];
+    },
+    'mismatch',
+    '2',
+    null,
+    'properties is a list of what a question can be about',
+);
+refuses(
+    '...one name, not a list of them',
+    static function (stdClass $l): void {
+        $l->mismatch->{'3'}->properties = 'region';
+    },
+    'mismatch',
+    '3',
+    null,
+    'properties is a list of what a question can be about',
+);
+refuses(
+    '...an object of names, not a list',
+    static function (stdClass $l): void {
+        $l->mismatch->{'3'}->properties = (object) ['first' => 'region'];
+    },
+    'mismatch',
+    '3',
+    null,
+    'properties is a list of what a question can be about',
+);
+refuses(
+    '...a number in the list',
+    static function (stdClass $l): void {
+        $l->mismatch->{'1'}->properties = ['element', 3];
+    },
+    'mismatch',
+    '1',
+    null,
+    'properties is a list of what a question can be about',
+);
+refuses(
+    '...a property there is not',
+    static function (stdClass $l): void {
+        $l->mismatch->{'2'}->properties = ['element', 'colour'];
+    },
+    'mismatch',
+    '2',
+    null,
+    'Unknown property "colour": the properties are element, weapon, region, era and affiliation',
+);
+refuses(
+    '...one named twice',
+    static function (stdClass $l): void {
+        $l->mismatch->{'3'}->properties = ['region', 'era', 'region'];
+    },
+    'mismatch',
+    '3',
+    null,
+    'properties names "region" more than once: each property is named once',
+);
+same(
+    '...said once, however many times it is named',
+    1,
+    count(
+        problemsOf(
+            variant(static function (stdClass $l): void {
+                $l->mismatch->{'3'}->properties = ['era', 'era', 'era'];
+            }),
+        ),
+    ),
+);
+takes('...a single one', static function (stdClass $l): void {
+    $l->mismatch->{'1'}->properties = ['affiliation'];
+});
+takes('...all five', static function (stdClass $l): void {
+    $l->mismatch->{'2'}->properties = ['element', 'weapon', 'region', 'era', 'affiliation'];
+});
+takes('...given out of their order (answered in it: A save, below)', static function (stdClass $l): void {
+    $l->mismatch->{'3'}->properties = ['affiliation', 'era', 'region'];
+});
+
+refuses(
+    'blend 0',
+    static function (stdClass $l): void {
+        $l->mismatch->{'1'}->blend = 0;
+    },
+    'mismatch',
+    '1',
+    null,
+    'blend is a whole number from 1 to 30: how many sets are drawn for a question, the one whose odd one out looks most like the others kept - 1 is the first set drawn',
+);
+refuses(
+    '...31',
+    static function (stdClass $l): void {
+        $l->mismatch->{'3'}->blend = 31;
+    },
+    'mismatch',
+    '3',
+    null,
+    'blend is a whole number from 1 to 30',
+);
+refuses(
+    '...two and a half',
+    static function (stdClass $l): void {
+        $l->mismatch->{'2'}->blend = 2.5;
+    },
+    'mismatch',
+    '2',
+    null,
+    'blend is a whole number from 1 to 30',
+);
+refuses(
+    '..."8", a text',
+    static function (stdClass $l): void {
+        $l->mismatch->{'2'}->blend = '8';
+    },
+    'mismatch',
+    '2',
+    null,
+    'blend is a whole number from 1 to 30',
+);
+refuses(
+    '...left out',
+    static function (stdClass $l): void {
+        unset($l->mismatch->{'1'}->blend);
+    },
+    'mismatch',
+    '1',
+    null,
+    'blend is a whole number from 1 to 30',
+);
+takes('...1 and 30', static function (stdClass $l): void {
+    $l->mismatch->{'2'}->blend = 1;
+    $l->mismatch->{'3'}->blend = 30;
+});
+takes('...8.0 is 8', static function (stdClass $l): void {
+    $l->mismatch->{'2'}->blend = 8.0;
 });
 
 echo "The rules: how much is said, and the body\n";
@@ -891,18 +1060,22 @@ same(
 
 echo "A save, by an EDITOR\n";
 
-// Sent in another order - the quizzes backwards, a step's keys too - and with numbers written as 5.0 and 15.0.
+// Sent in another order - the quizzes backwards, a step's keys too, a Mismatch level's keys and the properties in it -
+// and with numbers written as 5.0, 8.0 and 15.0.
 $sent = variant(static function (stdClass $l): void {
     $l->pixelate->{'1'}->triesEffects[0]->data = 9;
     $l->music->{'2'}->triesEffects[4]->data = 15.0;
     $l->voice->{'2'}->triesMax = 5.0;
+    $l->mismatch->{'2'}->blend = 8.0;
 });
 $expected = json_decode(json_encode($sent), true);
 $backwards = new stdClass();
-foreach (array_reverse(get_object_vars(json_decode(json_encode($sent), false))) as $quiz => $levels) {
+foreach (array_reverse(get_object_vars(json_decode(json_encode($sent, JSON_PRESERVE_ZERO_FRACTION), false))) as $quiz => $levels) {
     $backwards->$quiz = $levels;
 }
 $backwards->voice->{'2'}->triesEffects[2] = (object) ['data' => 0.5, 'try' => 2];
+$medium = $backwards->mismatch->{'2'};
+$backwards->mismatch->{'2'} = (object) ['blend' => $medium->blend, 'properties' => array_reverse($medium->properties), 'choicesAmount' => $medium->choicesAmount];
 
 /** $value with every object's keys in one order: the audit log keeps details as JSONB, which orders them its own way. */
 function keySorted(mixed $value): mixed
@@ -929,7 +1102,8 @@ function beforeAndAfter(array $details): array
 $saved = send('PUT', '/api/admin/quiz-levels', EDITOR, ['levels' => $backwards]);
 $view = body($saved);
 same('200: the Quiz levels page\'s view', [200, ['levels', 'updated_at', 'problems']], [$saved->getStatusCode(), array_keys($view)]);
-same('...the levels in their own order, 5.0 kept as 5', $expected, $view['levels']);
+same('...the levels in their own order - a Mismatch level\'s keys and its properties too -, 5.0, 8.0 and 15.0 kept as 5, 8 and 15', $expected, $view['levels']);
+same('...Medium\'s properties as the rules list them, whatever order they came in', ['element', 'weapon', 'region', 'era'], $view['levels']['mismatch']['2']['properties'] ?? null);
 check('...a time, ISO 8601 in UTC', preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/', (string) $view['updated_at']) === 1, (string) $view['updated_at']);
 same('...nothing the rules say', [], $view['problems']);
 $read = send('GET', '/api/quiz/levels');

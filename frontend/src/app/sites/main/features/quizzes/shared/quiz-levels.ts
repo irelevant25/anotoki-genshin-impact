@@ -1,5 +1,5 @@
 import type { TranslationParams } from '@anotoki/lib/translations';
-import { QUIZ_DIFFICULTIES, QuizEffect, QuizId, QuizLevel } from './quiz.types';
+import { MISMATCH_PROPERTIES, MismatchProperty, QUIZ_DIFFICULTIES, QuizEffect, QuizId, QuizLevel } from './quiz.types';
 
 /** Every quiz's levels, by difficulty: 1 easy, 2 medium, 3 hard. */
 export type QuizLevels = Readonly<Record<QuizId, Readonly<Record<number, QuizLevel>>>>;
@@ -31,7 +31,9 @@ export const QUIZ_IDS: readonly QuizId[] = ['banners', 'pixelate', 'mismatch', '
  * picture, a coarser grid, shorter pieces of the track or the recording. On
  * every level each wrong guess shows more, until there is nothing left to hide
  * (the quizzes' guides say so). Mismatch has no tries - one pick ends a
- * question - and is harder by how many characters it offers.
+ * question - and is harder by what its questions are about (`properties`) and
+ * by how much its odd one out looks like the rest (`blend`), beside how many
+ * characters it offers.
  *
  * A try's step names how the question is hidden after that many wrong
  * guesses: CSS classes for a picture (quiz-question.scss) or a voice line's
@@ -102,10 +104,13 @@ export const QUIZ_LEVELS: QuizLevels = {
       ],
     },
   },
+  // More characters alone make a set no harder - each is one more that shows
+  // what the rest share -, so a harder level asks what fewer players know, and
+  // its odd one out looks more like the rest (mismatch-sets.ts).
   mismatch: {
-    1: { choicesAmount: 3 },
-    2: { choicesAmount: 4 },
-    3: { choicesAmount: 5 },
+    1: { choicesAmount: 3, properties: ['element', 'weapon', 'region'], blend: 1 },
+    2: { choicesAmount: 4, properties: ['element', 'weapon', 'region', 'era'], blend: 8 },
+    3: { choicesAmount: 5, properties: ['region', 'era', 'affiliation'], blend: 20 },
   },
   // Seconds of the track from its start; on easy the last guess has all of it.
   music: {
@@ -206,10 +211,23 @@ export function knownDifficulty(value: unknown): number {
 const isObject = (value: unknown): value is Readonly<Record<string, unknown>> => typeof value === 'object' && value !== null && !Array.isArray(value);
 const isNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
 
-/** A Mismatch level: how many characters, at least three (two can make no set with one odd one out). */
+const isWhole = (value: unknown, least: number): value is number => isNumber(value) && Number.isInteger(value) && value >= least;
+const isProperty = (value: unknown): value is MismatchProperty => MISMATCH_PROPERTIES.includes(value as MismatchProperty);
+
+/**
+ * A Mismatch level: how many characters, at least three (two can make no set
+ * with one odd one out); what a question can be about, one property or more;
+ * and how many sets are drawn to pick the most alike from, one or more.
+ */
 function usableChoices(level: unknown): QuizLevel | null {
-  const amount = isObject(level) ? level['choicesAmount'] : undefined;
-  return isNumber(amount) && Number.isInteger(amount) && amount >= 3 ? { choicesAmount: amount } : null;
+  if (!isObject(level)) {
+    return null;
+  }
+  const { choicesAmount, properties, blend } = level;
+  if (!isWhole(choicesAmount, 3) || !isWhole(blend, 1) || !Array.isArray(properties) || !properties.length || !properties.every(isProperty)) {
+    return null;
+  }
+  return { choicesAmount, properties: [...new Set(properties)], blend };
 }
 
 /** A level of tries: as many steps as tries, each its own try's, a class a text and a number a number. */
@@ -262,6 +280,12 @@ export function usableLevels(value: unknown): QuizLevels | null {
 export interface LevelWords {
   readonly key: string;
   readonly params?: TranslationParams;
+  /**
+   * Mismatch: what the others can share at this level, for the sentence after
+   * it (quiz.levelInfo.mismatchShared) - named in the reader's language and
+   * joined as it joins a list, which only the dialog can do.
+   */
+  readonly shared?: readonly MismatchProperty[];
 }
 
 // The picture's and the voice line's steps in words, by level - written out
@@ -326,6 +350,6 @@ export function levelWords(quizId: QuizId, difficulty: number, level: QuizLevel)
       // A last step with no number of its own plays the whole track.
       return last === undefined ? { key: 'quiz.levelInfo.musicWhole', params: { first } } : { key: 'quiz.levelInfo.music', params: { first, last } };
     case 'mismatch':
-      return { key: 'quiz.levelInfo.mismatch', params: { count: level.choicesAmount } };
+      return { key: 'quiz.levelInfo.mismatch', params: { count: level.choicesAmount }, shared: level.properties };
   }
 }

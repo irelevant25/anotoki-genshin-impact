@@ -18,6 +18,26 @@
   line-height: var(--line-height-base);
 }
 
+// The recording's language, over the player it changes: the kit's segmented
+// control, and under it what a line without that recording plays instead.
+.voice-language {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Always there beside the picker (a live region must be, to be heard), and
+// taking no room while it has nothing to say.
+.voice-language-missing {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+
+  &:not(:empty) {
+    margin-top: var(--spacing-xxs);
+  }
+}
+
 // The first tries show part of a line - half, or on hard a quarter first - on
 // one row, cut off mid-sentence. Ported from old/sites/top/quizzes/voice.css.
 .half-text,

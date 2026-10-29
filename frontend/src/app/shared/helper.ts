@@ -24,7 +24,9 @@ export const HELPER = {
    * @returns {number} Random integer
    */
   getRandomInt(min: number, max: number): number {
-    return Math.round(Math.random() * (max - min) + min);
+    // Every value as likely as the next: Math.round gave min and max half a
+    // share each, so the first and the last of a list came up half as often.
+    return min + Math.floor(Math.random() * (max - min + 1));
   },
 
   /**
@@ -33,8 +35,17 @@ export const HELPER = {
    * @param {Array} array - Array to shuffle
    * @returns {Array} Shuffled array
    */
-  shuffleArray(array: any[]): any[] {
-    return [...array].sort(() => Math.random() - 0.5);
+  shuffleArray<T>(array: readonly T[]): T[] {
+    // Fisher-Yates: every order as likely as any other. A sort with a random
+    // comparator is not - in V8 it left the first item first 1.8 times as
+    // often as it should, so on a list in name order Aino turned up in
+    // Mismatch more than twice as often as the average character.
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   },
 
   /**

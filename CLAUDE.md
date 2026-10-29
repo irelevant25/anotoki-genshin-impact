@@ -560,7 +560,8 @@ php tests/run.php                    # the backend's tests: the upload rules (no
                                      # routes, the Files page's (a rename's dots, what is not in the database, Add strays
                                      # to database file by file), the game catalog and
                                      # its ids, the quizzes' levels (every rule, the routes,
-                                     # users/061), the library's data moves, every admin route's permissions, sign-in,
+                                     # users/061, users/069), the affiliations' cleanup (genshin_impact/034),
+                                     # the library's data moves, every admin route's permissions, sign-in,
                                      # the gates, a restore doing again the deletes since its backup, the pages'
                                      # error reports, where a request comes from (Cloudflare; with the origin
                                      # secret, only through the owner's zone) and what is kept of
@@ -988,7 +989,11 @@ node docs/security/build-report.mjs                            # after re-runnin
   order; a step's `class` only its quiz's CSS classes, one of each kind;
   Pixelate's grid 3-60 on every step, Music's seconds 1-60 on every step but
   the last, Voice's 0.25-10 never beside `hidden-audio`, none on a picture;
-  Mismatch's `choicesAmount` 3-8; each wrong guess showing more, never less; no
+  Mismatch's `choicesAmount` 3-8, its `properties` (what a set can be about:
+  one or more of element, weapon, region, era, affiliation, kept in that
+  order) and its `blend` 1-30 (sets drawn, the most alike kept; since
+  2026-10-29, `users/069` adding both to a row saved before); each wrong guess
+  showing more, never less; no
   other key, no other type. The levels are kept and answered in their own order
   (the quizzes, the levels, each object's keys), so a save of the same levels
   changes nothing and writes no entry. A save and a reset are
@@ -1348,6 +1353,27 @@ node docs/security/build-report.mjs                            # after re-runnin
   (`quiz-level-words.ts`) - a new kind of step, or a sentence that names one,
   needs a warning there too. The page shows what the server's rules say (`POST
   /api/admin/quiz-levels/check`, as it is typed), never rules of its own.
+- **Mismatch's sets** (`features/quizzes/mismatch/mismatch-sets.ts`, pure; the
+  owner's decision of 2026-10-29, measured on the roster first: more
+  characters alone made no level harder, every one more being one more that
+  shows what the rest share): a level asks its `properties` - an era is the
+  version's first number (`eraOf()`: "1.x", "Luna" for Luna I-VIII), an
+  affiliation a name in `characters.affiliations` (`genshin_impact/034` took
+  the "(on profile)" notes off); somebody with any other note on a name
+  (formerly, graduate, as Owl) is never in a set about it, nor its odd one
+  out, and a name that is a region's or "None" is never asked. Element, weapon
+  and region are checked on every level whatever it asks: no value of a
+  checked property may be held by exactly all but one, the answer's aside -
+  all of them sharing one is fine (five from Mondstadt, four of them
+  Knights). A value is picked by how many hold it, `blend` sets are drawn and
+  the one whose odd one out looks most like the rest kept, and every shuffle
+  is Fisher-Yates (`HELPER.shuffleArray`). The quiz plays by the keyboard: the
+  arrows or W A S D between the characters, Enter to pick and to move on
+  (`FocusOnShowDirective` on Next, shared with the five character quizzes,
+  whose search box takes the focus as a question starts - both only on a fine
+  pointer). Voice plays its line in the player's choice of English, Japanese,
+  Chinese or Korean (the round answers all four recordings; a line without
+  the one chosen plays English).
 - **The Profile** (`features/profile/`, the owner's choice "D" of 2026-10-22 among
   the mockups): the detail pages' hero worn by the player (`app-detail-hero` - the
   namecard of the character they meet most that has one behind the name, the

@@ -940,7 +940,8 @@ from the Translations page and keep the files.
 Admin panel → System → Quiz levels, for ADMIN and EDITOR (since `users/061`):
 what each level of each quiz shows, try by try - the classes that hide a
 picture (Banners, Dish) or a voice line, Pixelate's grid, the seconds of a
-track or a recording, how many characters Mismatch offers - as JSON in the
+track or a recording, and Mismatch's sets - how many characters, what they can
+share, how much the odd one out looks like the rest - as JSON in the
 kit's code editor, which colours it (`@anotoki/lib/ui/code-editor`, since
 anotoki-lib 0.9.2; `sites/admin/quiz-levels/`). Nothing saved, it holds the built-in
 levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
@@ -957,7 +958,11 @@ levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
   (3 to 60 blocks across, every step), Music's seconds (1 to 60, every step but
   the last, which may leave it out for the whole track), Voice's seconds (0.25 to
   10, never beside `hidden-audio`), none for a picture; Mismatch's
-  `choicesAmount` 3 to 8; each wrong guess showing more, never less (the grid
+  `choicesAmount` 3 to 8, its `properties` (what a set can be about: one or
+  more of `element`, `weapon`, `region`, `era` - the version's first number -
+  and `affiliation`, each once) and its `blend` 1 to 30 (how many sets are
+  drawn for a question, the one whose odd one out looks most like the rest
+  kept; 1 is any set); each wrong guess showing more, never less (the grid
   finer, the seconds more, a picture or a line never hidden more than the try
   before, the player never hidden again); no other key, no other type, 16 KB at
   most. A save the rules refuse answers 422 `invalid_levels` with the same
@@ -981,7 +986,9 @@ levels (`frontend/.../quizzes/shared/quiz-levels.ts`, `QUIZ_LEVELS`).
   the built-in levels: Banners' and Dish's steps (`quiz.levelInfo.picture*`),
   which of Voice's steps show the line and which play the recording
   (`quiz.levelInfo.voice*`), and Mismatch's card and guide, which say three to
-  five characters (`quiz.mismatch.info`, the Mismatch guide). The page warns -
+  five characters (`quiz.mismatch.info`, the Mismatch guide) - the guide also
+  what each level's sets can share (the dialog names a level's properties by
+  itself, `quiz.levelInfo.mismatchShared`). The page warns -
   never refuses - when levels leave those words behind, naming each string to
   reword on the Translations page (and the guide on the Guides page). A key
   keeps its English's placeholders, so a Voice level that plays fewer pieces

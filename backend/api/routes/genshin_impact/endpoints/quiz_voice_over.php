@@ -18,10 +18,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //   one character   a line lives in a voice-over set; a set shared by several
 //                   characters has no single right answer, but the only shared
 //                   sets are the Traveler's, already excluded on the next line
-//   english audio   the quiz plays the English recording and shows the English
-//                   text, so a line missing either cannot be asked
+//   english audio   the quiz shows the English text and plays the English
+//                   recording unless the player chose another language, so a
+//                   line missing either cannot be asked
 //   no traveller    Aether and Lumine are excluded from the quiz everywhere, as
 //                   the same character under twelve rows
+//
+// The other three recordings come along, each null where the line has none:
+// the player picks the language on the page, and a line without the one chosen
+// plays in English (nearly every line has all four).
 //
 // Public, like the rest of the game content.
 
@@ -37,6 +42,9 @@ $app->get('/api/quiz/voice-over/random', function (Request $request, Response $r
                 vo.title_english,
                 vo.text_english,
                 vo.audio_english_file_id,
+                vo.audio_japanese_file_id,
+                vo.audio_chinese_file_id,
+                vo.audio_korean_file_id,
                 c.id   AS character_id,
                 c.name AS character_name,
                 c.icon_file_id,

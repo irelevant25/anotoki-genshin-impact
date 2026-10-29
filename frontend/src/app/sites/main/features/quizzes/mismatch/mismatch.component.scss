@@ -6,6 +6,13 @@
   color: var(--text-primary);
 }
 
+// Which keys play it, quietly: a reminder for whoever has a keyboard, not a line to read.
+.mismatch-keys {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
 .mismatch-reason {
   margin: var(--spacing-md) 0;
   color: var(--text-primary);

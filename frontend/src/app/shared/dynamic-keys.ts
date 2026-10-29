@@ -44,6 +44,10 @@ export const DYNAMIC_KEYS: Record<string, readonly string[]> = {
   'game.tournament.format.': ['single', 'double', 'roundRobin'],
   // A quiz question's difficulty (the quizzes, the Profile's history).
   'quiz.difficulty.': ['easy', 'medium', 'hard'],
+  // What a Mismatch question can be about, as its difficulty dialog names it (quiz.types.ts' MismatchProperty; users/070).
+  'quiz.mismatch.property.': ['element', 'weapon', 'region', 'era', 'affiliation'],
+  // The languages a Voice question's recording plays in, the picker beside its player (users/070).
+  'quiz.voice.languages.': ['english', 'japanese', 'chinese', 'korean'],
   // The Profile's tabs, the order of its Characters tab, and how many characters its filters left - the same three
   // forms (users/065).
   'profile.tabs.': ['overview', 'quizzes', 'characters', 'history'],

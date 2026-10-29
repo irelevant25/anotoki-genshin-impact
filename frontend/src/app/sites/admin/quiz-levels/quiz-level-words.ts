@@ -1,5 +1,5 @@
 import { QUIZ_LEVELS, QuizLevels, levelWordsKey, piecesOf, voicePiecesNamed } from '../../main/features/quizzes/shared/quiz-levels';
-import { QUIZ_DIFFICULTIES, QuizEffect, QuizId } from '../../main/features/quizzes/shared/quiz.types';
+import { MISMATCH_PROPERTIES, MismatchProperty, QUIZ_DIFFICULTIES, QuizEffect, QuizId } from '../../main/features/quizzes/shared/quiz.types';
 
 /**
  * What the Quiz levels page says about levels besides the server's rules: the
@@ -19,7 +19,8 @@ import { QUIZ_DIFFICULTIES, QuizEffect, QuizId } from '../../main/features/quizz
  *     pieces than its sentence names is said in general words instead
  *     (quiz.levelInfo.voiceOther: a key keeps its English's placeholders);
  *   - Mismatch's card (quiz.mismatch.info) and its guide say three, four or
- *     five characters.
+ *     five characters, and the guide says what each level's sets can share
+ *     (the dialog names a level's properties by itself).
  *
  * A level whose steps leave them behind is a warning, never a refusal: the
  * words are reworded on the Translations and Guides pages, in English and
@@ -32,8 +33,8 @@ export interface LevelWordsWarning {
   /** The level, or null: the quiz as a whole. */
   readonly level: number | null;
   readonly message: string;
-  /** The string that says it (the Translations page). */
-  readonly key: string;
+  /** The string that says it (the Translations page) - null where only a guide does. */
+  readonly key: string | null;
   /** Whether a guide says it too (the Guides page). */
   readonly guide: boolean;
 }
@@ -104,14 +105,40 @@ export function levelWordsWarnings(levels: QuizLevels): LevelWordsWarning[] {
       message: `Its card and its guide say three, four or five characters, more on a harder level - these levels show ${choices.join(', ')}. The difficulty dialog's count follows by itself; they do not.`,
     });
   }
+  // What a level's sets can share, in the levels' own order: the same properties in another order say the same.
+  const named = (properties: readonly MismatchProperty[] | undefined): string => MISMATCH_PROPERTIES.filter((property) => properties?.includes(property)).join(', ');
+  for (const level of QUIZ_DIFFICULTIES) {
+    const asked = named(levels.mismatch[level]?.properties);
+    const builtIn = named(QUIZ_LEVELS.mismatch[level]?.properties);
+    if (asked !== builtIn) {
+      warnings.push({
+        quiz: 'mismatch',
+        level,
+        key: null,
+        guide: true,
+        message: `Its guide says this level's sets share their ${builtIn}; these share their ${asked}. The difficulty dialog names them by itself; the guide does not.`,
+      });
+    }
+  }
   return warnings;
 }
+
+const isScalar = (value: unknown): boolean => typeof value !== 'object' || value === null;
+
+/** A value that goes on one line: a number, a text, or a list of them - a Mismatch level's properties. */
+const isPlain = (value: unknown): boolean => isScalar(value) || (Array.isArray(value) && value.every(isScalar));
+
+/** A plain value on one line, a list with a space after each comma, as the rest of the text is written. */
+const plainText = (value: unknown): string => (Array.isArray(value) ? `[${value.map((item) => JSON.stringify(item)).join(', ')}]` : (JSON.stringify(value) ?? 'null'));
 
 /** JSON as the page's editor holds it: two spaces an indent, and an object of plain values - a step, a Mismatch level - on one line. */
 export function levelsText(value: unknown, indent = ''): string {
   if (Array.isArray(value)) {
     if (value.length === 0) {
       return '[]';
+    }
+    if (value.every(isScalar)) {
+      return plainText(value);
     }
     const inner = `${indent}  `;
     return `[\n${value.map((item) => inner + levelsText(item, inner)).join(',\n')}\n${indent}]`;
@@ -121,8 +148,8 @@ export function levelsText(value: unknown, indent = ''): string {
     if (entries.length === 0) {
       return '{}';
     }
-    if (entries.every(([, item]) => typeof item !== 'object' || item === null)) {
-      return `{ ${entries.map(([key, item]) => `${JSON.stringify(key)}: ${JSON.stringify(item)}`).join(', ')} }`;
+    if (entries.every(([, item]) => isPlain(item))) {
+      return `{ ${entries.map(([key, item]) => `${JSON.stringify(key)}: ${plainText(item)}`).join(', ')} }`;
     }
     const inner = `${indent}  `;
     return `{\n${entries.map(([key, item]) => `${inner}${JSON.stringify(key)}: ${levelsText(item, inner)}`).join(',\n')}\n${indent}}`;

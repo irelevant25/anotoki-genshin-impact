@@ -1,7 +1,6 @@
-import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { Component, ElementRef, computed, effect, inject, signal, untracked, viewChildren } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { HELPER } from '../../../../../shared/helper';
 import { StateService } from '../../../../../shared/state-manager.service';
 import { LoaderComponent } from '../../../../../shared/local-lib/components/loader/loader.component';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
@@ -9,40 +8,49 @@ import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective } from '../../../../admin/shared/material-icon.directive';
 import { todayString } from '../shared/daily';
 import { QuizDifficultyBadgeComponent } from '../shared/difficulty-badge/quiz-difficulty-badge.component';
+import { FocusOnShowDirective, finePointer } from '../shared/focus-on-show.directive';
 import { DAILY_DIFFICULTY } from '../shared/quiz-levels';
 import { QuizLevelsService } from '../shared/quiz-levels.service';
 import { QuizProgressService, hasPlay } from '../shared/quiz-progress.service';
-import { QuizId, QuizState } from '../shared/quiz.types';
+import { MISMATCH_PROPERTIES, MismatchProperty, QuizId, QuizState } from '../shared/quiz.types';
 import { GameListsService } from '../../../game-lists.service';
-
-/** The three things a set can have in common. */
-const PROPERTIES = ['element', 'weapon_type', 'region'] as const;
-
-/** Attempts at a clean set before giving up on a property/value pairing. */
-const MAX_ATTEMPTS = 30;
+import { drawMismatchSet } from './mismatch-sets';
 
 interface QuizSet {
   options: any[];
   answer: any;
-  property: string;
+  property: MismatchProperty | null;
   commonValue: string;
+}
+
+/** The keys that move between the characters: the arrows, and W A S D. */
+const STEPS: Readonly<Record<string, number>> = { ArrowLeft: -1, ArrowUp: -1, a: -1, w: -1, ArrowRight: 1, ArrowDown: 1, d: 1, s: 1 };
+
+/** A saved set's property; sets saved before 2026-10-29 named the weapon by its column. */
+function propertyOf(saved: string | undefined): MismatchProperty | null {
+  const property = saved === 'weapon_type' ? 'weapon' : saved;
+  return MISMATCH_PROPERTIES.find((known) => known === property) ?? null;
 }
 
 /**
  * Pick the character that does not belong.
  *
- * All but one share an element, a weapon type or a region; you click the odd one
- * out. Three on easy, five on hard - as the built-in levels have it; the levels
- * in force say how many (QuizLevelsService).
+ * All but one share an element, a weapon type, a region, an era or an
+ * affiliation - which of them a level asks, how many characters it shows and
+ * how much its odd one out looks like the rest are the levels in force
+ * (QuizLevelsService); the sets are drawn by mismatch-sets.ts.
  *
  * This is the one quiz that is not "which character is this?", so it has none of
- * the tries machinery the other five share - one click ends it.
+ * the tries machinery the other five share - one click ends it. It is played
+ * by the keyboard as well: the arrows or A and D move between the characters,
+ * Enter picks one, and Enter again moves on.
  */
 @Component({
   selector: 'app-quizzes-mismatch',
   templateUrl: './mismatch.component.html',
   styleUrls: ['./mismatch.component.scss'],
-  imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent],
+  imports: [LoaderComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent, FocusOnShowDirective],
+  host: { '(document:keydown)': 'onKeydown($event)' },
 })
 export class QuizzesMismatchComponent {
   private readonly _lists = inject(GameListsService);
@@ -66,8 +74,18 @@ export class QuizzesMismatchComponent {
   readonly picked = signal<any>(null);
   readonly isQuestionComplete = signal(false);
 
-  readonly choicesAmount = computed(() => this._levels.level(this._quizId, this.difficulty()).choicesAmount ?? 4);
+  private readonly _level = computed(() => this._levels.level(this._quizId, this.difficulty()));
+  readonly choicesAmount = computed(() => this._level().choicesAmount ?? 4);
   readonly isSuccess = computed(() => !!this.picked() && this.picked()?.name === this.quizSet()?.answer?.name);
+
+  /** The characters' buttons, for the keys that move between them. */
+  private readonly _cards = viewChildren<ElementRef<HTMLButtonElement>>('card');
+
+  /**
+   * Whether the page says which keys play it: only where there is a mouse or
+   * a trackpad, which is where there is a keyboard to play with.
+   */
+  readonly keyboardHint = finePointer();
 
   /**
    * Whose game this page is playing - QuizProgressService's ticket, handed
@@ -138,6 +156,36 @@ export class QuizzesMismatchComponent {
   }
 
   /**
+   * The arrows and W A S D move the focus from character to character, round
+   * the ends; Enter on the one focused picks it, as on any button. Keys meant
+   * for something else - typed into a field, pressed in a dialog, with a
+   * modifier - are left alone, and so is everything once the set is over.
+   */
+  onKeydown(event: KeyboardEvent): void {
+    const step = STEPS[event.key.length === 1 ? event.key.toLowerCase() : event.key];
+    const target = event.target instanceof Element ? event.target : null;
+    if (
+      !step ||
+      event.defaultPrevented ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      this.isQuestionComplete() ||
+      target?.closest('input, textarea, select, [contenteditable="true"], dialog, [role="dialog"]')
+    ) {
+      return;
+    }
+    const cards = this._cards().map((card) => card.nativeElement);
+    if (!cards.length) {
+      return;
+    }
+    event.preventDefault();
+    const current = cards.indexOf(document.activeElement as HTMLButtonElement);
+    const next = current === -1 ? (step > 0 ? 0 : cards.length - 1) : (current + step + cards.length) % cards.length;
+    cards[next].focus();
+  }
+
+  /**
    * A level chosen in the difficulty dialog: kept for this quiz in this
    * browser, for the sets drawn from now on. A set nobody has picked from yet
    * has not begun, and is drawn again at once; an answered one keeps its level.
@@ -175,7 +223,7 @@ export class QuizzesMismatchComponent {
       this.quizSet.set({
         options,
         answer: byName(saved.answer),
-        property: saved.quizProperty ?? '',
+        property: propertyOf(saved.quizProperty),
         commonValue: saved.commonValue ?? '',
       });
       this.isQuestionComplete.set(saved.isQuestionComplete);
@@ -189,76 +237,11 @@ export class QuizzesMismatchComponent {
     // The choice read again, as another tab may have made one since.
     this.chosenDifficulty.set(this._stateService.getQuizDifficulty(this._quizId));
     this.difficulty.set(this._levelForNewSet());
-    this.quizSet.set(this._randomQuizSet(this.choicesAmount()));
+    const set = drawMismatchSet(this.characters(), this._level());
+    this.quizSet.set(set && { options: set.options, answer: set.answer, property: set.property, commonValue: set.value });
     this.picked.set(null);
     this.isQuestionComplete.set(false);
     this._saveState();
-  }
-
-  /**
-   * Builds a set where exactly one property separates one character from the
-   * rest.
-   *
-   * The hard part is not finding a majority - it is making sure no *other*
-   * property accidentally splits the set the same way, which would leave two
-   * defensible answers. Sets are drawn and thrown away until one is clean.
-   */
-  private _randomQuizSet(count: number): QuizSet | null {
-    const characters = this.characters();
-
-    // Every property/value pairing with enough characters behind it to fill a
-    // majority, in random order so the quiz does not always ask about elements.
-    const viable: { property: string; value: string }[] = [];
-    for (const property of HELPER.shuffleArray([...PROPERTIES])) {
-      const counts = new Map<string, number>();
-      for (const character of characters) {
-        const value = character[property];
-        if (value) {
-          counts.set(value, (counts.get(value) ?? 0) + 1);
-        }
-      }
-      for (const [value, frequency] of counts) {
-        if (frequency >= count - 1) {
-          viable.push({ property, value });
-        }
-      }
-    }
-
-    for (const { property, value } of HELPER.shuffleArray(viable)) {
-      const matching = characters.filter((character) => character[property] === value);
-      const notMatching = characters.filter((character) => character[property] !== value);
-
-      if (matching.length < count - 1 || !notMatching.length) {
-        continue;
-      }
-
-      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-        const majority = HELPER.shuffleArray([...matching]).slice(0, count - 1);
-        const oddOneOut = notMatching[HELPER.getRandomInt(0, notMatching.length - 1)];
-        const candidate = [...majority, oddOneOut];
-
-        if (PROPERTIES.every((other) => other === property || !this._splitsTheSameWay(candidate, other, count))) {
-          return {
-            options: HELPER.shuffleArray(candidate),
-            answer: oddOneOut,
-            property,
-            commonValue: value,
-          };
-        }
-      }
-    }
-
-    return null;
-  }
-
-  /** True when some other property also has count-1 of the set agreeing on it. */
-  private _splitsTheSameWay(candidate: any[], property: string, count: number): boolean {
-    const counts = new Map<string, number>();
-    for (const character of candidate) {
-      const value = character[property];
-      counts.set(value, (counts.get(value) ?? 0) + 1);
-    }
-    return Math.max(...counts.values()) >= count - 1;
   }
 
   private _saveState(): void {
@@ -274,7 +257,7 @@ export class QuizzesMismatchComponent {
       choicesAmount: this.choicesAmount(),
       options: set?.options.map((character) => character.name),
       answer: set?.answer?.name,
-      quizProperty: set?.property,
+      quizProperty: set?.property ?? undefined,
       commonValue: set?.commonValue,
     };
     this._progress.save(this._quizId, state, this.isDaily(), this._ticket);

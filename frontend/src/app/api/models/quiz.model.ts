@@ -229,7 +229,7 @@ export interface QuizStatsRow {
  *
  * Only lines with both English audio and English text are drawn, and the
  * Travellers are left out - one character across twelve rows would meet
- * themselves.
+ * themselves. The other three recordings are null where the line has none.
  */
 export interface QuizVoiceOverRound {
   id: number;
@@ -237,6 +237,9 @@ export interface QuizVoiceOverRound {
   title_english: string;
   text_english: string;
   audio_english: string;
+  audio_japanese: string | null;
+  audio_chinese: string | null;
+  audio_korean: string | null;
   character_id: number;
   character_name: string;
   icon_name: string | null;

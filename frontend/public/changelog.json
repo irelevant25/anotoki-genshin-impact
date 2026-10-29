@@ -1,5 +1,21 @@
 [
   {
+    "version": "1.6.0",
+    "date": "2026-10-29",
+    "changes": {
+      "added": [
+        "Mismatch gets harder in earnest on Medium and Hard: Medium can also be about the version the characters came out in, Hard about their region, their version or a group they belong to — the Knights of Favonius, the Fatui, the Adepti… — and on both the odd one out looks more like the rest",
+        "In the Voice quiz you choose the language of the recording — English, Japanese, Chinese or Korean",
+        "Every quiz can be played with the keyboard: the search box is ready to type in as a question starts, and Enter moves on to the next one; in Mismatch the arrow keys (or A and D) move between the characters and Enter picks one"
+      ],
+      "fixed": [
+        "In the Music and Voice quizzes, Play works again after moving on to the next question while a recording was playing",
+        "Mismatch shows every character about as often as any other — some came up more than twice as often as the rest",
+        "A character’s page shows each affiliation by its name alone, without “(on profile)” after some of them"
+      ]
+    }
+  },
+  {
     "version": "1.5.0",
     "date": "2026-10-22",
     "changes": {

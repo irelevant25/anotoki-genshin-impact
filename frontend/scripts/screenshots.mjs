@@ -468,7 +468,8 @@ const SAVED_LEVELS = (() => {
   return {
     banners: picture,
     pixelate: { 1: seconds(9, 12, 17, 22, 27), 2: seconds(6, 10, 14, 18, 22), 3: seconds(5, 8, 11, 14, 17) },
-    mismatch: { 1: { choicesAmount: 4 }, 2: { choicesAmount: 4 }, 3: { choicesAmount: 4 } },
+    // Four characters on every level, what they share the same on each: the check is about the count.
+    mismatch: Object.fromEntries([1, 2, 3].map((level) => [level, { choicesAmount: 4, properties: ['element', 'weapon', 'region'], blend: 1 }])),
     music: { 1: seconds(5, 10, 15, 20, null), 2: seconds(3, 6, 9, 12, 15), 3: seconds(2, 4, 6, 8, 10) },
     dish: picture,
     voice: {

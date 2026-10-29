@@ -40,10 +40,13 @@ $words = static fn(): array => [
 same('the three are there, as users/015 left them, each in English and Slovak', [3, 6], $words());
 // The owner's own wording of one of them: it goes too.
 $pdo->exec("UPDATE translations SET value = '(a {count} ďalších)' WHERE key_name = 'multiselect.more.other' AND language_code = 'sk'");
-/** The site's own keys and strings - not the library's (anotoki.*), which its sets bring as Apply runs them. */
+/**
+ * The site's own keys and strings by name - not the library's (anotoki.*), which its sets bring as Apply runs them.
+ * By name rather than counted: the files after 068 that Apply runs with it add words of their own.
+ */
 $siteWords = static fn(): array => [
-    (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name NOT LIKE 'anotoki.%'")->fetchColumn(),
-    (int) $pdo->query("SELECT count(*) FROM translations WHERE key_name NOT LIKE 'anotoki.%'")->fetchColumn(),
+    $pdo->query("SELECT name FROM translation_keys WHERE name NOT LIKE 'anotoki.%' ORDER BY name")->fetchAll(PDO::FETCH_COLUMN),
+    $pdo->query("SELECT key_name || '/' || language_code FROM translations WHERE key_name NOT LIKE 'anotoki.%' ORDER BY 1")->fetchAll(PDO::FETCH_COLUMN),
 ];
 [$keysBefore, $stringsBefore] = $siteWords();
 
@@ -88,7 +91,12 @@ $applied = siteMigrator($pdo)->apply();
 $names = array_map(static fn(array $file): string => $file['set'] . '/' . $file['name'], $applied['applied']);
 check('users/068 applied by the site\'s engine, its gate content', $applied['error'] === null && in_array(FILE, $names, true), (string) $applied['error']);
 same('the three are gone, every string under them - the owner\'s wording too', [0, 0], $words());
-same('nothing else of the site\'s went: its other keys and strings as they were', [$keysBefore - 3, $stringsBefore - 6], $siteWords());
+[$keysAfter, $stringsAfter] = $siteWords();
+same(
+    'nothing else of the site\'s went: of its keys and strings, only the three and their six are gone',
+    [MORE_KEYS, array_merge(...array_map(static fn(string $key): array => ["$key/en", "$key/sk"], MORE_KEYS))],
+    [array_values(array_diff($keysBefore, $keysAfter)), array_values(array_diff($stringsBefore, $stringsAfter))],
+);
 
 $pdo->beginTransaction();
 $again = 'no complaint';

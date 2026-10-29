@@ -1,10 +1,11 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, input, output, signal, viewChild } from '@angular/core';
 import { ComboboxComponent, ComboboxOption } from '@anotoki/lib/ui/combobox';
 import { ButtonComponent } from '@anotoki/lib/ui/button';
 import { TranslatePipe } from '@anotoki/lib/translations';
 import { MaterialIconDirective, materialIconCandidates } from '../../../../../admin/shared/material-icon.directive';
 import { DropdownOption } from '../../../../../../shared/local-lib/services/options-helper.service';
 import { QuizDifficultyBadgeComponent } from '../difficulty-badge/quiz-difficulty-badge.component';
+import { FocusOnShowDirective, finePointer } from '../focus-on-show.directive';
 import { QuizId } from '../quiz.types';
 
 /**
@@ -14,12 +15,18 @@ import { QuizId } from '../quiz.types';
  * The question itself is projected, because that is the only part that differs -
  * a banner, a dish, a canvas, a player. On the old site this frame was copied
  * into all five templates, and drifted between them.
+ *
+ * It is played from the keyboard as well: a question starts with the focus in
+ * the search box, and once it is over Enter moves on (FocusOnShowDirective).
+ * On a touch screen only the box after a guess takes the focus, as it always
+ * has: a question's first would open the keyboard over the question before it
+ * was seen (finePointer()).
  */
 @Component({
   selector: 'app-quiz-frame',
   templateUrl: './quiz-frame.component.html',
   styleUrls: ['./quiz-frame.component.scss'],
-  imports: [ComboboxComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent],
+  imports: [ComboboxComponent, ButtonComponent, TranslatePipe, MaterialIconDirective, QuizDifficultyBadgeComponent, FocusOnShowDirective],
 })
 export class QuizFrameComponent {
   readonly quizId = input.required<QuizId>();
@@ -69,6 +76,36 @@ export class QuizFrameComponent {
 
   /** One guess after another: the field is made anew for each (empty, the focus in it). */
   readonly round = signal(0);
+
+  /** The search box on the page: a new one for each guess, none once the question is over. */
+  private readonly _search = viewChild(ComboboxComponent, { read: ElementRef });
+
+  constructor() {
+    // Each search box takes the focus as it is drawn - a question's first, and
+    // the next after every guess - so that typing goes into it at once. Where
+    // the pointer is fine, without scrolling: the kit's `autofocus` focuses as
+    // the browser does, scrolling a box below the fold of a short window into
+    // view and the question off the top of it; left where it is, the box comes
+    // into view by itself once somebody types in it. On a touch screen only
+    // the box after a guess, as the kit's autofocus did it.
+    let seen: HTMLElement | null = null;
+    afterRenderEffect({
+      write: () => {
+        const host: HTMLElement | undefined = this._search()?.nativeElement;
+        const field = host?.querySelector<HTMLInputElement>('input[role="combobox"]') ?? null;
+        const afterGuess = this.round() > 0;
+        if (field === seen) {
+          return;
+        }
+        seen = field;
+        if (field && finePointer()) {
+          field.focus({ preventScroll: true });
+        } else if (field && afterGuess) {
+          field.focus();
+        }
+      },
+    });
+  }
 
   /** A character chosen in the search box: a guess - and the box is empty again for the next. */
   choose(value: string | null): void {

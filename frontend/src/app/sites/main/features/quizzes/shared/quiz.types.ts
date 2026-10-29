@@ -25,12 +25,29 @@ export interface QuizEffect {
   readonly data?: number;
 }
 
+/**
+ * What a Mismatch question can be about: all but one of its characters share
+ * an element, a weapon type, a region, an era (the version they came out in -
+ * 1.x, 2.x, Luna...) or an affiliation (mismatch-sets.ts).
+ */
+export type MismatchProperty = 'element' | 'weapon' | 'region' | 'era' | 'affiliation';
+
+/** Every Mismatch property, in the order the levels list them (and the server's rules, backend api/quiz_levels.php). */
+export const MISMATCH_PROPERTIES: readonly MismatchProperty[] = ['element', 'weapon', 'region', 'era', 'affiliation'];
+
 /** One difficulty of one quiz. */
 export interface QuizLevel {
   readonly triesMax?: number;
   readonly triesEffects?: QuizEffect[];
   /** Mismatch only: how many characters are on offer. */
   readonly choicesAmount?: number;
+  /** Mismatch only: what a question can be about. */
+  readonly properties?: readonly MismatchProperty[];
+  /**
+   * Mismatch only: how many sets are drawn for a question, the one whose odd
+   * one out looks most like the others kept - 1 is the first set drawn.
+   */
+  readonly blend?: number;
 }
 
 /**

@@ -10,6 +10,8 @@ export interface IStateBottomMenu {
   difficulty: string;
   /** The difficulty chosen for each quiz, in its difficulty dialog (1 easy, 2 medium, 3 hard). */
   difficulties?: Partial<Record<QuizId, number>>;
+  /** The language the Voice quiz's recordings play in, chosen beside its player ('japanese'...): the quiz reads what it does not know as English. */
+  voiceLanguage?: string;
   version: string;
 }
 
@@ -164,6 +166,24 @@ export class StateService {
     this.loadData();
     const menu = this.data.bottomMenu;
     menu.difficulties = { ...menu.difficulties, [quizId]: knownDifficulty(difficulty) };
+    return this.saveData(this.data);
+  }
+
+  /**
+   * The language the Voice quiz's recordings play in, as it was last chosen
+   * in this browser - undefined while none was. Kept beside the difficulties,
+   * another choice of how to play; which languages there are is the quiz's to
+   * say, so what is read here is only ever a string.
+   */
+  getVoiceLanguage(): string | undefined {
+    this.loadData();
+    const language = this.data.bottomMenu.voiceLanguage;
+    return typeof language === 'string' ? language : undefined;
+  }
+
+  saveVoiceLanguage(language: string): boolean {
+    this.loadData();
+    this.data.bottomMenu.voiceLanguage = language;
     return this.saveData(this.data);
   }
 

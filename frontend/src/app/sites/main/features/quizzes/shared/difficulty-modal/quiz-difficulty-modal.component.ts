@@ -7,7 +7,7 @@ import { AbstractModalComponent } from '../../../../../../shared/local-lib/abstr
 import { quizCard } from '../quiz-catalog';
 import { levelWords } from '../quiz-levels';
 import { QuizLevelsService } from '../quiz-levels.service';
-import { QUIZ_DIFFICULTIES, QuizId, difficultyName } from '../quiz.types';
+import { MismatchProperty, QUIZ_DIFFICULTIES, QuizId, difficultyName } from '../quiz.types';
 
 /** What the badge hands over when it opens this. */
 export interface QuizDifficultyData {
@@ -48,17 +48,21 @@ export class QuizDifficultyModalComponent extends AbstractModalComponent {
   /** The level picked, as the radios hold it. */
   readonly selected = signal(String(this._data.chosen));
 
-  /** What changes from level to level: what is shown, or - in mismatch, which has no tries - how many to choose from. */
+  /** What changes from level to level: what is shown, or - in mismatch, which has no tries - how many to choose from and what they share. */
   readonly intro = this._data.quizId === 'mismatch' ? 'quiz.difficulty.introMismatch' : 'quiz.difficulty.intro';
 
   readonly options = computed<RadioOption[]>(() =>
     QUIZ_DIFFICULTIES.map((difficulty) => {
       const name = this._levelName(difficulty);
       const words = levelWords(this._data.quizId, difficulty, this._levels.level(this._data.quizId, difficulty));
+      const sentences = [this._i18n.t(words.key, this._numbers(words.params))];
+      if (words.shared?.length) {
+        sentences.push(this._i18n.t('quiz.levelInfo.mismatchShared', { properties: this._properties(words.shared) }));
+      }
       return {
         value: String(difficulty),
         label: difficulty === this._data.current ? this._i18n.t('quiz.difficulty.current', { level: name }) : name,
-        hint: this._i18n.t(words.key, this._numbers(words.params)),
+        hint: sentences.join(' '),
       };
     }),
   );
@@ -80,6 +84,12 @@ export class QuizDifficultyModalComponent extends AbstractModalComponent {
 
   private _levelName(difficulty: number): string {
     return this._i18n.t(`quiz.difficulty.${difficultyName(difficulty)}`);
+  }
+
+  /** Mismatch's properties named and joined as the reader's language does it: "element, weapon type or region", "živel, typ zbrane alebo región". */
+  private _properties(properties: readonly MismatchProperty[]): string {
+    const names = properties.map((property) => this._i18n.t(`quiz.mismatch.property.${property}`));
+    return new Intl.ListFormat(this._i18n.locale(), { type: 'disjunction' }).format(names);
   }
 
   /** A sentence's numbers as the reader's language writes them: half a second is 0.5 s in English, 0,5 s in Slovak. */

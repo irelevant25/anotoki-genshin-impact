@@ -1,6 +1,6 @@
 <anotoki-page-header
     heading="Quiz levels"
-    lead="What each level of each quiz shows, try by try: the classes that hide a picture or a line, Pixelate's grid, the seconds of a track or a recording, how many characters Mismatch offers. Saved here, they take the place of the built-in levels on every quiz at once; the daily plays Easy." />
+    lead="What each level of each quiz shows, try by try: the classes that hide a picture or a line, Pixelate's grid, the seconds of a track or a recording; and Mismatch's sets - how many characters, what they can share, how much the odd one out looks like the rest. Saved here, they take the place of the built-in levels on every quiz at once; the daily plays Easy." />
 
 @if (loading()) {
     <anotoki-spinner class="page-spinner" label />
@@ -25,7 +25,7 @@
         <anotoki-code-editor
             label="The levels, as JSON"
             language="json"
-            hint="Six quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has five steps, try 0 to try 4 - what it hides after that many wrong guesses; a Mismatch level, how many characters it shows."
+            hint="Six quizzes, each with its levels 1 (Easy), 2 (Medium) and 3 (Hard). A level of tries has five steps, try 0 to try 4 - what it hides after that many wrong guesses. A Mismatch level has choicesAmount, how many characters it shows; properties, what all but one of them can share (element, weapon, region, era, affiliation); and blend, how many sets are drawn for a question, the one whose odd one out looks most like the rest kept (1: any set, up to 30)."
             [rows]="22"
             [disabled]="busy()"
             [error]="syntaxError()"
@@ -75,9 +75,13 @@
                         <li>
                             <span class="levels-place">{{ placeOf(warning.quiz, warning.level) }}:</span>
                             {{ warning.message }} Its words:
-                            <code>{{ warning.key }}</code>
-                            @if (warning.guide) {
-                                and the {{ placeOf(warning.quiz, null) }} guide
+                            @if (warning.key) {
+                                <code>{{ warning.key }}</code>
+                                @if (warning.guide) {
+                                    and the {{ placeOf(warning.quiz, null) }} guide
+                                }
+                            } @else {
+                                the {{ placeOf(warning.quiz, null) }} guide
                             }
                         </li>
                     }

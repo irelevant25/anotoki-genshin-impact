@@ -8,7 +8,8 @@
         @if (!isQuestionComplete()) {
             <!-- The kit's combobox (@anotoki/lib/ui/combobox): typing filters the names, accents and case aside, each
                  with the character's picture; a choice is a guess. Made anew for each guess (`round`), so the field is
-                 empty again for the next one, with the focus in it. -->
+                 empty again for the next one - the focus put in it by the frame (QuizFrameComponent), not the kit's
+                 autofocus, which would scroll the page to it. -->
             @for (turn of [round()]; track turn) {
                 <anotoki-combobox
                     class="w-100 quiz-search-field"
@@ -17,14 +18,13 @@
                     [placeholder]="'quiz.searchCharacter' | translate"
                     [options]="choices()"
                     [limit]="200"
-                    [autofocus]="turn > 0"
                     (valueChange)="choose($event)" />
             }
         }
 
-        <!-- The daily run gives one question a day, so there is no next. -->
+        <!-- The daily run gives one question a day, so there is no next. Enter presses it once it is there. -->
         @if (!isDaily() && isQuestionComplete()) {
-            <button anotokiButton variant="primary" size="lg" (click)="next.emit()">{{ "quiz.next" | translate }}</button>
+            <button anotokiButton appFocusOnShow variant="primary" size="lg" (click)="next.emit()">{{ "quiz.next" | translate }}</button>
         }
     </div>
 

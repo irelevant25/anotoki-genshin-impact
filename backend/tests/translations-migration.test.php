@@ -120,10 +120,13 @@ const LIBRARY_WORDS_FILES = [
 // its old closed sign, bar and notice gone), users/067 (050's copies of the
 // words gone, and the Privacy page's line for every old copy), users/068 (the
 // old multiselect's last words gone, the library's multiselect in its place),
-// genshin_impact/033 (028's and 029's copies gone),
-// genshin_impact/030-031 (the game's own ids, for the build analyzer's
-// catalog) and 032 (the lists the character form saved in one layer of JSON
-// too many, unwrapped), which one Apply brings along.
+// users/069 (Mismatch's levels' properties and blend, in a saved row),
+// users/070 (Mismatch's new sets' and Voice's languages' words, the Mismatch
+// dialog's introduction and guide reworded), genshin_impact/033 (028's and
+// 029's copies gone), genshin_impact/030-031 (the game's own ids, for the
+// build analyzer's catalog), 032 (the lists the character form saved in one
+// layer of JSON too many, unwrapped) and 034 (the affiliations' "(on profile)"
+// notes off), which one Apply brings along.
 const WORDS_AND_AFTER = [
     'anotoki_admin/001_audit_log.sql',
     'anotoki_admin/002_feedback.sql',
@@ -147,12 +150,15 @@ const WORDS_AND_AFTER = [
     'users/066_site_settings_into_the_library.sql',
     'users/067_drop_the_old_copies.sql',
     'users/068_drop_multiselect_more_strings.sql',
+    'users/069_mismatch_levels_properties.sql',
+    'users/070_mismatch_and_voice_words.sql',
     'genshin_impact/028_audit_into_library.sql',
     'genshin_impact/029_feedback_into_library.sql',
     'genshin_impact/030_game_ids.sql',
     'genshin_impact/031_game_ids_filled.sql',
     'genshin_impact/032_lists_unwrapped.sql',
     'genshin_impact/033_drop_the_old_copies.sql',
+    'genshin_impact/034_affiliations_cleaned.sql',
     'anotoki_translations/001_languages_and_strings.sql',
     'anotoki_translations/002_library_words.sql',
     'anotoki_translations/003_sign_in_words.sql',
@@ -352,6 +358,25 @@ const GONE_BY_066 = [
 const GONE_BY_067 = ['legal.oldCopies.kept', 'legal.oldCopies.name', 'legal.oldCopies.what', 'legal.oldCopies.why'];
 // What users/068 takes away: genshin's own multiselect's "+2 more", which the library's multiselect says in its words.
 const GONE_BY_068 = ['multiselect.more.few', 'multiselect.more.one', 'multiselect.more.other'];
+// What users/070 brings: Mismatch's new sets' words - the five properties' names, the dialog's sentence naming a
+// level's, a version said as one, the keys that play it - and Voice's languages'. What it rewords is 058's and 059's
+// (the Mismatch dialog's introduction, not there before; its guide, 059's already).
+const MISMATCH_VOICE_NEW_KEYS = [
+    'quiz.levelInfo.mismatchShared',
+    'quiz.mismatch.eraValue',
+    'quiz.mismatch.keys',
+    'quiz.mismatch.property.affiliation',
+    'quiz.mismatch.property.element',
+    'quiz.mismatch.property.era',
+    'quiz.mismatch.property.region',
+    'quiz.mismatch.property.weapon',
+    'quiz.voice.language',
+    'quiz.voice.languageMissing',
+    'quiz.voice.languages.chinese',
+    'quiz.voice.languages.english',
+    'quiz.voice.languages.japanese',
+    'quiz.voice.languages.korean',
+];
 
 // What users/053 takes away with anotoki-lib 0.4.1: the old feedback form's
 // words (its two buttons among them) and the old sign-in callback page's.
@@ -519,7 +544,7 @@ same('the three blanks are gone', 3, $blank);
 $libraryKeys = (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name LIKE 'anotoki.%'")->fetchColumn();
 same('the library\'s own keys came, 357 of them', 357, $libraryKeys);
 $guideBodies = count(array_filter(array_keys($keysBefore), fn($key) => preg_match('/^guide\.[^.]+\.content$/', $key) === 1));
-$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS);
+$came = 1 + LEGAL_PAGE_KEYS + count(FOOTER_NEW_KEYS) + count(DIFFICULTY_NEW_KEYS) + count(LEVELS_NEW_KEYS) + DATABASE_PAGES_KEYS + count(PROFILE_NEW_KEYS) + count(MISMATCH_VOICE_NEW_KEYS);
 $went =
     count(OLD_FORM_KEYS) +
     count(MULTISELECT_SUMMARY_KEYS) +
@@ -532,9 +557,20 @@ $went =
     count(GONE_BY_067) +
     count(GONE_BY_068);
 same(
-    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s and 065\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
+    'and nothing else but 051\'s one key, 055\'s, 057\'s, 058\'s, 061\'s, 062\'s, 063\'s, 065\'s and 070\'s in, 053\'s, 056\'s, 057\'s, 060\'s, 062\'s, 063\'s, 064\'s, 065\'s, 066\'s, 067\'s and 068\'s out: the keys but the guides\' bodies, kept',
     count($keysBefore) - $guideBodies + $came - $went + 357,
     (int) $pdo->query('SELECT count(*) FROM translation_keys')->fetchColumn(),
+);
+$inList = "'" . implode("', '", MISMATCH_VOICE_NEW_KEYS) . "'";
+same(
+    '070: Mismatch\'s new sets\' and Voice\'s languages\' words, none there before, each in English and Slovak',
+    [0, count(MISMATCH_VOICE_NEW_KEYS), count(MISMATCH_VOICE_NEW_KEYS), count(MISMATCH_VOICE_NEW_KEYS)],
+    [
+        count(array_intersect(MISMATCH_VOICE_NEW_KEYS, array_keys($keysBefore))),
+        (int) $pdo->query("SELECT count(*) FROM translation_keys WHERE name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'en' AND key_name IN ($inList)")->fetchColumn(),
+        (int) $pdo->query("SELECT count(*) FROM translations WHERE language_code = 'sk' AND key_name IN ($inList)")->fetchColumn(),
+    ],
 );
 $inList = "'" . implode("', '", DIFFICULTY_NEW_KEYS) . "'";
 same(

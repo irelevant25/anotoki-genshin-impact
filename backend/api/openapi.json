@@ -41666,7 +41666,7 @@
       },
       "QuizVoiceOverRound": {
         "title": "QuizVoiceOverRound",
-        "description": "A voice over drawn at random, with the character it belongs to. Only lines with both English audio and English text are drawn, and the Travellers are left out - one character across twelve rows would meet themselves.",
+        "description": "A voice over drawn at random, with the character it belongs to. Only lines with both English audio and English text are drawn, and the Travellers are left out - one character across twelve rows would meet themselves. The other three recordings are null where the line has none.",
         "type": "object",
         "properties": {
           "id": {
@@ -41683,6 +41683,36 @@
           },
           "audio_english": {
             "type": "string"
+          },
+          "audio_japanese": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "audio_chinese": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "audio_korean": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "character_id": {
             "type": "number"
@@ -41723,6 +41753,9 @@
           "title_english",
           "text_english",
           "audio_english",
+          "audio_japanese",
+          "audio_chinese",
+          "audio_korean",
           "character_id",
           "character_name",
           "icon_name",

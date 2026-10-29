@@ -25,8 +25,19 @@
                     <p class="voice-text" [class]="effectClasses()">{{ questionText() }}</p>
 
                     <!-- Off the page rather than merely invisible for the first
-                         two tries: a hidden player is still a playable one. -->
+                         two tries: a hidden player is still a playable one.
+                         The choice of the recording's language goes with it. -->
                     @if (!isAudioHidden()) {
+                        <div class="voice-language">
+                            <anotoki-segmented size="sm" [label]="'quiz.voice.language' | translate" [options]="languageChoices()" [value]="language()" (valueChange)="chooseLanguage($event)" />
+                            <!-- On the page whenever the picker is, so that a screen reader hears the words as they come. -->
+                            <p class="voice-language-missing" aria-live="polite">
+                                @if (languageMissing()) {
+                                    {{ "quiz.voice.languageMissing" | translate: { language: languageName() } }}
+                                }
+                            </p>
+                        </div>
+
                         <app-quiz-audio-player [src]="audioUrl()" [limit]="limit()"></app-quiz-audio-player>
                     }
                 }
